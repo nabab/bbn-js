@@ -7,6 +7,22 @@
   $.extend(bbn.fn, {
 
     /**     STYLING     */
+    center(ele){
+      ele = $(ele);
+      let parent = ele.parent(),
+          w = parent.width(),
+          h = parent.height();
+      while ( parent && (!w || !h) ){
+        parent = parent.parent(),
+          w = parent.width(),
+          h = parent.height();
+      }
+      bbn.fn.log("BBN_CENTER", w, h);
+      ele.css("position","absolute");
+      ele.css("top", Math.max(0, ((h - ele.outerHeight()) / 2) + parent.scrollTop()) + "px");
+      ele.css("left", Math.max(0, ((w - ele.outerWidth()) / 2) + parent.scrollLeft()) + "px");
+      return ele;
+    },
 
     cssExists(f ){
       var ok, rules, css = document.styleSheets;
