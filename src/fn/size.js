@@ -8,7 +8,7 @@
 
     /**     SIZING     */
 
-    resize: function(){
+    resize(){
       var w = window.innerWidth,
           h = window.innerHeight;
       //bbn.fn.log("resize");
@@ -16,13 +16,13 @@
         bbn.env.width = w;
         bbn.env.height = h;
       }
-      $(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").trigger("bbnResize");
+      $(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
       bbn.fn.resize_popup();
     },
 
     // http://stackoverflow.com/questions/3900701/onclick-go-full-screen
-    toggle_full_screen: function(){
+    toggle_full_screen(){
       var wscript;
       if ( window.document.documentElement.mozRequestFullScreen ){
         if ( window.document.mozFullScreen ){
@@ -66,18 +66,18 @@
       }, 0);
     },
 
-    insertContent: function(content, target){
+    insertContent(content, target){
       $(target).empty().append(content);
       //bbn.fn.stat(target, "INSERT");
       bbn.fn.analyzeContent(target, true);
     },
 
-    appendContent: function(content, target){
+    appendContent(content, target){
       $(target).append(content);
       bbn.fn.analyzeContent(target, true);
     },
 
-    cssFullWidth: function(elements){
+    cssFullWidth(elements){
       // Resizing the .bbn-full-width containers
       return $(elements).each(function(i, cont){
         /** @var jQuery $p */
@@ -133,7 +133,8 @@
       });
     },
 
-    cssFullHeight: function(elements){
+    cssFullHeight(elements){
+      return elements;
       // Resizing the .bbn-full-height containers
       return $(elements).each(function(i, cont){
         /** @var jQuery $p */
@@ -195,7 +196,7 @@
       });
     },
 
-    cssForm: function(elements){
+    cssForm(elements){
       //bbn.fn.log("cssForms: " + elements.length);
       return $(elements).each(function(i, parentContainer){
         var $parentContainer = $(parentContainer),
@@ -319,7 +320,7 @@
       });
     },
 
-    cssBlocks: function(elements){
+    cssBlocks(elements){
       //bbn.fn.log("cssForms: " + elements.length);
       return $(elements).each(function(){
         // Each element with class bbn-form-label
@@ -377,7 +378,7 @@
       });
     },
 
-    cssMason: function(elements){
+    cssMason(elements){
       return $(elements).each(function(){
 
         var $ele = $(".bbn-masonry:first", this),
@@ -415,7 +416,7 @@
       })
     },
 
-    analyzeContent: function(elements, force){
+    analyzeContent(elements, force){
       //bbn.fn.stat(elements, "ANALYZE");
       if ( !elements ){
         elements = $(document.body);
@@ -430,9 +431,9 @@
             .filter(".bbn-sensor")
             .each(function(){
               var $$ = $(this);
-              $$.off("bbnResize")
+              $$.off("bbnresize")
                 .removeClass("bbn-sensor")
-                .removeData("bbnResizeCfg");
+                .removeData("bbnresizeCfg");
             });
         }
 
@@ -473,27 +474,27 @@
               cfg.blocks = 1;
             }
             if ( (idx = $.inArray(this.parentNode, nodes)) === -1 ){
-              $(this.parentNode).data("bbnResizeCfg", cfg);
+              $(this.parentNode).data("bbnresizeCfg", cfg);
               nodes.push(this.parentNode);
             }
             else{
-              $(this.parentNode).data("bbnResizeCfg", $.extend({}, $(this.parentNode).data("bbnResizeCfg"), cfg));
+              $(this.parentNode).data("bbnresizeCfg", $.extend({}, $(this.parentNode).data("bbnresizeCfg"), cfg));
             }
 
           });
         $.each(nodes, function(i, o){
           var $o = $(o);
           if ( !$o.hasClass("bbn-sensor") ){
-            $o.addClass("bbn-sensor").off("bbnResize").on("bbnResize", function(e){
+            $o.addClass("bbn-sensor").off("bbnresize").on("bbnresize", function(e){
               //bbn.fn.stat($o, "real_resize");
               bbn.fn.onResize(this, e);
-            }).trigger("bbnResize");
+            }).trigger("bbnresize");
           }
         });
       });
     },
 
-    onResize: function(elements, e){
+    onResize(elements, e){
       if ( e ){
         e.stopPropagation();
       }
@@ -501,10 +502,10 @@
         var $o = $(this);
         if ( $o.hasClass("bbn-sensor") ){
           if ( (!e || (e.target === e.currentTarget)) ){
-            var cfg = $o.data("bbnResizeCfg") || {};
+            var cfg = $o.data("bbnresizeCfg") || {};
             if ( !$o.is(":visible") ){
               cfg.doResize = true;
-              $o.data("bbnResizeCfg", cfg);
+              $o.data("bbnresizeCfg", cfg);
             }
             else{
               var w = Math.round($o.width()),
@@ -518,11 +519,11 @@
                 if ( cfg.isResizing ){
                   cfg.lastW = w;
                   cfg.lastH = h;
-                  $o.data("bbnResizeCfg", cfg);
+                  $o.data("bbnresizeCfg", cfg);
                 }
                 else{
                   cfg.isResizing = true;
-                  $o.data("bbnResizeCfg", cfg);
+                  $o.data("bbnresizeCfg", cfg);
                   if (
                     cfg.doResize ||
                     ((h !== cfg.h) && cfg.fullHeight) ||
@@ -536,10 +537,10 @@
                     }
                   }
                   cfg.isResizing = false;
-                  var cfgNow = $o.data("bbnResizeCfg");
-                  $o.data("bbnResizeCfg", cfg);
+                  var cfgNow = $o.data("bbnresizeCfg");
+                  $o.data("bbnresizeCfg", cfg);
                   if ( (cfgNow.lastW !== undefined) && (lastW !== w) ){
-                    $.trigger("bbnResize");
+                    $.trigger("bbnresize");
                   }
                 }
               }
@@ -549,12 +550,13 @@
       })
     },
 
-    propagateResize: function(element){
-      $(element).children().trigger("bbnResize").bbn("propagateResize");
-      return $(element);
+    propagateResize(element){
+      return $(element).each(function(){
+        $(this).children().trigger("bbnresize").bbn("propagateResize");
+      })
     },
 
-    redraw: function(elements, deep){
+    redraw(elements, deep){
       //bbn.fn.stat(elements, "REDRAW");
       if ( !elements ){
         elements = $(".bbn-sensor:visible", document.body);
@@ -565,7 +567,7 @@
       }
       elements.filter(":visible").each(function(i, ele){
         var $ele = $(ele),
-            cfg = $ele.data("bbnResizeCfg") || {};
+            cfg = $ele.data("bbnresizeCfg") || {};
 
         //bbn.fn.log(ele, "REDRAW");
         if ( cfg.fullWidth ){
@@ -595,6 +597,95 @@
       });
     },
 
+    fillHeight(ele, returnOK){
+      let isChanged = false,
+          res = $(ele).each(function(){
+            let $ele = $(this);
+            if ( $ele.is(":visible") ){
+              let originalH = $ele.data("bbnFillHeightOriginal"),
+                  $parent   = $ele.parent(),
+                  $siblings = $ele.siblings(),
+                  h         = $parent.innerHeight();
+              if ( $parent[0] === document.body ){
+                h = window.bbn.env.height;
+              }
+              if ( h ){
+                $siblings.each(function (){
+                  let h2,
+                      $t = $(this);
+                  if ( $t.is(":visible") &&
+                    ($t.css('position') !== 'absolute') &&
+                    ($t.css('position') !== 'fixed') &&
+                    ($t.css('display') !== 'inline')
+                  ){
+                    h2 = $t.outerHeight(true);
+                    if ( h2 ){
+                      h -= h2;
+                    }
+                  }
+                });
+                h = Math.round(h);
+                if ( h != originalH ){
+                  $ele.data("bbnFillHeightOriginal", h);
+                  $ele.outerHeight(h < 0 ? 0 : h);
+                  if ( returnOK ){
+                    isChanged = true;
+                    return;
+                  }
+                }
+                else if ( returnOK ){
+                  return;
+                }
+              }
+            }
+          });
+      return returnOK ? isChanged : res;
+    },
+
+    fillWidth(ele, returnOK){
+      let isChanged = false,
+          res = $(ele).each(function(){
+            let $ele = $(this);
+            if ( $ele.is(":visible") ){
+              let originalW = $ele.data("bbnFillWidthOriginal"),
+                  $parent   = $ele.parent(),
+                  $siblings = $ele.siblings(),
+                  w         = $parent.innerWidth();
+              if ( $parent[0] === document.body ){
+                w = window.bbn.env.width;
+              }
+              if ( w ){
+                $siblings.each(function (){
+                  let w2,
+                      $t = $(this);
+                  if ( $t.is(":visible") &&
+                    ($t.css('position') !== 'absolute') &&
+                    ($t.css('position') !== 'fixed') &&
+                    ($t.css('display') !== 'inline')
+                  ){
+                    w2 = $t.outerWidth(true);
+                    if ( w2 ){
+                      w -= w2;
+                    }
+                  }
+                });
+                w = Math.round(w);
+                if ( w != originalW ){
+                  $ele.data("bbnFillWidthOriginal", w);
+                  $ele.outerWidth(w < 0 ? 0 : w);
+                  if ( returnOK ){
+                    isChanged = true;
+                    return;
+                  }
+                }
+                else if ( returnOK ){
+                  return;
+                }
+              }
+            }
+          });
+      return returnOK ? isChanged : res;
+    }
   })
 
 })(jQuery, bbn);

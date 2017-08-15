@@ -61,7 +61,7 @@
           .bind("beforeunload", function(e){
             bbn.env.is_checking = 1;
             bbn.env.is_loading = 1;
-            $(document.body).html('<div class="bbn-100 bbn-middle"><h1 class="bbn-c">' + bbn._("Ciao !") + '</h1></div>');
+            $(document.body).html('<div class="bbn-100"><h1 class="bbn-c" style="position: absolute; bottom: 3em; right: 3em">' + bbn._("Leaving page...") + '</h1></div>');
           })
           .focus(() => {
             bbn.fn.redraw(document.body, true);
