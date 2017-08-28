@@ -82,16 +82,24 @@
       }
       switch ( mode ){
         case "===":
+        case "equal":
+        case "is":
           return v1 === v2;
         case "!==":
+        case "notequal":
+        case "isnotequal":
           return v1 !== v2;
         case "!=":
+        case "different":
           return v1 != v2;
         case "contains":
+        case "contain":
           return v1.toString().indexOf(v2.toString()) !== -1;
         case "starts":
+        case "start":
           return v1.toString().indexOf(v2.toString()) === 0;
         case "startsi":
+        case "starti":
           if ( v1 && v2 ){
             return bbn.fn.removeAccents(v1.toString()).toLowerCase().indexOf(
                 bbn.fn.removeAccents(v2.toString()).toLowerCase()
@@ -125,16 +133,18 @@
      * @param mode The mode '===', 'contains', 'starts', 'startsi'
      * @returns int The index of the row
      */
-    search: function(arr, prop, val, mode){
+    search: function(arr, prop, val, mode, startFrom){
       if ( arr ){
         var filter = {},
             found,
             isObj = typeof(prop) === 'object',
-            r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
-        if ( $.isArray(r) && r.length && (r[0]!== undefined) ){
+            r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr;
+        if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
           if ( isObj ){
+            let tmp = mode;
             mode = val;
             filter = prop;
+            startFrom = tmp;
           }
           else if ( typeof(prop) === 'string'){
             filter[prop] = val;
@@ -142,7 +152,13 @@
           else{
             throw new Error("Search function error: The prop argument should be a string or an object");
           }
-          for ( var i = 0; i < r.length; i++ ){
+          if ( typeof(startFrom) !== 'number' ){
+            startFrom = 0;
+          }
+          else if ( (startFrom < 0) || (startFrom >= r.length - 1) ){
+            return -1;
+          }
+          for ( let i = startFrom; i < r.length; i++ ){
             found = 1;
             for ( var n in filter ){
               if ( !bbn.fn.compare(r[i][n], filter[n], mode) ){
@@ -159,6 +175,34 @@
       return -1;
     },
 
+    count: function(arr, prop, val, mode){
+      let num = 0,
+          start = 0,
+          tmp;
+      if ( arr ){
+        var filter = {},
+            isObj  = typeof(prop) === 'object',
+            r      = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr;
+        if ( Array.isArray(r) && r.length && (r[0] !== undefined) ){
+          if ( isObj ){
+            mode = val;
+            filter = prop;
+          }
+          else if ( typeof(prop) === 'string' ){
+            filter[prop] = val;
+          }
+          else{
+            throw new Error("Search function error: The prop argument should be a string or an object");
+          }
+          while ( (tmp = bbn.fn.search(r, filter, mode, start)) > -1 ){
+            start = tmp + 1;
+            num++;
+          }
+        }
+      }
+      return num;
+    },
+
 
     // Filters an object
     filterObj: function(arr, prop, val, mode, deep){
@@ -167,7 +211,7 @@
           res = [],
           isObj = typeof(prop) === 'object',
           r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
-      if ( $.isArray(r) && r.length && (r[0]!== undefined) ){
+      if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
         if ( isObj ){
           mode = val;
           filter = prop;
@@ -339,7 +383,7 @@
         throw new Error("Each argument for bbn.fn.extend must be an object");
         return;
       }
-      if ( $.isArray(r) ){
+      if ( Array.isArray(r) ){
         throw new Error("You cannot extend arrays with bbn.fn.extend");
         return;
       }
@@ -348,7 +392,7 @@
           throw new Error("Each argument for bbn.fn.extend must be an object, " + typeof(arguments[i]) + " given");
           return;
         }
-        if ( $.isArray(arguments[i]) ){
+        if ( Array.isArray(arguments[i]) ){
           throw new Error("You cannot extend arrays with bbn.fn.extend");
           return;
         }
@@ -356,8 +400,8 @@
           if ( (typeof(r[n]) === 'object') &&
             (typeof(arguments[i][n]) === 'object') &&
             !$.isFunction(r[n]) &&
-            !$.isArray(r[n]) &&
-            !$.isArray(arguments[i][n])
+            !Array.isArray(r[n]) &&
+            !Array.isArray(arguments[i][n])
           ){
             bbn.fn.extend(r[n], arguments[i][n]);
           }

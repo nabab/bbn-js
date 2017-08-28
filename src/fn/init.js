@@ -54,7 +54,7 @@
 
         var doResize;
         $(window)
-          .resize(function() {
+          .on("resize orientationchange", function() {
             clearTimeout(doResize);
             doResize = setTimeout(bbn.fn.resize, 0);
           })

@@ -13,7 +13,7 @@
       var name,
           is_array;
       if ( form.length && params ){
-        is_array = $.isArray(params);
+        is_array = Array.isArray(params);
         for ( var i in params ){
           name = prefix ? prefix + '[' +
             ( is_array ? '' : i ) + ']' : i;

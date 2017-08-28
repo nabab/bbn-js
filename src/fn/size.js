@@ -685,6 +685,38 @@
             }
           });
       return returnOK ? isChanged : res;
+    },
+
+    adjustHeight(ele){
+      let maxH = 0,
+          idx;
+      $.each(arguments, (i, el) => {
+        let h = $(el).height();
+        if ( h > maxH ){
+          maxH = h;
+          idx = i;
+        }
+      });
+      return $.each(arguments, (i, el) => {
+        if ( maxH && (i !== idx) ){
+          $(el).height(maxH);
+        }
+      });
+    },
+
+    adjustWidth(ele){
+      let maxW = 0;
+      $.each(arguments, (i, el) => {
+        let w = $(el).width();
+        if ( w > maxW ){
+          maxW = w;
+        }
+      });
+      return $.each(arguments, (i, el) => {
+        if ( maxW ){
+          $(el).width(maxW);
+        }
+      });
     }
   })
 

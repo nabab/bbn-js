@@ -271,7 +271,7 @@
       if ( !obj ){
         return true;
       }
-      if ( $.isArray(obj) ){
+      if ( Array.isArray(obj) ){
         return obj.length ? false : true;
       }
       if ( typeof(obj) === 'object' ){
