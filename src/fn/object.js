@@ -22,8 +22,8 @@
      * @param string dir 'asc' or 'desc'
      * @returns {Array.<T>}
      */
-    order: function(arr, prop, dir){
-      var r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr;
+    order(arr, prop, dir){
+      var r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
       dir = typeof(dir) === 'string' ? ( dir.toLowerCase() === 'desc' ? 'desc' : 'asc' ) : 'asc';
       return r.sort(function(a, b){
         var va = a[prop],
@@ -58,14 +58,26 @@
       });
     },
 
-
-    move: function(arr, fromIndex, toIndex){
-      var element = arr[fromIndex];
-      arr.splice(fromIndex, 1);
-      arr.splice(toIndex, 0, element);
+    multiorder(arr, orders){
+      let r = arr.slice();
+      for ( let n in orders ){
+        r = bbn.fn.order(r, n, orders[n]);
+      }
+      return r;
     },
 
-    iterate: function(obj, fn){
+    move(arr, fromIndex, toIndex){
+      if (toIndex >= arr.length) {
+        let k = toIndex - arr.length;
+        while ((k--) + 1) {
+          arr.push(undefined);
+        }
+      }
+      arr.splice(toIndex, 0, arr.splice(fromIndex, 1)[0]);
+      return arr;
+    },
+
+    iterate(obj, fn){
       for ( var n in obj ){
         if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
           fn(n, obj[n]);
@@ -73,7 +85,7 @@
       }
     },
 
-    compare: function(v1, v2, mode){
+    compare(v1, v2, mode){
       if ( v1 === undefined ){
         v1 = '';
       }
@@ -133,7 +145,7 @@
      * @param mode The mode '===', 'contains', 'starts', 'startsi'
      * @returns int The index of the row
      */
-    search: function(arr, prop, val, mode, startFrom){
+    search(arr, prop, val, mode, startFrom){
       if ( arr ){
         var filter = {},
             found,
@@ -175,7 +187,7 @@
       return -1;
     },
 
-    count: function(arr, prop, val, mode){
+    count(arr, prop, val, mode){
       let num = 0,
           start = 0,
           tmp;
@@ -203,14 +215,24 @@
       return num;
     },
 
+    sum(arr, prop, filter, mode){
+      let r = 0;
+      $.each(bbn.fn.filterObj(arr, filter, mode), (i, a) => {
+        r += parseFloat(a[prop]);
+      });
+      return r;
+    },
 
-    // Filters an object
-    filterObj: function(arr, prop, val, mode, deep){
+    // Filters an array based on object properties
+    filterObj(arr, prop, val, mode, deep){
       var found,
           filter = {},
           res = [],
           isObj = typeof(prop) === 'object',
           r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
+      if ( !prop ){
+        return arr;
+      }
       if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
         if ( isObj ){
           mode = val;
@@ -238,7 +260,6 @@
       return res;
 
     },
-
     /**
      * Returns an object from an array of objects arr where the prop is equal to val.
      *
@@ -253,7 +274,7 @@
      * @param mixed string | int val
      * @returns obj {*} | false
      */
-    get_row: function(arr, prop, val){
+    get_row(arr, prop, val){
       var idx = bbn.fn.search(arr, prop, val);
       if ( idx > -1 ){
         return arr[idx];
@@ -261,7 +282,7 @@
       return false;
     },
 
-    /**
+/**
      * Returns a given property from the row of an array of objects arr where the prop is equal to 'val'.
      *
      * ```javascript
@@ -276,7 +297,7 @@
      * @param string prop2 The property to search for
      * @returns mixed {*}
      */
-    get_field: function(arr, prop, val, prop2){
+    get_field(arr, prop, val, prop2){
       var r;
       if ( r = bbn.fn.get_row(arr, prop, val) ){
         return r[prop2 ? prop2 : val] || false;
@@ -297,7 +318,7 @@
      * @param obj The object
      * @returns int | false
      */
-    countProperties: function(obj){
+    countProperties(obj){
       if ( (typeof(obj)).toLowerCase() === 'object' ){
         var i = 0;
         for ( var n in obj ){
@@ -322,7 +343,7 @@
      * @param obj
      * @returns int | false
      */
-    numProperties: function(obj){
+    numProperties(obj){
       if ( typeof(obj) !== 'object' ){
         return false;
       }
@@ -345,7 +366,7 @@
      * @param boolean deep. If set to true it will remove also deep private properties. Default false
      * @returns {boolean}
      */
-    removePrivateProp: function(obj, deep){
+    removePrivateProp(obj, deep){
       var r = false;
       if ( typeof(obj) === "object" ){
         r = {};
@@ -377,36 +398,31 @@
      * @return object
      * ```
      */
-    extend: function(){
-      var r = arguments[0];
-      if ( typeof(r) !== 'object' ){
-        throw new Error("Each argument for bbn.fn.extend must be an object");
-        return;
-      }
-      if ( Array.isArray(r) ){
-        throw new Error("You cannot extend arrays with bbn.fn.extend");
-        return;
-      }
-      for ( var i = 1; i < arguments.length; i++ ){
+    extend(){
+      let r = {};
+      for ( let i = 0; i < arguments.length; i++ ){
         if ( typeof(arguments[i]) !== 'object' ){
           throw new Error("Each argument for bbn.fn.extend must be an object, " + typeof(arguments[i]) + " given");
-          return;
         }
         if ( Array.isArray(arguments[i]) ){
           throw new Error("You cannot extend arrays with bbn.fn.extend");
-          return;
         }
-        for ( var n in arguments[i] ){
-          if ( (typeof(r[n]) === 'object') &&
-            (typeof(arguments[i][n]) === 'object') &&
-            !$.isFunction(r[n]) &&
-            !Array.isArray(r[n]) &&
-            !Array.isArray(arguments[i][n])
-          ){
-            bbn.fn.extend(r[n], arguments[i][n]);
-          }
-          else if ( r[n] === undefined){
-            r[n] = arguments[i][n];
+        if ( i === 0 ){
+          r = arguments[0];
+        }
+        else{
+          for ( let n in arguments[i] ){
+            if ( (typeof(r[n]) === 'object') &&
+              (typeof(arguments[i][n]) === 'object') &&
+              !$.isFunction(r[n]) &&
+              !Array.isArray(r[n]) &&
+              !Array.isArray(arguments[i][n])
+            ){
+              bbn.fn.extend(r[n], arguments[i][n]);
+            }
+            else if ( r[n] === undefined){
+              r[n] = arguments[i][n];
+            }
           }
         }
       }
@@ -426,7 +442,7 @@
      * @param object obj The value of the new namespace
      * @return void
      */
-    autoExtend: function(namespace, obj){
+    autoExtend(namespace, obj){
       if ( !bbn[namespace] ){
         bbn[namespace] = {};
         $.extend(bbn[namespace], obj);
@@ -435,14 +451,13 @@
         $.extend(bbn[namespace], obj);
       }
     },
-
     /**
      * Returns true if the argument is an object with length property and numeric value in it
      *
      * @param obj
      * @returns {boolean}
      */
-    isArray: function(obj){
+    isArray(obj){
       if ( (typeof(obj) !== 'object') || (obj.length === undefined) ){
         return false;
       }
@@ -454,7 +469,7 @@
      * @param arr
      * @returns Array
      */
-    removeEmpty: function(arr){
+    removeEmpty(arr){
       var tmp = [];
       if ( bbn.fn.isArray(arr) ){
         for ( var i = 0; i < arr.length; i++ ){

@@ -8,7 +8,7 @@
 
     /* Onload functions: keep the var screen width and height up-to-date and binds history if enabled */
     init: function(cfg){
-      var parts;
+      let parts;
       if ( !bbn.env.isInit ){
         if ( window.kendo ){
           window.kendo.culture(bbn_language ? bbn_language : "en_EN");
@@ -52,7 +52,7 @@
           }
         });
 
-        var doResize;
+        let doResize;
         $(window)
           .on("resize orientationchange", function() {
             clearTimeout(doResize);
@@ -70,23 +70,23 @@
         bbn.fn.resize();
 
         if ( bbn.fn.history ){
-          //bbn.fn.history.clearAllIntervals();
-          //window.localStorage.clear();
-          //window.sessionStorage.clear();
-          bbn.fn.history.Adapter.bind(window, 'statechange', function(){
-            var state = bbn.fn.history.getState();
-            if ( state !== undefined ){
-              if ( bbn.fn.defaultHistoryFunction(state) ){
-                bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
-              }
-              else{
-                if ( $.isFunction(state.data.script) ){
-                  state.data.script();
-                }
-              }
-            }
-            return false;
-          });
+          bbn.fn.history.clearAllIntervals();
+	        //window.localStorage.clear();
+	        //window.sessionStorage.clear();
+	        bbn.fn.history.Adapter.bind(window, 'statechange', function(){
+	          let state = bbn.fn.history.getState();
+	          if ( state !== undefined ){
+	            if ( bbn.fn.defaultHistoryFunction(state) ){
+	              bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+	            }
+	            else{
+	              if ( $.isFunction(state.data.script) ){
+	                state.data.script();
+	              }
+	            }
+	          }
+	          return false;
+	        });
         }
         bbn.env.isInit = true;
       }

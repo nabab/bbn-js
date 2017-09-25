@@ -355,14 +355,18 @@
       var action,
           datatype,
           callback,
+          callback2,
           data,
           change = false,
           ele = false,
           i,
           id;
       for (i = 0; i < arguments.length; i++ ){
-        if ( $.isFunction(arguments[i]) ){
+        if ( !callback && $.isFunction(arguments[i]) ){
           callback = arguments[i];
+        }
+        else if ( $.isFunction(arguments[i]) ){
+          callback2 = arguments[i];
         }
         /* jQuery object */
         else if ( arguments[i] instanceof jQuery ){
@@ -411,6 +415,10 @@
           bbn.fn.callback(action, res, callback, false, ele);
           if ( res && res.new_url !== undefined ){
             bbn.fn.setNavigationVars(res.new_url, (res.siteTitle || bbn.env.siteTitle), {}, 1);
+          }
+        }, function(){
+          if ( callback2 ){
+            callback2();
           }
         });
       }

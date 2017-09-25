@@ -17,28 +17,75 @@
       }
     },
 
-    fdate: function(d, wrong_result){
-      var r;
-      if ( (typeof(d) === 'string') && (d.length > 5) && (d.substring(d.length-5, d.length-4) === '.') ){
-        d = Math.floor(d);
-      }
-      if ( (typeof(d) === 'number') && (d > 0) ){
-        if ( d < 10000000000 ){
-          d = d*1000;
+    date(v){
+      let d = false,
+          t = typeof(v);
+      if ( t === 'number' ){
+        if ( v < 10000000000 ){
+          v = v * 1000;
         }
-        r = new Date(d);
+        return (new Date(v));
       }
-      if ( window.kendo !== undefined ){
-        try {
-          r = kendo.parseDate(d);
+      if ( t === 'string' ){
+        if ( v.length === 10 ){
+          return (new Date(
+            parseInt(v.substr(0, 4)),
+            parseInt(v.substr(5, 2)) - 1,
+            parseInt(v.substr(8, 2)),
+            12
+          ));
         }
-        catch (err ){
-          r = d;
+        else if ( v.length === 19 ){
+          return (new Date(
+            parseInt(v.substr(0, 4)),
+            parseInt(v.substr(5, 2)) - 1,
+            parseInt(v.substr(8, 2)),
+            parseInt(v.substr(11, 2)),
+            parseInt(v.substr(14, 2)),
+            parseInt(v.substr(17, 2))
+          ));
         }
       }
-      else{
+      else if ( bbn.fn.isDate(v) ){
+        return v;
+      }
+      return d;
+    },
 
+    dateSQL(v, dayOnly){
+
+    },
+
+    daysInMonth(v){
+      let d = bbn.fn.date(v);
+      if ( d ){
+        return new Date(d.getFullYear(), d.getMonth() + 1, 0)
+        let n = new Date(d.getFullYear(), d.getMonth()+1, 0, 0)
       }
+      return false;
+    },
+
+    getDay(v){
+      const biss = 1972;
+      let d = bbn.fn.date(v);
+      if ( d ){
+        let t    = d.getTime(),
+            y    = d.getYear(),
+            m    = d.getMonth(),
+            days = (y - 1970) * 365;
+        if ( m < 2 ){
+          y--;
+        }
+        for ( i = biss; i <= y; i += 4 ){
+          days++;
+        }
+        return days + Math.floor(t/(24*3600000));
+      }
+      return false;
+    },
+
+    fdate: function(d, wrong_result){
+      let r = bbn.fn.date(d);
       if ( !r ){
         return wrong_result && !$.isNumeric(wrong_result) ? wrong_result : '';
       }
