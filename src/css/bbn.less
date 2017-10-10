@@ -434,7 +434,7 @@ h1, h2, h3, h4, h5{
   .bbn-w-5;
 }
 .bbn-full-screen {
-  position: absolute;
+  position: absolute !important;
   top: 0px;
   right: 0px;
   bottom: 0px;
@@ -617,6 +617,7 @@ iframe.bbn-hidden{
   .bbn-hmargin;
   .bbn-vmargin;
 }
+/*
 .bbn-form-label{
   .bbn-block;
   margin: 0.3em 2em 0.3em 0;
@@ -639,6 +640,7 @@ iframe.bbn-hidden{
   margin-top: 0!important;
   margin-bottom: 0!important;
 }
+*/
 .bbn-full-width{
   .bbn-block;
   .bbn-w-100;
@@ -650,20 +652,21 @@ iframe.bbn-hidden{
 .bbn-form-full{
   .bbn-block;
   .bbn-w-100;
+  .bbn-flex-fullrow;
   margin:0.3em 0;
-  clear:both;
-  vertical-align:top;
   min-height:1.5em;
 }
 .bbn-form-full::after {
   .bbn-block-after;
 }
+/*
 input.bbn-form-field,
 .bbn-form-field input,
 .bbn-form-label input,
 input.bbn-form-label{
   padding:0.1em;
 }
+*/
 .bbn-line-breaker{
   .bbn-block;
   .bbn-w-100;
@@ -795,6 +798,10 @@ input.bbn-form-label{
   background-color: @darkgrey;
   color: @white;
 }
+.bbn-disabled{
+  opacity: 0.5;
+  cursor: inherit;
+}
 .bbn-stats{
   align-items: center;
   flex-direction: row;
@@ -816,11 +823,6 @@ input.bbn-form-label{
   }
 }
 .bbn-masonry{
-  width: ~"-webkit-calc(100% - 20px)";
-  width: ~"-moz-calc(100% - 20px)";
-  width: ~"calc(100% - 20px)";
-  overflow-x: hidden;
-  overflow-y: auto;
   -moz-column-count: auto;
   -webkit-column-count: auto;
   column-count: auto;
@@ -968,4 +970,59 @@ table.dataTable.k-grid tbody{
     left: 3px;
     right: auto;
   }
+}
+
+
+.bbn-grid{
+  display: grid;
+  grid-column-gap: 2em;
+  grid-row-gap: 0.4em;
+  grid-auto-rows: max-content;
+}
+.bbn-grid-fields {
+  .bbn-grid;
+  grid-template-columns: minmax(auto, max-content) auto;
+  &.bbn-r{
+    grid-template-columns: auto max-content;
+  }
+  &.bbn-c{
+    grid-template-columns: auto auto;
+    >*:nth-child(odd){
+      text-align: right;
+    }
+    >*:nth-child(even){
+      text-align: left;
+    }
+  }
+  > .bbn-grid-full{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+  }
+  > *{
+    white-space: nowrap;
+  }
+}
+.bbn-flex{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.bbn-flex-width{
+  .bbn-flex;
+  flex-direction: row;
+  width: 100%;
+  &.bbn-reverse{
+    flex-direction: row-reverse;
+  }
+}
+.bbn-flex-height{
+  .bbn-flex;
+  flex-direction: column;
+  height: 100%;
+  &.bbn-reverse{
+    flex-direction: column-reverse;
+  }
+}
+.bbn-flex-fill{
+  flex-grow: 1;
+  position: relative;
 }

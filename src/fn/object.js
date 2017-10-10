@@ -86,12 +86,6 @@
     },
 
     compare(v1, v2, mode){
-      if ( v1 === undefined ){
-        v1 = '';
-      }
-      if ( v2 === undefined ){
-        v2 = '';
-      }
       switch ( mode ){
         case "===":
         case "equal":
