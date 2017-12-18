@@ -78,6 +78,7 @@
     },
 
     cssFullWidth(elements){
+      return elements;
       // Resizing the .bbn-full-width containers
       return $(elements).each(function(i, cont){
         /** @var jQuery $p */
@@ -197,6 +198,7 @@
     },
 
     cssForm(elements){
+      return elements;
       //bbn.fn.log("cssForms: " + elements.length);
       return $(elements).each(function(i, parentContainer){
         var $parentContainer = $(parentContainer),
@@ -321,6 +323,7 @@
     },
 
     cssBlocks(elements){
+      return elements;
       //bbn.fn.log("cssForms: " + elements.length);
       return $(elements).each(function(){
         // Each element with class bbn-form-label
@@ -379,6 +382,7 @@
     },
 
     cssMason(elements){
+      return elements;
       return $(elements).each(function(){
 
         var $ele = $(".bbn-masonry:first", this),
@@ -417,6 +421,7 @@
     },
 
     analyzeContent(elements, force){
+      return elements;
       //bbn.fn.stat(elements, "ANALYZE");
       if ( !elements ){
         elements = $(document.body);
@@ -495,6 +500,7 @@
     },
 
     onResize(elements, e){
+      return elements;
       if ( e ){
         e.stopPropagation();
       }
@@ -557,6 +563,7 @@
     },
 
     redraw(elements, deep){
+      return elements;
       //bbn.fn.stat(elements, "REDRAW");
       if ( !elements ){
         elements = $(".bbn-sensor:visible", document.body);

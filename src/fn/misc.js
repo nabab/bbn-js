@@ -16,21 +16,94 @@
       return ele instanceof jQuery;
     },
 
+    isDate(v){
+      return (typeof v === 'object') &&
+        (typeof v.getMonth === 'function') &&
+        (typeof v.getMilliseconds === 'function')
+    },
+
     timestamp: function(seconds){
       var r = (new Date()).getTime();
       return seconds ? r*1000 : r;
     },
 
+    getArguments(a){
+      let r = [];
+      for ( let i = 0; i < a.length; i++ ){
+        r.push(a[i]);
+      }
+      return r;
+    },
+
     // Logging function
-    log: function(){
-      if ( (!bbn.env.isInit || bbn.env.logging) && window.console !== undefined ){
-        var args = arguments,
-            i = 0;
-        while (i < args.length ){
-          window.console.log(args[i]);
-          i++;
+    log: function(opt){
+      if ( window.console !== undefined ){
+        let args = bbn.fn.getArguments(arguments),
+            cfg,
+            level = 5;
+        if ( (typeof opt === 'object') && opt._bbn_console_style){
+          cfg = args[0]._bbn_console_style;
+          level = args[0]._bbn_console_level;
+          args.shift();
+        }
+        else{
+          cfg = "background: #EEE; color: #666; font-size: 12px";
+        }
+        if ( bbn.env.loggingLevel >= level  ){
+          let i = 0;
+          while (i < args.length ){
+            let t = typeof args[i];
+            if ( (t === 'string') || (t === 'number') ){
+              window.console.log("%c %s ", cfg, args[i]);
+            }
+            else{
+              window.console.log(args[i]);
+            }
+            i++;
+          }
         }
       }
+      return this;
+    },
+
+    warning(){
+      let args = bbn.fn.getArguments(arguments);
+      args.unshift({
+        _bbn_console_level: 2,
+        _bbn_console_style: "color: red; background: yellow; font-size: 16px; width: 100%;"
+      });
+      bbn.fn.log.apply(this, args);
+      return this;
+    },
+
+    error(){
+      let args = bbn.fn.getArguments(arguments);
+      args.unshift({
+        _bbn_console_level: 1,
+        _bbn_console_style: "color: white; background: red; font-size: 22px;"
+      });
+      bbn.fn.log.apply(this, args);
+      return this;
+    },
+
+    happy(){
+      let args = bbn.fn.getArguments(arguments);
+      args.unshift({
+        _bbn_console_level: 3,
+        _bbn_console_style: "color: white; background: green; font-size: 18px;"
+      });
+      bbn.fn.log.apply(this, args);
+      return this;
+    },
+
+    info(){
+      let args = bbn.fn.getArguments(arguments);
+      args.unshift({
+        _bbn_console_level: 4,
+        _bbn_console_style: "color: #EEE; background: blue; font-size: 12px;"
+      });
+      bbn.fn.log.apply(this, args);
+      return this;
     },
 
     stat: function(returnStat){

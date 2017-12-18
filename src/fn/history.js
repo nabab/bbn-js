@@ -12,7 +12,7 @@
     history: window.History === undefined ? false : window.History,
 
     replaceHistory: function(url, title, data){
-      if ( bbn.fn.history !== undefined ){
+      if ( bbn.fn.history ){
         if ( (typeof(url) === 'string') && (url.indexOf(bbn.env.root) === 0) ){
           url = url.substr(bbn.env.root.length);
         }

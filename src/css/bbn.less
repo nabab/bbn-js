@@ -59,6 +59,14 @@ td{
 h1, h2, h3, h4, h5{
   clear: both;
 }
+.bbn-unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .bbn-border-box{
   position: relative;
   box-sizing: border-box !important;
@@ -426,7 +434,7 @@ h1, h2, h3, h4, h5{
   .bbn-w-5;
 }
 .bbn-full-screen {
-  position: absolute;
+  position: absolute !important;
   top: 0px;
   right: 0px;
   bottom: 0px;
@@ -609,6 +617,7 @@ iframe.bbn-hidden{
   .bbn-hmargin;
   .bbn-vmargin;
 }
+/*
 .bbn-form-label{
   .bbn-block;
   margin: 0.3em 2em 0.3em 0;
@@ -631,6 +640,7 @@ iframe.bbn-hidden{
   margin-top: 0!important;
   margin-bottom: 0!important;
 }
+*/
 .bbn-full-width{
   .bbn-block;
   .bbn-w-100;
@@ -642,20 +652,21 @@ iframe.bbn-hidden{
 .bbn-form-full{
   .bbn-block;
   .bbn-w-100;
+  .bbn-flex-fullrow;
   margin:0.3em 0;
-  clear:both;
-  vertical-align:top;
   min-height:1.5em;
 }
 .bbn-form-full::after {
   .bbn-block-after;
 }
+/*
 input.bbn-form-field,
 .bbn-form-field input,
 .bbn-form-label input,
 input.bbn-form-label{
   padding:0.1em;
 }
+*/
 .bbn-line-breaker{
   .bbn-block;
   .bbn-w-100;
@@ -787,6 +798,10 @@ input.bbn-form-label{
   background-color: @darkgrey;
   color: @white;
 }
+.bbn-disabled{
+  opacity: 0.5;
+  cursor: inherit;
+}
 .bbn-stats{
   align-items: center;
   flex-direction: row;
@@ -808,20 +823,12 @@ input.bbn-form-label{
   }
 }
 .bbn-masonry{
-  width: ~"-webkit-calc(100% - 20px)";
-  width: ~"-moz-calc(100% - 20px)";
-  width: ~"calc(100% - 20px)";
-  overflow-x: hidden;
-  overflow-y: auto;
   -moz-column-count: auto;
   -webkit-column-count: auto;
   column-count: auto;
+  -moz-column-fill: balance;
+  column-fill: balance;
 }
-
-.ui-tabNav .ui-tabNav{
-  border: 0 !important;
-}
-
 
 .bbn-avatar{
   font-style: italic;
@@ -833,8 +840,6 @@ input.bbn-form-label{
 }
 .bbn-notification{
   color: @white;
-}
-.bbn-notification,.bbn-loading{
   font-size: small;
   text-align: left;
   padding: 2em 3em;
@@ -855,59 +860,6 @@ input.bbn-form-label{
     text-align: right;
     margin-top: 0.5em;
     opacity: 0.8;
-  }
-  /** loader */
-  .loader {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-color: inherit;
-    border-width: 4px;
-    border-style: solid;
-    top: 50%;
-    animation: loader 4s infinite ease;
-    margin-right: 15px;
-  }
-  .loader-inner {
-    vertical-align: top;
-    display: inline-block;
-    width: 100%;
-    background-color: #FBFBFB;
-    animation: loader-inner 4s infinite ease-in;
-  }
-}
-@keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(180deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader-inner {
-  0% {
-    height: 0%;
-  }
-  25% {
-    height: 0%;
-  }
-  50% {
-    height: 100%;
-  }
-  75% {
-    height: 100%;
-  }
-  100% {
-    height: 0%;
   }
 }
 .k-content.bbn-full-height, .k-content.bbn-full-width{
@@ -1015,4 +967,72 @@ table.dataTable.k-grid tbody{
     left: 3px;
     right: auto;
   }
+}
+
+.bbn-big-button{
+  width: 8em;
+  height: 4em;
+  margin-left: 1em;
+  margin-right: 1em;
+  border-radius: 5px;
+  text-align: center;
+  border:2px solid !important;
+}
+
+.bbn-grid{
+  display: grid;
+  grid-column-gap: 2em;
+  grid-row-gap: 0.4em;
+  grid-auto-rows: max-content;
+}
+.bbn-grid-fields {
+  .bbn-grid;
+  grid-template-columns: minmax(auto, max-content) auto;
+  &.bbn-r{
+    grid-template-columns: auto max-content;
+  }
+  &.bbn-c{
+    grid-template-columns: auto auto;
+    >*:nth-child(odd){
+      text-align: right;
+    }
+    >*:nth-child(even){
+      text-align: left;
+    }
+  }
+  > .bbn-grid-full{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+  }
+}
+.bbn-flex{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.bbn-flex-width{
+  .bbn-flex;
+  flex-direction: row;
+  width: 100%;
+  &.bbn-reverse{
+    flex-direction: row-reverse;
+  }
+}
+.bbn-flex-height{
+  .bbn-flex;
+  flex-direction: column;
+  height: 100%;
+  &.bbn-reverse{
+    flex-direction: column-reverse;
+  }
+}
+.bbn-flex-fill{
+  flex-grow: 1;
+  position: relative;
+}
+/* The switch - the box around the slider */
+.bbn-switch{
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }

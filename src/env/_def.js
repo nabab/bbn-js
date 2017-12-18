@@ -35,7 +35,8 @@
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
     params: [],
-    isInit: false
+    isInit: false,
+    loggingLevel: 5
   };
 
 })(window, jQuery);
