@@ -9,12 +9,15 @@
     /**     LOCALES     */
 
     money: function(m){
-      if ( window.kendo !== undefined ){
-        return kendo.toString(parseInt(m), "n0");
+      if ( m ){
+        if ( window.kendo !== undefined ){
+          return kendo.toString(parseInt(m), "n0");
+        }
+        else{
+          return parseInt(m).toLocaleString();
+        }
       }
-      else{
-
-      }
+      return 0;
     },
 
     date(v){
