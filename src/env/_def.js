@@ -36,7 +36,8 @@
     resizeTimer: false,
     params: [],
     isInit: false,
-    loggingLevel: 5
+    loggingLevel: 5,
+    ignoreUnload: false
   };
 
 })(window, jQuery);

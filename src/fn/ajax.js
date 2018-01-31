@@ -79,10 +79,9 @@
      - html: an html string to inject
      */
     link(){
-      var cfg = bbn.fn.treat_vars(arguments),
+      let cfg = bbn.fn.treat_vars(arguments),
           ok = 1,
           id;
-      bbn.fn.log(cfg, arguments);
       if ( cfg === true ){
         return true;
       }
@@ -101,7 +100,11 @@
       }
       /* Mail link */
       else if ( cfg.url.indexOf('mailto:') === 0 ){
+        bbn.env.ignoreUnload = true;
         window.location.href = cfg.url;
+        setTimeout(() => {
+          bbn.env.ignoreUnload = false;
+        }, 0)
         return false;
       }
       /* Opens an external page in a new window */
