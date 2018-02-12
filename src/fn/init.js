@@ -33,23 +33,18 @@
         }
         $(window.document).on("focus", "*", function(e){
           bbn.env.focused = $(e.target);
-          bbn.env.last_focus = new Date().getMilliseconds();
+          bbn.env.last_focus = new Date().getTime();
         }).on("click", "a:not(.bbn-no)", function(e){
           if (
             this.href &&
             !this.getAttribute("target") &&
-            window.Modernizr.history &&
-            (this.href !== '#')
+            window.Modernizr.history
           ){
             e.preventDefault();
             return bbn.fn.link(this.href);
           }
         }).on("submit", "form:not(.bbn-no,.bbn-form)", function(e){
           bbn.fn.submit(this, e);
-        }).keyup(function(e){
-          if ( (e.key === 'Esc') || (e.key === 'Escape') ){
-            bbn.fn.closePopup();
-          }
         });
 
         let doResize;
@@ -72,21 +67,24 @@
         bbn.fn.resize();
 
         if ( bbn.fn.history ){
+
           bbn.fn.history.clearAllIntervals();
 	        //window.localStorage.clear();
 	        //window.sessionStorage.clear();
-	        bbn.fn.history.Adapter.bind(window, 'statechange', function(){
-	          let state = bbn.fn.history.getState();
-	          if ( state !== undefined ){
-	            if ( bbn.fn.defaultHistoryFunction(state) ){
-	              bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
-	            }
-	            else{
-	              if ( $.isFunction(state.data.script) ){
-	                state.data.script();
-	              }
-	            }
-	          }
+	        bbn.fn.history.Adapter.bind(window, 'statechange', function(e){
+	          if ( !bbn.env.historyDisabled ){
+              let state = bbn.fn.history.getState();
+              if ( state !== undefined ){
+                if ( bbn.fn.defaultHistoryFunction(state) ){
+                  bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+                }
+                else{
+                  if ( $.isFunction(state.data.script) ){
+                    state.data.script();
+                  }
+                }
+              }
+            }
 	          return false;
 	        });
         }

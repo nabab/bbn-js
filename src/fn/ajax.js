@@ -95,7 +95,12 @@
       }
       if ( cfg.url.indexOf('#') === 0 ){
         location.href = bbn.env.url + cfg.url;
-        bbn.fn.history.replaceState(null, null, bbn.env.url);
+        if ( window.history ){
+          bbn.env.historyDisabled = true;
+          let state = bbn.fn.history.getState();
+          window.history.replaceState(null, state.title, bbn.env.url);
+        }
+        bbn.env.historyDisabled = false;
         return true;
       }
       /* Mail link */
@@ -109,9 +114,12 @@
       }
       /* Opens an external page in a new window */
       if ( ((cfg.url.indexOf("http://") === 0) || (cfg.url.indexOf("https://") === 0)) &&
-        (cfg.url.indexOf(window.document.location.hostname) === -1) && cfg.e ){
-        cfg.e.preventDefault();
+        (cfg.url.indexOf(bbn.env.host) !== 0) ){
+        if ( cfg.e ){
+          cfg.e.preventDefault();
+        }
         window.open(cfg.url);
+        return false;
       }
       /* The URL is fine so go ahead if something is not already loading */
       else if ( (cfg.url !== bbn.env.params.join("/")) || (cfg.force === 1) ){

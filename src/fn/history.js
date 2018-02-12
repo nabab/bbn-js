@@ -17,6 +17,8 @@
           url = url.substr(bbn.env.root.length);
         }
         var state = bbn.fn.history.getState();
+        bbn.fn.info("GET STATE");
+        bbn.fn.log(state);
         if ( !data ){
           data = {};
         }

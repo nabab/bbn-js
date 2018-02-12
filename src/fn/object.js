@@ -185,7 +185,15 @@
         var filter = {},
             found,
             isObj = typeof(prop) === 'object',
-            r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr;
+            r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr,
+            props = [];
+        /*
+        if ( typeof r === 'object' ){
+          props = Object.keys(r);
+          r = Object.values(r);
+        }
+        */
+
         if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
           if ( isObj ){
             let tmp = mode;
@@ -214,7 +222,7 @@
               }
             }
             if ( found ){
-              return i;
+              return props.length ? props[i] : i;
             }
           }
         }

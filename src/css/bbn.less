@@ -988,16 +988,28 @@ table.dataTable.k-grid tbody{
 .bbn-grid-fields {
   .bbn-grid;
   grid-template-columns: minmax(auto, max-content) auto;
-  &.bbn-r{
+  &.bbn-l, &.bbn-left{
+    grid-template-columns: max-content auto;
+  }
+  &.bbn-r, &.bbn-right{
     grid-template-columns: auto max-content;
   }
-  &.bbn-c{
+  &.bbn-c, &.bbn-centered{
     grid-template-columns: auto auto;
-    >*:nth-child(odd){
+    >*:not(.bbn-grid-full):nth-child(1n){
+      text-align: left;
+    }
+    >*:not(.bbn-grid-full):nth-child(2n){
       text-align: right;
     }
-    >*:nth-child(even){
-      text-align: left;
+    .bbn-c, .bbn-centered{
+      .bbn-c;
+    }
+    .bbn-r, .bbn-right{
+      .bbn-r;
+    }
+    .bbn-l, .bbn-left{
+      .bbn-l;
     }
   }
   > .bbn-grid-full{

@@ -27,7 +27,7 @@
     /* Element currently focused (jQuery object) */
     focused: false,
     /* Last time user has been active */
-    last_focus: new Date(),
+    last_focus: (new Date()).getTime(),
     /* Sleep mode (tab or window unfocused */
     sleep: false,
     /* bbn.env.loaders is an array of MD5 of data and url preventing the same call to be made at the same time */
@@ -37,7 +37,8 @@
     params: [],
     isInit: false,
     loggingLevel: 5,
-    ignoreUnload: false
+    ignoreUnload: false,
+    historyDisabled: false
   };
 
 })(window, jQuery);
