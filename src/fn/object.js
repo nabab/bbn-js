@@ -8,6 +8,30 @@
 
     /**     OBJECTS AND ARRAYS    */
 
+    isFunction: function(obj) {
+      return {}.toString.apply(obj) === '[object Function]';
+    },
+
+    isArray: function(obj) {
+      return {}.toString.apply(obj) === '[object Array]';
+    },
+
+    isDate: function(obj) {
+      return {}.toString.apply(obj) === '[object Date]';
+    },
+
+    isObject: function(obj) {
+      return {}.toString.apply(obj) === '[object Object]';
+    },
+
+    isNull: function(obj) {
+      return {}.toString.apply(obj) === '[object Null]';
+    },
+
+    isValue: function(obj) {
+      return !this.isObject(obj) && !this.isArray(obj);
+    },
+
     /**
      * Orders objects in the array based on the given property.
      *
@@ -26,40 +50,63 @@
       let r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
       dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
       return r.sort(function(a, b){
-        let va = a[prop],
-            vb = b[prop],
-            ta = (typeof (a[prop])).toLowerCase(),
-            tb = (typeof (b[prop])).toLowerCase();
-        if ( ta === tb ){
-          switch ( ta ){
-            case 'string':
-              va = bbn.fn.removeAccents(a[prop]).toLowerCase();
-              vb = bbn.fn.removeAccents(b[prop]).toLowerCase();
-              break;
-            case 'boolean':
-              va = a[prop] ? 1 : 0;
-              vb = b[prop] ? 1 : 0;
-              break;
-            case 'object':
-              if ( a[prop].getTime ){
-                va = a[prop].getTime();
-                vb = b[prop].getTime();
-              }
-              break;
-          }
-        }
-        if ( va < vb ){
-          return dir === 'desc' ? 1 : -1;
-        }
-        if ( va > vb ){
-          return dir === 'desc' ? -1 : 1;
-        }
-        return 0;
+        return bbn.fn.compareValues(a, b, prop, dir)
       });
     },
 
+    compareValues(a, b, prop, dir){
+      let va = bbn.fn.getProperty(a, prop),
+          vb = bbn.fn.getProperty(b, prop),
+          ta = (typeof (va)).toLowerCase(),
+          tb = (typeof (vb)).toLowerCase();
+      if ( dir && (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ){
+        dir = 'desc';
+      }
+      if ( ta !== tb ){
+        va = ta;
+        vb = tb;
+      }
+      else{
+        switch ( ta ){
+          case 'string':
+            va = bbn.fn.removeAccents(va).toLowerCase();
+            vb = bbn.fn.removeAccents(vb).toLowerCase();
+            break;
+          case 'boolean':
+            va = va ? 1 : 0;
+            vb = vb ? 1 : 0;
+            break;
+          case 'object':
+            if ( va.getTime ){
+              va = va.getTime();
+              vb = vb.getTime();
+            }
+            break;
+        }
+      }
+      if ( va < vb ){
+        return dir === 'desc' ? 1 : -1;
+      }
+      if ( va > vb ){
+        return dir === 'desc' ? -1 : 1;
+      }
+      return 0;
+    },
+
+    unique(arr){
+      return arr.filter(function(el, index, ar) {
+        return index == ar.indexOf(el);
+      });
+    },
+
+    getProperty(obj, prop){
+      if ( (typeof obj === 'object') && (typeof prop === 'string')){
+        return prop.split('.').reduce((o, i) => o[i], obj)
+      }
+    },
+
     multiorder(arr, orders){
-      if ( !$.isArray(orders) && (typeof orders === 'object') ){
+      if ( !Array.isArray(orders) && (typeof orders === 'object') ){
         let tmp = [];
         for ( var n in orders ){
           tmp.push({field: n, dir: orders[n]});
@@ -67,36 +114,42 @@
         orders = tmp;
       }
       let r = arr.slice();
-      for ( let i = orders.length -1; i >= 0; i-- ){
-        r = bbn.fn.order(r, orders[i].field, orders[i].dir);
-      }
-      return r;
+      return r.sort((a, b) => {
+        let res;
+        for ( let order of orders ){
+          res = bbn.fn.compareValues(a, b, order.field, order.dir);
+          if ( res !== 0 ){
+            return res;
+          }
+        }
+        return 0;
+      })
     },
 
     orderLike(to_order, based_on, prop, exclude){
-      if ( bbn.fn.isArray(to_order) && bbn.fn.isArray(based_on) && to_order.length ){
+      if ( Array.isArray(to_order) && Array.isArray(based_on) && to_order.length ){
         let r = [],
             done = [],
             isObj = typeof(to_order[0]) === 'object';
-        $.each(based_on, (i, a) => {
+        for ( let a of based_on ){
           let idx;
           if ( isObj ){
             idx = bbn.fn.search(to_order, prop, a);
           }
           else{
-            idx = $.inArray(a, to_order);
+            idx = to_order.indexOf(a);
           }
           if ( idx > -1 ){
             r.push(to_order[idx]);
             done.push(a);
           }
-        });
+        }
         if ( !exclude && (based_on.length !== to_order.length) ){
-          $.each(to_order, (i, a) => {
+          for ( let a of to_order ){
             if ( $.inArray(isObj ? a[prop] : a, done) > -1 ){
               r.push(a);
             }
-          })
+          }
         }
         return r;
       }
@@ -184,8 +237,8 @@
       if ( arr ){
         var filter = {},
             found,
-            isObj = typeof(prop) === 'object',
-            r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr,
+            isObj = bbn.fn.isObject(prop),
+            r = arr,
             props = [];
         /*
         if ( typeof r === 'object' ){
@@ -216,7 +269,7 @@
           for ( let i = startFrom; i < r.length; i++ ){
             found = 1;
             for ( var n in filter ){
-              if ( !bbn.fn.compare(r[i][n], filter[n], mode) ){
+              if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
                 found = false;
                 break;
               }
@@ -231,31 +284,7 @@
     },
 
     count(arr, prop, val, mode){
-      let num = 0,
-          start = 0,
-          tmp;
-      if ( arr ){
-        var filter = {},
-            isObj  = typeof(prop) === 'object',
-            r      = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr;
-        if ( Array.isArray(r) && r.length && (r[0] !== undefined) ){
-          if ( isObj ){
-            mode = val;
-            filter = prop;
-          }
-          else if ( typeof(prop) === 'string' ){
-            filter[prop] = val;
-          }
-          else{
-            throw new Error("Search function error: The prop argument should be a string or an object");
-          }
-          while ( (tmp = bbn.fn.search(r, filter, mode, start)) > -1 ){
-            start = tmp + 1;
-            num++;
-          }
-        }
-      }
-      return num;
+      return bbn.fn.filterObj(arr, prop, val, mode, false).length || 0;
     },
 
     sum(arr, prop, filter, mode){
@@ -290,7 +319,7 @@
         for ( var i = 0; i < r.length; i++ ){
           found = 1;
           for ( var n in filter ){
-            if ( !bbn.fn.compare(r[i][n], filter[n], mode) ){
+            if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
               found = false;
               break;
             }
@@ -517,19 +546,6 @@
       }
     },
     /**
-     * Returns true if the argument is an object with length property and numeric value in it
-     *
-     * @param obj
-     * @returns {boolean}
-     */
-    isArray(obj){
-      if ( (typeof(obj) !== 'object') || (obj.length === undefined) ){
-        return false;
-      }
-      return (typeof(obj) !== undefined) && (obj.length !== undefined);
-    },
-
-    /**
      * Returns a new array without the empty elements of the original
      * @param arr
      * @returns Array
@@ -554,6 +570,68 @@
       return r;
     },
 
+    pickValue(arr){
+      if ( Array.isArray(arr) && arr.length ){
+        return arr[Math.floor(Math.random() * arr.length)]
+      }
+    },
+
+    diffObj(obj1, obj2){
+      let VALUE_CREATED = 'created',
+          VALUE_UPDATED = 'updated',
+          VALUE_DELETED = 'deleted',
+          VALUE_UNCHANGED = 'unchanged',
+          compareValues = function(value1, value2) {
+            if (value1 === value2) {
+              return VALUE_UNCHANGED;
+            }
+            if (
+              bbn.fn.isDate(value1) &&
+              bbn.fn.isDate(value2) &&
+              (value1.getTime() === value2.getTime())
+            ){
+              return VALUE_UNCHANGED;
+            }
+            if ('undefined' == typeof(value1)) {
+              return VALUE_CREATED;
+            }
+            if ('undefined' == typeof(value2)) {
+              return VALUE_DELETED;
+            }
+            return VALUE_UPDATED;
+          };
+
+      let diff = {};
+      if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj1) ){
+        if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2)) {
+          return {
+            type: compareValues(obj1, obj2),
+            data: (obj1 === undefined) ? obj2 : obj1
+          };
+        }
+
+        for ( let key in obj1 ){
+          if ( bbn.fn.isFunction(obj1[key]) ){
+            continue;
+          }
+
+          let value2 = undefined;
+          if ( 'undefined' != typeof(obj2[key]) ){
+            value2 = obj2[key];
+          }
+
+          diff[key] = bbn.fn.diffObj(obj1[key], value2);
+        }
+        for ( let key in obj2 ){
+          if ( bbn.fn.isFunction(obj2[key]) || ('undefined' != typeof(diff[key])) ){
+            continue;
+          }
+          diff[key] = bbn.fn.diffObj(undefined, obj2[key]);
+        }
+
+      }
+      return diff;
+    }
   })
 
 })(jQuery, bbn);

@@ -14,6 +14,9 @@
           bbn.env.loaders.push(id);
           bbn.fn.defaultStartLoadingFunction(url, id, data);
         }
+        if ( bbn.env.token ){
+          $.extend(data, {_bbn_token: bbn.env.token});
+        }
         var o = {
           url: url,
           async: true,

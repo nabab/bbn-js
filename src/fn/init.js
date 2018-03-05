@@ -59,9 +59,6 @@
               bbn.env.is_loading = 1;
               $(document.body).html('<div class="bbn-100"><h1 class="bbn-c" style="position: absolute; bottom: 3em; right: 3em">' + bbn._("Leaving page...") + '</h1></div>');
             }
-          })
-          .focus(() => {
-            bbn.fn.redraw(document.body, true);
           });
 
         bbn.fn.resize();

@@ -696,15 +696,19 @@
 
     adjustHeight(ele){
       let maxH = 0,
-          idx;
-      $.each(arguments, (i, el) => {
+          idx,
+          args = arguments;
+      if ( (args.length === 1) && $.isArray(args[0]) ){
+        args = args[0];
+      }
+      $.each(args, (i, el) => {
         let h = $(el).height();
         if ( h > maxH ){
           maxH = h;
           idx = i;
         }
       });
-      return $.each(arguments, (i, el) => {
+      return $.each(args, (i, el) => {
         if ( maxH && (i !== idx) ){
           $(el).height(maxH);
         }
