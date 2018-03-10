@@ -358,6 +358,12 @@
           name: "bbn"
         }).val("public"));
       }
+      if ( bbn.env.token ){
+        $form.append($("<input>").attr({
+          type: "hidden",
+          name: "_bbn_token"
+        }).val(bbn.env.token));
+      }
       $form.submit();
       if ( callback ){
         callback();

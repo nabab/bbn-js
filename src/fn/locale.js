@@ -8,16 +8,34 @@
 
     /**     LOCALES     */
 
-    money: function(m){
-      if ( m ){
-        if ( window.kendo !== undefined ){
-          return kendo.toString(parseInt(m), "n0");
-        }
-        else{
-          return parseInt(m).toLocaleString();
-        }
+    money: function(val, novalue, currency, kilo, decimal, thousands, precision){
+      if ( !decimal ){
+        decimal = '.'
       }
-      return 0;
+      if ( !currency ){
+        currency = ''
+      }
+      if ( !thousands ){
+        thousands = ' '
+      }
+      if ( !precision ){
+        precision = kilo ? 3 : 2;
+      }
+      if ( (isNaN(val) || !val) && novalue ){
+        return novalue;
+      }
+      if ( isNaN(val) || !val ){
+        return 0;
+      }
+      if ( kilo && val ){
+        val = val / 1000;
+      }
+      return parseFloat(val).toFixed(precision).replace(/./g, function(c, i, a) {
+        if ( c === '.' ){
+          return decimal;
+        }
+        return i && ((a.length - i) % 3 === 0) ? thousands + c : c;
+      }) + ( currency ? ' ' + currency : '');
     },
 
     date(v){

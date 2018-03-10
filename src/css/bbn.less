@@ -1011,23 +1011,23 @@ table.dataTable.k-grid tbody{
   }
   &.bbn-l, &.bbn-left{
     grid-template-columns: max-content auto;
-    >label, >div.bbn-label{
+    >*{
       text-align: left;
     }
   }
   &.bbn-r, &.bbn-right{
     grid-template-columns: auto max-content;
-    >div:not(.bbn-label):not(.bbn-grid-full){
+    >*{
       text-align: right;
     }
   }
   &.bbn-c, &.bbn-centered{
     grid-template-columns: auto auto;
     >div:not(.bbn-label):not(.bbn-grid-full){
-      text-align: right;
+      text-align: left;
     }
     >label, >div.bbn-label{
-      text-align: left;
+      text-align: right;
     }
     .bbn-c, .bbn-centered{
       .bbn-c;
@@ -1043,6 +1043,9 @@ table.dataTable.k-grid tbody{
     grid-column-start: 1;
     grid-column-end: span 2;
   }
+}
+.bbn-nowrap{
+  flex-wrap: nowrap;
 }
 .bbn-flex{
   display: flex;
