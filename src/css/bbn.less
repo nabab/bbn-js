@@ -853,30 +853,6 @@ input.bbn-form-label{
     vertical-align: top;
   }
 }
-.bbn-notification{
-  color: @white;
-  font-size: small;
-  text-align: left;
-  padding: 2em 3rem;
-  .bbn-notification-close {
-    line-height: 0.7rem;
-    padding: 0;
-    cursor: pointer;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-  }
-  .bbn-notification-icon {
-    font-size: 1.9rem;
-    line-height: 1.9rem;
-    margin-right: 1rem;
-  }
-  .bbn-notification-info{
-    text-align: right;
-    margin-top: 0.5rem;
-    opacity: 0.8;
-  }
-}
 .k-content.bbn-full-height, .k-content.bbn-full-width{
   border: 0;
 }
@@ -1005,12 +981,21 @@ table.dataTable.k-grid tbody{
   grid-template-columns: minmax(auto, max-content) auto;
   >div:not(.bbn-label):not(.bbn-grid-full){
     text-align: left;
+    *{
+      text-align: inherit;
+    }
   }
   >label, >div.bbn-label{
     text-align: right;
+    *{
+      text-align: inherit;
+    }
   }
   &.bbn-l, &.bbn-left{
     grid-template-columns: max-content auto;
+    *{
+      text-align: inherit;
+    }
     >*{
       text-align: left;
     }
@@ -1022,6 +1007,9 @@ table.dataTable.k-grid tbody{
     }
   }
   &.bbn-c, &.bbn-centered{
+    *{
+      text-align: inherit;
+    }
     grid-template-columns: auto auto;
     >div:not(.bbn-label):not(.bbn-grid-full){
       text-align: left;

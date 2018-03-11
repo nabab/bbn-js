@@ -57,7 +57,19 @@
             if ( !bbn.env.ignoreUnload ){
               bbn.env.is_checking = 1;
               bbn.env.is_loading = 1;
-              $(document.body).html('<div class="bbn-100"><h1 class="bbn-c" style="position: absolute; bottom: 3em; right: 3em">' + bbn._("Leaving page...") + '</h1></div>');
+              e = e || window.event;
+              if ( $(".bbn-tabnav-unsaved").length ){
+                let st = bbn._('You have unsaved data, are you sure you want to leave?');
+                // For IE and Firefox prior to version 4
+                if (e) {
+                  e.returnValue = st;
+                }
+                // For Safari
+                return st;
+              }
+              else{
+                $(document.body).html('<div class="bbn-full-screen bbn-middle"><h1 class="bbn-c">' + bbn._("Leaving page...") + '</h1></div>');
+              }
             }
           });
 
