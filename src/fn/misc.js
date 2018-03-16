@@ -8,18 +8,105 @@
 
     /**     MISC     */
 
-    isDom: function(ele){
-      return ele instanceof Element;
+    isFunction: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Function]' ){
+          return false
+        }
+      }
+      return true;
     },
 
-    isjQuery: function(ele){
-      return ele instanceof jQuery;
+    isNumber: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( isNaN(a) ){
+          return false
+        }
+      }
+      return true;
     },
 
-    isDate(v){
-      return (typeof v === 'object') &&
-        (typeof v.getMonth === 'function') &&
-        (typeof v.getMilliseconds === 'function')
+    isArray: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Array]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isDate: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Date]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isObject: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Object]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isNull: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Null]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /* Returns true if value is not an object and is basically a value wich can be written as is in a DB or a file */
+    isValue: function() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( (typeof a === 'object') && !bbn.fn.isNull(a) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isDom: function(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof Element) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isjQuery: function(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof jQuery) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    isPercent: function(){
+      if ( !arguments.length ) return false;
+      for ( let a of arguments ){
+        if ( (typeof a !== 'string') || !a.match(/^\d+(?:\.\d+)?%$/) ){
+          return false;
+        }
+      }
+      return true;
     },
 
     timestamp: function(seconds){

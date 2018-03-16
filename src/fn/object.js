@@ -1,36 +1,13 @@
 /**
  * Created by BBN on 10/02/2017.
  */
+// jshint esversion: 6
 ;(function($, bbn){
   "use strict";
 
+  /**     OBJECTS AND ARRAYS    */
+
   $.extend(bbn.fn, {
-
-    /**     OBJECTS AND ARRAYS    */
-
-    isFunction: function(obj) {
-      return {}.toString.apply(obj) === '[object Function]';
-    },
-
-    isArray: function(obj) {
-      return {}.toString.apply(obj) === '[object Array]';
-    },
-
-    isDate: function(obj) {
-      return {}.toString.apply(obj) === '[object Date]';
-    },
-
-    isObject: function(obj) {
-      return {}.toString.apply(obj) === '[object Object]';
-    },
-
-    isNull: function(obj) {
-      return {}.toString.apply(obj) === '[object Null]';
-    },
-
-    isValue: function(obj) {
-      return !this.isObject(obj) && !this.isArray(obj);
-    },
 
     /**
      * Orders objects in the array based on the given property.
@@ -50,7 +27,7 @@
       let r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
       dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
       return r.sort(function(a, b){
-        return bbn.fn.compareValues(a, b, prop, dir)
+        return bbn.fn.compareValues(a, b, prop, dir);
       });
     },
 
@@ -101,13 +78,14 @@
 
     getProperty(obj, prop){
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
-        return prop.split('.').reduce((o, i) => o[i], obj)
+        return prop.split('.').reduce((o, i) => o[i], obj);
       }
     },
 
     multiorder(arr, orders){
       if ( !Array.isArray(orders) && (typeof orders === 'object') ){
         let tmp = [];
+
         for ( var n in orders ){
           tmp.push({field: n, dir: orders[n]});
         }
@@ -202,9 +180,10 @@
         case "istart":
           if ( v1 && v2 ){
             return bbn.fn.removeAccents(v1.toString()).toLowerCase().indexOf(
-                bbn.fn.removeAccents(v2.toString()).toLowerCase()
-              ) === 0;
+              bbn.fn.removeAccents(v2.toString()).toLowerCase()
+            ) === 0;
           }
+          return false;
         case "like":
           return bbn.fn.removeAccents(v1.toString()).toLowerCase() === bbn.fn.removeAccents(v2.toString()).toLowerCase();
         default:
@@ -284,23 +263,24 @@
     },
 
     count(arr, prop, val, mode){
-      return bbn.fn.filterObj(arr, prop, val, mode, false).length || 0;
+      return bbn.fn.filter(arr, prop, val, mode, false).length || 0;
     },
 
     sum(arr, prop, filter, mode){
       let r = 0;
-      $.each(bbn.fn.filterObj(arr, filter, mode), (i, a) => {
+      $.each(bbn.fn.filter(arr, filter, mode), (i, a) => {
         r += parseFloat(a[prop]);
       });
       return r;
     },
 
     // Filters an array based on object properties
-    filterObj(arr, prop, val, mode, deep){
+    filter(arr, prop, val, mode, deep){
       var found,
           filter = {},
           res = [],
           isObj = typeof(prop) === 'object',
+          isFn = typeof(prop) === 'function',
           r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
       if ( !prop ){
         return arr;
@@ -354,7 +334,7 @@
       return false;
     },
 
-/**
+    /**
      * Returns a given property from the row of an array of objects arr where the prop is equal to 'val'.
      *
      * ```javascript
@@ -634,4 +614,4 @@
     }
   })
 
-})(jQuery, bbn);
+})(window.jQuery, window.bbn);
