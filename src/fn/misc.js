@@ -128,7 +128,7 @@
         let args = bbn.fn.getArguments(arguments),
             cfg,
             level = 5;
-        if ( (typeof opt === 'object') && opt._bbn_console_style){
+        if ( args[0] && (typeof args[0] === 'object') && args[0]._bbn_console_style){
           cfg = args[0]._bbn_console_style;
           level = args[0]._bbn_console_level;
           args.shift();
