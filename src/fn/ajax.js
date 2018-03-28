@@ -487,7 +487,9 @@
         /* Event */
         else if ( t.toLowerCase() === 'object' ){
           if ( (args[i].type !== undefined) &&
-            (args[i].target !== undefined) ){
+            (args[i].target !== undefined) &&
+            (args[i].preventDefault !== undefined)
+          ){
             cfg.e = args[i];
           }
           /* HTML Element */

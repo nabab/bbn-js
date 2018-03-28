@@ -29,6 +29,10 @@
       }
       if ( kilo && val ){
         val = val / 1000;
+        precision = 0;
+        if ( currency ){
+          currency = 'K' + currency;
+        }
       }
       return parseFloat(val).toFixed(precision).replace(/./g, function(c, i, a) {
         if ( c === '.' ){

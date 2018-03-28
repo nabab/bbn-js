@@ -99,6 +99,16 @@
       return true;
     },
 
+    isVue: function(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof Vue) ){
+          return false
+        }
+      }
+      return true;
+    },
+
     isPercent: function(){
       if ( !arguments.length ) return false;
       for ( let a of arguments ){
