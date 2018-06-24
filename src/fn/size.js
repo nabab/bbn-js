@@ -18,7 +18,6 @@
       }
       $(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
-      bbn.fn.resize_popup();
     },
 
     // http://stackoverflow.com/questions/3900701/onclick-go-full-screen

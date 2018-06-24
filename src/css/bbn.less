@@ -41,9 +41,6 @@ td{
   vertical-align: top;
 }
 
-.fa {
-  font-family: FontAwesome !important;
-}
 .bbn-no-reset{
   font-size:1rem;
   p{
@@ -623,8 +620,8 @@ iframe.bbn-hidden{
   margin-bottom: 0.5rem;
 }
 .bbn-smargin{
-  .bbn-hmargin;
-  .bbn-vmargin;
+  .bbn-hsmargin;
+  .bbn-vsmargin;
 }
 /*
 .bbn-form-label{
@@ -912,7 +909,7 @@ div.bbn-h-100.k-grid{
   width: auto !important;
   padding: 0 20px;
 }
-.k-treeview .fa{
+.k-treeview i{
   margin-right: 2px;
 }
 .k-upload-button{
@@ -932,22 +929,6 @@ ul.k-tabstrip-items{
 }
 .k-content{
   border-collapse: collapse;
-}
-ul.fancytree-container{
-  font-family: inherit !important;
-  .bbn-no-border;
-}
-ul.fancytree-container:focus{
-  .bbn-no-border;
-}
-table.dataTable.k-grid tbody{
-  margin-left: 0px !important;
-  td{
-    vertical-align: top !important;
-    button.bbn-table-button{
-      min-width: 10px;
-    }
-  }
 }
 .k-space-left.k-space-right{
   a.k-icon:nth-child(odd){
@@ -981,15 +962,15 @@ table.dataTable.k-grid tbody{
   grid-template-columns: minmax(auto, max-content) auto;
   >div:not(.bbn-label):not(.bbn-grid-full){
     text-align: left;
-    *{
+    /**{
       text-align: inherit;
-    }
+    }*/
   }
   >label, >div.bbn-label{
     text-align: right;
-    *{
+    /**{
       text-align: inherit;
-    }
+    }*/
   }
   &.bbn-l, &.bbn-left{
     grid-template-columns: max-content auto;

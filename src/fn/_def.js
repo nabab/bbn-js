@@ -10,8 +10,7 @@
 
     /* Predefined callback functions for bbn.fn.link function */
     defaultAjaxErrorFunction: function(jqXHR, textStatus, errorThrown){
-      //bbn.fn.log(r);
-      return true;
+      bbn.fn.log(textStatus);
     },
 
     defaultPreLinkFunction: function(r, ele){
@@ -49,8 +48,8 @@
       return true;
     },
 
-    defaultAlertFunction: function(){
-      //bbn.fn.log(r);
+    defaultAlertFunction: function(text, title){
+      alert(text);
       return true;
     },
   };

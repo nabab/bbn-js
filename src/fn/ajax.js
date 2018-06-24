@@ -270,11 +270,11 @@
         }
         if ( isObj && res.error ){
           errTitle = res.errorTitle || bbn.lng.server_response;
-          bbn.fn.alert(res.error, errTitle);
+          bbn.fn.defaultAlertFunction(res.error, errTitle);
         }
       }
       else{
-        bbn.fn.alert(bbn.lng.error, bbn.lng.errorText);
+        bbn.fn.defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
       }
       return tmp;
     },
@@ -329,7 +329,7 @@
     },
 
     /* Creates a form and send data with it to a new window */
-    post_out(action, params, callback){
+    post_out(action, params, callback, target){
       var $form = $("form#bbn-form_out"),
           has_bbn = false;
       if ( $form.length === 0 ){
@@ -338,7 +338,7 @@
       $form.empty().attr({
         method: "post",
         action: action,
-        target: "_blank"
+        target: target || "_blank"
       });
       if ( params ){
         for ( var i in params ){

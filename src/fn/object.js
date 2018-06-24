@@ -54,9 +54,9 @@
             vb = vb ? 1 : 0;
             break;
           case 'object':
-            if ( va.getTime ){
+            if ( bbn.fn.isDate(va) ){
               va = va.getTime();
-              vb = vb.getTime();
+              vb = bbn.fn.isDate(vb) ? vb.getTime() : 0;
             }
             break;
         }
@@ -147,7 +147,7 @@
     iterate(obj, fn){
       for ( var n in obj ){
         if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
-          fn(n, obj[n]);
+          fn(obj[n], n);
         }
       }
     },
@@ -556,7 +556,7 @@
       }
     },
 
-    diffObj(obj1, obj2){
+    diffObj(obj1, obj2, unchanged, notRoot){
       let VALUE_CREATED = 'created',
           VALUE_UPDATED = 'updated',
           VALUE_DELETED = 'deleted',
@@ -580,16 +580,22 @@
             }
             return VALUE_UPDATED;
           };
+      if ( notRoot === undefined ){
+        notRoot = false;
+      }
 
       let diff = {};
       if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj1) ){
-        if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2)) {
-          return {
-            type: compareValues(obj1, obj2),
-            data: (obj1 === undefined) ? obj2 : obj1
-          };
+        if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
+          let res = compareValues(obj1, obj2);
+          if ( unchanged || (res !== VALUE_UNCHANGED) ){
+            return {
+              type: compareValues(obj1, obj2),
+              data: (obj1 === undefined) ? obj2 : obj1
+            };
+          }
+          return false;
         }
-
         for ( let key in obj1 ){
           if ( bbn.fn.isFunction(obj1[key]) ){
             continue;
@@ -599,18 +605,32 @@
           if ( 'undefined' != typeof(obj2[key]) ){
             value2 = obj2[key];
           }
-
-          diff[key] = bbn.fn.diffObj(obj1[key], value2);
+          let res = bbn.fn.diffObj(obj1[key], value2, unchanged, true);
+          if ( res ){
+            diff[key] = res;
+          }
         }
         for ( let key in obj2 ){
-          if ( bbn.fn.isFunction(obj2[key]) || ('undefined' != typeof(diff[key])) ){
+          if ( bbn.fn.isFunction(obj2[key]) || ('undefined' != typeof(obj1[key])) ){
             continue;
           }
-          diff[key] = bbn.fn.diffObj(undefined, obj2[key]);
+          let res = bbn.fn.diffObj(undefined, obj2[key], unchanged, true);
+          if ( res ){
+            diff[key] = res;
+          }
         }
 
       }
-      return diff;
+      return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
+    },
+
+    each(arr, fn){
+      if ( bbn.fn.isArray(arr) ){
+        return Array.prototype.forEach.call(arr, (el, i) => {
+          fn(el, i);
+        })
+      }
+      return bbn.fn.iterate(arr, fn);
     }
   })
 

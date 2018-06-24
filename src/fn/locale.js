@@ -87,8 +87,7 @@
     daysInMonth(v){
       let d = bbn.fn.date(v);
       if ( d ){
-        return new Date(d.getFullYear(), d.getMonth() + 1, 0)
-        let n = new Date(d.getFullYear(), d.getMonth()+1, 0, 0)
+        return moment(d).daysInMonth();
       }
       return false;
     },
@@ -121,15 +120,16 @@
         return
       }
       if ( r.isSame && r.isSame(new Date()) ){
-        r = kendo.toString(r, 'H:mm');
+        r = r.getHours() + ':' + r.getMinutes();
         if ( r === '0:00' ){
           r = bbn.lng.today;
         }
         return r;
       }
-      else{
-        return kendo.toString(r, 'd');
+      if ( window.moment ){
+        return moment(r).calendar();
       }
+      return r.toLocaleDateString()
     },
 
   })

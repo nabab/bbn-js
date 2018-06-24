@@ -10,12 +10,6 @@
     init: function(cfg){
       let parts;
       if ( !bbn.env.isInit ){
-        if ( window.kendo ){
-          window.kendo.culture(bbn_language ? bbn_language : "en_EN");
-        }
-        else{
-          throw new Error("Kendo is undefined");
-        }
         bbn.env.width = bbn.env.win.width();
         bbn.env.height = bbn.env.win.height();
         bbn.env.root = $("head base").length > 0 ? $("head base").attr("href") : bbn.env.host;
@@ -68,14 +62,14 @@
                 return st;
               }
               else{
-                $(document.body).html('<div class="bbn-full-screen bbn-middle"><h1 class="bbn-c">' + bbn._("Leaving page...") + '</h1></div>');
+                $(document.body).fadeOut();
               }
             }
           });
 
         bbn.fn.resize();
 
-        if ( bbn.fn.history ){
+        if ( bbn.fn.history && bbn.fn.history.Adapter ){
 
           bbn.fn.history.clearAllIntervals();
 	        //window.localStorage.clear();
@@ -101,5 +95,18 @@
       }
     }
   })
+
+
+
+  var items = document.querySelectorAll('#iwal');
+  for (var i = 0, len = items.length; i < len; i++) {
+    (function(){
+      bbn.fn.init();
+      this.innerHTML = '<bbn-button text="Test" icon="fa fa-eye"></bbn-button>';
+      new Vue({
+        el: this}
+      )
+    }.bind(items[i]))();
+  }
 
 })(jQuery, bbn);
