@@ -962,15 +962,9 @@ ul.k-tabstrip-items{
   grid-template-columns: minmax(auto, max-content) auto;
   >div:not(.bbn-label):not(.bbn-grid-full){
     text-align: left;
-    /**{
-      text-align: inherit;
-    }*/
   }
   >label, >div.bbn-label{
     text-align: right;
-    /**{
-      text-align: inherit;
-    }*/
   }
   &.bbn-l, &.bbn-left{
     grid-template-columns: max-content auto;
@@ -992,7 +986,7 @@ ul.k-tabstrip-items{
       text-align: inherit;
     }
     grid-template-columns: auto auto;
-    >div:not(.bbn-label):not(.bbn-grid-full){
+    >*:not(label):not(.bbn-label):not(.bbn-grid-full){
       text-align: left;
     }
     >label, >div.bbn-label{
