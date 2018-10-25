@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 @black: #454545;
 @orange: #FF9900;
 @red: #DB3340;
@@ -15,6 +16,9 @@
 @cyan: #00C8F8;
 @navy: #354458;
 @darkgrey: #5A6A62;
+@lightgrey: #F1F1F1;
+@teal: #009688;
+@indigo: #3F51B5;
 
 html{
   width: 100%;
@@ -32,7 +36,7 @@ body{
 a{
   outline-style: none;
   text-decoration: none;
-  color: @blue;
+  color: @indigo;
 }
 table{
   font-size: inherit;
@@ -152,7 +156,9 @@ h1, h2, h3, h4, h5{
     }
   }
   hr{
-    border:2px;
+    border-color: inherit;
+    border-width: 2px;
+    border-style: solid;
     height:2px;
     margin: 1rem;
   }
@@ -180,6 +186,7 @@ h1, h2, h3, h4, h5{
 .bbn-w-100{
   .bbn-block;
   width: 100%;
+  box-sizing: border-box;
 }
 .bbn-w-90{
   .bbn-block;
@@ -472,6 +479,10 @@ h1, h2, h3, h4, h5{
 .bbn-large{
   font-size: 1.3em !important;
 }
+.bbn-m,
+.bbn-medium{
+  font-size: 1.15em !important;
+}
 .bbn-s,
 .bbn-small{
   font-size: 0.8em !important;
@@ -546,7 +557,15 @@ iframe.bbn-hidden{
   overflow:hidden;
 }
 .bbn-no-padding{
-  padding: 0;
+  padding: 0 !important;
+}
+.bbn-no-hpadding{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.bbn-no-vpadding{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 .bbn-hlpadded{
   padding-left: 2rem;
@@ -585,7 +604,15 @@ iframe.bbn-hidden{
   .bbn-vspadded;
 }
 .bbn-no-margin{
-  margin: 0;
+  margin: 0 !important;
+}
+.bbn-no-hmargin{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.bbn-no-vmargin{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 .bbn-hlmargin{
   margin-left: 2rem;
@@ -693,122 +720,151 @@ input.bbn-form-label{
 }
 
 .bbn-black{
-  color: @black;
+  color: @black !important;
 }
 .bbn-orange{
-  color: @orange;
+  color: @orange !important;
 }
 .bbn-red{
-  color: @red;
+  color: @red !important;
 }
 .bbn-green{
-  color: @green;
+  color: @green !important;
 }
 .bbn-blue{
-  color: @blue;
+  color: @blue !important;
 }
 .bbn-yellow{
-  color: @yellow;
+  color: @yellow !important;
 }
 .bbn-white{
-  color: @white;
+  color: @white !important;
 }
 .bbn-purple{
-  color: @purple;
+  color: @purple !important;
 }
 .bbn-grey{
-  color: @grey;
+  color: @grey !important;
 }
 .bbn-brown{
-  color: @brown;
+  color: @brown !important;
 }
 .bbn-olive{
-  color: @olive;
+  color: @olive !important;
 }
 .bbn-pink{
-  color: @pink;
+  color: @pink !important;
 }
 .bbn-turquoise{
-  color: @turquoise;
+  color: @turquoise !important;
 }
 .bbn-cyan{
-  color: @cyan;
+  color: @cyan !important;
 }
 .bbn-navy{
-  color: @navy;
+  color: @navy !important;
 }
 .bbn-darkgrey{
-  color: @darkgrey;
+  color: @darkgrey !important;
+}
+.bbn-lightgrey{
+  color: @lightgrey !important;
+}
+.bbn-teal{
+  color: @teal !important;
+}
+.bbn-indigo{
+  color: @indigo !important;
 }
 .bbn-bg-black{
-  background-color: @black;
+  background-color: @black !important;
   color: @white;
 }
 .bbn-bg-orange{
-  background-color: @orange;
+  background-color: @orange !important;
   color: @white;
 }
 .bbn-bg-red{
-  background-color: @red;
+  background-color: @red !important;
   color: @white;
 }
 .bbn-bg-green{
-  background-color: @green;
+  background-color: @green !important;
   color: @white;
 }
 .bbn-bg-blue{
-  background-color: @blue;
+  background-color: @blue !important;
   color: @white;
 }
 .bbn-bg-yellow{
-  background-color: @yellow;
+  background-color: @yellow !important;
   color: @black;
 }
 .bbn-bg-white{
-  background-color: @white;
+  background-color: @white !important;
   color: @black;
 }
 .bbn-bg-purple{
-  background-color: @purple;
+  background-color: @purple !important;
   color: @white;
 }
 .bbn-bg-grey{
-  background-color: @grey;
+  background-color: @grey !important;
   color: @black;
 }
 .bbn-bg-brown{
-  background-color: @brown;
+  background-color: @brown !important;
   color: @white;
 }
 .bbn-bg-olive{
-  background-color: @olive;
+  background-color: @olive !important;
   color: @white;
 }
 .bbn-bg-pink{
-  background-color: @pink;
+  background-color: @pink !important;
   color: @white;
 }
 .bbn-bg-turquoise{
-  background-color: @turquoise;
+  background-color: @turquoise !important;
   color: @black;
 }
 .bbn-bg-cyan{
-  background-color: @cyan;
+  background-color: @cyan !important;
   color: @black;
 }
 .bbn-bg-navy{
-  background-color: @navy;
+  background-color: @navy !important;
   color: @white;
 }
 .bbn-bg-darkgrey{
-  background-color: @darkgrey;
+  background-color: @darkgrey !important;
   color: @white;
 }
-.bbn-badge{
-  border-radius: 50%;
+.bbn-bg-lightgrey{
+  background-color: @lightgrey !important;
+  color: @white;
+}
+.bbn-bg-teal{
+  background-color: @teal !important;
+  color: @white;
+}
+.bbn-bg-indigo{
+  background-color: @indigo !important;
+  color: @white;
+}
+.bbn-badge,.bbn-tag{
+  background-color: @black;
+  color: @white;
+  display:inline-block;
   padding: 0 0.4em;
-  text-align: center;
+  text-align:center;
   font-weight: bold;
+}
+.bbn-badge{
+  border-radius:50%
+}
+.bbn-card{
+  box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
 }
 .bbn-disabled{
   opacity: 0.5;
@@ -907,7 +963,6 @@ div.bbn-h-100.k-grid{
 }
 .k-edit-form-container{
   width: auto !important;
-  padding: 0 20px;
 }
 .k-treeview i{
   margin-right: 2px;
@@ -958,8 +1013,13 @@ ul.k-tabstrip-items{
   grid-auto-rows: max-content;
 }
 .bbn-grid-fields {
+  padding: 1em;
   .bbn-grid;
   grid-template-columns: minmax(auto, max-content) auto;
+  >div{
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   >div:not(.bbn-label):not(.bbn-grid-full){
     text-align: left;
   }
@@ -1011,7 +1071,7 @@ ul.k-tabstrip-items{
   flex-wrap: nowrap;
 }
 .bbn-flex{
-  display: flex;
+  display: flex!important;
   flex-wrap: nowrap;
 }
 .bbn-flex-width{

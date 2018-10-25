@@ -480,6 +480,21 @@
           : match
           ;
       });
+    },
+
+    removeTrailingChars(st, char){
+      if ( !char ){
+        char = ' ';
+      }
+      if ( char.length ){
+        while ( st.substr(-char.length) === char ){
+          st = st.substr(0, st.length - char.length);
+        }
+        while ( st.substr(0, char.length) === char ){
+          st = st.substr(char.length);
+        }
+      }
+      return st;
     }
 
   })

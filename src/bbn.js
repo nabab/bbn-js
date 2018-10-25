@@ -12,13 +12,43 @@
 ;(function($, window){
   "use strict";
 
+  jQuery.event.special.touchstart = {
+    setup: function( _, ns, handle ){
+      if ( ns.includes("noPreventDefault") ) {
+        this.addEventListener("touchstart", handle, { passive: false });
+      } else {
+        this.addEventListener("touchstart", handle, { passive: true });
+      }
+    }
+  };
+
+  jQuery.event.special.touchmove = {
+    setup: function( _, ns, handle ){
+      if ( ns.includes("noPreventDefault") ) {
+        this.addEventListener("touchmove", handle, { passive: false });
+      } else {
+        this.addEventListener("touchmove", handle, { passive: true });
+      }
+    }
+  };
+
+  jQuery.event.special.wheel = {
+    setup: function( _, ns, handle ){
+      if ( ns.includes("noPreventDefault") ) {
+        this.addEventListener("wheel", handle, { passive: false });
+      } else {
+        this.addEventListener("wheel", handle, { passive: true });
+      }
+    }
+  };
+
   window.bbn = {
     version: "0.2",
     opt: {
       _cat: {}
     },
     _: function(a){
-      return a;
+      return bbn.lng[a] || a;
     },
     _popups: [],
     lng: {

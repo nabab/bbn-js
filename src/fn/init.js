@@ -25,10 +25,13 @@
         if ( typeof (cfg) === 'object' ){
           $.extend(true, window.bbn, cfg);
         }
-        $(window.document).on("focus", "*", function(e){
-          bbn.env.focused = $(e.target);
+        document.addEventListener("focus", function(e){
+          bbn.env.focused = e.target;
           bbn.env.last_focus = new Date().getTime();
-        }).on("click", "a:not(.bbn-no)", function(e){
+        }, {
+          passive: true
+        });
+        $(window.document).on("click", "a:not(.bbn-no)", function(e){
           if (
             this.href &&
             !this.getAttribute("target") &&

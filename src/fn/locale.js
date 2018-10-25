@@ -8,7 +8,33 @@
 
     /**     LOCALES     */
 
-    money: function(val, novalue, currency, kilo, decimal, thousands, precision){
+    money: function(val, kilo, currency, novalue, decimal, thousands, precision){
+      /*
+    money(val, kilo){
+      let decimal = ',',
+          currency = '€',
+          thousands = ' ';
+      if ( (isNaN(val) || !val) ){
+        return '-';
+      }
+      if ( isNaN(val) || !val ){
+        return 0;
+      }
+      if ( kilo && val ){
+        val = val / 1000;
+        if ( currency ){
+          currency = 'K' + currency;
+        }
+      }
+      return parseFloat(val).toFixed(0).replace(/./g, function(c, i, a) {
+        if ( c === '.' ){
+          return decimal;
+        }
+        return i && ((a.length - i) % 3 === 0) ? thousands + c : c;
+      }) + ( currency ? ' ' + currency : '');
+    },
+
+       */
       if ( !decimal ){
         decimal = '.'
       }

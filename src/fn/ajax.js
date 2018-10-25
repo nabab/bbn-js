@@ -279,7 +279,7 @@
       return tmp;
     },
 
-    /* Set the vars bbn.env.url, bbn.env.url and bbn.env.params, and call bbn.fn.history if loaded
+    /* Set the vars bbn.env.url, bbn.env.path and bbn.env.params, and call bbn.fn.history if loaded
      * If a function is passed it will be executed on return instead of bbn.fn.link
      */
     setNavigationVars(url, title, data, repl){
@@ -364,6 +364,7 @@
           name: "_bbn_token"
         }).val(bbn.env.token));
       }
+      bbn.fn.log('mirko', $form);
       $form.submit();
       if ( callback ){
         callback();

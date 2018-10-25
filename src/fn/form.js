@@ -10,6 +10,46 @@
 
     /* Adds inputs to a form, respecting the data structure */
     add_inputs: function(form, params, prefix){
+      let name,
+          appendToForm = function(form, name, val){
+            form.append($("<input>").attr({
+              type: "hidden",
+              name: name
+            }).val(val));
+          };
+      params = JSON.parse(JSON.stringify(params || {}));
+      prefix = prefix || ''
+      if ( form.length && params ){
+        for ( let param in params ){
+          name = prefix ? `${prefix}[${param}]` : param;
+          if ( params[param] instanceof Date ){
+            appendToForm(form, name, params[param].toISOString());
+          }
+          else if ( params[param] instanceof Array ){
+            params[param].forEach((e, i) => {
+              const tempName = `${name}[${i}]`;
+              if ( typeof e === 'object' ){
+                bbn.fn.add_inputs(form, e, tempName);
+              } 
+              else {
+                appendToForm(form, tempName, e.toString());
+              }
+            });
+          }
+          else if ( 
+            (typeof params[param] === 'object') && 
+            !(params[param] instanceof File) 
+          ){
+            bbn.fn.add_inputs(form, params[param], name);
+          }
+          else {
+            appendToForm(form, name, params[param].toString());            
+          }
+        }
+      }
+    },
+
+    /*add_inputs: function(form, params, prefix){
       var name,
           is_array;
       if ( form.length && params ){
@@ -28,7 +68,7 @@
           }
         }
       }
-    },
+    },*/
 
     cancel: function(form, e){
       if ( e ){

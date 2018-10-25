@@ -701,13 +701,13 @@
         args = args[0];
       }
       $.each(args, (i, el) => {
-        let h = $(el).height();
+        let h = Math.round($(el).height());
         if ( h > maxH ){
           maxH = h;
           idx = i;
         }
       });
-      return $.each(args, (i, el) => {
+      $.each(args, (i, el) => {
         if ( maxH && (i !== idx) ){
           $(el).height(maxH);
         }
@@ -717,12 +717,12 @@
     adjustWidth(ele){
       let maxW = 0;
       $.each(arguments, (i, el) => {
-        let w = $(el).width();
+        let w = Math.round($(el).width());
         if ( w > maxW ){
           maxW = w;
         }
       });
-      return $.each(arguments, (i, el) => {
+      $.each(arguments, (i, el) => {
         if ( maxW ){
           $(el).width(maxW);
         }

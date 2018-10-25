@@ -147,7 +147,9 @@
     iterate(obj, fn){
       for ( var n in obj ){
         if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
-          fn(obj[n], n);
+          if ( fn(obj[n], n) === false ){
+            return;
+          }
         }
       }
     },
@@ -155,11 +157,14 @@
     compare(v1, v2, mode){
       switch ( mode ){
         case "===":
+        case "=":
         case "equal":
+        case "eq":
         case "is":
           return v1 === v2;
         case "!==":
         case "notequal":
+        case "neq":
         case "isnotequal":
           return v1 !== v2;
         case "!=":
@@ -167,25 +172,75 @@
           return v1 != v2;
         case "contains":
         case "contain":
-          return v1.toString().indexOf(v2.toString()) !== -1;
         case "icontains":
         case "icontain":
-          return bbn.fn.removeAccents(v1.toString()).toLowerCase().indexOf(bbn.fn.removeAccents(v2.toString()).toLowerCase()) !== -1;
+          if ( (typeof(v1) !== 'string') ){
+            v1 = v1.toString() || '';
+          }
+          if ( (typeof(v1) !== 'string') ){
+            v2 = v2.toString() || '';
+          }
+          return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) !== -1;
+        case "doesnotcontain":
+        case "donotcontain":
+          if ( (typeof(v1) !== 'string') ){
+            v1 = v1.toString() || '';
+          }
+          if ( (typeof(v1) !== 'string') ){
+            v2 = v2.toString() || '';
+          }
+          return bbn.fn.removeAccents(v1.toLowerCase()).indexOf(bbn.fn.removeAccents(v2.toLowerCase())) === -1;
         case "starts":
         case "start":
-          return v1.toString().indexOf(v2.toString()) === 0;
+          if ( (typeof(v1) !== 'string') ){
+            v1 = v1.toString() || '';
+          }
+          if ( (typeof(v1) !== 'string') ){
+            v2 = v2.toString() || '';
+          }
+          return v1.indexOf(v2) === 0;
+        case "startswith":
         case "startsi":
         case "starti":
         case "istarts":
         case "istart":
-          if ( v1 && v2 ){
-            return bbn.fn.removeAccents(v1.toString()).toLowerCase().indexOf(
-              bbn.fn.removeAccents(v2.toString()).toLowerCase()
-            ) === 0;
+          if ( (typeof(v1) !== 'string') ){
+            v1 = v1.toString() || '';
           }
-          return false;
+          if ( (typeof(v1) !== 'string') ){
+            v2 = v2.toString() || '';
+          }
+          return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) === 0;
+        case "endswith":
+        case "endsi":
+        case "endi":
+        case "iends":
+        case "iend":
+          if ( (typeof(v1) !== 'string') ){
+            v1 = v1.toString() || '';
+          }
+          if ( (typeof(v1) !== 'string') ){
+            v2 = v2.toString() || '';
+          }
+          return v1.indexOf(v2) === v1.length - v2.length;
         case "like":
           return bbn.fn.removeAccents(v1.toString()).toLowerCase() === bbn.fn.removeAccents(v2.toString()).toLowerCase();
+        case ">":
+          return v1 > v2;
+        case ">=":
+          return v1 >= v2;
+        case "<":
+          return v1 < v2;
+        case "<=":
+          return v1 <= v2;
+        case "isnull":
+          return v1 === null;
+        case "isnotnull":
+          return v1 !== null;
+        case "isempty":
+          return v1 === '';
+        case "isnotempty":
+          return v1 !== '';
         default:
           return v1 == v2;
       }
@@ -275,7 +330,7 @@
     },
 
     // Filters an array based on object properties
-    filter(arr, prop, val, mode, deep){
+    filter(arr, prop, val, mode){
       var found,
           filter = {},
           res = [],
@@ -589,10 +644,14 @@
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
           let res = compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
-            return {
+            let ret = {
               type: compareValues(obj1, obj2),
               data: (obj1 === undefined) ? obj2 : obj1
             };
+            if ( obj1 !== undefined ){
+              ret.newData = obj2;
+            }
+            return ret;
           }
           return false;
         }
@@ -626,11 +685,18 @@
 
     each(arr, fn){
       if ( bbn.fn.isArray(arr) ){
-        return Array.prototype.forEach.call(arr, (el, i) => {
-          fn(el, i);
-        })
+        for ( let i = 0; i < arr.length; i++ ){
+          if ( fn(arr[i], i) === false ){
+            return;
+          }
+        }
+        return;
       }
       return bbn.fn.iterate(arr, fn);
+    },
+
+    clone(obj){
+      return JSON.parse(JSON.stringify(obj));
     }
   })
 
