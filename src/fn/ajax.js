@@ -37,7 +37,7 @@
             }
           },
           error(xhr, textStatus, errorThrown){
-            //alert("no ok " + textStatus);
+
             if ( id ){
               bbn.fn.defaultEndLoadingFunction(url, id, data, errorThrown);
               var idx = $.inArray(id, bbn.env.loaders);
@@ -46,7 +46,7 @@
               }
             }
             var ok = 1;
-            if ( $.isFunction(failure) ){
+            if ( bbn.fn.isFunction(failure) ){
               ok = failure(xhr, textStatus, errorThrown);
             }
             if ( ok ){
@@ -127,8 +127,9 @@
       /* The URL is fine so go ahead if something is not already loading */
       else if ( (cfg.url !== bbn.env.params.join("/")) || (cfg.force === 1) ){
         /* If a second callback is defined, it is triggered instead of defaultPreLinkFunction */
-        if ( cfg.fn1 ){
-          ok = cfg.fn1(cfg.url);
+        bbn.fn.log("LINK", cfg);
+        if ( cfg.successFn ){
+          ok = cfg.successFn(cfg.url);
         }
         else if ( bbn.fn.defaultPreLinkFunction ){
           ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
@@ -142,7 +143,7 @@
             cfg.url = ok;
           }
           id = bbn.fn.uniqString(cfg.url, cfg.obj ? cfg.obj : {});
-          return bbn.fn.ajax(cfg.url, cfg.datatype || "json", cfg.obj, id, function(res){
+          return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, id, function(res){
             if ( res && res.new_url ){
               res.old_path = cfg.url;
               cfg.url = res.new_url;
@@ -154,16 +155,17 @@
             if ( (typeof(res) === 'object') && (Object.keys(res).length === 0) ){
               return;
             }
-            if ( bbn.fn.callback(cfg.url, res, cfg.fn, cfg.fn2, cfg.ele) &&
+            if (
+              bbn.fn.callback(cfg.url, res, cfg.successFn, null, cfg.ele) &&
               res &&
-              res.noNav === undefined ){
-
+              res.noNav === undefined
+            ){
               // This solution is not very clean (we can't shorten a URL)
               if ( bbn.env.path.indexOf(cfg.url) !== 0 ){
                 bbn.fn.setNavigationVars(cfg.url, (res.title ? res.title + ' - ' : '' ) + bbn.env.siteTitle);
               }
             }
-          });
+          }, cfg.errorFn || null);
         }
       }
       return true;
@@ -274,6 +276,7 @@
         }
       }
       else{
+        bbn.fn.info("THIS IS AN ERROR");
         bbn.fn.defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
       }
       return tmp;
@@ -329,7 +332,7 @@
     },
 
     /* Creates a form and send data with it to a new window */
-    post_out(action, params, callback, target){
+    post_out(action, params, successFn, target){
       var $form = $("form#bbn-form_out"),
           has_bbn = false;
       if ( $form.length === 0 ){
@@ -366,82 +369,25 @@
       }
       bbn.fn.log('mirko', $form);
       $form.submit();
-      if ( callback ){
-        callback();
+      if ( successFn ){
+        successFn();
       }
     },
 
     /* Posting function (with path rewriting) */
     post(){
-      var action,
-          datatype,
-          callback,
-          callback2,
-          data,
-          change = false,
-          ele = false,
+      let change = false,
           i,
-          id;
-      for (i = 0; i < arguments.length; i++ ){
-        if ( !callback && $.isFunction(arguments[i]) ){
-          callback = arguments[i];
-        }
-        else if ( $.isFunction(arguments[i]) ){
-          callback2 = arguments[i];
-        }
-        /* jQuery object */
-        else if ( arguments[i] instanceof jQuery ){
-          ele = arguments[i];
-        }
-        else if ( typeof (arguments[i]) === 'object' ){
-          data = arguments[i];
-        }
-        else if ( $.inArray(arguments[i], bbn.var.datatypes) > -1 ){
-          datatype = arguments[i];
-        }
-        else if ( typeof (arguments[i]) === 'string' ){
-          action = arguments[i];
-        }
-      }
-      if ( !datatype ){
-        datatype = "json";
-      }
-      if ( typeof(data) !== 'object' ){
-        data = {};
-      }
-      if ( data.bbn_data_checker === undefined ){
+          id,
+          cfg = bbn.fn.treat_vars(arguments);
+      if ( cfg.obj.bbn_data_checker === undefined ){
         change = 1;
       }
-      if ( !bbn.fn.numProperties(data) ){
-        data = {bbn: 'public'};
-      }
-      /*
-       * Automatic check for same field values
-       * Would be better to put it in the form's data (jquery data)
-       else if ( action && data.bbn_data_checkers ){
-       for ( var i in data.bbn_data_checkers ){
-       if ( (typeof(data[i]) === 'undefined') || (data[i] !== data.bbn_data_checkers) ){
-       change = 1;
-       break;
-       }
-       }
-       if ( !change ){
-       bbn.fn.callback(action, data, callback);
-       }
-       }
-       */
-      if ( change && action ){
-        id = bbn.fn.uniqString(action, data);
-        return bbn.fn.ajax(action, datatype, data, id, function(res){
-          bbn.fn.callback(action, res, callback, false, ele);
-          if ( res && res.new_url !== undefined ){
-            bbn.fn.setNavigationVars(res.new_url, (res.siteTitle || bbn.env.siteTitle), {}, 1);
-          }
-        }, function(){
-          if ( callback2 ){
-            callback2();
-          }
-        });
+      if ( change && cfg.url ){
+        id = bbn.fn.uniqString(cfg.url, cfg.obj);
+        return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, id, (res) => {
+          bbn.fn.callback(cfg.url, res, cfg.successFn || null, false, cfg.ele || null);
+        }, cfg.errorFn || null);
       }
     },
 
@@ -451,14 +397,11 @@
         t = typeof (args[i]);
         /* Callbacks */
         if ( $.isFunction(args[i]) ){
-          if ( cfg.fn && !cfg.fn1 ){
-            cfg.fn1 = args[i];
+          if ( cfg.successFn && !cfg.errorFn ){
+            cfg.errorFn = args[i];
           }
-          else if ( cfg.fn && cfg.fn1 && !cfg.fn2 ){
-            cfg.fn2 = args[i];
-          }
-          else if ( !cfg.fn ){
-            cfg.fn = args[i];
+          else if ( !cfg.successFn ){
+            cfg.successFn = args[i];
           }
         }
         /* jQuery object */
@@ -505,6 +448,9 @@
       }
       if ( cfg.obj === undefined ){
         cfg.obj = {bbn: "public"};
+      }
+      if ( !cfg.datatype ){
+        cfg.datatype = "json";
       }
       return cfg;
 
