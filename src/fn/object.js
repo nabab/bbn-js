@@ -24,11 +24,14 @@
      * @returns {Array.<T>}
      */
     order(arr, prop, dir){
-      let r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
-      dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
-      return r.sort(function(a, b){
-        return bbn.fn.compareValues(a, b, prop, dir);
-      });
+      if ( arr ){
+        let r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
+        dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
+        return r.sort(function(a, b){
+          return bbn.fn.compareValues(a, b, prop, dir);
+        });
+      }
+      return arr;
     },
 
     compareValues(a, b, prop, dir){
@@ -144,16 +147,6 @@
       return arr;
     },
 
-    iterate(obj, fn){
-      for ( var n in obj ){
-        if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
-          if ( fn(obj[n], n) === false ){
-            return;
-          }
-        }
-      }
-    },
-
     compare(v1, v2, mode){
       switch ( mode ){
         case "===":
@@ -174,21 +167,9 @@
         case "contain":
         case "icontains":
         case "icontain":
-          if ( (typeof(v1) !== 'string') ){
-            v1 = v1.toString() || '';
-          }
-          if ( (typeof(v1) !== 'string') ){
-            v2 = v2.toString() || '';
-          }
           return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) !== -1;
         case "doesnotcontain":
         case "donotcontain":
-          if ( (typeof(v1) !== 'string') ){
-            v1 = v1.toString() || '';
-          }
-          if ( (typeof(v1) !== 'string') ){
-            v2 = v2.toString() || '';
-          }
           return bbn.fn.removeAccents(v1.toLowerCase()).indexOf(bbn.fn.removeAccents(v2.toLowerCase())) === -1;
         case "starts":
         case "start":
@@ -204,27 +185,15 @@
         case "starti":
         case "istarts":
         case "istart":
-          if ( (typeof(v1) !== 'string') ){
-            v1 = v1.toString() || '';
-          }
-          if ( (typeof(v1) !== 'string') ){
-            v2 = v2.toString() || '';
-          }
           return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) === 0;
         case "endswith":
         case "endsi":
         case "endi":
         case "iends":
         case "iend":
-          if ( (typeof(v1) !== 'string') ){
-            v1 = v1.toString() || '';
-          }
-          if ( (typeof(v1) !== 'string') ){
-            v2 = v2.toString() || '';
-          }
           return v1.indexOf(v2) === v1.length - v2.length;
         case "like":
-          return bbn.fn.removeAccents(v1.toString()).toLowerCase() === bbn.fn.removeAccents(v2.toString()).toLowerCase();
+          return bbn.fn.removeAccents(v1).toLowerCase() === bbn.fn.removeAccents(v2).toLowerCase();
         case ">":
           return v1 > v2;
         case ">=":
@@ -323,49 +292,60 @@
 
     sum(arr, prop, filter, mode){
       let r = 0;
-      $.each(bbn.fn.filter(arr, filter, mode), (i, a) => {
-        r += parseFloat(a[prop]);
+      bbn.fn.each(bbn.fn.filter(arr, filter, mode), (a) => {
+        if ( a[prop] ){
+          r += (parseFloat(a[prop]) || 0);
+        }
       });
       return r;
     },
 
     // Filters an array based on object properties
     filter(arr, prop, val, mode){
-      var found,
-          filter = {},
-          res = [],
-          isObj = typeof(prop) === 'object',
-          isFn = typeof(prop) === 'function',
-          r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
-      if ( !prop ){
-        return arr;
-      }
-      if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
-        if ( isObj ){
-          mode = val;
-          filter = prop;
+      if ( bbn.fn.isArray(arr) ){
+        var found,
+            filter = {},
+            res = [],
+            isObj = typeof(prop) === 'object',
+            isFn = typeof(prop) === 'function',
+            r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
+        if ( !prop ){
+          return arr;
         }
-        else if ( typeof(prop) === 'string'){
-          filter[prop] = val;
+        if ( typeof prop === 'function' ){
+          bbn.fn.each(arr, (a) => {
+            if ( prop(a) ){
+              res.push(a);
+            }
+          }) ;
+          return res;
         }
-        else{
-          throw new Error("Search function error: The prop argument should be a string or an object");
-        }
-        for ( var i = 0; i < r.length; i++ ){
-          found = 1;
-          for ( var n in filter ){
-            if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
-              found = false;
-              break;
+        if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
+          if ( isObj ){
+            mode = val;
+            filter = prop;
+          }
+          else if ( typeof(prop) === 'string'){
+            filter[prop] = val;
+          }
+          else{
+            throw new Error("Search function error: The prop argument should be a string or an object");
+          }
+          for ( var i = 0; i < r.length; i++ ){
+            found = 1;
+            for ( var n in filter ){
+              if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
+                found = false;
+                break;
+              }
+            }
+            if ( found ){
+              res.push(r[i]);
             }
           }
-          if ( found ){
-            res.push(r[i]);
-          }
         }
+        return res;
       }
-      return res;
-
     },
     /**
      * Returns an object from an array of objects arr where the prop is equal to val.
@@ -683,6 +663,32 @@
       return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
     },
 
+    fori(fn, arr, max, min){
+      if ( bbn.fn.isArray(arr) && max ){
+        if ( !min || (min > max) ){
+          min = 0;
+        }
+        for ( let i = min; i <= max; i++ ){
+          if ( fn(arr[i], i) === false ){
+            return;
+          }
+        }
+      }
+    },
+
+    forir(fn, arr, max, min){
+      if ( bbn.fn.isArray(arr) && max ){
+        if ( !min || (min > max) ){
+          min = 0;
+        }
+        for ( let i = max; i >= min; i-- ){
+          if ( fn(arr[i], i) === false ){
+            return;
+          }
+        }
+      }
+    },
+
     each(arr, fn){
       if ( bbn.fn.isArray(arr) ){
         for ( let i = 0; i < arr.length; i++ ){
@@ -695,8 +701,88 @@
       return bbn.fn.iterate(arr, fn);
     },
 
+    iterate(obj, fn){
+      if ( typeof obj === 'object' ){
+        for ( var n in obj ){
+          if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
+            if ( fn(obj[n], n) === false ){
+              return;
+            }
+          }
+        }
+      }
+    },
+
     clone(obj){
       return JSON.parse(JSON.stringify(obj));
+    },
+
+    map(arr, fn, deepProp){
+      return arr.map((a, i) => {
+        a = fn(a, i);
+        if ( deepProp && a[deepProp] && bbn.fn.isArray(a[deepProp]) ){
+          a[deepProp] = bbn.fn.map(a[deepProp], fn, deepProp);
+        }
+        return a;
+      });
+    },
+
+    download(filename, text, type){
+      if ( !type ){
+        type = 'octet/stream';
+      }
+      else if ( type.indexOf('/') === -1 ){
+        type = 'text/' + type;
+      }
+      let a = window.document.createElement('a');
+      a.className = 'bbn-no';
+      a.href = window.URL.createObjectURL(new Blob([text], {type: type}));
+      a.download = filename;
+      // Append anchor to body.
+      document.body.appendChild(a);
+      a.click();
+      // Remove anchor from body
+      document.body.removeChild(a);
+    },
+
+    toCSV(arr, valSep, rowSep, valEsc){
+      if ( !valSep ){
+        valSep = ',';
+      }
+      if ( !valEsc ){
+        valEsc = '"';
+      }
+      if ( !rowSep ){
+        rowSep = ';';
+      }
+      let csvContent = '';
+      let total = arr.length;
+      bbn.fn.each(arr, (a, i) => {
+        let num = bbn.fn.isArray(a) ? a.length : Object.values(a).length;
+        let j = 0;
+        bbn.fn.each(a, (b) => {
+          if ( typeof b === 'string' ){
+            csvContent += valEsc + bbn.fn.replaceAll(valEsc, '\\' + valEsc, b) + valEsc;
+          }
+          else if ( b === 0 ){
+            csvContent += '0';
+          }
+          else if ( !b ){
+            csvContent += valEsc + valEsc;
+          }
+          else{
+            csvContent += b.toString ? b.toString() : valEsc + valEsc;
+          }
+          j++;
+          if ( j < num ){
+            csvContent += valSep;
+          }
+        });
+        if ( i < total - 1 ){
+          csvContent += rowSep + "\n";
+        }
+      })
+      return csvContent;
     }
   })
 

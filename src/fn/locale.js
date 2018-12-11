@@ -8,7 +8,7 @@
 
     /**     LOCALES     */
 
-    money: function(val, kilo, currency, novalue, decimal, thousands, precision){
+    money(val, kilo, currency, novalue, decimal, thousands, precision){
       /*
     money(val, kilo){
       let decimal = ',',
@@ -36,16 +36,25 @@
 
        */
       if ( !decimal ){
-        decimal = '.'
+        decimal = bbn.env.money && bbn.env.money.decimal && (decimal === undefined) ? bbn.env.money.decimal : '.'
       }
       if ( !currency ){
-        currency = ''
+        currency = bbn.env.money && bbn.env.money.currency && (currency === undefined) ? bbn.env.money.currency : ''
       }
       if ( !thousands ){
-        thousands = ' '
+        thousands = bbn.env.money && bbn.env.money.thousands && (thousands === undefined) ? bbn.env.money.thousands : ' '
       }
       if ( !precision ){
-        precision = kilo ? 3 : 2;
+        precision = bbn.env.money && bbn.env.money.precision && (precision === undefined) ? bbn.env.money.precision : false
+      }
+      if ( !kilo ){
+        kilo = bbn.env.money && bbn.env.money.kilo && (kilo === undefined) ? bbn.env.money.kilo : false;
+      }
+      if ( !novalue ){
+        novalue = bbn.env.money && bbn.env.money.novalue && (novalue === undefined) ? bbn.env.money.novalue : false;
+      }
+      if ( !bbn.fn.isNumber(precision) ){
+        precision = kilo ? 3 : 0;
       }
       if ( (isNaN(val) || !val) && novalue ){
         return novalue;
@@ -55,16 +64,27 @@
       }
       if ( kilo && val ){
         val = val / 1000;
-        precision = 0;
         if ( currency ){
           currency = 'K' + currency;
         }
       }
-      return parseFloat(val).toFixed(precision).replace(/./g, function(c, i, a) {
+      let v = parseFloat(val).toFixed(precision);
+      let decimalPosition = 0;
+      let decimalIdx = 10000;
+      if ( v ){
+        decimalIdx = v.indexOf('.');
+        if ( decimalIdx <= 0 ){
+          decimalIdx = 10000;
+        }
+        else{
+          decimalPosition = v.length - decimalIdx;
+        }
+      }
+      return v.replace(/./g, function(c, i, a) {
         if ( c === '.' ){
           return decimal;
         }
-        return i && ((a.length - i) % 3 === 0) ? thousands + c : c;
+        return i && ((a.length - i - decimalPosition) % 3 === 0) && (i < decimalIdx) ? thousands + c : c;
       }) + ( currency ? ' ' + currency : '');
     },
 

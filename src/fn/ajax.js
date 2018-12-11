@@ -96,6 +96,9 @@
       if ( cfg.url.indexOf('javascript:') === 0 ){
         return true;
       }
+      if ( cfg.url.indexOf('data:') === 0 ){
+        return true;
+      }
       if ( cfg.url.indexOf('#') === 0 ){
         location.href = bbn.env.url + cfg.url;
         if ( window.history ){
@@ -254,8 +257,6 @@
           else{
             tmp = (function(data, ele){
               var r = eval(res.script);
-              // As new content may have appear in the container we redo the whole analyze
-              bbn.fn.analyzeContent(ele, true);
               return r;
             })(res.data ? res.data : {}, ele ? ele : false);
           }

@@ -13,12 +13,12 @@
       bbn.fn.log(textStatus);
     },
 
-    defaultPreLinkFunction: function(r, ele){
+    defaultPreLinkFunction: function(url, ele){
       //bbn.fn.log(r);
       return true;
     },
 
-    defaultLinkFunction: function(r, ele){
+    defaultLinkFunction: function(responseObj, ele){
       //bbn.fn.log(r);
       return true;
     },
@@ -38,8 +38,8 @@
       return true;
     },
 
-    defaultHistoryFunction: function(url, title, data){
-      //bbn.fn.log(r);
+    defaultHistoryFunction: function(obj){
+      //bbn.fn.log(obj);
       return true;
     },
 

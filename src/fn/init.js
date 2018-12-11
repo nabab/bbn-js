@@ -28,8 +28,7 @@
         document.addEventListener("focus", function(e){
           bbn.env.focused = e.target;
           bbn.env.last_focus = new Date().getTime();
-        }, {
-          passive: true
+          bbn.fn.log(e.target);
         });
         $(window.document).on("click", "a:not(.bbn-no)", function(e){
           if (

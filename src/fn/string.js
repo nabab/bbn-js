@@ -440,10 +440,18 @@
      */
     removeAccents: function(st){
       var m = bbn.var.defaultDiacriticsRemovalMap;
+      st = bbn.fn.stringify(st);
       for(var i=0; i < m.length; i++ ){
         st = st.replace(m[i].letters, m[i].base);
       }
       return st;
+    },
+
+    stringify(v){
+      if ( typeof v === 'String' ){
+        return v;
+      }
+      return v.toString ? v.toString() : '';
     },
 
     /**
