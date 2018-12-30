@@ -33,8 +33,7 @@
         $(window.document).on("click", "a:not(.bbn-no)", function(e){
           if (
             this.href &&
-            !this.getAttribute("target") &&
-            window.Modernizr.history
+            !this.getAttribute("target")
           ){
             e.preventDefault();
             return bbn.fn.link(this.href);

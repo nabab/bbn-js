@@ -621,6 +621,30 @@ iframe.bbn-hidden{
   .bbn-hspadded;
   .bbn-vspadded;
 }
+.bbn-hxspadded{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+.bbn-vxspadded{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.bbn-xspadded{
+  .bbn-hxspadded;
+  .bbn-vxspadded;
+}
+.bbn-hxxspadded{
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
+}
+.bbn-vxxspadded{
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.bbn-xxspadded{
+  .bbn-hxxspadded;
+  .bbn-vxxspadded;
+}
 .bbn-top-space{
   margin-top: 1em;
 }
@@ -1170,7 +1194,7 @@ ul.k-tabstrip-items{
   &.bbn-reverse{
     flex-direction: row-reverse;
   }
-  > div,ul{
+  > div, > ul{
     .bbn-transition-width
   }
 }
@@ -1181,7 +1205,7 @@ ul.k-tabstrip-items{
   &.bbn-reverse{
     flex-direction: column-reverse;
   }
-  > div,ul{
+  > div, > ul{
     .bbn-transition-height
   }
 }

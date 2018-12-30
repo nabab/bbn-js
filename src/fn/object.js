@@ -554,10 +554,10 @@
     autoExtend(namespace, obj){
       if ( !bbn[namespace] ){
         bbn[namespace] = {};
-        $.extend(bbn[namespace], obj);
+        $.extend(true, bbn[namespace], obj);
       }
-      else if ( bbn.env.isInit ){
-        $.extend(bbn[namespace], obj);
+      else {
+        $.extend(true, bbn[namespace], obj);
       }
     },
     /**
@@ -702,9 +702,9 @@
     },
 
     iterate(obj, fn){
-      if ( typeof obj === 'object' ){
+      if ( (obj !== null) && (typeof obj === 'object') ){
         for ( var n in obj ){
-          if ( (n.substr(0, 1) !== '_') && obj.hasOwnProperty(n) ){
+          if ( (n.substr(0, 1) !== '_') && (!bbn.fn.isFunction(obj.hasOwnProperty) || obj.hasOwnProperty(n)) ){
             if ( fn(obj[n], n) === false ){
               return;
             }

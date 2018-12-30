@@ -4,64 +4,63 @@
 ;(function($, bbn){
   "use strict";
 
+  axios.defaults.headers.post['Content-Type'] = 'text/json';
+
   $.extend(bbn.fn, {
 
     /**     AJAX    */
 
     ajax(url, datatype, data, id, success, failure){
-      if ( $.inArray(id, bbn.env.loaders) === -1 ){
-        if ( id ){
-          bbn.env.loaders.push(id);
-          bbn.fn.defaultStartLoadingFunction(url, id, data);
+      if ( id ){
+        if ( !datatype ){
+          datatype = 'json';
         }
-        if ( bbn.env.token ){
-          $.extend(data, {_bbn_token: bbn.env.token});
+        if ( bbn.env.loaders[id] ){
+          return bbn.env.loaders[id];
         }
-        var o = {
-          url: url,
-          async: true,
-          data: (typeof(data) !== 'object') ? {} : data,
-          /** Makes multipart/form-data work! */
-          contentType: false,
-          datatype: datatype ? datatype : "json",
-          success(res){
-            if ( id ){
-              bbn.fn.defaultEndLoadingFunction(url, id, data, res);
-              var idx = $.inArray(id, bbn.env.loaders);
-              if ( idx > -1 ){
-                bbn.env.loaders.splice(idx, 1);
-              }
-            }
-            if ( $.isFunction(success) ){
-              success(res);
-            }
-          },
-          error(xhr, textStatus, errorThrown){
+        bbn.fn.defaultStartLoadingFunction(url, id, data);
+      }
+      else if ( !datatype ){
+        datatype = 'text';
+      }
 
-            if ( id ){
-              bbn.fn.defaultEndLoadingFunction(url, id, data, errorThrown);
-              var idx = $.inArray(id, bbn.env.loaders);
-              if ( idx > -1 ){
-                bbn.env.loaders.splice(idx, 1);
-              }
-            }
-            var ok = 1;
-            if ( bbn.fn.isFunction(failure) ){
-              ok = failure(xhr, textStatus, errorThrown);
-            }
-            if ( ok ){
-              bbn.fn.defaultAjaxErrorFunction(xhr, textStatus, errorThrown);
+      if ( bbn.env.token ){
+        $.extend(data || {}, {_bbn_token: bbn.env.token});
+      }
+      let request = axios
+        .post(url, (typeof(data) !== 'object') ? {} : data, {responseType: datatype})
+        .then(function(res){
+          if ( id ){
+            bbn.fn.defaultEndLoadingFunction(url, id, data, res);
+            if ( bbn.env.loaders[id] ){
+              delete bbn.env.loaders[id];
             }
           }
-        };
-        if ( typeof(data) !== 'object'){
-          o.data = {};
-        }
-        o.data = JSON.stringify(o.data);
-        o.type = o.datatype === "json" ? "POST" : "GET";
-        return $.ajax(o);
+          if ( $.isFunction(success) ){
+            success(res.data);
+          }
+          return res;
+        })
+        .catch(function(err){
+          bbn.fn.log("ERR", err.request, err.response.data, err.response.status, err.response.headers);
+          if ( id ){
+            bbn.fn.defaultEndLoadingFunction(url, id, data, err);
+            if ( bbn.env.loaders[id] ){
+              delete bbn.env.loaders[id];
+            }
+          }
+          let ok = 1;
+          if ( bbn.fn.isFunction(failure) ){
+            ok = failure(err.request, err.response.data, err.response.status);
+          }
+          if ( ok ){
+            bbn.fn.defaultAjaxErrorFunction(err.request, err.response.data, err.response.status);
+          }
+        });
+      if ( id ){
+        bbn.env.loaders[id] = request;
       }
-      return false;
+      return request;
     },
 
     /*
@@ -130,7 +129,6 @@
       /* The URL is fine so go ahead if something is not already loading */
       else if ( (cfg.url !== bbn.env.params.join("/")) || (cfg.force === 1) ){
         /* If a second callback is defined, it is triggered instead of defaultPreLinkFunction */
-        bbn.fn.log("LINK", cfg);
         if ( cfg.successFn ){
           ok = cfg.successFn(cfg.url);
         }
@@ -332,6 +330,10 @@
       }
     },
 
+    download(url, filename, params){
+
+    },
+
     /* Creates a form and send data with it to a new window */
     post_out(action, params, successFn, target){
       var $form = $("form#bbn-form_out"),
@@ -368,7 +370,6 @@
           name: "_bbn_token"
         }).val(bbn.env.token));
       }
-      bbn.fn.log('mirko', $form);
       $form.submit();
       if ( successFn ){
         successFn();
