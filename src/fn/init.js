@@ -1,15 +1,18 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   $.extend(bbn.fn, {
 
     /* Onload functions: keep the var screen width and height up-to-date and binds history if enabled */
-    init: function(cfg){
+    init(cfg){
       let parts;
       if ( !bbn.env.isInit ){
+        if ( bbn.var.colors ){
+          bbn.fn.addColors(bbn.var.colors)
+        }
         bbn.env.width = bbn.env.win.width();
         bbn.env.height = bbn.env.win.height();
         bbn.env.root = $("head base").length > 0 ? $("head base").attr("href") : bbn.env.host;
@@ -73,24 +76,24 @@
         if ( bbn.fn.history && bbn.fn.history.Adapter ){
 
           bbn.fn.history.clearAllIntervals();
-	        //window.localStorage.clear();
-	        //window.sessionStorage.clear();
-	        bbn.fn.history.Adapter.bind(window, 'statechange', function(e){
-	          if ( !bbn.env.historyDisabled ){
+          //window.localStorage.clear();
+          //window.sessionStorage.clear();
+          bbn.fn.history.Adapter.bind(window, 'statechange', function(e){
+            if ( !bbn.env.historyDisabled ){
               let state = bbn.fn.history.getState();
               if ( state !== undefined ){
                 if ( bbn.fn.defaultHistoryFunction(state) ){
                   bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
                 }
                 else{
-                  if ( $.isFunction(state.data.script) ){
+                  if ( bbn.fn.isFunction(state.data.script) ){
                     state.data.script();
                   }
                 }
               }
             }
-	          return false;
-	        });
+            return false;
+          });
         }
         bbn.env.isInit = true;
       }

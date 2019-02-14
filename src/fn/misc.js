@@ -1,14 +1,14 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   $.extend(bbn.fn, {
 
     /**     MISC     */
 
-    isFunction: function() {
+    isFunction() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( {}.toString.apply(a) !== '[object Function]' ){
@@ -18,7 +18,7 @@
       return true;
     },
 
-    isNumber: function() {
+    isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( isNaN(a) ){
@@ -28,7 +28,7 @@
       return true;
     },
 
-    isArray: function() {
+    isArray() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( {}.toString.apply(a) !== '[object Array]' ){
@@ -38,7 +38,7 @@
       return true;
     },
 
-    isDate: function() {
+    isDate() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( {}.toString.apply(a) !== '[object Date]' ){
@@ -48,7 +48,7 @@
       return true;
     },
 
-    isObject: function() {
+    isObject() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( {}.toString.apply(a) !== '[object Object]' ){
@@ -58,7 +58,7 @@
       return true;
     },
 
-    isNull: function() {
+    isNull() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( {}.toString.apply(a) !== '[object Null]' ){
@@ -69,7 +69,7 @@
     },
 
     /* Returns true if value is not an object and is basically a value wich can be written as is in a DB or a file */
-    isValue: function() {
+    isValue() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( (typeof a === 'object') && !bbn.fn.isNull(a) ){
@@ -79,7 +79,7 @@
       return true;
     },
 
-    isDom: function(){
+    isDom(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof Element) ){
@@ -89,7 +89,7 @@
       return true;
     },
 
-    isjQuery: function(){
+    isjQuery(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof jQuery) ){
@@ -99,7 +99,7 @@
       return true;
     },
 
-    isVue: function(){
+    isVue(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof Vue) ){
@@ -109,7 +109,7 @@
       return true;
     },
 
-    isPercent: function(){
+    isPercent(){
       if ( !arguments.length ) return false;
       for ( let a of arguments ){
         if ( (typeof a !== 'string') || !a.match(/^\d+(?:\.\d+)?%$/) ){
@@ -119,7 +119,7 @@
       return true;
     },
 
-    isURL: function(str){
+    isURL(str){
       let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
@@ -129,7 +129,7 @@
       return pattern.test(str);
     },
 
-    timestamp: function(seconds){
+    timestamp(seconds){
       var r = (new Date()).getTime();
       return seconds ? r*1000 : r;
     },
@@ -143,7 +143,7 @@
     },
 
     // Logging function
-    log: function(opt){
+    log(opt){
       if ( window.console !== undefined ){
         let args = bbn.fn.getArguments(arguments),
             cfg,
@@ -213,7 +213,7 @@
       return this;
     },
 
-    stat: function(returnStat){
+    stat(returnStat){
       return;
       if ( bbn.env.logging ){
         var logs = bbn.var.loggers;
@@ -262,12 +262,12 @@
       }
     },
 
-    tagName: function(element){
+    tagName(element){
       var p = $(element).prop("tagName");
       return p ? p.toLowerCase() : false;
     },
 
-    getAttributes: function(element){
+    getAttributes(element){
       var attr = {};
       $(element).each(function() {
         $.each(this.attributes, function() {
@@ -281,7 +281,7 @@
       return attr;
     },
 
-    getPath: function(element){
+    getPath(element){
       var path,
           node = $(element),
           done = false;
@@ -328,7 +328,7 @@
      * @param res
      * @returns {JQueryDeferred<T>}
      */
-    makeDeferred: function(res, timeout){
+    makeDeferred(res, timeout){
       var deferred = $.Deferred();
       setTimeout(function(){
         deferred.resolve(res);
@@ -336,7 +336,7 @@
       return deferred;
     },
 
-    wait_for_script: function(varname, fn, force){
+    wait_for_script(varname, fn, force){
       // 50 = 10 seconds max
       var myvar = eval(varname);
       if ( force || (myvar === undefined) ){
@@ -350,7 +350,7 @@
       });
     },
 
-    setCookie: function(name, value, days){
+    setCookie(name, value, days){
       let expires = "";
       if ( days ){
         let date = new Date();
@@ -361,7 +361,7 @@
       document.cookie = name + "=" + st + expires + "; path=/";
     },
 
-    getCookie: function(name){
+    getCookie(name){
       let nameEQ = name + "=";
       let ca = document.cookie.split(';');
       for ( let i = 0; i < ca.length; i++ ){
@@ -379,7 +379,7 @@
       return null;
     },
 
-    eraseCookie: function(name){
+    eraseCookie(name){
       document.cookie = name+'=; Max-Age=-99999999;';
     }
   })

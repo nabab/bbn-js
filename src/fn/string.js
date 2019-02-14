@@ -22,7 +22,7 @@
      * @param mixed
      * @returns string
      */
-    uniqString: function(){
+    uniqString(){
       var st = '';
       for ( var i = 0; i < arguments.length; i++ ){
         if ( typeof(arguments[i]) === 'object' ){
@@ -49,8 +49,8 @@
      * @param mixed st
      * @returns string
      */
-    md5: function(st){
-      if ( $.isFunction(window.md5) ){
+    md5(st){
+      if ( bbn.fn.isFunction(window.md5) ){
         return md5(st);
       }
       throw new Error("The function md5 is not defined");
@@ -66,7 +66,7 @@
      * @param string str
      * @returns {XML|void|string}
      */
-    escapeRegExp: function(str){
+    escapeRegExp(str){
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     },
 
@@ -84,7 +84,7 @@
      * @param int decimals The number of decimals
      * @returns {number}
      */
-    roundDecimal: function(value, decimals){
+    roundDecimal(value, decimals){
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
     },
 
@@ -99,7 +99,7 @@
      * @param rgb
      * @returns {string}
      */
-    rgb2hex: function(rgb){
+    rgb2hex(rgb){
       rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
       return (rgb && rgb.length === 4) ? "#" +
         ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
@@ -112,7 +112,7 @@
      * @param str
      * @returns {XML|void|string}
      */
-    camelize: function(str){
+    camelize(str){
       return str.replace('/^([A-Z])|[\\s-_](\\w)/g', function(match, p1, p2, offset){
         if ( p2 ){
           return p2.toUpperCase();
@@ -126,7 +126,7 @@
      * @param str
      * @returns {XML|string}
      */
-    camelToCss: function(str){
+    camelToCss(str){
       return str.replace('/([A-Z])/g', function(st){
         return '-' + st.toLowerCase();
       }).replace('/^./', function(st){
@@ -147,7 +147,7 @@
      * @returns {number}
      */
     // @return {integer} a random int between min and max
-    randomInt: function(min, max){
+    randomInt(min, max){
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
 
@@ -163,7 +163,7 @@
      * @param string chars Characters used in the string
      * @returns {string}
      */
-    randomString: function(min, max, types){
+    randomString(min, max, types){
       var length,
           type,
           chars = {
@@ -199,7 +199,7 @@
       return result;
     },
 
-    isEmail: function(st){
+    isEmail(st){
       var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       return regex.test(st);
     },
@@ -218,7 +218,7 @@
      * @param st
      * @returns boolean
      */
-    isColor: function(st){
+    isColor(st){
       var reg = new RegExp('^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|rgba *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$', 'i');
       return reg.test(st);
     },
@@ -236,14 +236,14 @@
      * @param string st The value to check
      * @returns boolean
      */
-    isDimension: function(st){
+    isDimension(st){
       if ( typeof(st) === 'number' ){
         return 1;
       }
       if ( (typeof(st) === 'string') &&
         (st.length > 0) && (
-        (st.indexOf('calc') === 0 ) ||
-        (!isNaN(st.substr(0,1))) ) ){
+          (st.indexOf('calc') === 0 ) ||
+          (!isNaN(st.substr(0,1))) ) ){
         var el = document.createElement('div'),
             style = el.style;
         style.width = st;
@@ -267,7 +267,7 @@
      * @param obj
      * @returns {boolean}
      */
-    isEmpty: function(obj){
+    isEmpty(obj){
       if ( !obj ){
         return true;
       }
@@ -295,7 +295,7 @@
      * @param int len The number of characters to take from the string
      * @returns string
      */
-    shorten: function(st, len){
+    shorten(st, len){
       if ( typeof(st).toLowerCase() === 'string' ){
         if ( !len ){
           len = bbn.var.shortenLen;
@@ -321,7 +321,7 @@
      * @param str The string
      * @returns string
      */
-    replaceAll: function(find, replace, str){
+    replaceAll(find, replace, str){
       if ( str !== undefined ){
         return str.toString().replace(new RegExp(bbn.fn.escapeRegExp(find), 'g'), replace);
       }
@@ -341,7 +341,7 @@
      * @param string st
      * @returns string
      */
-    remove_quotes: function(st){
+    remove_quotes(st){
       return bbn.fn.replaceAll('"', '&quot;', bbn.fn.replaceAll("'", "&#39;", st));
     },
 
@@ -356,7 +356,7 @@
      * @param string st
      * @returns string
      */
-    remove_nl: function(st){
+    remove_nl(st){
       return bbn.fn.replaceAll("\n", " ", st);
     },
 
@@ -370,7 +370,7 @@
      * @param string st
      * @returns string
      */
-    remove_all: function(st){
+    remove_all(st){
       return bbn.fn.remove_nl(bbn.fn.remove_quotes(st));
     },
 
@@ -387,7 +387,7 @@
      * @param string st
      * @returns string
      */
-    nl2br: function(st){
+    nl2br(st){
       return bbn.fn.replaceAll("\n", "<br>", st);
     },
 
@@ -404,7 +404,7 @@
      * @param string st
      * @returns string
      */
-    br2nl: function(st){
+    br2nl(st){
       return bbn.fn.replaceAll("<br />", "\n", bbn.fn.replaceAll("<br/>", "\n", bbn.fn.replaceAll("<br>", "\n", st)));
     },
 
@@ -420,7 +420,7 @@
      * @param string st
      * @returns string
      */
-    html2text: function(st){
+    html2text(st){
       var $test = $('<div/>').html(bbn.fn.br2nl(st)).appendTo(document.body);
       st = $test.text();
       $test.remove();
@@ -438,7 +438,7 @@
      * @param string st
      * @returns string
      */
-    removeAccents: function(st){
+    removeAccents(st){
       var m = bbn.var.defaultDiacriticsRemovalMap;
       st = bbn.fn.stringify(st);
       for(var i=0; i < m.length; i++ ){
@@ -460,12 +460,12 @@
      * @param cent
      * @returns {number}
      */
-    percent: function(percent, cent){
+    percent(percent, cent){
       return (cent/100) * percent;
     },
 
     /** Returns the parent directory from a path */
-    dirName: function(path){
+    dirName(path){
       var bits = path.split("/");
       if ( bits.length < 2 ){
         return false;
@@ -475,12 +475,12 @@
     },
 
     /** Returns the basename of a file or a dir out of a path */
-    baseName: function(path){
+    baseName(path){
       var bits = path.split("/");
       return bits.pop();
     },
 
-    printf: function(format){
+    printf(format){
       var args = Array.prototype.slice.call(arguments, 1);
       return format.replace(/{(\d+)}/g, function(match, number) {
         return typeof args[number] != 'undefined'

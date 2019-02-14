@@ -23,7 +23,33 @@
       numsigns: [109, 110, 189, 190]
     },
     comparators: [">=", "<=", ">", "<", "="],
-    operators: ["+", "-", "/", "*"]
+    operators: ["+", "-", "/", "*"],
+    colors: {
+      black: '#454545',
+      orange: '#FF9900',
+      red: '#DB3340',
+      green: '#00A03E',
+      blue: '#6E9ECF',
+      yellow: '#FDF200',
+      white: '#FDFDFD',
+      purple: '#A333C8',
+      grey: '#D3D3D3',
+      brown: '#8C6954',
+      olive: '#92B06A',
+      pink: '#EB65A0',
+      turquoise: '#1FDA9A',
+      cyan: '#00C8F8',
+      navy: '#354458',
+      darkgrey: '#5A6A62',
+      lightgrey: '#DCDCDC',
+      teal: '#009688',
+      indigo: '#3F51B5',
+      palegreen: '#CCFFCC',
+      pastelgreen: '#E2EFDA',
+      pastelorange: '#FFF2CC',
+      pastelblue: '#DDEBF6',
+      webblue: '#2196F3'
+    }
   };
 
 })(jQuery, bbn);

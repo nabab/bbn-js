@@ -2,7 +2,7 @@
  * Created by BBN on 10/02/2017.
  */
 // jshint esversion: 6
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   /**     OBJECTS AND ARRAYS    */
@@ -523,7 +523,7 @@
           for ( let n in arguments[i] ){
             if ( (typeof(r[n]) === 'object') &&
               (typeof(arguments[i][n]) === 'object') &&
-              !$.isFunction(r[n]) &&
+              !bbn.fn.isFunction(r[n]) &&
               !Array.isArray(r[n]) &&
               !Array.isArray(arguments[i][n])
             ){

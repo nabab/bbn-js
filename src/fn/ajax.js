@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   axios.defaults.headers.post['Content-Type'] = 'text/json';
@@ -10,57 +10,122 @@
 
     /**     AJAX    */
 
-    ajax(url, datatype, data, id, success, failure){
-      if ( id ){
+    getLoader(url){
+      let idx = bbn.fn.search(bbn.env.loaders, {url: url});
+      if ( idx > -1 ){
+        return bbn.env.loaders[idx];
+      }
+      return false;
+    },
+
+    _deleteLoader(url, res, isAbort){
+      let idx = bbn.fn.search(bbn.env.loaders, {url: url});
+      if ( idx > -1 ){
+        let loader = bbn.env.loaders.splice(idx, 1)[0];
+        let history = bbn.fn.get_row(bbn.env.loadersHistory, {url: url, start: loader.start});
+        if ( history ){
+          history.loading = false;
+          history.duration = (new Date()).getTime() - loader.start;
+          if ( typeof res === 'string' ){
+            history.errorMessage = res;
+            history.error = !isAbort;
+            history.abort = isAbort;
+
+          }
+          else if ( bbn.fn.isObject(res) ){
+            history.success = true;
+          }
+        }
+        return true;
+      }
+      return false;
+    },
+
+    _addLoader(url, loader, source){
+      let tst = (new Date()).getTime()
+      bbn.env.loaders.push({
+        url: url,
+        loader: loader,
+        source: source,
+        start: tst
+      });
+      bbn.env.loadersHistory.unshift({
+        url: url,
+        loading: true,
+        start: tst,
+        error: false,
+        abort: false,
+        errorMessage: false,
+        success: false
+      });
+      while ( bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory ){
+        bbn.env.loadersHistory.pop();
+      }
+      return tst;
+    },
+
+    ajax(url, datatype, data, success, failure, abort){
+      if ( url ){
         if ( !datatype ){
           datatype = 'json';
         }
-        if ( bbn.env.loaders[id] ){
-          return bbn.env.loaders[id];
+        if ( bbn.fn.getLoader(url) ){
+          return false;
         }
-        bbn.fn.defaultStartLoadingFunction(url, id, data);
+        if ( bbn.env.token ){
+          $.extend(data || {}, {_bbn_token: bbn.env.token});
+        }
+        let CancelToken = axios.CancelToken;
+        let source = CancelToken.source();
+        let loader = axios
+          .post(url, (typeof(data) !== 'object') ? {} : data, {
+            responseType: datatype,
+            cancelToken: source.token
+          })
+          .then((res) => {
+            bbn.fn._deleteLoader(url, res);
+            bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
+            if ( bbn.fn.isFunction(success) ){
+              success(res.data);
+            }
+            return res;
+          })
+          .catch((err) => {
+            let isAbort = axios.isCancel(err);
+            bbn.fn._deleteLoader(url, err.message || err.response.data, isAbort);
+            bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
+            if ( isAbort ){
+              let ok = 1;
+              if ( bbn.fn.isFunction(abort) ){
+                ok = abort(err.message, url);
+              }
+              if ( ok ){
+                bbn.fn.defaultAjaxAbortFunction(err.message, url);
+              }
+            }
+            else{
+              let ok = 1;
+              if ( bbn.fn.isFunction(failure) ){
+                ok = failure(err.request, err);
+              }
+              if ( ok ){
+                bbn.fn.defaultAjaxErrorFunction(err.request, err.response ? err.response.data : '', err.response ? err.response.status : err);
+              }
+            }
+          });
+        let tst = bbn.fn._addLoader(url, loader, source);
+        bbn.fn.defaultStartLoadingFunction(url, tst, data);
+        return loader;
       }
-      else if ( !datatype ){
-        datatype = 'text';
-      }
+    },
 
-      if ( bbn.env.token ){
-        $.extend(data || {}, {_bbn_token: bbn.env.token});
+    abort(url){
+      let loader = bbn.fn.getLoader(url);
+      bbn.fn.log(url);
+      if ( loader ){
+        bbn.fn.log("FOUND!");
+        loader.source.cancel('Operation canceled by the user.');
       }
-      let request = axios
-        .post(url, (typeof(data) !== 'object') ? {} : data, {responseType: datatype})
-        .then(function(res){
-          if ( id ){
-            bbn.fn.defaultEndLoadingFunction(url, id, data, res);
-            if ( bbn.env.loaders[id] ){
-              delete bbn.env.loaders[id];
-            }
-          }
-          if ( $.isFunction(success) ){
-            success(res.data);
-          }
-          return res;
-        })
-        .catch(function(err){
-          bbn.fn.log("ERR", err.request, err.response.data, err.response.status, err.response.headers);
-          if ( id ){
-            bbn.fn.defaultEndLoadingFunction(url, id, data, err);
-            if ( bbn.env.loaders[id] ){
-              delete bbn.env.loaders[id];
-            }
-          }
-          let ok = 1;
-          if ( bbn.fn.isFunction(failure) ){
-            ok = failure(err.request, err.response.data, err.response.status);
-          }
-          if ( ok ){
-            bbn.fn.defaultAjaxErrorFunction(err.request, err.response.data, err.response.status);
-          }
-        });
-      if ( id ){
-        bbn.env.loaders[id] = request;
-      }
-      return request;
     },
 
     /*
@@ -117,6 +182,9 @@
         }, 0)
         return false;
       }
+      if ( bbn.fn.getLoader(cfg.url) ){
+        return false;
+      }
       /* Opens an external page in a new window */
       if ( ((cfg.url.indexOf("http://") === 0) || (cfg.url.indexOf("https://") === 0)) &&
         (cfg.url.indexOf(bbn.env.host) !== 0) ){
@@ -143,22 +211,27 @@
           if ( ok !== 1 && (typeof ok === 'string') ){
             cfg.url = ok;
           }
-          id = bbn.fn.uniqString(cfg.url, cfg.obj ? cfg.obj : {});
-          return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, id, function(res){
-            if ( res && res.new_url ){
-              res.old_path = cfg.url;
-              cfg.url = res.new_url;
+          /** todo Do we keep obj in the unique string or do we make that only one concurrent connection to the same address can occur at the same time? */
+          let errSt = bbn._("The Ajax call to") + ' ' + cfg.url + ' ';
+          return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, function(res){
+            if ( !res ){
+              bbn.fn.log(errSt + bbn._("returned no answer"));
             }
-            else if ( res.url && (cfg.url !== res.url) ){
-              res.old_path = cfg.url;
-            }
-            // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
-            if ( (typeof(res) === 'object') && (Object.keys(res).length === 0) ){
-              return;
+            if ( bbn.fn.isObject(res) ){
+              // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
+              if ( (Object.keys(res).length === 0) ){
+                bbn.fn.log(errSt + bbn._("returned an empty object"));
+              }
+              if ( res.new_url ){
+                res.old_path = cfg.url;
+                cfg.url = res.new_url;
+              }
+              else if ( res.url && (cfg.url !== res.url) ){
+                res.old_path = cfg.url;
+              }
             }
             if (
               bbn.fn.callback(cfg.url, res, cfg.successFn, null, cfg.ele) &&
-              res &&
               res.noNav === undefined
             ){
               // This solution is not very clean (we can't shorten a URL)
@@ -180,7 +253,7 @@
           type;
       $.each(arguments, function(i, v){
         if ( i > 0 ){
-          if ( $.isFunction(v) ){
+          if ( bbn.fn.isFunction(v) ){
             fn = v;
           }
           else{
@@ -203,18 +276,12 @@
         var type2 = (typeof(d)).toLowerCase();
         if ( type2 === 'string' ){
           bbn.fn.popup(d, "Returned...", w ? w : "auto", h ? h : "auto", function(ele){
-            bbn.fn.callback(url, d, false, false, ele);
-            if ( $.isFunction(fn) ){
-              eval(fn(ele, d));
-            }
+            bbn.fn.callback(url, d, fn, false, ele);
           });
         }
         if ( (type2 === 'object') && d.content){
           bbn.fn.popup(d.content, d.title ? d.title : ' ', w ? w : "auto", h ? h : "auto", function(ele){
-            bbn.fn.callback(url, d, false, false, ele);
-            if ( $.isFunction(fn) ){
-              eval(fn(ele, d));
-            }
+            bbn.fn.callback(url, d, fn, false, ele);
           });
         }
       });
@@ -249,7 +316,7 @@
           }
         }
         if ( tmp && isObj && res.script ){
-          if ( $.isFunction(res.script) ){
+          if ( bbn.fn.isFunction(res.script) ){
             tmp = res.script(res.data ? res.data : {}, ele ? ele : false);
           }
           else{
@@ -380,16 +447,14 @@
     post(){
       let change = false,
           i,
-          id,
           cfg = bbn.fn.treat_vars(arguments);
       if ( cfg.obj.bbn_data_checker === undefined ){
         change = 1;
       }
       if ( change && cfg.url ){
-        id = bbn.fn.uniqString(cfg.url, cfg.obj);
-        return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, id, (res) => {
-          bbn.fn.callback(cfg.url, res, cfg.successFn || null, false, cfg.ele || null);
-        }, cfg.errorFn || null);
+        return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, (res) => {
+          bbn.fn.callback(cfg.url, res, cfg.successFn, false, cfg.ele);
+        }, cfg.errorFn, cfg.abortFn);
       }
     },
 
@@ -398,7 +463,10 @@
       for (i = 0; i < args.length; i++ ){
         t = typeof (args[i]);
         /* Callbacks */
-        if ( $.isFunction(args[i]) ){
+        if ( bbn.fn.isFunction(args[i]) ){
+          if ( cfg.errorFn && !cfg.abortFn ){
+            cfg.abortFn = args[i];
+          }
           if ( cfg.successFn && !cfg.errorFn ){
             cfg.errorFn = args[i];
           }
@@ -463,7 +531,7 @@
       if ( !num ){
         num = 1;
       }
-      var i = $.inArray(param, bbn.env.params),
+      var i = bbn.env.params.indexOf(param),
           res = '';
       if ( i > -1 ){
         for ( var a = 1; a <= num; a++ ){

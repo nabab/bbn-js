@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   bbn.fn = {
@@ -9,49 +9,59 @@
     /**     DEFAULT CUSTOMIZABLE FUNCTIONS    */
 
     /* Predefined callback functions for bbn.fn.link function */
-    defaultAjaxErrorFunction: function(jqXHR, textStatus, errorThrown){
-      bbn.fn.log(textStatus);
+    defaultAjaxErrorFunction(jqXHR, textStatus, errorThrown){
+      bbn.fn.log(textStatus, errorThrown);
     },
 
-    defaultPreLinkFunction: function(url, ele){
-      //bbn.fn.log(r);
+    defaultAjaxAbortFunction(message, url){
+      bbn.fn.log(message);
+    },
+
+    defaultPreLinkFunction(url, ele){
       return true;
     },
 
-    defaultLinkFunction: function(responseObj, ele){
-      //bbn.fn.log(r);
+    defaultLinkFunction(responseObj, ele){
       return true;
     },
 
-    defaultPostLinkFunction: function(r){
-      //bbn.fn.log(r);
+    defaultPostLinkFunction(r){
       return true;
     },
 
-    defaultStartLoadingFunction: function (url, id, data ){
-      //bbn.fn.log(id, url, data);
+    defaultStartLoadingFunction(url, data){
       return true;
     },
 
-    defaultEndLoadingFunction: function (url, id, data, res ){
-      //bbn.fn.log(uniq, url, data);
+    defaultEndLoadingFunction(url, data, res){
       return true;
     },
 
-    defaultHistoryFunction: function(obj){
-      //bbn.fn.log(obj);
+    defaultHistoryFunction(obj){
       return true;
     },
 
-    defaultResizeFunction: function(){
-      //bbn.fn.log(r);
+    defaultResizeFunction(){
       return true;
     },
 
-    defaultAlertFunction: function(text, title){
+    defaultAlertFunction(text, title){
       alert(text);
       return true;
     },
+
+    defaultConfirmFunction(text, yesFn, noFn){
+      let ok = 0;
+      if ( confirm(text) ){
+        if ( bbn.fn.isFunction(yesFn) ){
+          yesFn();
+          ok = 1;
+        }
+      }
+      if ( !ok && bbn.fn.isFunction(noFn) ){
+        noFn();
+      }
+    }
   };
 
 })(jQuery, bbn);

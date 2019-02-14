@@ -28,7 +28,7 @@
       for ( var i = 0; i < arguments.length; i++ ){
         args.push(arguments[i]);
       }
-      if ( bbn && bbn.fn && $.isFunction(bbn.fn[fnName]) ){
+      if ( bbn && bbn.fn && bbn.fn.isFunction(bbn.fn[fnName]) ){
         return this.each(function (){
           var args2 = args.slice();
           args2.splice(0, 1, $(this));

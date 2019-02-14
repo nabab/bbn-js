@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   $.extend(bbn.fn, {
@@ -9,7 +9,7 @@
     /**     FORMS     */
 
     /* Adds inputs to a form, respecting the data structure */
-    add_inputs: function(form, params, prefix){
+    add_inputs(form, params, prefix){
       let name,
           appendToForm = function(form, name, val){
             form.append($("<input>").attr({
@@ -30,20 +30,20 @@
               const tempName = `${name}[${i}]`;
               if ( typeof e === 'object' ){
                 bbn.fn.add_inputs(form, e, tempName);
-              } 
+              }
               else {
                 appendToForm(form, tempName, e.toString());
               }
             });
           }
-          else if ( 
-            (typeof params[param] === 'object') && 
-            !(params[param] instanceof File) 
+          else if (
+            (typeof params[param] === 'object') &&
+            !(params[param] instanceof File)
           ){
             bbn.fn.add_inputs(form, params[param], name);
           }
           else {
-            appendToForm(form, name, params[param].toString());            
+            appendToForm(form, name, params[param].toString());
           }
         }
       }
@@ -70,7 +70,7 @@
       }
     },*/
 
-    cancel: function(form, e){
+    cancel(form, e){
       if ( e ){
         e.preventDefault();
       }
@@ -91,11 +91,11 @@
       bbn.fn.log("CANCEL", obj);
     },
 
-    reset: function(form, e){
+    reset(form, e){
       $(form).data("bbnSubmit", null);
     },
 
-    submit: function(form, e){
+    submit(form, e){
       var $form = $(form),
           url = $form.attr("action") || bbn.env.path,
           data;
@@ -111,7 +111,7 @@
           $form.attr("action", null);
           $form.data("bbnSubmit", 1);
           var script = $form.data("script");
-          if ( $.isFunction(script) ){
+          if ( bbn.fn.isFunction(script) ){
             $form.data("script", function(d){
               $form.attr("action", url);
               script(d);
@@ -127,7 +127,7 @@
       }
     },
 
-    setInitialValues: function(ele, force){
+    setInitialValues(ele, force){
       // Keeping the original values in a data attached to the element
       $(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)", ele).each(function(){
         var $$ = $(this),
@@ -141,7 +141,7 @@
       });
     },
 
-    formupdated: function(form){
+    formupdated(form){
       var res = true,
           $f = $(form),
           data = bbn.fn.formdata($f),
@@ -156,7 +156,7 @@
       return res;
     },
 
-    fieldValue: function(field){
+    fieldValue(field){
       var $f = $(field),
           v;
       if ( $f.is(":checkbox") ){
@@ -181,7 +181,7 @@
       return v;
     },
 
-    formdata: function(form){
+    formdata(form){
       var $f = $(form),
           // inputs with a name
           $inputs = $f.find(":input").filter("[name]"),
@@ -240,7 +240,7 @@
       return res;
     },
 
-    formChanges: function(form){
+    formChanges(form){
       var $f = $(form),
           // inputs with a name
           $inputs = $f.find(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)"),

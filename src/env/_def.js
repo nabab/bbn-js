@@ -34,7 +34,9 @@
      *  @var bbn.env.loaders Object where the props are MD5 of data and url while the values are the requests,
      *  for preventing the same call to be made at the same time
      **/
-    loaders: {},
+    loaders: [],
+    loadersHistory: [],
+    maxLoadersHistory: 20,
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
     params: [],

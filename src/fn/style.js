@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   $.extend(bbn.fn, {
@@ -22,6 +22,27 @@
       ele.css("top", Math.max(0, ((h - ele.outerHeight()) / 2) + parent.scrollTop()) + "px");
       ele.css("left", Math.max(0, ((w - ele.outerWidth()) / 2) + parent.scrollLeft()) + "px");
       return ele;
+    },
+
+    addColors(colors){
+      let st = '';
+      if ( bbn.fn.numProperties(colors) ){
+        if ( !bbn.var.colors ){
+          bbn.var.colors = {};
+        }
+        let element = document.createElement('style');
+        document.head.appendChild(element);
+        let sheet = element.sheet;
+        // Append style element to head
+        let i = 0;
+        bbn.fn.iterate(colors, (v, n) => {
+          bbn.var.colors[n] = v;
+          sheet.insertRule('.bbn-' + n + '{color: ' + v + ' !important;}', i);
+          i++;
+          sheet.insertRule('.bbn-bg-' + n + '{background-color: ' + v + ' !important;}', i);
+          i++;
+        });
+      }
     },
 
     cssExists(f ){
@@ -48,21 +69,6 @@
         }
       }
       return false;
-    },
-
-    styleFromSelector(selector){
-      function getStyle(className) {
-        let css = document.styleSheets,
-            res = {};
-        for ( let i = 0; i < css.length; i++ ){
-          var classes = css[i].rules || css[i].cssRules;
-          for (var x = 0; x < classes.length; x++) {
-            if (classes[x].selectorText == selector) {
-              (classes[x].cssText) ? alert(classes[x].cssText) : alert(classes[x].style.cssText);
-            }
-          }
-        }
-      }
     },
 
     animateCss(ele, animationName, callback ){

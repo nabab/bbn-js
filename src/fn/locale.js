@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(($, bbn) => {
   "use strict";
 
   $.extend(bbn.fn, {
@@ -157,13 +157,10 @@
       return false;
     },
 
-    fdate: function(d, wrong_result){
+    fdate(d, wrong_result){
       let r = bbn.fn.date(d);
-      if ( !r ){
-        return wrong_result && !$.isNumeric(wrong_result) ? wrong_result : '';
-      }
-      if ( wrong_result === 1 ){
-        return
+      if ( !bbn.fn.isDate(r) ){
+        return wrong_result && !bbn.fn.isNumber(wrong_result) ? wrong_result : '';
       }
       if ( r.isSame && r.isSame(new Date()) ){
         r = r.getHours() + ':' + r.getMinutes();
@@ -173,7 +170,7 @@
         return r;
       }
       if ( window.moment ){
-        return moment(r).calendar();
+        return moment(r).format("DD/MM/YYYY");
       }
       return r.toLocaleDateString()
     },
