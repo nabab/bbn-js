@@ -91,28 +91,28 @@
       return bbn.env.scrollBarSize;
     },
 
-    adjustHeight(ele){
+    adjustHeight(){
       let maxH = 0,
           idx,
           args = arguments;
       if ( (args.length === 1) && bbn.fn.isArray(args[0]) ){
         args = args[0];
       }
-      $.each(args, (i, el) => {
-        let h = $(el).height();
+      bbn.fn.each(args, (el, i) => {
+        let h = el.clientHeight;
         if ( h > maxH ){
           maxH = h;
           idx = i;
         }
       });
-      $.each(args, (i, el) => {
+      bbn.fn.each(args, (el, i) => {
         if ( maxH && (i !== idx) ){
-          $(el).height(maxH);
+          el.style.height = maxH + 'px';
         }
       });
     },
 
-    adjustWidth(ele){
+    adjustWidth(){
       let maxW = 0;
       $.each(arguments, (i, el) => {
         let w = $(el).width();
@@ -125,6 +125,19 @@
           $(el).width(maxW);
         }
       });
+    },
+
+    getScrollParent(node) {
+      if ( node == null ){
+        return null;
+      }
+    
+      if ( node.clientHeight && (node.scrollHeight > node.clientHeight) ){
+        return node;
+      }
+      else {
+        return bbn.fn.getScrollParent(node.parentNode);
+      }
     }
   })
 

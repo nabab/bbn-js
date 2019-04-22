@@ -28,6 +28,16 @@
       return true;
     },
 
+    isString() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( typeof a !== 'string' ){
+          return false
+        }
+      }
+      return true;
+    },
+
     isArray() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -381,6 +391,32 @@
 
     eraseCookie(name){
       document.cookie = name+'=; Max-Age=-99999999;';
+    },
+
+    calculateHeight(element){
+      const oldVis = element.style.visibility;
+      element.style.visibility = 'hidden';
+      const oldDisp = element.style.display;
+      if ( oldDisp === 'none' ){
+        element.style.display = 'block';
+      }
+      const width = getComputedStyle(element).width;
+      const oldWidth = element.style.width;
+      const oldHeight = element.style.height;
+      const oldPos = element.style.position;
+      element.style.width = width;
+      element.style.position = 'absolute';
+      element.style.height = 'auto';
+      const height = getComputedStyle(element).height;
+      element.style.width = oldWidth || null;
+      element.style.position = oldPos || null;
+      element.style.visibility = oldVis || null;
+      element.style.display = oldDisp || null;
+      element.style.height = oldHeight || null;
+      // Force repaint to make sure the
+      // animation is triggered correctly.
+      getComputedStyle(element).height;
+      return height;
     }
   })
 

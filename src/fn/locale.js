@@ -162,13 +162,6 @@
       if ( !bbn.fn.isDate(r) ){
         return wrong_result && !bbn.fn.isNumber(wrong_result) ? wrong_result : '';
       }
-      if ( r.isSame && r.isSame(new Date()) ){
-        r = r.getHours() + ':' + r.getMinutes();
-        if ( r === '0:00' ){
-          r = bbn.lng.today;
-        }
-        return r;
-      }
       if ( window.moment ){
         return moment(r).format("DD/MM/YYYY");
       }

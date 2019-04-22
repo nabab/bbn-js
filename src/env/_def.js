@@ -4,26 +4,23 @@
 ;(function(window, $){
   "use strict";
 
-  var $window = $(window);
   bbn.env = {
-    siteTitle: $("title:first").text(),
+    siteTitle: window.document.title,
     /* This variable should be set to true in debugging mode only */
     logging: false,
     /* Address of the CDN (where this file should be hosted) */
     cdn: 'http://cdn.app-ui.com/',
     /* Default language */
     lang: 'en',
-    body: $(document.body),
-    win: $window,
     host: window.location.protocol + '//' + window.location.hostname,
     url: window.location.href,
     old_path: null,
     /* True when non asynchronous Ajax loads */
     loading: false,
     /* Window width */
-    width: $window.width(),
+    width: window.innerWidth,
     /* Window height */
-    height: $window.height(),
+    height: window.innerHeight,
     /* Element currently focused (jQuery object) */
     focused: false,
     /* Last time user has been active */

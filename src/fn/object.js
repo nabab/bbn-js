@@ -191,15 +191,19 @@
         case "endi":
         case "iends":
         case "iend":
-          return v1.indexOf(v2) === v1.length - v2.length;
+          return v1.lastIndexOf(v2) === v1.length - v2.length;
         case "like":
           return bbn.fn.removeAccents(v1).toLowerCase() === bbn.fn.removeAccents(v2).toLowerCase();
+        case "gt":
         case ">":
           return v1 > v2;
+        case "gte":
         case ">=":
           return v1 >= v2;
+        case "lt":
         case "<":
           return v1 < v2;
+        case "lte":
         case "<=":
           return v1 <= v2;
         case "isnull":
@@ -237,49 +241,45 @@
      * @returns int The index of the row
      */
     search(arr, prop, val, mode, startFrom){
-      if ( arr ){
-        var filter = {},
-            found,
-            isObj = bbn.fn.isObject(prop),
-            r = arr,
-            props = [];
-        /*
-        if ( typeof r === 'object' ){
-          props = Object.keys(r);
-          r = Object.values(r);
+      if ( !bbn.fn.isArray(arr) ){
+        throw new Error("Error in bbn.fn.filter: The first argument must be an array");
+      }
+      var filter = {},
+          isFn = bbn.fn.isFunction(prop),
+          isObj = bbn.fn.isObject(prop);
+      if ( !prop || !arr.length ){
+        return -1;
+      }
+      if ( isObj || isFn ){
+        let tmp = mode;
+        mode = val;
+        filter = prop;
+        startFrom = tmp;
+      }
+      else if ( typeof(prop) === 'string'){
+        filter[prop] = val;
+      }
+      else{
+        throw new Error("Search function error: The prop argument should be a string or an object");
+      }
+      if ( typeof(startFrom) !== 'number' ){
+        startFrom = 0;
+      }
+      else if ( (startFrom < 0) || (startFrom >= arr.length - 1) ){
+        return -1;
+      }
+      if ( isFn ){
+        for ( let i = startFrom; i < arr.length; i++ ){
+          if ( filter(arr[i]) ){
+            return i;
+          }
         }
-        */
-
-        if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
-          if ( isObj ){
-            let tmp = mode;
-            mode = val;
-            filter = prop;
-            startFrom = tmp;
-          }
-          else if ( typeof(prop) === 'string'){
-            filter[prop] = val;
-          }
-          else{
-            throw new Error("Search function error: The prop argument should be a string or an object");
-          }
-          if ( typeof(startFrom) !== 'number' ){
-            startFrom = 0;
-          }
-          else if ( (startFrom < 0) || (startFrom >= r.length - 1) ){
-            return -1;
-          }
-          for ( let i = startFrom; i < r.length; i++ ){
-            found = 1;
-            for ( var n in filter ){
-              if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
-                found = false;
-                break;
-              }
-            }
-            if ( found ){
-              return props.length ? props[i] : i;
-            }
+      }
+      else{
+        filter = bbn.fn.filterToConditions(filter);
+        for ( let i = startFrom; i < arr.length; i++ ){
+          if ( bbn.fn.compareConditions(arr[i], filter) ){
+            return i;
           }
         }
       }
@@ -300,48 +300,99 @@
       return r;
     },
 
-    // Filters an array based on object properties
-    filter(arr, prop, val, mode){
-      if ( bbn.fn.isArray(arr) ){
-        var found,
-            filter = {},
-            res = [],
-            isObj = typeof(prop) === 'object',
-            isFn = typeof(prop) === 'function',
-            r = typeof (arr.toJSON) === 'function' ? arr.toJSON() : arr;
-        if ( !prop ){
-          return arr;
+    compareConditions(data, filter){
+      if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
+        throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
+      }
+      let ok = filter.logic === 'AND' ? true : false;
+      bbn.fn.iterate(filter.conditions, (a) => {
+        let compare;
+        if ( a.conditions && a.filter && bbn.fn.isArray(a.conditions) ){
+          compare = bbn.fn.compareConditions(data, a);
         }
-        if ( typeof prop === 'function' ){
-          bbn.fn.each(arr, (a) => {
-            if ( prop(a) ){
-              res.push(a);
-            }
-          }) ;
-          return res;
+        else{
+          compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
         }
-        if ( Array.isArray(r) && r.length && (r[0]!== undefined) ){
-          if ( isObj ){
-            mode = val;
-            filter = prop;
+        if ( compare ){
+          if ( filter.logic === 'OR' ){
+            ok = true;
+            return false;
           }
-          else if ( typeof(prop) === 'string'){
-            filter[prop] = val;
+        }
+        else if ( filter.logic === 'AND' ){
+          ok = false;
+          return false;
+        }
+      });
+      return ok;
+    },
+
+    filterToConditions(filter, mode){
+      if ( !bbn.fn.isObject(filter) ){
+        throw new Error("Error in bbn.fn.filterToCondition: filter must be an object");
+      }
+      if ( !filter.conditions || !bbn.fn.isArray(filter.conditions) ){
+        let tmp = [];
+        bbn.fn.iterate(filter, (a, n) => {
+          if ( bbn.fn.isObject(a) && (typeof a.conditions === 'object') ){
+            tmp.push(bbn.fn.filterToConditions(a));
           }
           else{
-            throw new Error("Search function error: The prop argument should be a string or an object");
+            tmp.push({
+              field: n,
+              operator: mode || '=',
+              value: a
+            });
           }
-          for ( var i = 0; i < r.length; i++ ){
-            found = 1;
-            for ( var n in filter ){
-              if ( !bbn.fn.compare(bbn.fn.getProperty(r[i], n), filter[n], mode) ){
-                found = false;
-                break;
+        });
+        filter = {
+          conditions: tmp
+        };
+      }
+      if ( !filter.logic ){
+        filter.logic = 'AND';
+      }
+      return filter;
+    },
+
+    // Filters an array based on object properties
+    filter(arr, prop, val, mode){
+      if ( !bbn.fn.isArray(arr) ){
+        throw new Error("Error in bbn.fn.filter: The first argument must be an array");
+      }
+      var filter = {},
+          res = [],
+          isFn = bbn.fn.isFunction(prop),
+          isObj = bbn.fn.isObject(prop);
+      if ( !prop || !arr.length ){
+        return arr;
+      }
+      if ( arr.length ){
+        if ( isObj || isFn ){
+          mode = val;
+          filter = prop;
+        }
+        else if ( typeof(prop) === 'string'){
+          filter[prop] = val;
+        }
+        else{
+          throw new Error("Search function error: The prop argument should be a string or an object");
+        }
+        if ( isFn ){
+          bbn.fn.each(arr, (a) => {
+            if ( filter(a) ){
+              res.push(a);
+            }
+          })
+        }
+        else{
+          filter = bbn.fn.filterToConditions(filter, mode);
+          if ( filter.conditions && filter.logic ){
+            bbn.fn.each(arr, (a) => {
+              if ( bbn.fn.compareConditions(a, filter) ){
+                res.push(a);
               }
-            }
-            if ( found ){
-              res.push(r[i]);
-            }
+            });
           }
         }
         return res;
@@ -498,8 +549,8 @@
      *
      * ```javascript
      * var myObject = { age:39, name:'thomas', surname:'smith', children: { name:'john'} };
-     * bbn.fn.extend(myObject,{job : 'teacher'});
-     * // (object){age: 39, name: "thomas", surname: "smith", children: { name:'john'}, job: "teacher"}
+     * bbn.fn.extend(myObject,{name: 'alex', job : 'teacher'});
+     * return (object){age: 39, name: "alex", surname: "smith", children: { name:'john'}, job: "teacher"}
      * ```
      *
      * @param object The object to extend
@@ -508,6 +559,40 @@
      * ```
      */
     extend(){
+      let deep = false;
+      let args = [];
+      for ( let i = 0; i < arguments.length; i++ ){
+        if ( arguments[i] === true ){
+          deep = true;
+        }
+        else if ( !arguments[i] ){
+          continue;
+        }
+        else if ( typeof arguments[i] !== 'object' ){
+          throw new Error(bbn._("Error in bbn.fn.extend: all arguments should be object, you have given ") + typeof(arguments[i]));
+        }
+        else{
+          args.push(arguments[i]);
+        }
+      }
+      if ( !args.length ){
+        throw new Error("No argument given");
+      }
+      let out = args[0] || {};
+      for ( let i = 1; i < args.length; i++ ){
+        bbn.fn.iterate(args[i], (a, key) => {
+          if ( deep && (typeof a === 'object') && out[key] && (typeof out[key] === 'object') ){
+            out[key] = bbn.fn.extend(true, out[key], a)
+          }
+          else if ( out[key] !== a ){
+            out[key] = a;
+          }
+        });
+      }
+      return out;
+    },
+
+    extendOut(){
       let r = {};
       for ( let i = 0; i < arguments.length; i++ ){
         if ( typeof(arguments[i]) !== 'object' ){
@@ -527,7 +612,7 @@
               !Array.isArray(r[n]) &&
               !Array.isArray(arguments[i][n])
             ){
-              bbn.fn.extend(r[n], arguments[i][n]);
+              bbn.fn.extendOut(r[n], arguments[i][n]);
             }
             else if ( r[n] === undefined){
               r[n] = arguments[i][n];
@@ -706,15 +791,24 @@
         for ( var n in obj ){
           if ( (n.substr(0, 1) !== '_') && (!bbn.fn.isFunction(obj.hasOwnProperty) || obj.hasOwnProperty(n)) ){
             if ( fn(obj[n], n) === false ){
-              return;
+              return obj;
             }
           }
         }
       }
+      return obj;
     },
 
     clone(obj){
-      return JSON.parse(JSON.stringify(obj));
+      if ( bbn.fn.isArray(obj) ){
+        return obj.slice().map((a) => {
+          return typeof(a) === 'object' ? bbn.fn.clone(a) : a;
+        });
+      }
+      if ( bbn.fn.isObject(obj) ){
+        return bbn.fn.extend(true, {}, obj);
+      }
+      throw new Error(bbn._("Error in bbn.fn.clone: one cannot clone a non object"));
     },
 
     map(arr, fn, deepProp){

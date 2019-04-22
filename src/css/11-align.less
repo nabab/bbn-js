@@ -1,0 +1,41 @@
+/* centered */
+
+.bbn-c,
+.bbn-centered{
+  text-align:center;
+}
+/* justified */
+.bbn-j,
+.bbn-justified{
+  text-align:justify;
+}
+/* left */
+.bbn-l,
+.bbn-left{
+  text-align:left;
+}
+/* right */
+.bbn-r,
+.bbn-right{
+  text-align:right;
+}
+.bbn-middle{
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+}
+.bbn-hmiddle{
+  display:flex;
+  justify-content: center; /* Horizontal center alignment */
+}
+.bbn-vmiddle{
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+}
+.bbn-line-vmiddle{
+  line-height: 100%;
+  vertical-align: middle;
+  > *{
+    vertical-align: middle;
+  }
+}

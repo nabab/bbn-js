@@ -10,19 +10,23 @@
 
     /**     AJAX    */
 
-    getLoader(url){
-      let idx = bbn.fn.search(bbn.env.loaders, {url: url});
+    getLoader(idURL){
+      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if ( idx > -1 ){
         return bbn.env.loaders[idx];
       }
       return false;
     },
 
-    _deleteLoader(url, res, isAbort){
-      let idx = bbn.fn.search(bbn.env.loaders, {url: url});
+    _makeIdURL(url, data, datatype){
+      return url + bbn.fn.md5(datatype + (data ? JSON.stringify(data) : ''));
+    },
+
+    _deleteLoader(idURL, res, isAbort){
+      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if ( idx > -1 ){
         let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = bbn.fn.get_row(bbn.env.loadersHistory, {url: url, start: loader.start});
+        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
         if ( history ){
           history.loading = false;
           history.duration = (new Date()).getTime() - loader.start;
@@ -41,16 +45,18 @@
       return false;
     },
 
-    _addLoader(url, loader, source){
-      let tst = (new Date()).getTime()
+    _addLoader(idURL, loader, source){
+       let tst = (new Date()).getTime()
       bbn.env.loaders.push({
-        url: url,
+        key: idURL,
+        url: idURL.substr(0, idURL.length - 32),
         loader: loader,
         source: source,
         start: tst
       });
       bbn.env.loadersHistory.unshift({
-        url: url,
+        key: idURL,
+        url: idURL.substr(0, idURL.length - 32),
         loading: true,
         start: tst,
         error: false,
@@ -69,7 +75,8 @@
         if ( !datatype ){
           datatype = 'json';
         }
-        if ( bbn.fn.getLoader(url) ){
+        let idURL = this._makeIdURL(url, data, datatype);
+        if ( bbn.fn.getLoader(idURL) ){
           return false;
         }
         if ( bbn.env.token ){
@@ -77,13 +84,18 @@
         }
         let CancelToken = axios.CancelToken;
         let source = CancelToken.source();
-        let loader = axios
-          .post(url, (typeof(data) !== 'object') ? {} : data, {
-            responseType: datatype,
-            cancelToken: source.token
-          })
+        let options = {
+          responseType: datatype,
+          cancelToken: source.token
+        };
+        let args = [url];
+        if ( bbn.fn.isObject(data) && (bbn.fn.numProperties(data) > 0) ){
+          args.push(data);
+        }
+        args.push(options);
+        let loader = axios[args.length === 2 ? 'get' : 'post'].apply(axios, args)
           .then((res) => {
-            bbn.fn._deleteLoader(url, res);
+            bbn.fn._deleteLoader(idURL, res);
             bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
             if ( bbn.fn.isFunction(success) ){
               success(res.data);
@@ -92,7 +104,7 @@
           })
           .catch((err) => {
             let isAbort = axios.isCancel(err);
-            bbn.fn._deleteLoader(url, err.message || err.response.data, isAbort);
+            bbn.fn._deleteLoader(idURL, err.message || err.response.data, isAbort);
             bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
             if ( isAbort ){
               let ok = 1;
@@ -113,17 +125,20 @@
               }
             }
           });
-        let tst = bbn.fn._addLoader(url, loader, source);
+        let tst = bbn.fn._addLoader(idURL, loader, source);
         bbn.fn.defaultStartLoadingFunction(url, tst, data);
         return loader;
       }
     },
 
-    abort(url){
-      let loader = bbn.fn.getLoader(url);
-      bbn.fn.log(url);
+    abort(idURL){
+      let last = idURL.substr(-1);
+      /** @todo */
+      if ( last === '*' ){
+
+      }
+      let loader = bbn.fn.getLoader(idURL);
       if ( loader ){
-        bbn.fn.log("FOUND!");
         loader.source.cancel('Operation canceled by the user.');
       }
     },
@@ -448,6 +463,9 @@
       let change = false,
           i,
           cfg = bbn.fn.treat_vars(arguments);
+      if ( !bbn.fn.numProperties(cfg.obj) ){
+        cfg.obj = {bbn: true}
+      }
       if ( cfg.obj.bbn_data_checker === undefined ){
         change = 1;
       }

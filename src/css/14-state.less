@@ -1,0 +1,108 @@
+.bbn-state-default{
+  color: inherit;
+  background-color: inherit;
+  border-color: @active-border;
+}
+.bbn-state-default:hover:not(.bbn-disabled),
+.bbn-state-default.bbn-hover:not(.bbn-disabled),
+.bbn-state-default:hover:not(disabled){
+  color: @active-text;
+  .bbn-alt-background-effect-internal;
+  //background-color: @active-background;
+  border-color: @active-border;
+}
+.bbn-state-hover:not(:disabled){
+  .bbn-hover-background-internal;
+  .bbn-hover-text-internal;
+  .bbn-hover-border-internal;
+}
+.bbn-state-hover:not(.bbn-disabled){
+  .bbn-hover-background-internal;
+  .bbn-hover-text-internal;
+  .bbn-hover-border-internal;
+}
+
+.bbn-state-active{
+  background-color: @active-background;
+  border-color: @active-border;
+  color: @active-text;
+  //contrast(@active-background);
+}
+
+.bbn-state-active:hover:not(:disabled),
+.bbn-state-active:hover:not(.bbn-disabled){
+  .bbn-alt-background-effect-internal;
+}
+
+.bbn-state-error{
+  border-style: ridge;
+}
+.bbn-state-empty{
+  font-style: italic;
+}
+.bbn-state-focus{
+  .bbn-bordered-internal;
+  border-style: dotted;
+}
+
+.bbn-reactive:hover:not(.bbn-disabled),
+.bbn-reactive.bbn-hover:not(.bbn-disabled){
+  border-color: @hover-border;
+  color: @hover-text;
+}
+.bbn-reactive:hover:focus, .bbn-reactive.bbn-hover.bbn-focus{
+  border-color: @state-selected-border!important;
+}
+.bbn-reactive:active{
+  border-color: @active-border;
+}
+.bbn-reactive:hover:not(.bbn-disabled), .bbn-reactive.bbn-hover:not(.bbn-disabled){
+  background-color: @hover-background!important;
+}
+.bbn-reactive:active, .bbn-reactive.bbn-active{
+  .bbn-background-effect-primary-internal;
+  color: @hover-text;
+}
+.bbn-primary {
+  background: @primary-background;
+  color: @primary-text!important;
+  border-color: @primary-border;
+}
+.bbn-primary:hover:not(.bbn-disabled),.bbn-primary.bbn-hover:not(.bbn-disabled){
+  //background: @primary-background !important;
+  .bbn-background-effect-primary-internal;
+  color: @primary-text !important;
+  border-color: @primary-border;
+  text-shadow: 0 0 0.1em @primary-text;
+}
+.bbn-primary:active,.bbn-primary.bbn-active{
+  .bbn-background-effect-primary-internal;
+}
+.bbn-primary:disabled,.bbn-primary.bbn-disabled{
+  opacity: 0.7;
+  cursor: default !important;
+  outline: 0;
+}
+
+@media print{
+  .bbn-disabled,
+  .bbn-disabled *{
+    opacity: 1 !important;
+  }
+}
+
+:focus{
+  outline: 0;
+}
+.bbn-negative{
+  background-color: @default-text;
+  color: @default-background;
+}
+.bbn-unselectable{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

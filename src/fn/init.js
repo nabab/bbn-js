@@ -10,12 +10,9 @@
     init(cfg){
       let parts;
       if ( !bbn.env.isInit ){
-        if ( bbn.var.colors ){
-          bbn.fn.addColors(bbn.var.colors)
-        }
-        bbn.env.width = bbn.env.win.width();
-        bbn.env.height = bbn.env.win.height();
-        bbn.env.root = $("head base").length > 0 ? $("head base").attr("href") : bbn.env.host;
+        bbn.env.width = window.innerWidth;
+        bbn.env.height = window.innerHeight;
+        bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         /* The server's path (difference between the host and the current dir */
         bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
         parts = bbn.env.path.split("/");
@@ -27,6 +24,9 @@
         });
         if ( typeof (cfg) === 'object' ){
           $.extend(true, window.bbn, cfg);
+        }
+        if ( bbn.var.colors ){
+          bbn.fn.addColors(bbn.var.colors)
         }
         document.addEventListener("focus", function(e){
           bbn.env.focused = e.target;
