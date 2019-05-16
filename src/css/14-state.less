@@ -28,7 +28,14 @@
   color: @active-text;
   //contrast(@active-background);
 }
-
+.bbn-state-selected{
+  background-color: @state-selected-background;
+  border-color: @state-selected-border;
+  border-width: @default-border-width;
+  border-style: @default-border-style;
+  color: @state-selected-text;
+  //contrast(@active-background);
+}
 .bbn-state-active:hover:not(:disabled),
 .bbn-state-active:hover:not(.bbn-disabled){
   .bbn-alt-background-effect-internal;
