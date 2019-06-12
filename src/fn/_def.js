@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
   bbn.fn = {
@@ -64,4 +64,4 @@
     }
   };
 
-})(jQuery, bbn);
+})(bbn);

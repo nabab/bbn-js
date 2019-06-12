@@ -4,23 +4,32 @@
 ;(($, bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     STYLING     */
     center(ele){
-      ele = $(ele);
-      let parent = ele.parent(),
-          w = parent.width(),
-          h = parent.height();
+      //ele = $(ele);
+      let parent = ele.parentNode,
+          //w = parent.width(),
+          w = parent.clientWidth,
+          //h = parent.height();
+          h = parent.clientHeight;
       while ( parent && (!w || !h) ){
-        parent = parent.parent(),
+        /*parent = parent.parent(),
           w = parent.width(),
-          h = parent.height();
+          h = parent.height();*/
+        parent = ele.parentNode;        
+        w = parent.clientWidth;
+        h = parent.clientHeight;  
       }
       bbn.fn.log("BBN_CENTER", w, h);
-      ele.css("position","absolute");
-      ele.css("top", Math.max(0, ((h - ele.outerHeight()) / 2) + parent.scrollTop()) + "px");
-      ele.css("left", Math.max(0, ((w - ele.outerWidth()) / 2) + parent.scrollLeft()) + "px");
+
+      //ele.css("position","absolute");
+      ele.style.position = "absolute";
+      //ele.css("top", Math.max(0, ((h - ele.outerHeight()) / 2) + parent.scrollTop()) + "px");
+      ele.style.top = Math.max(0, ((h - ele.offsetHeight) / 2) + parent.scrollTop) + "px";
+      //ele.css("left", Math.max(0, ((w - ele.outerWidth()) / 2) + parent.scrollLeft()) + "px");
+      ele.style.left = Math.max(0, ((h - ele.offsetWidth) / 2) + parent.scrollLeft) + "px";
       return ele;
     },
 
@@ -79,6 +88,20 @@
         }
         $(this).removeClass('animated ' + animationName);
       });
+      
+      /*
+      ele.className = 'animated ' + animationName;  
+      ele.classList.add('animated ' + animationName);  
+      ele.addEventListener( 'animationEnd', e => {
+        //for trigger
+        if( e.currentTarget.dataset.triggered ) return;
+        if ( typeof callback == 'function' ){ // make sure the callback is a function
+          callback.call(this); // brings the scope to the callback
+        }
+        ele.removeClass('animated ' + animationName);        
+      });
+      */
+      
     },
 
   })

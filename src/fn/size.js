@@ -14,7 +14,7 @@
         bbn.env.width = w;
         bbn.env.height = h;
       }
-      $(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
+      //$(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
     },
 
@@ -50,11 +50,6 @@
         }
         else{
           window.document.documentElement.requestFullscreen();
-        }
-      }
-      else if ( window.ActiveXObject !== undefined ){ // Older IE.
-        if ( wscript = new window.ActiveXObject("WScript.Shell") ){
-          wscript.SendKeys("{F11}");
         }
       }
       setTimeout(function(){
@@ -114,13 +109,13 @@
 
     adjustWidth(){
       let maxW = 0;
-      $.each(arguments, (i, el) => {
+      bbn.fn.each(arguments, (el, i) => {
         let w = $(el).width();
         if ( w > maxW ){
           maxW = w;
         }
       });
-      $.each(arguments, (i, el) => {
+      bbn.fn.each(arguments, (el, i) => {
         if ( maxW ){
           $(el).width(maxW);
         }
@@ -138,6 +133,32 @@
       else {
         return bbn.fn.getScrollParent(node.parentNode);
       }
+    },
+
+    calculateHeight(element){
+      const oldVis = element.style.visibility;
+      element.style.visibility = 'hidden';
+      const oldDisp = element.style.display;
+      if ( oldDisp === 'none' ){
+        element.style.display = 'block';
+      }
+      const width = getComputedStyle(element).width;
+      const oldWidth = element.style.width;
+      const oldHeight = element.style.height;
+      const oldPos = element.style.position;
+      element.style.width = width;
+      element.style.position = 'absolute';
+      element.style.height = 'auto';
+      const height = getComputedStyle(element).height;
+      element.style.width = oldWidth || null;
+      element.style.position = oldPos || null;
+      element.style.visibility = oldVis || null;
+      element.style.display = oldDisp || null;
+      element.style.height = oldHeight || null;
+      // Force repaint to make sure the
+      // animation is triggered correctly.
+      getComputedStyle(element).height;
+      return height;
     }
   })
 

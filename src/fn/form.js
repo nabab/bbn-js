@@ -1,49 +1,53 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     FORMS     */
 
     /* Adds inputs to a form, respecting the data structure */
     add_inputs(form, params, prefix){
-      let name,
-          appendToForm = function(form, name, val){
-            form.append($("<input>").attr({
-              type: "hidden",
-              name: name
-            }).val(val));
-          };
-      params = JSON.parse(JSON.stringify(params || {}));
-      prefix = prefix || ''
-      if ( form.length && params ){
-        for ( let param in params ){
-          name = prefix ? `${prefix}[${param}]` : param;
-          if ( params[param] instanceof Date ){
-            appendToForm(form, name, params[param].toISOString());
-          }
-          else if ( params[param] instanceof Array ){
-            params[param].forEach((e, i) => {
-              const tempName = `${name}[${i}]`;
-              if ( typeof e === 'object' ){
-                bbn.fn.add_inputs(form, e, tempName);
-              }
-              else {
-                appendToForm(form, tempName, e.toString());
-              }
-            });
-          }
-          else if (
-            (typeof params[param] === 'object') &&
-            !(params[param] instanceof File)
-          ){
-            bbn.fn.add_inputs(form, params[param], name);
-          }
-          else {
-            appendToForm(form, name, params[param].toString());
+      if ( form && (form.tagName === 'FORM') ){
+        let name,
+            appendToForm = (name, val) => {
+              let input = document.createElement('input');
+              input.setAttribute('type', 'hidden');
+              input.setAttribute('name', name);
+              input.setAttribute('value', val);
+              form.appendChild(input);
+            };
+        params = JSON.parse(JSON.stringify(params || {}));
+        prefix = prefix || '';
+        
+        if ( form && params ){
+          for ( let param in params ){
+            name = prefix ? `${prefix}[${param}]` : param;
+            if ( params[param] instanceof Date ){
+              appendToForm(form, name, params[param].toISOString());
+            }
+            else if ( params[param] instanceof Array ){
+              params[param].forEach((e, i) => {
+                const tempName = `${name}[${i}]`;
+                if ( typeof e === 'object' ){
+                  bbn.fn.add_inputs(form, e, tempName);
+                }
+                else {
+                  appendToForm(form, tempName, e.toString());
+                }
+              });
+            }
+            else if (
+              (typeof params[param] === 'object') &&
+              !(params[param] instanceof File)
+            ){
+              bbn.fn.add_inputs(form, params[param], name);
+            }
+            else {
+              appendToForm(form, name, params[param].toString());
+            }
           }
         }
       }
@@ -75,16 +79,20 @@
         e.preventDefault();
       }
       //bbn.fn.reset(form, e);
-      var obj = bbn.fn.formChanges(form);
-      for ( var n in obj ){
+      let obj = bbn.fn.formChanges(form);
+      for ( let n in obj ){
         if ( obj[n].oldValue !== obj[n].value ){
-          var input = $(":input[name='" + n + "']");
-          if ( input.is(":checkbox,:radio") ){
-            input.trigger("click");
+          let input = form.querySelector("input[name='" + n + "']");
+          //if ( input.is(":checkbox,:radio") ){
+          if ( (input.type === "checkbox") || (input.type === "radio") ){          
+            //input.trigger("click");
+            input.click();
           }
           else {
             input.val(obj[n].oldValue);
-            input.trigger("change").trigger("blur");
+            //input.trigger("change").trigger("blur");
+            input.onchange(); 
+            input.blur();
           }
         }
       }
@@ -92,33 +100,49 @@
     },
 
     reset(form, e){
-      $(form).data("bbnSubmit", null);
+      //$(form).data("bbnSubmit", null);
+      if ( form ){
+        form.setAttribute('bbnSubmit', null);
+      }
     },
 
     submit(form, e){
-      var $form = $(form),
-          url = $form.attr("action") || bbn.env.path,
+      //let $form = $(form),
+      let url = form.getAttribute("action") || bbn.env.path,
           data;
       if ( url === '' ){
         url = '.';
       }
-      if ( (typeof(url) === 'string') && (url.indexOf("http") !== 0 || url.indexOf(window.document.location.hostname) !== -1) && !$form.is("[target]") ){
+      
+      //if ( (typeof(url) === 'string') && (url.indexOf("http") !== 0 || url.indexOf(window.document.location.hostname) !== -1) && !form.is("[target]") ){
+      if ( (typeof(url) === 'string') && (url.indexOf("http") !== 0 || url.indexOf(window.document.location.hostname) !== -1) && !form.getAttribute("target") ){  
         if ( e ){
           e.preventDefault();
         }
         data = bbn.fn.formdata(form);
+        
         if ( data ){
-          $form.attr("action", null);
-          $form.data("bbnSubmit", 1);
-          var script = $form.data("script");
+          //$form.attr("action", null);
+          form.setAttribute('action', null);          
+          //$form.data("bbnSubmit", 1);
+          form.dataset.bbnSubmit = 1;
+          //var script = $form.data("script");
+          let script = form.dataset.script;
+
           if ( bbn.fn.isFunction(script) ){
-            $form.data("script", function(d){
+            /*$form.data("script", function(d){
               $form.attr("action", url);
               script(d);
-            })
+            })*/
+            form.dataset.script = d =>{
+              form.setAttribute("action", url);
+              script(d);
+            };
           }
-          if ( $form.data("script") ){
-            bbn.fn.post(url, data, $form.data("script"));
+          //if ( $form.data("script") ){
+          if ( form.getAttribute("data-script") ){  
+            //bbn.fn.post(url, data, $form.data("script"));
+            bbn.fn.post(url, data, form.getAttribute("data-script"));
           }
           else{
             bbn.fn.post(url, data);
@@ -129,39 +153,66 @@
 
     setInitialValues(ele, force){
       // Keeping the original values in a data attached to the element
-      $(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)", ele).each(function(){
-        var $$ = $(this),
-            v;
-        if ( force || ($$.data("bbnOriginalValue") === undefined) ){
-          v = bbn.fn.fieldValue(this);
-          if ( v !== undefined ){
-            $$.data("bbnOriginalValue", v === undefined ? "" : v);
+      //$(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)", ele).each(function(){
+      let $inputs  = ele.querySelectorAll('input[name]:not(.bbn-no),select[name]:not(.bbn-no),textarea[name]:not(.bbn-no),button[name]:not(.bbn-no)'),
+          v;
+      bbn.fn.each($inputs, (val, i)=>{
+        if ( (val.classList.contains('bbn-form') === false) || (val.classList.contains('bbn-form') && (val.querySelectorAll('input,select,textarea,button').length === -1)) ){
+          if ( force || (val.getAttribute("data-bbnOriginalValue") === null) ){          
+            //v = bbn.fn.fieldValue(this);
+            v = bbn.fn.fieldValue(val);
+            /*if ( v !== undefined ){
+              $$.data("bbnOriginalValue", v === undefined ? "" : v);
+            }*/
+            if ( v !== undefined ){              
+              val.dataset.bbnOriginalValue = v;
+            }
           }
         }
       });
     },
 
     formupdated(form){
-      var res = true,
-          $f = $(form),
-          data = bbn.fn.formdata($f),
-          $inputs = $f.find(":input:not(.bbn-no,.bbn-no :input,.bbn-form :input)").filter("[name]").filter(function(){
-            return $(this).data("bbnOriginalValue") !== undefined;
-          }).each(function(){
-            if ( $(this).data("bbnOriginalValue")  != data[$(this).attr("name")] ){
-              //bbn.fn.log($(this).data("bbnOriginalValue"), data[$(this).attr("name")]);
+      let res = true,
+      //  $f = $(form),
+      //  data = bbn.fn.formdata($f),
+          data = bbn.fn.formdata(form),
+          $inputs = [];
+        /*$inputs = $f.find(":input:not(.bbn-no,.bbn-no :input,.bbn-form :input)").filter("[name]").filter(function(){
+            $inputs.filter( v => {
+              return $(this).data("bbnOriginalValue") !== undefined;              
+            }).each( v => {
+              if ( $(this).data("bbnOriginalValue")  != data[$(this).attr("name")] ){
+                bbn.fn.log($(this).data("bbnOriginalValue"), data[$(this).attr("name")]);
+                res = false;
+              }
+            })  
+          });*/
+  
+          bbn.fn.each(form.querySelectorAll('input[name]:not(.bbn-no),select:not(.bbn-no),textarea:not(.bbn-no),button:not(.bbn-no)'), (val,i) => {
+            if ( ((val.classList.contains('bbn-form') === false) ||  (val.classList.contains('bbn-form') && (val.querySelectorAll('input,select,textarea,button').length === -1))) &&
+              (val.getAttribute("data-bbnOriginalValue") !== null)             
+            ){
+              $inputs.push(val);
+            }            
+          })
+          bbn.fn.each($inputs, (val, i) =>{
+            if ( val.getAttribute("data-bbnOriginalValue") != data[val.getAttribute("name")] ){                           
               res = false;
             }
-          });
+          })
       return res;
     },
 
     fieldValue(field){
-      var $f = $(field),
-          v;
-      if ( $f.is(":checkbox") ){
-        if ( $f.is(":checked") ){
-          v = $f.val();
+      //var $f = $(field),
+        let  v;
+      //if ( $f.is(":checkbox") ){
+      if ( field.type === "checkbox" ){
+      //if ( $f.is(":checked") ){
+        if ( field.checked ){
+        //v = $f.val();
+          v = field.value;
           if ( !v ){
             v = 1;
           }
@@ -170,32 +221,40 @@
           v = 0;
         }
       }
-      else if ( $f.is(":radio") ){
-        if ( $f.is(":checked") ){
-          v = $f.val();
+      //else if ( $f.is(":radio") ){
+        //if ( $f.is(":checked") ){
+      else if ( field.type === "radio" ){      
+        if ( field.checked ){  
+        //v = $f.val();
+          v = field.value;
         }
       }
       else{
-        v = $f.val();
+        //v = $f.val();
+        v = field.value;
       }
       return v;
     },
 
     formdata(form){
-      var $f = $(form),
+     // var $f = $(form),
           // inputs with a name
-          $inputs = $f.find(":input").filter("[name]"),
+      //  $inputs = $f.find(":input").filter("[name]"),
+      let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]'),
           num_changes = 0,
-          $$,
+          //$$,
           res = {},
           n,
           v,
           forget;
-      $inputs.each(function(j){
-        $$ = $(this);
-        v = bbn.fn.fieldValue(this);
-        if ( (v !== undefined) && !$$.is(":disabled") ){
-          var name = this.name;
+      //$inputs.each(function(j){
+      bbn.fn.each($inputs, ( input, i ) => {
+        //$$ = $(this);
+        v = bbn.fn.fieldValue(input);
+        //if ( (v !== undefined) && !$$.is(":disabled") ){
+        if ( (v !== undefined) && !input.disabled ){  
+          //var name = this.name;
+          let name = input.name;
           if (
             (name.indexOf("[]") === -1) &&
             (name.indexOf("[") > -1) &&
@@ -217,9 +276,9 @@
             res[n].push(v);
           }
           else if ( name.indexOf(".") > -1 ){
-            var tmp, parts = name.split(".");
+            let tmp, parts = name.split(".");
             tmp = res;
-            for ( var i = 0; i < parts.length; i++ ){
+            for ( let i = 0; i < parts.length; i++ ){
               if ( res[parts[i]] === undefined ){
                 if ( i < (parts.length-1) ){
                   tmp[parts[i]] = {};
@@ -239,29 +298,35 @@
       // return num_changes ? res : false;
       return res;
     },
-
+    
     formChanges(form){
-      var $f = $(form),
-          // inputs with a name
-          $inputs = $f.find(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)"),
-          data = bbn.fn.formdata(form),
+      //var $f = $(form),
+          //inputs with a name
+      //    $inputs = $f.find(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)"),
+      let data = bbn.fn.formdata(form),
           changes = {},
           v,
-          name;
-      bbn.fn.log("INPUTS", form, $inputs);
-      $inputs.each(function(){
-        name = this.name;
-        v = $(this).data("bbnOriginalValue");
-        if ( (v !== undefined) && (data[name] !== undefined) && (data[name] !== v) ){
-          changes[name] = {
-            value: data[name],
-            oldValue: v
-          };
-        }
+          name,
+          $inputs = form.querySelectorAll('input[name]:not(.bbn-no),select[name]:not(.bbn-no),textarea[name]:not(.bbn-no),button[name]:not(.bbn-no)');
+
+      bbn.fn.each($inputs, (val, i)=>{
+        if ( (val.classList.contains('bbn-form') === false) || (val.classList.contains('bbn-form') &&
+          (val.querySelectorAll('input,select,textarea,button').length === -1)) 
+        ){
+           //$inputs.each(function(){
+           //name = this.name;
+          name = val.name;
+          //v = $(this).data("bbnOriginalValue");
+          v = val.getAttribute("data-bbn-original-value");        
+          if ( (v !== null) && (data[name] !== undefined) && (data[name] !== v) ){
+            changes[name] = {
+              value: data[name],
+              oldValue: v
+            };
+          }
+        }  
       });
       return changes;
     },
-
   })
-
-})(jQuery, bbn);
+})(bbn);

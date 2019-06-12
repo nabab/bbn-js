@@ -1,10 +1,10 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /* Onload functions: keep the var screen width and height up-to-date and binds history if enabled */
     init(cfg){
@@ -16,23 +16,25 @@
         /* The server's path (difference between the host and the current dir */
         bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
         parts = bbn.env.path.split("/");
-        $.each(parts, function(i, v){
+        //$.each(parts, function(i, v){
+        bbn.fn.each(parts, (v, i) => {  
           v = decodeURI(v.trim());
           if ( v !== "" ){
             bbn.env.params.push(v);
           }
         });
         if ( typeof (cfg) === 'object' ){
-          $.extend(true, window.bbn, cfg);
+         bbn.fn.extend(true, window.bbn, cfg);
         }
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors)
         }
-        document.addEventListener("focus", function(e){
+        document.addEventListener("focus", e => {
           bbn.env.focused = e.target;
           bbn.env.last_focus = new Date().getTime();
           bbn.fn.log(e.target);
         });
+/*              
         $(window.document).on("click", "a:not(.bbn-no)", function(e){
           if (
             this.href &&
@@ -44,19 +46,48 @@
         }).on("submit", "form:not(.bbn-no,.bbn-form)", function(e){
           bbn.fn.submit(this, e);
         });
+*/
+        document.addEventListener('click', (e) => {
+          let target = e.target;
+          if ( target.tagName !== 'A' ){
+            let p = target;
+            while ( p && (p.tagName !== 'A') ){
+              if ( p.tagName === 'BODY' ){
+                break;
+              }
+              p = p.parentNode;
+            }
+            if ( p && (p.tagName === 'A') ){
+              target = p;
+            }
+            else{
+              target = false;
+            }
+          }
+          if ( target && !target.classList.contains('bbn-no') ){
+            e.preventDefault();
+            return bbn.fn.link(target.href);
+          }
+        });
+        bbn.fn.each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele, i) =>{ 
+          ele.addEventListener("submit", e =>{
+            bbn.fn.submit(ele, e);
+          })  
+        }); 
+
 
         let doResize;
-        $(window)
-          .on("resize orientationchange", function() {
-            clearTimeout(doResize);
-            doResize = setTimeout(bbn.fn.resize, 0);
-          })
-          .bind("beforeunload", function(e){
+       // $(window)
+       //   .on("resize orientationchange", function() {
+        window.addEventListener("resize", bbn.fn.resize);
+        window.addEventListener("orientationchange", bbn.fn.resize);
+        window.addEventListener("beforeunload", e =>{
             if ( !bbn.env.ignoreUnload ){
               bbn.env.is_checking = 1;
               bbn.env.is_loading = 1;
               e = e || window.event;
-              if ( $(".bbn-tabnav-unsaved").length ){
+              //if ( $(".bbn-tabnav-unsaved").length ){
+              if ( document.getElementsByClassName("bbn-tabnav-unsaved").length ){  
                 let st = bbn._('You have unsaved data, are you sure you want to leave?');
                 // For IE and Firefox prior to version 4
                 if (e) {
@@ -66,7 +97,8 @@
                 return st;
               }
               else{
-                $(document.body).fadeOut();
+                //$(document.body).fadeOut();                
+                document.body.style.opacity = 0;
               }
             }
           });
@@ -83,7 +115,8 @@
               let state = bbn.fn.history.getState();
               if ( state !== undefined ){
                 if ( bbn.fn.defaultHistoryFunction(state) ){
-                  bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+                  //bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+                  bbn.fn.link(state.url.substr(bbn.env.root.length), bbn.fn.extend({title: state.title}, state.data));
                 }
                 else{
                   if ( bbn.fn.isFunction(state.data.script) ){
@@ -113,4 +146,4 @@
     }.bind(items[i]))();
   }
 
-})(jQuery, bbn);
+})(bbn);

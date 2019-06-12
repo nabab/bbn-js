@@ -1,12 +1,12 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
   axios.defaults.headers.post['Content-Type'] = 'text/json';
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     AJAX    */
 
@@ -76,11 +76,12 @@
           datatype = 'json';
         }
         let idURL = this._makeIdURL(url, data, datatype);
-        if ( bbn.fn.getLoader(idURL) ){
-          return false;
+        let loaderObj = bbn.fn.getLoader(idURL);
+        if ( loaderObj && loaderObj.loader ){
+          return loaderObj.loader;
         }
         if ( bbn.env.token ){
-          $.extend(data || {}, {_bbn_token: bbn.env.token});
+          bbn.fn.extend(data || {}, {_bbn_token: bbn.env.token});
         }
         let CancelToken = axios.CancelToken;
         let source = CancelToken.source();
@@ -218,7 +219,7 @@
         else if ( bbn.fn.defaultPreLinkFunction ){
           ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
           if ( ok.data !== undefined ){
-            $.extend(cfg.obj, ok.data);
+            bbn.fn.extend(cfg.obj, ok.data);
             ok = 1;
           }
         }
@@ -266,7 +267,7 @@
           h,
           fn,
           type;
-      $.each(arguments, function(i, v){
+      bbn.each(arguments, function(v){
         if ( i > 0 ){
           if ( bbn.fn.isFunction(v) ){
             fn = v;
@@ -372,7 +373,7 @@
       bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
       var tmp = bbn.env.path.split("/"), state, obj;
       bbn.env.params = [];
-      $.each(tmp, function(i, v){
+      bbn.fn.each(tmp, function(v){
         v = decodeURI(v.trim());
         if ( v !== "" ){
           bbn.env.params.push(v);
@@ -386,7 +387,7 @@
         };
         if ( state.url === bbn.env.url ){
           if ( state.data ){
-            obj = $.extend({}, state.data, obj);
+            obj = bbn.fn.extend({}, state.data, obj);
           }
           if ( state.title && !title ){
             title = state.title;
@@ -417,29 +418,32 @@
     },
 
     /* Creates a form and send data with it to a new window */
-    post_out(action, params, successFn, target){
-      var $form = $("form#bbn-form_out"),
+    post_out(action, params, successFn, target){      
+      var form = document.getElementById("bbn-form_out"),
           has_bbn = false;
-      if ( $form.length === 0 ){
-        $form = $('<form id="bbn-form_out" style="display:none"/>').appendTo(document.body);
+      if ( !form ){
+        form = document.createElement('form');
+        form.setAttribute('id', 'bbn-form_out');
+        form.setAttribute('method', 'post');
+        form.style.display = 'none';
+        document.body.appendChild(form);
       }
-      $form.empty().attr({
-        method: "post",
-        action: action,
-        target: target || "_blank"
-      });
-      if ( params ){
-        for ( var i in params ){
-          if ( i === 'bbn' ){
-            has_bbn = 1;
-            break;
-          }
-        }
-        if ( has_bbn ){
-          delete params.bbn;
-        }
-        bbn.fn.add_inputs($form, params);
+      form.innerHTML = '';
+      form.setAttribute('action', action);
+      form.setAttribute('target', target || "_blank");
+      if ( !params ){
+        params = {};
       }
+      params = bbn.fn.extend(true, {}, params);
+      if ( !params.bbn ){
+        params.bbn = 'public';
+      }
+      if ( bbn.env.token ){
+        params._bbn_token = bbn.env.token;
+      }
+      
+      bbn.fn.add_inputs(form, params);
+      /*
       if ( !has_bbn ){
         $form.append($("<input>").attr({
           type: "hidden",
@@ -452,7 +456,8 @@
           name: "_bbn_token"
         }).val(bbn.env.token));
       }
-      $form.submit();
+      */
+      form.submit();
       if ( successFn ){
         successFn();
       }
@@ -505,7 +510,7 @@
             cfg.url = args[i].substr(bbn.env.root.length);
           }
           /* Ajax datatype */
-          else if ( $.inArray(args[i], bbn.var.datatypes) > -1 ){
+          else if ( bbn.var.datatypes.indexOf(args[i]) > -1 ){
             cfg.datatype = args[i];
           }
           /* Link */
@@ -569,7 +574,7 @@
     setParam(name, value){
       if ( name && value ){
         var toAdd = value.split("/"),
-            i = $.inArray(name, bbn.env.params);
+            i = bbn.env.params.indexOf(name);
         if ( i > -1 ){
           if ( toAdd.length > 1 ){
             bbn.env.params.splice(i + 1, 1000);
@@ -578,7 +583,7 @@
         else{
           toAdd.unshift(name);
         }
-        $.each(toAdd, function(idx, val){
+        bbn.fn.each(toAdd, (val) => {
           bbn.env.params.push(encodeURI(val));
         });
       }
@@ -600,4 +605,4 @@
 
   })
 
-})(jQuery, bbn);
+})(bbn);

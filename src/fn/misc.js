@@ -1,10 +1,10 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     MISC     */
 
@@ -273,13 +273,15 @@
     },
 
     tagName(element){
-      var p = $(element).prop("tagName");
+      //var p = $(element).prop("tagName");
+      let p = element.tagName;
       return p ? p.toLowerCase() : false;
     },
 
     getAttributes(element){
-      var attr = {};
-      $(element).each(function() {
+      let attr = {};
+
+      /*$(element).each(function() {
         $.each(this.attributes, function() {
           // this.attributes is not a plain object, but an array
           // of attribute nodes, which contain both the name and value
@@ -287,17 +289,26 @@
             attr[this.name] = this.value;
           }
         });
-      });
+      });*/
+      bbn.fn.each(element.getAttributeNames(), (ele, i) =>{
+        // this.attributes is not a plain object, but an array
+        // of attribute nodes, which contain both the name and value
+        if( element.getAttributeNode(ele).specified ){
+          attr[ele] = element.getAttribute(ele);
+        }
+      })
       return attr;
     },
 
     getPath(element){
-      var path,
-          node = $(element),
+      let path,
+          //node = $(element),
+          node = element,
           done = false;
 
       while (node.length ){
-        var realNode = node[0],
+        //let realNode = node[0],
+        let realNode = node,
             name = realNode.localName;
 
         if ( !name ) break;
@@ -313,13 +324,19 @@
           }
           done = 1;
         }
-        var parent = node.parent(),
-            sameTagSiblings = parent.children(name);
-
+        //var parent = node.parent(),
+        let parent = node.parentNode,
+            //sameTagSiblings = parent.children(name);
+            sameTagSiblings = parent.children.filter( val => {
+              return val.tagName === name;
+            });
+      
         if ( sameTagSiblings.length > 1 ){
 
-          var allSiblings = parent.children(),
-              index = allSiblings.index(realNode) + 1;
+          //var allSiblings = parent.children(),
+          let allSiblings = parent.children,
+              //index = allSiblings.index(realNode) + 1;
+              index = allSiblings.indexOf(realNode) + 1;
 
           if ( index > 1 ){
             name += ':nth-child(' + index + ')';
@@ -331,33 +348,6 @@
       }
 
       return path;
-    },
-
-    /**
-     * Creates an empty deferred object which will be resolved after 5 milliseconds
-     * @param res
-     * @returns {JQueryDeferred<T>}
-     */
-    makeDeferred(res, timeout){
-      var deferred = $.Deferred();
-      setTimeout(function(){
-        deferred.resolve(res);
-      }, timeout ? timeout : 5);
-      return deferred;
-    },
-
-    wait_for_script(varname, fn, force){
-      // 50 = 10 seconds max
-      var myvar = eval(varname);
-      if ( force || (myvar === undefined) ){
-        var deferred = $.getScript("./?lib=varname");
-      }
-      else{
-        var deferred = bbn.fn.makeDeferred();
-      }
-      return deferred.then(function(){
-        fn();
-      });
     },
 
     setCookie(name, value, days){
@@ -391,33 +381,7 @@
 
     eraseCookie(name){
       document.cookie = name+'=; Max-Age=-99999999;';
-    },
-
-    calculateHeight(element){
-      const oldVis = element.style.visibility;
-      element.style.visibility = 'hidden';
-      const oldDisp = element.style.display;
-      if ( oldDisp === 'none' ){
-        element.style.display = 'block';
-      }
-      const width = getComputedStyle(element).width;
-      const oldWidth = element.style.width;
-      const oldHeight = element.style.height;
-      const oldPos = element.style.position;
-      element.style.width = width;
-      element.style.position = 'absolute';
-      element.style.height = 'auto';
-      const height = getComputedStyle(element).height;
-      element.style.width = oldWidth || null;
-      element.style.position = oldPos || null;
-      element.style.visibility = oldVis || null;
-      element.style.display = oldDisp || null;
-      element.style.height = oldHeight || null;
-      // Force repaint to make sure the
-      // animation is triggered correctly.
-      getComputedStyle(element).height;
-      return height;
     }
   })
 
-})(jQuery, bbn);
+})(bbn);

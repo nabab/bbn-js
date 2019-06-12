@@ -75,9 +75,14 @@
   color: @primary-text!important;
   border-color: @primary-border;
 }
+.bbn-secondary {
+  background: @secondary-background;
+  color: @secondary-text!important;
+  border-color: @secondary-border;
+}
 .bbn-primary:hover:not(.bbn-disabled),.bbn-primary.bbn-hover:not(.bbn-disabled){
   //background: @primary-background !important;
-  .bbn-background-effect-primary-internal;
+  //.bbn-background-effect-primary-internal;
   color: @primary-text !important;
   border-color: @primary-border;
   text-shadow: 0 0 0.1em @primary-text;
@@ -85,7 +90,12 @@
 .bbn-primary:active,.bbn-primary.bbn-active{
   .bbn-background-effect-primary-internal;
 }
-.bbn-primary:disabled,.bbn-primary.bbn-disabled{
+.bbn-secondary:active,.bbn-secondary.bbn-active{
+  .bbn-background-effect-secondary-internal;
+}
+.bbn-primary:disabled,.bbn-primary.bbn-disabled,
+.bbn-secondary:disabled,.bbn-secondary.bbn-disabled
+{
   opacity: 0.7;
   cursor: default !important;
   outline: 0;

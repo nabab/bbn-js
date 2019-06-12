@@ -5,38 +5,38 @@
 @default-border-width: 1px;
 @default-border-radius: 0.4em;
 @alt-text: #2e2e2e;
-@alt-border: #eae8e8;
+@alt-border: #d5d5d5;
 @alt-background: #eae8e8;
 @alt-border-style: solid;
-@alt-border-width: 1.25px;
+@alt-border-width: 1px;
 @alt-border-radius: 0.6em;
 @primary-border: #e45200;
 @primary-background: #ff6b18;
 @primary-text: #fff;
+@secondary-border: #B22222;
+@secondary-background: #C9351C;
+@secondary-text: #fff;
 @hover-background: #bcb4b0;
 @hover-border: #b6b6b6;
 @hover-text: #2e2e2e;
 @hover-border-style: solid;
 @active-text: #2e2e2e;
-@active-border: #9f9f9f;
-@active-background: #eee;
+@active-border: #b6b6b6;
+@active-background: #C9C1B3;
 @active-border-style: solid;
 @state-selected-text: #fff;
 @state-selected-background: #f35800;
-@state-selected-border: #f85a00;
+@state-selected-border: #FF5E00;
+@state-selected-text: #fff;
 @disabled-color: #c3c3c3;
 @disabled-background: #edebea;
 @disabled-border: #cacaca;
-@header: #cae1ab;
+@header: #eae8e8;
 @header-alt: #05386b;
-@header-text: #05386b;
-@font: 'open_sans_regular';
-@font-file: url('../fonts/OpenSans-Regular-webfont.eot');
-@font-file-detail: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
-url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
-url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+@header-text: #2e2e2e;
 @text-size: 13px;
+@button-text: #2e2e2e;
+@effect: rgba(255, 255, 255, .6);
 
 
 
@@ -68,3 +68,41 @@ url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
 @header: #363940;
 @header-alt: #c9c6bf;
 @header-text: #fff;
+@effect: rgba(255, 255, 255, .6);
+
+@font: 'OpenSans';
+@font-face {
+  font-family: @font;
+  src: url("../../fonts/OpenSans/OpenSans-Regular.woff2") format("woff2");
+  font-style: normal;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/OpenSans/OpenSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: normal;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/OpenSans/OpenSans-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: bold;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/OpenSans/OpenSans-BoldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: bold;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/OpenSans/OpenSans-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/OpenSans/OpenSans-LightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+}

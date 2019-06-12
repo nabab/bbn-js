@@ -1,10 +1,10 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     LOCALES     */
 
@@ -170,4 +170,4 @@
 
   })
 
-})(jQuery, bbn);
+})(bbn);

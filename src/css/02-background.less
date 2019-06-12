@@ -1,9 +1,9 @@
 
 .bbn-background-effect{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background!important;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background!important;
 }
 .bbn-background-effect-internal{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background;
 }
 .bbn-alt-background{
   background-color: @alt-background!important;
@@ -12,16 +12,16 @@
   background-color: @alt-background;
 }
 .bbn-background-effect{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background!important;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background!important;
 }
 .bbn-background-effect-internal{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @default-background;
 }
 .bbn-alt-background-effect{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @alt-background!important;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @alt-background!important;
 }
 .bbn-alt-background-effect-internal{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @alt-background;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @alt-background;
 }
 .bbn-background-effect-primary {
   background : none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat @primary-background!important;
@@ -29,11 +29,17 @@
 .bbn-background-effect-primary-internal {
   background : none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat @primary-background;
 }
+.bbn-background-effect-secondary {
+  background : none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat @secondary-background!important;
+}
+.bbn-background-effect-secondary-internal {
+  background : none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat @secondary-background;
+}
 .bbn-background-effect-hover{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @hover-background!important;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @hover-background!important;
 }
 .bbn-background-effect-hover-internal{
-  background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @hover-background;
+  background: none, linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @hover-background;
 }
 .bbn-background-header-alt{
   background: none,
@@ -41,16 +47,16 @@
 }
 .bbn-background-header-alt-internal{
   background: none,
-  linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header-alt;
+  linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header-alt;
 }
 
 .bbn-background-header{
   background: none,
-  linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header!important;
+  linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header!important;
 }
 .bbn-background-header-internal{
   background: none,
-  linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header;
+  linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header;
 }
 .bbn-background{
   background-color: @default-background!important;

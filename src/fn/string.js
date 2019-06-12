@@ -1,10 +1,10 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(function(bbn){
   "use strict";
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**     STRINGS     */
 
@@ -421,9 +421,15 @@
      * @returns string
      */
     html2text(st){
-      var $test = $('<div/>').html(bbn.fn.br2nl(st)).appendTo(document.body);
+      /*var $test = $('<div/>').html(bbn.fn.br2nl(st)).appendTo(document.body);
       st = $test.text();
       $test.remove();
+      */
+      let $test = document.createElement('div');
+      document.body.appendChild($test);
+      $test.innerHTML = bbn.fn.br2nl(st);
+      st = $test.textContent;
+      document.body.removeChild($test);
       return st;
     },
 
@@ -507,4 +513,4 @@
 
   })
 
-})(jQuery, bbn);
+})(bbn);

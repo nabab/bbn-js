@@ -2,12 +2,12 @@
  * Created by BBN on 10/02/2017.
  */
 // jshint esversion: 6
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
   /**     OBJECTS AND ARRAYS    */
 
-  $.extend(bbn.fn, {
+  Object.assign(bbn.fn, {
 
     /**
      * Orders objects in the array based on the given property.
@@ -127,7 +127,10 @@
         }
         if ( !exclude && (based_on.length !== to_order.length) ){
           for ( let a of to_order ){
-            if ( $.inArray(isObj ? a[prop] : a, done) > -1 ){
+            /*if ( $.inArray(isObj ? a[prop] : a, done) > -1 ){
+              r.push(a);
+            }*/
+            if ( done.includes(isObj ? a[prop] : a) ){
               r.push(a);
             }
           }
@@ -533,7 +536,7 @@
           return false;
         }
         let ok = true;
-        $.each(tmp1, (i, a) => {
+        bbn.fn.each(tmp1, (a ,i) => {
           if ( !bbn.fn.isSame(obj1[a], obj2[a]) ){
             ok = false;
             return false;
@@ -581,8 +584,24 @@
       let out = args[0] || {};
       for ( let i = 1; i < args.length; i++ ){
         bbn.fn.iterate(args[i], (a, key) => {
-          if ( deep && (typeof a === 'object') && out[key] && (typeof out[key] === 'object') ){
-            out[key] = bbn.fn.extend(true, out[key], a)
+          if ( deep ){
+            if ( bbn.fn.isArray(a) ){
+              out[key] = [];
+              bbn.fn.each(a, (b, i) => {
+                if ( b && (typeof b === 'object') ){
+                  out[key].push(bbn.fn.extend(true, bbn.fn.isArray(b) ? [] : {}, b));
+                }
+                else{
+                  out[key].push(b);
+                }
+              });
+            }
+            else if ( bbn.fn.isObject(a) ){
+              out[key] = bbn.fn.extend(true, out[key] && (typeof out[key] === 'object') ? out[key] : {}, a);
+            }
+            else{
+              out[key] = a;
+            }
           }
           else if ( out[key] !== a ){
             out[key] = a;
@@ -639,10 +658,12 @@
     autoExtend(namespace, obj){
       if ( !bbn[namespace] ){
         bbn[namespace] = {};
-        $.extend(true, bbn[namespace], obj);
+        //$.extend(true, bbn[namespace], obj);
+        bbn.fn.extend(bbn[namespace], obj);
       }
       else {
-        $.extend(true, bbn[namespace], obj);
+       // $.extend(true, bbn[namespace], obj);
+        bbn.fn.extend(bbn[namespace], obj);
       }
     },
     /**
@@ -664,7 +685,7 @@
 
     arrayFromProp(arr, prop){
       let r = [];
-      $.each(arr, (i, a) => {
+      bbn.fn.each(arr, (i, a) => {
         r.push(a[prop])
       });
       return r;
@@ -789,7 +810,7 @@
     iterate(obj, fn){
       if ( (obj !== null) && (typeof obj === 'object') ){
         for ( var n in obj ){
-          if ( (n.substr(0, 1) !== '_') && (!bbn.fn.isFunction(obj.hasOwnProperty) || obj.hasOwnProperty(n)) ){
+          if ( !bbn.fn.isFunction(obj.hasOwnProperty) || obj.hasOwnProperty(n) ){
             if ( fn(obj[n], n) === false ){
               return obj;
             }
@@ -880,4 +901,4 @@
     }
   })
 
-})(window.jQuery, window.bbn);
+})(window.bbn);

@@ -3,6 +3,7 @@
   box-sizing: border-box;
   border-width: @default-border-width;
   border-style: @default-border-style;
+  white-space: nowrap;
   font: inherit;
   line-height: 1.72em;
   text-align: center;
@@ -57,14 +58,12 @@
   border-width: 0;
   > .bbn-button{
     .bbn-flex-fill;
-    border-right-width: 0;
     border-radius: 0;
     &:first-child{
-      border-radius: @default-border-radius 0 0 @default-border-radius;
+      border-radius: inherit 0 0 inherit;
     }
     &:last-child{
-      border-radius: 0 @default-border-radius @default-border-radius 0;
-      border-right-width: @default-border-width;
+      border-radius: 0 inherit inherit 0;
     }
   }
 }
@@ -117,6 +116,10 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
   border-style: solid;
   border-width: 0;
 }
+
+.bbn-checkbox:focus + .bbn-checkbox-label:before {
+  border-color: @state-selected-border;
+}
 .bbn-checkbox:checked + .bbn-checkbox-label:before{
   .bbn-bordered-internal;
   .bbn-background-internal;
@@ -138,9 +141,9 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
   border-width: 1px;
   border-style: solid;
   width: 1.2em;
-  height: 1.2em;
+  height: 1.1em;
   font-size: 1.2em;
-  line-height: 1.2em;
+  line-height: 1.1em;
   text-align: center;
 }
 .bbn-checkbox:disabled + .bbn-checkbox-label {
@@ -203,6 +206,17 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
   background: @disabled-background;
   border-color: @disabled-border;
   box-shadow: none;
+}
+
+.bbn-numeric{
+  .k-state-default:focus{
+    border-color: @state-selected-border;
+    
+  }
+  .k-state-default:focus-within{
+    border-color: @state-selected-border;
+  }
+    
 }
 .bbn-switch{
   position: relative;

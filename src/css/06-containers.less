@@ -90,6 +90,9 @@
   width: ~"calc(50% - 1em)";
   height: auto;
 }
+.bbn-no-height{
+  height: 0px;
+}
 .bbn-block-after{
   content: ' ';
   display: block;
@@ -104,6 +107,7 @@
 .bbn-content{
   .bbn-border-box;
   overflow: auto;
+  .bbn-background;
 }
 .bbn-line-breaker{
   .bbn-block;
@@ -241,11 +245,18 @@
       }
     }
     td{
-      .bbn-background-internal;
+      .bbn-alt-background-internal;
     }
   }
   >.bbn-header{
     .bbn-bordered-bottom;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+  >.bbn-footer{
+    .bbn-bordered-top;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
   }
 }
 .bbn-bblock,.bbn-box{
