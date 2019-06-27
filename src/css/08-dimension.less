@@ -295,7 +295,7 @@
   &.bbn-reverse{
     flex-direction: row-reverse;
   }
-  > div, > ul{
+  > *{
     .bbn-transition-width
   }
 }
@@ -306,19 +306,13 @@
   &.bbn-reverse{
     flex-direction: column-reverse;
   }
-  > div, > ul{
+  > *{
     .bbn-transition-height
   }
 }
 .bbn-flex-fill{
   flex-grow: 1;
   position: relative;
-}
-.bbn-flex-height > .bbn-flex-fill{
-  height: auto;
-}
-.bbn-flex-width > .bbn-flex-fill{
-  width: auto;
 }
 .bbn-full-screen,.bbn-overlay{
   box-sizing: border-box;

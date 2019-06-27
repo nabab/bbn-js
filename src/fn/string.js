@@ -509,6 +509,16 @@
         }
       }
       return st;
+    },
+
+    formatSize(st){
+      if ( !st ){
+        return 'auto';
+      }
+      if ( bbn.fn.isNumber(st) ){
+        return st + 'px';
+      }
+      return st.toString();
     }
 
   })

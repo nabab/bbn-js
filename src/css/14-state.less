@@ -1,46 +1,27 @@
 .bbn-state-default{
-  color: inherit;
-  background-color: inherit;
   border-color: @active-border;
 }
-.bbn-state-default:hover:not(.bbn-disabled),
-.bbn-state-default.bbn-hover:not(.bbn-disabled),
-.bbn-state-default:hover:not(disabled){
-  color: @active-text;
-  .bbn-alt-background-effect-internal;
-  //background-color: @active-background;
-  border-color: @active-border;
-}
-.bbn-state-hover:not(:disabled){
-  .bbn-hover-background-internal;
-  .bbn-hover-text-internal;
-  .bbn-hover-border-internal;
-}
-.bbn-state-hover:not(.bbn-disabled){
-  .bbn-hover-background-internal;
-  .bbn-hover-text-internal;
-  .bbn-hover-border-internal;
+.bbn-state-hover{
+  color: @hover-text;
+  background-color: @hover-background;
+  border-color: @hover-border;
+  //.bbn-alt-background-effect-internal;
 }
 
 .bbn-state-active{
-  background-color: @active-background;
-  border-color: @active-border;
-  color: @active-text;
+  background-color: @active-background !important;
+  border-color: @active-border !important;
+  color: @active-text !important;
   //contrast(@active-background);
 }
 .bbn-state-selected{
-  background-color: @state-selected-background;
-  border-color: @state-selected-border;
-  border-width: @default-border-width;
-  border-style: @default-border-style;
-  color: @state-selected-text;
+  background-color: @state-selected-background !important;
+  border-color: @state-selected-border !important;
+  border-width: @default-border-width !important;
+  border-style: @default-border-style !important;
+  color: @state-selected-text !important;
   //contrast(@active-background);
 }
-.bbn-state-active:hover:not(:disabled),
-.bbn-state-active:hover:not(.bbn-disabled){
-  .bbn-alt-background-effect-internal;
-}
-
 .bbn-state-error{
   border-style: ridge;
 }
@@ -52,6 +33,22 @@
   border-style: dotted;
 }
 
+.bbn-reactive{
+  .bbn-state-default;
+  &:hover:not(.bbn-disabled):not(:disabled),
+  &.bbn-hover:not(.bbn-disabled):not(:disabled){
+    .bbn-state-hover;
+  }
+  &:active:not(.bbn-disabled):not(:disabled),
+  &.bbn-active:not(.bbn-disabled):not(:disabled){
+    .bbn-state-active;
+  }
+  &:focus:not(.bbn-disabled):not(:disabled),
+  &.bbn-focus:not(.bbn-disabled):not(:disabled){
+    .bbn-state-active;
+  }
+}
+/*
 .bbn-reactive:hover:not(.bbn-disabled),
 .bbn-reactive.bbn-hover:not(.bbn-disabled){
   border-color: @hover-border;
@@ -70,6 +67,7 @@
   .bbn-background-effect-primary-internal;
   color: @hover-text;
 }
+*/
 .bbn-primary {
   background: @primary-background;
   color: @primary-text!important;

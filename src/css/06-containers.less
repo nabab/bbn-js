@@ -350,12 +350,13 @@ ul.bbn-ul{
   .bbn-background-effect-internal;
 }
 .bbn-reactive-block:active {
-  .bbn-background-effect-primary-internal;
+  .bbn-background-effect-internal;
 }
 .bbn-reactive-block:hover{
   .bbn-hover-background-internal;
 }
-.bbn-reactive-block:focus, .bbn-reactive-block:hover:focus, .bbn-reactive-block:focus-within, .bbn-reactive-block:hover:focus-within{
+.bbn-reactive-block:focus:not(.bbn-disabled), .bbn-reactive-block:hover:focus:not(.bbn-disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled), .bbn-reactive-block:hover:focus-within:not(.bbn-disabled)
+.bbn-reactive-block:focus:not(:disabled), .bbn-reactive-block:hover:focus:not(:disabled), .bbn-reactive-block:focus-within:not(:disabled), .bbn-reactive-block:hover:focus-within:not(:disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled), {
   border-color: @state-selected-border;
 }
 
@@ -372,8 +373,8 @@ input.bbn-focus:not(.bbn-disabled),
 input:hover:focus:not(.bbn-disabled),
 .bbn-textbox:focus:not(:disabled),
 .bbn-textbox:focus-within:not(:disabled),
-.bbn-button:focus,
-.bbn-button.bbn-focus,
-.bbn-button:focus-within{
+.bbn-button:not(.bbn-button-right):not(.bbn-button-left):focus,
+.bbn-button.bbn-focusnot:not(.bbn-button-right):not(.bbn-button-left),
+.bbn-button:not(.bbn-button-right):not(.bbn-button-left):focus-within{
   border-color: @state-selected-border;
 }

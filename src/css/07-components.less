@@ -34,15 +34,15 @@
     line-height: 1em;
     padding: 0.24em 0.36em;
     i{
-      margin-right: 0;
+      margin: 0;
     }
+  }
+  &:hover:not(.bbn-disabled):not(:disabled){
+    .bbn-background-effect-hover-internal;
   }
   &:active, &.bbn-active{
     // .bbn-alt-background;
     .bbn-alt-background-effect-internal;
-  }
-  &:hover:not(.bbn-disabled):not(:disabled){
-    .bbn-background-effect-hover-internal;
   }
 }
 .bbn-disabled > .bbn-button{
@@ -71,22 +71,28 @@
   .bbn-disabled;
 }
 .bbn-textbox{
-  .bbn-button{
-    margin-top: -3px;  
+  > .bbn-button{
     border-radius: inherit;
   }
 }
 .bbn-textbox .bbn-button{
   line-height: inherit;
-  padding: 0 0.4em;
+  padding: 0 0.5em;
+  min-width: 2em;
   min-height: 100%;
-  border: none;
-  margin-top: -3px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  vertical-align: top;
   border-top-width: 0;
   border-bottom-width: 0;
-  border-right-width: 0;
+  &.bbn-button-left{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left-width: 0;
+  }
+  &.bbn-button-right{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-right-width: 0;
+  }
 }
 .bbn-textbox input{
   font-family: inherit;
@@ -199,24 +205,22 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
 .bbn-radio:disabled + .bbn-radio-label {
   color: @disabled-color;
 }
+.bbn-radio:disabled + .bbn-radio-label:hover:after,
+.bbn-radio:disabled + .bbn-radio-label:hover:before,
 .bbn-radio:disabled + .bbn-radio-label:before,
 .bbn-radio:disabled + .bbn-radio-label:active:before,
-.bbn-radio:disabled + .bbn-radio-label:hover:after,
-.bbn-radio:disabled + .bbn-radio-label:hover:before {
+ {
   background: @disabled-background;
   border-color: @disabled-border;
   box-shadow: none;
 }
 
 .bbn-numeric{
-  .k-state-default:focus{
-    border-color: @state-selected-border;
-    
+  .bbn-reactive-block:focus:not(.bbn-disabled), .bbn-reactive-block:hover:focus:not(.bbn-disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled), .bbn-reactive-block:hover:focus-within:not(.bbn-disabled)
+.bbn-reactive-block:focus:not(:disabled), .bbn-reactive-block:hover:focus:not(:disabled), .bbn-reactive-block:focus-within:not(:disabled), .bbn-reactive-block:hover:focus-within:not(:disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled){
+  .bbn-background-effect-internal;
+  .bbn-bordered;
   }
-  .k-state-default:focus-within{
-    border-color: @state-selected-border;
-  }
-    
 }
 .bbn-switch{
   position: relative;

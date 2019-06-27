@@ -92,7 +92,7 @@
     isDom(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( !(a instanceof Element) ){
+        if ( !(a instanceof HTMLElement) ){
           return false
         }
       }
@@ -100,6 +100,7 @@
     },
 
     isjQuery(){
+      if (!window.jQuery) return false;
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof jQuery) ){

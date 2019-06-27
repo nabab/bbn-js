@@ -104,6 +104,14 @@
       
     },
 
+    addStyle(ele, o){
+      if ( bbn.fn.isObject(o) ){
+        bbn.fn.iterate(o, (v, k) => {
+          ele.style[k] = v;
+        });
+      }
+    }
+
   })
 
 })(jQuery, bbn);
