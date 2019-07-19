@@ -1,14 +1,14 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function($, bbn){
+;(function(bbn){
   "use strict";
 
   bbn.var = {
     loggers: {
       _num: 0
     },
-    /* Usable datatypes through jQuery Ajax function */
+    /* Usable datatypes through Ajax function */
     datatypes: ['xml', 'html', 'script', 'json', 'jsonp', 'text'],
     /* The default value used by the function shorten */
     shortenLen: 30,
@@ -52,4 +52,4 @@
     }
   };
 
-})(jQuery, bbn);
+})(bbn);

@@ -7,7 +7,11 @@
   Object.assign(bbn.fn, {
 
     /**     MISC     */
-
+    /**
+     * Returns true if the given argument is a function.
+     * @method isFunction
+     * @return {Boolean}
+     */
     isFunction() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -17,7 +21,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a number.
+     * @method isNumber
+     * @return {Boolean}
+     */
     isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -27,7 +35,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a string.
+     * @method isString
+     * @return {Boolean}
+     */
     isString() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -37,7 +49,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is an array.
+     * @method isArray
+     * @return {Boolean}
+     */
     isArray() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -47,7 +63,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a date.
+     * @method isDate
+     * @return {Boolean}
+     */
     isDate() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -57,7 +77,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is an object.
+     * @method isObject
+     * @return {Boolean}
+     */
     isObject() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -67,7 +91,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is null.
+     * @method isNull
+     * @return {Boolean}
+     */
     isNull() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -78,7 +106,11 @@
       return true;
     },
 
-    /* Returns true if value is not an object and is basically a value wich can be written as is in a DB or a file */
+    /**
+     * Returns true if value is not an object and is basically a value wich can be written as is in a DB or a file.
+     * @method isValue
+     * @return {Boolean}
+     */
     isValue() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -88,7 +120,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a dom element.
+     * @method isDom
+     * @return {Boolean}
+     */
     isDom(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -98,7 +134,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a jQuery instance.
+     * @method isjQuery
+     * @return {Boolean}
+     */  
     isjQuery(){
       if (!window.jQuery) return false;
       if (!arguments.length) return false;
@@ -109,7 +149,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given argument is a Vue instance.
+     * @method isVue
+     * @return {Boolean}
+     */
     isVue(){
       if (!arguments.length) return false;
       for ( let a of arguments ){
@@ -119,7 +163,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given string is a percentage.
+     * @method isPercent
+     * @return {Boolean}
+     */
     isPercent(){
       if ( !arguments.length ) return false;
       for ( let a of arguments ){
@@ -129,7 +177,11 @@
       }
       return true;
     },
-
+    /**
+     * Returns true if the given value is an url.
+     * @method isUrl
+     * @return {Boolean}
+     */      
     isURL(str){
       let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
@@ -139,25 +191,25 @@
         '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
       return pattern.test(str);
     },
-
+    /**
+     * Returns a timestamp.
+     * @method timestamp  
+     * @param {Boolean} [false] seconds
+     * @return {Number} 
+     */
     timestamp(seconds){
       var r = (new Date()).getTime();
       return seconds ? r*1000 : r;
     },
-
-    getArguments(a){
-      let r = [];
-      for ( let i = 0; i < a.length; i++ ){
-        r.push(a[i]);
-      }
-      return r;
-    },
-
     // Logging function
-    log(opt){
+    /**
+     * Logs the given arguments in the browser's console.
+     * @method log
+     * @param  {...any} args 
+     */
+    log(...args){
       if ( window.console !== undefined ){
-        let args = bbn.fn.getArguments(arguments),
-            cfg,
+        let cfg,
             level = 5;
         if ( args[0] && (typeof args[0] === 'object') && args[0]._bbn_console_style){
           cfg = args[0]._bbn_console_style;
@@ -183,9 +235,13 @@
       }
       return this;
     },
-
-    warning(){
-      let args = bbn.fn.getArguments(arguments);
+    /**
+     * Logs the given arguments in the browser's console highlighting strings with a yellow background.
+     * 
+     * @method warning
+     * @param  {...any} args 
+     */
+    warning(...args){
       args.unshift({
         _bbn_console_level: 2,
         _bbn_console_style: "color: red; background: yellow; font-size: 16px; width: 100%;"
@@ -193,9 +249,13 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
-
-    error(){
-      let args = bbn.fn.getArguments(arguments);
+    /**
+     * Logs the given arguments in the browser's console highlighting strings with a red background.
+     * 
+     * @method error
+     * @param  {...any} args 
+     */
+    error(...args){
       args.unshift({
         _bbn_console_level: 1,
         _bbn_console_style: "color: white; background: red; font-size: 22px;"
@@ -203,9 +263,13 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
-
-    happy(){
-      let args = bbn.fn.getArguments(arguments);
+    /**
+     * Logs the given arguments in the browser's console highlighting strings with a green background.
+     * 
+     * @method happy
+     * @param  {...any} args 
+     */
+    happy(...args){
       args.unshift({
         _bbn_console_level: 3,
         _bbn_console_style: "color: white; background: green; font-size: 18px;"
@@ -213,9 +277,13 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
-
-    info(){
-      let args = bbn.fn.getArguments(arguments);
+    /**
+     * Logs the given arguments in the browser's console highlighting strings with a blue background.
+     * 
+     * @method info
+     * @param  {...any} args 
+     */
+    info(...args){
       args.unshift({
         _bbn_console_level: 4,
         _bbn_console_style: "color: #EEE; background: blue; font-size: 12px;"
@@ -223,7 +291,7 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
-
+  
     stat(returnStat){
       return;
       if ( bbn.env.logging ){
@@ -272,13 +340,22 @@
         return returnStat;
       }
     },
-
+    /**
+     * Returns the tag name of the given dom element. 
+     * @method tagName
+     * @param {HTMLElement} element 
+     * @return {String}
+     */
     tagName(element){
       //var p = $(element).prop("tagName");
       let p = element.tagName;
       return p ? p.toLowerCase() : false;
     },
-
+    /**
+     * Returns an object containing the attributes of the given dom element.
+     * @param {HTMLElement} element 
+     * @return {Object}
+     */
     getAttributes(element){
       let attr = {};
 
@@ -350,7 +427,12 @@
 
       return path;
     },
-
+    /**
+     * Sets the cookies.
+     * @param {String} name 
+     * @param {String} value 
+     * @param {Number} days 
+     */
     setCookie(name, value, days){
       let expires = "";
       if ( days ){
@@ -361,7 +443,11 @@
       let st = escape(JSON.stringify({value: value}));
       document.cookie = name + "=" + st + expires + "; path=/";
     },
-
+    /**
+     * Gets the value of the given cookie.
+     * @param {String} name 
+     * @return {String} 
+     */
     getCookie(name){
       let nameEQ = name + "=";
       let ca = document.cookie.split(';');

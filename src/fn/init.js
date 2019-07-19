@@ -7,6 +7,11 @@
   Object.assign(bbn.fn, {
 
     /* Onload functions: keep the var screen width and height up-to-date and binds history if enabled */
+    /**
+     * Initializes bbn.
+     * @method init
+     * @param {Object} cfg 
+     */
     init(cfg){
       let parts;
       if ( !bbn.env.isInit ){
@@ -17,7 +22,7 @@
         bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
         parts = bbn.env.path.split("/");
         //$.each(parts, function(i, v){
-        bbn.fn.each(parts, (v, i) => {  
+        bbn.fn.each(parts, (v, i) => {
           v = decodeURI(v.trim());
           if ( v !== "" ){
             bbn.env.params.push(v);
@@ -27,14 +32,14 @@
          bbn.fn.extend(true, window.bbn, cfg);
         }
         if ( bbn.var.colors ){
-          bbn.fn.addColors(bbn.var.colors)
+          bbn.fn.addColors(bbn.var.colors);
         }
         document.addEventListener("focus", e => {
           bbn.env.focused = e.target;
           bbn.env.last_focus = new Date().getTime();
           bbn.fn.log(e.target);
         });
-/*              
+/*
         $(window.document).on("click", "a:not(.bbn-no)", function(e){
           if (
             this.href &&
@@ -105,36 +110,33 @@
 
         bbn.fn.resize();
 
-        if ( bbn.fn.history && bbn.fn.history.Adapter ){
+        if (bbn.fn.history) {
 
-          bbn.fn.history.clearAllIntervals();
+          //bbn.fn.history.clearAllIntervals();
           //window.localStorage.clear();
           //window.sessionStorage.clear();
-          bbn.fn.history.Adapter.bind(window, 'statechange', function(e){
-            if ( !bbn.env.historyDisabled ){
-              let state = bbn.fn.history.getState();
-              if ( state !== undefined ){
-                if ( bbn.fn.defaultHistoryFunction(state) ){
+          window.onpopstate = function(e){
+            let h = bbn.fn.history();
+            if (!bbn.env.historyDisabled && h) {
+              //e.preventDefault();
+              let state = h.state;
+              if (state) {
+                if (bbn.fn.defaultHistoryFunction(state)) {
                   //bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
-                  bbn.fn.link(state.url.substr(bbn.env.root.length), bbn.fn.extend({title: state.title}, state.data));
+                  bbn.fn.link(state.url, bbn.fn.extend({title: state.title || bbn.env.siteTitle}, state.data || {}));
                 }
-                else{
-                  if ( bbn.fn.isFunction(state.data.script) ){
-                    state.data.script();
-                  }
+                else if ( state && state.data && bbn.fn.isFunction(state.data.script) ){
+                  state.data.script();
                 }
               }
             }
-            return false;
-          });
+          };
         }
         bbn.env.isInit = true;
       }
     }
   })
-
-
-
+  /*
   var items = document.querySelectorAll('#iwal');
   for (var i = 0, len = items.length; i < len; i++) {
     (function(){
@@ -145,5 +147,6 @@
       )
     }.bind(items[i]))();
   }
+  */
 
 })(bbn);

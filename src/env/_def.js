@@ -1,7 +1,7 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(function(window, $){
+;(function(){
   "use strict";
 
   bbn.env = {
@@ -21,7 +21,7 @@
     width: window.innerWidth,
     /* Window height */
     height: window.innerHeight,
-    /* Element currently focused (jQuery object) */
+    /* Element currently focused (Element object) */
     focused: false,
     /* Last time user has been active */
     last_focus: (new Date()).getTime(),
@@ -43,4 +43,4 @@
     historyDisabled: false
   };
 
-})(window, jQuery);
+})();

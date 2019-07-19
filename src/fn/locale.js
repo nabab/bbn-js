@@ -6,8 +6,17 @@
 
   Object.assign(bbn.fn, {
 
-    /**     LOCALES     */
-
+    
+    /**
+     * Formats the given value using the given params.
+     * @method money
+     * @param {String|Number} val
+     * @param {Boolean} kilo
+     * @param {String} currency  
+     * @param {Boolean} noValue  
+     * @return {String}
+     * 
+     */
     money(val, kilo, currency, novalue, decimal, thousands, precision){
       /*
     money(val, kilo){
@@ -87,7 +96,13 @@
         return i && ((a.length - i - decimalPosition) % 3 === 0) && (i < decimalIdx) ? thousands + c : c;
       }) + ( currency ? ' ' + currency : '');
     },
-
+    /**
+     * Formats the given value as a date.
+     * @method date
+     * @param {String|Number} v 
+     * @fires bbn.fn.isDate
+     * @return {Date}
+     */
     date(v){
       let d = false,
           t = typeof(v);
@@ -122,14 +137,24 @@
       }
       return d;
     },
-
+    /**
+     * Returns the given date as a string using sql format.
+     * @method dateSQL
+     * @param {Date|String} v 
+     * @param {Boolean} dayOnly 
+     * @return {String}
+     */
     dateSQL(v, dayOnly){
       let date = bbn.fn.date(v);
       if ( date ){
         return moment(date).format("YYYY-MM-DD" + (dayOnly ? '' : ' HH:mm:ss'));
       }
     },
-
+    /**
+     * Returns the number of days in the month of the given date.
+     * @param {String|Date} v 
+     * @return {Number}
+     */
     daysInMonth(v){
       let d = bbn.fn.date(v);
       if ( d ){
@@ -137,7 +162,11 @@
       }
       return false;
     },
-
+    /**
+     * @method getDay
+     * @param {String|Date} v 
+     * @return {Number|Boolean}
+     */
     getDay(v){
       const biss = 1972;
       let d = bbn.fn.date(v);
@@ -149,14 +178,20 @@
         if ( m < 2 ){
           y--;
         }
-        for ( i = biss; i <= y; i += 4 ){
+        for (var i = biss; i <= y; i += 4 ){
           days++;
         }
         return days + Math.floor(t/(24*3600000));
       }
       return false;
     },
-
+    /**
+     * Returns a string with a language sensitive representation of the given date.
+     * @method fdate
+     * @param {String|Date} d 
+     * @param wrong_result 
+     * @return {String}
+     */
     fdate(d, wrong_result){
       let r = bbn.fn.date(d);
       if ( !bbn.fn.isDate(r) ){

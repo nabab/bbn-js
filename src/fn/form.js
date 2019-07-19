@@ -7,48 +7,54 @@
   Object.assign(bbn.fn, {
 
     /**     FORMS     */
-
-    /* Adds inputs to a form, respecting the data structure */
+    
+    /**
+     * Adds inputs to a form, respecting the data structure.
+     * 
+     * @method add_inputs  
+     * @param {Object} form 
+     * @param {array} params 
+     * @param {String} prefix 
+     */
     add_inputs(form, params, prefix){
       if ( form && (form.tagName === 'FORM') ){
-        let name,
-            appendToForm = (name, val) => {
-              let input = document.createElement('input');
-              input.setAttribute('type', 'hidden');
-              input.setAttribute('name', name);
-              input.setAttribute('value', val);
-              form.appendChild(input);
-            };
+        let appendToForm = (name, val) => {
+          let input = document.createElement('input');
+          input.setAttribute('type', 'hidden');
+          input.setAttribute('name', name);
+          input.setAttribute('value', val);
+          form.appendChild(input);
+        };
         params = JSON.parse(JSON.stringify(params || {}));
         prefix = prefix || '';
         
-        if ( form && params ){
-          for ( let param in params ){
-            name = prefix ? `${prefix}[${param}]` : param;
-            if ( params[param] instanceof Date ){
-              appendToForm(form, name, params[param].toISOString());
+        if ( params ){
+          bbn.fn.iterate(params, (param, key) => {
+            let name = prefix ? `${prefix}[${key}]` : key;
+            if ( param instanceof Date ){
+              appendToForm(form, name, param.toISOString());
             }
-            else if ( params[param] instanceof Array ){
-              params[param].forEach((e, i) => {
+            else if ( param instanceof Array ){
+              param.forEach((e, i) => {
                 const tempName = `${name}[${i}]`;
                 if ( typeof e === 'object' ){
                   bbn.fn.add_inputs(form, e, tempName);
                 }
                 else {
-                  appendToForm(form, tempName, e.toString());
+                  appendToForm(tempName, e.toString());
                 }
               });
             }
             else if (
-              (typeof params[param] === 'object') &&
-              !(params[param] instanceof File)
+              (typeof param === 'object') &&
+              !(param instanceof File)
             ){
-              bbn.fn.add_inputs(form, params[param], name);
+              bbn.fn.add_inputs(form, param, name);
             }
             else {
-              appendToForm(form, name, params[param].toString());
+              appendToForm(name, param.toString());
             }
-          }
+          });
         }
       }
     },
@@ -73,7 +79,12 @@
         }
       }
     },*/
-
+    /**
+     * Cancels change(s) in the given form element.
+     * @method cancel
+     * @param {HTMLElement} form 
+     * @param {Event} e 
+     */
     cancel(form, e){
       if ( e ){
         e.preventDefault();
@@ -98,14 +109,26 @@
       }
       bbn.fn.log("CANCEL", obj);
     },
-
+    /**
+     * Resets the given form.
+     * @method reset
+     * @param {HTMLElement} form 
+     * @param {Event} e 
+     */
     reset(form, e){
       //$(form).data("bbnSubmit", null);
       if ( form ){
         form.setAttribute('bbnSubmit', null);
       }
     },
-
+    /**
+     * Submits the given form.
+     * @method submit
+     * @param {HTMLElement} form 
+     * @param {Event} e 
+     * @fires bbn.fn.isFunction
+     * @fires bbn.fn.post
+     */
     submit(form, e){
       //let $form = $(form),
       let url = form.getAttribute("action") || bbn.env.path,
@@ -150,7 +173,12 @@
         }
       }
     },
-
+    /**
+     * Keeps the original values in a data attached to the element.
+     * @method setInitialValues
+     * @param {HTMLElement} ele 
+     * @param {Boolean} force 
+     */
     setInitialValues(ele, force){
       // Keeping the original values in a data attached to the element
       //$(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)", ele).each(function(){
@@ -171,7 +199,12 @@
         }
       });
     },
-
+    /**
+     * Returns true if one or more elements of the given form has been updated.
+     * @method formupdated
+     * @param {HTMLElement} form 
+     * @return {Boolean}
+     */
     formupdated(form){
       let res = true,
       //  $f = $(form),
@@ -203,7 +236,12 @@
           })
       return res;
     },
-
+    /**
+     * Returns the value of the given element.
+     * @method fieldValue
+     * @param {HTMLElement} field 
+     * @return {String|Number|Boolean}
+     */
     fieldValue(field){
       //var $f = $(field),
         let  v;
@@ -235,7 +273,13 @@
       }
       return v;
     },
-
+    /**
+     * Returns an object containing the data of the form's elements having the attribute name.
+     * @method formdata
+     * @param {HTMLElementL} form 
+     * @fires bbn.fn.fieldValue
+     * @return {Object}
+     */
     formdata(form){
      // var $f = $(form),
           // inputs with a name
@@ -298,7 +342,13 @@
       // return num_changes ? res : false;
       return res;
     },
-    
+    /**
+     * Returns an object containing the changes made on the form's elements having the attribute name.
+     * @param {HTMLElement} form 
+     * @fires bbn.fn.formdata
+     * @returns {Object}
+     *
+     */
     formChanges(form){
       //var $f = $(form),
           //inputs with a name

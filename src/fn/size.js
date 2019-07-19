@@ -1,11 +1,15 @@
 /**
  * Created by BBN on 10/02/2017.
  */
-;(($, bbn) => {
+;((bbn) => {
   "use strict";
 
-  $.extend(bbn.fn, {
-
+  Object.assign(bbn.fn, {
+    /**
+     * Resizes the environment and fires the default resize function.
+     * @method resize
+     * @fires bbn.fn.defaultResizeFunction
+     */
     resize(){
       var w = window.innerWidth,
           h = window.innerHeight;
@@ -14,10 +18,24 @@
         bbn.env.width = w;
         bbn.env.height = h;
       }
+      bbn.fn.log("RESIZE!");
       //$(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
     },
-
+    /**
+     * Toggles the browser fullscreen.
+     * @method toggle_full_screen 
+     * @fires window.document.mozCancelFullScreen
+     * @fires window.document.documentElement.mozRequestFullScreen
+     * @fires window.document.webkitCancelFullScreen
+     * @fires window.document.documentElement.webkitRequestFullScreen
+     * @fires window.document.msExitFullscreen
+     * @fires window.document.documentElement.msRequestFullScreen
+     * @fires window.document.exitFullscreen
+     * @fires window.document.exitFullscreen()
+     * @fires window.document.documentElement.requestFullscreen
+     * @fires bbn.fn.resize
+     */
     toggle_full_screen(){
       var wscript;
       if ( window.document.documentElement.mozRequestFullScreen ){
@@ -56,7 +74,11 @@
         bbn.fn.resize();
       }, 0);
     },
-
+    /**
+     * Gets the scrollbar size.
+     * @method getScrollBarSize
+     * @return {Number}
+     */
     getScrollBarSize(){
       if ( bbn.env.scrollBarSize === undefined ){
         let outer = document.createElement("div");
@@ -85,7 +107,10 @@
       }
       return bbn.env.scrollBarSize;
     },
-
+    /**
+     * Adjusts the height of the given element(s).
+     * @method adjustHeight
+     */
     adjustHeight(){
       let maxH = 0,
           idx,
@@ -106,7 +131,10 @@
         }
       });
     },
-
+    /**
+     * Adjusts the width of the given element(s).
+     * @method adjustWidth
+     */
     adjustWidth(){
       let maxW = 0;
       bbn.fn.each(arguments, (el, i) => {
@@ -121,7 +149,12 @@
         }
       });
     },
-
+    /**
+     * Returns the scorll parent of the given node.
+     * @method getScrollBarSize
+     * @param {HTMLElement} node 
+     * @return {HTMLElement}
+     */
     getScrollParent(node) {
       if ( node == null ){
         return null;
@@ -134,7 +167,12 @@
         return bbn.fn.getScrollParent(node.parentNode);
       }
     },
-
+    /**
+     * Returns the height of the given element.
+     * @method calculateHeight
+     * @param {HTMLElement} element 
+     * @return {String}
+     */
     calculateHeight(element){
       const oldVis = element.style.visibility;
       element.style.visibility = 'hidden';
@@ -162,4 +200,4 @@
     }
   })
 
-})(jQuery, bbn);
+})(bbn);

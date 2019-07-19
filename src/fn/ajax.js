@@ -9,7 +9,10 @@
   Object.assign(bbn.fn, {
 
     /**     AJAX    */
-
+    /**
+     * @method getLoader
+     * @param {String} idURL 
+     */
     getLoader(idURL){
       let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if ( idx > -1 ){
@@ -17,11 +20,22 @@
       }
       return false;
     },
-
+    /**
+     * @method _makeIdURL
+     * @param {String} url 
+     * @param {Object} data 
+     * @param {String} datatype 
+     */
     _makeIdURL(url, data, datatype){
       return url + bbn.fn.md5(datatype + (data ? JSON.stringify(data) : ''));
     },
-
+    /**
+     * @method _deleteLoader
+     * @param {String} idURL 
+     * @param {String|Object} res 
+     * @param {Boolean} isAbort 
+     * @return {Boolean}
+     */  
     _deleteLoader(idURL, res, isAbort){
       let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if ( idx > -1 ){
@@ -44,7 +58,13 @@
       }
       return false;
     },
-
+    /**
+     * @method _addLoader
+     * @param {String} idURL 
+     * @param {Object} loader 
+     * @param {} source 
+     * @return {Number}
+     */
     _addLoader(idURL, loader, source){
        let tst = (new Date()).getTime()
       bbn.env.loaders.push({
@@ -69,7 +89,16 @@
       }
       return tst;
     },
-
+    /**
+     * @method ajax
+     * @param {String} url 
+     * @param {String} datatype 
+     * @param {Object} data 
+     * @param {Function} success 
+     * @param {Function} failure 
+     * @param {Function} abort 
+     * @return {Object}
+     */
     ajax(url, datatype, data, success, failure, abort){
       if ( url ){
         if ( !datatype ){
@@ -144,22 +173,24 @@
       }
     },
 
-    /*
-     Operates a link, making use of History if available, and triggering special functions
-     The possible arguments are:
-     - a link or an absolute path
-     - a jQuery element to inject html in
-     - a callback to be called instead of defaultLinkFunction - the argument is the Ajax return
-     - a callback to be called instead of defaultPostLinkFunction - the argument is the url about to be loaded
-     - a callback to be called instead of defaultPreLinkFunction - the argument is the Ajax return
-     It will post and expects an object with the following properties:
-     - prescript: some javascript to execute before the Ajax call is made
-     - script: some script to execute just after the Ajax call
-     - postscript: some script to execute just after the defaultPostLinkFunction function
-     - new_url: the URL to change
-     - siteTitle: The title to put in the title tag
-     - error: an error message
-     - html: an html string to inject
+    /**
+     *
+     * Operates a link, making use of History if available, and triggering special functions
+     * The possible arguments are:
+     * - a link or an absolute path
+     * - a callback to be called instead of defaultLinkFunction - the argument is the Ajax return
+     * - a callback to be called instead of defaultPostLinkFunction - the argument is the url about to be loaded
+     * - a callback to be called instead of defaultPreLinkFunction - the argument is the Ajax return
+     * It will post and expects an object with the following properties:
+     * - prescript: some javascript to execute before the Ajax call is made
+     * - script: some script to execute just after the Ajax call
+     * - postscript: some script to execute just after the defaultPostLinkFunction function
+     * - new_url: the URL to change
+     * - siteTitle: The title to put in the title tag
+     * - error: an error message
+     * - html: an html string to inject
+     * @method link
+     * @return {Boolean}
      */
     link(){
       let cfg = bbn.fn.treat_vars(arguments),
@@ -183,7 +214,7 @@
         location.href = bbn.env.url + cfg.url;
         if ( window.history ){
           bbn.env.historyDisabled = true;
-          let state = bbn.fn.history.getState();
+          let state = h.state;
           window.history.replaceState(null, state.title, bbn.env.url);
         }
         bbn.env.historyDisabled = false;
@@ -267,7 +298,7 @@
           h,
           fn,
           type;
-      bbn.each(arguments, function(v){
+      bbn.fn.each(arguments, function(v, i){
         if ( i > 0 ){
           if ( bbn.fn.isFunction(v) ){
             fn = v;
@@ -302,7 +333,14 @@
         }
       });
     },
-
+    /**
+     * @method callback
+     * @param {String} url 
+     * @param {Object} res 
+     * @param {Function} fn 
+     * @param {Function} fn2 
+     * @param {HTMLElement} ele 
+     */
     callback(url, res, fn, fn2, ele){
       if ( res ){
         var tmp = true,
@@ -364,67 +402,107 @@
       return tmp;
     },
 
-    /* Set the vars bbn.env.url, bbn.env.path and bbn.env.params, and call bbn.fn.history if loaded
+    /**
+     * Set the vars bbn.env.url, bbn.env.path and bbn.env.params, and call bbn.fn.history if loaded
      * If a function is passed it will be executed on return instead of bbn.fn.link
+     * @method setNavigationVars
+     * @param {String} url 
+     * @param {String} title 
+     * @param {Object} data 
+     * @param {Boolean} repl 
      */
     setNavigationVars(url, title, data, repl){
+      // Current path becomes old path
       bbn.env.old_path = bbn.env.path;
-      bbn.env.url = url.indexOf('http') > -1 ? url : bbn.env.root + url;
+      // URL includes the domain
+      bbn.env.url = ['https:/', 'http://'].includes(url.substr(0, 7)) ? url : bbn.env.root + url;
+      // Path does not
       bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
-      var tmp = bbn.env.path.split("/"), state, obj;
-      bbn.env.params = [];
-      bbn.fn.each(tmp, function(v){
-        v = decodeURI(v.trim());
-        if ( v !== "" ){
-          bbn.env.params.push(v);
-        }
+      // Params will include each part of the URL
+      bbn.env.params = bbn.fn.filter(bbn.env.path.split("/"), (v) => {
+        return v !== '';
       });
-      if ( bbn.fn.history ){
-        state = bbn.fn.history.getState();
-        obj = {
+      // Managing history
+      let h = bbn.fn.history();
+      if ( h ){
+        // Current state
+        let state = h.state;
+        // Future state
+        let  obj = {
           url: bbn.env.path,
-          old_path: bbn.env.old_path || null
+          old_path: bbn.env.old_path || null,
+          data: data || {}
         };
-        if ( state.url === bbn.env.url ){
+        // If same URL we replace
+        if (state && (state.url === bbn.env.path)) {
           if ( state.data ){
-            obj = bbn.fn.extend({}, state.data, obj);
+            bbn.fn.extend(obj.data, state.data);
           }
           if ( state.title && !title ){
             title = state.title;
           }
           repl = 1;
         }
-        if ( !title ){
+        // If no title the global title
+        if (!title) {
           title = bbn.env.siteTitle;
         }
-        else{
+        // Otherwise we add the global title at the end
+        else {
           title = bbn.fn.html2text(title);
-          if ( title.indexOf(bbn.env.siteTitle) === -1 ){
+          if (title.indexOf(' - ' + bbn.env.siteTitle) === -1) {
             title += ' - ' + bbn.env.siteTitle;
           }
         }
+        // Replacing state
         if ( repl ){
           obj.reload = 1;
-          bbn.fn.history.replaceState(obj, title, bbn.env.url);
+          h.replaceState(obj, title, bbn.env.url);
         }
+        // Adding state
         else{
-          bbn.fn.history.pushState(obj, title, bbn.env.url);
+          h.pushState(obj, title, bbn.env.url);
         }
       }
     },
-
-    download(url, filename, params){
-
+    
+    download2(url, filename, params){
+      var iframe = document.getElementById("bbn-iframe-download"),
+          par = '';
+      if ( !iframe ){
+        iframe = document.createElement('iframe');
+        iframe.setAttribute('id', 'bbn-iframe-download');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+      }
+      if ( bbn.fn.isObject(params) ){
+        bbn.fn.iterate(params, (v, k) => {
+          par += '&' + k + '=' + v;
+        });
+      }
+      else {
+        par = '';
+      }
+      iframe.setAttribute('src', url + '?filename=' + filename + par);
     },
 
-    /* Creates a form and send data with it to a new window */
-    post_out(action, params, successFn, target){      
+    /**
+     * Creates a form and send data with it to a new window
+     * @function post_out
+     * @param {String} action 
+     * @param {Object} params 
+     * @param {Function} successFn 
+     * @param {String} target 
+     */
+    post_out(action, params, successFn, target){
       var form = document.getElementById("bbn-form_out"),
           has_bbn = false;
       if ( !form ){
         form = document.createElement('form');
+        form.classList.add('bbn-no');
         form.setAttribute('id', 'bbn-form_out');
         form.setAttribute('method', 'post');
+        form.setAttribute('enctype', 'multipart/form-data-encoded');
         form.style.display = 'none';
         document.body.appendChild(form);
       }
@@ -434,36 +512,22 @@
       if ( !params ){
         params = {};
       }
-      params = bbn.fn.extend(true, {}, params);
+      //params = bbn.fn.extend(true, {}, params);
+      params = bbn.fn.extend({}, params, true);
       if ( !params.bbn ){
         params.bbn = 'public';
       }
-      if ( bbn.env.token ){
-        params._bbn_token = bbn.env.token;
-      }
-      
       bbn.fn.add_inputs(form, params);
-      /*
-      if ( !has_bbn ){
-        $form.append($("<input>").attr({
-          type: "hidden",
-          name: "bbn"
-        }).val("public"));
-      }
-      if ( bbn.env.token ){
-        $form.append($("<input>").attr({
-          type: "hidden",
-          name: "_bbn_token"
-        }).val(bbn.env.token));
-      }
-      */
       form.submit();
       if ( successFn ){
         successFn();
       }
     },
 
-    /* Posting function (with path rewriting) */
+    /**
+     * Posting function (with path rewriting) 
+     * @method post
+     */
     post(){
       let change = false,
           i,
@@ -480,7 +544,11 @@
         }, cfg.errorFn, cfg.abortFn);
       }
     },
-
+    /**
+     * @method treat_vars
+     * @param {Mixed} args 
+     * @return {Object}
+     */
     treat_vars(args){
       var cfg = {}, t, i;
       for (i = 0; i < args.length; i++ ){
@@ -497,10 +565,7 @@
             cfg.successFn = args[i];
           }
         }
-        /* jQuery object */
-        else if ( args[i] instanceof jQuery ){
-          cfg.ele = args[i];
-        }
+        /* Force */
         else if ( (args[i] === 1) || (args[i] === true) ){
           cfg.force = 1;
         }
@@ -549,7 +614,12 @@
 
     },
 
-    /* Extract a parameter from the URL, for when using key pairs parameters */
+    /**
+     * Extract a parameter from the URL, for when using key pairs parameters.
+     * @method getParam
+     * @param {Object}
+     * @return {Object}
+     */
     getParam(param, num){
       if ( !num ){
         num = 1;
