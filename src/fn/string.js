@@ -117,7 +117,7 @@
      * @return {XML|void|string}
      */
     camelize(str){
-      return str.replace('/^([A-Z])|[\\s-_](\\w)/g', function(match, p1, p2, offset){
+      return str.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset){
         if ( p2 ){
           return p2.toUpperCase();
         }
@@ -132,7 +132,7 @@
      * @return {XML|string}
      */
     camelToCss(str){
-      return str.replace('/([A-Z])/g', function(st){
+      return str.replace(/([A-Z])/g, function(st){
         return '-' + st.toLowerCase();
       }).replace('/^./', function(st){
         return st.toLowerCase()
@@ -169,7 +169,7 @@
      * @return {String}
      */
     randomString(min, max, types){
-      var length,
+      let length,
           type,
           chars = {
             n: '0123456789',
@@ -182,14 +182,20 @@
       if ( !min ){
         length = bbn.fn.randomInt(8, 14);
       }
-      if ( (typeof(max) === 'number') && (min < max) ){
+      if (bbn.fn.isString(max)) {
+        types = 'n';
+        chars = {
+          n: max
+        };
+      }
+      else if ( (typeof(max) === 'number') && (min < max) ){
         length = bbn.fn.randomInt(min, max);
       }
       else if ( min ){
         length = min;
       }
-      var result = '';
-      for ( var i = 0; i < length; i++ ){
+      let result = '';
+      for ( let i = 0; i < length; i++ ){
         // Not a number for the first char
         if ( i === 0 ){
           if ( types !== 'n' ){
@@ -210,7 +216,7 @@
      * @return {Boolean}
      */
     isEmail(st){
-      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       return regex.test(st);
     },
 

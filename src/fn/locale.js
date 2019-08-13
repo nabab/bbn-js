@@ -106,6 +106,9 @@
     date(v){
       let d = false,
           t = typeof(v);
+      if (!v) {
+        return new Date();
+      }
       if ( t === 'number' ){
         if ( v < 10000000000 ){
           v = v * 1000;

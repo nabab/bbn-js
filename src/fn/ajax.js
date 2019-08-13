@@ -62,7 +62,7 @@
      * @method _addLoader
      * @param {String} idURL 
      * @param {Object} loader 
-     * @param {} source 
+     * @param {Object} source 
      * @return {Number}
      */
     _addLoader(idURL, loader, source){
