@@ -2,7 +2,7 @@
  * Created by BBN on 10/02/2017.
  */
 // jshint esversion: 6
-;((bbn) => {
+((bbn) => {
   "use strict";
 
   /**     OBJECTS AND ARRAYS    */
@@ -1033,16 +1033,23 @@
      * 
      * ```
      * @method iterate
-     * @param {Object} obj 
+     * @param {Object|Number} obj 
      * @param {Function} fn 
      */
     iterate(obj, fn){
       if ( (obj !== null) && (typeof obj === 'object') ){
-        for ( var n in obj ){
+        for ( let n in obj ){
           if ( !bbn.fn.isFunction(obj.hasOwnProperty) || obj.hasOwnProperty(n) ){
             if ( fn(obj[n], n) === false ){
               return obj;
             }
+          }
+        }
+      }
+      else if ((typeof(obj) === 'number') && (obj > 0)) {
+        for (let i = 0; i < obj; i++){
+          if ( fn(i) === false ){
+            return i;
           }
         }
       }

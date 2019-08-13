@@ -187,6 +187,9 @@
         chars = {
           n: max
         };
+        if (!length){
+          length = min;
+        }
       }
       else if ( (typeof(max) === 'number') && (min < max) ){
         length = bbn.fn.randomInt(min, max);
@@ -567,6 +570,14 @@
         return st + 'px';
       }
       return st.toString();
+    },
+
+    repeat(st, num) {
+      let res = '';
+      bbn.fn.iterate(num, () => {
+        res += st;
+      });
+      return res;
     }
 
   })
