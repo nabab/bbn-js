@@ -89,6 +89,48 @@
       }
       return tst;
     },
+    upload(url, file, success, failure, progress){
+      let data = new FormData();
+      if ( !bbn.fn.numProperties(file) ){
+        data.append('file', file);
+      }
+      else{
+        bbn.fn.iterate(file, (a, k) => {
+          data.append(k, a);
+        });
+      }
+      let fn = () => {
+        return axios.post(url, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress(progressEvent) {
+            if (progress) {
+              let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              progress(percentCompleted, progressEvent.loaded, progressEvent.total);
+            }
+          }
+        });
+      };
+      if (!success && !failure) {
+        return fn();
+      }
+      else{
+        return fn()
+          .then(res => {
+            if (success) {
+              bbn.fn.log("SUCCESS", res);
+              success(res);
+            }
+          })
+          .catch(err => {
+            if (failure) {
+              bbn.fn.log("ERROR", res);
+              failure(err)
+            }
+          });
+      }
+    },
     /**
      * @method ajax
      * @param {String} url 
@@ -466,6 +508,31 @@
       }
     },
     
+    /**
+     * Downloads the given file.
+     * @method download
+     * @param {String} filename 
+     * @param {String} text 
+     * @param {String} type 
+     */
+    download(filename, text, type){
+      if ( !type ){
+        type = 'octet/stream';
+      }
+      else if ( type.indexOf('/') === -1 ){
+        type = 'text/' + type;
+      }
+      let a = window.document.createElement('a');
+      a.className = 'bbn-no';
+      a.href = window.URL.createObjectURL(bbn.fn.isString(text) ? new Blob([text], {type: type}) : text);
+      a.download = filename;
+      // Append anchor to body.
+      document.body.appendChild(a);
+      a.click();
+      // Remove anchor from body
+      document.body.removeChild(a);
+    },
+
     download2(url, filename, params){
       var iframe = document.getElementById("bbn-iframe-download"),
           par = '';

@@ -1097,30 +1097,6 @@
       });
     },
     /**
-     * Downloads the given file.
-     * @method download
-     * @param {String} filename 
-     * @param {String} text 
-     * @param {String} type 
-     */
-    download(filename, text, type){
-      if ( !type ){
-        type = 'octet/stream';
-      }
-      else if ( type.indexOf('/') === -1 ){
-        type = 'text/' + type;
-      }
-      let a = window.document.createElement('a');
-      a.className = 'bbn-no';
-      a.href = window.URL.createObjectURL(new Blob([text], {type: type}));
-      a.download = filename;
-      // Append anchor to body.
-      document.body.appendChild(a);
-      a.click();
-      // Remove anchor from body
-      document.body.removeChild(a);
-    },
-    /**
      * Returns a string exportable into a csv from the given array.
      * ```javascript
      * let myArray = [['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']];

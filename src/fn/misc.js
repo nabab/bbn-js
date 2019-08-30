@@ -468,7 +468,142 @@
 
     eraseCookie(name){
       document.cookie = name+'=; Max-Age=-99999999;';
+    },
+
+    getEventData(e){
+      let dt = e.dataTransfer || e.clipboardData;
+      let t = dt.getData('Text');
+      let res = {raw: t, files: [], str: []};
+      let p = new Promise((ok, err) => {
+        let done = !(dt instanceof DataTransfer);
+        if (!t && e.type === 'copy') {
+          let sel = window.getSelection();
+          res.raw = sel.toString();
+          let html = bbn.fn.getHTMLOfSelection();
+          res.str.push({
+            type: 'text/plain',
+            data: res.raw
+          });
+          if (html !== res.raw) {
+            res.str.push({
+              type: 'text/html',
+              data: html
+            });
+          }
+          else if (res.raw.trim().indexOf('<') === 0) {
+            res.str.push({
+              type: 'text/html',
+              data: "<meta charset='utf-8'><code style=\"white-space: pre; font-family: 'Courier New', sans-serif\">\n" + res.raw + "\n</code>"
+            });
+          }
+          done = true;
+          ok(res);
+        }
+        if ( !done ){
+          let strings = [];
+          let num = dt.items.length;
+          bbn.fn.each(dt.items, (item, idx) => {
+            let kind = item.kind;
+            let type = item.type;
+            if (kind === 'file') {
+              let cp = dt.files[idx];
+              if (!type && cp.name) {
+                let bits = cp.name.split('.');
+                type = bits[bits.length-1];
+              }
+              let name = cp ? cp.name : bbn._('untitled');
+              let size = cp ? cp.size : null;
+              let lastModified = cp ? cp.lastModified : null;
+              let blob = item.getAsFile();
+              if (blob) {
+                done = true;
+                num--;
+                res.files.push({
+                  type: type,
+                  data: blob,
+                  name: name,
+                  size: size,
+                  mdate: lastModified
+                });
+                strings.push(name);
+                if ( !num ){
+                  if (!res.raw) {
+                    res.raw = strings.join(", ");
+                  }
+                  ok(res);
+                }
+              }
+              else{
+                appui.error(bbn._("Impossible to read the file") + ' ' + name);
+              }
+            }
+            else{
+              done = true;
+              item.getAsString((data) => {
+                num--;
+                res.str.push({
+                  type: type,
+                  data: data
+                });
+                if (type === 'text/plain') {
+                  strings.push(name);
+                }
+                if ( !num ){
+                  if (!res.raw) {
+                    res.raw = strings.join(", ");
+                  }
+                  ok(res);
+                }
+              });
+            }
+          });
+        }
+        if ( !done ){
+          setTimeout(() => {
+            ok(res);
+          });
+        }
+      });
+      return p;
+    },
+    ab2str(buf) {
+      return String.fromCharCode.apply(null, new Uint16Array(buf));
+    },
+    str2ab(str) {
+      var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+      var bufView = new Uint16Array(buf);
+      for (var i=0, strLen=str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+      }
+      return buf;
+    },
+    getHTMLOfSelection() {
+      let range;
+      if (document.selection && document.selection.createRange) {
+        bbn.fn.log("METHOD 1");
+        range = document.selection.createRange();
+        return range.htmlText;
+      }
+      else if (window.getSelection) {
+        let selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          range = selection.getRangeAt(0);
+          bbn.fn.log("RANGE", range);
+          let clonedSelection = range.cloneContents();
+          bbn.fn.log("clonedSelection", clonedSelection);
+          let div = document.createElement('div');
+          div.appendChild(clonedSelection);
+          return div.innerHTML;
+        }
+        else {
+          return '';
+        }
+      }
+      else {
+        return '';
+      }
     }
-  })
+ 
+  });
 
 })(bbn);

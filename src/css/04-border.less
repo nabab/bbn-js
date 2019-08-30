@@ -75,6 +75,10 @@
   .bbn-bordered-internal;
   border-width: @default-border-width 0 0 0 !important;
 }
+.bbn-alt-bordered-top{
+  .bbn-alt-bordered-internal;
+  border-width: @default-border-width 0 0 0 !important;
+}
 .bbn-bordered-bottom{
   .bbn-bordered-internal;
   border-width: 0 0 @default-border-width 0 !important;
@@ -83,13 +87,20 @@
   .bbn-alt-bordered-internal;
   border-width: 0 0 @default-border-width 0 !important;
 }
-
 .bbn-bordered-left{
   .bbn-bordered-internal;
   border-width: 0 0 0 @default-border-width !important;
 }
+.bbn-alt-bordered-left{
+  .bbn-alt-bordered-internal;
+  border-width: 0 0 0 @default-border-width !important;
+}
 .bbn-bordered-right{
   .bbn-bordered-internal;
+  border-width: 0 @default-border-width 0 0 !important;
+}
+.bbn-alt-bordered-right{
+  .bbn-alt-bordered-internal;
   border-width: 0 @default-border-width 0 0 !important;
 }
 .bbn-bordered-notop{
@@ -130,4 +141,24 @@
 .bbn-no-border-internal{
   border-width: 0px !important;
   outline: 0;
+}
+.bbn-no-border-top{
+  border-top-width: 0px !important;
+}
+.bbn-no-border-bottom{
+  border-bottom-width: 0px !important;
+}
+.bbn-no-border-left{
+  border-left-width: 0px !important;
+}
+.bbn-no-border-right{
+  border-right-width: 0px !important;
+}
+.bbn-no-hborder{
+  .bbn-no-border-left;
+  .bbn-no-border-right;
+}
+.bbn-no-vborder{
+  .bbn-no-border-top;
+  .bbn-no-border-bottom;
 }
