@@ -29,8 +29,8 @@
     isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( isNaN(a) ){
-          return false
+        if ( ['boolean', 'object'].includes(typeof a) || isNaN(a) ){
+          return false;
         }
       }
       return true;
