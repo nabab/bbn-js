@@ -78,6 +78,23 @@
       return true;
     },
     /**
+     * Returns true if the given argument is a SQL formatted date.
+     * @method isDate
+     * @return {Boolean}
+     */
+    isSQLDate() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (
+          (typeof a !== 'string') ||
+          !a.match(/^([1-2]\d{3})-((0[0-9])|(1[12]))-(([0-2][0-9])|(3[01]))(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/)
+        ){
+          return false;
+        }
+      }
+      return true;
+    },
+    /**
      * Returns true if the given argument is an object.
      * @method isObject
      * @return {Boolean}

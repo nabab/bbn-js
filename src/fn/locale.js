@@ -200,10 +200,10 @@
       if ( !bbn.fn.isDate(r) ){
         return wrong_result && !bbn.fn.isNumber(wrong_result) ? wrong_result : '';
       }
-      if ( window.moment ){
+      if ( undefined !== moment ){
         return moment(r).format("DD/MM/YYYY");
       }
-      return r.toLocaleDateString()
+      return r.toLocaleDateString();
     },
 
   })

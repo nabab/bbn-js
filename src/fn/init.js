@@ -34,9 +34,9 @@
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors);
         }
-        document.addEventListener("focus", e => {
+        document.addEventListener("focusin", e => {
+          bbn.fn.log("FOCUSING", e.target);
           bbn.env.focused = e.target;
-          bbn.env.last_focus = new Date().getTime();
           bbn.fn.log(e.target);
         });
 /*

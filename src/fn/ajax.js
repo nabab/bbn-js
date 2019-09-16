@@ -618,6 +618,9 @@
      */
     treat_vars(args){
       var cfg = {}, t, i;
+      if ( bbn.fn.isObject(args[0]) && (args.length === 1) ){
+        return args[0];
+      }
       for (i = 0; i < args.length; i++ ){
         t = typeof (args[i]);
         /* Callbacks */

@@ -320,10 +320,21 @@
   .bbn-top-left;
   .bbn-bottom-right;
   overflow: hidden;
-  /** Important for Safari */
+  /** Important for Safari
   width: 100%;
   height: 100%;
+  */
 }
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+{ @media {
+    /*
+      Define here the CSS styles applied only to Safari browsers
+      (any version and any device)
+    */
+    .bbn-full-screen,.bbn-overlay{
+      /** Important for Safari */
+    }
+}}
 .bbn-full-content{
   .bbn-w-100;
   .bbn-h-100;

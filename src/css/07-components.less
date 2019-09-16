@@ -265,6 +265,23 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
       border-color: @default-border;
       border-width: @default-border-width;
       border-style: @default-border-style;
+      &.bbn-buttons-grid{
+        .bbn-block{
+          div{
+            display: grid;
+            grid-template-columns:repeat(auto-fit, minmax(30px , 1fr));
+            grid-row-gap: 0.5em;
+            .bbn-button.bbn-button-icon-only{
+              height: 2em;
+              width: 2em;
+              justify-self: center;
+              span{
+                padding-top: 0.25em;
+              }
+            }
+          }
+        }
+      }
     }
   }
   table > thead > tr > td{
