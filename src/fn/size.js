@@ -13,12 +13,10 @@
     resize(){
       var w = window.innerWidth,
           h = window.innerHeight;
-      //bbn.fn.log("resize");
       if ( (bbn.env.width !== w) || (bbn.env.height !== h) ){
         bbn.env.width = w;
         bbn.env.height = h;
       }
-      bbn.fn.log("RESIZE!");
       //$(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
     },

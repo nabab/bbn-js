@@ -619,6 +619,17 @@
       else {
         return '';
       }
+    },
+
+    copy(st){
+      let focused = bbn.env.focused;
+      let input = document.createElement("input");
+      input.style.opacity = 0;
+      input.value = st;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
     }
  
   });

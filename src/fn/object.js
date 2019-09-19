@@ -677,7 +677,7 @@
       if ( obj1 === obj2 ){
         return true;
       }
-      if ( (typeof(obj1) === 'object') && (typeof(obj2) === 'object') ){
+      if ( obj1 && obj2 && (typeof(obj1) === 'object') && (typeof(obj2) === 'object') ){
         let tmp1 = Object.keys(bbn.fn.removePrivateProp(obj1)).sort(),
             tmp2 = Object.keys(bbn.fn.removePrivateProp(obj2)).sort();
         if ( JSON.stringify(tmp1) !== JSON.stringify(tmp2) ){
