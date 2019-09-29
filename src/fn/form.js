@@ -378,5 +378,42 @@
       });
       return changes;
     },
+
+    /**
+     * @method objectToFormData
+     * @param {Object|Array|File} obj
+     * @param {String} key
+     * @param {Array} ignoreList
+     * @return FormData
+     */
+    objectToFormData(obj, key, ignoreList){
+      let formData = new FormData();
+      function appendFormData(data, key = ''){
+        if ( !ignoreList || (bbn.fn.isArray(ignoreList) && !ignoreList.includes(key)) ){
+          if ( data instanceof File ){
+            formData.append(key, data);
+          } 
+          else if (bbn.fn.isArray(data)) {
+            bbn.fn.each(data, (v, i) => {
+              appendFormData(v, key + '[' + i + ']');
+            })
+          } 
+          else if ( bbn.fn.isObject(data) && Object.keys(data).length ){
+            bbn.fn.iterate(data, (v, i) => {
+              if ( data.hasOwnProperty(i) ){
+                appendFormData(v, !key ? i : key + '[' + i + ']');
+              }
+            })
+          } 
+          else {
+            if ( !bbn.fn.isNull(data) && (data !== undefined) ){
+              formData.append(key, data);
+            }
+          }
+        }
+      }
+      appendFormData(obj, key);
+      return formData;
+    }
   })
 })(bbn);

@@ -90,17 +90,8 @@
       return tst;
     },
     upload(url, file, success, failure, progress){
-      let data = new FormData();
-      if ( !bbn.fn.numProperties(file) ){
-        data.append('file', file);
-      }
-      else{
-        bbn.fn.iterate(file, (a, k) => {
-          data.append(k, a);
-        });
-      }
       let fn = () => {
-        return axios.post(url, data, {
+        return axios.post(url, bbn.fn.objectToFormData(file), {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
@@ -118,14 +109,14 @@
       else{
         return fn()
           .then(res => {
-            if (success) {
+            if ( success ){
               bbn.fn.log("SUCCESS", res);
               success(res);
             }
           })
           .catch(err => {
-            if (failure) {
-              bbn.fn.log("ERROR", res);
+            if ( failure ){
+              bbn.fn.log("ERROR", err);
               failure(err)
             }
           });

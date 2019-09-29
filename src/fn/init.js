@@ -34,24 +34,15 @@
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors);
         }
+        if ( bbn.env.lang && (undefined !== moment) ){
+          moment.locale(bbn.env.lang);
+        }
+
         document.addEventListener("focusin", e => {
           bbn.fn.log("FOCUSING", e.target);
           bbn.env.focused = e.target;
           bbn.fn.log(e.target);
         });
-/*
-        $(window.document).on("click", "a:not(.bbn-no)", function(e){
-          if (
-            this.href &&
-            !this.getAttribute("target")
-          ){
-            e.preventDefault();
-            return bbn.fn.link(this.href);
-          }
-        }).on("submit", "form:not(.bbn-no,.bbn-form)", function(e){
-          bbn.fn.submit(this, e);
-        });
-*/
         document.addEventListener('click', (e) => {
           let target = e.target;
           if ( target.tagName !== 'A' ){

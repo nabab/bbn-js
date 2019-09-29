@@ -105,6 +105,25 @@
       }
       return bbn.env.scrollBarSize;
     },
+    adjustSize(type, eles){
+      let max = 0,
+          idx;
+      bbn.fn.each(eles, (el, i) => {
+        el.style[type] = 'auto';
+      });
+      bbn.fn.each(eles, (el, i) => {
+        let s = parseFloat(getComputedStyle(el)[type]);
+        if ( s > max ){
+          max = s;
+          idx = i;
+        }
+      });
+      bbn.fn.each(eles, (el, i) => {
+        if ( max && (idx !== i)){
+          el.style[type] = max + 'px';
+        }
+      });
+    },
     /**
      * Adjusts the height of the given element(s).
      * @method adjustHeight
@@ -116,36 +135,20 @@
       if ( (args.length === 1) && bbn.fn.isArray(args[0]) ){
         args = args[0];
       }
-      bbn.fn.each(args, (el, i) => {
-        let h = el.clientHeight;
-        if ( h > maxH ){
-          maxH = h;
-          idx = i;
-        }
-      });
-      bbn.fn.each(args, (el, i) => {
-        if ( maxH && (i !== idx) ){
-          el.style.height = maxH + 'px';
-        }
-      });
+      return bbn.fn.adjustSize('height', args);
     },
     /**
      * Adjusts the width of the given element(s).
      * @method adjustWidth
      */
     adjustWidth(){
-      let maxW = 0;
-      bbn.fn.each(arguments, (el, i) => {
-        let w = $(el).width();
-        if ( w > maxW ){
-          maxW = w;
-        }
-      });
-      bbn.fn.each(arguments, (el, i) => {
-        if ( maxW ){
-          $(el).width(maxW);
-        }
-      });
+      let maxW = 0,
+          idx,
+          args = arguments;
+      if ( (args.length === 1) && bbn.fn.isArray(args[0]) ){
+        args = args[0];
+      }
+      return bbn.fn.adjustSize('width', args);
     },
     /**
      * Returns the scorll parent of the given node.

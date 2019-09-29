@@ -207,7 +207,7 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
 .bbn-radio:disabled + .bbn-radio-label:hover:after,
 .bbn-radio:disabled + .bbn-radio-label:hover:before,
 .bbn-radio:disabled + .bbn-radio-label:before,
-.bbn-radio:disabled + .bbn-radio-label:active:before,
+.bbn-radio:disabled + .bbn-radio-label:active:before
  {
   background: @disabled-background;
   border-color: @disabled-border;
@@ -265,19 +265,34 @@ input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
       border-color: @default-border;
       border-width: @default-border-width;
       border-style: @default-border-style;
-      &.bbn-buttons-grid{
+      &.bbn-buttons-flex{
         .bbn-block{
           div{
-            display: grid;
-            grid-template-columns:repeat(auto-fit, minmax(30px , 1fr));
-            grid-row-gap: 0.5em;
+            display: flex!important;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
             .bbn-button.bbn-button-icon-only{
+              margin: .1em .1em !important;
               height: 2em;
               width: 2em;
-              justify-self: center;
               span{
-                padding-top: 0.25em;
+                //padding-top: 0.25em;
               }
+            }
+          }
+        }
+        &.bbn-c {
+          .bbn-block{
+            div{
+              justify-content: center;
+            }
+          }
+        }
+        &.bbn-r {
+          .bbn-block{
+            div{
+              justify-content: flex-end;
             }
           }
         }

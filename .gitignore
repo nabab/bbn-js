@@ -4,3 +4,7 @@ logs
 .history/
 .idea/
 *DS_STORE*
+
+[core]
+filemode = false
+*.* text eol=lf

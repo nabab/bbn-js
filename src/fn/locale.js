@@ -196,15 +196,50 @@
      * @return {String}
      */
     fdate(d, wrong_result){
+      // Retro compatibility
+      if ( wrong_result === true ){
+        return bbn.fn.fdatetime(d);
+      }
       let r = bbn.fn.date(d);
       if ( !bbn.fn.isDate(r) ){
-        return wrong_result && !bbn.fn.isNumber(wrong_result) ? wrong_result : '';
+        return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).format("DD/MM/YYYY");
+        return moment(r).calendar(null, {
+          sameDay: '[' + bbn._('Today') + ']',
+          nextDay: '[' + bbn._('Tomorrow') + ']',
+          nextWeek: 'ddd D',
+          lastDay: '[' + bbn._('Yesterday') + ']',
+          lastWeek: 'ddd D',
+          sameElse: 'DD/MM/YYYY'
+        });
       }
       return r.toLocaleDateString();
     },
+
+    fdatetime(d, wrong_result){
+      let r = bbn.fn.date(d);
+      if ( !bbn.fn.isDate(r) ){
+        return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
+      }
+      if ( undefined !== moment ){
+        return moment(r).calendar();
+      }
+      return r.toLocaleDateString();
+    },
+
+    ftime(d, wrong_result){
+      let r = bbn.fn.date(d);
+      if ( !bbn.fn.isDate(r) ){
+        return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
+      }
+      if ( undefined !== moment ){
+        return moment(r).calendar({
+          sameElse: 'D/M/YY HH:mm'
+        });
+      }
+      return r.toLocaleDateString();
+    }
 
   })
 
