@@ -39,9 +39,7 @@
         }
 
         document.addEventListener("focusin", e => {
-          bbn.fn.log("FOCUSING", e.target);
           bbn.env.focused = e.target;
-          bbn.fn.log(e.target);
         });
         document.addEventListener('click', (e) => {
           let target = e.target;

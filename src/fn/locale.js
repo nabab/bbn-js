@@ -45,22 +45,22 @@
 
        */
       if ( !decimal ){
-        decimal = bbn.env.money && bbn.env.money.decimal && (decimal === undefined) ? bbn.env.money.decimal : '.'
+        decimal = (decimal === undefined) && bbn.env.money && (bbn.env.money.decimal !== undefined) ? bbn.env.money.decimal : '.'
       }
       if ( !currency ){
-        currency = bbn.env.money && bbn.env.money.currency && (currency === undefined) ? bbn.env.money.currency : ''
+        currency = (currency === undefined) && bbn.env.money && (bbn.env.money.currency !== undefined) ? bbn.env.money.currency : ''
       }
       if ( !thousands ){
-        thousands = bbn.env.money && bbn.env.money.thousands && (thousands === undefined) ? bbn.env.money.thousands : ' '
+        thousands = (thousands === undefined) && bbn.env.money && (bbn.env.money.thousands !== undefined) ? bbn.env.money.thousands : ' '
       }
       if ( !precision ){
-        precision = bbn.env.money && bbn.env.money.precision && (precision === undefined) ? bbn.env.money.precision : false
+        precision = (precision === undefined) && bbn.env.money && (bbn.env.money.precision !== undefined) ? bbn.env.money.precision : false
       }
       if ( !kilo ){
-        kilo = bbn.env.money && bbn.env.money.kilo && (kilo === undefined) ? bbn.env.money.kilo : false;
+        kilo = (kilo === undefined) && bbn.env.money && (bbn.env.money.kilo !== undefined) ? bbn.env.money.kilo : false;
       }
       if ( !novalue ){
-        novalue = bbn.env.money && bbn.env.money.novalue && (novalue === undefined) ? bbn.env.money.novalue : false;
+        novalue = (novalue === undefined) && bbn.env.money && (bbn.env.money.novalue !== undefined) ? bbn.env.money.novalue : false;
       }
       if ( !bbn.fn.isNumber(precision) ){
         precision = kilo ? 3 : 0;
@@ -106,10 +106,10 @@
     date(v){
       let d = false,
           t = typeof(v);
-      if (!v) {
+      if ( v === undefined ) {
         return new Date();
       }
-      if ( t === 'number' ){
+      if ( (t === 'number') || (bbn.fn.isNumber(v) && (v !== '')) ){
         if ( v < 10000000000 ){
           v = v * 1000;
         }
