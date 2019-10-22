@@ -42,7 +42,10 @@
       no: "No",
       unknown: "Unknown",
       untitled: "Untitled",
-      confirmation: "Confirmation"
+      confirmation: "Confirmation",
+      Today: "Today",
+      Tomorrow: "Tomorrow",
+      Yesterday: "Yesterday"
     },
     app: {
       popups: [],
