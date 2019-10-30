@@ -144,6 +144,16 @@
     },
 
     /**
+     * Capitalizes the first letter of the given string.
+     * @method correctCase
+     * @param str
+     * @return {string}
+     */
+    correctCase(str){
+      return str.replace(/[A-z]{1}/, c => c.toUpperCase());
+    },
+
+    /**
      * Returns a random integer between min and max.
      *
      * ```javascript
