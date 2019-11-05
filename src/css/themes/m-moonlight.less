@@ -1,44 +1,77 @@
-@active-background: #1e2024;
-@active-border: #2b2d33;
+@active-background: #e6bc4b;
+@active-border: #30353b;
 @active-border-style: solid;
-@active-text: #f0efeb;
-@alt-background: #2b2d33;
-@alt-border: #363940;
-@alt-border-radius: 4px;
+@active-text: #30353b;
+@alt-background: #243040;
+@alt-border: #243040;
+@alt-border-radius: 2px;
 @alt-border-style: solid;
 @alt-border-width: 1px;
-@alt-text: #f7f6f2;
-@button-text: #363940;
-@default-background: #191a1d;
-@default-border: #363940;
+@alt-text: #fcfcf5;
+@button-text: #f5f2e6;
+@default-background: #1d2633;
+@default-border: #1d2633;
 @default-border-radius: 2px;
 @default-border-style: solid;
 @default-border-width: 1px;
-@default-text: #f0efeb;
-@disabled-background: #e7e6e2;
-@disabled-border: #e7e6e2;
-@disabled-color: #2b2d33;
-// @effect: #2b2d33;
-@effect: none;
+@default-text: #fffcf0;
+@disabled-background: #c3c3c3;
+@disabled-border: #cacaca;
+@disabled-color: #c3c3c3;
+@effect: rgba(255, 255, 255, .6);
 @font: 'OpenSans';
-@header: #363940;
-@header-alt: #1e2024;
-@header-text: #f0efeb;
-@hover-background: #d6b772;
-@hover-border: #e2ca93;
+@header: #232d36;
+@header-alt: #0080f4;
+@header-alt-text: #30353b;
+@header-text: #fffcf0;
+@hover-background: #4b4e56;
+@hover-border: #4b4e56;
 @hover-border-style: solid;
-@hover-text: #2b2d33;
-@link-color: #e2ca93;
-@primary-background: #d6b772;
-@primary-border: #c9a352;
-@primary-text: #24262b;
-@secondary-background: #C9351C;
-@secondary-border: #B22222;
-@secondary-text: #363940;
-@state-selected-background: #363940;
-@state-selected-border: #363940;
-@state-selected-text: #f0efeb;
-@tertiary-background: #e2ca93;
-@tertiary-border: #c9a352;
+@hover-text: #f5f2e6;
+@link-color: #e6bc4b;
+@primary-background: #e6bc4b;
+@primary-border: #e6bc4b;
+@primary-text: #fffcf0;
+@secondary-background: #ceb5b1;
+@secondary-border: #bd7070;
+@secondary-text: #30353b;
+@state-selected-background: #e6bc4b;
+@state-selected-border: #e6bc4b;
+@state-selected-text: #fffcf0;
+@tertiary-background: #bdd7ba;
+@tertiary-border: #84d07d;
 @tertiary-text: #2e2e2e;
 @text-size: 13px;
+
+
+/*
+@lightest-default-background: #2F3E54;
+@light-default-background: #263243;
+@dark-default-background: #141A23;
+
+@lightest-alt-background: #9CAEC7;
+@light-alt-background: #1D2633;
+@dark-alt-background: #1D2633;
+
+@lightest-primary-background: #FBF3DF;
+@light-primary-background: #F2DDA5;
+@dark-primary-background: #E3B435;
+*/
+
+@lightest-default-background: lighten(@default-background, 15%);
+@light-default-background: lighten(@default-background, 5%);
+@dark-default-background: darken(@default-background, 5%);
+
+@lightest-alt-background: lighten(@alt-background, 25%);
+@light-alt-background: lighten(@alt-background, 5%);
+@dark-alt-background: darken(@alt-background, 5%);
+
+@lightest-primary-background: lighten(@primary-background, 33%);
+@light-primary-background: lighten(@primary-background, 20%);
+@dark-primary-background: darken(@primary-background, 5%);
+
+@default-to-dark-gradient: linear-gradient(to bottom, @default-background 20%, @dark-default-background 100%)!important;
+@dark-to-default-gradient: linear-gradient(to bottom, @dark-default-background 20%, @default-background 100%)!important;
+@dark-to-light-gradient: linear-gradient(to bottom, @dark-default-background 20%, @light-default-background 100%)!important;
+@default-to-alt-gradient: linear-gradient(to bottom, @default-background 60%, @alt-background 100%)!important;
+@light-to-default-gradient: linear-gradient(to bottom, @light-default-background 30%, @default-background 100%)!important;

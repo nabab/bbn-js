@@ -57,12 +57,21 @@
 }
 
 .bbn-background-header{
-  background: none,
-  linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header!important;
+  // background: none,
+  // linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header!important;
+  background: @default-to-alt-gradient!important;
+
 }
+// .bbn-background-header-internal{
+//   background: @default-to-alt-gradient;
+//   // background: none,
+//   // linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header;
+// }
 .bbn-background-header-internal{
-  background: none,
-  linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header;
+  // background: none,
+  // linear-gradient(to bottom, @effect 0%, rgba(255, 255, 255, .0) 100%) 50% 50% repeat @header;
+  background: @light-to-default-gradient;
+
 }
 .bbn-background{
   background-color: @default-background!important;

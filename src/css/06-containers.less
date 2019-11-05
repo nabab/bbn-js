@@ -259,6 +259,16 @@
     border-bottom-right-radius: inherit;
   }
 }
+.bbn-header-buttons{
+  i{
+    cursor: pointer;
+    color: @header-alt-text;
+  }
+  i:hover,i:focus {
+    opacity: 1;
+    color: @header-text;
+  }
+}
 .bbn-bblock,.bbn-box{
   .bbn-bordered-internal;
   //I've bbn-alt-bordered also because if bbn-bordered is 0px I don't have border on the inputs DON'T WORKS FOR FLAT THEME
@@ -324,6 +334,9 @@
   .bbn-button:not(.bbn-primary){
     .bbn-alt-background-internal;
     .bbn-alt-text-internal;
+  }
+  .bbn-widget-header-buttons{
+    color: @link-color;
   }
 }
 .bbn-hr-effect{
