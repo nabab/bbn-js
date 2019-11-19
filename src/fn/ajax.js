@@ -21,13 +21,22 @@
       return false;
     },
     /**
-     * @method _makeIdURL
+     * @method getIdURL
      * @param {String} url 
      * @param {Object} data 
      * @param {String} datatype 
      */
-    _makeIdURL(url, data, datatype){
-      return url + bbn.fn.md5(datatype + (data ? JSON.stringify(data) : ''));
+    getIdURL(url, data, datatype){
+      let d = {};
+      if (data) {
+        let keys = Object.keys(data).sort();
+        bbn.fn.each(keys, (n) => {
+          if (n.indexOf('_bbn') !== 0) {
+            d[n] = data[n];
+          }
+        });
+      }
+      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
     /**
      * @method _deleteLoader
@@ -137,7 +146,7 @@
         if ( !datatype ){
           datatype = 'json';
         }
-        let idURL = this._makeIdURL(url, data, datatype);
+        let idURL = this.getIdURL(url, data, datatype);
         let loaderObj = bbn.fn.getLoader(idURL);
         if ( loaderObj && loaderObj.loader ){
           return loaderObj.loader;
