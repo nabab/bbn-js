@@ -240,12 +240,21 @@
         case "contain":
         case "icontains":
         case "icontain":
+          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+            return false;
+          }
           return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) !== -1;
         case "doesnotcontain":
         case "donotcontain":
+            if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+              return true;
+            }
           return bbn.fn.removeAccents(v1.toLowerCase()).indexOf(bbn.fn.removeAccents(v2.toLowerCase())) === -1;
         case "starts":
         case "start":
+          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+            return false;
+          }
           if ( (typeof(v1) !== 'string') ){
             v1 = v1.toString() || '';
           }
@@ -258,14 +267,23 @@
         case "starti":
         case "istarts":
         case "istart":
+          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+            return false;
+          }
           return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) === 0;
         case "endswith":
         case "endsi":
         case "endi":
         case "iends":
         case "iend":
+          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+            return false;
+          }
           return v1.lastIndexOf(v2) === v1.length - v2.length;
         case "like":
+          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+            return false;
+          }
           return bbn.fn.removeAccents(v1).toLowerCase() === bbn.fn.removeAccents(v2).toLowerCase();
         case "gt":
         case ">":

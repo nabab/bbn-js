@@ -223,7 +223,15 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).calendar();
+        return moment(r).calendar(null, {
+          sameDay: '[' + bbn._('Today at') + '] HH:mm',
+          nextDay: '[' + bbn._('Tomorrow at') + '] HH:mm',
+          nextWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
+          lastDay: '[' + bbn._('Yesterday at') + '] HH:mm',
+          lastWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
+          sameElse: 'DD/MM/YYYY HH:mm'
+        });
+        //return moment(r).format("DD/MM/YYYY HH:mm")
       }
       return r.toLocaleDateString();
     },
