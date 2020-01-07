@@ -64,6 +64,10 @@
           i++;
           sheet.insertRule('.bbn-bg-' + n + '{background-color: ' + v + ' !important;}', i);
           i++;
+          sheet.insertRule('.bbn-border-' + n + '{border-color: ' + v + ' !important;}', i);
+          i++;
+          sheet.insertRule('.bbn-color-' + n + '{border-color: ' + v + '; background-color: ' + v + '; color: ' + v + ';}', i);
+          i++;
         });
       }
     },

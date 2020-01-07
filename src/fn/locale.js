@@ -205,6 +205,8 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
+        return moment(r).format('L');
+        /*
         return moment(r).calendar(null, {
           sameDay: '[' + bbn._('Today') + ']',
           nextDay: '[' + bbn._('Tomorrow') + ']',
@@ -213,6 +215,7 @@
           lastWeek: 'ddd D',
           sameElse: 'DD/MM/YYYY'
         });
+        */
       }
       return r.toLocaleDateString();
     },
@@ -223,6 +226,8 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
+        return moment(r).format('lll');
+        /*
         return moment(r).calendar(null, {
           sameDay: '[' + bbn._('Today at') + '] HH:mm',
           nextDay: '[' + bbn._('Tomorrow at') + '] HH:mm',
@@ -231,6 +236,7 @@
           lastWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
           sameElse: 'DD/MM/YYYY HH:mm'
         });
+        */
         //return moment(r).format("DD/MM/YYYY HH:mm")
       }
       return r.toLocaleDateString();
