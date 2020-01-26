@@ -317,6 +317,25 @@
   flex-grow: 1;
   position: relative;
 }
+.bbn-button-group{
+  .bbn-flex-width;
+  padding: 0;
+  border-radius: @default-border-radius;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  border-width: 0;
+  > .bbn-button{
+    .bbn-flex-fill;
+    border-radius: 0;
+    &:first-child{
+      border-radius: inherit 0 0 inherit;
+    }
+    &:last-child{
+      border-radius: 0 inherit inherit 0;
+    }
+  }
+}
 .bbn-full-screen,.bbn-overlay{
   box-sizing: border-box;
   .bbn-abs;

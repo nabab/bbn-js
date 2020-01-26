@@ -1,0 +1,400 @@
+.bbn-alt{
+  .bbn-alt-background-internal;
+  // .bbn-alt-bordered-internal;
+  border: none!important;
+  .bbn-alt-text-internal;
+}
+.bbn-alt-light{
+  background: @alt-background-light;
+  //border: none!important;
+  .bbn-alt-text-internal;
+}
+.bbn-spacer{
+  display:block;
+  position:relative;
+  float:left;
+  width: 10px;
+  min-height: 1px;
+}
+.bbn-nowrap{
+  white-space: nowrap;
+}
+.bbn-section .bbn-legend{
+  position:absolute;
+  width:auto;
+  white-space:nowrap;
+  top:-0.8em;
+  background-color:inherit;
+}
+.bbn-border-box{
+  position: relative;
+  box-sizing: border-box !important;
+}
+.bbn-block{
+  .bbn-border-box;
+  float: left;
+}
+.bbn-section{
+  .bbn-border-box;
+  display:block;
+  vertical-align:top;
+  background-image:none;
+  border-color: inherit;
+  border-width: 2px;
+  border-style: solid;
+  margin: 1em;
+  padding: 1em;
+  /* Attempt for nesting forms */
+  .bbn-section{
+    border-style:dashed;
+    .bbn-section{
+      border-style:dotted;
+    }
+  }
+  hr{
+    border-color: inherit;
+    border-width: 2px;
+    border-style: solid;
+    height:2px;
+    margin: 1em;
+  }
+  legend,.bbn-legend{
+    font-weight:bold;
+    font-size:1.2em;
+    padding:0 1em;
+    cursor:pointer;
+  }
+}
+.bbn-block-left{
+  box-sizing: content-box;
+  vertical-align:top;
+  min-height: 2em;
+  line-height: 1.5em;
+  position: relative;
+  hyphens: auto;
+  word-wrap: break-word;
+  float: left;
+  margin-right: 1em;
+  width: ~"-webkit-calc(50% - 1em)";
+  width: ~"-moz-calc(50% - 1em)";
+  width: ~"calc(50% - 1em)";
+  height: auto;
+}
+.bbn-block-right{
+  box-sizing: content-box;
+  vertical-align:top;
+  min-height: 2em;
+  line-height: 1.5em;
+  position: relative;
+  hyphens: auto;
+  word-wrap: break-word;
+  float: right !important;
+  margin-left: 1em;
+  clear: right !important;
+  width: ~"-webkit-calc(50% - 1em)";
+  width: ~"-moz-calc(50% - 1em)";
+  width: ~"calc(50% - 1em)";
+  height: auto;
+}
+.bbn-no-height{
+  height: 0px;
+}
+.bbn-block-after{
+  content: ' ';
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.bbn-block-right::after{
+  .bbn-block-after;
+}
+.bbn-content{
+  .bbn-border-box;
+  overflow: auto;
+  .bbn-alt-background;
+}
+.bbn-line-breaker{
+  .bbn-block;
+  width: 100%;
+  clear:both;
+  padding-bottom:1em;
+}
+.bbn-fl{
+  .bbn-block;
+}
+.bbn-nl{
+  .bbn-block;
+  width: 100%;
+  clear:both;
+}
+.bbn-vspace{
+  .bbn-nl;
+  height: 1.2em;
+}
+.bbn-badge,.bbn-tag{
+  background-color: @black;
+  color: @white;
+  display:inline-block;
+  padding: 0 0.4em;
+  text-align:center;
+  font-weight: bold;
+}
+.bbn-badge{
+  border-radius:50%
+}
+.bbn-card{
+  box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+}
+.bbn-stats{
+  align-items: center;
+  flex-direction: row;
+  div{
+    display: inline-block;
+    text-transform: uppercase;
+    text-align: center;
+    box-sizing: content-box;
+  }
+  .label{
+    margin: 0 0 0 0.75em;
+    font-size: 1em;
+  }
+  .value{
+    display: inline-block;
+    font-size: 2em;
+    font-weight: normal;
+    line-height: 1em;
+  }
+}
+.bbn-masonry{
+  -moz-column-count: auto;
+  -webkit-column-count: auto;
+  column-count: auto;
+  -moz-column-fill: balance;
+  column-fill: balance;
+}
+.bbn-avatar{
+  font-style: italic;
+  img{
+    width: 16px;
+    height: auto;
+    vertical-align: top;
+  }
+}
+.bbn-grid{
+  display: grid;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 0.4em;
+  grid-auto-rows: max-content;
+}
+.bbn-grid-fields{
+  //padding: 1em;
+  .bbn-grid;
+  grid-template-columns: minmax(auto,max-content) auto;
+  > *:not(.bbn-grid-full){
+    > .bbn-c, > .bbn-centered{
+      .bbn-c;
+    }
+    > .bbn-r, > .bbn-right{
+      .bbn-r;
+    }
+    > .bbn-l, > .bbn-left{
+      .bbn-l;
+    }
+  }
+  > *:not(label):not(.bbn-label):not(.bbn-grid-full){
+    text-align: left;
+  }
+  > label, > .bbn-label{
+    text-align: right;
+  }
+  &.bbn-l, &.bbn-left{
+    grid-template-columns: minmax(auto, max-content) auto;
+    > *{
+      text-align: left;
+    }
+  }
+  &.bbn-r, &.bbn-right{
+    grid-template-columns: auto minmax(auto, max-content);
+    > *{
+      text-align: right;
+    }
+  }
+  &.bbn-c, &.bbn-centered{
+    grid-template-columns: auto auto;
+    > *:not(label):not(.bbn-label):not(.bbn-grid-full){
+      text-align: right;
+    }
+    > label, > .bbn-label{
+      text-align: left;
+    }
+  }
+  > .bbn-grid-full{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+  }
+}
+.bbn-nowrap{
+  flex-wrap: nowrap;
+}
+.bbn-widget{
+  .bbn-alt;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+  outline: 0;
+  line-height: normal;
+  .bbn-table tbody > tr.bbn-alt{
+    &:hover{
+      td{
+        .bbn-alt-background-internal;
+      }
+    }
+    td{
+      .bbn-alt-background-internal;
+    }
+  }
+  >.bbn-header{
+    .bbn-bordered-bottom;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+  >.bbn-footer{
+    .bbn-bordered-top;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+}
+.bbn-header-buttons{
+  i{
+    cursor: pointer;
+    color: @header-alt-text;
+  }
+  i:hover,i:focus {
+    opacity: 1;
+    color: @header-text;
+  }
+}
+.bbn-bblock,.bbn-box{
+  .bbn-bordered-internal;
+  //I've bbn-alt-bordered also because if bbn-bordered is 0px I don't have border on the inputs DON'T WORKS FOR FLAT THEME
+
+  .bbn-radius;
+  .bbn-background-internal;
+  .bbn-border-box;
+  .bbn-text-internal;
+  outline: 0;
+  line-height: normal;
+}
+.bbn-menulist{
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  zoom: 1;
+  cursor: default;
+  outline: 0;
+  text-decoration: none;
+  li{
+    border-width: 0;
+    white-space: nowrap;
+    padding: 0.25em 1.5em 0.25em 1em;
+    overflow: hidden;
+    cursor: pointer;
+    &.bbn-menuparent{
+      padding-right: 3em;
+      i.nf-fa-caret_right{
+        position: absolute;
+        right: 2px
+      }
+    }
+  }
+}
+.bbn-textbox{
+  .bbn-bordered-internal;
+  .bbn-background-internal;
+  //.bbn-text;
+  .bbn-radius;
+  color: contrast(@default-background);
+  text-align: left;
+  vertical-align: middle;
+  padding: 0;
+  outline: 0;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 100%;
+  font-family: inherit;
+  -webkit-appearance: none;
+  line-height: @line-height;
+  min-height: @line-height;
+}
+
+
+.bbn-header{
+  .bbn-alt-bordered-internal;
+  //border: none;
+  // .bbn-background-header-internal;
+  background: @light-to-alt-gradient;
+  color: @header-text;
+  position: relative;
+  vertical-align: middle;
+  .bbn-button:not(.bbn-primary){
+    .bbn-alt-background-internal;
+    .bbn-alt-text-internal;
+  }
+  .bbn-widget-header-buttons{
+    color: @link-color;
+  }
+}
+.bbn-hr-effect{
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+ul.bbn-ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.bbn-reactive-block{
+  .bbn-bordered-internal;
+  color: @button-text;
+  .bbn-background-header-internal;
+  //.bbn-background-effect;
+  box-sizing: border-box;
+}
+.bbn-reactive-block:hover:not(.bbn-disabled),.bbn-reactive-block.bbn-hover:not(.bbn-disabled){
+  .bbn-background-effect-internal;
+}
+.bbn-reactive-block:active {
+  .bbn-background-effect-internal;
+}
+.bbn-reactive-block:hover{
+  .bbn-hover-background-internal;
+}
+.bbn-reactive-block:focus:not(.bbn-disabled), .bbn-reactive-block:hover:focus:not(.bbn-disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled), .bbn-reactive-block:hover:focus-within:not(.bbn-disabled)
+.bbn-reactive-block:focus:not(:disabled), .bbn-reactive-block:hover:focus:not(:disabled), .bbn-reactive-block:focus-within:not(:disabled), .bbn-reactive-block:hover:focus-within:not(:disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled) {
+  border-color: @state-selected-border;
+}
+
+/** @todo Non va!!! */
+
+.bbn-textbox:focus:not(.bbn-disabled),
+.bbn-textbox:focus-within:not(.bbn-disabled),
+.bbn-textbox:hover:focus:not(.bbn-disabled),
+.bbn-textbox:hover:focus-within:not(.bbn-disabled),
+input:focus:not(.bbn-disabled),
+.bbn-textbox.bbn-focus:not(.bbn-disabled),
+.bbn-textbox.bbn-focus-within:not(.bbn-disabled),
+input.bbn-focus:not(.bbn-disabled),
+input:hover:focus:not(.bbn-disabled),
+.bbn-textbox:focus:not(:disabled),
+.bbn-textbox:focus-within:not(:disabled),
+.bbn-button:not(.bbn-button-right):not(.bbn-button-left):focus,
+.bbn-button.bbn-focusnot:not(.bbn-button-right):not(.bbn-button-left),
+.bbn-button:not(.bbn-button-right):not(.bbn-button-left):focus-within{
+  border-color: @state-selected-border;
+}

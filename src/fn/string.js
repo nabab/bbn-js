@@ -329,13 +329,16 @@
      * @param {Number} len The number of characters to take from the string
      * @return {String}
      */
-    shorten(st, len){
+    shorten(st, len, adj){
       if ( typeof(st).toLowerCase() === 'string' ){
         if ( !len ){
           len = bbn.var.shortenLen;
         }
+        if ((adj === undefined) || !bbn.fn.isString(adj)) {
+          adj = '...';
+        }
         if ( st.length > len ){
-          st = st.substr(0, len) + '...';
+          st = st.substr(0, len) + adj;
         }
       }
       return st;

@@ -4,9 +4,28 @@
 ;((bbn) => {
   "use strict";
 
+  let _chronos = {};
   Object.assign(bbn.fn, {
 
+
     /**     MISC     */
+    /**
+     * Returns true if the given arguments correspomd.
+     * @method isFunction
+     * @return {Boolean}
+     */
+    is(t) {
+      if (!arguments.length < 2) return false;
+      let type = typeof t;
+      let i = 0;
+      for ( let a of arguments ){
+        if (i && (type !== typeof a)) {
+          return false
+        }
+        i++;
+      }
+      return true;
+    },
     /**
      * Returns true if the given argument is a function.
      * @method isFunction
@@ -623,7 +642,7 @@
 
     copy(st){
       let focused = bbn.env.focused;
-      let input = document.createElement("input");
+      let input = document.createElement("textarea");
       input.style.opacity = 0;
       input.value = st;
       document.body.appendChild(input);
@@ -640,6 +659,30 @@
             s = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
             i = Math.floor(Math.log(bytes) / Math.log(k));
       return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals < 0 ? 0 : decimals)) + ' ' + s[i];
+    },
+
+    startChrono(name)
+    {
+      let now = (new Date()).getTime();
+      let h1 = 3600*1000;
+      if (_chronos.length) {
+        bbn.fn.each(_chronos, (t, n) => {
+          if (now - t > h1) {
+            delete _chronos[n];
+          }
+        });
+        now = (new Date()).getTime();
+      }
+      _chronos[name] = now;
+    },
+
+    stoptChrono(name)
+    {
+      if (_chronos[name]) {
+        let now = (new Date()).getTime();
+        let diff = now - _chronos[name];
+        return diff;
+      }
     }
  
   });

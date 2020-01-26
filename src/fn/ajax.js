@@ -75,17 +75,18 @@
      * @return {Number}
      */
     _addLoader(idURL, loader, source){
-       let tst = (new Date()).getTime()
+      let tst = (new Date()).getTime();
+      let url = idURL.substr(0, idURL.length - 33);
       bbn.env.loaders.push({
         key: idURL,
-        url: idURL.substr(0, idURL.length - 32),
+        url: url,
         loader: loader,
         source: source,
         start: tst
       });
       bbn.env.loadersHistory.unshift({
         key: idURL,
-        url: idURL.substr(0, idURL.length - 32),
+        url: url,
         loading: true,
         start: tst,
         error: false,
@@ -100,7 +101,7 @@
     },
     upload(url, file, success, failure, progress){
       let fn = () => {
-        return axios.post(url, bbn.fn.objectToFormData(file), {
+        return axios.post(url || bbn.env.path, bbn.fn.objectToFormData(file), {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
@@ -142,6 +143,9 @@
      * @return {Object}
      */
     ajax(url, datatype, data, success, failure, abort){
+      if (!url) {
+        url = bbn.env.path;
+      }
       if ( url ){
         if ( !datatype ){
           datatype = 'json';
@@ -197,9 +201,9 @@
               }
             }
           });
-        let tst = bbn.fn._addLoader(idURL, loader, source);
-        bbn.fn.defaultStartLoadingFunction(url, tst, data);
-        return loader;
+          let tst = bbn.fn._addLoader(idURL, loader, source);
+          bbn.fn.defaultStartLoadingFunction(url, tst, data, idURL);
+          return loader;
       }
     },
 
@@ -596,6 +600,7 @@
      * @method post
      */
     post(){
+      /*
       let change = false,
           i,
           cfg = bbn.fn.treat_vars(arguments);
@@ -606,6 +611,9 @@
         change = 1;
       }
       if ( change && cfg.url ){
+        */
+       let cfg = bbn.fn.treat_vars(arguments);
+       if ( cfg.url ){
         return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, (res) => {
           bbn.fn.callback(cfg.url, res, cfg.successFn, false, cfg.ele);
         }, cfg.errorFn, cfg.abortFn);
@@ -673,6 +681,9 @@
             cfg.obj = args[i];
           }
         }
+      }
+      if (!cfg.url && bbn.fn.numProperties(cfg)) {
+        cfg.url = bbn.env.path;
       }
       if ( cfg.obj === undefined ){
         cfg.obj = {bbn: "public"};

@@ -1,0 +1,134 @@
+@default-text: #2e2e2e;
+@default-border: #d5d5d5;
+@default-background: #fff;
+@default-border-style: solid;
+@default-border-width: 1px;
+@default-border-radius: 0.4em;
+@alt-text: #2e2e2e;
+@alt-border: #d5d5d5;
+@alt-background: #eae8e8;
+@alt-border-style: solid;
+@alt-border-width: 1px;
+@alt-border-radius: 0.6em;
+@primary-border: #e45200;
+@primary-background: #ff6b18;
+@primary-text: #fff;
+@secondary-border: #B22222;
+@secondary-background: #C9351C;
+@secondary-text: #fff;
+@tertiary-border: #0974B3;
+@tertiary-background: #1AABFF;
+@tertiary-text: #2e2e2e;
+@link-color: #eb65a0;
+@hover-background: #bcb4b0;
+@hover-border: #b6b6b6;
+@hover-text: #2e2e2e;
+@hover-border-style: solid;
+@active-text: #2e2e2e;
+@active-border: #b6b6b6;
+@active-background: #C9C1B3;
+@active-border-style: solid;
+@state-selected-text: #fff;
+@state-selected-background: #f35800;
+@state-selected-border: #FF5E00;
+@state-selected-text: #fff;
+@disabled-color: #c3c3c3;
+@disabled-background: #edebea;
+@disabled-border: #cacaca;
+@header: #eae8e8;
+@header-alt: #05386b;
+@header-text: #2e2e2e;
+@text-size: 13px;
+@button-text: #2e2e2e;
+@effect: rgba(255, 255, 255, .6);
+@font:'OpenSans';
+
+
+
+
+@default-background: #fff;
+@default-text: #00435e;
+@default-border: #e0edf1;
+@default-border-style: solid;
+@default-border-width: 1px;
+@default-border-radius: 4px;
+@alt-text: #00435e;
+@alt-border: #e0edf1;
+@alt-background: #daecf4;
+@alt-border-style: solid;
+@alt-border-width: 1px;
+@alt-border-radius: 0.6em;
+@hover-background: #d9ecf5;
+@hover-border: #a3d0e4;
+@hover-text: #003f59;
+@hover-border-style: solid;
+@active-text: #003f59;
+@active-border: #e0edf1;
+@active-background: #fff;
+@active-border-style: solid;
+@primary-background: #177fab;
+@primary-border: #177fab;
+@primary-text: #00435e;
+@button-text:#00435e;
+@effect: rgba(255, 255, 255, .6);
+@state-selected-border: #00435e;
+@header: #f0f8ff;
+@header-alt: #93c7df;
+@header-text: #00435e;
+
+@font: 'SourceSansPro';
+@font-face {
+  font-family: @font;
+  src: url("../../fonts/SourceSansPro/SourceSansPro-Regular.woff2") format("woff2");
+  font-style: normal;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/SourceSansPro/SourceSansPro-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: normal;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/SourceSansPro/SourceSansPro-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: bold;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/SourceSansPro/SourceSansPro-BoldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: bold;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/SourceSansPro/SourceSansPro-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: @font;
+  src:url("../../fonts/SourceSansPro/SourceSansPro-LightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+}
+
+
+@lightest-default-background: lighten(@default-background, 15%);
+@light-default-background: lighten(@default-background, 5%);
+@dark-default-background: darken(@default-background, 5%);
+
+@lightest-alt-background: lighten(@alt-background, 25%);
+@light-alt-background: lighten(@alt-background, 5%);
+@dark-alt-background: darken(@alt-background, 5%);
+
+@lightest-primary-background: lighten(@primary-background, 33%);
+@light-primary-background: lighten(@primary-background, 20%);
+@dark-primary-background: darken(@primary-background, 5%);
+
+@default-to-dark-gradient: linear-gradient(to bottom, @default-background 20%, @dark-default-background 100%)!important;
+@dark-to-default-gradient: linear-gradient(to bottom, @dark-default-background 20%, @default-background 100%)!important;
+@dark-to-light-gradient: linear-gradient(to bottom, @dark-default-background 20%, @light-default-background 100%)!important;
+@default-to-alt-gradient: linear-gradient(to bottom, @default-background 60%, @alt-background 100%)!important;
+
+  

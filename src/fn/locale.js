@@ -15,7 +15,6 @@
      * @param {String} currency  
      * @param {Boolean} noValue  
      * @return {String}
-     * 
      */
     money(val, kilo, currency, novalue, decimal, thousands, precision){
       /*

@@ -55,10 +55,11 @@ html, body, h1, h2, h3, h4, h5{
 h1, h2, h3, h4, h5{
   font-weight: 700 !important;
 }
-a{
+a, .bbn-link{
   outline-style: none;
   text-decoration: none;
   color: @link-color;
+  cursor: pointer;
 }
 table{
   font-size: inherit;
@@ -105,8 +106,4 @@ ul.bbn-reset{
 @keyframes bbn-anim-blinker{
   50%{ opacity: 0.25; }
 }
-.bbn-disabled{
-  opacity: 0.5;
-  cursor: default !important;
-  outline: 0;
-}
+
