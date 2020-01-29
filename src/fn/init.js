@@ -78,27 +78,6 @@
        //   .on("resize orientationchange", function() {
         window.addEventListener("resize", bbn.fn.resize);
         window.addEventListener("orientationchange", bbn.fn.resize);
-        window.addEventListener("beforeunload", e =>{
-            if ( !bbn.env.ignoreUnload ){
-              bbn.env.is_checking = 1;
-              bbn.env.is_loading = 1;
-              e = e || window.event;
-              //if ( $(".bbn-tabnav-unsaved").length ){
-              if ( document.getElementsByClassName("bbn-tabnav-unsaved").length ){  
-                let st = bbn._('You have unsaved data, are you sure you want to leave?');
-                // For IE and Firefox prior to version 4
-                if (e) {
-                  e.returnValue = st;
-                }
-                // For Safari
-                return st;
-              }
-              else{
-                //$(document.body).fadeOut();                
-                document.body.style.opacity = 0;
-              }
-            }
-          });
 
         bbn.fn.resize();
 

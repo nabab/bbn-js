@@ -38,6 +38,13 @@
   border-style: dotted;
 }
 
+.bbn-disabled, .bbn-state-disabled{
+  color: @disabled-color;
+  background-color: @disabled-background;
+  border-color: @disabled-border;
+  cursor: default !important;
+}
+
 .bbn-reactive{
   .bbn-state-default;
   &:hover:not(.bbn-disabled):not(:disabled),

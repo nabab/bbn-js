@@ -18,7 +18,7 @@
 @secondary-text: #fff;
 @tertiary-border: #0974B3;
 @tertiary-background: #1AABFF;
-@tertiary-text: #2e2e2e;
+@tertiary-text: #fff;
 @link-color: #3f51b5;
 @hover-background: #bcb4b0;
 @hover-border: #b6b6b6;
@@ -37,14 +37,12 @@
 @disabled-border: #cacaca;
 @header: #eae8e8;
 @header-alt: #05386b;
+@header-alt-text: #999;
 @header-text: #2e2e2e;
 @text-size: 13px;
 @button-text: #2e2e2e;
 @effect: rgba(255, 255, 255, .6);
-@font:'OpenSans';
-
-
-
+@font: 'OpenSans';
 
 
 @default-text: #fff;
@@ -114,19 +112,3 @@
   font-style: italic;
   font-weight: 200;
 }
-@lightest-default-background: lighten(@default-background, 15%);
-@light-default-background: lighten(@default-background, 5%);
-@dark-default-background: darken(@default-background, 5%);
-
-@lightest-alt-background: lighten(@alt-background, 25%);
-@light-alt-background: lighten(@alt-background, 5%);
-@dark-alt-background: darken(@alt-background, 5%);
-
-@lightest-primary-background: lighten(@primary-background, 33%);
-@light-primary-background: lighten(@primary-background, 20%);
-@dark-primary-background: darken(@primary-background, 5%);
-
-@default-to-dark-gradient: linear-gradient(to bottom, @default-background 20%, @dark-default-background 100%)!important;
-@dark-to-default-gradient: linear-gradient(to bottom, @dark-default-background 20%, @default-background 100%)!important;
-@dark-to-light-gradient: linear-gradient(to bottom, @dark-default-background 20%, @light-default-background 100%)!important;
-@default-to-alt-gradient: linear-gradient(to bottom, @default-background 60%, @alt-background 100%)!important;

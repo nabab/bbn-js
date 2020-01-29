@@ -651,6 +651,11 @@
       document.body.removeChild(input);
     },
 
+    imgToBase64(img)
+    {
+
+    },
+
     formatBytes(bytes, decimals = 2){
       if ( !bytes ){
         return '0 B';
