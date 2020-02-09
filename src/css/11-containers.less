@@ -205,7 +205,7 @@ iframe.bbn-hidden{
 }
 .bbn-grid{
   display: grid;
-  grid-column-gap: 1.5em;
+  grid-column-gap: 5%;
   grid-row-gap: 0.4em;
   grid-auto-rows: max-content;
 }
@@ -214,6 +214,7 @@ iframe.bbn-hidden{
   .bbn-grid;
   grid-template-columns: minmax(auto,max-content) auto;
   > *:not(.bbn-grid-full){
+    word-break: break-word;
     > .bbn-c, > .bbn-centered{
       .bbn-c;
     }
@@ -243,7 +244,7 @@ iframe.bbn-hidden{
     }
   }
   &.bbn-c, &.bbn-centered{
-    grid-template-columns: auto auto;
+    grid-template-columns: 46.25% auto;
     > *:not(label):not(.bbn-label):not(.bbn-grid-full){
       text-align: left;
     }
@@ -358,7 +359,7 @@ iframe.bbn-hidden{
   color: @header-text;
   position: relative;
   vertical-align: middle;
-  .bbn-button:not(.bbn-primary){
+  .bbn-button:not(.bbn-primary):not(:disabled){
     .bbn-alt-background-internal;
     .bbn-alt-text-internal;
   }

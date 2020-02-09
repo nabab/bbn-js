@@ -641,7 +641,6 @@
     },
 
     copy(st){
-      let focused = bbn.env.focused;
       let input = document.createElement("textarea");
       input.style.opacity = 0;
       input.value = st;
@@ -651,9 +650,25 @@
       document.body.removeChild(input);
     },
 
+    imageToCanvas(img) {
+      let canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.getContext("2d").drawImage(img, 0, 0);
+    
+      return canvas;
+    },
+    // Converts canvas to an image
+    canvasToImage(canvas) {
+      let img = new Image();
+      img.src = canvas.toDataURL("image/png");
+      return img;
+    },
+
     imgToBase64(img)
     {
-
+      let canvas = bbn.fn.imageToCanvas(img);
+      return this.canvasToImage(canvas);
     },
 
     formatBytes(bytes, decimals = 2){
@@ -681,7 +696,7 @@
       _chronos[name] = now;
     },
 
-    stoptChrono(name)
+    stopChrono(name)
     {
       if (_chronos[name]) {
         let now = (new Date()).getTime();
