@@ -217,6 +217,10 @@
       if ( loader ){
         loader.source.cancel('Operation canceled by the user.');
       }
+      else {
+        throw new Error("Impossible to find the loader " + idURL)
+
+      }
     },
 
     /**

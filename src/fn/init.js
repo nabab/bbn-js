@@ -46,7 +46,6 @@
         document.addEventListener("focusin", e => {
           if (!e.target.classList.contains('bbn-no')) {
             bbn.env.focused = e.target;
-            bbn.fn.log(e.target);
           }
         });
         document.addEventListener('click', (e) => {
@@ -66,9 +65,12 @@
               target = false;
             }
           }
-          if ( target && !target.classList.contains('bbn-no') ){
+          if (target && target.href && !target.target && !target.classList.contains('bbn-no')) {
+            bbn.fn.log("DOING IT");
             e.preventDefault();
-            return bbn.fn.link(target.href);
+            e.stopPropagation();
+            bbn.fn.link(target.href);
+            return false;
           }
         });
         bbn.fn.each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele, i) =>{ 

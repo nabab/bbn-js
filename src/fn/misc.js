@@ -703,7 +703,12 @@
         let diff = now - _chronos[name];
         return diff;
       }
+    },
+
+    isMobile(){
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
+
  
   });
 

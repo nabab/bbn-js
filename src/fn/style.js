@@ -146,6 +146,32 @@
           ele.style[k] = v;
         });
       }
+    },
+
+    selector(ele) {
+      return (typeof el === 'string') ? document.querySelector(el) : el;
+    },
+
+    outerWidth(ele){
+      ele = bbn.fn.selector(ele); 
+      let styles = window.getComputedStyle(ele);
+      let margin = parseFloat(styles['marginLeft']) +
+                   parseFloat(styles['marginRight']);
+      return Math.ceil(ele.offsetWidth + margin);
+    },
+
+    outerHeight(ele){
+      ele = bbn.fn.selector(ele); 
+      let styles = window.getComputedStyle(ele);
+      let margin = parseFloat(styles['marginTop']) +
+                   parseFloat(styles['marginBottom']);
+      return Math.ceil(ele.offsetHeight + margin);
+    },
+
+    colorToHex(color){
+      let canvas = document.createElement("canvas").getContext("2d");
+	    canvas.fillStyle = color;
+	    return canvas.fillStyle;
     }
 
   });

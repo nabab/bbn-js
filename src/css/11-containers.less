@@ -55,15 +55,22 @@ iframe.bbn-hidden{
   .bbn-border-box;
   float: left;
 }
+.bbn-background .bbn-legend {
+  .bbn-background;
+}
+.bbn-alt-background .bbn-legend {
+  .bbn-alt-background;
+}
 .bbn-section{
+  .bbn-radius;
   .bbn-border-box;
   display:block;
   vertical-align:top;
   background-image:none;
   border-color: inherit;
-  border-width: 2px;
+  border-width: 0.1em;
   border-style: solid;
-  margin: 1em;
+  margin: 2em 0 1em;
   padding: 1em;
   /* Attempt for nesting forms */
   .bbn-section{
@@ -205,7 +212,7 @@ iframe.bbn-hidden{
 }
 .bbn-grid{
   display: grid;
-  grid-column-gap: 5%;
+  grid-column-gap: 2.5em;
   grid-row-gap: 0.4em;
   grid-auto-rows: max-content;
 }

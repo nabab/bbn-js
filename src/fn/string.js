@@ -27,8 +27,22 @@
     uniqString(){
       var st = '';
       for ( var i = 0; i < arguments.length; i++ ){
-        if ( typeof(arguments[i]) === 'object' ){
-          st += JSON.stringify(arguments[i]);
+        if (!arguments[i]) {
+          st += '__bbn_empty__';
+        }
+        else if ( typeof(arguments[i]) === 'object' ){
+          if (bbn.fn.isArray(arguments[i])) {
+            st += JSON.stringify(arguments[i]);
+          }
+          else{
+            // An object with the same properties, even in different order, should produce the same answer
+            let tmp = {};
+            let ks = Object.keys(arguments[i]).sort();
+            bbn.fn.each(ks, k => {
+              tmp[k] = arguments[i][k];
+            });
+            st += JSON.stringify(tmp);
+          }
         }
         else if ( typeof(arguments[i]) !== 'string' ){
           st += arguments[i].toString();

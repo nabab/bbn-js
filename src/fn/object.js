@@ -538,8 +538,8 @@
           throw new Error("Search function error: The prop argument should be a string or an object");
         }
         if ( isFn ){
-          bbn.fn.each(arr, (a) => {
-            if ( filter(a) ){
+          bbn.fn.each(arr, (a, i) => {
+            if ( filter(a, i) ){
               res.push(a);
             }
           })
