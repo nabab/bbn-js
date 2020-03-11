@@ -75,6 +75,7 @@
      * @return {Number}
      */
     _addLoader(idURL, loader, source){
+      bbn.fn.log("ADDING URL", idURL);
       let tst = (new Date()).getTime();
       let url = idURL.substr(0, idURL.length - 33);
       bbn.env.loaders.push({
@@ -152,6 +153,7 @@
         }
         let idURL = this.getIdURL(url, data, datatype);
         let loaderObj = bbn.fn.getLoader(idURL);
+        //bbn.fn.log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
         if ( loaderObj && loaderObj.loader ){
           return loaderObj.loader;
         }
@@ -173,7 +175,7 @@
           .then((res) => {
             bbn.fn._deleteLoader(idURL, res);
             bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
-            if ( bbn.fn.isFunction(success) ){
+            if (bbn.fn.isFunction(success)) {
               success(res.data);
             }
             return res;
@@ -201,9 +203,9 @@
               }
             }
           });
-          let tst = bbn.fn._addLoader(idURL, loader, source);
-          bbn.fn.defaultStartLoadingFunction(url, tst, data, idURL);
-          return loader;
+        let tst = bbn.fn._addLoader(idURL, loader, source);
+        bbn.fn.defaultStartLoadingFunction(url, tst, data, idURL);
+        return loader;
       }
     },
 
@@ -214,7 +216,7 @@
 
       }
       let loader = bbn.fn.getLoader(idURL);
-      if ( loader ){
+      if (loader && loader.source) {
         loader.source.cancel('Operation canceled by the user.');
       }
       else {

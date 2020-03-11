@@ -326,6 +326,8 @@
   justify-content: flex-end;
   border-width: 0;
   > .bbn-button{
+    //important for safari
+    //margin:0;
     .bbn-flex-fill;
     border-radius: 0;
     &:first-child{
@@ -341,10 +343,11 @@
   .bbn-abs;
   .bbn-top-left;
   .bbn-bottom-right;
-  /** Important for Safari
+  /* Important for Safari
   width: 100%;
-  height: 100%;
   */
+  //Safari doesn't work without height 100%
+  height: 100%;
 }
 @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
 { @media {
