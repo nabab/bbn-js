@@ -3,7 +3,7 @@ logs
 *.log
 .history/
 .idea/
-doc/*
+doc/src/
 src/fn/backup/
 *DS_STORE*
 
