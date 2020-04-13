@@ -1,3 +1,5 @@
+![BBN JS](https://bbn.io/img/240w/js.png)
+
 # bbnjs
 A small utilities library
 
