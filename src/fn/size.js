@@ -1,14 +1,25 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Sizing functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
+
   Object.assign(bbn.fn, {
     /**
-     * Resizes the environment and fires the default resize function.
-     * @method resize
-     * @fires bbn.fn.defaultResizeFunction
+     * @method   resize
+     * @todo     Add method description for resize
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*} 
+     * @returns  {*} 
      */
     resize(){
       var w = window.innerWidth,
@@ -20,19 +31,23 @@
       //$(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
     },
+
     /**
-     * Toggles the browser fullscreen.
-     * @method toggle_full_screen 
-     * @fires window.document.mozCancelFullScreen
-     * @fires window.document.documentElement.mozRequestFullScreen
-     * @fires window.document.webkitCancelFullScreen
-     * @fires window.document.documentElement.webkitRequestFullScreen
-     * @fires window.document.msExitFullscreen
-     * @fires window.document.documentElement.msRequestFullScreen
-     * @fires window.document.exitFullscreen
-     * @fires window.document.exitFullscreen()
-     * @fires window.document.documentElement.requestFullscreen
-     * @fires bbn.fn.resize
+     * @method   toggle_full_screen
+     * @todo     Add method description for toggle_full_screen
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @fires    {*} 
+     * @returns  {*} 
      */
     toggle_full_screen(){
       var wscript;
@@ -72,10 +87,13 @@
         bbn.fn.resize();
       }, 0);
     },
+
     /**
-     * Gets the scrollbar size.
-     * @method getScrollBarSize
-     * @return {Number}
+     * @method   getScrollBarSize
+     * @todo     Add method description for getScrollBarSize
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     getScrollBarSize(){
       if ( bbn.env.scrollBarSize === undefined ){
@@ -105,6 +123,14 @@
       }
       return bbn.env.scrollBarSize;
     },
+
+    /**
+     * @method   adjustSize
+     * @todo     Add method description for adjustSize
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     adjustSize(type, eles){
       let max = 0,
           idx;
@@ -124,9 +150,13 @@
         }
       });
     },
+
     /**
-     * Adjusts the height of the given element(s).
-     * @method adjustHeight
+     * @method   adjustHeight
+     * @todo     Add method description for adjustHeight
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
      */
     adjustHeight(){
       let maxH = 0,
@@ -137,9 +167,13 @@
       }
       return bbn.fn.adjustSize('height', args);
     },
+
     /**
-     * Adjusts the width of the given element(s).
-     * @method adjustWidth
+     * @method   adjustWidth
+     * @todo     Add method description for adjustWidth
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
      */
     adjustWidth(){
       let maxW = 0,
@@ -150,11 +184,14 @@
       }
       return bbn.fn.adjustSize('width', args);
     },
+
     /**
-     * Returns the scorll parent of the given node.
-     * @method getScrollBarSize
-     * @param {HTMLElement} node 
-     * @return {HTMLElement}
+     * @method   getScrollParent
+     * @todo     Add method description for getScrollParent
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} node 
+     * @returns                
      */
     getScrollParent(node) {
       if ( node == null ){
@@ -168,11 +205,14 @@
         return bbn.fn.getScrollParent(node.parentNode);
       }
     },
+
     /**
-     * Returns the height of the given element.
-     * @method calculateHeight
-     * @param {HTMLElement} element 
-     * @return {String}
+     * @method   calculateHeight
+     * @todo     Add method description for calculateHeight
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} element 
+     * @returns                
      */
     calculateHeight(element){
       const oldVis = element.style.visibility;
@@ -198,7 +238,7 @@
       // animation is triggered correctly.
       getComputedStyle(element).height;
       return height;
-    }
-  })
+    },
 
+  });
 })(bbn);

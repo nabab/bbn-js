@@ -1,18 +1,24 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Miscellaneous functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  let _chronos = {};
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
+
   Object.assign(bbn.fn, {
-
-
-    /**     MISC     */
     /**
-     * Returns true if the given arguments correspomd.
-     * @method isFunction
-     * @return {Boolean}
+     * @method   is
+     * @todo     Add method description for is
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     is(t) {
       if (!arguments.length < 2) return false;
@@ -26,10 +32,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a function.
-     * @method isFunction
-     * @return {Boolean}
+     * @method   isFunction
+     * @todo     Add method description for isFunction
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isFunction() {
       if (!arguments.length) return false;
@@ -40,10 +49,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a number.
-     * @method isNumber
-     * @return {Boolean}
+     * @method   isNumber
+     * @todo     Add method description for isNumber
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isNumber() {
       if (!arguments.length) return false;
@@ -54,10 +66,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a string.
-     * @method isString
-     * @return {Boolean}
+     * @method   isString
+     * @todo     Add method description for isString
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isString() {
       if (!arguments.length) return false;
@@ -68,10 +83,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is an array.
-     * @method isArray
-     * @return {Boolean}
+     * @method   isArray
+     * @todo     Add method description for isArray
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isArray() {
       if (!arguments.length) return false;
@@ -82,10 +100,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a date.
-     * @method isDate
-     * @return {Boolean}
+     * @method   isDate
+     * @todo     Add method description for isDate
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isDate() {
       if (!arguments.length) return false;
@@ -96,10 +117,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a SQL formatted date.
-     * @method isDate
-     * @return {Boolean}
+     * @method   isSQLDate
+     * @todo     Add method description for isSQLDate
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isSQLDate() {
       if (!arguments.length) return false;
@@ -113,10 +137,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is an object.
-     * @method isObject
-     * @return {Boolean}
+     * @method   isObject
+     * @todo     Add method description for isObject
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isObject() {
       if (!arguments.length) return false;
@@ -127,10 +154,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is null.
-     * @method isNull
-     * @return {Boolean}
+     * @method   isNull
+     * @todo     Add method description for isNull
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isNull() {
       if (!arguments.length) return false;
@@ -143,9 +173,11 @@
     },
 
     /**
-     * Returns true if value is not an object and is basically a value wich can be written as is in a DB or a file.
-     * @method isValue
-     * @return {Boolean}
+     * @method   isValue
+     * @todo     Add method description for isValue
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isValue() {
       if (!arguments.length) return false;
@@ -156,10 +188,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a dom element.
-     * @method isDom
-     * @return {Boolean}
+     * @method   isDom
+     * @todo     Add method description for isDom
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isDom(){
       if (!arguments.length) return false;
@@ -170,11 +205,14 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a jQuery instance.
-     * @method isjQuery
-     * @return {Boolean}
-     */  
+     * @method   isjQuery
+     * @todo     Add method description for isjQuery
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     isjQuery(){
       if (!window.jQuery) return false;
       if (!arguments.length) return false;
@@ -185,10 +223,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given argument is a Vue instance.
-     * @method isVue
-     * @return {Boolean}
+     * @method   isVue
+     * @todo     Add method description for isVue
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isVue(){
       if (!arguments.length) return false;
@@ -199,10 +240,13 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given string is a percentage.
-     * @method isPercent
-     * @return {Boolean}
+     * @method   isPercent
+     * @todo     Add method description for isPercent
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     isPercent(){
       if ( !arguments.length ) return false;
@@ -213,11 +257,14 @@
       }
       return true;
     },
+
     /**
-     * Returns true if the given value is an url.
-     * @method isUrl
-     * @return {Boolean}
-     */      
+     * @method   isURL
+     * @todo     Add method description for isURL
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     isURL(str){
       let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
@@ -227,21 +274,27 @@
         '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
       return pattern.test(str);
     },
+
     /**
-     * Returns a timestamp.
-     * @method timestamp  
-     * @param {Boolean} [false] seconds
-     * @return {Number} 
+     * @method   timestamp
+     * @todo     Add method description for timestamp
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Boolean} [false] 
+     * @returns            
      */
     timestamp(seconds){
       var r = (new Date()).getTime();
       return seconds ? r*1000 : r;
     },
-    // Logging function
+
     /**
-     * Logs the given arguments in the browser's console.
-     * @method log
-     * @param  {...any} args 
+     * @method   log
+     * @todo     Add method description for log
+     * @global   
+     * @memberof bbn.fn
+     * @param    {...any} args 
+     * @returns  {*}      
      */
     log(...args){
       if ( window.console !== undefined ){
@@ -271,11 +324,14 @@
       }
       return this;
     },
+
     /**
-     * Logs the given arguments in the browser's console highlighting strings with a yellow background.
-     * 
-     * @method warning
-     * @param  {...any} args 
+     * @method   warning
+     * @todo     Add method description for warning
+     * @global   
+     * @memberof bbn.fn
+     * @param    {...any} args 
+     * @returns  {*}      
      */
     warning(...args){
       args.unshift({
@@ -285,11 +341,14 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
+
     /**
-     * Logs the given arguments in the browser's console highlighting strings with a red background.
-     * 
-     * @method error
-     * @param  {...any} args 
+     * @method   error
+     * @todo     Add method description for error
+     * @global   
+     * @memberof bbn.fn
+     * @param    {...any} args 
+     * @returns  {*}      
      */
     error(...args){
       args.unshift({
@@ -299,11 +358,14 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
+
     /**
-     * Logs the given arguments in the browser's console highlighting strings with a green background.
-     * 
-     * @method happy
-     * @param  {...any} args 
+     * @method   happy
+     * @todo     Add method description for happy
+     * @global   
+     * @memberof bbn.fn
+     * @param    {...any} args 
+     * @returns  {*}      
      */
     happy(...args){
       args.unshift({
@@ -313,11 +375,14 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
+
     /**
-     * Logs the given arguments in the browser's console highlighting strings with a blue background.
-     * 
-     * @method info
-     * @param  {...any} args 
+     * @method   info
+     * @todo     Add method description for info
+     * @global   
+     * @memberof bbn.fn
+     * @param    {...any} args 
+     * @returns  {*}      
      */
     info(...args){
       args.unshift({
@@ -327,7 +392,15 @@
       bbn.fn.log.apply(this, args);
       return this;
     },
-  
+
+    /**
+     * @method   stat
+     * @todo     Add method description for stat
+     * @global   
+     * @memberof bbn.fn
+     * @param    {*} returnStat 
+     * @returns  {*} 
+     */
     stat(returnStat){
       return;
       if ( bbn.env.logging ){
@@ -376,21 +449,28 @@
         return returnStat;
       }
     },
+
     /**
-     * Returns the tag name of the given dom element. 
-     * @method tagName
-     * @param {HTMLElement} element 
-     * @return {String}
+     * @method   tagName
+     * @todo     Add method description for tagName
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} element 
+     * @returns                
      */
     tagName(element){
       //var p = $(element).prop("tagName");
       let p = element.tagName;
       return p ? p.toLowerCase() : false;
     },
+
     /**
-     * Returns an object containing the attributes of the given dom element.
-     * @param {HTMLElement} element 
-     * @return {Object}
+     * @method   getAttributes
+     * @todo     Add method description for getAttributes
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} element 
+     * @returns                
      */
     getAttributes(element){
       let attr = {};
@@ -414,6 +494,13 @@
       return attr;
     },
 
+    /**
+     * @method   getPath
+     * @todo     Add method description for getPath
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     getPath(element){
       let path,
           //node = $(element),
@@ -463,11 +550,16 @@
 
       return path;
     },
+
     /**
-     * Sets the cookies.
-     * @param {String} name 
-     * @param {String} value 
-     * @param {Number} days 
+     * @method   setCookie
+     * @todo     Add method description for setCookie
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} name  
+     * @param    {String} value 
+     * @param    {Number} days  
+     * @returns  {*}      
      */
     setCookie(name, value, days){
       let expires = "";
@@ -479,10 +571,14 @@
       let st = escape(JSON.stringify({value: value}));
       document.cookie = name + "=" + st + expires + "; path=/";
     },
+
     /**
-     * Gets the value of the given cookie.
-     * @param {String} name 
-     * @return {String} 
+     * @method   getCookie
+     * @todo     Add method description for getCookie
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} name 
+     * @returns           
      */
     getCookie(name){
       let nameEQ = name + "=";
@@ -502,10 +598,24 @@
       return null;
     },
 
+    /**
+     * @method   eraseCookie
+     * @todo     Add method description for eraseCookie
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     eraseCookie(name){
       document.cookie = name+'=; Max-Age=-99999999;';
     },
 
+    /**
+     * @method   getEventData
+     * @todo     Add method description for getEventData
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     getEventData(e){
       let dt = e.dataTransfer || e.clipboardData;
       let t = dt.getData('Text');
@@ -602,9 +712,25 @@
       });
       return p;
     },
+
+    /**
+     * @method   ab2str
+     * @todo     Add method description for ab2str
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     ab2str(buf) {
       return String.fromCharCode.apply(null, new Uint16Array(buf));
     },
+
+    /**
+     * @method   str2ab
+     * @todo     Add method description for str2ab
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     str2ab(str) {
       var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
       var bufView = new Uint16Array(buf);
@@ -613,6 +739,14 @@
       }
       return buf;
     },
+
+    /**
+     * @method   getHTMLOfSelection
+     * @todo     Add method description for getHTMLOfSelection
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     getHTMLOfSelection() {
       let range;
       if (document.selection && document.selection.createRange) {
@@ -640,6 +774,13 @@
       }
     },
 
+    /**
+     * @method   copy
+     * @todo     Add method description for copy
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     copy(st){
       let input = document.createElement("textarea");
       input.style.opacity = 0;
@@ -650,6 +791,13 @@
       document.body.removeChild(input);
     },
 
+    /**
+     * @method   imageToCanvas
+     * @todo     Add method description for imageToCanvas
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     imageToCanvas(img) {
       let canvas = document.createElement("canvas");
       canvas.width = img.width;
@@ -658,19 +806,40 @@
     
       return canvas;
     },
-    // Converts canvas to an image
+
+    /**
+     * @method   canvasToImage
+     * @todo     Add method description for canvasToImage
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     canvasToImage(canvas) {
       let img = new Image();
       img.src = canvas.toDataURL("image/png");
       return img;
     },
 
+    /**
+     * @method   imgToBase64
+     * @todo     Add method description for imgToBase64
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     imgToBase64(img)
     {
       let canvas = bbn.fn.imageToCanvas(img);
       return this.canvasToImage(canvas);
     },
 
+    /**
+     * @method   formatBytes
+     * @todo     Add method description for formatBytes
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     formatBytes(bytes, decimals = 2){
       if ( !bytes ){
         return '0 B';
@@ -681,35 +850,54 @@
       return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals < 0 ? 0 : decimals)) + ' ' + s[i];
     },
 
+    /**
+     * @method   startChrono
+     * @todo     Add method description for startChrono
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     startChrono(name)
     {
       let now = (new Date()).getTime();
       let h1 = 3600*1000;
-      if (_chronos.length) {
-        bbn.fn.each(_chronos, (t, n) => {
+      if (_private.length) {
+        bbn.fn.each(_private, (t, n) => {
           if (now - t > h1) {
-            delete _chronos[n];
+            delete _private[n];
           }
         });
         now = (new Date()).getTime();
       }
-      _chronos[name] = now;
+      _private[name] = now;
     },
 
+    /**
+     * @method   stopChrono
+     * @todo     Add method description for stopChrono
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     stopChrono(name)
     {
-      if (_chronos[name]) {
+      if (_private[name]) {
         let now = (new Date()).getTime();
-        let diff = now - _chronos[name];
+        let diff = now - _private[name];
         return diff;
       }
     },
 
+    /**
+     * @method   isMobile
+     * @todo     Add method description for isMobile
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     isMobile(){
       return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    }
+    },
 
- 
   });
-
 })(bbn);

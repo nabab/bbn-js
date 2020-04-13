@@ -12,6 +12,9 @@
 ;(function(window){
   "use strict";
 
+  if (window.axios) {
+    window.axios.defaults.headers.post['Content-Type'] = 'text/json';
+  }
   window.bbn = {
     version: "0.2",
     opt: {

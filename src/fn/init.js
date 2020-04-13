@@ -1,16 +1,25 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Init function
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  Object.assign(bbn.fn, {
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
-    /* Onload functions: keep the var screen width and height up-to-date and binds history if enabled */
+  Object.assign(bbn.fn, {
     /**
-     * Initializes bbn.
-     * @method init
-     * @param {Object} cfg 
+     * @method   init
+     * @todo     Add method description for init
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} cfg 
+     * @returns  {*}      
      */
     init(cfg){
       let parts;
@@ -66,7 +75,7 @@
             }
           }
           if (target && target.href && !target.target && !target.classList.contains('bbn-no')) {
-            bbn.fn.log("DOING IT");
+            bbn.fn.log("DOING IT HEY");
             e.preventDefault();
             e.stopPropagation();
             bbn.fn.link(target.href);
@@ -112,19 +121,7 @@
         }
         bbn.env.isInit = true;
       }
-    }
-  })
-  /*
-  var items = document.querySelectorAll('#iwal');
-  for (var i = 0, len = items.length; i < len; i++) {
-    (function(){
-      bbn.fn.init();
-      this.innerHTML = '<bbn-button text="Test" icon="fa fa-eye"></bbn-button>';
-      new Vue({
-        el: this}
-      )
-    }.bind(items[i]))();
-  }
-  */
+    },
 
+  });
 })(bbn);

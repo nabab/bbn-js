@@ -1,28 +1,25 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Sizing functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
-;(function(bbn){
+
+;((bbn) => {
   "use strict";
 
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
+
   Object.assign(bbn.fn, {
-
-    /**     STRINGS     */
-
     /**
-     * 
-     * Generates a string MD5 based on the given arguments (optional).
-     *
-     * ```javascript
-     * var myObject =  {age: 39, name: "thomas", surname: "smith"};
-     * bbn.fn.uniqString(myObject);
-     * // (string) "5b8735f15accb2f50859b1515674a83f"
-     *
-     * bbn.fn.uniqString('myString');
-     * //(string) "91c65b6feeb5a6ad66b30e2ebd9405e1"
-     * ```
-     * @method uniqString
-     * @param {Mixed}
-     * @return {String}
+     * @method   uniqString
+     * @todo     Add method description for uniqString
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Mixed}  
+     * @returns          
      */
     uniqString(){
       var st = '';
@@ -55,15 +52,12 @@
     },
 
     /**
-     * Generates a string MD5 based on the given arguments (optional).
-     * 
-     * ```javascript
-     * bbn.fn.md5('myString');
-     * // (string) "91c65b6feeb5a6ad66b30e2ebd9405e1"
-     * ```
-     * @method md5
-     * @param {Mixed} st
-     * @return {String}
+     * @method   md5
+     * @todo     Add method description for md5
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Mixed} st 
+     * @returns          
      */
     md5(st){
       if ( bbn.fn.isFunction(window.md5) ){
@@ -73,49 +67,37 @@
     },
 
     /**
-     * Escapes special characters contained in a regular expression.
-     *
-     * ```javascript
-     * bbn.fn.escapeRegExp('/^[a-z0-9_-]{3,16}$/');
-     * // (string) "\/\^\[a\-z0\-9_\-\]\{3,16\}\$\/"
-     * ```
-     * @method escapeRegExp
-     * @param {String} str
-     * @return {XML|void|string}
+     * @method   escapeRegExp
+     * @todo     Add method description for escapeRegExp
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} str 
+     * @returns           
      */
     escapeRegExp(str){
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     },
 
     /**
-     * Rounds decimal values.
-     *
-     * ```javascript
-     * bbn.fn.roundDecimal(2.4496564,1);
-     * //(float) 2.4
-     * bbn.fn.roundDecimal(2.4496564,3);
-     * //2.45
-     * ```
-     *
-     * @method roundDecimal
-     * @param {Number} value The value to round
-     * @param {Number} decimals The number of decimals
-     * @return {Number}
+     * @method   roundDecimal
+     * @todo     Add method description for roundDecimal
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Number} value    
+     * @param    {Number} decimals 
+     * @returns           
      */
     roundDecimal(value, decimals){
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
     },
 
     /**
-     * Converts rgb color into hex color.
-     *
-     * ```javascript
-     * bbn.fn.rgb2hex('rgb(5,4,6)');
-     * //(string) "#050406"
-     * ```
-     * @method rgb2hex
-     * @param {String} rgb
-     * @return {String}
+     * @method   rgb2hex
+     * @todo     Add method description for rgb2hex
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} rgb 
+     * @returns           
      */
     rgb2hex(rgb){
       rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
@@ -125,6 +107,13 @@
         ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
     },
 
+    /**
+     * @method   hex2rgb
+     * @todo     Add method description for hex2rgb
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     hex2rgb(hex) {
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? {
@@ -135,9 +124,12 @@
     },
 
     /**
-     * @method camelize
-     * @param {String}
-     * @return {XML|void|string}
+     * @method   camelize
+     * @todo     Add method description for camelize
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}  
+     * @returns           
      */
     camelize(str){
       return str.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset){
@@ -148,15 +140,24 @@
       });
     },
 
+    /**
+     * @method   sanitize
+     * @todo     Add method description for sanitize
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     sanitize(str){
       return str.replace(/[^a-z0-9]/gi, '_').replace(/[_]+/g, '_');
     },
 
     /**
-     * @method camelToCss
-     * @todo
-     * @param str
-     * @return {XML|string}
+     * @method   camelToCss
+     * @todo     Add method description for camelToCss
+     * @global   
+     * @memberof bbn.fn
+     * @param    str  
+     * @returns      
      */
     camelToCss(str){
       return str.replace(/([A-Z])/g, function(st){
@@ -167,43 +168,38 @@
     },
 
     /**
-     * Capitalizes the first letter of the given string.
-     * @method correctCase
-     * @param str
-     * @return {string}
+     * @method   correctCase
+     * @todo     Add method description for correctCase
+     * @global   
+     * @memberof bbn.fn
+     * @param    str  
+     * @returns      
      */
     correctCase(str){
       return str.replace(/[A-z]{1}/, c => c.toUpperCase());
     },
 
     /**
-     * Returns a random integer between min and max.
-     *
-     * ```javascript
-     * bbn.fn.randomInt(5,10);
-     * //(int) 9
-     * ```
-     * @method randomInt
-     * @param {Number} min
-     * @param {Number} max
-     * @return {Number}
+     * @method   randomInt
+     * @todo     Add method description for randomInt
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Number} min 
+     * @param    {Number} max 
+     * @returns           
      */
-    // @return {integer} a random int between min and max
     randomInt(min, max){
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
 
     /**
-     * Returns a random string using the given characters.
-     * 
-     * ```javascript
-     * bbn.fn.randomString(19,'aeiouy');
-     * //(string) "euyueiiuiyioiyyouuu"
-     * ```
-     * @method randomString
-     * @param {Number} length of the string to return
-     * @param {String} chars Characters used in the string
-     * @return {String}
+     * @method   randomString
+     * @todo     Add method description for randomString
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Number} length 
+     * @param    {String} chars  
+     * @returns           
      */
     randomString(min, max, types){
       let length,
@@ -249,11 +245,14 @@
       }
       return result;
     },
+
     /**
-     * Return true if the given string is an email address.
-     * @method isEmail
-     * @param {String} st 
-     * @return {Boolean}
+     * @method   isEmail
+     * @todo     Add method description for isEmail
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     isEmail(st){
       let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -261,18 +260,12 @@
     },
 
     /**
-     *
-     * Return true if the given string is a color.
-     * 
-     * ```javascript
-     * bbn.fn.isColor('black');
-     * //(bool) true
-     * bbn.fn.isColor('#000080');
-     * //(bool) true
-     * ```
-     * @method isColor
-     * @param {String} st
-     * @return {Boolean}
+     * @method   isColor
+     * @todo     Add method description for isColor
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     isColor(st){
       var reg = new RegExp('^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|rgba *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$', 'i');
@@ -280,17 +273,12 @@
     },
 
     /**
-     * Checks if the given param is a dimension.
-     * 
-     * ```javascript
-     * bbn.fn.isDimension('12px');
-     * // (bool) true
-     * bbn.fn.isDimension('12vw');
-     * // (bool) true
-     * ```
-     * @method isDimension
-     * @param {String} st The value to check
-     * @return {Boolean}
+     * @method   isDimension
+     * @todo     Add method description for isDimension
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     isDimension(st){
       if ( typeof(st) === 'number' ){
@@ -310,19 +298,12 @@
     },
 
     /**
-     * Checks if the given object is empty.
-     *
-     * ```javascript
-     * var myObj = {};
-     * bbn.fn.isEmpty(myObj);
-     * //(bool) true
-     * var myObject = {age: 39, name: "thomas", surname: "smith"};
-     * bbn.fn.isEmpty(myObject);
-     * //(bool) false
-     * ```
-     * @method isEmpty
-     * @param {Object}
-     * @return {Boolean}
+     * @method   isEmpty
+     * @todo     Add method description for isEmpty
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object}  
+     * @returns           
      */
     isEmpty(obj){
       if ( !obj ){
@@ -341,16 +322,13 @@
     },
 
     /**
-     * Shortens the string at the given length.
-     *
-     * ```javascript
-     * bbn.fn.shorten('javascript', 5);
-     * // (string) "javas..."
-     * ```
-     * @method shorten
-     * @param {String} st The string to shorten
-     * @param {Number} len The number of characters to take from the string
-     * @return {String}
+     * @method   shorten
+     * @todo     Add method description for shorten
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st  
+     * @param    {Number} len 
+     * @returns           
      */
     shorten(st, len, adj){
       if ( typeof(st).toLowerCase() === 'string' ){
@@ -367,19 +345,15 @@
       return st;
     },
 
-    // see http://stackoverflow.com/questions/1144783/replacing-all-occurrences-of-a-string-in-javascript
     /**
-     * Replace all substrings occurrences from a string.
-     *
-     * ```javascript
-     * bbn.fn.replaceAll('mr','mister','mr john');
-     * "mister john"
-     * ```
-     * @method replaceAll
-     * @param {String} find The substring to find
-     * @param {String} replace The substring to replace
-     * @param {String} str The string
-     * @return {String}
+     * @method   replaceAll
+     * @todo     Add method description for replaceAll
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} find    
+     * @param    {String} replace 
+     * @param    {String} str     
+     * @returns           
      */
     replaceAll(find, replace, str){
       if ( str !== undefined ){
@@ -389,98 +363,72 @@
     },
 
     /**
-     * Removes quotes from a string.
-     *
-     * ```javascript
-     * bbn.fn.remove_quotes("john's cat");
-     * //(string) "john&#39;s cat"
-     * bbn.fn.remove_quotes('The shop is called "GardenFlowers"');
-     * // "The shop is called &quot;GardenFlowers&quot;"
-     * ```
-     * @method replace
-     * @param {String} st
-     * @return {String}
+     * @method   remove_quotes
+     * @todo     Add method description for remove_quotes
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     remove_quotes(st){
       return bbn.fn.replaceAll('"', '&quot;', bbn.fn.replaceAll("'", "&#39;", st));
     },
 
     /**
-     * Replace all the \n in the given string with empty spaces.
-     * 
-     * ```javascript
-     * bbn.fn.remove_nl('Where\nare\nyou?');
-     * // (string) "Where are you?"
-     * ```
-     *
-     * @method remove_nl
-     * @param {String} st
-     * @return {String}
+     * @method   remove_nl
+     * @todo     Add method description for remove_nl
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     remove_nl(st){
       return bbn.fn.replaceAll("\n", " ", st);
     },
 
     /**
-     * Removes \n and quotes from a given string.
-     * 
-     * ```javascript
-     * bbn.fn.remove_all("john's\ncat");
-     * // (string) "john&#39;s cat"
-     * ```
-     * @method remove_all
-     * @param {String} st
-     * @return {String}
+     * @method   remove_all
+     * @todo     Add method description for remove_all
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     remove_all(st){
       return bbn.fn.remove_nl(bbn.fn.remove_quotes(st));
     },
 
     /**
-     * In a string replaces \n with <br>.
-     * 
-     * ```javascript
-     * bbn.fn.br2nl('Where\nare\nyou?');
-     * /* (string)  "Where
-     *               are
-     *               you?"
-     * ```
-     * @method nl2br
-     * @param {String} st
-     * @return {String}
+     * @method   nl2br
+     * @todo     Add method description for nl2br
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     nl2br(st){
       return bbn.fn.replaceAll("\n", "<br>", st);
     },
 
     /**
-     * Replaces <br>, <br />, <br/> with \n.
-     * 
-     * ```javascript
-     * bbn.fn.br2nl('Where <br/> are<br />you?<br />');
-     * /* (string) Where
-     *             are
-     *             you?
-     * ```
-     * @method br2nl
-     * @param string st
-     * @return string
+     * @method   br2nl
+     * @todo     Add method description for br2nl
+     * @global   
+     * @memberof bbn.fn
+     * @param    string st 
+     * @returns         
      */
     br2nl(st){
       return bbn.fn.replaceAll("<br />", "\n", bbn.fn.replaceAll("<br/>", "\n", bbn.fn.replaceAll("<br>", "\n", st)));
     },
 
     /**
-     * Returns only text from html code.
-     * 
-     * ```javascript
-     * bbn.fn.html2text("<div><h1>This is a very simple HTML document</h1><h1>It only has two <br> paragraphs</h1></div>");
-     * /* (string) "This is a very simple HTML documentIt only has two
-     *              paragraphs"
-     * ```
-     * @method html2text
-     * @param {String} st
-     * @return {String}
+     * @method   html2text
+     * @todo     Add method description for html2text
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     html2text(st){
       /*var $test = $('<div/>').html(bbn.fn.br2nl(st)).appendTo(document.body);
@@ -496,15 +444,12 @@
     },
 
     /**
-     * Removes accents from a given string.
-     *
-     * ```javascript
-     * bbn.fn.removeAccents('résumé');
-     * // (string) 'resume'
-     * ```
-     * @method removeAccents
-     * @param {String} st
-     * @return {String}
+     * @method   removeAccents
+     * @todo     Add method description for removeAccents
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st 
+     * @returns           
      */
     removeAccents(st){
       var m = bbn.var.defaultDiacriticsRemovalMap;
@@ -514,11 +459,14 @@
       }
       return st;
     },
+
     /**
-     * Converts the given value into a string.
-     * @method stringify
-     * @param {Array|Number|Function} v
-     * @return {String} 
+     * @method   stringify
+     * @todo     Add method description for stringify
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array|Number|Function} v 
+     * @returns                          
      */
     stringify(v){
       if ( typeof v === 'String' ){
@@ -528,21 +476,25 @@
     },
 
     /**
-     * Calculs a percentage on a given total.
-     * @method percent
-     * @param {Number|String} percent The percentage to calcul
-     * @param {Number|String} cent The total on which to apply the given percentage
-     * @return {number}
+     * @method   percent
+     * @todo     Add method description for percent
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Number|String} percent 
+     * @param    {Number|String} cent    
+     * @returns                  
      */
     percent(percent, cent){
       return (cent/100) * percent;
     },
 
-    /** 
-     * Returns the parent directory of the given path.
-     * @method dirName
-     * @param {String} path 
-     * @return {String}
+    /**
+     * @method   dirName
+     * @todo     Add method description for dirName
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} path 
+     * @returns           
      */
     dirName(path){
       var bits = path.split("/");
@@ -553,19 +505,26 @@
       return bits.join("/");
     },
 
-    /** 
-     * Returns the basename of a file or a directory.
-     * @method baseName
-     * @param {String} path 
-     * @return {String}
+    /**
+     * @method   baseName
+     * @todo     Add method description for baseName
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} path 
+     * @returns           
      */
     baseName(path){
       var bits = path.split("/");
       return bits.pop();
     },
+
     /**
-     * @method printf
-     * @param format 
+     * @method   printf
+     * @todo     Add method description for printf
+     * @global   
+     * @memberof bbn.fn
+     * @param    format  
+     * @returns  {*}    
      */
     printf(format){
       var args = Array.prototype.slice.call(arguments, 1);
@@ -576,11 +535,15 @@
           ;
       });
     },
+
     /**
-     * @method removeTrailingChars
-     * 
-     * @param {String} st 
-     * @param {String} char 
+     * @method   removeTrailingChars
+     * @todo     Add method description for removeTrailingChars
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} st   
+     * @param    {String} char 
+     * @returns  {*}      
      */
     removeTrailingChars(st, char){
       if ( !char ){
@@ -596,11 +559,14 @@
       }
       return st;
     },
+
     /**
-     * Returns a size in px of the given argument.
-     * @method formatSize
-     * @param {String|Number} st 
-     * @return {String}
+     * @method   formatSize
+     * @todo     Add method description for formatSize
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Number} st 
+     * @returns                  
      */
     formatSize(st){
       if ( !st ){
@@ -612,14 +578,20 @@
       return st.toString();
     },
 
+    /**
+     * @method   repeat
+     * @todo     Add method description for repeat
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     repeat(st, num) {
       let res = '';
       bbn.fn.iterate(num, () => {
         res += st;
       });
       return res;
-    }
+    },
 
-  })
-
+  });
 })(bbn);

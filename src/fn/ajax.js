@@ -1,17 +1,26 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Routing and Navigation
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  axios.defaults.headers.post['Content-Type'] = 'text/json';
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
   Object.assign(bbn.fn, {
-
-    /**     AJAX    */
     /**
-     * @method getLoader
-     * @param {String} idURL 
+     * Finds the XHR corresponding to the given unique ID and returns it if found.
+     * 
+     * @method   getLoader
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} idURL The unique ID of the request as used in bbn.env.loaders
+     * @returns  {Promise} 
      */
     getLoader(idURL){
       let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
@@ -20,11 +29,21 @@
       }
       return false;
     },
+
     /**
-     * @method getIdURL
-     * @param {String} url 
-     * @param {Object} data 
-     * @param {String} datatype 
+     * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
+     * 
+     * The routing functions don't allow to send the same request at the same moment,
+     * therefore a unique ID is generated to identify them, based on the URL,
+     * the keys of the data sent, and the expected returned data type.
+     * 
+     * @method   getIdURL
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} url      
+     * @param    {Object} data     The data sent to the URL
+     * @param    {String} datatype The type of data requested (JSON by default)
+     * @returns  {String} The unique ID
      */
     getIdURL(url, data, datatype){
       let d = {};
@@ -38,13 +57,17 @@
       }
       return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
+
     /**
-     * @method _deleteLoader
-     * @param {String} idURL 
-     * @param {String|Object} res 
-     * @param {Boolean} isAbort 
-     * @return {Boolean}
-     */  
+     * @method   _deleteLoader
+     * @todo     Add method description for _deleteLoader
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}        idURL   
+     * @param    {String|Object} res     
+     * @param    {Boolean}       isAbort 
+     * @returns                  
+     */
     _deleteLoader(idURL, res, isAbort){
       let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if ( idx > -1 ){
@@ -67,12 +90,16 @@
       }
       return false;
     },
+
     /**
-     * @method _addLoader
-     * @param {String} idURL 
-     * @param {Object} loader 
-     * @param {Object} source 
-     * @return {Number}
+     * @method   _addLoader
+     * @todo     Add method description for _addLoader
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} idURL  
+     * @param    {Object} loader 
+     * @param    {Object} source 
+     * @returns           
      */
     _addLoader(idURL, loader, source){
       bbn.fn.log("ADDING URL", idURL);
@@ -100,6 +127,14 @@
       }
       return tst;
     },
+
+    /**
+     * @method   upload
+     * @todo     Add method description for upload
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     upload(url, file, success, failure, progress){
       let fn = () => {
         return axios.post(url || bbn.env.path, bbn.fn.objectToFormData(file), {
@@ -133,15 +168,19 @@
           });
       }
     },
+
     /**
-     * @method ajax
-     * @param {String} url 
-     * @param {String} datatype 
-     * @param {Object} data 
-     * @param {Function} success 
-     * @param {Function} failure 
-     * @param {Function} abort 
-     * @return {Object}
+     * @method   ajax
+     * @todo     Add method description for ajax
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}   url      
+     * @param    {String}   datatype 
+     * @param    {Object}   data     
+     * @param    {Function} success  
+     * @param    {Function} failure  
+     * @param    {Function} abort    
+     * @returns             
      */
     ajax(url, datatype, data, success, failure, abort){
       if (!url) {
@@ -209,6 +248,13 @@
       }
     },
 
+    /**
+     * @method   abort
+     * @todo     Add method description for abort
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     abort(idURL){
       let last = idURL.substr(-1);
       /** @todo */
@@ -226,23 +272,11 @@
     },
 
     /**
-     *
-     * Operates a link, making use of History if available, and triggering special functions
-     * The possible arguments are:
-     * - a link or an absolute path
-     * - a callback to be called instead of defaultLinkFunction - the argument is the Ajax return
-     * - a callback to be called instead of defaultPostLinkFunction - the argument is the url about to be loaded
-     * - a callback to be called instead of defaultPreLinkFunction - the argument is the Ajax return
-     * It will post and expects an object with the following properties:
-     * - prescript: some javascript to execute before the Ajax call is made
-     * - script: some script to execute just after the Ajax call
-     * - postscript: some script to execute just after the defaultPostLinkFunction function
-     * - new_url: the URL to change
-     * - siteTitle: The title to put in the title tag
-     * - error: an error message
-     * - html: an html string to inject
-     * @method link
-     * @return {Boolean}
+     * @method   link
+     * @todo     Add method description for link
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     link(){
       let cfg = bbn.fn.treat_vars(arguments),
@@ -264,12 +298,15 @@
       }
       if ( cfg.url.indexOf('#') === 0 ){
         location.href = bbn.env.url + cfg.url;
+        /*
         if ( window.history ){
           bbn.env.historyDisabled = true;
           let state = h.state;
           window.history.replaceState(null, state.title, bbn.env.url);
         }
         bbn.env.historyDisabled = false;
+        */
+        bbn.fn.log("TEST2");
         return true;
       }
       /* Mail link */
@@ -344,6 +381,13 @@
       return true;
     },
 
+    /**
+     * @method   window
+     * @todo     Add method description for window
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     window(url){
       var data = {},
           w,
@@ -385,13 +429,18 @@
         }
       });
     },
+
     /**
-     * @method callback
-     * @param {String} url 
-     * @param {Object} res 
-     * @param {Function} fn 
-     * @param {Function} fn2 
-     * @param {HTMLElement} ele 
+     * @method   callback
+     * @todo     Add method description for callback
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}      url 
+     * @param    {Object}      res 
+     * @param    {Function}    fn  
+     * @param    {Function}    fn2 
+     * @param    {HTMLElement} ele 
+     * @returns                
      */
     callback(url, res, fn, fn2, ele){
       if ( res ){
@@ -455,13 +504,15 @@
     },
 
     /**
-     * Set the vars bbn.env.url, bbn.env.path and bbn.env.params, and call bbn.fn.history if loaded
-     * If a function is passed it will be executed on return instead of bbn.fn.link
-     * @method setNavigationVars
-     * @param {String} url 
-     * @param {String} title 
-     * @param {Object} data 
-     * @param {Boolean} repl 
+     * @method   setNavigationVars
+     * @todo     Add method description for setNavigationVars
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}  url   
+     * @param    {String}  title 
+     * @param    {Object}  data  
+     * @param    {Boolean} repl  
+     * @returns            
      */
     setNavigationVars(url, title, data, repl){
       // Current path becomes old path
@@ -517,13 +568,16 @@
         }
       }
     },
-    
+
     /**
-     * Downloads the given file.
-     * @method download
-     * @param {String} filename 
-     * @param {String} text 
-     * @param {String} type 
+     * @method   download
+     * @todo     Add method description for download
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} filename 
+     * @param    {String} text     
+     * @param    {String} type     
+     * @returns           
      */
     download(filename, text, type){
       if ( !type ){
@@ -543,6 +597,14 @@
       document.body.removeChild(a);
     },
 
+    /**
+     * @method   download2
+     * @todo     Add method description for download2
+     * @ignore
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     download2(url, filename, params){
       var iframe = document.getElementById("bbn-iframe-download"),
           par = '';
@@ -564,46 +626,11 @@
     },
 
     /**
-     * Creates a form and send data with it to a new window
-     * @function post_out
-     * @param {String} action 
-     * @param {Object} params 
-     * @param {Function} successFn 
-     * @param {String} target 
-     */
-    post_out(action, params, successFn, target){
-      var form = document.getElementById("bbn-form_out"),
-          has_bbn = false;
-      if ( !form ){
-        form = document.createElement('form');
-        form.classList.add('bbn-no');
-        form.setAttribute('id', 'bbn-form_out');
-        form.setAttribute('method', 'post');
-        form.setAttribute('enctype', 'multipart/form-data-encoded');
-        form.style.display = 'none';
-        document.body.appendChild(form);
-      }
-      form.innerHTML = '';
-      form.setAttribute('action', action);
-      form.setAttribute('target', target || "_blank");
-      if ( !params ){
-        params = {};
-      }
-      //params = bbn.fn.extend(true, {}, params);
-      params = bbn.fn.extend({}, params, true);
-      if ( !params.bbn ){
-        params.bbn = 'public';
-      }
-      bbn.fn.add_inputs(form, params);
-      form.submit();
-      if ( successFn ){
-        successFn();
-      }
-    },
-
-    /**
-     * Posting function (with path rewriting) 
-     * @method post
+     * @method   post
+     * @todo     Add method description for post
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     post(){
       /*
@@ -625,10 +652,14 @@
         }, cfg.errorFn, cfg.abortFn);
       }
     },
+
     /**
-     * @method treat_vars
-     * @param {Mixed} args 
-     * @return {Object}
+     * @method   treat_vars
+     * @todo     Add method description for treat_vars
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Mixed} args 
+     * @returns          
      */
     treat_vars(args){
       var cfg = {}, t, i;
@@ -702,10 +733,12 @@
     },
 
     /**
-     * Extract a parameter from the URL, for when using key pairs parameters.
-     * @method getParam
-     * @param {Object}
-     * @return {Object}
+     * @method   getParam
+     * @todo     Add method description for getParam
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object}  
+     * @returns           
      */
     getParam(param, num){
       if ( !num ){
@@ -727,7 +760,13 @@
       return false;
     },
 
-    /* Adds or replace if exists a parameter in the URL, for when using key pairs parameters */
+    /**
+     * @method   setParam
+     * @todo     Add method description for setParam
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
     setParam(name, value){
       if ( name && value ){
         var toAdd = value.split("/"),
@@ -747,19 +786,5 @@
       return false;
     },
 
-    makeURL(st){
-      st = bbn.fn.removeAccents(st).replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '').toLowerCase();
-      if ( st.charAt(st.length - 1) === '-' ){
-        st = st.substr(0, st.length - 1);
-      }
-      return st;
-    },
-
-    /* Extracts the URL from the parameters */
-    getURL(){
-      return bbn.env.root + bbn.env.params.join("/") + "/";
-    },
-
-  })
-
+  });
 })(bbn);

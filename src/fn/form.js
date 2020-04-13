@@ -1,20 +1,27 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Form related functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  Object.assign(bbn.fn, {
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
-    /**     FORMS     */
-    
+  Object.assign(bbn.fn, {
     /**
-     * Adds inputs to a form, respecting the data structure.
-     * 
-     * @method add_inputs  
-     * @param {Object} form 
-     * @param {array} params 
-     * @param {String} prefix 
+     * @method   add_inputs
+     * @todo     Add method description for add_inputs
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} form   
+     * @param    {array}  params 
+     * @param    {String} prefix 
+     * @returns  {*}      
      */
     add_inputs(form, params, prefix){
       if ( form && (form.tagName === 'FORM') ){
@@ -59,31 +66,14 @@
       }
     },
 
-    /*add_inputs: function(form, params, prefix){
-      var name,
-          is_array;
-      if ( form.length && params ){
-        is_array = Array.isArray(params);
-        for ( var i in params ){
-          name = prefix ? prefix + '[' +
-            ( is_array ? '' : i ) + ']' : i;
-          if ( typeof(params[i]) === 'object' ){
-            bbn.fn.add_inputs(form, params[i], name);
-          }
-          else{
-            form.append($("<input>").attr({
-              type: "hidden",
-              name: name
-            }).val(params[i]));
-          }
-        }
-      }
-    },*/
     /**
-     * Cancels change(s) in the given form element.
-     * @method cancel
-     * @param {HTMLElement} form 
-     * @param {Event} e 
+     * @method   cancel
+     * @todo     Add method description for cancel
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} form 
+     * @param    {Event}       e    
+     * @returns  {*}           
      */
     cancel(form, e){
       if ( e ){
@@ -109,11 +99,15 @@
       }
       bbn.fn.log("CANCEL", obj);
     },
+
     /**
-     * Resets the given form.
-     * @method reset
-     * @param {HTMLElement} form 
-     * @param {Event} e 
+     * @method   reset
+     * @todo     Add method description for reset
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} form 
+     * @param    {Event}       e    
+     * @returns  {*}           
      */
     reset(form, e){
       //$(form).data("bbnSubmit", null);
@@ -121,13 +115,17 @@
         form.setAttribute('bbnSubmit', null);
       }
     },
+
     /**
-     * Submits the given form.
-     * @method submit
-     * @param {HTMLElement} form 
-     * @param {Event} e 
-     * @fires bbn.fn.isFunction
-     * @fires bbn.fn.post
+     * @method   submit
+     * @todo     Add method description for submit
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*}           
+     * @fires    {*}           
+     * @param    {HTMLElement} form 
+     * @param    {Event}       e    
+     * @returns  {*}           
      */
     submit(form, e){
       //let $form = $(form),
@@ -173,11 +171,15 @@
         }
       }
     },
+
     /**
-     * Keeps the original values in a data attached to the element.
-     * @method setInitialValues
-     * @param {HTMLElement} ele 
-     * @param {Boolean} force 
+     * @method   setInitialValues
+     * @todo     Add method description for setInitialValues
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} ele   
+     * @param    {Boolean}     force 
+     * @returns  {*}           
      */
     setInitialValues(ele, force){
       // Keeping the original values in a data attached to the element
@@ -199,11 +201,14 @@
         }
       });
     },
+
     /**
-     * Returns true if one or more elements of the given form has been updated.
-     * @method formupdated
-     * @param {HTMLElement} form 
-     * @return {Boolean}
+     * @method   formupdated
+     * @todo     Add method description for formupdated
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} form 
+     * @returns                
      */
     formupdated(form){
       let res = true,
@@ -236,11 +241,14 @@
           })
       return res;
     },
+
     /**
-     * Returns the value of the given element.
-     * @method fieldValue
-     * @param {HTMLElement} field 
-     * @return {String|Number|Boolean}
+     * @method   fieldValue
+     * @todo     Add method description for fieldValue
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} field 
+     * @returns                
      */
     fieldValue(field){
       //var $f = $(field),
@@ -273,12 +281,15 @@
       }
       return v;
     },
+
     /**
-     * Returns an object containing the data of the form's elements having the attribute name.
-     * @method formdata
-     * @param {HTMLElementL} form 
-     * @fires bbn.fn.fieldValue
-     * @return {Object}
+     * @method   formdata
+     * @todo     Add method description for formdata
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*}            
+     * @param    {HTMLElementL} form 
+     * @returns                 
      */
     formdata(form){
      // var $f = $(form),
@@ -342,12 +353,15 @@
       // return num_changes ? res : false;
       return res;
     },
+
     /**
-     * Returns an object containing the changes made on the form's elements having the attribute name.
-     * @param {HTMLElement} form 
-     * @fires bbn.fn.formdata
-     * @returns {Object}
-     *
+     * @method   formChanges
+     * @todo     Add method description for formChanges
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*}           
+     * @param    {HTMLElement} form 
+     * @returns                
      */
     formChanges(form){
       //var $f = $(form),
@@ -380,11 +394,14 @@
     },
 
     /**
-     * @method objectToFormData
-     * @param {Object|Array|File} obj
-     * @param {String} key
-     * @param {Array} ignoreList
-     * @return FormData
+     * @method   objectToFormData
+     * @todo     Add method description for objectToFormData
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object|Array|File} obj        
+     * @param    {String}            key        
+     * @param    {Array}             ignoreList 
+     * @returns                      
      */
     objectToFormData(obj, key, ignoreList){
       let formData = new FormData();
@@ -414,6 +431,7 @@
       }
       appendFormData(obj, key);
       return formData;
-    }
-  })
+    },
+
+  });
 })(bbn);

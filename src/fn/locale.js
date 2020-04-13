@@ -1,20 +1,28 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Locale functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  Object.assign(bbn.fn, {
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
-    
+  Object.assign(bbn.fn, {
     /**
-     * Formats the given value using the given params.
-     * @method money
-     * @param {String|Number} val
-     * @param {Boolean} kilo
-     * @param {String} currency  
-     * @param {Boolean} noValue  
-     * @return {String}
+     * @method   money
+     * @todo     Add method description for money
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Number} val      
+     * @param    {Boolean}       kilo     
+     * @param    {String}        currency 
+     * @param    {Boolean}       noValue  
+     * @returns                  
      */
     money(val, kilo, currency, novalue, decimal, thousands, precision){
       /*
@@ -95,12 +103,15 @@
         return i && ((a.length - i - decimalPosition) % 3 === 0) && (i < decimalIdx) ? thousands + c : c;
       }) + ( currency ? ' ' + currency : '');
     },
+
     /**
-     * Formats the given value as a date.
-     * @method date
-     * @param {String|Number} v 
-     * @fires bbn.fn.isDate
-     * @return {Date}
+     * @method   date
+     * @todo     Add method description for date
+     * @global   
+     * @memberof bbn.fn
+     * @fires    {*}             
+     * @param    {String|Number} v 
+     * @returns                  
      */
     date(v){
       let d = false,
@@ -139,12 +150,15 @@
       }
       return d;
     },
+
     /**
-     * Returns the given date as a string using sql format.
-     * @method dateSQL
-     * @param {Date|String} v 
-     * @param {Boolean} dayOnly 
-     * @return {String}
+     * @method   dateSQL
+     * @todo     Add method description for dateSQL
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Date|String} v       
+     * @param    {Boolean}     dayOnly 
+     * @returns                
      */
     dateSQL(v, dayOnly){
       let date = bbn.fn.date(v);
@@ -152,10 +166,14 @@
         return moment(date).format("YYYY-MM-DD" + (dayOnly ? '' : ' HH:mm:ss'));
       }
     },
+
     /**
-     * Returns the number of days in the month of the given date.
-     * @param {String|Date} v 
-     * @return {Number}
+     * @method   daysInMonth
+     * @todo     Add method description for daysInMonth
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Date} v 
+     * @returns                
      */
     daysInMonth(v){
       let d = bbn.fn.date(v);
@@ -164,10 +182,14 @@
       }
       return false;
     },
+
     /**
-     * @method getDay
-     * @param {String|Date} v 
-     * @return {Number|Boolean}
+     * @method   getDay
+     * @todo     Add method description for getDay
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Date} v 
+     * @returns                
      */
     getDay(v){
       const biss = 1972;
@@ -187,12 +209,15 @@
       }
       return false;
     },
+
     /**
-     * Returns a string with a language sensitive representation of the given date.
-     * @method fdate
-     * @param {String|Date} d 
-     * @param wrong_result 
-     * @return {String}
+     * @method   fdate
+     * @todo     Add method description for fdate
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Date} d 
+     * @param    wrong_result    
+     * @returns                
      */
     fdate(d, wrong_result){
       // Retro compatibility
@@ -219,6 +244,13 @@
       return r.toLocaleDateString();
     },
 
+    /**
+     * @method   fdatetime
+     * @todo     Add method description for fdatetime
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     fdatetime(d, wrong_result){
       let r = bbn.fn.date(d);
       if ( !bbn.fn.isDate(r) ){
@@ -241,6 +273,13 @@
       return r.toLocaleDateString();
     },
 
+    /**
+     * @method   ftime
+     * @todo     Add method description for ftime
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     ftime(d, wrong_result){
       let r = bbn.fn.date(d);
       if ( !bbn.fn.isDate(r) ){
@@ -252,8 +291,7 @@
         });
       }
       return r.toLocaleDateString();
-    }
+    },
 
-  })
-
+  });
 })(bbn);

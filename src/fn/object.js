@@ -1,27 +1,27 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Object functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
-// jshint esversion: 6
-((bbn) => {
+
+;((bbn) => {
   "use strict";
 
-  /**     OBJECTS AND ARRAYS    */
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
   Object.assign(bbn.fn, {
-
     /**
-     * Orders objects in the array based on the given property.
-     *
-     * ```javascript
-     * var myArray = [{age:25, name:'adrian', surname:'cooper'}, {age:54, name:'jennifer', surname:'brown'}, {age:22, name:'thomas', surname:'smith'}];
-     * bbn.fn.order(myArray, 'age', 'desc');
-     * // array [{age:54, name:'jennifer', surname:'brown'}, {age:25, name:'adrian', surname:'cooper'}, {age:22, name:'thomas', surname:'smith'}]
-     * ```
-     * @method order
-     * @param {Array} arr. An array of objects
-     * @param {String} prop. The property to order
-     * @param {String} dir 'asc' or 'desc'
-     * @return {Array}
+     * @method   order
+     * @todo     Add method description for order
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}  arr.  
+     * @param    {String} prop. 
+     * @param    {String} dir   
+     * @returns           
      */
     order(arr, prop, dir){
       if ( arr ){
@@ -33,20 +33,17 @@
       }
       return arr;
     },
+
     /**
-     * Compares the given objects and returns -1 if the value of the given property is different, 0 if the value of the property is the same.
-     * ```javascript
-     * bbn.fn.compareValues({name:'cami', age:6}, {name:'nina', age:6}, 'age')
-     * // 0
-     * bbn.fn.compareValues({name:'cami', age:6}, {name:'nina', age:6}, 'name')
-     * // -1
-     * ```
-     * @method compareValues
-     * @param {Object} a 
-     * @param {Object} b 
-     * @param {String} prop 
-     * @param {String} dir 
-     * @return {Number}
+     * @method   compareValues
+     * @todo     Add method description for compareValues
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} a    
+     * @param    {Object} b    
+     * @param    {String} prop 
+     * @param    {String} dir  
+     * @returns           
      */
     compareValues(a, b, prop, dir){
       let va = bbn.fn.getProperty(a, prop),
@@ -86,44 +83,44 @@
       }
       return 0;
     },
+
     /**
-     * Returns an array containing the unique values in the given array.
-     * ```javascript
-     * let arr = ["a", "b", "a", "b", "a", "b", "c", "c", "d"];
-     * bbn.fn.unique(arr);
-     * // ["a", "b", "c", "d"]
-     * ```
-     * @method unique
-     * @param {Array} arr 
-     * @return {Array}
+     * @method   unique
+     * @todo     Add method description for unique
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array} arr 
+     * @returns          
      */
     unique(arr){
       return arr.filter(function(el, index, ar) {
         return index == ar.indexOf(el);
       });
     },
+
     /**
-     * Returns the value of the given property in the given object.
-     * ``` javascript
-     * let obj = {name: 'Cami', age: 7}
-     * bbn.fn.getProperty(obj, 'name')
-     * // 'Cami'
-     * ```
-     * @method getProperty
-     * @param {Object} obj 
-     * @param {String} prop 
+     * @method   getProperty
+     * @todo     Add method description for getProperty
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} obj  
+     * @param    {String} prop 
+     * @returns  {*}      
      */
     getProperty(obj, prop){
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
         return prop.split('.').reduce((o, i) => o[i], obj);
       }
     },
+
     /**
-     * Returns an array containing the given array items ordered by the given properties.
-     * @method multiorder
-     * @param {Array} arr 
-     * @param {Array} orders 
-     * @return {Array}
+     * @method   multiorder
+     * @todo     Add method description for multiorder
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array} arr    
+     * @param    {Array} orders 
+     * @returns          
      */
     multiorder(arr, orders){
       if ( !Array.isArray(orders) && (typeof orders === 'object') ){
@@ -146,13 +143,17 @@
         return 0;
       })
     },
+
     /**
-     * @method orderLike
-     * @param {Array} to_order 
-     * @param {Array} based_on 
-     * @param {String} prop 
-     * @param {Boolean} exclude 
-     * @return {Array} 
+     * @method   orderLike
+     * @todo     Add method description for orderLike
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}   to_order 
+     * @param    {Array}   based_on 
+     * @param    {String}  prop     
+     * @param    {Boolean} exclude  
+     * @returns            
      */
     orderLike(to_order, based_on, prop, exclude){
       if ( Array.isArray(to_order) && Array.isArray(based_on) && to_order.length ){
@@ -185,18 +186,16 @@
         return r;
       }
     },
+
     /**
-     * Moves the array item corresponding to the idx of the second argument to the idx given in the third item.
-     * ``` javascript
-     * let arr = ['a', 'b', 'c']
-     * bbn.fn.move(arr, 0, 1)
-     * // ["b", "a", "c"]
-     * ```
-     * @method move
-     * @param {Array} arr 
-     * @param {Number} fromIndex 
-     * @param {Number} toIndex 
-     * @return {Array}
+     * @method   move
+     * @todo     Add method description for move
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}  arr       
+     * @param    {Number} fromIndex 
+     * @param    {Number} toIndex   
+     * @returns           
      */
     move(arr, fromIndex, toIndex){
       if (toIndex >= arr.length) {
@@ -208,17 +207,16 @@
       arr.splice(toIndex, 0, arr.splice(fromIndex, 1)[0]);
       return arr;
     },
+
     /**
-     * Compares the given values using the filter given in the third argument.
-     * ```javascript 
-     * bbn.fn.compare('5e543256c480ac577d30f76f9120eb74','7834739a24d04857a35a03431f27ab32');
-     * // false
-     * ```
-     * @method compare
-     * @param {String|Number} v1 
-     * @param {String|Number} v2 
-     * @param {String} mode 
-     * @return {Boolean}
+     * @method   compare
+     * @todo     Add method description for compare
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String|Number} v1   
+     * @param    {String|Number} v2   
+     * @param    {String}        mode 
+     * @returns                  
      */
     compare(v1, v2, mode){
       switch ( mode ){
@@ -311,27 +309,15 @@
     },
 
     /**
-     * @todo mode doesn't work
-     * Returns the index of a row in the array of objects arr where the prop is equal to val.
-     * Prop can also be an object with several properties to search against. If there are more than 1 results returns only the first.
-     * 
-     *
-     * ```javascript
-     * var myArray = [{age:25,name:'adrian', surname:'cooper'}, {age:54,name:'jennifer', surname:'brown'}, {age:22,name:'thomas', surname:'smith'}];
-     * bbn.fn.search(myArray, 'name', 'a', 'starts');
-     * // (int) 0
-     * bbn.fn.search(myArray, 'name', 'nn', 'contains');
-     * // (int) 1
-     * bbn.fn.search(myArray, 'age', '22', '===');
-     * //  (int) 2
-     * ```
-     * @method search
-     *
-     * @param {Array} arr The array of objects
-     * @param {String} prop The property of the given val
-     * @param {String|Number} val The value to search for
-     * @param {String} mode The mode '===', 'contains', 'starts', 'startsi'
-     * @return {Number} The index of the row
+     * @method   search
+     * @todo     Add method description for search
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}         arr  
+     * @param    {String}        prop 
+     * @param    {String|Number} val  
+     * @param    {String}        mode 
+     * @returns                  
      */
     search(arr, prop, val, mode, startFrom){
       if ( !bbn.fn.isArray(arr) ){
@@ -379,39 +365,32 @@
       }
       return -1;
     },
+
     /**
-     * Returns the count of array items containing the given property with given val.
-     * ``` javascript
-     * var myArray = [{age:25,name:'adrian', surname:'cooper'}, {age:54,name:'jennifer', surname:'brown'}, {age:22,name:'thomas', surname:'smith'}];
-     * bbn.fn.count(myArray, 'name', 'adrian')
-     * // 1
-     * ```
-     * @method count
-     * @param {Array} arr 
-     * @param {String} prop 
-     * @param {String|Number} val 
-     * @param {String} mode 
-     * @return {Number}
+     * @method   count
+     * @todo     Add method description for count
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}         arr  
+     * @param    {String}        prop 
+     * @param    {String|Number} val  
+     * @param    {String}        mode 
+     * @returns                  
      */
     count(arr, prop, val, mode){
       return bbn.fn.filter(arr, prop, val, mode, false).length || 0;
     },
+
     /**
-     * Returns the sum of the given prop in the array's items basing on the given filter. If the filter is an object the mode of filter can be specified as fourth argument.
-     * ``` javascript
-     * let myArray = [{age:25,name:'adrian', surname:'cooper'}, {age:54,name:'jennifer', surname:'brown'}, {age:22,name:'thomas', surname:'smith'}];
-     * bbn.fn.sum(myArray, 'age', (a) => { return a.age > 22})
-     * // 79
-     * bbn.fn.sum(myArray, 'age', {age: 54})
-     * // 54
-     * bbn.fn.sum(myArray, 'age', {age: 5}, '>')
-     * // 101
-     * ```
-     * @param {Array} arr 
-     * @param {String} prop 
-     * @param {Object|Function} filter 
-     * @param {String} mode 
-     * @return {Number}
+     * @method   sum
+     * @todo     Add method description for sum
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}           arr    
+     * @param    {String}          prop   
+     * @param    {Object|Function} filter 
+     * @param    {String}          mode   
+     * @returns                    
      */
     sum(arr, prop, filter, mode){
       let r = 0;
@@ -422,18 +401,15 @@
       });
       return r;
     },
+
     /**
-     * Compares the conditions defined in the filter with the given data object.
-     * ```javascript
-     * let filter = {conditions:[{field:'age', operator: '<=', value: 8}],logic: 'AND' },
-     * data = {age:5,name:'adrian', surname:'cooper'}
-     * bbn.fn.compareConditions(data, filter)
-     * // true
-     * ```
-     * @method compareConditions
-     * @param {Object} data 
-     * @param {Object} filter 
-     * @return {Boolean}
+     * @method   compareConditions
+     * @todo     Add method description for compareConditions
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} data   
+     * @param    {Object} filter 
+     * @returns           
      */
     compareConditions(data, filter){
       if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
@@ -461,16 +437,15 @@
       });
       return ok;
     },
+
     /**
-     * Converts the given object 'filter' to a valid format of condition.
-     * ``` javascript
-     * let filter = {url: "style"};
-     * // {conditions:[{field:"url",operator:"=",value:"style"}],logic:"AND"}
-     * ```
-     * @method filterToCondition
-     * @param {Object} filter 
-     * @param {String} mode 
-     * @return {Object}
+     * @method   filterToConditions
+     * @todo     Add method description for filterToConditions
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} filter 
+     * @param    {String} mode   
+     * @returns           
      */
     filterToConditions(filter, mode){
       if ( !bbn.fn.isObject(filter) ){
@@ -500,20 +475,17 @@
       }
       return filter;
     },
+
     /**
-     * Filters an array based on object properties.
-     * ``` javascript
-     * let myArray = [{url: 'home', loading: false}, {url: 'style', loading: true},{url: 'about', loading: false},{url: 'contact', loading: false}]
-     * bbn.fn.filter(arr, {loading: true})
-     * // [{url: 'style', loading: true}]
-     * bbn.fn.filter(arr, (a)=>{return a.url === 'style'})
-     * // [{url: 'style', loading: true}]
-     * ```
-     * @param {Array} arr 
-     * @param {String|Object|Function} prop 
-     * @param {Mixed} val 
-     * @param {String} mode 
-     * @return {Array}
+     * @method   filter
+     * @todo     Add method description for filter
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}                  arr  
+     * @param    {String|Object|Function} prop 
+     * @param    {Mixed}                  val  
+     * @param    {String}                 mode 
+     * @returns                           
      */
     filter(arr, prop, val, mode){
       if ( !bbn.fn.isArray(arr) ){
@@ -557,20 +529,16 @@
         return res;
       }
     },
+
     /**
-     * Returns the object from the array where the value of the given property is the same of the given value.
-     *
-     * ```javascript
-     * var myArray = [{age:25, name:'adrian', surname:'cooper'}, {age:54, name:'jennifer', surname:'brown'}, {age:22, name:'thomas', surname:'smith'}];
-     * bbn.fn.get_row(myArray, 'name', 'thomas');
-     * // (Object ){age: 22, name: "thomas", surname: "smith"}
-     * ```
-     * @method get_row
-     *
-     * @param {Array} arr The array of objects
-     * @param {String} prop The property to search for
-     * @param {String|Number} val The value of the property to search
-     * @return {Object|Boolean}
+     * @method   get_row
+     * @todo     Add method description for get_row
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}         arr  
+     * @param    {String}        prop 
+     * @param    {String|Number} val  
+     * @returns                  
      */
     get_row(arr, prop, val){
       var idx = bbn.fn.search(arr, prop, val);
@@ -581,21 +549,15 @@
     },
 
     /**
-     * Returns the value of the first object matching the given filter.
-     * ```javascript
-     * var myArray = [{age:25, name:'adrian', surname:'cooper'}, {age:54, name:'jennifer', surname:'brown'}, {age:22, name:'thomas', surname:'smith'}];
-     * bbn.fn.get_field(myArray, 'name','thomas','surname');
-     * // (string) 'smith'
-     * ```
-     * 
-     * @method get_field
-     * 
-     *
-     * @param {Array} The array of objects
-     * @param {String|Function} prop The given property
-     * @param {Number|String} val The known value
-     * @param {String} prop2 The property to search for
-     * @return {Mixed} 
+     * @method   get_field
+     * @todo     Add method description for get_field
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}           The   
+     * @param    {String|Function} prop  
+     * @param    {Number|String}   val   
+     * @param    {String}          prop2 
+     * @returns                    
      */
     get_field(arr, prop, val, prop2){
       var r;
@@ -606,17 +568,12 @@
     },
 
     /**
-     * Returns the number of properties contained in the given object.
-     * (similar to {@link numProperties()}).
-     *
-     * ```javascript
-     * var myObj = {age:25, name:'adrian', surname:'cooper'};
-     * bbn.fn.countProperties(myObj);
-     * // (int) 3
-     * ```
-     * @method countProperties
-     * @param {Object} obj 
-     * @return {Boolean|Number}
+     * @method   countProperties
+     * @todo     Add method description for countProperties
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} obj 
+     * @returns           
      */
     countProperties(obj){
       if ( (typeof(obj)).toLowerCase() === 'object' ){
@@ -630,18 +587,12 @@
     },
 
     /**
-     * Returns the number of properties of a given object.
-     * (similar to {@link countProperties()}).
-     * @todo Duplicate function
-     * 
-     * ```javascript
-     * var myObj = {age:25, name:'adrian', surname:'cooper'};
-     * bbn.fn.numProperties(myObj);
-     * // (int) 3
-     * ```
-     * @method numProperties
-     * @param {Object}
-     * @return {Number|Boolean}
+     * @method   numProperties
+     * @todo     Add method description for numProperties
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object}  
+     * @returns           
      */
     numProperties(obj){
       if ( typeof(obj) !== 'object' ){
@@ -655,17 +606,13 @@
     },
 
     /**
-     * Removes private properties from the given object.
-     * 
-     * ```javascript
-     *  var myObj = { age:39, name:'thomas', surname:'smith', children: { name:'john', _age:12 } };
-     *  bbn.fn.removePrivateProp(myObj, true);
-     *  //(object ){ age:39, name:'thomas', surname:'smith', children: { name:'john'} };
-     * ```
-     * @method removePrivateProp
-     * @param {Object} obj
-     * @param {Boolean} deep If set to true it will remove also deep private properties. Default false
-     * @return {boolean}
+     * @method   removePrivateProp
+     * @todo     Add method description for removePrivateProp
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object}  obj  
+     * @param    {Boolean} deep 
+     * @returns            
      */
     removePrivateProp(obj, deep){
       var r = false;
@@ -684,12 +631,15 @@
       }
       return r;
     },
+
     /**
-     * Returns true if the two objects given are the same.
-     * @method isSame
-     * @param {Object} obj1 
-     * @param {Object} obj2 
-     * @return {Boolean}
+     * @method   isSame
+     * @todo     Add method description for isSame
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} obj1 
+     * @param    {Object} obj2 
+     * @returns           
      */
     isSame(obj1, obj2){
       if ( obj1 === obj2 ){
@@ -714,17 +664,11 @@
     },
 
     /**
-     * Merges the contents of two or more objects together into the first object. It overwrites the property if defined in the two objects given.
-     * 
-     * ```javascript
-     * var myObject = { age:39, name:'thomas', surname:'smith', children: { name:'john'} };
-     * bbn.fn.extend(myObject,{name: 'alex', job : 'teacher'});
-     * return (object){age: 39, name: "alex", surname: "smith", children: { name:'john'}, job: "teacher"}
-     * ```
-     * @method extend
-     *
-     * 
-     * @return {Object} 
+     * @method   extend
+     * @todo     Add method description for extend
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     extend(){
       let deep = false;
@@ -775,16 +719,13 @@
       }
       return out;
     },
+
     /**
-     * Merges the contents of two or more objects together into the first object. Doesn't overwrite the property if defined in the two objects given.
-     * 
-     * ```javascript
-     * var myObject = { age:39, name:'thomas', surname:'smith', children: { name:'john'} };
-     * bbn.fn.extendOut(myObject,{name: 'alex', job : 'teacher'});
-     * return (object){age: 39, name: "thomas", surname: "smith", children: { name:'john'}, job: "teacher"}
-     * ```
-     * @method extend
-     * @return {Object} 
+     * @method   extendOut
+     * @todo     Add method description for extendOut
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     extendOut(){
       let r = {};
@@ -818,13 +759,13 @@
     },
 
     /**
-     * Extends bbn object with the given namespace.
-     *
-     * 
-     * @method autoExtend
-     * @param {String} namespace (properties of bbn object)
-     * @param {Object} obj The value of the new namespace
-     * @return void
+     * @method   autoExtend
+     * @todo     Add method description for autoExtend
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} namespace 
+     * @param    {Object} obj       
+     * @returns           
      */
     autoExtend(namespace, obj){
       if ( !bbn[namespace] ){
@@ -837,11 +778,14 @@
         bbn.fn.extend(bbn[namespace], obj);
       }
     },
+
     /**
-     * Removes empty index from the given array.
-     * @method removeEmpty
-     * @param {Array} arr
-     * @return Array
+     * @method   removeEmpty
+     * @todo     Add method description for removeEmpty
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array} arr 
+     * @returns          
      */
     removeEmpty(arr){
       var tmp = [];
@@ -854,18 +798,15 @@
       }
       return tmp;
     },
+
     /**
-     * Given an array of objects returns an array taking the given property from the original array items. 
-     * ``` javascript
-     * let myArray = [{age:25,name:'adrian', surname:'cooper'}, {age:54,name:'jennifer', surname:'brown'}, {age:22,name:'thomas', surname:'smith'}];
-     * bbn.fn.arrayFromProp(myArray, 'name');
-     * // ["adrian", "jennifer", "thomas"]
-     * ```
-     * @method arrayFromProp
-     * @param {Array} arr The arrasy of objects
-     * @param {String} prop The property to create the final array
-     * @return {Array}
-     * 
+     * @method   arrayFromProp
+     * @todo     Add method description for arrayFromProp
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}  arr  
+     * @param    {String} prop 
+     * @returns           
      */
     arrayFromProp(arr, prop){
       let r = [];
@@ -874,39 +815,31 @@
       });
       return r;
     },
+
     /**
-     * Return a random item from the given array.
-     * @method pickValue
-     * @param {Array} arr 
-     * @return {Mixed}
+     * @method   pickValue
+     * @todo     Add method description for pickValue
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array} arr 
+     * @returns          
      */
     pickValue(arr){
       if ( Array.isArray(arr) && arr.length ){
         return arr[Math.floor(Math.random() * arr.length)]
       }
     },
+
     /**
-     * Returns an object containing the differences between the given objects.
-     * ``` javascript
-     * let obj = {name: "cami", age: 7}, 
-     *     obj1 = {name: "cami", age: 8, isDog: true};
-     * bbn.fn.diffObj(obj, obj1);
-     * // {
-     *    age: {type:"updated",data:7,newData:9},
-     *    isDog: {type:"created",data:true}
-     * }
-     * bbn.fn.diffObj(obj, obj1, 'unchanged');
-     * //{
-     *    name:{type:"unchanged",data:"cami",newData:"cami"},
-     *    age:{type:"updated",data:7,newData:9},
-     *    isDog:{type:"created",data:true}
-     * }
-     * ```
-     * @method diffObj
-     * @param {Object} obj1 
-     * @param {Object} obj2 
-     * @param {String} unchanged Allowed values  'created', 'updated', 'deleted', 'unchanged'
-     * @param {Boolean} notRoot 
+     * @method   diffObj
+     * @todo     Add method description for diffObj
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object}  obj1      
+     * @param    {Object}  obj2      
+     * @param    {String}  unchanged 
+     * @param    {Boolean} notRoot   
+     * @returns  {*}       
      */
     diffObj(obj1, obj2, unchanged, notRoot){
       let VALUE_CREATED = 'created',
@@ -979,6 +912,16 @@
       }
       return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
     },
+
+    /**
+     * @method   transform
+     * @todo     Add method description for transform
+     * @global   
+     * @memberof bbn.fn
+     * @param    {*} oldO 
+     * @param    {*} newO 
+     * @returns  {*} 
+     */
     transform(oldO, newO){
       if (typeof oldO !== typeof newO){
         oldO = newO;
@@ -1004,13 +947,18 @@
         })
       }
     },
+
     /**
-     * @method fori
-     * @param {Function} fn 
-     * @param {Array} arr 
-     * @param {Number} max 
-     * @param {Number} min 
-     */  
+     * @method   fori
+     * @todo     Add method description for fori
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Function} fn  
+     * @param    {Array}    arr 
+     * @param    {Number}   max 
+     * @param    {Number}   min 
+     * @returns  {*}        
+     */
     fori(fn, arr, max, min){
       if ( bbn.fn.isArray(arr) && max ){
         if ( !min || (min > max) ){
@@ -1023,13 +971,18 @@
         }
       }
     },
+
     /**
-     * @method forir
-     * @param {Function} fn 
-     * @param {Array} arr 
-     * @param {Number} max 
-     * @param {Number} min 
-     */  
+     * @method   forir
+     * @todo     Add method description for forir
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Function} fn  
+     * @param    {Array}    arr 
+     * @param    {Number}   max 
+     * @param    {Number}   min 
+     * @returns  {*}        
+     */
     forir(fn, arr, max, min){
       if ( bbn.fn.isArray(arr) && max ){
         if ( !min || (min > max) ){
@@ -1042,17 +995,15 @@
         }
       }
     },
+
     /**
-     * Iterates over an array executing a function for each matched element.
-     * ```javascript
-     * let arr = ['a', 'b', 'c']
-     * bbn.fn.each(arr, (value, index) => { 
-     *  alert(value);
-     * })
-     * ```
-     * @method each
-     * @param {Array} arr 
-     * @param {Function} fn 
+     * @method   each
+     * @todo     Add method description for each
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}    arr 
+     * @param    {Function} fn  
+     * @returns  {*}        
      */
     each(arr, fn){
       if ( bbn.fn.isArray(arr) ){
@@ -1065,19 +1016,15 @@
       }
       return bbn.fn.iterate(arr, fn);
     },
+
     /**
-     * Iterates over an object properties executing a function for each matched element.
-     * ``` javascritp
-     * let obj = {name: "cami", age: 7, isDog: true}
-     * bbn.fn.iterate(obj, (value, index) => {
-     *  bbn.fn.log(value)
-     * })
-     * // 'cami', 7, true
-     * 
-     * ```
-     * @method iterate
-     * @param {Object|Number} obj 
-     * @param {Function} fn 
+     * @method   iterate
+     * @todo     Add method description for iterate
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object|Number} obj 
+     * @param    {Function}      fn  
+     * @returns  {*}             
      */
     iterate(obj, fn){
       if ( (obj !== null) && (typeof obj === 'object') ){
@@ -1098,11 +1045,14 @@
       }
       return obj;
     },
+
     /**
-     * Clone the given object.
-     * @method clone
-     * @param {mixed} obj 
-     * @return {mixed}
+     * @method   clone
+     * @todo     Add method description for clone
+     * @global   
+     * @memberof bbn.fn
+     * @param    {mixed} obj 
+     * @returns          
      */
     clone(obj){
       if ( bbn.fn.isArray(obj) ){
@@ -1115,20 +1065,16 @@
       }
       return obj;
     },
+
     /**
-     * Returns a new array generated by the execution of a function for each item of the given array.
-     * ```javascript
-     * let myArray = [1,2,3,4];
-     * let newArray = bbn.fn.map(myArray, (a) => { 
-     *  a ++ ; 
-     *  return a; 
-     * } );
-     * ```
-     * @method map
-     * @param {Array} arr 
-     * @param {Function} fn 
-     * @param {Boolean} deepProp 
-     * @return {Array}
+     * @method   map
+     * @todo     Add method description for map
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}    arr      
+     * @param    {Function} fn       
+     * @param    {Boolean}  deepProp 
+     * @returns             
      */
     map(arr, fn, deepProp){
       return arr.map((a, i) => {
@@ -1139,22 +1085,17 @@
         return a;
       });
     },
+
     /**
-     * Returns a string exportable into a csv from the given array.
-     * ```javascript
-     * let myArray = [['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']];
-     * bbn.fn.toCSV(myArray);
-     * // 
-     *   ""a","b","c";
-     *   "d","e","f";
-     *   "g","h","i""
-     * ```
-     * @method toCSV
-     * @param {Array} arr The array
-     * @param {String} [','] valSep The separator between values in the row
-     * @param {String} [';'] rowSep The separator between rows
-     * @param {String} ['"'] valEsc The value to escape 
-     * @return {String} 
+     * @method   toCSV
+     * @todo     Add method description for toCSV
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Array}  arr   
+     * @param    {String} [','] 
+     * @param    {String} [';'] 
+     * @param    {String} ['"'] 
+     * @returns           
      */
     toCSV(arr, valSep, rowSep, valEsc){
       if ( !valSep ){
@@ -1196,6 +1137,15 @@
       return csvContent;
     },
 
+    /**
+     * @method   shortenObj
+     * @todo     Add method description for shortenObj
+     * @global   
+     * @memberof bbn.fn
+     * @param    {*} obj 
+     * @param    {*} max 
+     * @returns  {*} 
+     */
     shortenObj(obj, max){
       if (!max) {
         max = 100;
@@ -1210,7 +1160,7 @@
         }
       });
       return o;
-    }
-  })
+    },
 
-})(window.bbn);
+  });
+})(bbn);

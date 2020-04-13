@@ -1,27 +1,38 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   History related functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
+
   Object.assign(bbn.fn, {
-
-    /**     HISTORY    */
-
     /**
-     * Returns the window history object if history has been loaded .
-     * @method history
-     * @return {Object|Boolean}
+     * @method   history
+     * @todo     Add method description for history
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
      */
     history(){
       return window.history || false;
     },
+
     /**
-     * Replaces the history state with a new one.
-     * @method replaceHistory
-     * @param {String} url 
-     * @param {String} title 
-     * @param {Object} data 
+     * @method   replaceHistory
+     * @todo     Add method description for replaceHistory
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} url   
+     * @param    {String} title 
+     * @param    {Object} data  
+     * @returns  {*}      
      */
     replaceHistory(url, title, data){
       let h = bbn.fn.history();
@@ -50,10 +61,14 @@
         h.replaceState(state, title || state.title, bbn.env.root + data.url);
       }
     },
+
     /**
-     * Adds a script to the history.state.data
-     * @method addHistoryScript
-     * @param {Function} script 
+     * @method   addHistoryScript
+     * @todo     Add method description for addHistoryScript
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Function} script 
+     * @returns  {*}        
      */
     addHistoryScript(script){
       let h = bbn.fn.history();
@@ -73,6 +88,7 @@
         }
         bbn.fn.replaceHistory(state.url, state.title, state.data);
       }
-    }
+    },
+
   });
 })(bbn);

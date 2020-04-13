@@ -1,17 +1,25 @@
 /**
- * Created by BBN on 10/02/2017.
+ * @file   Styling functions.
+ * @author BBN Solutions <info@bbn.solutions>
+ * @since  12/04/2020
  */
+
 ;((bbn) => {
   "use strict";
 
-  Object.assign(bbn.fn, {
+  /**
+   * @var {Object} _private Misc variable for internal use
+   */
+  let _private = {};
 
-    /**     STYLING     */
+  Object.assign(bbn.fn, {
     /**
-     * Centers the given element and give it absolute position.
-     * @method center
-     * @param {HTMLElement} ele 
-     * @return {HTMLElement}
+     * @method   center
+     * @todo     Add method description for center
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} ele 
+     * @returns                
      */
     center(ele){
       //ele = $(ele);
@@ -38,14 +46,14 @@
       ele.style.left = Math.max(0, ((h - ele.offsetWidth) / 2) + parent.scrollLeft) + "px";
       return ele;
     },
+
     /**
-     * Adds the given colors to the available colors in bbn.var.colors and creates the corresponding css classes bbn-(color) and bbn-bg-(color).
-     * ```javascript
-     * bbn.fn.addColors({fuxia: 'rgb(221, 66, 245)', darkPurple: '#4b0f54'});
-     * Creates the css classes 'bbn-fuxia' and 'bbn-darkPurple' for the css property color and the classes 'bbn-bg-fuxia' and 'bbn-bg-darkPurple' for backgrounds.
-     * ```
-     * @method addColors
-     * @param {Object} colors 
+     * @method   addColors
+     * @todo     Add method description for addColors
+     * @global   
+     * @memberof bbn.fn
+     * @param    {Object} colors 
+     * @returns  {*}      
      */
     addColors(colors){
       let st = '';
@@ -71,15 +79,14 @@
         });
       }
     },
+
     /**
-     * Returns true if the given css selector exists in the styleSheets of the document.
-     * ```javascript
-     * bbn.fn.cssExists('.bbn-calendar .bbn-calendar-container .bbn-calendar-item-box')
-     * // true
-     * ```
-     * @method cssExists
-     * @param {String} f The css selector
-     * @return {Boolean}
+     * @method   cssExists
+     * @todo     Add method description for cssExists
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String} f 
+     * @returns           
      */
     cssExists(f){
       var ok, rules, css = document.styleSheets;
@@ -106,12 +113,16 @@
       }
       return false;
     },
+
     /**
-     * Adds the given animation to the given element.
-     * @method animateCss
-     * @param {HTMLElement} ele 
-     * @param {String} animationName 
-     * @param {Function} callback 
+     * @method   animateCss
+     * @todo     Add method description for animateCss
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} ele           
+     * @param    {String}      animationName 
+     * @param    {Function}    callback      
+     * @returns  {*}           
      */
     animateCss(ele, animationName, callback ){
       let animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';                
@@ -131,14 +142,15 @@
         this.classList.remove(animation);      
       });
     },
+
     /**
-     * Adds the given css rule(s) to the given html element.
-     * ```javascript
-     * bbn.fn.addStyle($0, {color:'black'});
-     * ```
-     * @method addStyle
-     * @param {HTMLElement} ele 
-     * @param {Object} o The rule(s) to add to the element
+     * @method   addStyle
+     * @todo     Add method description for addStyle
+     * @global   
+     * @memberof bbn.fn
+     * @param    {HTMLElement} ele 
+     * @param    {Object}      o   
+     * @returns  {*}           
      */
     addStyle(ele, o){
       if ( bbn.fn.isObject(o) ){
@@ -148,10 +160,24 @@
       }
     },
 
+    /**
+     * @method   selector
+     * @todo     Add method description for selector
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     selector(ele) {
       return (typeof el === 'string') ? document.querySelector(el) : el;
     },
 
+    /**
+     * @method   outerWidth
+     * @todo     Add method description for outerWidth
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     outerWidth(ele){
       ele = bbn.fn.selector(ele); 
       let styles = window.getComputedStyle(ele);
@@ -160,6 +186,13 @@
       return Math.ceil(ele.offsetWidth + margin);
     },
 
+    /**
+     * @method   outerHeight
+     * @todo     Add method description for outerHeight
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     outerHeight(ele){
       ele = bbn.fn.selector(ele); 
       let styles = window.getComputedStyle(ele);
@@ -168,12 +201,18 @@
       return Math.ceil(ele.offsetHeight + margin);
     },
 
+    /**
+     * @method   colorToHex
+     * @todo     Add method description for colorToHex
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {*} 
+     */
     colorToHex(color){
       let canvas = document.createElement("canvas").getContext("2d");
 	    canvas.fillStyle = color;
 	    return canvas.fillStyle;
-    }
+    },
 
   });
-
 })(bbn);
