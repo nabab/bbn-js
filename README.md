@@ -1,4 +1,4 @@
-<p style="text-align: center"><img alt="BBN JS" src="https://cdn.bbn.io/img/240w/js.png"></p>
+<p align="center"><img alt="BBN JS" src="https://cdn.bbn.io/img/240w/js.png"></p>
 
 ### BBNJS is an opiniated library used by our [VueJS Components](https://vue.bbn.io), and by our Application AppUI(https://appui.bbn.io), and designed to work in conjonction with our [PHP Framework BBN](https://doc.bbn.io)
 
