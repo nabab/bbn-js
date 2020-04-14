@@ -2,18 +2,18 @@
 
 ## History related functions.
 
-### bbn.fn.addHistoryScript(script)
+### **bbn.fn.addHistoryScript(script)**
 
 * __script__ _Function_ 
 
 **Returns** _*_ 
 
-### bbn.fn.history()
+### **bbn.fn.history()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.replaceHistory(url, title, data)
+### **bbn.fn.replaceHistory(url, title, data)**
 
 * __url__ _String_ 
 * __title__ _String_ 

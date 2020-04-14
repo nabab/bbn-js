@@ -2,173 +2,173 @@
 
 ## Miscellaneous functions.
 
-### bbn.fn.ab2str()
+### **bbn.fn.ab2str()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.canvasToImage()
+### **bbn.fn.canvasToImage()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.copy()
+### **bbn.fn.copy()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.eraseCookie()
+### **bbn.fn.eraseCookie()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.error(args)
+### **bbn.fn.error(args)**
 
 * __args__ _...any_ 
 
 **Returns** _*_ 
 
-### bbn.fn.formatBytes()
+### **bbn.fn.formatBytes()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.getAttributes(element)
+### **bbn.fn.getAttributes(element)**
 
 * __element__ _HTMLElement_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.getCookie(name)
+### **bbn.fn.getCookie(name)**
 
 * __name__ _String_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.getEventData()
+### **bbn.fn.getEventData()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.getHTMLOfSelection()
+### **bbn.fn.getHTMLOfSelection()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.getPath()
+### **bbn.fn.getPath()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.happy(args)
+### **bbn.fn.happy(args)**
 
 * __args__ _...any_ 
 
 **Returns** _*_ 
 
-### bbn.fn.imageToCanvas()
+### **bbn.fn.imageToCanvas()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.imgToBase64()
+### **bbn.fn.imgToBase64()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.info(args)
+### **bbn.fn.info(args)**
 
 * __args__ _...any_ 
 
 **Returns** _*_ 
 
-### bbn.fn.is()
+### **bbn.fn.is()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isArray()
+### **bbn.fn.isArray()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isDate()
+### **bbn.fn.isDate()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isDom()
+### **bbn.fn.isDom()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isFunction()
+### **bbn.fn.isFunction()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isMobile()
+### **bbn.fn.isMobile()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.isNull()
+### **bbn.fn.isNull()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isNumber()
+### **bbn.fn.isNumber()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isObject()
+### **bbn.fn.isObject()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isPercent()
+### **bbn.fn.isPercent()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isSQLDate()
+### **bbn.fn.isSQLDate()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isString()
+### **bbn.fn.isString()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isURL()
+### **bbn.fn.isURL()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isValue()
+### **bbn.fn.isValue()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isVue()
+### **bbn.fn.isVue()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.isjQuery()
+### **bbn.fn.isjQuery()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.log(args)
+### **bbn.fn.log(args)**
 
 * __args__ _...any_ 
 
 **Returns** _*_ 
 
-### bbn.fn.setCookie(name, value, days)
+### **bbn.fn.setCookie(name, value, days)**
 
 * __name__ _String_ 
 * __value__ _String_ 
@@ -176,40 +176,40 @@
 
 **Returns** _*_ 
 
-### bbn.fn.startChrono()
+### **bbn.fn.startChrono()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.stat(returnStat)
+### **bbn.fn.stat(returnStat)**
 
 * __returnStat__ _*_ 
 
 **Returns** _*_ 
 
-### bbn.fn.stopChrono()
+### **bbn.fn.stopChrono()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.str2ab()
+### **bbn.fn.str2ab()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.tagName(element)
+### **bbn.fn.tagName(element)**
 
 * __element__ _HTMLElement_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.timestamp([false])
+### **bbn.fn.timestamp([false])**
 
 * __[false]__ _Boolean_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.warning(args)
+### **bbn.fn.warning(args)**
 
 * __args__ _...any_ 
 

@@ -2,7 +2,7 @@
 
 ## Init function
 
-### bbn.fn.init(cfg)
+### **bbn.fn.init(cfg)**
 
 * __cfg__ _Object_ 
 

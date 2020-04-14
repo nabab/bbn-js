@@ -2,20 +2,20 @@
 
 ## Styling functions.
 
-### bbn.fn.addColors(colors)
+### **bbn.fn.addColors(colors)**
 
 * __colors__ _Object_ 
 
 **Returns** _*_ 
 
-### bbn.fn.addStyle(ele, o)
+### **bbn.fn.addStyle(ele, o)**
 
 * __ele__ _HTMLElement_ 
 * __o__ _Object_ 
 
 **Returns** _*_ 
 
-### bbn.fn.animateCss(ele, animationName, callback)
+### **bbn.fn.animateCss(ele, animationName, callback)**
 
 * __ele__ _HTMLElement_ 
 * __animationName__ _String_ 
@@ -23,34 +23,34 @@
 
 **Returns** _*_ 
 
-### bbn.fn.center(ele)
+### **bbn.fn.center(ele)**
 
 * __ele__ _HTMLElement_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.colorToHex()
+### **bbn.fn.colorToHex()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.cssExists(f)
+### **bbn.fn.cssExists(f)**
 
 * __f__ _String_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.outerHeight()
+### **bbn.fn.outerHeight()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.outerWidth()
+### **bbn.fn.outerWidth()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.selector()
+### **bbn.fn.selector()**
 
 
 **Returns** _*_ 

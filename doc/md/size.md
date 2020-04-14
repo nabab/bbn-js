@@ -2,45 +2,45 @@
 
 ## Sizing functions.
 
-### bbn.fn.adjustHeight()
+### **bbn.fn.adjustHeight()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.adjustSize()
+### **bbn.fn.adjustSize()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.adjustWidth()
+### **bbn.fn.adjustWidth()**
 
 
 **Returns** _*_ 
 
-### bbn.fn.calculateHeight(element)
+### **bbn.fn.calculateHeight(element)**
 
 * __element__ _HTMLElement_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.getScrollBarSize()
+### **bbn.fn.getScrollBarSize()**
 
 
 **Returns** _undefined_ 
 
-### bbn.fn.getScrollParent(node)
+### **bbn.fn.getScrollParent(node)**
 
 * __node__ _HTMLElement_ 
 
 **Returns** _undefined_ 
 
-### bbn.fn.resize()
+### **bbn.fn.resize()**
 
 Fires {*}
 
 **Returns** _*_ 
 
-### bbn.fn.toggle_full_screen()
+### **bbn.fn.toggle_full_screen()**
 
 Fires {*}
 Fires {*}
