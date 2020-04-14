@@ -36,7 +36,7 @@
 
 **Returns** _undefined_ 
 
-### ```javascript bbn.fn.getIdURL(url, data, datatype)```
+### bbn.fn.getIdURL(url, data, datatype)
 
 Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
 The routing functions don't allow to send the same request at the same moment,
@@ -49,13 +49,16 @@ the keys of the data sent, and the expected returned data type.
 **Returns** _String_ The unique ID
 
 
+```javascript
+// my/location:59990af62ba3ebdd54a4ebecafc2faa1
+bbn.fn.getIdURL('my/location', {id: 1, test: 2});
+```
 
-    // my/location:59990af62ba3ebdd54a4ebecafc2faa1
-    bbn.fn.getIdURL('my/location', {id: 1, test: 2});
 
-
-    // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
-    bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+```javascript
+// my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
+bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+```
 
 
 ```javascript
