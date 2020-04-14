@@ -41,16 +41,19 @@
      * @method   getIdURL
      * @global   
      * @example 
-     * 
-     *     // my/location:59990af62ba3ebdd54a4ebecafc2faa1
-     *     bbn.fn.getIdURL('my/location', {id: 1, test: 2});
-     * @example 
-     *     // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
-     *     bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+     * ```javascript
+     * // my/location:59990af62ba3ebdd54a4ebecafc2faa1
+     * bbn.fn.getIdURL('my/location', {id: 1, test: 2});
+     * ```
      * @example 
      * ```javascript
-     *     // my/location:ec60cdf5001208a1fc5fbae05ac94a55
-     *     bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
+     * // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
+     * bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+     * ```
+     * @example 
+     * ```javascript
+     * // my/location:ec60cdf5001208a1fc5fbae05ac94a55
+     * bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
      * ```
      * @memberof bbn.fn
      * @param    {String} url      
