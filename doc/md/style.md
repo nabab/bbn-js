@@ -27,7 +27,7 @@
 
 * __ele__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.colorToHex()
 
@@ -38,7 +38,7 @@
 
 * __f__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.outerHeight()
 

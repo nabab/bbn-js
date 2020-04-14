@@ -13,6 +13,7 @@
   let _private = {};
 
   Object.assign(bbn.fn, {
+
     /**
      * Finds the XHR corresponding to the given unique ID and returns it if found.
      * 
@@ -39,6 +40,18 @@
      * 
      * @method   getIdURL
      * @global   
+     * @example 
+     * 
+     *     // my/location:59990af62ba3ebdd54a4ebecafc2faa1
+     *     bbn.fn.getIdURL('my/location', {id: 1, test: 2});
+     * @example 
+     *     // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
+     *     bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+     * @example 
+     * ```javascript
+     *     // my/location:ec60cdf5001208a1fc5fbae05ac94a55
+     *     bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
+     * ```
      * @memberof bbn.fn
      * @param    {String} url      
      * @param    {Object} data     The data sent to the URL
@@ -56,76 +69,6 @@
         });
       }
       return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
-    },
-
-    /**
-     * @method   _deleteLoader
-     * @todo     Add method description for _deleteLoader
-     * @global   
-     * @memberof bbn.fn
-     * @param    {String}        idURL   
-     * @param    {String|Object} res     
-     * @param    {Boolean}       isAbort 
-     * @returns                  
-     */
-    _deleteLoader(idURL, res, isAbort){
-      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
-      if ( idx > -1 ){
-        let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
-        if ( history ){
-          history.loading = false;
-          history.duration = (new Date()).getTime() - loader.start;
-          if ( typeof res === 'string' ){
-            history.errorMessage = res;
-            history.error = !isAbort;
-            history.abort = isAbort;
-
-          }
-          else if ( bbn.fn.isObject(res) ){
-            history.success = true;
-          }
-        }
-        return true;
-      }
-      return false;
-    },
-
-    /**
-     * @method   _addLoader
-     * @todo     Add method description for _addLoader
-     * @global   
-     * @memberof bbn.fn
-     * @param    {String} idURL  
-     * @param    {Object} loader 
-     * @param    {Object} source 
-     * @returns           
-     */
-    _addLoader(idURL, loader, source){
-      bbn.fn.log("ADDING URL", idURL);
-      let tst = (new Date()).getTime();
-      let url = idURL.substr(0, idURL.length - 33);
-      bbn.env.loaders.push({
-        key: idURL,
-        url: url,
-        loader: loader,
-        source: source,
-        start: tst
-      });
-      bbn.env.loadersHistory.unshift({
-        key: idURL,
-        url: url,
-        loading: true,
-        start: tst,
-        error: false,
-        abort: false,
-        errorMessage: false,
-        success: false
-      });
-      while ( bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory ){
-        bbn.env.loadersHistory.pop();
-      }
-      return tst;
     },
 
     /**
@@ -784,6 +727,78 @@
         });
       }
       return false;
+    },
+
+    /**
+     * @method   _deleteLoader
+     * @todo     Add method description for _deleteLoader
+     * @global   
+     * @ignore   
+     * @memberof bbn.fn
+     * @param    {String}        idURL   
+     * @param    {String|Object} res     
+     * @param    {Boolean}       isAbort 
+     * @returns                  
+     */
+    _deleteLoader(idURL, res, isAbort){
+      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
+      if ( idx > -1 ){
+        let loader = bbn.env.loaders.splice(idx, 1)[0];
+        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
+        if ( history ){
+          history.loading = false;
+          history.duration = (new Date()).getTime() - loader.start;
+          if ( typeof res === 'string' ){
+            history.errorMessage = res;
+            history.error = !isAbort;
+            history.abort = isAbort;
+
+          }
+          else if ( bbn.fn.isObject(res) ){
+            history.success = true;
+          }
+        }
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * @method   _addLoader
+     * @todo     Add method description for _addLoader
+     * @global   
+     * @ignore   
+     * @memberof bbn.fn
+     * @param    {String} idURL  
+     * @param    {Object} loader 
+     * @param    {Object} source 
+     * @returns           
+     */
+    _addLoader(idURL, loader, source){
+      bbn.fn.log("ADDING URL", idURL);
+      let tst = (new Date()).getTime();
+      let url = idURL.substr(0, idURL.length - 33);
+      bbn.env.loaders.push({
+        key: idURL,
+        url: url,
+        loader: loader,
+        source: source,
+        start: tst
+      });
+      bbn.env.loadersHistory.unshift({
+        key: idURL,
+        url: url,
+        loading: true,
+        start: tst,
+        error: false,
+        abort: false,
+        errorMessage: false,
+        success: false
+      });
+      while ( bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory ){
+        bbn.env.loadersHistory.pop();
+      }
+      return tst;
     },
 
   });

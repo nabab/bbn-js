@@ -7,27 +7,27 @@
 Fires {*}
 * __v__ _String|Number_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.dateSQL(v, dayOnly)
 
 * __v__ _Date|String_ 
 * __dayOnly__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.daysInMonth(v)
 
 * __v__ _String|Date_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.fdate(d, )
 
 * __d__ _String|Date_ 
 * ____ _rong_resul_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.fdatetime()
 
@@ -43,7 +43,7 @@ Fires {*}
 
 * __v__ _String|Date_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.money(val, kilo, currency, noValue)
 
@@ -52,4 +52,4 @@ Fires {*}
 * __currency__ _String_ 
 * __noValue__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 

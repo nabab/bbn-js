@@ -21,27 +21,27 @@
 
 * __field__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.formChanges(form)
 
 Fires {*}
 * __form__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.formdata(form)
 
 Fires {*}
 * __form__ _HTMLElementL_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.formupdated(form)
 
 * __form__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.objectToFormData(obj, key, ignoreList)
 
@@ -49,7 +49,7 @@ Fires {*}
 * __key__ _String_ 
 * __ignoreList__ _Array_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.reset(form, e)
 

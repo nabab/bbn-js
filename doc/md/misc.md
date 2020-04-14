@@ -37,13 +37,13 @@
 
 * __element__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.getCookie(name)
 
 * __name__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.getEventData()
 
@@ -85,27 +85,27 @@
 ### bbn.fn.is()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isArray()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isDate()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isDom()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isFunction()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isMobile()
 
@@ -115,52 +115,52 @@
 ### bbn.fn.isNull()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isNumber()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isObject()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isPercent()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isSQLDate()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isString()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isURL()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isValue()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isVue()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isjQuery()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.log(args)
 
@@ -201,13 +201,13 @@
 
 * __element__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.timestamp([false])
 
 * __[false]__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.warning(args)
 

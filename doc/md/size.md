@@ -21,18 +21,18 @@
 
 * __element__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.getScrollBarSize()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.getScrollParent(node)
 
 * __node__ _HTMLElement_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.resize()
 

@@ -7,20 +7,20 @@
 * __arr__ _Array_ 
 * __prop__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.autoExtend(namespace, obj)
 
 * __namespace__ _String_ 
 * __obj__ _Object_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.clone(obj)
 
 * __obj__ _mixed_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.compare(v1, v2, mode)
 
@@ -28,14 +28,14 @@
 * __v2__ _String|Number_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.compareConditions(data, filter)
 
 * __data__ _Object_ 
 * __filter__ _Object_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.compareValues(a, b, prop, dir)
 
@@ -44,7 +44,7 @@
 * __prop__ _String_ 
 * __dir__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.count(arr, prop, val, mode)
 
@@ -53,13 +53,13 @@
 * __val__ _String|Number_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.countProperties(obj)
 
 * __obj__ _Object_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.diffObj(obj1, obj2, unchanged, notRoot)
 
@@ -80,12 +80,12 @@
 ### bbn.fn.extend()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.extendOut()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.filter(arr, prop, val, mode)
 
@@ -94,14 +94,14 @@
 * __val__ _Mixed_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.filterToConditions(filter, mode)
 
 * __filter__ _Object_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.fori(fn, arr, max, min)
 
@@ -135,7 +135,7 @@
 * __val__ _Number|String_ 
 * __prop2__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.get_row(arr, prop, val)
 
@@ -143,14 +143,14 @@
 * __prop__ _String_ 
 * __val__ _String|Number_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.isSame(obj1, obj2)
 
 * __obj1__ _Object_ 
 * __obj2__ _Object_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.iterate(obj, fn)
 
@@ -165,7 +165,7 @@
 * __fn__ _Function_ 
 * __deepProp__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.move(arr, fromIndex, toIndex)
 
@@ -173,20 +173,20 @@
 * __fromIndex__ _Number_ 
 * __toIndex__ _Number_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.multiorder(arr, orders)
 
 * __arr__ _Array_ 
 * __orders__ _Array_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.numProperties()
 
 * ____ _Object_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.order(arr., prop., dir)
 
@@ -194,7 +194,7 @@
 * __prop.__ _String_ 
 * __dir__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.orderLike(to_order, based_on, prop, exclude)
 
@@ -203,26 +203,26 @@
 * __prop__ _String_ 
 * __exclude__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.pickValue(arr)
 
 * __arr__ _Array_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.removeEmpty(arr)
 
 * __arr__ _Array_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.removePrivateProp(obj, deep)
 
 * __obj__ _Object_ 
 * __deep__ _Boolean_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.search(arr, prop, val, mode)
 
@@ -231,7 +231,7 @@
 * __val__ _String|Number_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.shortenObj(obj, max)
 
@@ -247,7 +247,7 @@
 * __filter__ _Object|Function_ 
 * __mode__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.toCSV(arr, [','], [';'], ['"'])
 
@@ -256,7 +256,7 @@
 * __[';']__ _String_ 
 * __['"']__ _String_ 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.transform(oldO, newO)
 
@@ -269,4 +269,4 @@
 
 * __arr__ _Array_ 
 
-**Returns** __ 
+**Returns** _undefined_ 

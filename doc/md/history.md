@@ -11,7 +11,7 @@
 ### bbn.fn.history()
 
 
-**Returns** __ 
+**Returns** _undefined_ 
 
 ### bbn.fn.replaceHistory(url, title, data)
 
