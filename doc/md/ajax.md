@@ -36,7 +36,7 @@
 
 **Returns** _undefined_ 
 
-### bbn.fn.getIdURL(url, data, datatype)
+### ```javascript bbn.fn.getIdURL(url, data, datatype)```
 
 Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
 The routing functions don't allow to send the same request at the same moment,
