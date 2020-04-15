@@ -14,14 +14,21 @@
 
   Object.assign(bbn.fn, {
     /**
+     * Return an array of objects sorted in ascending or descending order according to the property we give as the second argument.
      * @method   order
-     * @todo     Add method description for order
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //[{field5:5, field6:6},{field1:1, field2:2},{field3:3, field4:4}];
+     * bbn.fn.order([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],'field6','asc');
+     * ```
+     * 
      * @memberof bbn.fn
-     * @param    {Array}  arr.  
-     * @param    {String} prop. 
-     * @param    {String} dir   
-     * @returns           
+     * @param    {Array}  arr.
+     * @param    {String} prop.
+     * @param    {String} dir.
+     * @returns  {Array}
      */
     order(arr, prop, dir){
       if ( arr ){

@@ -19,7 +19,6 @@
      * @method   resize
      * @global   
      * @memberof bbn.fn
-     * @fires    bbn.fn.defaultResizeFunction
      * @returns  
      */
     resize(){
@@ -39,16 +38,6 @@
      * @method   toggle_full_screen
      * @global   
      * @memberof bbn.fn
-     * @fires    window.document.mozCancelFullScreen
-     * @fires    window.document.documentElement.mozRequestFullScreen
-     * @fires    window.document.webkitCancelFullScreen
-     * @fires    window.document.documentElement.webkitRequestFullScreen
-     * @fires    window.document.msExitFullscreen
-     * @fires    window.document.documentElement.msRequestFullScreen
-     * @fires    window.document.exitFullscreen
-     * @fires    window.document.documentElement.requestFullscreen
-     * @fires    setTimeout
-     * @fires    bbn.fn.resize
      * @returns  
      */
     toggle_full_screen(){
@@ -163,7 +152,6 @@
      * @method   adjustHeight
      * @global   
      * @memberof bbn.fn
-     * @fires    bbn.fn.adjustSize
      * @returns  
      */
     adjustHeight(){
@@ -183,7 +171,6 @@
      * @todo     Add method description for adjustWidth
      * @global   
      * @memberof bbn.fn
-     * @fires bbn.fn.adjustSize
      * @returns  
      */
     adjustWidth(){
@@ -197,7 +184,7 @@
     },
 
     /**
-     * not used
+     * @ignore
      * @method   getScrollParent
      * @todo     Add method description for getScrollParent
      * @global   

@@ -29,11 +29,17 @@ Fires bbn.fn.adjustSize
 
 ### **bbn.fn.calculateHeight(element)**
 
-Returns the height of the given element and force the repaint of the element to trigger animations.
+Returns the height of the given dom element and force the repaint of the element to trigger animations.
 
 * __element__ _HTMLElement_ 
 
 **Returns** _String_ The height of the element with its unit of measure.
+
+
+```javascript
+// "17.5px"
+bbn.fn.calculateHeight(<p>Javascript documentation</p>);
+```
 
 ### **bbn.fn.getScrollBarSize()**
 
@@ -43,6 +49,8 @@ Retutns the size of the scrollbar realative to the current environment.
 **Returns** _Number_ 
 
 ### **bbn.fn.getScrollParent(node)**
+
+not used.
 
 * __node__ _HTMLElement_ 
 

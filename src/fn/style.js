@@ -14,12 +14,18 @@
 
   Object.assign(bbn.fn, {
     /**
+     * Centers the given element by giving it a position absolute.
+     * 
      * @method   center
-     * @todo     Add method description for center
      * @global   
+     * @example 
+     * ```javascript
+     * //<div style="position: absolute; top: 73px; left: 0px;">Documentation</div>
+     * bbn.fn.center('<div>Documentation</div>')
+     * ```
      * @memberof bbn.fn
      * @param    {HTMLElement} ele 
-     * @returns                
+     * @returns  {HTMLElement} The dom element with the new style.             
      */
     center(ele){
       //ele = $(ele);
@@ -48,12 +54,18 @@
     },
 
     /**
+     * Adds the given color to the object bbn.var.colors in order to be able to use 
+     * the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
+     * 
      * @method   addColors
-     * @todo     Add method description for addColors
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.addColors({maroon: '#800000'});
+     * ```
      * @memberof bbn.fn
      * @param    {Object} colors 
-     * @returns  {*}      
+     * @returns  
      */
     addColors(colors){
       let st = '';
@@ -81,6 +93,7 @@
     },
 
     /**
+     * not used
      * @method   cssExists
      * @todo     Add method description for cssExists
      * @global   
@@ -115,6 +128,7 @@
     },
 
     /**
+     * not used
      * @method   animateCss
      * @todo     Add method description for animateCss
      * @global   
@@ -144,6 +158,7 @@
     },
 
     /**
+     * not used
      * @method   addStyle
      * @todo     Add method description for addStyle
      * @global   
@@ -161,6 +176,7 @@
     },
 
     /**
+     * not used
      * @method   selector
      * @todo     Add method description for selector
      * @global   
@@ -172,6 +188,7 @@
     },
 
     /**
+     * not used
      * @method   outerWidth
      * @todo     Add method description for outerWidth
      * @global   
@@ -187,6 +204,7 @@
     },
 
     /**
+     * not used
      * @method   outerHeight
      * @todo     Add method description for outerHeight
      * @global   
@@ -202,11 +220,22 @@
     },
 
     /**
+     * Returns the hex color of the given rgb or color name.
      * @method   colorToHex
-     * @todo     Add method description for colorToHex
      * @global   
+     * @example 
+     * ```javascript
+     * //"#ff0000"
+     * bbn.fn.colorToHex('red');
+     * ```
+     * 
+     * @example 
+     * ```javascript
+     * //"#ff0000"
+     * bbn.fn.colorToHex('rgb(255,0,0)');
+     * ```
      * @memberof bbn.fn
-     * @returns  {*} 
+     * @returns  {String} 
      */
     colorToHex(color){
       let canvas = document.createElement("canvas").getContext("2d");
