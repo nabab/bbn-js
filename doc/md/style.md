@@ -8,9 +8,6 @@ Adds the given color to the object bbn.var.colors in order to be able to use.
 
 the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
 
-Fires bbn.fn.numProperties
-Fires document.createElement
-Fires document.head.appendChild
 * __colors__ _Object_ 
 
 **Returns** _undefined_ 
@@ -58,7 +55,7 @@ bbn.fn.center('<div>Documentation</div>')
 Returns the hex color of the given rgb or color name.
 
 
-**Returns** _*_ 
+**Returns** _String_ 
 
 
 ```javascript

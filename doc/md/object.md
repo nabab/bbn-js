@@ -188,13 +188,22 @@
 
 **Returns** _undefined_ 
 
-### **bbn.fn.order(arr., prop., dir)**
+### **bbn.fn.order(arr., prop., dir.)**
+
+Return an array of objects sorted in ascending or descending order according to the property we give as the second argument.
 
 * __arr.__ _Array_ 
 * __prop.__ _String_ 
-* __dir__ _String_ 
+* __dir.__ _String_ 
 
-**Returns** _undefined_ 
+**Returns** _Array_ 
+
+
+```javascript
+//[{field5:5, field6:6},{field1:1, field2:2},{field3:3, field4:4}];
+bbn.fn.order([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],'field6','asc');
+```
+
 
 ### **bbn.fn.orderLike(to_order, based_on, prop, exclude)**
 

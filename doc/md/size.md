@@ -6,7 +6,6 @@
 
 Adjusts the height of the element(s) given as argument.
 
-Fires bbn.fn.adjustSize
 
 **Returns** _undefined_ 
 
@@ -23,7 +22,6 @@ Adjusts the size of the given elements.
 
 Adjusts the width of the element(s) given as argument.
 
-Fires bbn.fn.adjustSize
 
 **Returns** _undefined_ 
 
@@ -48,19 +46,10 @@ Retutns the size of the scrollbar realative to the current environment.
 
 **Returns** _Number_ 
 
-### **bbn.fn.getScrollParent(node)**
-
-not used.
-
-* __node__ _HTMLElement_ 
-
-**Returns** _undefined_ 
-
 ### **bbn.fn.resize()**
 
 Resizes the environment by assigning it the effective height and width of the window.
 
-Fires bbn.fn.defaultResizeFunction
 
 **Returns** _undefined_ 
 
@@ -68,15 +57,5 @@ Fires bbn.fn.defaultResizeFunction
 
 Toggles the fullscreen mode.
 
-Fires window.document.mozCancelFullScreen
-Fires window.document.documentElement.mozRequestFullScreen
-Fires window.document.webkitCancelFullScreen
-Fires window.document.documentElement.webkitRequestFullScreen
-Fires window.document.msExitFullscreen
-Fires window.document.documentElement.msRequestFullScreen
-Fires window.document.exitFullscreen
-Fires window.document.documentElement.requestFullscreen
-Fires setTimeout
-Fires bbn.fn.resize
 
 **Returns** _undefined_ 
