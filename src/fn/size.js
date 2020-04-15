@@ -14,12 +14,13 @@
 
   Object.assign(bbn.fn, {
     /**
+     * Resizes the environment by assigning it the effective height and width of the window.
+     * 
      * @method   resize
-     * @todo     Add method description for resize
      * @global   
      * @memberof bbn.fn
-     * @fires    {*} 
-     * @returns  {*} 
+     * @fires    bbn.fn.defaultResizeFunction
+     * @returns  
      */
     resize(){
       var w = window.innerWidth,
@@ -33,21 +34,22 @@
     },
 
     /**
+     * Toggles the fullscreen mode.
+     * 
      * @method   toggle_full_screen
-     * @todo     Add method description for toggle_full_screen
      * @global   
      * @memberof bbn.fn
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @fires    {*} 
-     * @returns  {*} 
+     * @fires    window.document.mozCancelFullScreen
+     * @fires    window.document.documentElement.mozRequestFullScreen
+     * @fires    window.document.webkitCancelFullScreen
+     * @fires    window.document.documentElement.webkitRequestFullScreen
+     * @fires    window.document.msExitFullscreen
+     * @fires    window.document.documentElement.msRequestFullScreen
+     * @fires    window.document.exitFullscreen
+     * @fires    window.document.documentElement.requestFullscreen
+     * @fires    setTimeout
+     * @fires    bbn.fn.resize
+     * @returns  
      */
     toggle_full_screen(){
       var wscript;
@@ -89,11 +91,12 @@
     },
 
     /**
+     * Retutns the size of the scrollbar realative to the current environment.
+     * 
      * @method   getScrollBarSize
-     * @todo     Add method description for getScrollBarSize
      * @global   
      * @memberof bbn.fn
-     * @returns   
+     * @returns  {Number} 
      */
     getScrollBarSize(){
       if ( bbn.env.scrollBarSize === undefined ){
@@ -125,11 +128,14 @@
     },
 
     /**
+     * Adjusts the size of the given elements.
+     * 
      * @method   adjustSize
-     * @todo     Add method description for adjustSize
      * @global   
      * @memberof bbn.fn
-     * @returns  {*} 
+     * @param    {String} type The dimension to adjust
+     * @param    {Array} eles The elements to adjust for the dimension
+     * @returns  
      */
     adjustSize(type, eles){
       let max = 0,
@@ -152,11 +158,13 @@
     },
 
     /**
+     * Adjusts the height of the element(s) given as argument.
+     * 
      * @method   adjustHeight
-     * @todo     Add method description for adjustHeight
      * @global   
      * @memberof bbn.fn
-     * @returns  {*} 
+     * @fires    bbn.fn.adjustSize
+     * @returns  
      */
     adjustHeight(){
       let maxH = 0,
@@ -169,11 +177,14 @@
     },
 
     /**
+     * Adjusts the width of the element(s) given as argument.
+     * 
      * @method   adjustWidth
      * @todo     Add method description for adjustWidth
      * @global   
      * @memberof bbn.fn
-     * @returns  {*} 
+     * @fires bbn.fn.adjustSize
+     * @returns  
      */
     adjustWidth(){
       let maxW = 0,
@@ -186,6 +197,7 @@
     },
 
     /**
+     * not used
      * @method   getScrollParent
      * @todo     Add method description for getScrollParent
      * @global   
@@ -207,12 +219,19 @@
     },
 
     /**
+     * Returns the height of the given dom element and force the repaint of the element to trigger animations.
+     * 
      * @method   calculateHeight
-     * @todo     Add method description for calculateHeight
      * @global   
+     * 
+     * @example 
+     * ```javascript
+     * // "17.5px"
+     * bbn.fn.calculateHeight(<p>Javascript documentation</p>);
+     * ```
      * @memberof bbn.fn
      * @param    {HTMLElement} element 
-     * @returns                
+     * @returns  {String} The height of the element with its unit of measure.              
      */
     calculateHeight(element){
       const oldVis = element.style.visibility;

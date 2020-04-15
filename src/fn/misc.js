@@ -830,7 +830,7 @@
     imgToBase64(img)
     {
       let canvas = bbn.fn.imageToCanvas(img);
-      return this.canvasToImage(canvas);
+      return bbn.fn.canvasToImage(canvas);
     },
 
     /**

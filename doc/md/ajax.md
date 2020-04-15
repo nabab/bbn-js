@@ -49,6 +49,7 @@ bbn.fn.ajax('my/location', 'json', {id: 7}, (d) => {
 
 
 ```javascript
+// Promise
 bbn.fn.ajax('my/location').then((d) => {
   console.log(d);
   alert("Success!");
@@ -107,11 +108,20 @@ bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
 
 ### **bbn.fn.getLoader(idURL)**
 
-Finds the loader (i.e XHR) corresponding to the given unique ID and returns it if found.
+Finds the loader corresponding to the given unique ID and returns it if found.
+
+The loader is an object with the following properties:
+* _loader_ is the Promise from the Axios XHR
+*.
 
 * __idURL__ _String_ The unique ID of the request as used in bbn.env.loaders
 
 **Returns** _false|Promise_ The corresponding Promise if it exists
+
+
+```javascript
+
+```
 
 ### **bbn.fn.getParam()**
 
@@ -155,7 +165,7 @@ This is used in.
 
 ### **bbn.fn.upload(url, file, success, failure, progress)**
 
-Uploads a file asynchronisly.
+Uploads a file synchronously through Ajax indicating progress.
 
 * __url__ _String_ 
 * __file__ _File_ 

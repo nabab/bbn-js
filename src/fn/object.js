@@ -1156,7 +1156,7 @@
           o[n] = bbn.fn.shorten(a, max);
         }
         else if (a && (typeof a === 'object')) {
-          o[n] = this.shortenObj(a);
+          o[n] = bbn.fn.shortenObj(a);
         }
       });
       return o;

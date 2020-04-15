@@ -45,6 +45,7 @@
      * ```
      * @example
      * ```javascript
+     * // Promise
      * bbn.fn.ajax('my/location').then((d) => {
      *   console.log(d);
      *   alert("Success!");
@@ -66,7 +67,7 @@
         if ( !datatype ){
           datatype = 'json';
         }
-        let idURL = this.getIdURL(url, data, datatype);
+        let idURL = bbn.fn.getIdURL(url, data, datatype);
         let loaderObj = bbn.fn.getLoader(idURL);
         //bbn.fn.log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
         if ( loaderObj && loaderObj.loader ){
@@ -125,11 +126,19 @@
     },
 
     /**
-     * Finds the loader (i.e XHR) corresponding to the given unique ID and returns it if found.
+     * Finds the loader corresponding to the given unique ID and returns it if found.
+     * 
+     * The loader is an object with the following properties:
+     * * _loader_ is the Promise from the Axios XHR
+     * *
      * 
      * @method   getLoader
      * @global   
      * @memberof bbn.fn
+     * @example
+     * ```javascript
+     * 
+     * ```
      * @param    {String} idURL The unique ID of the request as used in bbn.env.loaders
      * @returns  {false|Promise} The corresponding Promise if it exists
      */
@@ -185,7 +194,7 @@
     },
 
     /**
-     * Uploads a file asynchronisly.
+     * Uploads a file synchronously through Ajax indicating progress.
      * 
      * @method   upload
      * @global   
@@ -772,61 +781,33 @@
     },
 
     /**
-     * @method   _deleteLoader
-     * @todo     Add method description for _deleteLoader
-     * @global   
-     * @ignore   
-     * @memberof bbn.fn
-     * @param    {String}        idURL   
-     * @param    {String|Object} res     
-     * @param    {Boolean}       isAbort 
-     * @returns                  
-     */
-    _deleteLoader(idURL, res, isAbort){
-      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
-      if ( idx > -1 ){
-        let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
-        if ( history ){
-          history.loading = false;
-          history.duration = (new Date()).getTime() - loader.start;
-          if ( typeof res === 'string' ){
-            history.errorMessage = res;
-            history.error = !isAbort;
-            history.abort = isAbort;
-
-          }
-          else if ( bbn.fn.isObject(res) ){
-            history.success = true;
-          }
-        }
-        return true;
-      }
-      return false;
-    },
-
-    /**
+     * Creates and adds a "loader" object to the property bbn.env.loaders.
+     * 
      * @method   _addLoader
-     * @todo     Add method description for _addLoader
      * @global   
      * @ignore   
      * @memberof bbn.fn
-     * @param    {String} idURL  
-     * @param    {Object} loader 
-     * @param    {Object} source 
-     * @returns           
+     * @param    {String}  idURL  
+     * @param    {Promise} prom 
+     * @param    {Object}  source 
+     * @returns  {Number}  The timestamp (in ms)          
      */
-    _addLoader(idURL, loader, source){
-      bbn.fn.log("ADDING URL", idURL);
+    _addLoader(idURL, prom, source) {
+      /** @var {Number} tst Current timestamp */
       let tst = (new Date()).getTime();
+      /** @var {String} url The original URL (part of IdURL before : and md5) */
       let url = idURL.substr(0, idURL.length - 33);
-      bbn.env.loaders.push({
+      /** @var {Object} loader The loader object */
+      let loader = {
         key: idURL,
         url: url,
-        loader: loader,
+        loader: prom,
         source: source,
         start: tst
-      });
+      };
+      // Adding the loader in bbn.env.loaders
+      bbn.env.loaders.push(loader);
+      // Adding an object with this loader info in bbn.env.loadersHistory
       bbn.env.loadersHistory.unshift({
         key: idURL,
         url: url,
@@ -837,10 +818,52 @@
         errorMessage: false,
         success: false
       });
-      while ( bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory ){
-        bbn.env.loadersHistory.pop();
+      /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
+      let idx = bbn.env.loadersHistory.length;
+      // Removing elements from the loadersHistory object if their number is higher
+      // than bbn.env.maxLoadersHistory
+      while (idx && (bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory)) {
+        idx--;
+        // Not removing the ones still loading
+        if (!bbn.env.loadersHistory.loading) {
+          bbn.env.loadersHistory.splice(idx, 1);
+        }
       }
       return tst;
+    },
+
+    /**
+     * Deletes a loader and changes its history state after the promise is fullfilled.
+     * 
+     * @method   _deleteLoader
+     * @global   
+     * @ignore   
+     * @memberof bbn.fn
+     * @param    {String}  idURL   The unique ID of the request sent
+     * @param    {*}       res     The result of the request
+     * @param    {Boolean} isAbort True if the deletion comes from abortion
+     * @returns  {Boolean} True if the loader was found
+     */
+    _deleteLoader(idURL, res, isAbort) {
+      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
+      if (idx > -1) {
+        let loader = bbn.env.loaders.splice(idx, 1)[0];
+        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
+        if (history) {
+          history.loading = false;
+          history.duration = (new Date()).getTime() - loader.start;
+          if (typeof res === 'string') {
+            history.errorMessage = res;
+            history.error = !isAbort;
+            history.abort = isAbort;
+          }
+          else if (bbn.fn.isObject(res)) {
+            history.success = true;
+          }
+        }
+        return true;
+      }
+      return false;
     },
 
   });

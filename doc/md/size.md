@@ -4,7 +4,7 @@
 
 ### **bbn.fn.adjustHeight()**
 
-Adjusts the height of the element(s) given as arguments.
+Adjusts the height of the element(s) given as argument.
 
 Fires bbn.fn.adjustSize
 
@@ -21,7 +21,7 @@ Adjusts the size of the given elements.
 
 ### **bbn.fn.adjustWidth()**
 
-Adjusts the width of the element(s) given as arguments.
+Adjusts the width of the element(s) given as argument.
 
 Fires bbn.fn.adjustSize
 
