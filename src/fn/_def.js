@@ -5,9 +5,6 @@
   "use strict";
 
   bbn.fn = {
-
-    /**     DEFAULT CUSTOMIZABLE FUNCTIONS    */
-
     /* Predefined callback functions for bbn.fn.link function */
     defaultAjaxErrorFunction(jqXHR, textStatus, errorThrown){
       bbn.fn.log(textStatus, errorThrown);
@@ -19,6 +16,10 @@
 
     defaultPreLinkFunction(url, ele){
       return true;
+    },
+
+    defaultErrorFunction(message){
+      bbn.fn.log(message);
     },
 
     defaultLinkFunction(responseObj, ele){
@@ -47,7 +48,6 @@
 
     defaultAlertFunction(text, title){
       alert(text);
-      return true;
     },
 
     defaultConfirmFunction(text, yesFn, noFn){

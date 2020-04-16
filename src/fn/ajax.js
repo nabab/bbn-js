@@ -3,7 +3,7 @@
  * 
  * These functions are meant to be used in a configured BBN environment,
  * i.e. a single page application where callback functions are already defined
- * and bbn has been initiated.
+ * and bbn has been initiated through bbn.fn.init.
  * 
  * @file
  * @author BBN Solutions <info@bbn.solutions>
@@ -24,8 +24,9 @@
     /**
      * Creates an XHR object and returns the Promise.
      * 
-     * Checks the URL, makes an ID, creates a loader, sets the general callbacks
-     * and return the Promise.
+     * Checks the URL, makes an ID, creates a loader, sets the general callbacks,
+     * makes a POST if data is given a GET otherwise (GET data should be added
+     * directly in the URL), and returns the Promise.
      * 
      * @method   ajax
      * @global   
@@ -33,27 +34,41 @@
      * @example
      * ```javascript
      * // Promise
-     * bbn.fn.ajax('my/location', 'json', {id: 7}, (d) => {
-     *   console.log(d);
-     *   alert("Success!");
-     * }, (err) => {
-     *   console.log(err);
-     *   alert("Failure!");
-     * }, () => {
-     *   alert("Request aborted!");
-     * })
+     * bbn.fn.ajax(
+     *   'my/location',
+     *   'json',
+     *   {id: 7},
+     *   d => {
+     *     console.log(d);
+     *     alert("Success!");
+     *   },
+     *   err => {
+     *     console.log(err);
+     *     alert("Failure!");
+     *   },
+     *   () => {
+     *     alert("Request aborted!");
+     *   }
+     * )
      * ```
      * @example
      * ```javascript
      * // Promise
-     * bbn.fn.ajax('my/location').then((d) => {
-     *   console.log(d);
-     *   alert("Success!");
-     * })
+     * bbn.fn.ajax('my/location')
+     *   .then(
+     *     d => {
+     *       console.log(d);
+     *       alert("Success!");
+     *     }
+     *   )
+     *   .catch(
+     *     err => {
+     *     }
+     *   )
      * ```
-     * @param    {String}   url      
-     * @param    {String}   datatype 
-     * @param    {Object}   data     
+     * @param    {String}   url      The URL to be requested by XHR
+     * @param    {String}   datatype The type of data expected
+     * @param    {Object}   data     The data (sent th)
      * @param    {Function} success  
      * @param    {Function} failure  
      * @param    {Function} abort    
@@ -91,8 +106,14 @@
           .then((res) => {
             bbn.fn._deleteLoader(idURL, res);
             bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
-            if (bbn.fn.isFunction(success)) {
-              success(res.data);
+            switch (res.status) {
+              case 200:
+                if (bbn.fn.isFunction(success)) {
+                  success(res.data);
+                }
+                break;
+              default:
+                bbn.fn.defaultAjaxErrorFunction(loader, res)
             }
             return res;
           })
@@ -126,148 +147,125 @@
     },
 
     /**
-     * Finds the loader corresponding to the given unique ID and returns it if found.
+     * Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.
      * 
-     * The loader is an object with the following properties:
-     * * _loader_ is the Promise from the Axios XHR
-     * *
-     * 
-     * @method   getLoader
+     * The final object will have the following arguments: url, obj, datatype, force, successFn,
+     * errorFn, abortFn, e, and ele; The rules are:
+     * * The first string found is the URL
+     * * The second string found is the datatype
+     * * The first function is successFn
+     * * The second function is errorFn
+     * * The third function is abortFn
+     * * A boolean true is force
+     * * An Event is e
+     * * An HTML element is ele
+     * * 
+     * @method   treat_vars
      * @global   
      * @memberof bbn.fn
-     * @example
-     * ```javascript
-     * 
-     * ```
-     * @param    {String} idURL The unique ID of the request as used in bbn.env.loaders
-     * @returns  {false|Promise} The corresponding Promise if it exists
+     * @param    {*}      args 
+     * @returns  {Object} The configuration object
      */
-    getLoader(idURL){
-      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
-      if ( idx > -1 ){
-        return bbn.env.loaders[idx];
+    treat_vars(args){
+      var cfg = {}, t, i;
+      if ( bbn.fn.isObject(args[0]) && (args.length === 1) ){
+        return args[0];
       }
-      return false;
-    },
-
-    /**
-     * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
-     * 
-     * The routing functions don't allow to send the same request at the same moment,
-     * therefore a unique ID is generated to identify them, based on the URL,
-     * the keys of the data sent, and the expected returned data type.
-     * 
-     * @method   getIdURL
-     * @global   
-     * @example 
-     * ```javascript
-     * // my/location:59990af62ba3ebdd54a4ebecafc2faa1
-     * bbn.fn.getIdURL('my/location', {id: 1, test: 2});
-     * ```
-     * @example 
-     * ```javascript
-     * // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
-     * bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
-     * ```
-     * @example 
-     * ```javascript
-     * // my/location:ec60cdf5001208a1fc5fbae05ac94a55
-     * bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
-     * ```
-     * @memberof bbn.fn
-     * @param    {String} url      
-     * @param    {Object} data     The data sent to the URL
-     * @param    {String} datatype The type of data requested (JSON by default)
-     * @returns  {String} The unique ID
-     */
-    getIdURL(url, data, datatype){
-      let d = {};
-      if (data) {
-        let keys = Object.keys(data).sort();
-        bbn.fn.each(keys, (n) => {
-          if (n.indexOf('_bbn') !== 0) {
-            d[n] = data[n];
+      for (i = 0; i < args.length; i++ ){
+        t = typeof(args[i])
+        t = t.toLowerCase();
+        /* Callbacks */
+        if ( bbn.fn.isFunction(args[i]) ){
+          if ( cfg.errorFn && !cfg.abortFn ){
+            cfg.abortFn = args[i];
           }
-        });
-      }
-      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
-    },
-
-    /**
-     * Uploads a file synchronously through Ajax indicating progress.
-     * 
-     * @method   upload
-     * @global   
-     * @memberof bbn.fn
-     * @param {String} url
-     * @param {File} file
-     * @param {Function} success
-     * @param {Function} failure
-     * @param {Function} progress
-     * @returns  {Promise}
-     */
-    upload(url, file, success, failure, progress){
-      let fn = () => {
-        return axios.post(url || bbn.env.path, bbn.fn.objectToFormData(file), {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          onUploadProgress(progressEvent) {
-            if (progress) {
-              let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              progress(percentCompleted, progressEvent.loaded, progressEvent.total);
+          if ( cfg.successFn && !cfg.errorFn ){
+            cfg.errorFn = args[i];
+          }
+          else if ( !cfg.successFn ){
+            cfg.successFn = args[i];
+          }
+        }
+        /* Force */
+        else if ( (args[i] === 1) || (args[i] === true) ){
+          cfg.force = 1;
+        }
+        else if (t === 'string') {
+          if (!cfg.url) {
+            /* Hash */
+            if ( args[i].indexOf('#') === 0 || args[i].indexOf(bbn.env.root + '#') === 0 ){
+              cfg.url = args[i].substr(bbn.env.root.length);
+            }
+            /* Link */
+            else{
+              cfg.url = args[i];
+              if ( cfg.url.indexOf(bbn.env.root) === 0 ){
+                cfg.url = cfg.url.substr(bbn.env.root.length);
+              }
             }
           }
-        });
-      };
-      if (!success && !failure) {
-        return fn();
+          /* Ajax datatype */
+          else {
+            cfg.datatype = args[i];
+          }
+        }
+        /* Event */
+        else if ( t.toLowerCase() === 'object' ){
+          if ( (args[i].type !== undefined) &&
+            (args[i].target !== undefined) &&
+            (args[i].preventDefault !== undefined)
+          ){
+            cfg.e = args[i];
+          }
+          /* HTML Element */
+          else if ( !cfg.ele && (args[i].nodeType === 1) ){
+            cfg.ele = args[i];
+          }
+          /* An object to post */
+          else if ( t.toLowerCase() === 'object' ){
+            cfg.obj = args[i];
+          }
+        }
       }
-      else{
-        return fn()
-          .then(res => {
-            if ( success ){
-              bbn.fn.log("SUCCESS", res);
-              success(res);
-            }
-          })
-          .catch(err => {
-            if ( failure ){
-              bbn.fn.log("ERROR", err);
-              failure(err)
-            }
-          });
+      if (!cfg.url && bbn.fn.numProperties(cfg)) {
+        cfg.url = bbn.env.path;
       }
+      if ( cfg.obj === undefined ){
+        cfg.obj = {bbn: "public"};
+      }
+      if ( !cfg.datatype ){
+        cfg.datatype = "json";
+      }
+      return cfg;
     },
+
     /**
-     * Aborts (client side) the XHR corresponding to the given ID if it still exists.
+     * Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.
      * 
-     * This will throw an error if the loader can't be found.
+     * URL is the only mandatory argument (see treat_vars for the arguments).
      * 
-     * @method   abort
+     * @method   post
      * @global   
      * @memberof bbn.fn
-     * @param {String} idURL An ID generated by getIdURL
-     * @returns {undefined}  
+     * @returns  {undefined|Promise}
      */
-    abort(idURL){
-      let loader = bbn.fn.getLoader(idURL);
-      if (loader && loader.source) {
-        loader.source.cancel('Operation canceled by the user.');
-      }
-      else {
-        throw new Error("Impossible to find the loader " + idURL)
-
+    post(){
+      let cfg = bbn.fn.treat_vars(arguments);
+      if ( cfg.url ){
+        return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, (res) => {
+          bbn.fn.callback(cfg.url, res, cfg.successFn, false, cfg.ele);
+        }, cfg.errorFn, cfg.abortFn);
       }
     },
 
     /**
-     * Follow a link but as an Ajax request.
+     * Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
      * 
-     * This is used in 
+     * Once bbn has been initiated this funciton will be triggered every time a link is clicked 
+     * (see treat_vars for the arguments).
      * 
      * @method   link
-     * @todo     Add method description for link
+     * @todo     Manage anchors
      * @global   
      * @memberof bbn.fn
      * @returns   
@@ -300,7 +298,6 @@
         }
         bbn.env.historyDisabled = false;
         */
-        bbn.fn.log("TEST2");
         return true;
       }
       /* Mail link */
@@ -425,6 +422,8 @@
     },
 
     /**
+     * Executes a serie of predefined actions once a content has been loaded.
+     * 
      * @method   callback
      * @todo     Add method description for callback
      * @global   
@@ -563,26 +562,80 @@
       }
     },
 
+    post_out(action, params, successFn, target) {
+      var form=document.getElementById("bbn-form_out"),
+          has_bbn=false;
+      if (!form) { 
+        form = document.createElement('form');
+        form.classList.add('bbn-no');
+        form.setAttribute('id','bbn-form_out');
+        form.setAttribute('method','post');
+        form.setAttribute('enctype','multipart/form-data-encoded');
+        form.style.display = 'none';
+        document.body.appendChild(form);
+      }
+      form.innerHTML = '';
+      form.setAttribute('action',action);
+      form.setAttribute('target',target || "_blank");
+      if (!params){ 
+        params={};
+      }
+      params = bbn.fn.extend({}, params, true);
+      if (!params.bbn) {
+        params.bbn='public';
+      }
+      bbn.fn.add_inputs(form,params);
+      form.submit();
+      if (successFn) {
+        successFn();
+      }
+    },
+
     /**
-     * @method   download
-     * @todo     Add method description for download
+     * Aborts (client side) the XHR corresponding to the given ID if it still exists.
+     * 
+     * This will throw an error if the loader can't be found.
+     * 
+     * @method   abort
      * @global   
      * @memberof bbn.fn
-     * @param    {String} filename 
-     * @param    {String} text     
-     * @param    {String} type     
+     * @param {String} idURL An ID generated by getIdURL
+     * @returns {undefined}  
+     */
+    abort(idURL){
+      let loader = bbn.fn.getLoader(idURL);
+      if (loader && loader.source) {
+        loader.source.cancel('Operation canceled by the user.');
+      }
+      else {
+        throw new Error("Impossible to find the loader " + idURL)
+
+      }
+    },
+
+    /**
+     * Downloads a file with given filename from its content.
+     * 
+     * Creates a link putting in href a URL Object Blob made of the given content.
+     * 
+     * @method   downloadContent
+     * @global   
+     * @memberof bbn.fn
+     * @param    {String}        filename 
+     * @param    {String}        content     
+     * @param    {String}        type     
      * @returns           
      */
-    download(filename, text, type){
+    downloadContent(filename, content, type){
       if ( !type ){
-        type = 'octet/stream';
+        type = bbn.fn.isObject(content) && content.type ? content.type : 'octet/stream';
       }
       else if ( type.indexOf('/') === -1 ){
         type = 'text/' + type;
       }
       let a = window.document.createElement('a');
       a.className = 'bbn-no';
-      a.href = window.URL.createObjectURL(bbn.fn.isString(text) ? new Blob([text], {type: type}) : text);
+      a.href = window.URL.createObjectURL(bbn.fn.isString(content) ? new Blob([content], {type: type}) : content);
       a.download = filename;
       // Append anchor to body.
       document.body.appendChild(a);
@@ -592,192 +645,155 @@
     },
 
     /**
-     * @method   download2
-     * @todo     Add method description for download2
+     * Downloads a file with given filename from a URL.
+     * 
+     * Gets the file's content as Blob through XHR, then sends it to bbn.fn.downloadContent.
+     * 
+     * @method   download
      * @ignore
      * @global   
      * @memberof bbn.fn
-     * @returns   
+     * @param    {String} url
+     * @param    {String} filename 
+     * @param    {Object} params     
+     * @returns  {undefined}
      */
-    download2(url, filename, params){
-      var iframe = document.getElementById("bbn-iframe-download"),
-          par = '';
-      if ( !iframe ){
-        iframe = document.createElement('iframe');
-        iframe.setAttribute('id', 'bbn-iframe-download');
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-      }
-      if ( bbn.fn.isObject(params) ){
-        bbn.fn.iterate(params, (v, k) => {
-          par += '&' + k + '=' + v;
+    download(url, filename, params){
+      return bbn.fn.ajax(
+        url,
+        'blob',
+        params || {_bbn_download: 1},
+        d => {
+          bbn.fn.log(d);
+          if (bbn.fn.isBlob(d)) {
+            let extension = bbn.fn.fileExt(filename);
+            let htmlExtensions = ['php', 'html'];
+            if ((d.type !== 'text/html') || htmlExtensions.includes(extension)) {
+              bbn.fn.downloadContent(filename, d);
+              return;
+            }
+          }
+          bbn.fn.defaultAjaxErrorFunction(e)
+        },
+        e => {
+          bbn.fn.defaultAjaxErrorFunction(e)
+        }
+      );
+    },
+
+    /**
+     * Uploads a file synchronously through an XHR indicating progress.
+     * 
+     * @method   upload
+     * @global   
+     * @memberof bbn.fn
+     * @param {String} url
+     * @param {File} file
+     * @param {Function} success
+     * @param {Function} failure
+     * @param {Function} progress
+     * @returns  {Promise}
+     */
+    upload(url, file, success, failure, progress){
+      let fn = () => {
+        return axios.post(url || bbn.env.path, bbn.fn.objectToFormData(file), {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress(progressEvent) {
+            if (progress) {
+              let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              progress(percentCompleted, progressEvent.loaded, progressEvent.total);
+            }
+          }
         });
+      };
+      if (!success && !failure) {
+        return fn();
       }
-      else {
-        par = '';
-      }
-      iframe.setAttribute('src', url + '?filename=' + filename + par);
-    },
-
-    /**
-     * @method   post
-     * @todo     Add method description for post
-     * @global   
-     * @memberof bbn.fn
-     * @returns   
-     */
-    post(){
-      /*
-      let change = false,
-          i,
-          cfg = bbn.fn.treat_vars(arguments);
-      if ( !bbn.fn.numProperties(cfg.obj) ){
-        cfg.obj = {bbn: true}
-      }
-      if ( cfg.obj.bbn_data_checker === undefined ){
-        change = 1;
-      }
-      if ( change && cfg.url ){
-        */
-       let cfg = bbn.fn.treat_vars(arguments);
-       if ( cfg.url ){
-        return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, (res) => {
-          bbn.fn.callback(cfg.url, res, cfg.successFn, false, cfg.ele);
-        }, cfg.errorFn, cfg.abortFn);
-      }
-    },
-
-    /**
-     * @method   treat_vars
-     * @todo     Add method description for treat_vars
-     * @global   
-     * @memberof bbn.fn
-     * @param    {Mixed} args 
-     * @returns          
-     */
-    treat_vars(args){
-      var cfg = {}, t, i;
-      if ( bbn.fn.isObject(args[0]) && (args.length === 1) ){
-        return args[0];
-      }
-      for (i = 0; i < args.length; i++ ){
-        t = typeof (args[i]);
-        /* Callbacks */
-        if ( bbn.fn.isFunction(args[i]) ){
-          if ( cfg.errorFn && !cfg.abortFn ){
-            cfg.abortFn = args[i];
-          }
-          if ( cfg.successFn && !cfg.errorFn ){
-            cfg.errorFn = args[i];
-          }
-          else if ( !cfg.successFn ){
-            cfg.successFn = args[i];
-          }
-        }
-        /* Force */
-        else if ( (args[i] === 1) || (args[i] === true) ){
-          cfg.force = 1;
-        }
-        else if ( t.toLowerCase() === 'string' ){
-          /* Hash */
-          if ( args[i].indexOf('#') === 0 || args[i].indexOf(bbn.env.root + '#') === 0 ){
-            cfg.url = args[i].substr(bbn.env.root.length);
-          }
-          /* Ajax datatype */
-          else if ( bbn.var.datatypes.indexOf(args[i]) > -1 ){
-            cfg.datatype = args[i];
-          }
-          /* Link */
-          else{
-            cfg.url = args[i];
-            if ( cfg.url.indexOf(bbn.env.root) === 0 ){
-              cfg.url = cfg.url.substr(bbn.env.root.length);
+      else{
+        return fn()
+          .then(res => {
+            if ( success ){
+              bbn.fn.log("SUCCESS", res);
+              success(res);
             }
-          }
-        }
-        /* Event */
-        else if ( t.toLowerCase() === 'object' ){
-          if ( (args[i].type !== undefined) &&
-            (args[i].target !== undefined) &&
-            (args[i].preventDefault !== undefined)
-          ){
-            cfg.e = args[i];
-          }
-          /* HTML Element */
-          else if ( !cfg.ele && (args[i].nodeType === 1) ){
-            cfg.ele = args[i];
-          }
-          /* An object to post */
-          else if ( t.toLowerCase() === 'object' ){
-            cfg.obj = args[i];
-          }
-        }
+          })
+          .catch(err => {
+            if ( failure ){
+              bbn.fn.log("ERROR", err);
+              failure(err)
+            }
+          });
       }
-      if (!cfg.url && bbn.fn.numProperties(cfg)) {
-        cfg.url = bbn.env.path;
-      }
-      if ( cfg.obj === undefined ){
-        cfg.obj = {bbn: "public"};
-      }
-      if ( !cfg.datatype ){
-        cfg.datatype = "json";
-      }
-      return cfg;
-
     },
 
     /**
-     * @method   getParam
-     * @todo     Add method description for getParam
+     * Finds the loader corresponding to the given unique ID and returns it if found.
+     * 
+     * The loader is an object with the following properties:
+     * * _loader_ is the Promise from the Axios XHR
+     * *
+     * 
+     * @method   getLoader
      * @global   
      * @memberof bbn.fn
-     * @param    {Object}  
-     * @returns           
+     * @example
+     * ```javascript
+     * 
+     * ```
+     * @param    {String} idURL The unique ID of the request as used in bbn.env.loaders
+     * @returns  {false|Promise} The corresponding Promise if it exists
      */
-    getParam(param, num){
-      if ( !num ){
-        num = 1;
-      }
-      var i = bbn.env.params.indexOf(param),
-          res = '';
-      if ( i > -1 ){
-        for ( var a = 1; a <= num; a++ ){
-          if ( bbn.env.params[i + a] ){
-            if ( res !== '' ){
-              res += '/';
-            }
-            res += bbn.env.params[i + a];
-          }
-        }
-        return res;
+    getLoader(idURL){
+      let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
+      if ( idx > -1 ){
+        return bbn.env.loaders[idx];
       }
       return false;
     },
 
     /**
-     * @method   setParam
-     * @todo     Add method description for setParam
+     * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
+     * 
+     * The routing functions don't allow to send the same request at the same moment,
+     * therefore a unique ID is generated to identify them, based on the URL,
+     * the keys of the data sent, and the expected returned data type.
+     * 
+     * @method   getIdURL
      * @global   
+     * @example 
+     * ```javascript
+     * // my/location:59990af62ba3ebdd54a4ebecafc2faa1
+     * bbn.fn.getIdURL('my/location', {id: 1, test: 2});
+     * ```
+     * @example 
+     * ```javascript
+     * // my/other/location:59990af62ba3ebdd54a4ebecafc2faa1
+     * bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
+     * ```
+     * @example 
+     * ```javascript
+     * // my/location:ec60cdf5001208a1fc5fbae05ac94a55
+     * bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
+     * ```
      * @memberof bbn.fn
-     * @returns   
+     * @param    {String} url      
+     * @param    {Object} data     The data sent to the URL
+     * @param    {String} datatype The type of data requested (JSON by default)
+     * @returns  {String} The unique ID
      */
-    setParam(name, value){
-      if ( name && value ){
-        var toAdd = value.split("/"),
-            i = bbn.env.params.indexOf(name);
-        if ( i > -1 ){
-          if ( toAdd.length > 1 ){
-            bbn.env.params.splice(i + 1, 1000);
+    getIdURL(url, data, datatype){
+      let d = {};
+      if (data) {
+        let keys = Object.keys(data).sort();
+        bbn.fn.each(keys, (n) => {
+          if (n.indexOf('_bbn') !== 0) {
+            d[n] = data[n];
           }
-        }
-        else{
-          toAdd.unshift(name);
-        }
-        bbn.fn.each(toAdd, (val) => {
-          bbn.env.params.push(encodeURI(val));
         });
       }
-      return false;
+      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
 
     /**

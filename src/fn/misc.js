@@ -51,6 +51,23 @@
     },
 
     /**
+     * @method   isBlob
+     * @todo     Add method description for isFunction
+     * @global   
+     * @memberof bbn.fn
+     * @returns   
+     */
+    isBlob() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Blob]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
      * @method   isNumber
      * @todo     Add method description for isNumber
      * @global   

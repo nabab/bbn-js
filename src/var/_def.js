@@ -9,7 +9,7 @@
       _num: 0
     },
     /* Usable datatypes through Ajax function */
-    datatypes: ['xml', 'html', 'script', 'json', 'jsonp', 'text'],
+    datatypes: ['xml', 'html', 'script', 'json', 'jsonp', 'text', 'blob'],
     /* The default value used by the function shorten */
     shortenLen: 30,
     /* Categorizing keyboard map */
