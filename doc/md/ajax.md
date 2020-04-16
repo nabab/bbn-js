@@ -10,7 +10,7 @@ and bbn has been initiated through bbn.fn.init.
   
 - __bbn.fn.abort(idURL)__
 
-  Aborts (client side) the XHR corresponding to the given ID if it still exists.
+  **Aborts (client side) the XHR corresponding to the given ID if it still exists.**
 
   This will throw an error if the loader can't be found.
 
@@ -22,7 +22,7 @@ and bbn has been initiated through bbn.fn.init.
   
 - __bbn.fn.ajax(url, datatype, data, success, failure, abort)__
 
-  Creates an XHR object and returns the Promise.
+  **Creates an XHR object and returns the Promise.**
 
   Checks the URL, makes an ID, creates a loader, sets the general callbacks, makes a POST if data is given a GET otherwise (GET data should be added directly in the URL), and returns the Promise.
 
