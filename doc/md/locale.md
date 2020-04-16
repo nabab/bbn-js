@@ -2,54 +2,54 @@
 
 ## Locale functions.
 
-### **bbn.fn.date(v)**
+- **bbn.fn.date(v)**
 
-Fires {*}
-* __v__ _String|Number_ 
+  Fires {*}
+  * __v__ _String|Number_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.dateSQL(v, dayOnly)**
+- **bbn.fn.dateSQL(v, dayOnly)**
 
-* __v__ _Date|String_ 
-* __dayOnly__ _Boolean_ 
+  * __v__ _Date|String_ 
+  * __dayOnly__ _Boolean_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.daysInMonth(v)**
+- **bbn.fn.daysInMonth(v)**
 
-* __v__ _String|Date_ 
+  * __v__ _String|Date_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.fdate(d, )**
+- **bbn.fn.fdate(d, )**
 
-* __d__ _String|Date_ 
-* ____ _rong_resul_ 
+  * __d__ _String|Date_ 
+  * ____ _rong_resul_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.fdatetime()**
-
-
-**Returns** _*_ 
-
-### **bbn.fn.ftime()**
+- **bbn.fn.fdatetime()**
 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.getDay(v)**
+- **bbn.fn.ftime()**
 
-* __v__ _String|Date_ 
 
-**Returns** _undefined_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.money(val, kilo, currency, noValue)**
+- **bbn.fn.getDay(v)**
 
-* __val__ _String|Number_ 
-* __kilo__ _Boolean_ 
-* __currency__ _String_ 
-* __noValue__ _Boolean_ 
+  * __v__ _String|Date_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
+
+- **bbn.fn.money(val, kilo, currency, noValue)**
+
+  * __val__ _String|Number_ 
+  * __kilo__ _Boolean_ 
+  * __currency__ _String_ 
+  * __noValue__ _Boolean_ 
+
+  __Returns__ _undefined_ 

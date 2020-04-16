@@ -2,47 +2,47 @@
 
 ## Styling functions.
 
-### **bbn.fn.addColors(colors)**
+- **bbn.fn.addColors(colors)**
 
-Adds the given color to the object bbn.var.colors in order to be able to use.
+  __Adds the given color to the object bbn.var.colors in order to be able to use.__
 
-the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
+  the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
 
-* __colors__ _Object_ 
+  * __colors__ _Object_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
 bbn.fn.addColors({maroon: '#800000'});
 ```
 
-### **bbn.fn.addStyle(ele, o)**
+- **bbn.fn.addStyle(ele, o)**
 
-not used.
+  __not used.__
 
-* __ele__ _HTMLElement_ 
-* __o__ _Object_ 
+  * __ele__ _HTMLElement_ 
+  * __o__ _Object_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.animateCss(ele, animationName, callback)**
+- **bbn.fn.animateCss(ele, animationName, callback)**
 
-not used.
+  __not used.__
 
-* __ele__ _HTMLElement_ 
-* __animationName__ _String_ 
-* __callback__ _Function_ 
+  * __ele__ _HTMLElement_ 
+  * __animationName__ _String_ 
+  * __callback__ _Function_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.center(ele)**
+- **bbn.fn.center(ele)**
 
-Centers the given element by giving it a position absolute.
+  __Centers the given element by giving it a position absolute.__
 
-* __ele__ _HTMLElement_ 
+  * __ele__ _HTMLElement_ 
 
-**Returns** _HTMLElement_ The dom element with the new style.
+  __Returns__ _HTMLElement_ The dom element with the new style.
 
 
 ```javascript
@@ -50,12 +50,12 @@ Centers the given element by giving it a position absolute.
 bbn.fn.center('<div>Documentation</div>')
 ```
 
-### **bbn.fn.colorToHex()**
+- **bbn.fn.colorToHex()**
 
-Returns the hex color of the given rgb or color name.
+  __Returns the hex color of the given rgb or color name.__
 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -70,31 +70,31 @@ bbn.fn.colorToHex('red');
 bbn.fn.colorToHex('rgb(255,0,0)');
 ```
 
-### **bbn.fn.cssExists(f)**
+- **bbn.fn.cssExists(f)**
 
-not used.
+  __not used.__
 
-* __f__ _String_ 
+  * __f__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.outerHeight()**
+- **bbn.fn.outerHeight()**
 
-not used.
-
-
-**Returns** _*_ 
-
-### **bbn.fn.outerWidth()**
-
-not used.
+  __not used.__
 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.selector()**
+- **bbn.fn.outerWidth()**
 
-not used.
+  __not used.__
 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
+
+- **bbn.fn.selector()**
+
+  __not used.__
+
+
+  __Returns__ _*_ 

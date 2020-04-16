@@ -2,36 +2,36 @@
 
 ## Sizing functions.
 
-### **bbn.fn.adjustHeight()**
+- **bbn.fn.adjustHeight()**
 
-Adjusts the height of the element(s) given as argument.
-
-
-**Returns** _undefined_ 
-
-### **bbn.fn.adjustSize(type, eles)**
-
-Adjusts the size of the given elements.
-
-* __type__ _String_ The dimension to adjust
-* __eles__ _Array_ The elements to adjust for the dimension
-
-**Returns** _undefined_ 
-
-### **bbn.fn.adjustWidth()**
-
-Adjusts the width of the element(s) given as argument.
+  __Adjusts the height of the element(s) given as argument.__
 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.calculateHeight(element)**
+- **bbn.fn.adjustSize(type, eles)**
 
-Returns the height of the given dom element and force the repaint of the element to trigger animations.
+  __Adjusts the size of the given elements.__
 
-* __element__ _HTMLElement_ 
+  * __type__ _String_ The dimension to adjust
+  * __eles__ _Array_ The elements to adjust for the dimension
 
-**Returns** _String_ The height of the element with its unit of measure.
+  __Returns__ _undefined_ 
+
+- **bbn.fn.adjustWidth()**
+
+  __Adjusts the width of the element(s) given as argument.__
+
+
+  __Returns__ _undefined_ 
+
+- **bbn.fn.calculateHeight(element)**
+
+  __Returns the height of the given dom element and force the repaint of the element to trigger animations.__
+
+  * __element__ _HTMLElement_ 
+
+  __Returns__ _String_ The height of the element with its unit of measure.
 
 
 ```javascript
@@ -39,23 +39,23 @@ Returns the height of the given dom element and force the repaint of the element
 bbn.fn.calculateHeight(<p>Javascript documentation</p>);
 ```
 
-### **bbn.fn.getScrollBarSize()**
+- **bbn.fn.getScrollBarSize()**
 
-Retutns the size of the scrollbar realative to the current environment.
-
-
-**Returns** _Number_ 
-
-### **bbn.fn.resize()**
-
-Resizes the environment by assigning it the effective height and width of the window.
+  __Retutns the size of the scrollbar realative to the current environment.__
 
 
-**Returns** _undefined_ 
+  __Returns__ _Number_ 
 
-### **bbn.fn.toggle_full_screen()**
+- **bbn.fn.resize()**
 
-Toggles the fullscreen mode.
+  __Resizes the environment by assigning it the effective height and width of the window.__
 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
+
+- **bbn.fn.toggle_full_screen()**
+
+  __Toggles the fullscreen mode.__
+
+
+  __Returns__ _undefined_ 

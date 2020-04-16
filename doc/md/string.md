@@ -2,13 +2,13 @@
 
 ## Sizing functions.
 
-### **bbn.fn.baseName(path)**
+- **bbn.fn.baseName(path)**
 
-Return the name of the element indicated by path given to it as an argument.
+  __Return the name of the element indicated by path given to it as an argument.__
 
-* __path__ _String_ 
+  * __path__ _String_ 
 
-**Returns** _String_ name of the element in path
+  __Returns__ _String_ name of the element in path
 
 
 ```javascript
@@ -17,13 +17,13 @@ bbn.fn.baseName('folder/other_folder/file');
 ```
 
 
-### **bbn.fn.br2nl(st)**
+- **bbn.fn.br2nl(st)**
 
-Replaces the html <br> tag with new line characters '\ n' if present in the string.
+  __Replaces the html <br> tag with new line characters '\ n' if present in the string.__
 
-* __st__ _trin_ 
+  * __st__ _trin_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -33,13 +33,13 @@ bbn.fn.br2nl('hello <br> word!')
 ```
 
 
-### **bbn.fn.camelToCss(str)**
+- **bbn.fn.camelToCss(str)**
 
-Returns the string passed as an argument in camelize mode for css.
+  __Returns the string passed as an argument in camelize mode for css.__
 
-* __str__ _String_ 
+  * __str__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -48,16 +48,16 @@ bbn.fn.camelToCss("thisIsATest");
 ```
 
 
-### **bbn.fn.camelize()**
+- **bbn.fn.camelize()**
 
-Return the string passed as an argument in camelize mode.
+  __Return the string passed as an argument in camelize mode.__
 
-A string can be separated for example by a underscore, a dash or space;
+  A string can be separated for example by a underscore, a dash or space;
 so the camelize function will automatically convert them to a single string.
 
-* ____ _String_ 
+  * ____ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -65,13 +65,13 @@ so the camelize function will automatically convert them to a single string.
 bbn.fn.camelize("this_is-a test");
 ```
 
-### **bbn.fn.correctCase(str)**
+- **bbn.fn.correctCase(str)**
 
-Converts the first character of the string to uppercase.
+  __Converts the first character of the string to uppercase.__
 
-* __str__ _STring_ 
+  * __str__ _STring_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -80,13 +80,13 @@ bbn.fn.correctCase("this is a test");
 ```
 
 
-### **bbn.fn.dirName(path)**
+- **bbn.fn.dirName(path)**
 
-Return the path of the folder containing the last hierarchical element of the path.
+  __Return the path of the folder containing the last hierarchical element of the path.__
 
-* __path__ _String_ 
+  * __path__ _String_ 
 
-**Returns** _String_ path of the folder
+  __Returns__ _String_ path of the folder
 
 
 ```javascript
@@ -94,15 +94,15 @@ Return the path of the folder containing the last hierarchical element of the pa
 bbn.fn.dirName('folder/other_folder/file');
 ```
 
-### **bbn.fn.escapeRegExp(str)**
+- **bbn.fn.escapeRegExp(str)**
 
-Return a string escaped.
+  __Return a string escaped.__
 
-To escape the string by reducing the ambiguity between quotation marks and other characters used.
+  To escape the string by reducing the ambiguity between quotation marks and other characters used.
 
-* __str__ _String_ 
+  * __str__ _String_ 
 
-**Returns** _String_ string with escape
+  __Returns__ _String_ string with escape
 
 
 ```javascript
@@ -110,16 +110,16 @@ To escape the string by reducing the ambiguity between quotation marks and other
 bbn.fn.escapeRegExp("this/is/a/test/string");
 ```
 
-### **bbn.fn.fileExt(filename)**
+- **bbn.fn.fileExt(filename)**
 
-Gets the extension from a file's name.
+  __Gets the extension from a file's name.__
 
-The extension is returned in lower case; if the filename has no extension
+  The extension is returned in lower case; if the filename has no extension
 or is not valid it will return an empty string.
 
-* __filename__ _String_ 
+  * __filename__ _String_ 
 
-**Returns** _String_ The file's extension
+  __Returns__ _String_ The file's extension
 
 
 ```javascript
@@ -149,25 +149,25 @@ bbn.fn.fileExt('.MY_FILE')
 ```
 
 
-### **bbn.fn.formatSize(st)**
+- **bbn.fn.formatSize(st)**
 
-Return the value of size for element html.
+  __Return the value of size for element html.__
 
-If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
+  If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
 
-* __st__ _String|Number_ 
+  * __st__ _String|Number_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
-### **bbn.fn.hex2rgb()**
+- **bbn.fn.hex2rgb()**
 
-Convert an hexadecimmal string to RGB.
+  __Convert an hexadecimmal string to RGB.__
 
-Converts a string that expresses a color in hexadecimal format into an object with
+  Converts a string that expresses a color in hexadecimal format into an object with
 the properties that define the color and the corresponding value.
 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
 
 ```javascript
@@ -176,13 +176,13 @@ bbn.fn.hex2rgb("#FF0000");
 ```
 
 
-### **bbn.fn.html2text(st)**
+- **bbn.fn.html2text(st)**
 
-Convert text in html format to plain text.
+  __Convert text in html format to plain text.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -190,15 +190,15 @@ Convert text in html format to plain text.
 bbn.fn.html2text("<div><p>Hello <b>world!</b></p></div>");
 ```
 
-### **bbn.fn.isColor(st)**
+- **bbn.fn.isColor(st)**
 
-Intended to check if the argument provided is a color.
+  __Intended to check if the argument provided is a color.__
 
-It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
+  It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _Boolean_ 
+  __Returns__ _Boolean_ 
 
 
 ```javascript
@@ -220,19 +220,19 @@ bbn.fn.isColor("rgb 255, 0, 0");
 bbn.fn.isColor("red");
 ```
 
-### **bbn.fn.isDimension(st)**
+- **bbn.fn.isDimension(st)**
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.isEmail(st)**
+- **bbn.fn.isEmail(st)**
 
-Intended to check if the argument provided is an e-mail address written correctly.
+  __Intended to check if the argument provided is an e-mail address written correctly.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _Boolean_ 
+  __Returns__ _Boolean_ 
 
 
 ```javascript
@@ -247,13 +247,13 @@ bbn.fn.isEmail('test@testorg');
 bbn.fn.isEmail('test@test.org');
 ```
 
-### **bbn.fn.isEmpty()**
+- **bbn.fn.isEmpty()**
 
-Checks if the argument is empty or not.
+  __Checks if the argument is empty or not.__
 
-* ____ _Object|Array|String_ 
+  * ____ _Object|Array|String_ 
 
-**Returns** _Boolean_ 
+  __Returns__ _Boolean_ 
 
 
 ```javascript
@@ -291,13 +291,13 @@ bbn.fn.isEmpty('');
 bbn.fn.isEmpty('test');
 ```
 
-### **bbn.fn.md5(st)**
+- **bbn.fn.md5(st)**
 
-Converts and returns the argument passed in a string in md5 format.
+  __Converts and returns the argument passed in a string in md5 format.__
 
-* __st__ _Mixed_ 
+  * __st__ _Mixed_ 
 
-**Returns** _String_ in md5 format
+  __Returns__ _String_ in md5 format
 
 
 ```javascript
@@ -306,13 +306,13 @@ bbn.fn.md5("this is a test string");
 ```
 
 
-### **bbn.fn.nl2br(st)**
+- **bbn.fn.nl2br(st)**
 
-Replace if new line characters '\ n' with html tag '<br>'.
+  __Replace if new line characters '\ n' with html tag '<br>'.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -320,14 +320,14 @@ Replace if new line characters '\ n' with html tag '<br>'.
 bbn.fn.nl2br('hello \n word!');
 ```
 
-### **bbn.fn.percent(percent, cent)**
+- **bbn.fn.percent(percent, cent)**
 
-Returns the value of the proportion giving the percentage and the total from where to be calculated.
+  __Returns the value of the proportion giving the percentage and the total from where to be calculated.__
 
-* __percent__ _Number|String_ 
-* __cent__ _Number|String_ 
+  * __percent__ _Number|String_ 
+  * __cent__ _Number|String_ 
 
-**Returns** _Number_ 
+  __Returns__ _Number_ 
 
 
 ```javascript
@@ -342,23 +342,23 @@ bbn.fn.percent('15',1000);
 bbn.fn.percent(15,500);
 ```
 
-### **bbn.fn.printf()**
+- **bbn.fn.printf()**
 
-* ____ _orma_ 
+  * ____ _orma_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.randomInt(min, max)**
+- **bbn.fn.randomInt(min, max)**
 
-Returns a random integer.
+  __Returns a random integer.__
 
-Generates and returns a random number in a range of numbers defined
+  Generates and returns a random number in a range of numbers defined
 by passed arguments a minimum and a maximum.
 
-* __min__ _Number_ 
-* __max__ _Number_ 
+  * __min__ _Number_ 
+  * __max__ _Number_ 
 
-**Returns** _Number_ 
+  __Returns__ _Number_ 
 
 
 ```javascript
@@ -367,17 +367,17 @@ bbn.fn.randomInt(1,100);
 ```
 
 
-### **bbn.fn.randomString(length, chars)**
+- **bbn.fn.randomString(length, chars)**
 
-Return a random String with random lenght,.
+  __Return a random String with random lenght,.__
 
-Generates a random string from the length of the random number,
+  Generates a random string from the length of the random number,
 taken from a range of numbers providing either only the minimum or also the maximum as arguments.
 
-* __length__ _Number_ 
-* __chars__ _String_ 
+  * __length__ _Number_ 
+  * __chars__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -393,13 +393,13 @@ bbn.fn.randomString(3);
 ```
 
 
-### **bbn.fn.removeAccents(st)**
+- **bbn.fn.removeAccents(st)**
 
-Return the string passed as an argument without accents.
+  __Return the string passed as an argument without accents.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -407,23 +407,23 @@ Return the string passed as an argument without accents.
 bbn.fn.removeAccents("èéòù");
 ```
 
-### **bbn.fn.removeTrailingChars(st, char)**
+- **bbn.fn.removeTrailingChars(st, char)**
 
-* __st__ _String_ 
-* __char__ _String_ 
+  * __st__ _String_ 
+  * __char__ _String_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.remove_all(st)**
+- **bbn.fn.remove_all(st)**
 
-Returns the string given as an argument,.
+  __Returns the string given as an argument,.__
 
-eliminating the new line characters '\ n' if contained and replaces
+  eliminating the new line characters '\ n' if contained and replaces
 the quotes in corresponding ASCII codes.
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -431,13 +431,13 @@ the quotes in corresponding ASCII codes.
 bbn.fn.remove_all('hello\n"word"!');
 ```
 
-### **bbn.fn.remove_nl(st)**
+- **bbn.fn.remove_nl(st)**
 
-Removes the '\n' characters that define a new line.
+  __Removes the '\n' characters that define a new line.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -445,13 +445,13 @@ Removes the '\n' characters that define a new line.
 bbn.fn.remove_nl("hello\nworld!")
 ```
 
-### **bbn.fn.remove_quotes(st)**
+- **bbn.fn.remove_quotes(st)**
 
-Replace quotes in ASCII code.
+  __Replace quotes in ASCII code.__
 
-* __st__ _String_ 
+  * __st__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -465,12 +465,12 @@ bbn.fn.remove_quotes("hello 'word'!");
 bbn.fn.remove_quotes('hello "word"!');
 ```
 
-### **bbn.fn.repeat()**
+- **bbn.fn.repeat()**
 
-Returns a string which is the repetition of the first argument for the number passed in the second argument.
+  __Returns a string which is the repetition of the first argument for the number passed in the second argument.__
 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -478,18 +478,18 @@ Returns a string which is the repetition of the first argument for the number pa
 bbn.fn.repeat('Hello', 3);
 ```
 
-### **bbn.fn.replaceAll(find, replace, str)**
+- **bbn.fn.replaceAll(find, replace, str)**
 
-Looks for and replaces parts of string with what we want.
+  __Looks for and replaces parts of string with what we want.__
 
-With the first argument you define what to replace,
+  With the first argument you define what to replace,
 the second argument with what you have to replace instead and the third argument is the string to be replaced.
 
-* __find__ _String_ 
-* __replace__ _String_ 
-* __str__ _String_ 
+  * __find__ _String_ 
+  * __replace__ _String_ 
+  * __str__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -497,16 +497,16 @@ the second argument with what you have to replace instead and the third argument
 bbn.fn.replaceAll('-', ' ', 'Today-is-a-beautiful-day');
 ```
 
-### **bbn.fn.rgb2hex(rgb)**
+- **bbn.fn.rgb2hex(rgb)**
 
-Convert an RGB string to hexadecimal.
+  __Convert an RGB string to hexadecimal.__
 
-Passing a string with the format that defines the rgb value as an argument,
+  Passing a string with the format that defines the rgb value as an argument,
 it will return the corresponding string in hexadecimal format.
 
-* __rgb__ _String_ 
+  * __rgb__ _String_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -514,19 +514,19 @@ it will return the corresponding string in hexadecimal format.
 bbn.fn.rgb2hex("rgb(255, 0, 0)");
 ```
 
-### **bbn.fn.roundDecimal(value, decimals)**
+- **bbn.fn.roundDecimal(value, decimals)**
 
-* __value__ _Number_ 
-* __decimals__ _Number_ 
+  * __value__ _Number_ 
+  * __decimals__ _Number_ 
 
-**Returns** __ 
+  __Returns__ __ 
 
-### **bbn.fn.sanitize()**
+- **bbn.fn.sanitize()**
 
-Removes all unacceptable characters in a DOM node.
+  __Removes all unacceptable characters in a DOM node.__
 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -535,18 +535,18 @@ bbn.fn.sanitize("this&is_$a^test");
 ```
 
 
-### **bbn.fn.shorten(st, len)**
+- **bbn.fn.shorten(st, len)**
 
-Returns an abbreviation to the given string.
+  __Returns an abbreviation to the given string.__
 
-Provides an abbreviation to the string passed as the first argument,
+  Provides an abbreviation to the string passed as the first argument,
 deciding through the second argument the number of characters to keep and the remainder replaced
 by what is passed as the third argument and if not given a defalut it is: '...'.
 
-* __st__ _String_ 
-* __len__ _Number_ 
+  * __st__ _String_ 
+  * __len__ _Number_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -559,16 +559,16 @@ bbn.fn.shorten('testing', 4, '***');
 bbn.fn.shorten('testing', 4);
 ```
 
-### **bbn.fn.stringify(v)**
+- **bbn.fn.stringify(v)**
 
-Converts the argument passed to it into a single string.
+  __Converts the argument passed to it into a single string.__
 
-It's possible to give as arguments elements of different nature specifically: array, number and function.
+  It's possible to give as arguments elements of different nature specifically: array, number and function.
 It will return the argument on string format.
 
-* __v__ _Array|Number|Function_ 
+  * __v__ _Array|Number|Function_ 
 
-**Returns** _String_ 
+  __Returns__ _String_ 
 
 
 ```javascript
@@ -591,15 +591,15 @@ bbn.fn.stringify(function(){alert("hello world!")});
 ```
 
 
-### **bbn.fn.uniqString()**
+- **bbn.fn.uniqString()**
 
-Create a unique string in md5 format.
+  __Create a unique string in md5 format.__
 
-Converts and return all the arguments inserted in a unique string in md5 format.
+  Converts and return all the arguments inserted in a unique string in md5 format.
 
-* ____ _Mixed_ 
+  * ____ _Mixed_ 
 
-**Returns** _String_ The unique string in md5 format
+  __Returns__ _String_ The unique string in md5 format
 
 
 ```javascript

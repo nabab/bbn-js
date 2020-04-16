@@ -2,16 +2,16 @@
 
 ## Object functions.
 
-### **bbn.fn.arrayFromProp(arr, prop)**
+- **bbn.fn.arrayFromProp(arr, prop)**
 
-Returns an array of the same length but filtered,.
+  __Returns an array of the same length but filtered,.__
 
-containing only the values ​​contained in the properties of the objects present in the array.
+  containing only the values ​​contained in the properties of the objects present in the array.
 
-* __arr__ _Array_ 
-* __prop__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String_ 
 
-**Returns** _Array_ 
+  __Returns__ _Array_ 
 
 
 ```javascript
@@ -20,20 +20,20 @@ bbn.fn.arrayFromProp([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3,
 ```
 
 
-### **bbn.fn.autoExtend(namespace, obj)**
+- **bbn.fn.autoExtend(namespace, obj)**
 
-* __namespace__ _String_ 
-* __obj__ _Object_ 
+  * __namespace__ _String_ 
+  * __obj__ _Object_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.clone(obj)**
+- **bbn.fn.clone(obj)**
 
-Returns the clone argument removing the observability.
+  __Returns the clone argument removing the observability.__
 
-* __obj__ _mixed_ 
+  * __obj__ _mixed_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -41,17 +41,17 @@ Returns the clone argument removing the observability.
 bbn.fn.clone({field: 1});
 ```
 
-### **bbn.fn.compare(v1, v2, mode)**
+- **bbn.fn.compare(v1, v2, mode)**
 
-Performs a comparison between two values ​​passing as the third argument the type of comparison to be performed,.
+  __Performs a comparison between two values ​​passing as the third argument the type of comparison to be performed,.__
 
-using the terms.
+  using the terms.
 
-* __v1__ _String|Number_ 
-* __v2__ _String|Number_ 
-* __mode__ _String_ 
+  * __v1__ _String|Number_ 
+  * __v2__ _String|Number_ 
+  * __mode__ _String_ 
 
-**Returns** _Boolean_ 
+  __Returns__ _Boolean_ 
 
 
 ```javascript
@@ -80,32 +80,32 @@ bbn.fn.compare([0,1,2,3,4], 3, 'contain');
 ```
 
 
-### **bbn.fn.compareConditions(data, filter)**
+- **bbn.fn.compareConditions(data, filter)**
 
-* __data__ _Object_ 
-* __filter__ _Object_ 
+  * __data__ _Object_ 
+  * __filter__ _Object_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.compareValues(a, b, prop, dir)**
+- **bbn.fn.compareValues(a, b, prop, dir)**
 
-* __a__ _Object_ 
-* __b__ _Object_ 
-* __prop__ _String_ 
-* __dir__ _String_ 
+  * __a__ _Object_ 
+  * __b__ _Object_ 
+  * __prop__ _String_ 
+  * __dir__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.count(arr, prop, val, mode)**
+- **bbn.fn.count(arr, prop, val, mode)**
 
-Count how many objects contained in the array have the same property and value.
+  __Count how many objects contained in the array have the same property and value.__
 
-* __arr__ _Array_ 
-* __prop__ _String_ 
-* __val__ _String|Number_ 
-* __mode__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String_ 
+  * __val__ _String|Number_ 
+  * __mode__ _String_ 
 
-**Returns** _Number_ 
+  __Returns__ _Number_ 
 
 
 ```javascript
@@ -114,13 +114,13 @@ bbn.fn.count([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, fiel
 ```
 
 
-### **bbn.fn.countProperties(obj)**
+- **bbn.fn.countProperties(obj)**
 
-Returns the number of properties contained in the object.
+  __Returns the number of properties contained in the object.__
 
-* __obj__ _Object_ 
+  * __obj__ _Object_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -129,25 +129,25 @@ bbn.fn.countProperties({field :1, field2 : 2});
 ```
 
 
-### **bbn.fn.diffObj(obj1, obj2, unchanged, notRoot)**
+- **bbn.fn.diffObj(obj1, obj2, unchanged, notRoot)**
 
-* __obj1__ _Object_ 
-* __obj2__ _Object_ 
-* __unchanged__ _String_ 
-* __notRoot__ _Boolean_ 
+  * __obj1__ _Object_ 
+  * __obj2__ _Object_ 
+  * __unchanged__ _String_ 
+  * __notRoot__ _Boolean_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.each(arr, fn)**
+- **bbn.fn.each(arr, fn)**
 
-Performs an iterative loop of an array or object given to it as a first argument and as a second argument a function that accepts 2 arguments,.
+  __Performs an iterative loop of an array or object given to it as a first argument and as a second argument a function that accepts 2 arguments,.__
 
-value and index.
+  value and index.
 
-* __arr__ _Array_ 
-* __fn__ _Function_ 
+  * __arr__ _Array_ 
+  * __fn__ _Function_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
 
 ```javascript
@@ -161,14 +161,14 @@ bbn.fn.each([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],(va
 ```
 
 
-### **bbn.fn.extend()**
+- **bbn.fn.extend()**
 
-returns a single element by extending two or more elements.
+  __returns a single element by extending two or more elements.__
 
-If at the end we pass the value true as an argument it will make the extension in depth.
+  If at the end we pass the value true as an argument it will make the extension in depth.
 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -177,21 +177,21 @@ bbn.fn.extend({field1:1}, {field2:2}, {field3:3});
 ```
 
 
-### **bbn.fn.extendOut()**
+- **bbn.fn.extendOut()**
 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.filter(arr, prop, val, mode)**
+- **bbn.fn.filter(arr, prop, val, mode)**
 
-Return a filtered array, based on the function given as the second argument.
+  __Return a filtered array, based on the function given as the second argument.__
 
-* __arr__ _Array_ 
-* __prop__ _String|Object|Function_ 
-* __val__ _Mixed_ 
-* __mode__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String|Object|Function_ 
+  * __val__ _Mixed_ 
+  * __mode__ _String_ 
 
-**Returns** _Array_ 
+  __Returns__ _Array_ 
 
 
 ```javascript
@@ -202,51 +202,51 @@ bbn.fn.filter([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, fie
 ```
 
 
-### **bbn.fn.filterToConditions(filter, mode)**
+- **bbn.fn.filterToConditions(filter, mode)**
 
-* __filter__ _Object_ 
-* __mode__ _String_ 
+  * __filter__ _Object_ 
+  * __mode__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.fori(fn, arr, max, min)**
+- **bbn.fn.fori(fn, arr, max, min)**
 
-* __fn__ _Function_ 
-* __arr__ _Array_ 
-* __max__ _Number_ 
-* __min__ _Number_ 
+  * __fn__ _Function_ 
+  * __arr__ _Array_ 
+  * __max__ _Number_ 
+  * __min__ _Number_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.forir(fn, arr, max, min)**
+- **bbn.fn.forir(fn, arr, max, min)**
 
-* __fn__ _Function_ 
-* __arr__ _Array_ 
-* __max__ _Number_ 
-* __min__ _Number_ 
+  * __fn__ _Function_ 
+  * __arr__ _Array_ 
+  * __max__ _Number_ 
+  * __min__ _Number_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.getProperty(obj, prop)**
+- **bbn.fn.getProperty(obj, prop)**
 
-* __obj__ _Object_ 
-* __prop__ _String_ 
+  * __obj__ _Object_ 
+  * __prop__ _String_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.get_field(arr, prop, val, prop2)**
+- **bbn.fn.get_field(arr, prop, val, prop2)**
 
-Allows to take the value of an object property within an array.
+  __Allows to take the value of an object property within an array.__
 
-It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
+  It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
 defined in the last argument of the function.
 
-* __arr__ _Array_ 
-* __prop__ _String|Function_ 
-* __val__ _Number|String_ 
-* __prop2__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String|Function_ 
+  * __val__ _Number|String_ 
+  * __prop2__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -262,15 +262,15 @@ bbn.fn.get_field([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, fie
 ```
 
 
-### **bbn.fn.get_row(arr, prop, val)**
+- **bbn.fn.get_row(arr, prop, val)**
 
-Returns if the object sought is contained in the array finds it.
+  __Returns if the object sought is contained in the array finds it.__
 
-* __arr__ _Array_ 
-* __prop__ _String_ 
-* __val__ _String|Number_ 
+  * __arr__ _Array_ 
+  * __prop__ _String_ 
+  * __val__ _String|Number_ 
 
-**Returns** _Object|Boolean_ 
+  __Returns__ _Object|Boolean_ 
 
 
 ```javascript
@@ -279,14 +279,14 @@ bbn.fn.get_row([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, fi
 ```
 
 
-### **bbn.fn.isSame(obj1, obj2)**
+- **bbn.fn.isSame(obj1, obj2)**
 
-Checks if the two objects inserted with the arguments are identical in working order.
+  __Checks if the two objects inserted with the arguments are identical in working order.__
 
-* __obj1__ _Object_ 
-* __obj2__ _Object_ 
+  * __obj1__ _Object_ 
+  * __obj2__ _Object_ 
 
-**Returns** _Boolean_ 
+  __Returns__ _Boolean_ 
 
 
 ```javascript
@@ -300,39 +300,39 @@ bbn.fn.isSame({field :1, field2 : 2}, {field :1, field2 : 2});
 bbn.fn.isSame({field :1, field2 : 2}, {field :1, field2 : 3});
 ```
 
-### **bbn.fn.iterate(obj, fn)**
+- **bbn.fn.iterate(obj, fn)**
 
-* __obj__ _Object|Number_ 
-* __fn__ _Function_ 
+  * __obj__ _Object|Number_ 
+  * __fn__ _Function_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.map(arr, fn, deepProp)**
+- **bbn.fn.map(arr, fn, deepProp)**
 
-* __arr__ _Array_ 
-* __fn__ _Function_ 
-* __deepProp__ _Boolean_ 
+  * __arr__ _Array_ 
+  * __fn__ _Function_ 
+  * __deepProp__ _Boolean_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.move(arr, fromIndex, toIndex)**
+- **bbn.fn.move(arr, fromIndex, toIndex)**
 
-* __arr__ _Array_ 
-* __fromIndex__ _Number_ 
-* __toIndex__ _Number_ 
+  * __arr__ _Array_ 
+  * __fromIndex__ _Number_ 
+  * __toIndex__ _Number_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.multiorder(arr, orders)**
+- **bbn.fn.multiorder(arr, orders)**
 
-Returns an array of objects sorted in ascending or descending order based on the object we pass as the second parameter,.
+  __Returns an array of objects sorted in ascending or descending order based on the object we pass as the second parameter,.__
 
-the latter must be composed with the property of the object to which you want to order in the array and the type of order.
+  the latter must be composed with the property of the object to which you want to order in the array and the type of order.
 
-* __arr__ _Array_ 
-* __orders__ _Array_ 
+  * __arr__ _Array_ 
+  * __orders__ _Array_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -348,13 +348,13 @@ bbn.fn.multiorder([{field1 :1, field2 : 2}, {field3 :2, field4 : 3}, {field5 :3,
 ```
 
 
-### **bbn.fn.numProperties()**
+- **bbn.fn.numProperties()**
 
-Returns the number of properties contained in the object.
+  __Returns the number of properties contained in the object.__
 
-* ____ _Object_ 
+  * ____ _Object_ 
 
-**Returns** _Number_ 
+  __Returns__ _Number_ 
 
 
 ```javascript
@@ -363,15 +363,15 @@ bbn.fn.numProperties({field :1, field2 : 2});
 ```
 
 
-### **bbn.fn.order(arr., prop., dir.)**
+- **bbn.fn.order(arr., prop., dir.)**
 
-Return an array of objects sorted in ascending or descending order according to the property we give as the second argument.
+  __Return an array of objects sorted in ascending or descending order according to the property we give as the second argument.__
 
-* __arr.__ _Array_ 
-* __prop.__ _String_ 
-* __dir.__ _String_ 
+  * __arr.__ _Array_ 
+  * __prop.__ _String_ 
+  * __dir.__ _String_ 
 
-**Returns** _Array_ 
+  __Returns__ _Array_ 
 
 
 ```javascript
@@ -380,28 +380,28 @@ bbn.fn.order([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],'f
 ```
 
 
-### **bbn.fn.orderLike(to_order, based_on, prop, exclude)**
+- **bbn.fn.orderLike(to_order, based_on, prop, exclude)**
 
-* __to_order__ _Array_ 
-* __based_on__ _Array_ 
-* __prop__ _String_ 
-* __exclude__ _Boolean_ 
+  * __to_order__ _Array_ 
+  * __based_on__ _Array_ 
+  * __prop__ _String_ 
+  * __exclude__ _Boolean_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.pickValue(arr)**
+- **bbn.fn.pickValue(arr)**
 
-* __arr__ _Array_ 
+  * __arr__ _Array_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.removeEmpty(arr)**
+- **bbn.fn.removeEmpty(arr)**
 
-Returns the filtered array, removing all elements deemed empty.
+  __Returns the filtered array, removing all elements deemed empty.__
 
-* __arr__ _Array_ 
+  * __arr__ _Array_ 
 
-**Returns** _Array_ 
+  __Returns__ _Array_ 
 
 
 ```javascript
@@ -410,26 +410,26 @@ bbn.fn.removeEmpty([{field :1, field2 : 2},'', {field :2, field2 : 3},'', {field
 ```
 
 
-### **bbn.fn.removePrivateProp(obj, deep)**
+- **bbn.fn.removePrivateProp(obj, deep)**
 
-* __obj__ _Object_ 
-* __deep__ _Boolean_ 
+  * __obj__ _Object_ 
+  * __deep__ _Boolean_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.search(arr, prop, val, mode)**
+- **bbn.fn.search(arr, prop, val, mode)**
 
-Search for the element of an array of objects by providing arguments in addition to the array to search for the property and the value that contains it.
+  __Search for the element of an array of objects by providing arguments in addition to the array to search for the property and the value that contains it.__
 
-If it finds it, it returns the index where the object is positioned in the array;
+  If it finds it, it returns the index where the object is positioned in the array;
 if it does not find what it requested then it will return -1.
 
-* __arr__ _Array_ 
-* __prop__ _String_ 
-* __val__ _String|Number_ 
-* __mode__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String_ 
+  * __val__ _String|Number_ 
+  * __mode__ _String_ 
 
-**Returns** _Number_ array index of the object found, otherwise -1
+  __Returns__ _Number_ array index of the object found, otherwise -1
 
 
 ```javascript
@@ -438,25 +438,25 @@ bbn.fn.search([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, fie
 ```
 
 
-### **bbn.fn.shortenObj(obj, max)**
+- **bbn.fn.shortenObj(obj, max)**
 
-* __obj__ _*_ 
-* __max__ _*_ 
+  * __obj__ _*_ 
+  * __max__ _*_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.sum(arr, prop, filter, mode)**
+- **bbn.fn.sum(arr, prop, filter, mode)**
 
-Returns the sum of the values ​​contained.
+  __Returns the sum of the values ​​contained.__
 
-in the various objects that have the property given in the second argument.
+  in the various objects that have the property given in the second argument.
 
-* __arr__ _Array_ 
-* __prop__ _String_ 
-* __filter__ _Object|Function_ 
-* __mode__ _String_ 
+  * __arr__ _Array_ 
+  * __prop__ _String_ 
+  * __filter__ _Object|Function_ 
+  * __mode__ _String_ 
 
-**Returns** _Number_ 
+  __Returns__ _Number_ 
 
 
 ```javascript
@@ -474,24 +474,24 @@ bbn.fn.sum([{field1:1}, {field2:2}, {field1:3} , {field1:6}],'field1',(v) =>{
 ```
 
 
-### **bbn.fn.toCSV(arr, [','], [';'], ['"'])**
+- **bbn.fn.toCSV(arr, [','], [';'], ['"'])**
 
-* __arr__ _Array_ 
-* __[',']__ _String_ 
-* __[';']__ _String_ 
-* __['"']__ _String_ 
+  * __arr__ _Array_ 
+  * __[',']__ _String_ 
+  * __[';']__ _String_ 
+  * __['"']__ _String_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
 
-### **bbn.fn.transform(oldO, newO)**
+- **bbn.fn.transform(oldO, newO)**
 
-* __oldO__ _*_ 
-* __newO__ _*_ 
+  * __oldO__ _*_ 
+  * __newO__ _*_ 
 
-**Returns** _*_ 
+  __Returns__ _*_ 
 
-### **bbn.fn.unique(arr)**
+- **bbn.fn.unique(arr)**
 
-* __arr__ _Array_ 
+  * __arr__ _Array_ 
 
-**Returns** _undefined_ 
+  __Returns__ _undefined_ 
