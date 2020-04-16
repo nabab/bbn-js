@@ -92,6 +92,11 @@
 
 **Returns** _undefined_ 
 
+### **bbn.fn.isBlob()**
+
+
+**Returns** _undefined_ 
+
 ### **bbn.fn.isDate()**
 
 

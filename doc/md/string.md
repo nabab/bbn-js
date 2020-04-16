@@ -110,6 +110,45 @@ To escape the string by reducing the ambiguity between quotation marks and other
 bbn.fn.escapeRegExp("this/is/a/test/string");
 ```
 
+### **bbn.fn.fileExt(filename)**
+
+Gets the extension from a file's name.
+
+The extension is returned in lower case; if the filename has no extension
+or is not valid it will return an empty string.
+
+* __filename__ _String_ 
+
+**Returns** _String_ The file's extension
+
+
+```javascript
+// "txt"
+bbn.fn.fileExt('my_file.txt')
+```
+
+
+
+```javascript
+// "txt"
+bbn.fn.fileExt('MY_FILE.TXT')
+```
+
+
+
+```javascript
+// ""
+bbn.fn.fileExt('MY_FILE')
+```
+
+
+
+```javascript
+// ""
+bbn.fn.fileExt('.MY_FILE')
+```
+
+
 ### **bbn.fn.formatSize(st)**
 
 Return the value of size for element html.

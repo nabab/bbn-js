@@ -4,7 +4,7 @@
 
 These functions are meant to be used in a configured BBN environment,
 i.e. a single page application where callback functions are already defined
-and bbn has been initiated.
+and bbn has been initiated through bbn.fn.init.
 
 
 ### **bbn.fn.abort(idURL)**
@@ -21,12 +21,13 @@ This will throw an error if the loader can't be found.
 
 Creates an XHR object and returns the Promise.
 
-Checks the URL, makes an ID, creates a loader, sets the general callbacks
-and return the Promise.
+Checks the URL, makes an ID, creates a loader, sets the general callbacks,
+makes a POST if data is given a GET otherwise (GET data should be added
+directly in the URL), and returns the Promise.
 
-* __url__ _String_ 
-* __datatype__ _String_ 
-* __data__ _Object_ 
+* __url__ _String_ The URL to be requested by XHR
+* __datatype__ _String_ The type of data expected
+* __data__ _Object_ The data (sent th)
 * __success__ _Function_ 
 * __failure__ _Function_ 
 * __abort__ _Function_ 
@@ -36,27 +37,43 @@ and return the Promise.
 
 ```javascript
 // Promise
-bbn.fn.ajax('my/location', 'json', {id: 7}, (d) => {
-  console.log(d);
-  alert("Success!");
-}, (err) => {
-  console.log(err);
-  alert("Failure!");
-}, () => {
-  alert("Request aborted!");
-})
+bbn.fn.ajax(
+  'my/location',
+  'json',
+  {id: 7},
+  d => {
+    console.log(d);
+    alert("Success!");
+  },
+  err => {
+    console.log(err);
+    alert("Failure!");
+  },
+  () => {
+    alert("Request aborted!");
+  }
+)
 ```
 
 
 ```javascript
 // Promise
-bbn.fn.ajax('my/location').then((d) => {
-  console.log(d);
-  alert("Success!");
-})
+bbn.fn.ajax('my/location')
+  .then(
+    d => {
+      console.log(d);
+      alert("Success!");
+    }
+  )
+  .catch(
+    err => {
+    }
+  )
 ```
 
 ### **bbn.fn.callback(url, res, fn, fn2, ele)**
+
+Executes a serie of predefined actions once a content has been loaded.
 
 * __url__ _String_ 
 * __res__ _Object_ 
@@ -66,10 +83,14 @@ bbn.fn.ajax('my/location').then((d) => {
 
 **Returns** _undefined_ 
 
-### **bbn.fn.download(filename, text, type)**
+### **bbn.fn.downloadContent(filename, content, type)**
+
+Downloads a file with given filename from its content.
+
+Creates a link putting in href a URL Object Blob made of the given content.
 
 * __filename__ _String_ 
-* __text__ _String_ 
+* __content__ _String_ 
 * __type__ _String_ 
 
 **Returns** _undefined_ 
@@ -123,25 +144,24 @@ The loader is an object with the following properties:
 
 ```
 
-### **bbn.fn.getParam()**
-
-* ____ _Object_ 
-
-**Returns** _undefined_ 
-
 ### **bbn.fn.link()**
 
-Follow a link but as an Ajax request.
+Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
 
-This is used in.
+Once bbn has been initiated this funciton will be triggered every time a link is clicked
+(see treat_vars for the arguments).
 
 
 **Returns** _undefined_ 
 
 ### **bbn.fn.post()**
 
+Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.
 
-**Returns** _undefined_ 
+URL is the only mandatory argument (see treat_vars for the arguments).
+
+
+**Returns** _undefined|Promise_ 
 
 ### **bbn.fn.setNavigationVars(url, title, data, repl)**
 
@@ -152,20 +172,29 @@ This is used in.
 
 **Returns** _undefined_ 
 
-### **bbn.fn.setParam()**
-
-
-**Returns** _undefined_ 
-
 ### **bbn.fn.treat_vars(args)**
 
-* __args__ _Mixed_ 
+Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.
 
-**Returns** _undefined_ 
+The final object will have the following arguments: url, obj, datatype, force, successFn,
+errorFn, abortFn, e, and ele; The rules are:
+* The first string found is the URL
+* The second string found is the datatype
+* The first function is successFn
+* The second function is errorFn
+* The third function is abortFn
+* A boolean true is force
+* An Event is e
+* An HTML element is ele
+*.
+
+* __args__ _*_ 
+
+**Returns** _Object_ The configuration object
 
 ### **bbn.fn.upload(url, file, success, failure, progress)**
 
-Uploads a file synchronously through Ajax indicating progress.
+Uploads a file synchronously through an XHR indicating progress.
 
 * __url__ _String_ 
 * __file__ _File_ 
