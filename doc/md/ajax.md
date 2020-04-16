@@ -8,7 +8,7 @@ and bbn has been initiated through bbn.fn.init.
   
   
   
-- __**bbn.fn.abort(idURL)**__
+- __bbn.fn.abort(idURL)__
 
   Aborts (client side) the XHR corresponding to the given ID if it still exists.
 
@@ -33,10 +33,10 @@ and bbn has been initiated through bbn.fn.init.
   - __failure__ _Function_ 
   - __abort__ _Function_ 
 
-**Returns** _Promise_ The Promise created by the generated XHR.
+  **Returns** _Promise_ The Promise created by the generated XHR.
 
 
-```javascript
+  ```javascript
 // Promise
 bbn.fn.ajax(
   'my/location',
@@ -54,7 +54,7 @@ bbn.fn.ajax(
     alert("Request aborted!");
   }
 )
-```
+  ```
 
 
 ```javascript
