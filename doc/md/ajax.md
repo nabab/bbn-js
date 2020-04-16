@@ -36,7 +36,7 @@ and bbn has been initiated through bbn.fn.init.
   **Returns** _Promise_ The Promise created by the generated XHR.
 
 
-  ```javascript
+```javascript
 // Promise
 bbn.fn.ajax(
   'my/location',
@@ -54,7 +54,7 @@ bbn.fn.ajax(
     alert("Request aborted!");
   }
 )
-  ```
+```
 
 
 ```javascript
