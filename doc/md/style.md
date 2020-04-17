@@ -14,27 +14,9 @@
 
 
 ```javascript
+//<div class="bbn-bg-maroon">background</div> <span class="bbn-maroon">text color</span>
 bbn.fn.addColors({maroon: '#800000'});
 ```
-
-- **bbn.fn.addStyle(ele, o)**
-
-  __not used.__
-
-  * __ele__ _HTMLElement_ 
-  * __o__ _Object_ 
-
-  __Returns__ _*_ 
-
-- **bbn.fn.animateCss(ele, animationName, callback)**
-
-  __not used.__
-
-  * __ele__ _HTMLElement_ 
-  * __animationName__ _String_ 
-  * __callback__ _Function_ 
-
-  __Returns__ _*_ 
 
 - **bbn.fn.center(ele)**
 
@@ -69,32 +51,3 @@ bbn.fn.colorToHex('red');
 //"#ff0000"
 bbn.fn.colorToHex('rgb(255,0,0)');
 ```
-
-- **bbn.fn.cssExists(f)**
-
-  __not used.__
-
-  * __f__ _String_ 
-
-  __Returns__ _undefined_ 
-
-- **bbn.fn.outerHeight()**
-
-  __not used.__
-
-
-  __Returns__ _*_ 
-
-- **bbn.fn.outerWidth()**
-
-  __not used.__
-
-
-  __Returns__ _*_ 
-
-- **bbn.fn.selector()**
-
-  __not used.__
-
-
-  __Returns__ _*_ 

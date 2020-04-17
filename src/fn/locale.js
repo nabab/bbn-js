@@ -14,15 +14,22 @@
 
   Object.assign(bbn.fn, {
     /**
+     * Returns the given value to money format basing on the given configuration.
      * @method   money
-     * @todo     Add method description for money
      * @global   
      * @memberof bbn.fn
-     * @param    {String|Number} val      
-     * @param    {Boolean}       kilo     
-     * @param    {String}        currency 
-     * @param    {Boolean}       noValue  
-     * @returns                  
+     * @example
+     * ``` javascript
+     * // "5 856.0 $"
+     * bbn.fn.money(5856, false, '$', false, '.' ,false, 1);  
+     * ```
+     * @param {String|Number} val The value.
+     * @param {Boolean} kilo If the value has to be rendered in kilo.
+     * @param {String} currency The currency.
+     * @param {String} novalue The string to return if no valid value is given.
+     * @param {String} decimal The character to use separate decimals.
+     * @param {String} thousands The character to use to separate thounsands.
+     * @param {Number} precision The number of decimals places.
      */
     money(val, kilo, currency, novalue, decimal, thousands, precision){
       /*
@@ -105,13 +112,17 @@
     },
 
     /**
+     * Returns a date object from the given argument. 
      * @method   date
-     * @todo     Add method description for date
      * @global   
      * @memberof bbn.fn
-     * @fires    {*}             
+     * @example 
+     * ``` javascript
+     * //Mon Feb 11 2019 12:00:00 GMT+0100 (Central European Standard Time)
+     * bbn.fn.date('2019/02/11')
+     * ```
      * @param    {String|Number} v 
-     * @returns                  
+     * @returns  {date}                
      */
     date(v){
       let d = false,
@@ -152,13 +163,19 @@
     },
 
     /**
+     * Returns a date with SQL format.
      * @method   dateSQL
-     * @todo     Add method description for dateSQL
      * @global   
      * @memberof bbn.fn
+     * @example
+     * ``` javascript
+     * //"2020-04-16 16:15:23"
+     * let date = new Date();
+     * bbn.fn.dateSQL(date,false);
+     * ``` 
      * @param    {Date|String} v       
-     * @param    {Boolean}     dayOnly 
-     * @returns                
+     * @param    {Boolean}     dayOnly Whether or not include the time in the date
+     * @returns  {String}              
      */
     dateSQL(v, dayOnly){
       let date = bbn.fn.date(v);
@@ -168,12 +185,17 @@
     },
 
     /**
+     * Returns the number of days of the month given in the date.
      * @method   daysInMonth
-     * @todo     Add method description for daysInMonth
      * @global   
+     * @example
+     * ``` javascript
+     * //30
+     * bbn.fn.daysInMonth(new Date());
+     * ``` 
      * @memberof bbn.fn
      * @param    {String|Date} v 
-     * @returns                
+     * @returns  {Number}              
      */
     daysInMonth(v){
       let d = bbn.fn.date(v);
@@ -185,6 +207,7 @@
 
     /**
      * @method   getDay
+     * @ignore
      * @todo     Add method description for getDay
      * @global   
      * @memberof bbn.fn

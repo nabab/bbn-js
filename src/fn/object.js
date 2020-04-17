@@ -42,15 +42,29 @@
     },
 
     /**
+     *  Compares the given objects and returns -1 if the value of the given property is different,
+     *  0 if the value of the property is the same.
+     *
      * @method   compareValues
-     * @todo     Add method description for compareValues
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //0
+     * bbn.fn.compareValues({name:'alan', age:6}, {name:'smith', age:6}, 'age');
+     * ```
+     * @example
+     * ```javascript
+     * //-1
+     * bbn.fn.compareValues({name:'alan', age:6}, {name:'smith', age:6}, 'name');
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object} a    
-     * @param    {Object} b    
-     * @param    {String} prop 
-     * @param    {String} dir  
-     * @returns           
+     * @param    {Object} a
+     * @param    {Object} b
+     * @param    {String} prop
+     * @param    {String} dir
+     * @returns  {Number}
      */
     compareValues(a, b, prop, dir){
       let va = bbn.fn.getProperty(a, prop),
@@ -92,12 +106,20 @@
     },
 
     /**
+     * Returns an array containing the unique values in the given array.
+     * 
      * @method   unique
-     * @todo     Add method description for unique
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * // ["a", "b", "c", "d"]
+     * bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Array} arr 
-     * @returns          
+     * @param    {Array} arr
+     * @returns  {Array}
      */
     unique(arr){
       return arr.filter(function(el, index, ar) {
@@ -106,13 +128,20 @@
     },
 
     /**
+     * Returns the value that contains the property of the object passed as an argument.
+     *
      * @method   getProperty
-     * @todo     Add method description for getProperty
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //1
+     * bbn.fn.getProperty({field: 1, field2:2},'field');
+     * ```
      * @memberof bbn.fn
-     * @param    {Object} obj  
-     * @param    {String} prop 
-     * @returns  {*}      
+     * @param    {Object} obj
+     * @param    {String} prop
+     * @returns  {*}
      */
     getProperty(obj, prop){
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
@@ -210,14 +239,31 @@
     },
 
     /**
+     * Allows the movement of the elements of an array.
+     *
+     * All of this is possible by giving the array you want to reorder as the first argument,
+     * the node you want to move and the third is where you want to position it.
+     *
      * @method   move
-     * @todo     Add method description for move
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //["Mark", "John", "Smith", "Carl"]
+     * bbbn.fn.move(['Mark','Smith','John','Carl'],1,2);
+     * ```
+     *
+     *  @example
+     * ```javascript
+     * //["Carl", "Mark", "Smith", "John"]
+     * bbn.fn.move(['Mark','Smith','John','Carl'],3,0);
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Array}  arr       
-     * @param    {Number} fromIndex 
-     * @param    {Number} toIndex   
-     * @returns           
+     * @param    {Array}  arr
+     * @param    {Number} fromIndex
+     * @param    {Number} toIndex
+     * @returns  {Array}
      */
     move(arr, fromIndex, toIndex){
       if (toIndex >= arr.length) {
@@ -487,13 +533,23 @@
     },
 
     /**
+     * Apply the conditions defined in the filter by querying the specified data object.
+     *
      * @method   compareConditions
-     * @todo     Add method description for compareConditions
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //true
+     * bbn.fn.compareConditions({age:5, name:'adrian', surname:'cooper'},
+     *   {conditions:[{field:'age', operator: '<=', value: 8}], logic:'AND'}
+     * );
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object} data   
-     * @param    {Object} filter 
-     * @returns           
+     * @param    {Object} data
+     * @param    {Object} filter
+     * @returns
      */
     compareConditions(data, filter){
       if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
@@ -523,13 +579,21 @@
     },
 
     /**
+     * Converts the given object 'filter' to a valid format of condition.
+     *
      * @method   filterToConditions
-     * @todo     Add method description for filterToConditions
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //{conditions:[{field: "value", operator: ">",value: 3}], logic: "AND"}
+     * bbn.fn.filterToConditions({value:3},'>');
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object} filter 
-     * @param    {String} mode   
-     * @returns           
+     * @param    {Object} filter
+     * @param    {String} mode
+     * @returns  {Object}
      */
     filterToConditions(filter, mode){
       if ( !bbn.fn.isObject(filter) ){
@@ -740,13 +804,20 @@
     },
 
     /**
+     * Removes private properties from the given object.
      * @method   removePrivateProp
-     * @todo     Add method description for removePrivateProp_
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //{field:1, field1:'value1'}
+     * bbn.fn.removePrivateProp({field:1, field1:'value1', _field2:'value2'});
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object}  obj  
-     * @param    {Boolean} deep 
-     * @returns            
+     * @param    {Object}  obj
+     * @param    {Boolean} deep
+     * @returns
      */
     removePrivateProp(obj, deep){
       var r = false;
@@ -876,11 +947,20 @@
     },
 
     /**
+     *  Merges the contents of two or more objects together into the first object.
+     *  Doesn't overwrite the property if defined in the two objects given.
+     *
      * @method   extendOut
-     * @todo     Add method description for extendOut
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //{age: 39, name: "thomas", surname: "smith", children: { name:'john'}, job: "teacher"}
+     * bbn.fn.extendOut({age:39, name:'thomas', surname:'smith', children: { name:'john'}},{name: 'alex', job : 'teacher'});
+     * ```
+     *
      * @memberof bbn.fn
-     * @returns   
+     * @returns
      */
     extendOut(){
       let r = {};
@@ -914,13 +994,20 @@
     },
 
     /**
+     * Auto extends the bbn object by passing the namespace and the object it will contain.
      * @method   autoExtend
-     * @todo     Add method description for autoExtend
-     * @global   
+     * @global
+     *
+     *  @example
+     * ```javascript
+     * //bbn.test : {field:'value'}
+     * bbn.fn.autoExtend('test',{field:'value'});
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {String} namespace 
-     * @param    {Object} obj       
-     * @returns           
+     * @param    {String} namespace
+     * @param    {Object} obj
+     * @returns
      */
     autoExtend(namespace, obj){
       if ( !bbn[namespace] ){
@@ -988,12 +1075,19 @@
     },
 
     /**
+     * Return a random item from the given array.
      * @method   pickValue
-     * @todo     Add method description for pickValue
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //"field2"
+     * bbn.fn.pickValue(['field1', 'field2', 'field3']);
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Array} arr 
-     * @returns          
+     * @param    {Array} arr
+     * @returns  {*}
      */
     pickValue(arr){
       if ( Array.isArray(arr) && arr.length ){
@@ -1002,15 +1096,29 @@
     },
 
     /**
+     * Returns an object containing the differences between the given objects.
+     *
      * @method   diffObj
-     * @todo     Add method description for diffObj
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //{age: {type: "updated", data: 67, newData: 68}, woman: {type: "created", data: false}}
+     * bbn.fn.diffObj({name: "smith", age: 67}, {name: "smith", age: 68, woman: false});
+     * ```
+     *
+     * @example
+     * ```javascript
+     * //{name: {type: "unchanged", data: "smith", newData: "smith"},age: {type: "updated", data: 67, newData: 68},woman: {type: "created", data: false}}
+     * bbn.fn.diffObj({name: "smith", age: 67}, {name: "smith", age: 68, woman: false}, 'unchanged');
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object}  obj1      
-     * @param    {Object}  obj2      
-     * @param    {String}  unchanged 
-     * @param    {Boolean} notRoot   
-     * @returns  {*}       
+     * @param    {Object}  obj1
+     * @param    {Object}  obj2
+     * @param    {String}  unchanged
+     * @param    {Boolean} notRoot
+     * @returns  {Object}
      */
     diffObj(obj1, obj2, unchanged, notRoot){
       let VALUE_CREATED = 'created',
@@ -1203,13 +1311,24 @@
     },
 
     /**
+     * Scorre le proprietà di un oggetto eseguendo una funzione per ciascun elemento corrispondente.
+     *
      * @method   iterate
-     * @todo     Add method description for iterate
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //["Smith", 37]
+     * let arr = [];
+     * bbn.fn.iterate({name: "Smith", age: 37 }, (value, index) => {
+     *  arr.push(value);
+     * })
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Object|Number} obj 
-     * @param    {Function}      fn  
-     * @returns  {*}             
+     * @param    {Object|Number} obj
+     * @param    {Function}      fn
+     * @returns  {*}
      */
     iterate(obj, fn){
       if ( (obj !== null) && (typeof obj === 'object') ){
@@ -1241,6 +1360,7 @@
      * //{field: 1}
      * bbn.fn.clone({field: 1});
      * ```
+     *
      * @memberof bbn.fn
      * @param    {mixed} obj
      * @returns
@@ -1258,14 +1378,24 @@
     },
 
     /**
+     * Returns a new array generated by the execution of a function for each item of the given array.
      * @method   map
-     * @todo     Add method description for map
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //[2, 3, 4, 5]
+     *  bbn.fn.map([1,2,3,4], (a) => {
+     *  a++;
+     *  return a;
+     * });
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Array}    arr      
-     * @param    {Function} fn       
-     * @param    {Boolean}  deepProp 
-     * @returns             
+     * @param    {Array}    arr
+     * @param    {Function} fn
+     * @param    {Boolean}  deepProp
+     * @returns  {Array}
      */
     map(arr, fn, deepProp){
       return arr.map((a, i) => {
@@ -1278,15 +1408,23 @@
     },
 
     /**
+     * Returns a string exportable into a csv from the given array.
+     *
      * @method   toCSV
-     * @todo     Add method description for toCSV
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * // ""a","b","c"";
+     * bbn.fn.toCSV([['a', 'b', 'c']]);
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {Array}  arr   
-     * @param    {String} [','] 
-     * @param    {String} [';'] 
-     * @param    {String} ['"'] 
-     * @returns           
+     * @param    {Array}  arr
+     * @param    {String} [',']
+     * @param    {String} [';']
+     * @param    {String} ['"']
+     * @returns  {String}
      */
     toCSV(arr, valSep, rowSep, valEsc){
       if ( !valSep ){
@@ -1329,19 +1467,33 @@
     },
 
     /**
+     * Allows the abbreviation of all the strings contained in the object properties or element in a array.
+     *
      * @method   shortenObj
-     * @todo     Add method description for shortenObj
-     * @global   
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //{field: "v...", field2: 2, field3: "v...", field4: 4, field5: 5}
+     * bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, field5: 5},1);
+     * ```
+     *
+     * @example
+     * ```javascript
+     * //["va...", 2, "va...", 4, 5]
+     * bbn.fn.shortenObj(['value1',2, 'value3',4, 5],2);
+     * ```
+     *
      * @memberof bbn.fn
-     * @param    {*} obj 
-     * @param    {*} max 
-     * @returns  {*} 
+     * @param    {Object|Array} obj
+     * @param    {Number} max
+     * @returns  {Object|Array}
      */
     shortenObj(obj, max){
       if (!max) {
         max = 100;
       }
-      o = bbn.fn.clone(obj);
+      let o = bbn.fn.clone(obj);
       bbn.fn.each(o, (a, n) => {
         if (bbn.fn.isString(a) && (a.length > max)) {
           o[n] = bbn.fn.shorten(a, max);

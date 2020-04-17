@@ -15,9 +15,12 @@
   Object.assign(bbn.fn, {
     /**
      * Resizes the environment by assigning it the effective height and width of the window.
-     * 
-     * @method   resize
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.resize();
+     * ```
+     * @method   resize
      * @memberof bbn.fn
      * @returns  
      */
@@ -37,6 +40,10 @@
      * 
      * @method   toggle_full_screen
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.toggle_full_screen();
+     * ```
      * @memberof bbn.fn
      * @returns  
      */
@@ -81,9 +88,12 @@
 
     /**
      * Retutns the size of the scrollbar realative to the current environment.
-     * 
      * @method   getScrollBarSize
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.getScrollBarSize();
+     * ```
      * @memberof bbn.fn
      * @returns  {Number} 
      */
@@ -121,6 +131,10 @@
      * 
      * @method   adjustSize
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
+     * ```
      * @memberof bbn.fn
      * @param    {String} type The dimension to adjust
      * @param    {Array} eles The elements to adjust for the dimension
@@ -148,9 +162,12 @@
 
     /**
      * Adjusts the height of the element(s) given as argument.
-     * 
      * @method   adjustHeight
      * @global   
+     * @example 
+     * ```javascript
+     * bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
+     * ```
      * @memberof bbn.fn
      * @returns  
      */
@@ -168,8 +185,11 @@
      * Adjusts the width of the element(s) given as argument.
      * 
      * @method   adjustWidth
-     * @todo     Add method description for adjustWidth
      * @global   
+     * @example
+     * ```javascript
+     * bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
+     * ```
      * @memberof bbn.fn
      * @returns  
      */
@@ -186,7 +206,6 @@
     /**
      * @ignore
      * @method   getScrollParent
-     * @todo     Add method description for getScrollParent
      * @global   
      * @memberof bbn.fn
      * @param    {HTMLElement} node 

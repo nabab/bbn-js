@@ -9,6 +9,11 @@
 
   __Returns__ _undefined_ 
 
+
+```javascript
+bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
+```
+
 - **bbn.fn.adjustSize(type, eles)**
 
   __Adjusts the size of the given elements.__
@@ -18,12 +23,22 @@
 
   __Returns__ _undefined_ 
 
+
+```javascript
+bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
+```
+
 - **bbn.fn.adjustWidth()**
 
   __Adjusts the width of the element(s) given as argument.__
 
 
   __Returns__ _undefined_ 
+
+
+```javascript
+bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
+```
 
 - **bbn.fn.calculateHeight(element)**
 
@@ -46,12 +61,10 @@ bbn.fn.calculateHeight(<p>Javascript documentation</p>);
 
   __Returns__ _Number_ 
 
-- **bbn.fn.resize()**
 
-  __Resizes the environment by assigning it the effective height and width of the window.__
-
-
-  __Returns__ _undefined_ 
+```javascript
+bbn.fn.getScrollBarSize();
+```
 
 - **bbn.fn.toggle_full_screen()**
 
@@ -59,3 +72,8 @@ bbn.fn.calculateHeight(<p>Javascript documentation</p>);
 
 
   __Returns__ _undefined_ 
+
+
+```javascript
+bbn.fn.toggle_full_screen();
+```

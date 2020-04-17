@@ -61,6 +61,7 @@
      * @global   
      * @example 
      * ```javascript
+     * //<div class="bbn-bg-maroon">background</div> <span class="bbn-maroon">text color</span>
      * bbn.fn.addColors({maroon: '#800000'});
      * ```
      * @memberof bbn.fn
@@ -94,6 +95,7 @@
 
     /**
      * not used
+     * @ignore
      * @method   cssExists
      * @todo     Add method description for cssExists
      * @global   
@@ -128,7 +130,7 @@
     },
 
     /**
-     * not used
+     * @ignore
      * @method   animateCss
      * @todo     Add method description for animateCss
      * @global   
@@ -158,7 +160,7 @@
     },
 
     /**
-     * not used
+     * @ignore
      * @method   addStyle
      * @todo     Add method description for addStyle
      * @global   
@@ -176,7 +178,7 @@
     },
 
     /**
-     * not used
+     * @ignore
      * @method   selector
      * @todo     Add method description for selector
      * @global   
@@ -188,7 +190,7 @@
     },
 
     /**
-     * not used
+     * @ignore
      * @method   outerWidth
      * @todo     Add method description for outerWidth
      * @global   
@@ -204,7 +206,8 @@
     },
 
     /**
-     * not used
+     * 
+     * @ignore
      * @method   outerHeight
      * @todo     Add method description for outerHeight
      * @global   
