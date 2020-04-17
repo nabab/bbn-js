@@ -868,26 +868,26 @@
     },
 
     /**
-     * @method   ab2str
+     * @method   arrayBuffer2String
      * @todo     Add method description for ab2str
      * @global   
      * @ignore
      * @memberof bbn.fn
      * @returns  {*} 
      */
-    ab2str(buf) {
+    arrayBuffer2String(buf) {
       return String.fromCharCode.apply(null, new Uint16Array(buf));
     },
 
     /**
-     * @method   str2ab
+     * @method   string2ArrayBuffer
      * @todo     Add method description for str2ab
      * @global   
      * @memberof bbn.fn
      * @returns  {*} 
      * @ignore
      */
-    str2ab(str) {
+    string2ArrayBuffer(str) {
       var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
       var bufView = new Uint16Array(buf);
       for (var i=0, strLen=str.length; i < strLen; i++) {

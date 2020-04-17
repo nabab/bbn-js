@@ -16,7 +16,7 @@
 
 ```javascript
 //[1, 2, 3]
-bbn.fn.arrayFromProp([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, field2 : 4}],'field');
+bbn.fn.arrayFromProp([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field');
 ```
 
 
@@ -59,14 +59,14 @@ bbn.fn.clone({field: 1});
 
 ```javascript
 //false
-bbn.fn.compare({field1 :1, field2 : 2}, {field3 :2, field4 : 3},'eq');
+bbn.fn.compare('field1', 'field2', 'eq');
 ```
 
 
 
 ```javascript
 //true
-bbn.fn.compare({field1 :1, field2 : 2}, {field3 :2, field4 : 3},'neq');
+bbn.fn.compare('field1', 'field2', 'neq');
 ```
 
 
@@ -77,9 +77,10 @@ bbn.fn.compare(3, 1, '>');
 ```
 
 
+
 ```javascript
 //true
-bbn.fn.compare([0,1,2,3,4], 3, 'contain');
+bbn.fn.compare(123, 3, 'contain');
 ```
 
 
@@ -95,9 +96,10 @@ bbn.fn.compare([0,1,2,3,4], 3, 'contain');
 
 ```javascript
 //true
-bbn.fn.compareConditions({age:5, name:'adrian', surname:'cooper'},
-  {conditions:[{field:'age', operator: '<=', value: 8}], logic:'AND'}
-);
+bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
+ conditions: [{field: 'field1', operator: '<=', value: 8}],
+ logic:'AND'
+});
 ```
 
 
@@ -117,13 +119,14 @@ bbn.fn.compareConditions({age:5, name:'adrian', surname:'cooper'},
 
 ```javascript
 //0
-bbn.fn.compareValues({name:'alan', age:6}, {name:'smith', age:6}, 'age');
+bbn.fn.compareValues({field: 'value1', field2: 2}, {field: 'value2', field2: 2}, 'field2');
 ```
+
 
 
 ```javascript
 //-1
-bbn.fn.compareValues({name:'alan', age:6}, {name:'smith', age:6}, 'name');
+bbn.fn.compareValues({field: 'value1', field2: 2}, {field: 'value2', field2: 2}, 'field');
 ```
 
 
@@ -140,8 +143,8 @@ bbn.fn.compareValues({name:'alan', age:6}, {name:'smith', age:6}, 'name');
 
 
 ```javascript
-//2
-bbn.fn.count([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, field4 : 4}],'field1',3);
+//1
+bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
 ```
 
 
@@ -156,7 +159,7 @@ bbn.fn.count([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, fiel
 
 ```javascript
 //2
-bbn.fn.countProperties({field :1, field2 : 2});
+bbn.fn.countProperties({field:1, field2: 2});
 ```
 
 
@@ -173,15 +176,15 @@ bbn.fn.countProperties({field :1, field2 : 2});
 
 
 ```javascript
-//{age: {type: "updated", data: 67, newData: 68}, woman: {type: "created", data: false}}
-bbn.fn.diffObj({name: "smith", age: 67}, {name: "smith", age: 68, woman: false});
+//{field2: {type: 'updated', data: 2, newData: 3}, field3: {type: 'created', data: false}}
+bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3: false});
 ```
 
 
 
 ```javascript
-//{name: {type: "unchanged", data: "smith", newData: "smith"},age: {type: "updated", data: 67, newData: 68},woman: {type: "created", data: false}}
-bbn.fn.diffObj({name: "smith", age: 67}, {name: "smith", age: 68, woman: false}, 'unchanged');
+//{field: {type: 'unchanged', data: 'value1', newData: 'value1'}, field2: {type: 'updated', data: 2, newData: 3}, field3: {type: 'created', data: false}}
+bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3: false}, 'unchanged');
 ```
 
 
@@ -200,9 +203,9 @@ bbn.fn.diffObj({name: "smith", age: 67}, {name: "smith", age: 68, woman: false},
 ```javascript
 //4
 let num = 0;
-bbn.fn.each([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],(val,idx)=>{
+bbn.fn.each([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], (val,idx) => {
   if ( val.field3 !== undefined ){
-    num = val.field3 + idx
+    num = val.field3 + idx;
   }
 })
 ```
@@ -220,7 +223,7 @@ bbn.fn.each([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],(va
 
 ```javascript
 //{field1: 1, field2: 2, field3: 3}
-bbn.fn.extend({field1:1}, {field2:2}, {field3:3});
+bbn.fn.extend({field1: 1}, {field2: 2}, {field3: 3});
 ```
 
 
@@ -235,8 +238,8 @@ bbn.fn.extend({field1:1}, {field2:2}, {field3:3});
 
 
 ```javascript
-//{age: 39, name: "thomas", surname: "smith", children: { name:'john'}, job: "teacher"}
-bbn.fn.extendOut({age:39, name:'thomas', surname:'smith', children: { name:'john'}},{name: 'alex', job : 'teacher'});
+//{field1: 1, field2: 2, field3: 3, items: {item: 0, item1: 1, item2: 2}, field4: 4}
+bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4, items: {item1: 1, item2: 2}});
 ```
 
 
@@ -253,9 +256,9 @@ bbn.fn.extendOut({age:39, name:'thomas', surname:'smith', children: { name:'john
 
 
 ```javascript
-//[{field1 :3, field2 : 2}, {field1 :3, field2 : 4}]
-bbn.fn.filter([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, field2 : 4}],(obj) =>{
-  return obj.field1 === 3
+//[{field1: 3, field2: 4}]
+bbn.fn.filter([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], obj => {
+  return obj.field1 === 3;
 });
 ```
 
@@ -271,7 +274,7 @@ bbn.fn.filter([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, fie
 
 
 ```javascript
-//{conditions:[{field: "value", operator: ">",value: 3}], logic: "AND"}
+//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
 bbn.fn.filterToConditions({value:3},'>');
 ```
 
@@ -306,8 +309,9 @@ bbn.fn.filterToConditions({value:3},'>');
 
 ```javascript
 //1
-bbn.fn.getProperty({field: 1, field2:2},'field');
+bbn.fn.getProperty({field: 1, field2: 2}, 'field');
 ```
+
 
 - **bbn.fn.get_field(arr, prop, val, prop2)**
 
@@ -326,14 +330,14 @@ defined in the last argument of the function.
 
 ```javascript
 //2
-bbn.fn.get_field([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, field2 : 4}],'field', 1, 'field2');
+bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
 ```
 
 
 
 ```javascript
 //4
-bbn.fn.get_field([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, field2 : 4}],'field', 3, 'field2');
+bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
 ```
 
 
@@ -350,7 +354,7 @@ bbn.fn.get_field([{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, fie
 
 ```javascript
 //{field1: 2, field2: 3}
-bbn.fn.get_row([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, field2 : 4}],'field1',2);  * ```
+bbn.fn.get_row([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
 ```
 
 
@@ -366,18 +370,18 @@ bbn.fn.get_row([{field1 :3, field2 : 2}, {field1 :2, field2 : 3}, {field1 :3, fi
 
 ```javascript
 //true
-bbn.fn.isSame({field :1, field2 : 2}, {field :1, field2 : 2});
+bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 2});
 ```
 
 
 ```javascript
 //false
-bbn.fn.isSame({field :1, field2 : 2}, {field :1, field2 : 3});
+bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 3});
 ```
 
 - **bbn.fn.iterate(obj, fn)**
 
-  __Scorre le proprietà di un oggetto eseguendo una funzione per ciascun elemento corrispondente.__
+  __Scroll through the properties of an object by executing a function for each corresponding element.__
 
   * __obj__ _Object|Number_ 
   * __fn__ _Function_ 
@@ -386,11 +390,11 @@ bbn.fn.isSame({field :1, field2 : 2}, {field :1, field2 : 3});
 
 
 ```javascript
-//["Smith", 37]
+//["value1", 2]
 let arr = [];
-bbn.fn.iterate({name: "Smith", age: 37 }, (value, index) => {
- arr.push(value);
-})
+bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
+  arr.push(value);
+});
 ```
 
 
@@ -407,9 +411,9 @@ bbn.fn.iterate({name: "Smith", age: 37 }, (value, index) => {
 
 ```javascript
 //[2, 3, 4, 5]
- bbn.fn.map([1,2,3,4], (a) => {
- a++;
- return a;
+bbn.fn.map([1, 2, 3, 4], a => {
+  return a++;
+  return a;
 });
 ```
 
@@ -429,14 +433,14 @@ the node you want to move and the third is where you want to position it.
 
 
 ```javascript
-//["Mark", "John", "Smith", "Carl"]
-bbbn.fn.move(['Mark','Smith','John','Carl'],1,2);
+//['field1', 'field3', 'field2', 'field4']
+bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
 ```
 
  @example
 ```javascript
-//["Carl", "Mark", "Smith", "John"]
-bbn.fn.move(['Mark','Smith','John','Carl'],3,0);
+//['field4', 'field1', 'field2', 'field3"]
+bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
 ```
 
 
@@ -453,15 +457,15 @@ bbn.fn.move(['Mark','Smith','John','Carl'],3,0);
 
 
 ```javascript
-//[{field1: 1, field2: 2},{field5: 3, field6: 4},{field3: 2, field4: 3}]
-bbn.fn.multiorder([{field1 :1, field2 : 2}, {field3 :2, field4 : 3}, {field5 :3, field6 : 4}],{field3:'desc'})
+//[{field1: 1, field2: 2}, {field5: 5, field6: 6}, {field3: 3, field4: 4}]
+bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'desc'});
 ```
 
 
 
 ```javascript
-//[{field3: 2, field4: 3},{field1: 1, field2: 2},{field5: 3, field6: 4}]
-bbn.fn.multiorder([{field1 :1, field2 : 2}, {field3 :2, field4 : 3}, {field5 :3, field6 : 4}],{field3:'asc'})
+//[{field3: 3, field4: 4}, {field1: 1, field2: 2}, {field5: 5, field6: 6}]
+bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'asc'});
 ```
 
 
@@ -476,7 +480,7 @@ bbn.fn.multiorder([{field1 :1, field2 : 2}, {field3 :2, field4 : 3}, {field5 :3,
 
 ```javascript
 //2
-bbn.fn.numProperties({field :1, field2 : 2});
+bbn.fn.numProperties({field: 1, field2: 2});
 ```
 
 
@@ -492,8 +496,8 @@ bbn.fn.numProperties({field :1, field2 : 2});
 
 
 ```javascript
-//[{field5:5, field6:6},{field1:1, field2:2},{field3:3, field4:4}];
-bbn.fn.order([{field1:1, field2:2},{field3:3, field4:4},{field5:5, field6:6}],'field6','asc');
+//[{field5: 5, field6: 6},{field1: 1, field2: 2},{field3: 3, field4: 4}];
+bbn.fn.order([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], 'field6', 'asc');
 ```
 
 
@@ -531,8 +535,8 @@ bbn.fn.pickValue(['field1', 'field2', 'field3']);
 
 
 ```javascript
-//[{field :1, field2 : 2}, {field :2, field2 : 3}, {field :3, field2 : 4}]
-bbn.fn.removeEmpty([{field :1, field2 : 2},'', {field :2, field2 : 3},'', {field :3, field2 : 4},0,false]);
+//[{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2 : 4}]
+bbn.fn.removeEmpty([{field: 1, field2: 2}, '', {field: 2, field2: 3}, '',  {field:3, field2:  4}, 0, false]);
 ```
 
 
@@ -548,7 +552,7 @@ bbn.fn.removeEmpty([{field :1, field2 : 2},'', {field :2, field2 : 3},'', {field
 
 ```javascript
 //{field:1, field1:'value1'}
-bbn.fn.removePrivateProp({field:1, field1:'value1', _field2:'value2'});
+bbn.fn.removePrivateProp({field: 1, field1: 'value1', _field2: 'value2'});
 ```
 
 
@@ -569,7 +573,7 @@ if it does not find what it requested then it will return -1.
 
 ```javascript
 //2
-bbn.fn.search([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, field4 : 4}],'field4',4);
+bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, field6: 6}], 'field5', 5);
 ```
 
 
@@ -585,14 +589,14 @@ bbn.fn.search([{field1 :3, field2 : 2}, {field3 :2, field4 : 3}, {field1 :3, fie
 
 ```javascript
 //{field: "v...", field2: 2, field3: "v...", field4: 4, field5: 5}
-bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, field5: 5},1);
+bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, field5: 5}, 1);
 ```
 
 
 
 ```javascript
 //["va...", 2, "va...", 4, 5]
-bbn.fn.shortenObj(['value1',2, 'value3',4, 5],2);
+bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
 
 
@@ -612,15 +616,15 @@ bbn.fn.shortenObj(['value1',2, 'value3',4, 5],2);
 
 ```javascript
 //4
-bbn.fn.sum([{field1:1}, {field2:2}, {field1:3}],'field1');
+bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}], 'field1');
 ```
 
 
 
 ```javascript
 //7
-bbn.fn.sum([{field1:1}, {field2:2}, {field1:3} , {field1:6}],'field1',(v) =>{
-  return v.field1 != 3
+bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => {
+  return v.field1 != 3;
 });
 ```
 

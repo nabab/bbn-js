@@ -16,6 +16,7 @@
 bbn.fn.date('2019/02/11')
 ```
 
+
 - **bbn.fn.dateSQL(v, dayOnly)**
 
   __Returns a date with SQL format.__
@@ -32,6 +33,7 @@ let date = new Date();
 bbn.fn.dateSQL(date,false);
 ```
 
+
 - **bbn.fn.daysInMonth(v)**
 
   __Returns the number of days of the month given in the date.__
@@ -45,6 +47,7 @@ bbn.fn.dateSQL(date,false);
 //30
 bbn.fn.daysInMonth(new Date());
 ```
+
 
 - **bbn.fn.fdate(d, )**
 

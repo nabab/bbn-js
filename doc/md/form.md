@@ -37,12 +37,6 @@
 
   __Returns__ _undefined_ 
 
-- **bbn.fn.formupdated(form)**
-
-  * __form__ _HTMLElement_ 
-
-  __Returns__ _undefined_ 
-
 - **bbn.fn.objectToFormData(obj, key, ignoreList)**
 
   * __obj__ _Object|Array|File_ 
@@ -55,13 +49,6 @@
 
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
-
-  __Returns__ _*_ 
-
-- **bbn.fn.setInitialValues(ele, force)**
-
-  * __ele__ _HTMLElement_ 
-  * __force__ _Boolean_ 
 
   __Returns__ _*_ 
 
