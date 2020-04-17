@@ -20,8 +20,16 @@
      *
      * @example
      * ```javascript
-     * //[{field5: 5, field6: 6},{field1: 1, field2: 2},{field3: 3, field4: 4}];
-     * bbn.fn.order([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], 'field6', 'asc');
+     * // [
+     * //   {movie: "Donnie Darko", year: 2001},
+     * //   {movie: "Brazil", year: 1985},
+     * //   {movie: "Barry Lindon", year: 1976}
+     * // ]
+     * bbn.fn.order([
+     *   {movie: "Brazil", year: 1985},
+     *   {movie: "Donnie Darko", year: 2001},
+     *   {movie: "Barry Lindon", year: 1976}
+     * ], 'year', 'DESC')
      * ```
      *
      * @memberof bbn.fn
@@ -42,24 +50,38 @@
     },
 
     /**
-     * Compares the given objects and returns -1 if the value of the given property is different,
-     * 0 if the value of the property is the same.
+     * Compares the given objects on a given property and returns -1, 1, or 0 depending on their difference.
      *
      * @method   compareValues
      * @global
      *
      * @example
      * ```javascript
-     * //0
-     * bbn.fn.compareValues({field: 'value1', field2: 2}, {field: 'value2', field2: 2}, 'field2');
+     * // Same value
+     * // 0
+     * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
      * ```
      *
      * @example
      * ```javascript
-     * //-1
-     * bbn.fn.compareValues({field: 'value1', field2: 2}, {field: 'value2', field2: 2}, 'field');
+     * // First value smaller than second
+     * // -1
+     * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
      * ```
      *
+     * @example
+     * ```javascript
+     * // First value greater than second
+     * // 1
+     * bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
+     * ```
+     * 
+     * @example
+     * ```javascript
+     * // First value is undefined
+     * // 1
+     * bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
+     * ```
      * @memberof bbn.fn
      * @param    {Object} a
      * @param    {Object} b
@@ -124,7 +146,7 @@
      */
     unique(arr){
       return arr.filter(function(el, index, ar) {
-        return index == ar.indexOf(el);
+        return index === ar.indexOf(el);
       });
     },
 

@@ -298,25 +298,6 @@
     },
 
     /**
-     * @ignore
-     * @method   isjQuery
-     * @todo     Add method description for isjQuery
-     * @global   
-     * @memberof bbn.fn
-     * @returns   
-     */
-    isjQuery(){
-      if (!window.jQuery) return false;
-      if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( !(a instanceof jQuery) ){
-          return false
-        }
-      }
-      return true;
-    },
-
-    /**
      * Returns true if the given argumen is a VueJS object.
      * @method   isVue
      * @global   
@@ -576,52 +557,6 @@
         }
         return returnStat;
       }
-    },
-
-    /**
-     * @method   tagName
-     * @todo     Add method description for tagName
-     * @global   
-     * @memberof bbn.fn
-     * @ignore
-     * @param    {HTMLElement} element 
-     * @returns                
-     */
-    tagName(element){
-      //var p = $(element).prop("tagName");
-      let p = element.tagName;
-      return p ? p.toLowerCase() : false;
-    },
-
-    /**
-     * @method   getAttributes
-     * @todo     Add method description for getAttributes
-     * @global   
-     * @ignore
-     * @memberof bbn.fn
-     * @param    {HTMLElement} element 
-     * @returns                
-     */
-    getAttributes(element){
-      let attr = {};
-
-      /*$(element).each(function() {
-        $.each(this.attributes, function() {
-          // this.attributes is not a plain object, but an array
-          // of attribute nodes, which contain both the name and value
-          if(this.specified) {
-            attr[this.name] = this.value;
-          }
-        });
-      });*/
-      bbn.fn.each(element.getAttributeNames(), (ele, i) =>{
-        // this.attributes is not a plain object, but an array
-        // of attribute nodes, which contain both the name and value
-        if( element.getAttributeNode(ele).specified ){
-          attr[ele] = element.getAttribute(ele);
-        }
-      })
-      return attr;
     },
 
     /**
