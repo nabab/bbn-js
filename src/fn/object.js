@@ -1,5 +1,5 @@
 /**
- * @file   Object functions.
+ * @file   Objects and arrays operations.
  * @author BBN Solutions <info@bbn.solutions>
  * @since  12/04/2020
  */
@@ -1075,15 +1075,18 @@
     },
 
     /**
-     * Returns an array of the same length but filtered,
-     * containing only the values ​​contained in the properties of the objects present in the array.
+     * Returns an array of the same size made of the given property's values.
      * @method   arrayFromProp
      * @global
      *
      * @example
      * ```javascript
-     * //[1, 2, 3]
-     * bbn.fn.arrayFromProp([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field');
+     * // [1985, 2001, 1976]
+     * bbn.fn.arrayFromProp([
+     *   {movie: "Brazil", year: 1985},
+     *   {movie: "Donnie Darko", year: 2001},
+     *   {movie: "Barry Lindon", year: 1976}
+     * ], 'year');
      * ```
      *
      * @memberof bbn.fn

@@ -10,7 +10,7 @@ You can check the documentation:
 * [Initialization](doc/md/init.md)
 * [Locale and formatting](doc/md/locale.md)
 * [Other functions](doc/md/misc.md)
-* [Object and array operations](doc/md/object.md)
+* [Objects and arrays operations](doc/md/object.md)
 * [Size and resizing](doc/md/size.md)
 * [String operations](doc/md/string.md)
 * [Styling](doc/md/style.md)
