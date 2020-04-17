@@ -1,12 +1,10 @@
 # object.js
 
-## Object functions.
+## Objects and arrays operations.
 
 - **bbn.fn.arrayFromProp(arr, prop)**
 
-  __Returns an array of the same length but filtered,.__
-
-  containing only the values ​​contained in the properties of the objects present in the array.
+  __Returns an array of the same size made of the given property's values.__
 
   * __arr__ _Array_ 
   * __prop__ _String_ 
@@ -15,8 +13,12 @@
 
 
 ```javascript
-//[1, 2, 3]
-bbn.fn.arrayFromProp([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field');
+// [1985, 2001, 1976]
+bbn.fn.arrayFromProp([
+  {movie: "Brazil", year: 1985},
+  {movie: "Donnie Darko", year: 2001},
+  {movie: "Barry Lindon", year: 1976}
+], 'year');
 ```
 
 
