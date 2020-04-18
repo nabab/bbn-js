@@ -147,7 +147,8 @@
     /**
      * Returns the value of the given property from the given object.
      * 
-     * Looks for the property in the object, accepting dot (.) separator for deep property access, and returns its value.
+     * Looks for the property in the object, accepting dot (.) separator for deep property access,
+     * and returns its value if found and undefined otherwise.
      *
      * @method   getProperty
      * @global
@@ -161,10 +162,15 @@
      * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
      * // 33
      * ```
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+     * // undefined
+     * ```
      * @memberof bbn.fn
      * @param    {Object} obj
      * @param    {String} prop
-     * @returns  {*}
+     * @returns  {*}      The property's value or undefined
      */
     getProperty(obj, prop){
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
