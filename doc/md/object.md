@@ -218,22 +218,22 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
   This function is internally used by all the filtering functions; the available operators are:  
-   - *===*, *=*, *equal*, *eq*, *is* stand for **===**  
-   - *!==*, *notequal*, *neq*, *isnot* stand for **!==**
-   - *!=*, *different* stand for **!=**
-   - *contains*, *contain*, *icontains*, *icontain*
-   - *starts*, *start*
-   - *startswith*, *startsi*, *starti*, *istarts*, *istart*
-   - *endswith*, *endsi*, *endi*, *iends*, *iend*
-   - *like*
-   - *gt*, *>* stand for **>**
-   - *lt*, *<* stand for **<**
-   - *gte*, *>=* stand for **>=**
-   - *lte*, *<=* stand for **<=**
-   - *isnull* stands for **=== null**
-   - *isnotnull* stands for **!== null**
-   - *isempty* stands for **=== ''**
-   - *isnotempty* stands for **!== ''**  
+    - *===*, *=*, *equal*, *eq*, *is* stand for **===**  
+    - *!==*, *notequal*, *neq*, *isnot* stand for **!==**
+    - *!=*, *different* stand for **!=**
+    - *contains*, *contain*, *icontains*, *icontain*
+    - *starts*, *start*
+    - *startswith*, *startsi*, *starti*, *istarts*, *istart*
+    - *endswith*, *endsi*, *endi*, *iends*, *iend*
+    - *like*
+    - *gt*, *>* stand for **>**
+    - *lt*, *<* stand for **<**
+    - *gte*, *>=* stand for **>=**
+    - *lte*, *<=* stand for **<=**
+    - *isnull* stands for **=== null**
+    - *isnotnull* stands for **!== null**
+    - *isempty* stands for **=== ''**
+    - *isnotempty* stands for **!== ''**  
 The defaut operator (if none is given) is **==**.
 *.
 
@@ -768,4 +768,6 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 
 ```javascript
 //["va...", 2, "va...", 4, 5]
-bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5],
+bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
+```
+*
