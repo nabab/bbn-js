@@ -282,7 +282,7 @@
      * 
      * This function is internally used by all the filtering functions; the available operators are:  
      *   - *===*, *=*, *equal*, *eq*, *is* stand for **===**  
-     *   - *!==*, *notequal*, *neq*, *isnot* stand for **!==*  
+     *   - *!==*, *notequal*, *neq*, *isnot* stand for **!==**
      *   - *!=*, *different* stand for **!=**
      *   - *contains*, *contain*, *icontains*, *icontain*
      *   - *starts*, *start*
@@ -296,7 +296,7 @@
      *   - *isnull* stands for **=== null**
      *   - *isnotnull* stands for **!== null**
      *   - *isempty* stands for **=== ''**
-     *   - *isnotempty* stands for **!== ''**
+     *   - *isnotempty* stands for **!== ''**  
      * The defaut operator (if none is given) is **==**.
      *
      * @method   compare
