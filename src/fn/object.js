@@ -281,12 +281,12 @@
      * Performs a comparison between two values based on the given operator and returns a boolean.
      * 
      * This function is internally used by all the filtering functions; the available operators are:  
-     *   * *===*, *=*, *equal*, *eq*, *is* stand for **===**  
-     *   * *!==*, *notequal*, *neq*, *isnot* stand for **!==**
-     *     - *!=*, *different* stand for **!=**
-     *     - *contains*, *contain*, *icontains*, *icontain*
-     *     - *starts*, *start*
-     *     - *startswith*, *startsi*, *starti*, *istarts*, *istart*
+     *   1. *===*, *=*, *equal*, *eq*, *is* stand for **===**  
+     *   1. *!==*, *notequal*, *neq*, *isnot* stand for **!==**
+     *   1. *!=*, *different* stand for **!=**
+     *   1. *contains*, *contain*, *icontains*, *icontain*
+     *   1. *starts*, *start*
+     *   1. *startswith*, *startsi*, *starti*, *istarts*, *istart*
      *     - *endswith*, *endsi*, *endi*, *iends*, *iend*
      *     - *like*
      *     - *gt*, *>* stand for **>**
