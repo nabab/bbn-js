@@ -658,11 +658,19 @@
      * @returns  {undefined}
      */
     download(url, filename, params){
+      // We can intervert the arguments
+      if (bbn.fn.isObject(filename)) {
+        params = filename;
+        filename 
+      }
       return bbn.fn.ajax(
         url,
         'blob',
         params || {_bbn_download: 1},
         d => {
+          if (!filename) {
+            filename = bbn.fn.bas
+          }
           bbn.fn.log(d);
           if (bbn.fn.isBlob(d)) {
             let extension = bbn.fn.fileExt(filename);

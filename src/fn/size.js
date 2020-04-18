@@ -38,7 +38,7 @@
     /**
      * Toggles the fullscreen mode.
      * 
-     * @method   toggle_full_screen
+     * @method   toggleFullScreen
      * @global   
      * @example 
      * ```javascript
@@ -47,7 +47,7 @@
      * @memberof bbn.fn
      * @returns  
      */
-    toggle_full_screen(){
+    toggleFullScreen(){
       var wscript;
       if ( window.document.documentElement.mozRequestFullScreen ){
         if ( window.document.mozFullScreen ){

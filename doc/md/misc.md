@@ -2,126 +2,80 @@
 
 ## Miscellaneous functions.
 
-- **bbn.fn.canvasToImage(canvas)**
-
-  __Returns a canvas in a HTML element img.__
-
-  * __canvas__ _canvas_ 
-
-  __Returns__ _HTMLElement_ 
-
-- **bbn.fn.copy(st)**
-
-  __Copies to the clipboard the value of the given string.__
-
-  * __st__ _String_ The string to copy.
-
-  __Returns__ _undefined_ 
-
-- **bbn.fn.eraseCookie()**
-
-  __Erase the cookie corresponding to the given name;.__
-
-
-  __Returns__ _*_ 
-
-
-``` javascript
-// 'en'
-bbn.fn.erase('lang');
-```
-
-- **bbn.fn.formatBytes()**
-
-  __Formats the value given in bytes.__
+ - [canvasToImage](#canvasToImage)
+ - [copy](#copy)
+ - [eraseCookie](#eraseCookie)
+ - [formatBytes](#formatBytes)
+ - [getCookie](#getCookie)
+ - [getEventData](#getEventData)
+ - [happy](#happy)
+ - [imageToCanvas](#imageToCanvas)
+ - [imgToBase64](#imgToBase64)
+ - [info](#info)
+ - [is](#is)
+ - [isArray](#isArray)
+ - [isBlob](#isBlob)
+ - [isDate](#isDate)
+ - [isDom](#isDom)
+ - [isMobile](#isMobile)
+ - [isNull](#isNull)
+ - [isNumber](#isNumber)
+ - [isObject](#isObject)
+ - [isPercent](#isPercent)
+ - [isString](#isString)
+ - [isValue](#isValue)
+ - [isVue](#isVue)
+ - [log](#log)
+ - [setCookie](#setCookie)
+ - [startChrono](#startChrono)
+ - [stopChrono](#stopChrono)
+ - [timestamp](#timestamp)
+ - [warning](#warning)
 
 
-  __Returns__ _String_ 
-
-
-//"52.23 MB"
-``` javascript
-bbn.fn.formatBytes(54764654);
-```
-
-- **bbn.fn.getCookie(name)**
-
-  __If it exsists returns the cookie corresponding to the given name.__
-
-  * __name__ _String_ 
-
-  __Returns__ _undefined_ 
-
-
-``` javascript
-// 'en'
-bbn.fn.getCookie('lang');
-```
-
-- **bbn.fn.getEventData()**
-
-  __Returns a promise having the event's data as argument.__
-
-
-  __Returns__ _Promise_ 
-
-
-``` javascript
-let type = e.type;
-  bbn.fn.getEventData(e).then((data) => {
-    bbn.fn.log("DATA FROM " + type, data);
-  });
-```
-
-- **bbn.fn.happy(args)**
-
-  __Logs the given argument in the browser's console highlighting it with a green background.__
-
-  * __args__ _...any_ 
-
-  __Returns__ _undefined_ 
-
-
-``` javascript
-bbn.fn.happy('I want to log the success of my function');
-```
-
-- **bbn.fn.imageToCanvas(img)**
-
-  __Draws the given html image nto a canvas.__
-
-  * __img__ _HTMLElement_ 
-
-  __Returns__ _undefined_ 
-
-
-``` javascript
-//<canvas width="60" height="32"></canvas>
-bbn.fn.imageToCanvas('<img src="path/myImage.png">');
-```
-
-- **bbn.fn.imgToBase64(img)**
-
-  __Returns the tag for the image in base64.__
-
-  * __img__ _HTMLElement_ 
-
-  __Returns__ _*_ 
-
-- **bbn.fn.info(args)**
-
-  __Logs the given argument in the browser's console highlighting it with a blue background.__
-
-  * __args__ _...any_ 
-
-  __Returns__ _*_ 
-
-- **bbn.fn.is()**
+- <a name="is"></a>**bbn.fn.is()**
 
 
   __Returns__ _undefined_ 
 
-- **bbn.fn.isArray()**
+- <a name="isBlob"></a>**bbn.fn.isBlob()**
+
+
+  __Returns__ _Boolean_ 
+
+- <a name="isNumber"></a>**bbn.fn.isNumber()**
+
+  __Returns true if the given argument is a number.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+bbn.fn.isNumber(5);
+```
+
+
+```javascript
+//true
+bbn.fn.isNumber(0.5);
+```
+
+- <a name="isString"></a>**bbn.fn.isString()**
+
+  __Returns true if the given argument is a string;.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+bbn.fn.isString('bbn');
+```
+
+- <a name="isArray"></a>**bbn.fn.isArray()**
 
   __Returns true if the given argument is array.__
 
@@ -134,12 +88,7 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 bbn.fn.isArray([5,2,6]);
 ```
 
-- **bbn.fn.isBlob()**
-
-
-  __Returns__ _Boolean_ 
-
-- **bbn.fn.isDate()**
+- <a name="isDate"></a>**bbn.fn.isDate()**
 
   __Returns true if the given argument is a date object.__
 
@@ -159,65 +108,7 @@ bbn.fn.isDate(date);
 bbn.fn.isDate('16/04/2020');
 ```
 
-- **bbn.fn.isDom()**
-
-  __Returns true if the given argument is a dom element;.__
-
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isDom('<div>myDiv</div>');
-```
-
-- **bbn.fn.isMobile()**
-
-  __Returns true if the current browser is on a mobile device.__
-
-
-  __Returns__ _Boolean_ 
-
-
-``` javascript
-//false
-bbn.fn.isMobile();
-```
-
-- **bbn.fn.isNull()**
-
-  __Returns true if the given argument is null;.__
-
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isNull(myData);
-```
-
-- **bbn.fn.isNumber()**
-
-  __Returns true if the given argument is a number.__
-
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isNumber(5);
-```
-
-
-```javascript
-//true
-bbn.fn.isNumber(0.5);
-```
-
-- **bbn.fn.isObject()**
+- <a name="isObject"></a>**bbn.fn.isObject()**
 
   __Returns true if the given argument is an object.__
 
@@ -236,22 +127,9 @@ bbn.fn.isObject({name: 'cami', age: 7});
 bbn.fn.isObject([{name: 'cami', age: 7}]);
 ```
 
-- **bbn.fn.isPercent()**
+- <a name="isNull"></a>**bbn.fn.isNull()**
 
-  __Returns true if the given argument is a percentage.__
-
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isPercent('5%');
-```
-
-- **bbn.fn.isString()**
-
-  __Returns true if the given argument is a string;.__
+  __Returns true if the given argument is null;.__
 
 
   __Returns__ _Boolean_ 
@@ -259,10 +137,10 @@ bbn.fn.isPercent('5%');
 
 ```javascript
 //true
-bbn.fn.isString('bbn');
+bbn.fn.isNull(myData);
 ```
 
-- **bbn.fn.isValue()**
+- <a name="isValue"></a>**bbn.fn.isValue()**
 
   __Returns true if the given argument is not null or type object or array.__
 
@@ -287,7 +165,20 @@ bbn.fn.isValue(6);
 bbn.fn.isValue([80,10,22]);
 ```
 
-- **bbn.fn.isVue()**
+- <a name="isDom"></a>**bbn.fn.isDom()**
+
+  __Returns true if the given argument is a dom element;.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+bbn.fn.isDom('<div>myDiv</div>');
+```
+
+- <a name="isVue"></a>**bbn.fn.isVue()**
 
   __Returns true if the given argumen is a VueJS object.__
 
@@ -303,7 +194,34 @@ let myObj =  new Vue({
 bbn.fn.isVue(myObj);
 ```
 
-- **bbn.fn.log(args)**
+- <a name="isPercent"></a>**bbn.fn.isPercent()**
+
+  __Returns true if the given argument is a percentage.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+bbn.fn.isPercent('5%');
+```
+
+- <a name="timestamp"></a>**bbn.fn.timestamp()**
+
+  __Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().__
+
+  * ____ _Number_ 
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//1587031047918
+bbn.fn.timestamp();
+```
+
+- <a name="log"></a>**bbn.fn.log(args)**
 
   __Logs the given arguments in the browser's console.__
 
@@ -317,7 +235,41 @@ bbn.fn.isVue(myObj);
 bbn.fn.log('hello');
 ```
 
-- **bbn.fn.setCookie(name, value, days)**
+- <a name="warning"></a>**bbn.fn.warning(args)**
+
+  __Logs the given argument in the browser's console highlighting it with a yellow background and red color.__
+
+  * __args__ _...any_ 
+
+  __Returns__ _undefined_ 
+
+
+```javascript
+bbn.fn.warning('whatever you want to log as a warning');
+```
+
+- <a name="happy"></a>**bbn.fn.happy(args)**
+
+  __Logs the given argument in the browser's console highlighting it with a green background.__
+
+  * __args__ _...any_ 
+
+  __Returns__ _undefined_ 
+
+
+``` javascript
+bbn.fn.happy('I want to log the success of my function');
+```
+
+- <a name="info"></a>**bbn.fn.info(args)**
+
+  __Logs the given argument in the browser's console highlighting it with a blue background.__
+
+  * __args__ _...any_ 
+
+  __Returns__ _*_ 
+
+- <a name="setCookie"></a>**bbn.fn.setCookie(name, value, days)**
 
   __Creates a cookie and assigns it to document.cookie.__
 
@@ -332,14 +284,107 @@ bbn.fn.log('hello');
 bbn.fn.setCookie('lang', 'en', 2);
 ```
 
-- **bbn.fn.startChrono()**
+- <a name="getCookie"></a>**bbn.fn.getCookie(name)**
+
+  __If it exsists returns the cookie corresponding to the given name.__
+
+  * __name__ _String_ 
+
+  __Returns__ _undefined_ 
+
+
+``` javascript
+// 'en'
+bbn.fn.getCookie('lang');
+```
+
+- <a name="eraseCookie"></a>**bbn.fn.eraseCookie()**
+
+  __Erase the cookie corresponding to the given name;.__
+
+
+  __Returns__ _*_ 
+
+
+``` javascript
+// 'en'
+bbn.fn.erase('lang');
+```
+
+- <a name="getEventData"></a>**bbn.fn.getEventData()**
+
+  __Returns a promise having the event's data as argument.__
+
+
+  __Returns__ _Promise_ 
+
+
+``` javascript
+let type = e.type;
+  bbn.fn.getEventData(e).then((data) => {
+    bbn.fn.log("DATA FROM " + type, data);
+  });
+```
+
+- <a name="copy"></a>**bbn.fn.copy(st)**
+
+  __Copies to the clipboard the value of the given string.__
+
+  * __st__ _String_ The string to copy.
+
+  __Returns__ _undefined_ 
+
+- <a name="imageToCanvas"></a>**bbn.fn.imageToCanvas(img)**
+
+  __Draws the given html image nto a canvas.__
+
+  * __img__ _HTMLElement_ 
+
+  __Returns__ _undefined_ 
+
+
+``` javascript
+//<canvas width="60" height="32"></canvas>
+bbn.fn.imageToCanvas('<img src="path/myImage.png">');
+```
+
+- <a name="canvasToImage"></a>**bbn.fn.canvasToImage(canvas)**
+
+  __Returns a canvas in a HTML element img.__
+
+  * __canvas__ _canvas_ 
+
+  __Returns__ _HTMLElement_ 
+
+- <a name="imgToBase64"></a>**bbn.fn.imgToBase64(img)**
+
+  __Returns the tag for the image in base64.__
+
+  * __img__ _HTMLElement_ 
+
+  __Returns__ _*_ 
+
+- <a name="formatBytes"></a>**bbn.fn.formatBytes()**
+
+  __Formats the value given in bytes.__
+
+
+  __Returns__ _String_ 
+
+
+//"52.23 MB"
+``` javascript
+bbn.fn.formatBytes(54764654);
+```
+
+- <a name="startChrono"></a>**bbn.fn.startChrono()**
 
   __Starts a timer and gives it a name.__
 
 
   __Returns__ _undefined_ 
 
-- **bbn.fn.stopChrono(name)**
+- <a name="stopChrono"></a>**bbn.fn.stopChrono(name)**
 
   * __name__ _String_ 
 
@@ -351,29 +396,15 @@ bbn.fn.setCookie('lang', 'en', 2);
 bbn.fn.stopChrono('myChrono');
 ```
 
-- **bbn.fn.timestamp()**
+- <a name="isMobile"></a>**bbn.fn.isMobile()**
 
-  __Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().__
+  __Returns true if the current browser is on a mobile device.__
 
-  * ____ _Number_ 
 
   __Returns__ _Boolean_ 
 
 
-```javascript
-//1587031047918
-bbn.fn.timestamp();
-```
-
-- **bbn.fn.warning(args)**
-
-  __Logs the given argument in the browser's console highlighting it with a yellow background and red color.__
-
-  * __args__ _...any_ 
-
-  __Returns__ _undefined_ 
-
-
-```javascript
-bbn.fn.warning('whatever you want to log as a warning');
+``` javascript
+//false
+bbn.fn.isMobile();
 ```

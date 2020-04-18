@@ -14,7 +14,7 @@
 
   Object.assign(bbn.fn, {
     /**
-     * Return an array of objects sorted in ascending or descending order according to the property we give as the second argument.
+     * Returns an array of objects sorted in ascending or descending order according to the property we give as the second argument.
      * @method   order
      * @global
      *
@@ -650,7 +650,7 @@
     },
 
     /**
-     * Return a filtered array, based on the function given as the second argument.
+     * Returns a filtered array, based on the function given as the second argument.
      * @method   filter
      * @global
      *
@@ -1103,7 +1103,7 @@
     },
 
     /**
-     * Return a random item from the given array.
+     * Returns a random item from the given array.
      * @method   pickValue
      * @global
      *
@@ -1218,41 +1218,6 @@
 
       }
       return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
-    },
-
-    /**
-     * @method   transform
-     * @todo     Add method description for transform
-     * @global   
-     * @memberof bbn.fn
-     * @param    {*} oldO 
-     * @param    {*} newO 
-     * @returns  {*} 
-     */
-    transform(oldO, newO){
-      if (typeof oldO !== typeof newO){
-        oldO = newO;
-        return oldO;
-      }
-      else{
-        let diff = bbn.fn.diffObj(oldO, newO);
-        let isArray = bbn.fn.isArray(oldO);
-        bbn.fn.iterate(diff, (a, k) => {
-          if (bbn.fn.isObject(a)){
-            let keys = Object.keys(a);
-            if ((keys.length === 3) && keys.includes('type') && keys.includes('type') && keys.includes('data')){
-              switch ( a.type ){
-                case 'updated':
-                  break;
-                case 'deleted':
-                  break;
-                case 'inserted':
-                  break;
-              }
-            }
-          }
-        })
-      }
     },
 
     /**

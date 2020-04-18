@@ -129,7 +129,7 @@
     },
 
     /**
-     * Return a string escaped.
+     * Returns a string escaped.
      *
      * To escape the string by reducing the ambiguity between quotation marks and other characters used.
      *
@@ -216,7 +216,7 @@
     },
 
     /**
-     * Return the string passed as an argument in camelize mode.
+     * Returns the string passed as an argument in camelize mode.
      *
      * A string can be separated for example by a underscore, a dash or space;
      * so the camelize function will automatically convert them to a single string.
@@ -330,7 +330,7 @@
     },
 
     /**
-     * Return a random String with random lenght,
+     * Returns a random String with random lenght,
      *
      * Generates a random string from the length of the random number,
      * taken from a range of numbers providing either only the minimum or also the maximum as arguments.
@@ -738,7 +738,7 @@
     },
 
     /**
-     * Return the string passed as an argument without accents.
+     * Returns the string passed as an argument without accents.
      *
      * @method   removeAccents
      * @global
@@ -825,7 +825,7 @@
     },
 
     /**
-     * Return the path of the folder containing the last hierarchical element of the path.
+     * Returns the path of the folder containing the last hierarchical element of the path.
      *
      * @method   dirName
      * @global
@@ -849,24 +849,40 @@
     },
 
     /**
-     * Return the name of the element indicated by path given to it as an argument.
+     * Returns the name of the element indicated by path given to it as an argument.
      *
      * @method   baseName
      * @global
      *
      * @example
      * ```javascript
-     * //"file"
-     * bbn.fn.baseName('folder/other_folder/file');
+     * // "file.png"
+     * bbn.fn.baseName('folder/other_folder/file.png');
+     * ```
+     * @example
+     * ```javascript
+     * // "file"
+     * bbn.fn.baseName('folder/other_folder/file.png', '.png');
      * ```
      *
      * @memberof bbn.fn
-     * @param    {String} path
-     * @returns  {String} name of the element in path
+     * @param    {String} path   The path from which the basename must be extracted
+     * @param    {String} suffix An optional suffix that will be removed from the basename
+     * @returns  {String} The basename of path
      */
-    baseName(path){
-      var bits = path.split("/");
-      return bits.pop();
+    baseName(path, suffix){
+      if (path && bbn.fn.isString(path)) {
+        let bits = path.split("/");
+        let res = bits.pop();
+        if (!suffix) {
+          return res;
+        }
+        let len = suffix.length;
+        if (res && res.substr(-len) === suffix) {
+          return res.substr(0, res.length - len);
+        }
+      }
+      return '';
     },
 
     /**
@@ -912,7 +928,7 @@
     },
 
     /**
-     * Return the value of size for element html
+     * Returns the value of size for element html
      *
      * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
      *
