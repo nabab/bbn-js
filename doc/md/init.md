@@ -2,7 +2,7 @@
 
 ## Init function
 
- - [init](#init)
+[init](#init)
 
 
 - <a name="init"></a>**bbn.fn.init(cfg)**

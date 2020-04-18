@@ -2,14 +2,14 @@
 
 ## Form related functions.
 
- - [add_inputs](#add_inputs)
- - [cancel](#cancel)
- - [fieldValue](#fieldValue)
- - [formChanges](#formChanges)
- - [formdata](#formdata)
- - [objectToFormData](#objectToFormData)
- - [reset](#reset)
- - [submit](#submit)
+[add_inputs](#add_inputs)
+[cancel](#cancel)
+[fieldValue](#fieldValue)
+[formChanges](#formChanges)
+[formdata](#formdata)
+[objectToFormData](#objectToFormData)
+[reset](#reset)
+[submit](#submit)
 
 
 - <a name="add_inputs"></a>**bbn.fn.add_inputs(form, params, prefix)**

@@ -2,9 +2,9 @@
 
 ## Styling functions.
 
- - [addColors](#addColors)
- - [center](#center)
- - [colorToHex](#colorToHex)
+[addColors](#addColors)
+[center](#center)
+[colorToHex](#colorToHex)
 
 
 - <a name="center"></a>**bbn.fn.center(ele)**

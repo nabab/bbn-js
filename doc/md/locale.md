@@ -2,13 +2,13 @@
 
 ## Locale functions.
 
- - [date](#date)
- - [dateSQL](#dateSQL)
- - [daysInMonth](#daysInMonth)
- - [fdate](#fdate)
- - [fdatetime](#fdatetime)
- - [ftime](#ftime)
- - [money](#money)
+[date](#date)
+[dateSQL](#dateSQL)
+[daysInMonth](#daysInMonth)
+[fdate](#fdate)
+[fdatetime](#fdatetime)
+[ftime](#ftime)
+[money](#money)
 
 
 - <a name="money"></a>**bbn.fn.money(val, kilo, currency, novalue, decimal, thousands, precision)**

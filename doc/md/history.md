@@ -2,9 +2,9 @@
 
 ## History related functions.
 
- - [addHistoryScript](#addHistoryScript)
- - [history](#history)
- - [replaceHistory](#replaceHistory)
+[addHistoryScript](#addHistoryScript)
+[history](#history)
+[replaceHistory](#replaceHistory)
 
 
 - <a name="history"></a>**bbn.fn.history()**
