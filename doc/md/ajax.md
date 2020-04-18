@@ -7,19 +7,19 @@ i.e. a single page application where callback functions are already defined
 and bbn has been initiated through bbn.fn.init.
 
 
-[abort](#abort)
-[ajax](#ajax)
-[callback](#callback)
-[download](#download)
-[downloadContent](#downloadContent)
-[getIdURL](#getIdURL)
-[getLoader](#getLoader)
-[link](#link)
-[post](#post)
-[setNavigationVars](#setNavigationVars)
-[treat_vars](#treat_vars)
-[upload](#upload)
-[window](#window)
+[abort](#abort)  
+[ajax](#ajax)  
+[callback](#callback)  
+[download](#download)  
+[downloadContent](#downloadContent)  
+[getIdURL](#getIdURL)  
+[getLoader](#getLoader)  
+[link](#link)  
+[post](#post)  
+[setNavigationVars](#setNavigationVars)  
+[treat_vars](#treat_vars)  
+[upload](#upload)  
+[window](#window)  
 
 
 - <a name="ajax"></a>**bbn.fn.ajax(url, datatype, data, success, failure, abort)**

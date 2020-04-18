@@ -2,12 +2,12 @@
 
 ## Sizing functions.
 
-[adjustHeight](#adjustHeight)
-[adjustSize](#adjustSize)
-[adjustWidth](#adjustWidth)
-[calculateHeight](#calculateHeight)
-[getScrollBarSize](#getScrollBarSize)
-[toggleFullScreen](#toggleFullScreen)
+[adjustHeight](#adjustHeight)  
+[adjustSize](#adjustSize)  
+[adjustWidth](#adjustWidth)  
+[calculateHeight](#calculateHeight)  
+[getScrollBarSize](#getScrollBarSize)  
+[toggleFullScreen](#toggleFullScreen)  
 
 
 - <a name="toggleFullScreen"></a>**bbn.fn.toggleFullScreen()**
