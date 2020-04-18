@@ -211,8 +211,8 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
   This function is internally used by all the filtering functions; the available operators are:
-*===*, *=*, *equal*, *eq*, *is* stand for **===**
-*!==*, *notequal*, *neq*, *isnot* stand for **!==*
+  - *===*, *=*, *equal*, *eq*, *is* stand for **===**
+  - *!==*, *notequal*, *neq*, *isnot* stand for **!==*
   - *!=*, *different* stand for **!=**
   - *contains*, *contain*, *icontains*, *icontain*
   - *starts*, *start*
