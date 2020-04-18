@@ -75,7 +75,7 @@
     },
 
     /**
-     * Compares the property in the given objects and returns -1, 1, or 0 depending on their difference.
+     * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
      *
      * @method   compareValues
      * @global
@@ -203,8 +203,8 @@
      *   {movie: "Back to the future", year: 1985},
      *   {movie: "Barry Lindon", year: 1976}
      * ], {
-     *   year: 'desc',
-     *   movie: 'asc
+     *   year: "desc",
+     *   movie: "asc"
      * });
      * // [
      * //   {movie: "Donnie Darko", year: 2001},
@@ -245,24 +245,21 @@
     /**
      * Moves an element of an array to a different position.
      *
-     * All of this is possible by giving the array you want to reorder as the first argument,
-     * the node you want to move and the third is where you want to position it.
+     * The same array is returned, with its elements reordered according to the executed movement.
      *
      * @method   move
      * @global
-     *
+     * @todo     Finish doc
      * @example
      * ```javascript
      * //['field1', 'field3', 'field2', 'field4']
      * bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
      * ```
-     *
      *  @example
      * ```javascript
      * //['field4', 'field1', 'field2', 'field3"]
      * bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
      * ```
-     *
      * @memberof bbn.fn
      * @param    {Array}  arr
      * @param    {Number} fromIndex
@@ -281,36 +278,49 @@
     },
 
     /**
-     * Performs a comparison between two values ​​passing as the third argument the type of comparison to be performed,
-     * using the terms.
+     * Performs a comparison between two values based on the given operator and returns a boolean.
+     * 
+     * This function is internally used by all the filtering functions; the available operators are:
+     * - *===*, *=*, *equal*, *eq*, *is* stand for **===**
+     * - *!==*, *notequal*, *neq*, *isnot* stand for **!==*
+     * - *!=*, *different* stand for **!=**
+     * - *contains*, *contain*, *icontains*, *icontain*
+     * - *starts*, *start*
+     * - *startswith*, *startsi*, *starti*, *istarts*, *istart*
+     * - *endswith*, *endsi*, *endi*, *iends*, *iend*
+     * - *like*
+     * - *gt*, *>* stand for **>**
+     * - *lt*, *<* stand for **<**
+     * - *gte*, *>=* stand for **>=**
+     * - *lte*, *<=* stand for **<=**
+     * - *isnull* stands for **=== null**
+     * - *isnotnull* stands for **!== null**
+     * - *isempty* stands for **=== ''**
+     * - *isnotempty* stands for **!== ''**
+     * The defaut operator (if none is given) is **==**.
      *
      * @method   compare
      * @global
-     *
      * @example
      * ```javascript
      * //false
      * bbn.fn.compare('field1', 'field2', 'eq');
      * ```
-     *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.compare('field1', 'field2', 'neq');
+     * // true
      * ```
-     *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.compare(3, 1, '>');
+     * // true
      * ```
-     *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.compare(123, 3, 'contain');
+     * // true
      * ```
-     *
      * @memberof bbn.fn
      * @param    {String|Number} v1
      * @param    {String|Number} v2
@@ -328,7 +338,7 @@
         case "!==":
         case "notequal":
         case "neq":
-        case "isnotequal":
+        case "isnot":
           return v1 !== v2;
         case "!=":
         case "different":
@@ -539,100 +549,6 @@
     },
 
     /**
-     * Apply the conditions defined in the filter by querying the specified data object.
-     *
-     * @method   compareConditions
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
-     *  conditions: [{field: 'field1', operator: '<=', value: 8}],
-     *  logic:'AND'
-     * });
-     * ```
-     *
-     * @memberof bbn.fn
-     * @param    {Object} data
-     * @param    {Object} filter
-     * @returns
-     */
-    compareConditions(data, filter){
-      if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
-        throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
-      }
-      let ok = filter.logic === 'AND' ? true : false;
-      bbn.fn.iterate(filter.conditions, (a) => {
-        let compare;
-        if ( a.conditions && a.filter && bbn.fn.isArray(a.conditions) ){
-          compare = bbn.fn.compareConditions(data, a);
-        }
-        else{
-          compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
-        }
-        if ( compare ){
-          if ( filter.logic === 'OR' ){
-            ok = true;
-            return false;
-          }
-        }
-        else if ( filter.logic === 'AND' ){
-          ok = false;
-          return false;
-        }
-      });
-      return ok;
-    },
-
-    /**
-     * Converts the given object 'filter' to a valid format of condition.
-     * 
-     * The resulting format will comply with bbn databases functions and complex filters applied to
-     * bbn-vue list components.
-     *
-     * @method   filterToConditions
-     * @global
-     * @example
-     * ```javascript
-     * bbn.fn.filterToConditions({value:3},'>');
-     * //{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
-     * ```
-     *
-     * @memberof bbn.fn
-     * @param    {Object} filter
-     * @param    {String} mode
-     * @returns  {Object}
-     */
-    filterToConditions(filter, mode){
-      if ( !bbn.fn.isObject(filter) ){
-        throw new Error("Error in bbn.fn.filterToCondition: filter must be an object");
-      }
-      if ( !filter.conditions || !bbn.fn.isArray(filter.conditions) ){
-        let tmp = [];
-        bbn.fn.iterate(filter, (a, n) => {
-          if ( bbn.fn.isObject(a) && (typeof a.conditions === 'object') ){
-            tmp.push(bbn.fn.filterToConditions(a));
-          }
-          else{
-            tmp.push({
-              field: n,
-              operator: mode || '=',
-              value: a
-            });
-          }
-        });
-        filter = {
-          conditions: tmp
-        };
-      }
-      if ( !filter.logic ){
-        filter.logic = 'AND';
-      }
-      return filter;
-    },
-
-    /**
      * Returns a filtered array, based on the function given as the second argument.
      * @method   filter
      * @global
@@ -729,24 +645,21 @@
      *
      * @method   get_field
      * @global
-     *
      * @example
      * ```javascript
      * //2
      * bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
      * ```
-     *
      * @example
      * ```javascript
      * //4
      * bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
      * ```
-     *
      * @memberof bbn.fn
-     * @param    {Array}           arr
-     * @param    {String|Function} prop
-     * @param    {Number|String}   val
-     * @param    {String}          prop2
+     * @param    {Array}           arr   The source array
+     * @param    {String|Object}   prop  The property to check against or a filter object.
+     * @param    {*}               val   The value of the property to check (if prop is a string)
+     * @param    {String}          field The property from which the value is returned
      * @returns
      */
     get_field(arr, prop, val, prop2){
@@ -759,54 +672,29 @@
 
     /**
      * Returns the number of properties contained in the object.
-     *
-     * @method   countProperties
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //2
-     * bbn.fn.countProperties({field:1, field2: 2});
-     * ```
-     *
-     * @memberof bbn.fn
-     * @param    {Object} obj
-     * @returns
-     */
-    countProperties(obj){
-      if ( (typeof(obj)).toLowerCase() === 'object' ){
-        var i = 0;
-        for ( var n in obj ){
-          i++;
-        }
-        return i;
-      }
-      return false;
-    },
-
-    /**
-     * Returns the number of properties contained in the object.
+     * 
+     * Only takes into account the own properties - not the inherited ones.
      *
      * @method   numProperties
      * @global
-     *
      * @example
      * ```javascript
      * //2
      * bbn.fn.numProperties({field: 1, field2: 2});
      * ```
-     *
      * @memberof bbn.fn
-     * @param    {Object}
-     * @returns  {Number}
+     * @param    {Object} obj The object to analyze
+     * @returns  {Number} The number of properties
      */
-    numProperties(obj){
-      if ( typeof(obj) !== 'object' ){
-        return false;
+    numProperties(obj) {
+      let i = 0;
+      if (!bbn.fn.isObject(obj) || !bbn.fn.isFunction(obj.hasOwnProperty)) {
+        return i;
       }
-      var i = 0;
-      for ( var n in obj ){
-        i++;
+      for ( let n in obj ){
+        if (obj.hasOwnProperty(n)) {
+          i++;
+        }
       }
       return i;
     },
@@ -886,6 +774,100 @@
         return ok;
       }
       return false;
+    },
+
+    /**
+     * Apply the conditions defined in the filter by querying the specified data object.
+     *
+     * @method   compareConditions
+     * @global
+     *
+     * @example
+     * ```javascript
+     * //true
+     * bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
+     *  conditions: [{field: 'field1', operator: '<=', value: 8}],
+     *  logic:'AND'
+     * });
+     * ```
+     *
+     * @memberof bbn.fn
+     * @param    {Object} data
+     * @param    {Object} filter
+     * @returns
+     */
+    compareConditions(data, filter){
+      if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
+        throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
+      }
+      let ok = filter.logic === 'AND' ? true : false;
+      bbn.fn.iterate(filter.conditions, (a) => {
+        let compare;
+        if ( a.conditions && a.filter && bbn.fn.isArray(a.conditions) ){
+          compare = bbn.fn.compareConditions(data, a);
+        }
+        else{
+          compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
+        }
+        if ( compare ){
+          if ( filter.logic === 'OR' ){
+            ok = true;
+            return false;
+          }
+        }
+        else if ( filter.logic === 'AND' ){
+          ok = false;
+          return false;
+        }
+      });
+      return ok;
+    },
+
+    /**
+     * Converts the given object 'filter' to a valid format of condition.
+     * 
+     * The resulting format will comply with bbn databases functions and complex filters applied to
+     * bbn-vue list components.
+     *
+     * @method   filterToConditions
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.filterToConditions({value:3},'>');
+     * //{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
+     * ```
+     *
+     * @memberof bbn.fn
+     * @param    {Object} filter
+     * @param    {String} mode
+     * @returns  {Object}
+     */
+    filterToConditions(filter, mode){
+      if ( !bbn.fn.isObject(filter) ){
+        throw new Error("Error in bbn.fn.filterToCondition: filter must be an object");
+      }
+      if ( !filter.conditions || !bbn.fn.isArray(filter.conditions) ){
+        let tmp = [];
+        bbn.fn.iterate(filter, (a, n) => {
+          if ( bbn.fn.isObject(a) && (typeof a.conditions === 'object') ){
+            tmp.push(bbn.fn.filterToConditions(a));
+          }
+          else{
+            tmp.push({
+              field: n,
+              operator: mode || '=',
+              value: a
+            });
+          }
+        });
+        filter = {
+          conditions: tmp
+        };
+      }
+      if ( !filter.logic ){
+        filter.logic = 'AND';
+      }
+      return filter;
     },
 
     /**
