@@ -233,7 +233,7 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   - *isnull* stands for **=== null**
   - *isnotnull* stands for **!== null**
   - *isempty* stands for **=== ''**
-  - *isnotempty* stands for **!== ''**  
+  - *isnotempty* stands for **!== ''**
 The defaut operator (if none is given) is **==**.
 *.
 
