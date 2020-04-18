@@ -297,7 +297,7 @@
      *   1. *isnotnull*, which stands for **!== null**
      *   1. *isempty*, which stands for **=== ''**
      *   1. *isnotempty*, which stands for **!== ''**  
-     * The defaut operator (if none is given) is == .
+     *  The defaut operator (if none is given) is == .
      *
      * @method   compare
      * @global
