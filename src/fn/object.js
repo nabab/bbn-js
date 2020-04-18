@@ -297,18 +297,18 @@
      *   1. *isnotnull*, which stands for **!== null**
      *   1. *isempty*, which stands for **=== ''**
      *   1. *isnotempty*, which stands for **!== ''**  
-     * The defaut operator (if none is given) is ** == ** .
+     * The defaut operator (if none is given) is **\==\** .
      *
      * @method   compare
      * @global
      * @example
      * ```javascript
-     * bbn.fn.compare('field1', 'field2', 'eq');
+     * bbn.fn.compare('foo', 'bar', 'eq');
      * // false
      * ```
      * @example
      * ```javascript
-     * bbn.fn.compare('field1', 'field2', 'neq');
+     * bbn.fn.compare('foo', 'bar', 'neq');
      * // true
      * ```
      * @example
@@ -318,14 +318,14 @@
      * ```
      * @example
      * ```javascript
-     * bbn.fn.compare(123, 3, 'contain');
+     * bbn.fn.compare("JavaScript", "script", 'contain');
      * // true
      * ```
      * @memberof bbn.fn
      * @param    {String|Number} v1
      * @param    {String|Number} v2
      * @param    {String}        mode
-     * @returns  {Boolean}
+     * @returns  {Boolean}       True if the values' comparisaon comply with the operator, false otherwise
      */
     compare(v1, v2, mode){
       switch ( mode ){

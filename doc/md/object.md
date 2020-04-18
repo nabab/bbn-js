@@ -234,24 +234,24 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   1. *isnotnull*, which stands for **!== null**
   1. *isempty*, which stands for **=== ''**
   1. *isnotempty*, which stands for **!== ''**  
-The defaut operator (if none is given) is ** == ** .
+The defaut operator (if none is given) is **\==\** .
 *.
 
   * __v1__ _String|Number_ 
   * __v2__ _String|Number_ 
   * __mode__ _String_ 
 
-  __Returns__ _Boolean_ 
+  __Returns__ _Boolean_ True if the values' comparisaon comply with the operator, false otherwise
 
 
 ```javascript
-bbn.fn.compare('field1', 'field2', 'eq');
+bbn.fn.compare('foo', 'bar', 'eq');
 // false
 ```
 
 
 ```javascript
-bbn.fn.compare('field1', 'field2', 'neq');
+bbn.fn.compare('foo', 'bar', 'neq');
 // true
 ```
 
@@ -263,7 +263,7 @@ bbn.fn.compare(3, 1, '>');
 
 
 ```javascript
-bbn.fn.compare(123, 3, 'contain');
+bbn.fn.compare("JavaScript", "script", 'contain');
 // true
 ```
 
@@ -770,4 +770,3 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 //["va...", 2, "va...", 4, 5]
 bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
-*
