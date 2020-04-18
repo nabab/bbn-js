@@ -217,24 +217,24 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
 
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
-  This function is internally used by all the filtering functions; the available operators are:  
-  1. *===*, *=*, *equal*, *eq*, *is* stand for **===**  
-  1. *!==*, *notequal*, *neq*, *isnot* stand for **!==**
-  1. *!=*, *different* stand for **!=**
+  It is internally used by all the filtering functions; the available operators are:  
+  1. *===*, *=*, *equal*, *eq*, *is*, which stand for **===**  
+  1. *!==*, *notequal*, *neq*, *isnot*, which stand for **!==**
+  1. *!=*, *different*, which stand for **!=**
   1. *contains*, *contain*, *icontains*, *icontain*
   1. *starts*, *start*
   1. *startswith*, *startsi*, *starti*, *istarts*, *istart*
   1. *endswith*, *endsi*, *endi*, *iends*, *iend*
   1. *like*
-  1. *gt*, *>* stand for **>**
-  1. *lt*, *<* stand for **<**
-  1. *gte*, *>=* stand for **>=**
-  1. *lte*, *<=* stand for **<=**
-  1. *isnull* stands for **=== null**
-  1. *isnotnull* stands for **!== null**
-  1. *isempty* stands for **=== ''**
-  1. *isnotempty* stands for **!== ''**  
-The defaut operator (if none is given) is **==**.
+  1. *gt*, *>*, which stand for **>**
+  1. *lt*, *<*, which stand for **<**
+  1. *gte*, *>=*, which stand for **>=**
+  1. *lte*, *<=*, which stand for **<=**
+  1. *isnull*, which stands for **=== null**
+  1. *isnotnull*, which stands for **!== null**
+  1. *isempty*, which stands for **=== ''**
+  1. *isnotempty*, which stands for **!== ''**  
+The defaut operator (if none is given) is ** == ** .
 *.
 
   * __v1__ _String|Number_ 
