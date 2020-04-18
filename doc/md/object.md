@@ -213,20 +213,20 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   This function is internally used by all the filtering functions; the available operators are:
 *===*, *=*, *equal*, *eq*, *is* stand for **===**
 *!==*, *notequal*, *neq*, *isnot* stand for **!==*
-- *!=*, *different* stand for **!=**
-- *contains*, *contain*, *icontains*, *icontain*
-- *starts*, *start*
-- *startswith*, *startsi*, *starti*, *istarts*, *istart*
-- *endswith*, *endsi*, *endi*, *iends*, *iend*
-- *like*
-- *gt*, *>* stand for **>**
-- *lt*, *<* stand for **<**
-- *gte*, *>=* stand for **>=**
-- *lte*, *<=* stand for **<=**
-- *isnull* stands for **=== null**
-- *isnotnull* stands for **!== null**
-- *isempty* stands for **=== ''**
-- *isnotempty* stands for **!== ''**
+  - *!=*, *different* stand for **!=**
+  - *contains*, *contain*, *icontains*, *icontain*
+  - *starts*, *start*
+  - *startswith*, *startsi*, *starti*, *istarts*, *istart*
+  - *endswith*, *endsi*, *endi*, *iends*, *iend*
+  - *like*
+  - *gt*, *>* stand for **>**
+  - *lt*, *<* stand for **<**
+  - *gte*, *>=* stand for **>=**
+  - *lte*, *<=* stand for **<=**
+  - *isnull* stands for **=== null**
+  - *isnotnull* stands for **!== null**
+  - *isempty* stands for **=== ''**
+  - *isnotempty* stands for **!== ''**
 The defaut operator (if none is given) is **==**.
 
   * __v1__ _String|Number_ 
