@@ -233,7 +233,8 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   - *isnull* stands for **=== null**
   - *isnotnull* stands for **!== null**
   - *isempty* stands for **=== ''**
-  - *isnotempty* stands for **!== ''**
+  - *isnotempty* stands for **!== ''**  
+*
 The defaut operator (if none is given) is **==**.
 *.
 
@@ -770,4 +771,3 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 //["va...", 2, "va...", 4, 5]
 bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
-*
