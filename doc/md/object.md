@@ -9,7 +9,6 @@
 [compareConditions](#compareConditions)  
 [compareValues](#compareValues)  
 [count](#count)  
-[countProperties](#countProperties)  
 [diffObj](#diffObj)  
 [each](#each)  
 [extend](#extend)  
@@ -86,7 +85,7 @@ bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
 
 - <a name="compareValues"></a>**bbn.fn.compareValues(a, b, prop, dir)** [Back to top](#bbn_top)
 
-  __Compares the property in the given objects and returns -1, 1, or 0 depending on their difference.__
+  __Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.__
 
   * __a__ _Object_ First object for comparison
   * __b__ _Object_ Second object for comparison
@@ -171,8 +170,8 @@ bbn.fn.multiorder([
   {movie: "Back to the future", year: 1985},
   {movie: "Barry Lindon", year: 1976}
 ], {
-  year: 'desc',
-  movie: 'asc
+  year: "desc",
+  movie: "asc"
 });
 // [
 //   {movie: "Donnie Darko", year: 2001},
@@ -188,8 +187,7 @@ bbn.fn.multiorder([
 
   __Moves an element of an array to a different position.__
 
-  All of this is possible by giving the array you want to reorder as the first argument,
-the node you want to move and the third is where you want to position it.
+  The same array is returned, with its elements reordered according to the executed movement.
 
   * __arr__ _Array_ 
   * __fromIndex__ _Number_ 
@@ -202,19 +200,34 @@ the node you want to move and the third is where you want to position it.
 //['field1', 'field3', 'field2', 'field4']
 bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
 ```
-
  @example
 ```javascript
-//['field4', 'field1', 'field2', 'field3"]
 bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
+// ['field4', 'field1', 'field2', 'field3"]
 ```
-
 
 - <a name="compare"></a>**bbn.fn.compare(v1, v2, mode)** [Back to top](#bbn_top)
 
-  __Performs a comparison between two values ​​passing as the third argument the type of comparison to be performed,.__
+  __Performs a comparison between two values based on the given operator and returns a boolean.__
 
-  using the terms.
+  This function is internally used by all the filtering functions; the available operators are:
+- *===*, *=*, *equal*, *eq*, *is* stand for **===**
+- *!==*, *notequal*, *neq*, *isnot* stand for **!==*
+- *!=*, *different* stand for **!=**
+- *contains*, *contain*, *icontains*, *icontain*
+- *starts*, *start*
+- *startswith*, *startsi*, *starti*, *istarts*, *istart*
+- *endswith*, *endsi*, *endi*, *iends*, *iend*
+- *like*
+- *gt*, *>* stand for **>**
+- *lt*, *<* stand for **<**
+- *gte*, *>=* stand for **>=**
+- *lte*, *<=* stand for **<=**
+- *isnull* stands for **=== null**
+- *isnotnull* stands for **!== null**
+- *isempty* stands for **=== ''**
+- *isnotempty* stands for **!== ''**
+The defaut operator (if none is given) is **==**.
 
   * __v1__ _String|Number_ 
   * __v2__ _String|Number_ 
@@ -224,31 +237,27 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
 
 
 ```javascript
-//false
 bbn.fn.compare('field1', 'field2', 'eq');
+// false
 ```
 
 
-
 ```javascript
-//true
 bbn.fn.compare('field1', 'field2', 'neq');
+// true
 ```
 
 
-
 ```javascript
-//true
 bbn.fn.compare(3, 1, '>');
+// true
 ```
-
 
 
 ```javascript
-//true
 bbn.fn.compare(123, 3, 'contain');
+// true
 ```
-
 
 - <a name="search"></a>**bbn.fn.search(arr, prop, val, mode)** [Back to top](#bbn_top)
 
@@ -320,44 +329,6 @@ bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => 
 ```
 
 
-- <a name="compareConditions"></a>**bbn.fn.compareConditions(data, filter)** [Back to top](#bbn_top)
-
-  __Apply the conditions defined in the filter by querying the specified data object.__
-
-  * __data__ _Object_ 
-  * __filter__ _Object_ 
-
-  __Returns__ _undefined_ 
-
-
-```javascript
-//true
-bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
- conditions: [{field: 'field1', operator: '<=', value: 8}],
- logic:'AND'
-});
-```
-
-
-- <a name="filterToConditions"></a>**bbn.fn.filterToConditions(filter, mode)** [Back to top](#bbn_top)
-
-  __Converts the given object 'filter' to a valid format of condition.__
-
-  The resulting format will comply with bbn databases functions and complex filters applied to
-bbn-vue list components.
-
-  * __filter__ _Object_ 
-  * __mode__ _String_ 
-
-  __Returns__ _Object_ 
-
-
-```javascript
-bbn.fn.filterToConditions({value:3},'>');
-//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
-```
-
-
 - <a name="filter"></a>**bbn.fn.filter(arr, prop, val, mode)** [Back to top](#bbn_top)
 
   __Returns a filtered array, based on the function given as the second argument.__
@@ -395,17 +366,17 @@ bbn.fn.get_row([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, fiel
 ```
 
 
-- <a name="get_field"></a>**bbn.fn.get_field(arr, prop, val, prop2)** [Back to top](#bbn_top)
+- <a name="get_field"></a>**bbn.fn.get_field(arr, prop, val, field)** [Back to top](#bbn_top)
 
   __Allows to take the value of an object property within an array.__
 
   It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
 defined in the last argument of the function.
 
-  * __arr__ _Array_ 
-  * __prop__ _String|Function_ 
-  * __val__ _Number|String_ 
-  * __prop2__ _String_ 
+  * __arr__ _Array_ The source array
+  * __prop__ _String|Object_ The property to check against or a filter object.
+  * __val__ _*_ The value of the property to check (if prop is a string)
+  * __field__ _String_ The property from which the value is returned
 
   __Returns__ _undefined_ 
 
@@ -416,42 +387,26 @@ bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field
 ```
 
 
-
 ```javascript
 //4
 bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
 ```
 
-
-- <a name="countProperties"></a>**bbn.fn.countProperties(obj)** [Back to top](#bbn_top)
-
-  __Returns the number of properties contained in the object.__
-
-  * __obj__ _Object_ 
-
-  __Returns__ _undefined_ 
-
-
-```javascript
-//2
-bbn.fn.countProperties({field:1, field2: 2});
-```
-
-
-- <a name="numProperties"></a>**bbn.fn.numProperties()** [Back to top](#bbn_top)
+- <a name="numProperties"></a>**bbn.fn.numProperties(obj)** [Back to top](#bbn_top)
 
   __Returns the number of properties contained in the object.__
 
-  * ____ _Object_ 
+  Only takes into account the own properties - not the inherited ones.
 
-  __Returns__ _Number_ 
+  * __obj__ _Object_ The object to analyze
+
+  __Returns__ _Number_ The number of properties
 
 
 ```javascript
 //2
 bbn.fn.numProperties({field: 1, field2: 2});
 ```
-
 
 - <a name="removePrivateProp"></a>**bbn.fn.removePrivateProp(obj, deep)** [Back to top](#bbn_top)
 
@@ -489,6 +444,44 @@ bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 2});
 //false
 bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 3});
 ```
+
+- <a name="compareConditions"></a>**bbn.fn.compareConditions(data, filter)** [Back to top](#bbn_top)
+
+  __Apply the conditions defined in the filter by querying the specified data object.__
+
+  * __data__ _Object_ 
+  * __filter__ _Object_ 
+
+  __Returns__ _undefined_ 
+
+
+```javascript
+//true
+bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
+ conditions: [{field: 'field1', operator: '<=', value: 8}],
+ logic:'AND'
+});
+```
+
+
+- <a name="filterToConditions"></a>**bbn.fn.filterToConditions(filter, mode)** [Back to top](#bbn_top)
+
+  __Converts the given object 'filter' to a valid format of condition.__
+
+  The resulting format will comply with bbn databases functions and complex filters applied to
+bbn-vue list components.
+
+  * __filter__ _Object_ 
+  * __mode__ _String_ 
+
+  __Returns__ _Object_ 
+
+
+```javascript
+bbn.fn.filterToConditions({value:3},'>');
+//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
+```
+
 
 - <a name="extend"></a>**bbn.fn.extend()** [Back to top](#bbn_top)
 
