@@ -14,37 +14,64 @@
 
   Object.assign(bbn.fn, {
     /**
-     * Sorts an array of objects where the order is based on the given property.
+     * Removes duplicate values from an array.
      * 
-     * @method   order
+     * Takes an input array and returns a new array without duplicate values.
+     *
+     * @method   unique
      * @global
      * @example
      * ```javascript
-     * bbn.fn.order([
-     *   {movie: "Brazil", year: 1985},
-     *   {movie: "Donnie Darko", year: 2001},
-     *   {movie: "Barry Lindon", year: 1976}
-     * ], 'year', 'DESC')
-     * // [
-     * //   {movie: "Donnie Darko", year: 2001},
-     * //   {movie: "Brazil", year: 1985},
-     * //   {movie: "Barry Lindon", year: 1976}
-     * // ]
+     * bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+     * // ["a", "b", "c", "d"]
      * ```
      * @memberof bbn.fn
-     * @param    {Array}  arr  The array to order
-     * @param    {String} prop The property on which the order is based
-     * @param    {String} dir  The direction of the order (desc or asc by default)
-     * @returns  {Array} 
+     * @param    {Array} arr 
+     * @returns  {Array}
      */
-    order(arr, prop, dir){
-      if (arr) {
-        dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
-        return arr.sort(function(a, b){
-          return bbn.fn.compareValues(a, b, prop, dir);
-        });
+    unique(arr){
+      return arr.filter(function(el, index, ar) {
+        return index === ar.indexOf(el);
+      });
+    },
+
+    /**
+     * Returns the value of the given property from the given object.
+     * 
+     * Looks for the given property in the given object, accepting dot (.) separator 
+     * for deep property access, and returns its value if found and undefined otherwise.
+     *
+     * @method   getProperty
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: 2}, 'b');
+     * // 2
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+     * // 33
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+     * // undefined
+     * ```
+     * @memberof bbn.fn
+     * @param    {Object} obj
+     * @param    {String} prop
+     * @returns  {*}      The property's value or undefined
+     */
+    getProperty(obj, prop){
+      if ( (typeof obj === 'object') && (typeof prop === 'string')){
+        return prop.split('.').reduce((o, i) => {
+          if (o && (o[i] !== undefined)) {
+            return o[i];
+          }
+          return undefined;
+        }, obj);
       }
-      return arr;
     },
 
     /**
@@ -123,85 +150,71 @@
     },
 
     /**
-     * Removes duplicate values from an array.
+     * Sorts an array of objects based on the given property.
      * 
-     * Takes an input array and returns a new array without duplicate values.
-     *
-     * @method   unique
+     * The resulting array is the same object, the order is based on compareValues function.
+     * 
+     * @method   order
      * @global
      * @example
      * ```javascript
-     * bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
-     * // ["a", "b", "c", "d"]
+     * bbn.fn.order([
+     *   {movie: "Brazil", year: 1985},
+     *   {movie: "Donnie Darko", year: 2001},
+     *   {movie: "Barry Lindon", year: 1976}
+     * ], 'year', 'DESC')
+     * // [
+     * //   {movie: "Donnie Darko", year: 2001},
+     * //   {movie: "Brazil", year: 1985},
+     * //   {movie: "Barry Lindon", year: 1976}
+     * // ]
      * ```
      * @memberof bbn.fn
-     * @param    {Array} arr 
-     * @returns  {Array}
+     * @param    {Array}  arr  The array to order
+     * @param    {String} prop The property on which the order is based
+     * @param    {String} dir  The direction of the order (desc or asc by default)
+     * @returns  {Array} 
      */
-    unique(arr){
-      return arr.filter(function(el, index, ar) {
-        return index === ar.indexOf(el);
-      });
-    },
-
-    /**
-     * Returns the value of the given property from the given object.
-     * 
-     * Looks for the property in the object, accepting dot (.) separator for deep property access,
-     * and returns its value if found and undefined otherwise.
-     *
-     * @method   getProperty
-     * @global
-     * @example
-     * ```javascript
-     * bbn.fn.getProperty({a: 1, b: 2}, 'b');
-     * // 2
-     * ```
-     * @example
-     * ```javascript
-     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
-     * // 33
-     * ```
-     * @example
-     * ```javascript
-     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
-     * // undefined
-     * ```
-     * @memberof bbn.fn
-     * @param    {Object} obj
-     * @param    {String} prop
-     * @returns  {*}      The property's value or undefined
-     */
-    getProperty(obj, prop){
-      if ( (typeof obj === 'object') && (typeof prop === 'string')){
-        return prop.split('.').reduce((o, i) => {
-          if (o && (o[i] !== undefined)) {
-            return o[i];
-          }
-          return undefined;
-        }, obj);
+    order(arr, prop, dir){
+      if (arr) {
+        dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
+        return arr.sort(function(a, b){
+          return bbn.fn.compareValues(a, b, prop, dir);
+        });
       }
+      return arr;
     },
 
     /**
-     * Returns an array of objects sorted in ascending or descending order based on the object we pass as the second parameter,
-     * the latter must be composed with the property of the object to which you want to order in the array and the type of order.
+     * Sorts an array of objects based on a set of properties.
+     * 
+     * The resulting array is the same object, the order is based on compareValues function
+     * applied for each given properties in orders argument.
      *
      * @method   multiorder
      * @global
-     *
      * @example
      * ```javascript
-     * //[{field1: 1, field2: 2}, {field5: 5, field6: 6}, {field3: 3, field4: 4}]
-     * bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'desc'});
+     * bbn.fn.multiorder([
+     *   {movie: "Brazil", year: 1985},
+     *   {movie: "Donnie Darko", year: 2001},
+     *   {movie: "Out of Africa", year: 1985},
+     *   {movie: "Ran", year: 1985},
+     *   {movie: "Back to the future", year: 1985},
+     *   {movie: "Barry Lindon", year: 1976}
+     * ], {
+     *   year: 'desc',
+     *   movie: 'asc
+     * });
+     * // [
+     * //   {movie: "Donnie Darko", year: 2001},
+     * //   {movie: "Back to the future", year: 1985},
+     * //   {movie: "Brazil", year: 1985},
+     * //   {movie: "Out of Africa", year: 1985},
+     * //   {movie: "Ran", year: 1985},
+     * //   {movie: "Barry Lindon", year: 1976}
+     * // ]
      * ```
-     *
-     * @example
-     * ```javascript
-     * //[{field3: 3, field4: 4}, {field1: 1, field2: 2}, {field5: 5, field6: 6}]
-     * bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'asc'});
-     * ```
-     *
      * @memberof bbn.fn
      * @param    {Array} arr
      * @param    {Array} orders
@@ -230,50 +243,7 @@
     },
 
     /**
-     * @method   orderLike
-     * @todo     Add method description for orderLike
-     * @global   
-     * @memberof bbn.fn
-     * @param    {Array}   to_order 
-     * @param    {Array}   based_on 
-     * @param    {String}  prop     
-     * @param    {Boolean} exclude  
-     * @returns            
-     */
-    orderLike(to_order, based_on, prop, exclude){
-      if ( Array.isArray(to_order) && Array.isArray(based_on) && to_order.length ){
-        let r = [],
-            done = [],
-            isObj = typeof(to_order[0]) === 'object';
-        for ( let a of based_on ){
-          let idx;
-          if ( isObj ){
-            idx = bbn.fn.search(to_order, prop, a);
-          }
-          else{
-            idx = to_order.indexOf(a);
-          }
-          if ( idx > -1 ){
-            r.push(to_order[idx]);
-            done.push(a);
-          }
-        }
-        if ( !exclude && (based_on.length !== to_order.length) ){
-          for ( let a of to_order ){
-            /*if ( $.inArray(isObj ? a[prop] : a, done) > -1 ){
-              r.push(a);
-            }*/
-            if ( done.includes(isObj ? a[prop] : a) ){
-              r.push(a);
-            }
-          }
-        }
-        return r;
-      }
-    },
-
-    /**
-     * Allows the movement of the elements of an array.
+     * Moves an element of an array to a different position.
      *
      * All of this is possible by giving the array you want to reorder as the first argument,
      * the node you want to move and the third is where you want to position it.
@@ -438,7 +408,7 @@
     },
 
     /**
-     * Search for the element of an array of objects by providing arguments in addition to the array to search for the property and the value that contains it.
+     * Retrieves the index of the array's first element corresponding to the given filter.
      *
      * If it finds it, it returns the index where the object is positioned in the array;
      * if it does not find what it requested then it will return -1.
@@ -507,20 +477,21 @@
     },
 
     /**
-     * Count how many objects contained in the array have the same property and value.
+     * Counts how many objects contained in the array correspond to the given filter.
+     * 
+     * The second argument can be a string and in this case it will look for all the elements
+     * with the property which has the value equal to val; but it can also be an object with a 
+     * whole filter as defined in bbn.fn.filter.
      *
      * @method   count
      * @global
-     *
      * @example
      * ```javascript
-     * //1
      * bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
      * ```
-     *
      * @memberof bbn.fn
      * @param    {Array}         arr
-     * @param    {String}        prop
+     * @param    {String|Object} prop
      * @param    {String|Number} val
      * @param    {String}        mode
      * @returns  {Number}
@@ -616,14 +587,16 @@
 
     /**
      * Converts the given object 'filter' to a valid format of condition.
+     * 
+     * The resulting format will comply with bbn databases functions and complex filters applied to
+     * bbn-vue list components.
      *
      * @method   filterToConditions
      * @global
-     *
      * @example
      * ```javascript
-     * //{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
      * bbn.fn.filterToConditions({value:3},'>');
+     * //{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
      * ```
      *
      * @memberof bbn.fn

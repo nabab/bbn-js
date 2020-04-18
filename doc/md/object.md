@@ -28,7 +28,6 @@
 [multiorder](#multiorder)  
 [numProperties](#numProperties)  
 [order](#order)  
-[orderLike](#orderLike)  
 [pickValue](#pickValue)  
 [removeEmpty](#removeEmpty)  
 [removePrivateProp](#removePrivateProp)  
@@ -39,28 +38,50 @@
 [unique](#unique)  
 
 
-- <a name="order"></a>**bbn.fn.order(arr, prop, dir)** [Back to top](#bbn_top)
+- <a name="unique"></a>**bbn.fn.unique(arr)** [Back to top](#bbn_top)
 
-  __Sorts an array of objects where the order is based on the given property.__
+  __Removes duplicate values from an array.__
 
-  * __arr__ _Array_ The array to order
-  * __prop__ _String_ The property on which the order is based
-  * __dir__ _String_ The direction of the order (desc or asc by default)
+  Takes an input array and returns a new array without duplicate values.
+
+  * __arr__ _Array_ 
 
   __Returns__ _Array_ 
 
 
 ```javascript
-bbn.fn.order([
-  {movie: "Brazil", year: 1985},
-  {movie: "Donnie Darko", year: 2001},
-  {movie: "Barry Lindon", year: 1976}
-], 'year', 'DESC')
-// [
-//   {movie: "Donnie Darko", year: 2001},
-//   {movie: "Brazil", year: 1985},
-//   {movie: "Barry Lindon", year: 1976}
-// ]
+bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+// ["a", "b", "c", "d"]
+```
+
+- <a name="getProperty"></a>**bbn.fn.getProperty(obj, prop)** [Back to top](#bbn_top)
+
+  __Returns the value of the given property from the given object.__
+
+  Looks for the given property in the given object, accepting dot (.) separator
+for deep property access, and returns its value if found and undefined otherwise.
+
+  * __obj__ _Object_ 
+  * __prop__ _String_ 
+
+  __Returns__ _*_ The property's value or undefined
+
+
+```javascript
+bbn.fn.getProperty({a: 1, b: 2}, 'b');
+// 2
+```
+
+
+```javascript
+bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+// 33
+```
+
+
+```javascript
+bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+// undefined
 ```
 
 - <a name="compareValues"></a>**bbn.fn.compareValues(a, b, prop, dir)** [Back to top](#bbn_top)
@@ -102,57 +123,38 @@ bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 // 1
 ```
 
-- <a name="unique"></a>**bbn.fn.unique(arr)** [Back to top](#bbn_top)
+- <a name="order"></a>**bbn.fn.order(arr, prop, dir)** [Back to top](#bbn_top)
 
-  __Removes duplicate values from an array.__
+  __Sorts an array of objects based on the given property.__
 
-  Takes an input array and returns a new array without duplicate values.
+  The resulting array is the same object, the order is based on compareValues function.
 
-  * __arr__ _Array_ 
+  * __arr__ _Array_ The array to order
+  * __prop__ _String_ The property on which the order is based
+  * __dir__ _String_ The direction of the order (desc or asc by default)
 
   __Returns__ _Array_ 
 
 
 ```javascript
-bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
-// ["a", "b", "c", "d"]
-```
-
-- <a name="getProperty"></a>**bbn.fn.getProperty(obj, prop)** [Back to top](#bbn_top)
-
-  __Returns the value of the given property from the given object.__
-
-  Looks for the property in the object, accepting dot (.) separator for deep property access,
-and returns its value if found and undefined otherwise.
-
-  * __obj__ _Object_ 
-  * __prop__ _String_ 
-
-  __Returns__ _*_ The property's value or undefined
-
-
-```javascript
-bbn.fn.getProperty({a: 1, b: 2}, 'b');
-// 2
-```
-
-
-```javascript
-bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
-// 33
-```
-
-
-```javascript
-bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
-// undefined
+bbn.fn.order([
+  {movie: "Brazil", year: 1985},
+  {movie: "Donnie Darko", year: 2001},
+  {movie: "Barry Lindon", year: 1976}
+], 'year', 'DESC')
+// [
+//   {movie: "Donnie Darko", year: 2001},
+//   {movie: "Brazil", year: 1985},
+//   {movie: "Barry Lindon", year: 1976}
+// ]
 ```
 
 - <a name="multiorder"></a>**bbn.fn.multiorder(arr, orders)** [Back to top](#bbn_top)
 
-  __Returns an array of objects sorted in ascending or descending order based on the object we pass as the second parameter,.__
+  __Sorts an array of objects based on a set of properties.__
 
-  the latter must be composed with the property of the object to which you want to order in the array and the type of order.
+  The resulting array is the same object, the order is based on compareValues function
+applied for each given properties in orders argument.
 
   * __arr__ _Array_ 
   * __orders__ _Array_ 
@@ -161,30 +163,30 @@ bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
 
 
 ```javascript
-//[{field1: 1, field2: 2}, {field5: 5, field6: 6}, {field3: 3, field4: 4}]
-bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'desc'});
+bbn.fn.multiorder([
+  {movie: "Brazil", year: 1985},
+  {movie: "Donnie Darko", year: 2001},
+  {movie: "Out of Africa", year: 1985},
+  {movie: "Ran", year: 1985},
+  {movie: "Back to the future", year: 1985},
+  {movie: "Barry Lindon", year: 1976}
+], {
+  year: 'desc',
+  movie: 'asc
+});
+// [
+//   {movie: "Donnie Darko", year: 2001},
+//   {movie: "Back to the future", year: 1985},
+//   {movie: "Brazil", year: 1985},
+//   {movie: "Out of Africa", year: 1985},
+//   {movie: "Ran", year: 1985},
+//   {movie: "Barry Lindon", year: 1976}
+// ]
 ```
-
-
-
-```javascript
-//[{field3: 3, field4: 4}, {field1: 1, field2: 2}, {field5: 5, field6: 6}]
-bbn.fn.multiorder([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], {field3: 'asc'});
-```
-
-
-- <a name="orderLike"></a>**bbn.fn.orderLike(to_order, based_on, prop, exclude)** [Back to top](#bbn_top)
-
-  * __to_order__ _Array_ 
-  * __based_on__ _Array_ 
-  * __prop__ _String_ 
-  * __exclude__ _Boolean_ 
-
-  __Returns__ _undefined_ 
 
 - <a name="move"></a>**bbn.fn.move(arr, fromIndex, toIndex)** [Back to top](#bbn_top)
 
-  __Allows the movement of the elements of an array.__
+  __Moves an element of an array to a different position.__
 
   All of this is possible by giving the array you want to reorder as the first argument,
 the node you want to move and the third is where you want to position it.
@@ -250,7 +252,7 @@ bbn.fn.compare(123, 3, 'contain');
 
 - <a name="search"></a>**bbn.fn.search(arr, prop, val, mode)** [Back to top](#bbn_top)
 
-  __Search for the element of an array of objects by providing arguments in addition to the array to search for the property and the value that contains it.__
+  __Retrieves the index of the array's first element corresponding to the given filter.__
 
   If it finds it, it returns the index where the object is positioned in the array;
 if it does not find what it requested then it will return -1.
@@ -271,10 +273,14 @@ bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, fiel
 
 - <a name="count"></a>**bbn.fn.count(arr, prop, val, mode)** [Back to top](#bbn_top)
 
-  __Count how many objects contained in the array have the same property and value.__
+  __Counts how many objects contained in the array correspond to the given filter.__
+
+  The second argument can be a string and in this case it will look for all the elements
+with the property which has the value equal to val; but it can also be an object with a
+whole filter as defined in bbn.fn.filter.
 
   * __arr__ _Array_ 
-  * __prop__ _String_ 
+  * __prop__ _String|Object_ 
   * __val__ _String|Number_ 
   * __mode__ _String_ 
 
@@ -282,10 +288,8 @@ bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, fiel
 
 
 ```javascript
-//1
 bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
 ```
-
 
 - <a name="sum"></a>**bbn.fn.sum(arr, prop, filter, mode)** [Back to top](#bbn_top)
 
@@ -339,6 +343,9 @@ bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
 
   __Converts the given object 'filter' to a valid format of condition.__
 
+  The resulting format will comply with bbn databases functions and complex filters applied to
+bbn-vue list components.
+
   * __filter__ _Object_ 
   * __mode__ _String_ 
 
@@ -346,8 +353,8 @@ bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
 
 
 ```javascript
-//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
 bbn.fn.filterToConditions({value:3},'>');
+//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
 ```
 
 
