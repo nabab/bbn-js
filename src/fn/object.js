@@ -296,7 +296,8 @@
      *   - *isnull* stands for **=== null**
      *   - *isnotnull* stands for **!== null**
      *   - *isempty* stands for **=== ''**
-     *   - *isnotempty* stands for **!== ''**
+     *   - *isnotempty* stands for **!== ''**  
+     *   
      * The defaut operator (if none is given) is **==**.
      *
      * @method   compare
