@@ -20,16 +20,16 @@
      * @global
      * @example
      * ```javascript
-     * // [
-     * //   {movie: "Donnie Darko", year: 2001},
-     * //   {movie: "Brazil", year: 1985},
-     * //   {movie: "Barry Lindon", year: 1976}
-     * // ]
      * bbn.fn.order([
      *   {movie: "Brazil", year: 1985},
      *   {movie: "Donnie Darko", year: 2001},
      *   {movie: "Barry Lindon", year: 1976}
      * ], 'year', 'DESC')
+     * // [
+     * //   {movie: "Donnie Darko", year: 2001},
+     * //   {movie: "Brazil", year: 1985},
+     * //   {movie: "Barry Lindon", year: 1976}
+     * // ]
      * ```
      * @memberof bbn.fn
      * @param    {Array}  arr  The array to order
@@ -55,26 +55,26 @@
      * @example
      * ```javascript
      * // Same value
-     * // 0
      * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
+     * // 0
      * ```
      * @example
      * ```javascript
      * // First value smaller than second
-     * // -1
      * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
+     * // -1
      * ```
      * @example
      * ```javascript
      * // First value greater than second
-     * // 1
      * bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
+     * // 1
      * ```
      * @example
      * ```javascript
      * // First value is undefined
-     * // 1
      * bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
+     * // 1
      * ```
      * @memberof bbn.fn
      * @param    {Object} a    First object for comparison
