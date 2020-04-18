@@ -528,7 +528,7 @@ bbn.fn.removeAccents("èéòù");
 
   __Converts the argument passed to it into a single string.__
 
-  It's possible to give as arguments elements of different nature specifically: array, number and function.
+  It's possible to give as arguments elements of different nature specifically: array, number and function. 
 It will return the argument on string format.
 
   * __v__ _Array|Number|Function_ 

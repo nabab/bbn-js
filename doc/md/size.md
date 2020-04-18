@@ -84,4 +84,4 @@ bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
 ```javascript
 // "17.5px"
 bbn.fn.calculateHeight(<p>Javascript documentation</p>);
-```
+```

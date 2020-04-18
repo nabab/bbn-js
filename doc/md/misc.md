@@ -233,7 +233,7 @@ bbn.fn.timestamp();
 ```javascript
 //'hello'
 bbn.fn.log('hello');
-```
+```  
 
 - <a name="warning"></a>**bbn.fn.warning(args)** [Back to top](#bbn_top)
 
@@ -244,7 +244,7 @@ bbn.fn.log('hello');
   __Returns__ _undefined_ 
 
 
-```javascript
+```javascript 
 bbn.fn.warning('whatever you want to log as a warning');
 ```
 
@@ -296,7 +296,7 @@ bbn.fn.setCookie('lang', 'en', 2);
 ``` javascript
 // 'en'
 bbn.fn.getCookie('lang');
-```
+``` 
 
 - <a name="eraseCookie"></a>**bbn.fn.eraseCookie()** [Back to top](#bbn_top)
 
@@ -309,7 +309,7 @@ bbn.fn.getCookie('lang');
 ``` javascript
 // 'en'
 bbn.fn.erase('lang');
-```
+``` 
 
 - <a name="getEventData"></a>**bbn.fn.getEventData()** [Back to top](#bbn_top)
 
@@ -407,4 +407,4 @@ bbn.fn.stopChrono('myChrono');
 ``` javascript
 //false
 bbn.fn.isMobile();
-```
+```
