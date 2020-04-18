@@ -234,7 +234,7 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   1. *isnotnull*, which stands for **!== null**
   1. *isempty*, which stands for **=== ''**
   1. *isnotempty*, which stands for **!== ''**  
-The defaut operator (if none is given) is **\==\** .
+The defaut operator (if none is given) is == .
 *.
 
   * __v1__ _String|Number_ 
