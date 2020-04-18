@@ -224,16 +224,16 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   1. *contains*, *contain*, *icontains*, *icontain*
   1. *starts*, *start*
   1. *startswith*, *startsi*, *starti*, *istarts*, *istart*
-    - *endswith*, *endsi*, *endi*, *iends*, *iend*
-    - *like*
-    - *gt*, *>* stand for **>**
-    - *lt*, *<* stand for **<**
-    - *gte*, *>=* stand for **>=**
-    - *lte*, *<=* stand for **<=**
-    - *isnull* stands for **=== null**
-    - *isnotnull* stands for **!== null**
-    - *isempty* stands for **=== ''**
-    - *isnotempty* stands for **!== ''**  
+  1. *endswith*, *endsi*, *endi*, *iends*, *iend*
+  1. *like*
+  1. *gt*, *>* stand for **>**
+  1. *lt*, *<* stand for **<**
+  1. *gte*, *>=* stand for **>=**
+  1. *lte*, *<=* stand for **<=**
+  1. *isnull* stands for **=== null**
+  1. *isnotnull* stands for **!== null**
+  1. *isempty* stands for **=== ''**
+  1. *isnotempty* stands for **!== ''**  
 The defaut operator (if none is given) is **==**.
 *.
 
