@@ -51,16 +51,16 @@
 
 
 ```javascript
-// [
-//   {movie: "Donnie Darko", year: 2001},
-//   {movie: "Brazil", year: 1985},
-//   {movie: "Barry Lindon", year: 1976}
-// ]
 bbn.fn.order([
   {movie: "Brazil", year: 1985},
   {movie: "Donnie Darko", year: 2001},
   {movie: "Barry Lindon", year: 1976}
 ], 'year', 'DESC')
+// [
+//   {movie: "Donnie Darko", year: 2001},
+//   {movie: "Brazil", year: 1985},
+//   {movie: "Barry Lindon", year: 1976}
+// ]
 ```
 
 - <a name="compareValues"></a>**bbn.fn.compareValues(a, b, prop, dir)** [Back to top](#bbn_top)
@@ -77,29 +77,29 @@ bbn.fn.order([
 
 ```javascript
 // Same value
-// 0
 bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
+// 0
 ```
 
 
 ```javascript
 // First value smaller than second
-// -1
 bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
+// -1
 ```
 
 
 ```javascript
 // First value greater than second
-// 1
 bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
+// 1
 ```
 
 
 ```javascript
 // First value is undefined
-// 1
 bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
+// 1
 ```
 
 - <a name="unique"></a>**bbn.fn.unique(arr)** [Back to top](#bbn_top)
