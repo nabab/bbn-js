@@ -257,8 +257,8 @@
      * ```
      *  @example
      * ```javascript
-     * //['field4', 'field1', 'field2', 'field3"]
      * bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
+     * // ['field4', 'field1', 'field2', 'field3"]
      * ```
      * @memberof bbn.fn
      * @param    {Array}  arr
@@ -303,8 +303,8 @@
      * @global
      * @example
      * ```javascript
-     * //false
      * bbn.fn.compare('field1', 'field2', 'eq');
+     * // false
      * ```
      * @example
      * ```javascript
