@@ -2,7 +2,7 @@
 
 ## Miscellaneous functions.
 
-[canvasToImage](#canvasToImage)  
+<a name="bbn_top"></a>[canvasToImage](#canvasToImage)  
 [copy](#copy)  
 [eraseCookie](#eraseCookie)  
 [formatBytes](#formatBytes)  
@@ -33,17 +33,17 @@
 [warning](#warning)  
 
 
-- <a name="is"></a>**bbn.fn.is()**
+- <a name="is"></a>**bbn.fn.is()** [Back to top](#bbn_top)
 
 
   __Returns__ _undefined_ 
 
-- <a name="isBlob"></a>**bbn.fn.isBlob()**
+- <a name="isBlob"></a>**bbn.fn.isBlob()** [Back to top](#bbn_top)
 
 
   __Returns__ _Boolean_ 
 
-- <a name="isNumber"></a>**bbn.fn.isNumber()**
+- <a name="isNumber"></a>**bbn.fn.isNumber()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is a number.__
 
@@ -62,7 +62,7 @@ bbn.fn.isNumber(5);
 bbn.fn.isNumber(0.5);
 ```
 
-- <a name="isString"></a>**bbn.fn.isString()**
+- <a name="isString"></a>**bbn.fn.isString()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is a string;.__
 
@@ -75,7 +75,7 @@ bbn.fn.isNumber(0.5);
 bbn.fn.isString('bbn');
 ```
 
-- <a name="isArray"></a>**bbn.fn.isArray()**
+- <a name="isArray"></a>**bbn.fn.isArray()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is array.__
 
@@ -88,7 +88,7 @@ bbn.fn.isString('bbn');
 bbn.fn.isArray([5,2,6]);
 ```
 
-- <a name="isDate"></a>**bbn.fn.isDate()**
+- <a name="isDate"></a>**bbn.fn.isDate()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is a date object.__
 
@@ -108,7 +108,7 @@ bbn.fn.isDate(date);
 bbn.fn.isDate('16/04/2020');
 ```
 
-- <a name="isObject"></a>**bbn.fn.isObject()**
+- <a name="isObject"></a>**bbn.fn.isObject()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is an object.__
 
@@ -127,7 +127,7 @@ bbn.fn.isObject({name: 'cami', age: 7});
 bbn.fn.isObject([{name: 'cami', age: 7}]);
 ```
 
-- <a name="isNull"></a>**bbn.fn.isNull()**
+- <a name="isNull"></a>**bbn.fn.isNull()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is null;.__
 
@@ -140,7 +140,7 @@ bbn.fn.isObject([{name: 'cami', age: 7}]);
 bbn.fn.isNull(myData);
 ```
 
-- <a name="isValue"></a>**bbn.fn.isValue()**
+- <a name="isValue"></a>**bbn.fn.isValue()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is not null or type object or array.__
 
@@ -165,7 +165,7 @@ bbn.fn.isValue(6);
 bbn.fn.isValue([80,10,22]);
 ```
 
-- <a name="isDom"></a>**bbn.fn.isDom()**
+- <a name="isDom"></a>**bbn.fn.isDom()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is a dom element;.__
 
@@ -178,7 +178,7 @@ bbn.fn.isValue([80,10,22]);
 bbn.fn.isDom('<div>myDiv</div>');
 ```
 
-- <a name="isVue"></a>**bbn.fn.isVue()**
+- <a name="isVue"></a>**bbn.fn.isVue()** [Back to top](#bbn_top)
 
   __Returns true if the given argumen is a VueJS object.__
 
@@ -194,7 +194,7 @@ let myObj =  new Vue({
 bbn.fn.isVue(myObj);
 ```
 
-- <a name="isPercent"></a>**bbn.fn.isPercent()**
+- <a name="isPercent"></a>**bbn.fn.isPercent()** [Back to top](#bbn_top)
 
   __Returns true if the given argument is a percentage.__
 
@@ -207,7 +207,7 @@ bbn.fn.isVue(myObj);
 bbn.fn.isPercent('5%');
 ```
 
-- <a name="timestamp"></a>**bbn.fn.timestamp()**
+- <a name="timestamp"></a>**bbn.fn.timestamp()** [Back to top](#bbn_top)
 
   __Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().__
 
@@ -221,7 +221,7 @@ bbn.fn.isPercent('5%');
 bbn.fn.timestamp();
 ```
 
-- <a name="log"></a>**bbn.fn.log(args)**
+- <a name="log"></a>**bbn.fn.log(args)** [Back to top](#bbn_top)
 
   __Logs the given arguments in the browser's console.__
 
@@ -235,7 +235,7 @@ bbn.fn.timestamp();
 bbn.fn.log('hello');
 ```
 
-- <a name="warning"></a>**bbn.fn.warning(args)**
+- <a name="warning"></a>**bbn.fn.warning(args)** [Back to top](#bbn_top)
 
   __Logs the given argument in the browser's console highlighting it with a yellow background and red color.__
 
@@ -248,7 +248,7 @@ bbn.fn.log('hello');
 bbn.fn.warning('whatever you want to log as a warning');
 ```
 
-- <a name="happy"></a>**bbn.fn.happy(args)**
+- <a name="happy"></a>**bbn.fn.happy(args)** [Back to top](#bbn_top)
 
   __Logs the given argument in the browser's console highlighting it with a green background.__
 
@@ -261,7 +261,7 @@ bbn.fn.warning('whatever you want to log as a warning');
 bbn.fn.happy('I want to log the success of my function');
 ```
 
-- <a name="info"></a>**bbn.fn.info(args)**
+- <a name="info"></a>**bbn.fn.info(args)** [Back to top](#bbn_top)
 
   __Logs the given argument in the browser's console highlighting it with a blue background.__
 
@@ -269,7 +269,7 @@ bbn.fn.happy('I want to log the success of my function');
 
   __Returns__ _*_ 
 
-- <a name="setCookie"></a>**bbn.fn.setCookie(name, value, days)**
+- <a name="setCookie"></a>**bbn.fn.setCookie(name, value, days)** [Back to top](#bbn_top)
 
   __Creates a cookie and assigns it to document.cookie.__
 
@@ -284,7 +284,7 @@ bbn.fn.happy('I want to log the success of my function');
 bbn.fn.setCookie('lang', 'en', 2);
 ```
 
-- <a name="getCookie"></a>**bbn.fn.getCookie(name)**
+- <a name="getCookie"></a>**bbn.fn.getCookie(name)** [Back to top](#bbn_top)
 
   __If it exsists returns the cookie corresponding to the given name.__
 
@@ -298,7 +298,7 @@ bbn.fn.setCookie('lang', 'en', 2);
 bbn.fn.getCookie('lang');
 ```
 
-- <a name="eraseCookie"></a>**bbn.fn.eraseCookie()**
+- <a name="eraseCookie"></a>**bbn.fn.eraseCookie()** [Back to top](#bbn_top)
 
   __Erase the cookie corresponding to the given name;.__
 
@@ -311,7 +311,7 @@ bbn.fn.getCookie('lang');
 bbn.fn.erase('lang');
 ```
 
-- <a name="getEventData"></a>**bbn.fn.getEventData()**
+- <a name="getEventData"></a>**bbn.fn.getEventData()** [Back to top](#bbn_top)
 
   __Returns a promise having the event's data as argument.__
 
@@ -326,7 +326,7 @@ let type = e.type;
   });
 ```
 
-- <a name="copy"></a>**bbn.fn.copy(st)**
+- <a name="copy"></a>**bbn.fn.copy(st)** [Back to top](#bbn_top)
 
   __Copies to the clipboard the value of the given string.__
 
@@ -334,7 +334,7 @@ let type = e.type;
 
   __Returns__ _undefined_ 
 
-- <a name="imageToCanvas"></a>**bbn.fn.imageToCanvas(img)**
+- <a name="imageToCanvas"></a>**bbn.fn.imageToCanvas(img)** [Back to top](#bbn_top)
 
   __Draws the given html image nto a canvas.__
 
@@ -348,7 +348,7 @@ let type = e.type;
 bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 ```
 
-- <a name="canvasToImage"></a>**bbn.fn.canvasToImage(canvas)**
+- <a name="canvasToImage"></a>**bbn.fn.canvasToImage(canvas)** [Back to top](#bbn_top)
 
   __Returns a canvas in a HTML element img.__
 
@@ -356,7 +356,7 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 
   __Returns__ _HTMLElement_ 
 
-- <a name="imgToBase64"></a>**bbn.fn.imgToBase64(img)**
+- <a name="imgToBase64"></a>**bbn.fn.imgToBase64(img)** [Back to top](#bbn_top)
 
   __Returns the tag for the image in base64.__
 
@@ -364,7 +364,7 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 
   __Returns__ _*_ 
 
-- <a name="formatBytes"></a>**bbn.fn.formatBytes()**
+- <a name="formatBytes"></a>**bbn.fn.formatBytes()** [Back to top](#bbn_top)
 
   __Formats the value given in bytes.__
 
@@ -377,14 +377,14 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 bbn.fn.formatBytes(54764654);
 ```
 
-- <a name="startChrono"></a>**bbn.fn.startChrono()**
+- <a name="startChrono"></a>**bbn.fn.startChrono()** [Back to top](#bbn_top)
 
   __Starts a timer and gives it a name.__
 
 
   __Returns__ _undefined_ 
 
-- <a name="stopChrono"></a>**bbn.fn.stopChrono(name)**
+- <a name="stopChrono"></a>**bbn.fn.stopChrono(name)** [Back to top](#bbn_top)
 
   * __name__ _String_ 
 
@@ -396,7 +396,7 @@ bbn.fn.formatBytes(54764654);
 bbn.fn.stopChrono('myChrono');
 ```
 
-- <a name="isMobile"></a>**bbn.fn.isMobile()**
+- <a name="isMobile"></a>**bbn.fn.isMobile()** [Back to top](#bbn_top)
 
   __Returns true if the current browser is on a mobile device.__
 

@@ -2,7 +2,7 @@
 
 ## Sizing functions.
 
-[baseName](#baseName)  
+<a name="bbn_top"></a>[baseName](#baseName)  
 [br2nl](#br2nl)  
 [camelToCss](#camelToCss)  
 [camelize](#camelize)  
@@ -38,7 +38,7 @@
 [uniqString](#uniqString)  
 
 
-- <a name="fileExt"></a>**bbn.fn.fileExt(filename)**
+- <a name="fileExt"></a>**bbn.fn.fileExt(filename)** [Back to top](#bbn_top)
 
   __Gets the extension from a file's name.__
 
@@ -77,7 +77,7 @@ bbn.fn.fileExt('.MY_FILE')
 ```
 
 
-- <a name="uniqString"></a>**bbn.fn.uniqString()**
+- <a name="uniqString"></a>**bbn.fn.uniqString()** [Back to top](#bbn_top)
 
   __Create a unique string in md5 format.__
 
@@ -93,7 +93,7 @@ bbn.fn.fileExt('.MY_FILE')
 bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
 ```
 
-- <a name="md5"></a>**bbn.fn.md5(st)**
+- <a name="md5"></a>**bbn.fn.md5(st)** [Back to top](#bbn_top)
 
   __Converts and returns the argument passed in a string in md5 format.__
 
@@ -108,7 +108,7 @@ bbn.fn.md5("this is a test string");
 ```
 
 
-- <a name="escapeRegExp"></a>**bbn.fn.escapeRegExp(str)**
+- <a name="escapeRegExp"></a>**bbn.fn.escapeRegExp(str)** [Back to top](#bbn_top)
 
   __Returns a string escaped.__
 
@@ -124,14 +124,14 @@ bbn.fn.md5("this is a test string");
 bbn.fn.escapeRegExp("this/is/a/test/string");
 ```
 
-- <a name="roundDecimal"></a>**bbn.fn.roundDecimal(value, decimals)**
+- <a name="roundDecimal"></a>**bbn.fn.roundDecimal(value, decimals)** [Back to top](#bbn_top)
 
   * __value__ _Number_ 
   * __decimals__ _Number_ 
 
   __Returns__ __ 
 
-- <a name="rgb2hex"></a>**bbn.fn.rgb2hex(rgb)**
+- <a name="rgb2hex"></a>**bbn.fn.rgb2hex(rgb)** [Back to top](#bbn_top)
 
   __Convert an RGB string to hexadecimal.__
 
@@ -148,7 +148,7 @@ it will return the corresponding string in hexadecimal format.
 bbn.fn.rgb2hex("rgb(255, 0, 0)");
 ```
 
-- <a name="hex2rgb"></a>**bbn.fn.hex2rgb()**
+- <a name="hex2rgb"></a>**bbn.fn.hex2rgb()** [Back to top](#bbn_top)
 
   __Convert an hexadecimmal string to RGB.__
 
@@ -165,7 +165,7 @@ bbn.fn.hex2rgb("#FF0000");
 ```
 
 
-- <a name="camelize"></a>**bbn.fn.camelize()**
+- <a name="camelize"></a>**bbn.fn.camelize()** [Back to top](#bbn_top)
 
   __Returns the string passed as an argument in camelize mode.__
 
@@ -182,7 +182,7 @@ so the camelize function will automatically convert them to a single string.
 bbn.fn.camelize("this_is-a test");
 ```
 
-- <a name="sanitize"></a>**bbn.fn.sanitize()**
+- <a name="sanitize"></a>**bbn.fn.sanitize()** [Back to top](#bbn_top)
 
   __Removes all unacceptable characters in a DOM node.__
 
@@ -196,7 +196,7 @@ bbn.fn.sanitize("this&is_$a^test");
 ```
 
 
-- <a name="camelToCss"></a>**bbn.fn.camelToCss(str)**
+- <a name="camelToCss"></a>**bbn.fn.camelToCss(str)** [Back to top](#bbn_top)
 
   __Returns the string passed as an argument in camelize mode for css.__
 
@@ -211,7 +211,7 @@ bbn.fn.camelToCss("thisIsATest");
 ```
 
 
-- <a name="correctCase"></a>**bbn.fn.correctCase(str)**
+- <a name="correctCase"></a>**bbn.fn.correctCase(str)** [Back to top](#bbn_top)
 
   __Converts the first character of the string to uppercase.__
 
@@ -226,7 +226,7 @@ bbn.fn.correctCase("this is a test");
 ```
 
 
-- <a name="randomInt"></a>**bbn.fn.randomInt(min, max)**
+- <a name="randomInt"></a>**bbn.fn.randomInt(min, max)** [Back to top](#bbn_top)
 
   __Returns a random integer.__
 
@@ -245,7 +245,7 @@ bbn.fn.randomInt(1,100);
 ```
 
 
-- <a name="randomString"></a>**bbn.fn.randomString(length, chars)**
+- <a name="randomString"></a>**bbn.fn.randomString(length, chars)** [Back to top](#bbn_top)
 
   __Returns a random String with random lenght,.__
 
@@ -271,7 +271,7 @@ bbn.fn.randomString(3);
 ```
 
 
-- <a name="isEmail"></a>**bbn.fn.isEmail(st)**
+- <a name="isEmail"></a>**bbn.fn.isEmail(st)** [Back to top](#bbn_top)
 
   __Intended to check if the argument provided is an e-mail address written correctly.__
 
@@ -292,7 +292,7 @@ bbn.fn.isEmail('test@testorg');
 bbn.fn.isEmail('test@test.org');
 ```
 
-- <a name="isColor"></a>**bbn.fn.isColor(st)**
+- <a name="isColor"></a>**bbn.fn.isColor(st)** [Back to top](#bbn_top)
 
   __Intended to check if the argument provided is a color.__
 
@@ -322,13 +322,13 @@ bbn.fn.isColor("rgb 255, 0, 0");
 bbn.fn.isColor("red");
 ```
 
-- <a name="isDimension"></a>**bbn.fn.isDimension(st)**
+- <a name="isDimension"></a>**bbn.fn.isDimension(st)** [Back to top](#bbn_top)
 
   * __st__ _String_ 
 
   __Returns__ _undefined_ 
 
-- <a name="isEmpty"></a>**bbn.fn.isEmpty()**
+- <a name="isEmpty"></a>**bbn.fn.isEmpty()** [Back to top](#bbn_top)
 
   __Checks if the argument is empty or not.__
 
@@ -372,7 +372,7 @@ bbn.fn.isEmpty('');
 bbn.fn.isEmpty('test');
 ```
 
-- <a name="shorten"></a>**bbn.fn.shorten(st, len)**
+- <a name="shorten"></a>**bbn.fn.shorten(st, len)** [Back to top](#bbn_top)
 
   __Returns an abbreviation to the given string.__
 
@@ -396,7 +396,7 @@ bbn.fn.shorten('testing', 4, '***');
 bbn.fn.shorten('testing', 4);
 ```
 
-- <a name="replaceAll"></a>**bbn.fn.replaceAll(find, replace, str)**
+- <a name="replaceAll"></a>**bbn.fn.replaceAll(find, replace, str)** [Back to top](#bbn_top)
 
   __Looks for and replaces parts of string with what we want.__
 
@@ -415,7 +415,7 @@ the second argument with what you have to replace instead and the third argument
 bbn.fn.replaceAll('-', ' ', 'Today-is-a-beautiful-day');
 ```
 
-- <a name="remove_quotes"></a>**bbn.fn.remove_quotes(st)**
+- <a name="remove_quotes"></a>**bbn.fn.remove_quotes(st)** [Back to top](#bbn_top)
 
   __Replace quotes in ASCII code.__
 
@@ -435,7 +435,7 @@ bbn.fn.remove_quotes("hello 'word'!");
 bbn.fn.remove_quotes('hello "word"!');
 ```
 
-- <a name="remove_nl"></a>**bbn.fn.remove_nl(st)**
+- <a name="remove_nl"></a>**bbn.fn.remove_nl(st)** [Back to top](#bbn_top)
 
   __Removes the '\n' characters that define a new line.__
 
@@ -449,7 +449,7 @@ bbn.fn.remove_quotes('hello "word"!');
 bbn.fn.remove_nl("hello\nworld!")
 ```
 
-- <a name="remove_all"></a>**bbn.fn.remove_all(st)**
+- <a name="remove_all"></a>**bbn.fn.remove_all(st)** [Back to top](#bbn_top)
 
   __Returns the string given as an argument,.__
 
@@ -466,7 +466,7 @@ the quotes in corresponding ASCII codes.
 bbn.fn.remove_all('hello\n"word"!');
 ```
 
-- <a name="nl2br"></a>**bbn.fn.nl2br(st)**
+- <a name="nl2br"></a>**bbn.fn.nl2br(st)** [Back to top](#bbn_top)
 
   __Replace if new line characters '\ n' with html tag '<br>'.__
 
@@ -480,7 +480,7 @@ bbn.fn.remove_all('hello\n"word"!');
 bbn.fn.nl2br('hello \n word!');
 ```
 
-- <a name="br2nl"></a>**bbn.fn.br2nl(st)**
+- <a name="br2nl"></a>**bbn.fn.br2nl(st)** [Back to top](#bbn_top)
 
   __Replaces the html <br> tag with new line characters '\ n' if present in the string.__
 
@@ -496,7 +496,7 @@ bbn.fn.br2nl('hello <br> word!')
 ```
 
 
-- <a name="html2text"></a>**bbn.fn.html2text(st)**
+- <a name="html2text"></a>**bbn.fn.html2text(st)** [Back to top](#bbn_top)
 
   __Convert text in html format to plain text.__
 
@@ -510,7 +510,7 @@ bbn.fn.br2nl('hello <br> word!')
 bbn.fn.html2text("<div><p>Hello <b>world!</b></p></div>");
 ```
 
-- <a name="removeAccents"></a>**bbn.fn.removeAccents(st)**
+- <a name="removeAccents"></a>**bbn.fn.removeAccents(st)** [Back to top](#bbn_top)
 
   __Returns the string passed as an argument without accents.__
 
@@ -524,7 +524,7 @@ bbn.fn.html2text("<div><p>Hello <b>world!</b></p></div>");
 bbn.fn.removeAccents("èéòù");
 ```
 
-- <a name="stringify"></a>**bbn.fn.stringify(v)**
+- <a name="stringify"></a>**bbn.fn.stringify(v)** [Back to top](#bbn_top)
 
   __Converts the argument passed to it into a single string.__
 
@@ -556,7 +556,7 @@ bbn.fn.stringify(function(){alert("hello world!")});
 ```
 
 
-- <a name="percent"></a>**bbn.fn.percent(percent, cent)**
+- <a name="percent"></a>**bbn.fn.percent(percent, cent)** [Back to top](#bbn_top)
 
   __Returns the value of the proportion giving the percentage and the total from where to be calculated.__
 
@@ -578,7 +578,7 @@ bbn.fn.percent('15',1000);
 bbn.fn.percent(15,500);
 ```
 
-- <a name="dirName"></a>**bbn.fn.dirName(path)**
+- <a name="dirName"></a>**bbn.fn.dirName(path)** [Back to top](#bbn_top)
 
   __Returns the path of the folder containing the last hierarchical element of the path.__
 
@@ -592,7 +592,7 @@ bbn.fn.percent(15,500);
 bbn.fn.dirName('folder/other_folder/file');
 ```
 
-- <a name="baseName"></a>**bbn.fn.baseName(path, suffix)**
+- <a name="baseName"></a>**bbn.fn.baseName(path, suffix)** [Back to top](#bbn_top)
 
   __Returns the name of the element indicated by path given to it as an argument.__
 
@@ -614,20 +614,20 @@ bbn.fn.baseName('folder/other_folder/file.png', '.png');
 ```
 
 
-- <a name="printf"></a>**bbn.fn.printf()**
+- <a name="printf"></a>**bbn.fn.printf()** [Back to top](#bbn_top)
 
   * ____ _orma_ 
 
   __Returns__ _*_ 
 
-- <a name="removeTrailingChars"></a>**bbn.fn.removeTrailingChars(st, char)**
+- <a name="removeTrailingChars"></a>**bbn.fn.removeTrailingChars(st, char)** [Back to top](#bbn_top)
 
   * __st__ _String_ 
   * __char__ _String_ 
 
   __Returns__ _*_ 
 
-- <a name="formatSize"></a>**bbn.fn.formatSize(st)**
+- <a name="formatSize"></a>**bbn.fn.formatSize(st)** [Back to top](#bbn_top)
 
   __Returns the value of size for element html.__
 
@@ -637,7 +637,7 @@ bbn.fn.baseName('folder/other_folder/file.png', '.png');
 
   __Returns__ _String_ 
 
-- <a name="repeat"></a>**bbn.fn.repeat()**
+- <a name="repeat"></a>**bbn.fn.repeat()** [Back to top](#bbn_top)
 
   __Returns a string which is the repetition of the first argument for the number passed in the second argument.__
 

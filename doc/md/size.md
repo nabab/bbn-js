@@ -2,7 +2,7 @@
 
 ## Sizing functions.
 
-[adjustHeight](#adjustHeight)  
+<a name="bbn_top"></a>[adjustHeight](#adjustHeight)  
 [adjustSize](#adjustSize)  
 [adjustWidth](#adjustWidth)  
 [calculateHeight](#calculateHeight)  
@@ -10,7 +10,7 @@
 [toggleFullScreen](#toggleFullScreen)  
 
 
-- <a name="toggleFullScreen"></a>**bbn.fn.toggleFullScreen()**
+- <a name="toggleFullScreen"></a>**bbn.fn.toggleFullScreen()** [Back to top](#bbn_top)
 
   __Toggles the fullscreen mode.__
 
@@ -22,7 +22,7 @@
 bbn.fn.toggle_full_screen();
 ```
 
-- <a name="getScrollBarSize"></a>**bbn.fn.getScrollBarSize()**
+- <a name="getScrollBarSize"></a>**bbn.fn.getScrollBarSize()** [Back to top](#bbn_top)
 
   __Retutns the size of the scrollbar realative to the current environment.__
 
@@ -34,7 +34,7 @@ bbn.fn.toggle_full_screen();
 bbn.fn.getScrollBarSize();
 ```
 
-- <a name="adjustSize"></a>**bbn.fn.adjustSize(type, eles)**
+- <a name="adjustSize"></a>**bbn.fn.adjustSize(type, eles)** [Back to top](#bbn_top)
 
   __Adjusts the size of the given elements.__
 
@@ -48,7 +48,7 @@ bbn.fn.getScrollBarSize();
 bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
 ```
 
-- <a name="adjustHeight"></a>**bbn.fn.adjustHeight()**
+- <a name="adjustHeight"></a>**bbn.fn.adjustHeight()** [Back to top](#bbn_top)
 
   __Adjusts the height of the element(s) given as argument.__
 
@@ -60,7 +60,7 @@ bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
 bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
 ```
 
-- <a name="adjustWidth"></a>**bbn.fn.adjustWidth()**
+- <a name="adjustWidth"></a>**bbn.fn.adjustWidth()** [Back to top](#bbn_top)
 
   __Adjusts the width of the element(s) given as argument.__
 
@@ -72,7 +72,7 @@ bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
 bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
 ```
 
-- <a name="calculateHeight"></a>**bbn.fn.calculateHeight(element)**
+- <a name="calculateHeight"></a>**bbn.fn.calculateHeight(element)** [Back to top](#bbn_top)
 
   __Returns the height of the given dom element and force the repaint of the element to trigger animations.__
 

@@ -2,12 +2,12 @@
 
 ## Styling functions.
 
-[addColors](#addColors)  
+<a name="bbn_top"></a>[addColors](#addColors)  
 [center](#center)  
 [colorToHex](#colorToHex)  
 
 
-- <a name="center"></a>**bbn.fn.center(ele)**
+- <a name="center"></a>**bbn.fn.center(ele)** [Back to top](#bbn_top)
 
   __Centers the given element by giving it a position absolute.__
 
@@ -21,7 +21,7 @@
 bbn.fn.center('<div>Documentation</div>')
 ```
 
-- <a name="addColors"></a>**bbn.fn.addColors(colors)**
+- <a name="addColors"></a>**bbn.fn.addColors(colors)** [Back to top](#bbn_top)
 
   __Adds the given color to the object bbn.var.colors in order to be able to use.__
 
@@ -37,7 +37,7 @@ bbn.fn.center('<div>Documentation</div>')
 bbn.fn.addColors({maroon: '#800000'});
 ```
 
-- <a name="colorToHex"></a>**bbn.fn.colorToHex()**
+- <a name="colorToHex"></a>**bbn.fn.colorToHex()** [Back to top](#bbn_top)
 
   __Returns the hex color of the given rgb or color name.__
 

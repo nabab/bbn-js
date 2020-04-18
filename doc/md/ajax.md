@@ -7,7 +7,7 @@ i.e. a single page application where callback functions are already defined
 and bbn has been initiated through bbn.fn.init.
 
 
-[abort](#abort)  
+<a name="bbn_top"></a>[abort](#abort)  
 [ajax](#ajax)  
 [callback](#callback)  
 [download](#download)  
@@ -22,7 +22,7 @@ and bbn has been initiated through bbn.fn.init.
 [window](#window)  
 
 
-- <a name="ajax"></a>**bbn.fn.ajax(url, datatype, data, success, failure, abort)**
+- <a name="ajax"></a>**bbn.fn.ajax(url, datatype, data, success, failure, abort)** [Back to top](#bbn_top)
 
   __Creates an XHR object and returns the Promise.__
 
@@ -76,7 +76,7 @@ bbn.fn.ajax('my/location')
   )
 ```
 
-- <a name="treat_vars"></a>**bbn.fn.treat_vars(args)**
+- <a name="treat_vars"></a>**bbn.fn.treat_vars(args)** [Back to top](#bbn_top)
 
   __Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.__
 
@@ -96,7 +96,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _Object_ The configuration object
 
-- <a name="post"></a>**bbn.fn.post()**
+- <a name="post"></a>**bbn.fn.post()** [Back to top](#bbn_top)
 
   __Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.__
 
@@ -105,7 +105,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined|Promise_ 
 
-- <a name="link"></a>**bbn.fn.link()**
+- <a name="link"></a>**bbn.fn.link()** [Back to top](#bbn_top)
 
   __Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.__
 
@@ -115,12 +115,12 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="window"></a>**bbn.fn.window()**
+- <a name="window"></a>**bbn.fn.window()** [Back to top](#bbn_top)
 
 
   __Returns__ _undefined_ 
 
-- <a name="callback"></a>**bbn.fn.callback(url, res, fn, fn2, ele)**
+- <a name="callback"></a>**bbn.fn.callback(url, res, fn, fn2, ele)** [Back to top](#bbn_top)
 
   __Executes a serie of predefined actions once a content has been loaded.__
 
@@ -132,7 +132,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="setNavigationVars"></a>**bbn.fn.setNavigationVars(url, title, data, repl)**
+- <a name="setNavigationVars"></a>**bbn.fn.setNavigationVars(url, title, data, repl)** [Back to top](#bbn_top)
 
   * __url__ _String_ 
   * __title__ _String_ 
@@ -141,7 +141,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="abort"></a>**bbn.fn.abort(idURL)**
+- <a name="abort"></a>**bbn.fn.abort(idURL)** [Back to top](#bbn_top)
 
   __Aborts (client side) the XHR corresponding to the given ID if it still exists.__
 
@@ -151,7 +151,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="downloadContent"></a>**bbn.fn.downloadContent(filename, content, type)**
+- <a name="downloadContent"></a>**bbn.fn.downloadContent(filename, content, type)** [Back to top](#bbn_top)
 
   __Downloads a file with given filename from its content.__
 
@@ -163,7 +163,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="download"></a>**bbn.fn.download(url, filename, params)**
+- <a name="download"></a>**bbn.fn.download(url, filename, params)** [Back to top](#bbn_top)
 
   __Downloads a file with given filename from a URL.__
 
@@ -175,7 +175,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _undefined_ 
 
-- <a name="upload"></a>**bbn.fn.upload(url, file, success, failure, progress)**
+- <a name="upload"></a>**bbn.fn.upload(url, file, success, failure, progress)** [Back to top](#bbn_top)
 
   __Uploads a file synchronously through an XHR indicating progress.__
 
@@ -187,7 +187,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Returns__ _Promise_ 
 
-- <a name="getLoader"></a>**bbn.fn.getLoader(idURL)**
+- <a name="getLoader"></a>**bbn.fn.getLoader(idURL)** [Back to top](#bbn_top)
 
   __Finds the loader corresponding to the given unique ID and returns it if found.__
 
@@ -204,7 +204,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
 ```
 
-- <a name="getIdURL"></a>**bbn.fn.getIdURL(url, data, datatype)**
+- <a name="getIdURL"></a>**bbn.fn.getIdURL(url, data, datatype)** [Back to top](#bbn_top)
 
   __Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.__
 
