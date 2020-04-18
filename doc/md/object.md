@@ -39,13 +39,13 @@
 [unique](#unique)  
 
 
-- <a name="order"></a>**bbn.fn.order(arr., prop., dir.)** [Back to top](#bbn_top)
+- <a name="order"></a>**bbn.fn.order(arr, prop, dir)** [Back to top](#bbn_top)
 
-  __Returns an array of objects sorted in ascending or descending order according to the property we give as the second argument.__
+  __Sorts an array of objects where the order is based on the given property.__
 
-  * __arr.__ _Array_ 
-  * __prop.__ _String_ 
-  * __dir.__ _String_ 
+  * __arr__ _Array_ The array to order
+  * __prop__ _String_ The property on which the order is based
+  * __dir__ _String_ The direction of the order (desc or asc by default)
 
   __Returns__ _Array_ 
 
@@ -63,17 +63,16 @@ bbn.fn.order([
 ], 'year', 'DESC')
 ```
 
-
 - <a name="compareValues"></a>**bbn.fn.compareValues(a, b, prop, dir)** [Back to top](#bbn_top)
 
-  __Compares the given objects on a given property and returns -1, 1, or 0 depending on their difference.__
+  __Compares the property in the given objects and returns -1, 1, or 0 depending on their difference.__
 
-  * __a__ _Object_ 
-  * __b__ _Object_ 
-  * __prop__ _String_ 
-  * __dir__ _String_ 
+  * __a__ _Object_ First object for comparison
+  * __b__ _Object_ Second object for comparison
+  * __prop__ _String_ Property to compare
+  * __dir__ _String_ Direction of comparison (desc or asc by default)
 
-  __Returns__ _Number_ 
+  __Returns__ _Number_ Always either -1, 1, or 0
 
 
 ```javascript
@@ -83,7 +82,6 @@ bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
 ```
 
 
-
 ```javascript
 // First value smaller than second
 // -1
@@ -91,13 +89,11 @@ bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
 ```
 
 
-
 ```javascript
 // First value greater than second
 // 1
 bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
 ```
-
 
 
 ```javascript

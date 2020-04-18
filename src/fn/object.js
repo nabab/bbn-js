@@ -14,10 +14,10 @@
 
   Object.assign(bbn.fn, {
     /**
-     * Returns an array of objects sorted in ascending or descending order according to the property we give as the second argument.
+     * Sorts an array of objects where the order is based on the given property.
+     * 
      * @method   order
      * @global
-     *
      * @example
      * ```javascript
      * // [
@@ -31,18 +31,16 @@
      *   {movie: "Barry Lindon", year: 1976}
      * ], 'year', 'DESC')
      * ```
-     *
      * @memberof bbn.fn
-     * @param    {Array}  arr.
-     * @param    {String} prop.
-     * @param    {String} dir.
-     * @returns  {Array}
+     * @param    {Array}  arr  The array to order
+     * @param    {String} prop The property on which the order is based
+     * @param    {String} dir  The direction of the order (desc or asc by default)
+     * @returns  {Array} 
      */
     order(arr, prop, dir){
-      if ( arr ){
-        let r = typeof(arr.toJSON) === 'function' ? arr.toJSON() : arr.slice();
+      if (arr) {
         dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
-        return r.sort(function(a, b){
+        return arr.sort(function(a, b){
           return bbn.fn.compareValues(a, b, prop, dir);
         });
       }
@@ -50,32 +48,28 @@
     },
 
     /**
-     * Compares the given objects on a given property and returns -1, 1, or 0 depending on their difference.
+     * Compares the property in the given objects and returns -1, 1, or 0 depending on their difference.
      *
      * @method   compareValues
      * @global
-     *
      * @example
      * ```javascript
      * // Same value
      * // 0
      * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
      * ```
-     *
      * @example
      * ```javascript
      * // First value smaller than second
      * // -1
      * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
      * ```
-     *
      * @example
      * ```javascript
      * // First value greater than second
      * // 1
      * bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
      * ```
-     * 
      * @example
      * ```javascript
      * // First value is undefined
@@ -83,11 +77,11 @@
      * bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
      * ```
      * @memberof bbn.fn
-     * @param    {Object} a
-     * @param    {Object} b
-     * @param    {String} prop
-     * @param    {String} dir
-     * @returns  {Number}
+     * @param    {Object} a    First object for comparison
+     * @param    {Object} b    Second object for comparison
+     * @param    {String} prop Property to compare
+     * @param    {String} dir  Direction of comparison (desc or asc by default)
+     * @returns  {Number} Always either -1, 1, or 0
      */
     compareValues(a, b, prop, dir){
       let va = bbn.fn.getProperty(a, prop),
