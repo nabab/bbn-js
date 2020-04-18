@@ -123,19 +123,19 @@
     },
 
     /**
-     * Returns an array containing the unique values in the given array.
+     * Removes duplicate values from an array.
+     * 
+     * Takes an input array and returns a new array without duplicate values.
      *
      * @method   unique
      * @global
-     *
      * @example
      * ```javascript
-     * // ["a", "b", "c", "d"]
      * bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+     * // ["a", "b", "c", "d"]
      * ```
-     *
      * @memberof bbn.fn
-     * @param    {Array} arr
+     * @param    {Array} arr 
      * @returns  {Array}
      */
     unique(arr){
@@ -145,17 +145,22 @@
     },
 
     /**
-     * Returns the value that contains the property of the object passed as an argument.
+     * Returns the value of the given property from the given object.
+     * 
+     * Looks for the property in the object, accepting dot (.) separator for deep property access, and returns its value.
      *
      * @method   getProperty
      * @global
-     *
      * @example
      * ```javascript
-     * //1
-     * bbn.fn.getProperty({field: 1, field2: 2}, 'field');
+     * bbn.fn.getProperty({a: 1, b: 2}, 'b');
+     * // 2
      * ```
-     *
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+     * // 33
+     * ```
      * @memberof bbn.fn
      * @param    {Object} obj
      * @param    {String} prop
@@ -163,7 +168,12 @@
      */
     getProperty(obj, prop){
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
-        return prop.split('.').reduce((o, i) => o[i], obj);
+        return prop.split('.').reduce((o, i) => {
+          if (o && (o[i] !== undefined)) {
+            return o[i];
+          }
+          return undefined;
+        }, obj);
       }
     },
 

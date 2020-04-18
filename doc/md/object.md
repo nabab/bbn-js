@@ -104,7 +104,9 @@ bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 
 - <a name="unique"></a>**bbn.fn.unique(arr)** [Back to top](#bbn_top)
 
-  __Returns an array containing the unique values in the given array.__
+  __Removes duplicate values from an array.__
+
+  Takes an input array and returns a new array without duplicate values.
 
   * __arr__ _Array_ 
 
@@ -112,14 +114,15 @@ bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 
 
 ```javascript
-// ["a", "b", "c", "d"]
 bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+// ["a", "b", "c", "d"]
 ```
-
 
 - <a name="getProperty"></a>**bbn.fn.getProperty(obj, prop)** [Back to top](#bbn_top)
 
-  __Returns the value that contains the property of the object passed as an argument.__
+  __Returns the value of the given property from the given object.__
+
+  Looks for the property in the object, accepting dot (.) separator for deep property access, and returns its value.
 
   * __obj__ _Object_ 
   * __prop__ _String_ 
@@ -128,10 +131,15 @@ bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
 
 
 ```javascript
-//1
-bbn.fn.getProperty({field: 1, field2: 2}, 'field');
+bbn.fn.getProperty({a: 1, b: 2}, 'b');
+// 2
 ```
 
+
+```javascript
+bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+// 33
+```
 
 - <a name="multiorder"></a>**bbn.fn.multiorder(arr, orders)** [Back to top](#bbn_top)
 
