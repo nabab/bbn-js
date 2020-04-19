@@ -433,14 +433,42 @@
      *
      * Returns -1 if the element is not found. If the second parameter is an object or function 
      * for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
-     * left, i.e. val becomes mode, and mode startFrom.
+     * left, i.e. val becomes mode, and mode startFrom. And if mode is a number, its value will
+     * be given to startFrom and mode will be undefined. The filter object can be complex with different
+     * operators (as seen in bbn.fn.compare) and logics (AND/OR), and infintely nested, of this form:
+     * ```javascript
+     * {
+     *   logic: "AND",
+     *   conditions: [
+     *     {
+     *       field: "prop1",
+     *       operator: "eq"
+     *       value: "value1"
+     *     }, {
+     *       logic: "OR",
+     *       conditions: [
+     *         {
+     *            field: "prop2",
+     *            operator: "eq",
+     *            value: 1
+     *         }. {
+     *            field: "prop2",
+     *            operator: "eq",
+     *            value: 2
+     *         }
+     *       ]
+     *     }
+     *   ]
+     * }
+     * ```
+     * This way of managing the arguments is used in all the filtering functions.
      *
      * @method   search
      * @global
      * @example
      * ```javascript
      * let ar = [
-     *   {name: "Raiders of the loast ark", director: "Steven Spielberg", year: 1981, id: 589},
+     *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
      *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
      *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
      *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
@@ -450,6 +478,33 @@
      * bbn.fn.search(ar, {director: "Steven Spielberg"});
      * // 0
      * bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
+     * // 3
+     * bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
+     * // 3
+     * // Complex filters can be used with the following form
+     * bbn.fn.search(ar, {
+     *   logic: "AND",
+     *   conditions: [
+     *     {
+     *       field: "director",
+     *       operator: "eq"
+     *       value: "Steven Spielberg"
+     *     }, {
+     *       logic: "OR",
+     *       conditions: [
+     *         {
+     *            field: "year",
+     *            operator: "eq",
+     *            value: 1974
+     *         }, {
+     *            field: "year",
+     *            operator: "eq",
+     *            value: 1975
+     *         }
+     *       ]
+     *     }
+     *   ]
+     * });
      * // 3
      * ```
      * @memberof bbn.fn
@@ -462,45 +517,47 @@
      */
     search(arr, prop, val, mode, startFrom){
       if ( !bbn.fn.isArray(arr) ){
-        bbn.fn.log(arguments);
-        throw new Error("Error in bbn.fn.search: The first argument must be an array");
+        throw new Error(_("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
       }
-      var filter = {},
-          isFn = bbn.fn.isFunction(prop),
-          isObj = bbn.fn.isObject(prop);
       if ( !prop || !arr.length ){
         return -1;
       }
-      if ( isObj || isFn ){
-        let tmp = mode;
-        mode = val;
-        filter = prop;
-        startFrom = tmp;
-      }
-      else if ( typeof(prop) === 'string'){
+      let filter = {};
+      let isFunction = false;
+      if (bbn.fn.isString(prop)) {
         filter[prop] = val;
       }
-      else{
-        throw new Error("Search function error: The prop argument should be a string or an object");
-      }
-      if ( typeof(startFrom) !== 'number' ){
-        startFrom = 0;
-      }
-      else if ( (startFrom < 0) || (startFrom >= arr.length - 1) ){
-        return -1;
-      }
-      if ( isFn ){
-        for ( let i = startFrom; i < arr.length; i++ ){
-          if ( filter(arr[i]) ){
-            return i;
-          }
+      else {
+        startFrom = mode;
+        mode = val;
+        if (bbn.fn.isObject(prop)) {
+          filter = prop;
+        }
+        else if (bbn.fn.isFunction(prop)) {
+          isFunction = true;
         }
       }
-      else{
-        filter = bbn.fn.filterToConditions(filter);
-        for ( let i = startFrom; i < arr.length; i++ ){
-          if ( bbn.fn.compareConditions(arr[i], filter) ){
-            return i;
+      if (isFunction || (bbn.fn.isObject(filter) && bbn.fn.numProperties(filter))) {
+        if (bbn.fn.isNumber(mode)) {
+          startFrom = mode;
+          mode = undefined;
+        }
+        if (!bbn.fn.isNumber(startFrom)) {
+          startFrom = 0;
+        }
+        if (isFunction) {
+          for ( let i = startFrom; i < arr.length; i++ ){
+            if ( filter(arr[i]) ){
+              return i;
+            }
+          }
+        }
+        else {
+          filter = bbn.fn.filterToConditions(filter);
+          for ( let i = startFrom; i < arr.length; i++ ){
+            if ( bbn.fn.compareConditions(arr[i], filter) ){
+              return i;
+            }
           }
         }
       }
@@ -508,7 +565,7 @@
     },
 
     /**
-     * Counts how many objects contained in the array correspond to the given filter.
+     * Counts the number of objects contained in the array matching the given filter.
      * 
      * The second argument can be a string and in this case it will look for all the elements
      * with the property which has the value equal to val; but it can also be an object with a 
@@ -845,9 +902,9 @@
         throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
       }
       let ok = filter.logic === 'AND' ? true : false;
-      bbn.fn.iterate(filter.conditions, (a) => {
+      bbn.fn.each(filter.conditions, (a) => {
         let compare;
-        if ( a.conditions && a.filter && bbn.fn.isArray(a.conditions) ){
+        if ( a.conditions && bbn.fn.isArray(a.conditions) ){
           compare = bbn.fn.compareConditions(data, a);
         }
         else{
