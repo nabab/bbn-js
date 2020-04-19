@@ -450,24 +450,33 @@ bbn.fn.numProperties({field: 1, field2: 2});
 
 ### <a name="removePrivateProp"></a>bbn.fn.removePrivateProp(obj, deep)
 
-  __Removes private properties from the given object.__
+  __Returns an object with the original objects' properties starting with an alphanumeric character.__
 
-  * __obj__ _Object_ 
-  * __deep__ _Boolean_ 
+  It is presumed that external libraries, bbn variables use prefixes such as _ or $ for
+naming private properties; this returns a new object purged from these properties.
 
-  __Returns__ _undefined_ 
+  * __obj__ _Object_ The original object
+  * __deep__ _Boolean_ If true the function will be reapplied on object properties
+
+  __Returns__ _Object_ A new object without only the _public_ properties.
 
 
 ```javascript
-//{field:1, field1:'value1'}
-bbn.fn.removePrivateProp({field: 1, field1: 'value1', _field2: 'value2'});
+bbn.fn.removePrivateProp({
+  _bbn_timestamp: 1587269593987,
+  name: "Wonka",
+  fname: "Willy"
+});
+// {name: "Wonka", fname: "Willy"}
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="isSame"></a>bbn.fn.isSame(obj1, obj2)
 
-  __Checks if the two objects inserted with the arguments are identical in working order.__
+  __Checks whether the data contained in the given objects is identical.__
+
+  The non alphanumerical properties are removed for the comparison, and the properties are 
+compared individually without the order being taken into account.
 
   * __obj1__ _Object_ 
   * __obj2__ _Object_ 
@@ -476,20 +485,36 @@ bbn.fn.removePrivateProp({field: 1, field1: 'value1', _field2: 'value2'});
 
 
 ```javascript
-//true
-bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 2});
+bbn.fn.isSame(
+  {name: "Wonka", fname: "Willy"},
+  {fname: "Willy", name: "Wonka"}
+);
+// true
 ```
 
 
 ```javascript
-//false
-bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 3});
+// Doesn't take into account properties starting with non-alphanumeric characters
+bbn.fn.isSame(
+  {name: "Wonka", fname: "Willy", _bbn_timestamp: 1587269593987},
+  {fname: "Willy", name: "Wonka"}
+);
+// true
+```
+
+
+```javascript
+bbn.fn.isSame(
+  {name: "Wonka", fname: "Willy", real: false},
+  {fname: "Willy", name: "Wonka"}
+);
+// false
 ```
 [Back to top](#bbn_top)  
 
 ### <a name="compareConditions"></a>bbn.fn.compareConditions(data, filter)
 
-  __Apply the conditions defined in the filter by querying the specified data object.__
+  __Applies the filter to the given data object.__
 
   * __data__ _Object_ 
   * __filter__ _Object_ 

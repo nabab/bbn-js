@@ -724,28 +724,34 @@
     },
 
     /**
-     * Removes private properties from the given object.
+     * Returns an object with the original objects' properties starting with an alphanumeric character.
+     * 
+     * It is presumed that external libraries, bbn variables use prefixes such as _ or $ for
+     * naming private properties; this returns a new object purged from these properties.
+     * 
      * @method   removePrivateProp
      * @global
-     *
      * @example
      * ```javascript
-     * //{field:1, field1:'value1'}
-     * bbn.fn.removePrivateProp({field: 1, field1: 'value1', _field2: 'value2'});
+     * bbn.fn.removePrivateProp({
+     *   _bbn_timestamp: 1587269593987,
+     *   name: "Wonka",
+     *   fname: "Willy"
+     * });
+     * // {name: "Wonka", fname: "Willy"}
      * ```
-     *
      * @memberof bbn.fn
-     * @param    {Object}  obj
-     * @param    {Boolean} deep
-     * @returns
+     * @param    {Object}  obj  The original object
+     * @param    {Boolean} deep If true the function will be reapplied on object properties
+     * @returns  {Object}  A new object without only the _public_ properties.
      */
     removePrivateProp(obj, deep){
       var r = false;
       if ( typeof(obj) === "object" ){
         r = {};
         for ( var n in obj ){
-          if ( (n.indexOf('_') !== 0) || (n.indexOf('$') !== 0) ){
-            if ( deep && (typeof(obj[n]) === "object") ){
+          if (n.substr(0, 1).match(/^[A-z0-9]$/)) {
+            if ( deep && (typeof(obj[n]) === "object")){
               r[n] = bbn.fn.removePrivateProp(obj[n], true);
             }
             else{
@@ -758,20 +764,37 @@
     },
 
     /**
-     * Checks if the two objects inserted with the arguments are identical in working order.
+     * Checks whether the data contained in the given objects is identical.
+     * 
+     * The non alphanumerical properties are removed for the comparison, and the properties are 
+     * compared individually without the order being taken into account.
      *
      * @method   isSame
      * @global
-     *
      * @example
      * ```javascript
-     * //true
-     * bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 2});
+     * bbn.fn.isSame(
+     *   {name: "Wonka", fname: "Willy"},
+     *   {fname: "Willy", name: "Wonka"}
+     * );
+     * // true
      * ```
      * @example
      * ```javascript
-     * //false
-     * bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 3});
+     * // Doesn't take into account properties starting with non-alphanumeric characters
+     * bbn.fn.isSame(
+     *   {name: "Wonka", fname: "Willy", _bbn_timestamp: 1587269593987},
+     *   {fname: "Willy", name: "Wonka"}
+     * );
+     * // true
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.isSame(
+     *   {name: "Wonka", fname: "Willy", real: false},
+     *   {fname: "Willy", name: "Wonka"}
+     * );
+     * // false
      * ```
      * @memberof bbn.fn
      * @param    {Object} obj1
@@ -801,7 +824,7 @@
     },
 
     /**
-     * Apply the conditions defined in the filter by querying the specified data object.
+     * Applies the filter to the given data object.
      *
      * @method   compareConditions
      * @global
