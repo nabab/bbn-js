@@ -442,7 +442,7 @@
      *   conditions: [
      *     {
      *       field: "prop1",
-     *       operator: "eq"
+     *       operator: "eq",
      *       value: "value1"
      *     }, {
      *       logic: "OR",

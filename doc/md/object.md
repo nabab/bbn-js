@@ -293,7 +293,7 @@ operators (as seen in bbn.fn.compare) and logics (AND/OR), and infinitely nested
   conditions: [
     {
       field: "prop1",
-      operator: "eq"
+      operator: "eq",
       value: "value1"
     }, {
       logic: "OR",
