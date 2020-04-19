@@ -15,8 +15,6 @@
 
   __Returns the given value to money format basing on the given configuration.__
 
-  *.
-
   * __val__ _String|Number_ The value.
   * __kilo__ _Boolean_ If the value has to be rendered in kilo.
   * __currency__ _String_ The currency.
@@ -32,13 +30,11 @@
 // "5 856.0 $"
 bbn.fn.money(5856, false, '$', false, '.' ,false, 1); 
 ```
-*
+
 
 - <a name="date"></a>**bbn.fn.date(v)** [Back to top](#bbn_top)
 
   __Returns a date object from the given argument.__
-
-  *.
 
   * __v__ _String|Number_ 
 
@@ -49,13 +45,11 @@ bbn.fn.money(5856, false, '$', false, '.' ,false, 1);
 //Mon Feb 11 2019 12:00:00 GMT+0100 (Central European Standard Time)
 bbn.fn.date('2019/02/11')
 ```
-*
+
 
 - <a name="dateSQL"></a>**bbn.fn.dateSQL(v, dayOnly)** [Back to top](#bbn_top)
 
   __Returns a date with SQL format.__
-
-  *.
 
   * __v__ _Date|String_ 
   * __dayOnly__ _Boolean_ Whether or not include the time in the date
@@ -68,7 +62,7 @@ bbn.fn.date('2019/02/11')
 let date = new Date();
 bbn.fn.dateSQL(date,false);
 ```
-*
+
 
 - <a name="daysInMonth"></a>**bbn.fn.daysInMonth(v)** [Back to top](#bbn_top)
 
@@ -83,7 +77,7 @@ bbn.fn.dateSQL(date,false);
 //30
 bbn.fn.daysInMonth(new Date());
 ```
-*
+
 
 - <a name="fdate"></a>**bbn.fn.fdate(d, )** [Back to top](#bbn_top)
 

@@ -55,4 +55,4 @@ bbn.fn.colorToHex('red');
 ```javascript
 //"#ff0000"
 bbn.fn.colorToHex('rgb(255,0,0)');
-```
+```
