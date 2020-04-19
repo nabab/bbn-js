@@ -281,7 +281,7 @@
      * Performs a comparison between two values based on the given operator and returns a boolean.
      * 
      * It is internally used by all the filtering functions; the available operators are:  
-     * -_===_, _=_, _equal_, _eq_, _is_, which stand for __===__  
+     * - _===_, _=_, _equal_, _eq_, _is_, which stand for __===__  
      * - _!==_, _notequal_, _neq_, _isnot_, which stand for __!==__
      * - _!=_, _different_, which stand for __!=__
      * - _contains_, _contain_, _icontains_, _icontain_
