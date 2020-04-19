@@ -223,7 +223,7 @@ bbn.fn.move([1, 2, 3, 4], 3, 0);
 ```
 [Back to top](#bbn_top)  
 
-### <a name="compare"></a>bbn.fn.compare(v1, v2, mode)
+### <a name="compare"></a>bbn.fn.compare(v1, v2, operator)
 
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
@@ -249,7 +249,7 @@ The defaut operator (if none is given) is __==__ .
 
   * __v1__ _String|Number_ 
   * __v2__ _String|Number_ 
-  * __mode__ _String_ 
+  * __operator__ _String_ 
 
   __Returns__ _Boolean_ True if the values' comparison complies with the operator, false otherwise
 
@@ -278,15 +278,15 @@ bbn.fn.compare("JavaScript", "script", 'contain');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="search"></a>bbn.fn.search(arr, prop, val, mode, startFrom)
+### <a name="search"></a>bbn.fn.search(arr, prop, val, operator, startFrom)
 
   __Retrieves the index of the array's first element corresponding to the given filter.__
 
   Returns -1 if the element is not found. If the second parameter is an object or function 
 for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
-left, i.e. val becomes mode, and mode startFrom. And if mode is a number, its value will
-be given to startFrom and mode will be undefined. The filter object can be complex with different
-operators (as seen in bbn.fn.compare) and logics (AND/OR), and infintely nested, of this form:
+left, i.e. val becomes operator, and operator startFrom. And if operator is a number, its value will
+be given to startFrom and operator will be undefined. The filter object can be complex with different
+operators (as seen in bbn.fn.compare) and logics (AND/OR), and infinitely nested, of this form:
 ```javascript
 {
   logic: "AND",
@@ -317,7 +317,7 @@ This way of managing the arguments is used in all the filtering functions.
   * __arr__ _Array_ 
   * __prop__ _String|Object|Function_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
-  * __mode__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
   * __startFrom__ _Number_ The index from which the search should start
 
   __Returns__ _Number_ The index if found, otherwise -1
@@ -338,7 +338,7 @@ bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
 // 3
 bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
 // 3
-// Complex filters can be used with the following form
+// Complex filters
 bbn.fn.search(ar, {
   logic: "AND",
   conditions: [
@@ -366,7 +366,7 @@ bbn.fn.search(ar, {
 ```
 [Back to top](#bbn_top)  
 
-### <a name="count"></a>bbn.fn.count(arr, prop, val, mode)
+### <a name="count"></a>bbn.fn.count(arr, prop, val, operator)
 
   __Counts the number of objects contained in the array matching the given filter.__
 
@@ -377,7 +377,7 @@ whole filter as defined in bbn.fn.filter.
   * __arr__ _Array_ 
   * __prop__ _String|Object_ 
   * __val__ _String|Number_ 
-  * __mode__ _String_ 
+  * __operator__ _String_ 
 
   __Returns__ _Number_ 
 
@@ -387,7 +387,7 @@ bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4
 ```
 [Back to top](#bbn_top)  
 
-### <a name="sum"></a>bbn.fn.sum(arr, prop, filter, mode)
+### <a name="sum"></a>bbn.fn.sum(arr, prop, filter, operator)
 
   __Returns the sum of the values ​​contained.__
 
@@ -396,7 +396,7 @@ bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4
   * __arr__ _Array_ 
   * __prop__ _String_ 
   * __filter__ _Object|Function_ 
-  * __mode__ _String_ 
+  * __operator__ _String_ 
 
   __Returns__ _Number_ 
 
@@ -417,14 +417,14 @@ bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => 
 
 [Back to top](#bbn_top)  
 
-### <a name="filter"></a>bbn.fn.filter(arr, prop, val, mode)
+### <a name="filter"></a>bbn.fn.filter(arr, prop, val, operator)
 
   __Returns a filtered array, based on the function given as the second argument.__
 
   * __arr__ _Array_ 
   * __prop__ _String|Object|Function_ 
   * __val__ _Mixed_ 
-  * __mode__ _String_ 
+  * __operator__ _String_ 
 
   __Returns__ _Array_ 
 
@@ -584,7 +584,7 @@ bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
 
 [Back to top](#bbn_top)  
 
-### <a name="filterToConditions"></a>bbn.fn.filterToConditions(filter, mode)
+### <a name="filterToConditions"></a>bbn.fn.filterToConditions(filter, operator)
 
   __Converts the given object 'filter' to a valid format of condition.__
 
@@ -592,7 +592,7 @@ bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
 bbn-vue list components.
 
   * __filter__ _Object_ 
-  * __mode__ _String_ 
+  * __operator__ _String_ 
 
   __Returns__ _Object_ 
 

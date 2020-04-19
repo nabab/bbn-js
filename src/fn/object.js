@@ -335,11 +335,11 @@
      * @memberof bbn.fn
      * @param    {String|Number} v1
      * @param    {String|Number} v2
-     * @param    {String}        mode
+     * @param    {String}        operator
      * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
      */
-    compare(v1, v2, mode){
-      switch ( mode ){
+    compare(v1, v2, operator){
+      switch ( operator ){
         case "===":
         case "=":
         case "equal":
@@ -433,9 +433,9 @@
      *
      * Returns -1 if the element is not found. If the second parameter is an object or function 
      * for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
-     * left, i.e. val becomes mode, and mode startFrom. And if mode is a number, its value will
-     * be given to startFrom and mode will be undefined. The filter object can be complex with different
-     * operators (as seen in bbn.fn.compare) and logics (AND/OR), and infintely nested, of this form:
+     * left, i.e. val becomes operator, and operator startFrom. And if operator is a number, its value will
+     * be given to startFrom and operator will be undefined. The filter object can be complex with different
+     * operators (as seen in bbn.fn.compare) and logics (AND/OR), and infinitely nested, of this form:
      * ```javascript
      * {
      *   logic: "AND",
@@ -481,7 +481,7 @@
      * // 3
      * bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
      * // 3
-     * // Complex filters can be used with the following form
+     * // Complex filters
      * bbn.fn.search(ar, {
      *   logic: "AND",
      *   conditions: [
@@ -511,11 +511,11 @@
      * @param    {Array}                  arr
      * @param    {String|Object|Function} prop      A property's name or a filter object or function
      * @param    {*}                      val       The value with which comparing the given property
-     * @param    {String}                 mode      The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                 operator      The operator to use for comparison with the value as used in the bbn.fn.compare
      * @param    {Number}                 startFrom The index from which the search should start
      * @returns  {Number}                 The index if found, otherwise -1
      */
-    search(arr, prop, val, mode, startFrom){
+    search(arr, prop, val, operator, startFrom){
       if ( !bbn.fn.isArray(arr) ){
         throw new Error(_("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
       }
@@ -528,8 +528,8 @@
         filter[prop] = val;
       }
       else {
-        startFrom = mode;
-        mode = val;
+        startFrom = operator;
+        operator = val;
         if (bbn.fn.isObject(prop)) {
           filter = prop;
         }
@@ -538,9 +538,9 @@
         }
       }
       if (isFunction || (bbn.fn.isObject(filter) && bbn.fn.numProperties(filter))) {
-        if (bbn.fn.isNumber(mode)) {
-          startFrom = mode;
-          mode = undefined;
+        if (bbn.fn.isNumber(operator)) {
+          startFrom = operator;
+          operator = undefined;
         }
         if (!bbn.fn.isNumber(startFrom)) {
           startFrom = 0;
@@ -581,11 +581,11 @@
      * @param    {Array}         arr
      * @param    {String|Object} prop
      * @param    {String|Number} val
-     * @param    {String}        mode
+     * @param    {String}        operator
      * @returns  {Number}
      */
-    count(arr, prop, val, mode){
-      return bbn.fn.filter(arr, prop, val, mode, false).length || 0;
+    count(arr, prop, val, operator){
+      return bbn.fn.filter(arr, prop, val, operator, false).length || 0;
     },
 
     /**
@@ -613,12 +613,12 @@
      * @param    {Array}           arr
      * @param    {String}          prop
      * @param    {Object|Function} filter
-     * @param    {String}          mode
+     * @param    {String}          operator
      * @returns  {Number}
      */
-    sum(arr, prop, filter, mode){
+    sum(arr, prop, filter, operator){
       let r = 0;
-      bbn.fn.each(bbn.fn.filter(arr, filter, mode), (a) => {
+      bbn.fn.each(bbn.fn.filter(arr, filter, operator), (a) => {
         if ( a[prop] ){
           r += (parseFloat(a[prop]) || 0);
         }
@@ -643,10 +643,10 @@
      * @param    {Array}                  arr
      * @param    {String|Object|Function} prop
      * @param    {Mixed}                  val
-     * @param    {String}                 mode
+     * @param    {String}                 operator
      * @returns  {Array}
      */
-    filter(arr, prop, val, mode){
+    filter(arr, prop, val, operator){
       if ( !bbn.fn.isArray(arr) ){
         throw new Error("Error in bbn.fn.filter: The first argument must be an array");
       }
@@ -659,7 +659,7 @@
       }
       if ( arr.length ){
         if ( isObj || isFn ){
-          mode = val;
+          operator = val;
           filter = prop;
         }
         else if ( typeof(prop) === 'string'){
@@ -676,7 +676,7 @@
           })
         }
         else{
-          filter = bbn.fn.filterToConditions(filter, mode);
+          filter = bbn.fn.filterToConditions(filter, operator);
           if ( filter.conditions && filter.logic ){
             bbn.fn.each(arr, (a) => {
               if ( bbn.fn.compareConditions(a, filter) ){
@@ -940,10 +940,10 @@
      *
      * @memberof bbn.fn
      * @param    {Object} filter
-     * @param    {String} mode
+     * @param    {String} operator
      * @returns  {Object}
      */
-    filterToConditions(filter, mode){
+    filterToConditions(filter, operator){
       if ( !bbn.fn.isObject(filter) ){
         throw new Error("Error in bbn.fn.filterToCondition: filter must be an object");
       }
@@ -956,7 +956,7 @@
           else{
             tmp.push({
               field: n,
-              operator: mode || '=',
+              operator: operator || '=',
               value: a
             });
           }
