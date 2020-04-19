@@ -37,7 +37,7 @@
 [unique](#unique)  
 
 
-### <a name="unique"></a>bbn.fn.unique(arr) [Back to top](#bbn_top)
+### <a name="unique"></a>bbn.fn.unique(arr)
 
   __Removes duplicate values from an array.__
 
@@ -52,8 +52,9 @@
 bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
 // ["a", "b", "c", "d"]
 ```
+[Back to top](#bbn_top)  
 
-### <a name="getProperty"></a>bbn.fn.getProperty(obj, prop) [Back to top](#bbn_top)
+### <a name="getProperty"></a>bbn.fn.getProperty(obj, prop)
 
   __Returns the value of the given property from the given object.__
 
@@ -82,8 +83,9 @@ bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
 bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
 // undefined
 ```
+[Back to top](#bbn_top)  
 
-### <a name="compareValues"></a>bbn.fn.compareValues(a, b, prop, dir) [Back to top](#bbn_top)
+### <a name="compareValues"></a>bbn.fn.compareValues(a, b, prop, dir)
 
   __Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.__
 
@@ -121,8 +123,9 @@ bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
 bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 // 1
 ```
+[Back to top](#bbn_top)  
 
-### <a name="order"></a>bbn.fn.order(arr, prop, dir) [Back to top](#bbn_top)
+### <a name="order"></a>bbn.fn.order(arr, prop, dir)
 
   __Sorts an array of objects based on the given property.__
 
@@ -147,8 +150,9 @@ bbn.fn.order([
 //   {movie: "Barry Lindon", year: 1976}
 // ]
 ```
+[Back to top](#bbn_top)  
 
-### <a name="multiorder"></a>bbn.fn.multiorder(arr, orders) [Back to top](#bbn_top)
+### <a name="multiorder"></a>bbn.fn.multiorder(arr, orders)
 
   __Sorts an array of objects based on a set of properties.__
 
@@ -182,8 +186,9 @@ bbn.fn.multiorder([
 //   {movie: "Barry Lindon", year: 1976}
 // ]
 ```
+[Back to top](#bbn_top)  
 
-### <a name="move"></a>bbn.fn.move(arr, fromIndex, toIndex) [Back to top](#bbn_top)
+### <a name="move"></a>bbn.fn.move(arr, fromIndex, toIndex)
 
   __Moves an element of an array to a different position.__
 
@@ -205,8 +210,9 @@ bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
 bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
 // ['field4', 'field1', 'field2', 'field3"]
 ```
+[Back to top](#bbn_top)  
 
-### <a name="compare"></a>bbn.fn.compare(v1, v2, mode) [Back to top](#bbn_top)
+### <a name="compare"></a>bbn.fn.compare(v1, v2, mode)
 
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
@@ -258,8 +264,9 @@ bbn.fn.compare(3, 1, '>');
 bbn.fn.compare("JavaScript", "script", 'contain');
 // true
 ```
+[Back to top](#bbn_top)  
 
-### <a name="search"></a>bbn.fn.search(arr, prop, val, mode) [Back to top](#bbn_top)
+### <a name="search"></a>bbn.fn.search(arr, prop, val, mode)
 
   __Retrieves the index of the array's first element corresponding to the given filter.__
 
@@ -279,8 +286,9 @@ if it does not find what it requested then it will return -1.
 bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, field6: 6}], 'field5', 5);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="count"></a>bbn.fn.count(arr, prop, val, mode) [Back to top](#bbn_top)
+### <a name="count"></a>bbn.fn.count(arr, prop, val, mode)
 
   __Counts how many objects contained in the array correspond to the given filter.__
 
@@ -299,8 +307,9 @@ whole filter as defined in bbn.fn.filter.
 ```javascript
 bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
 ```
+[Back to top](#bbn_top)  
 
-### <a name="sum"></a>bbn.fn.sum(arr, prop, filter, mode) [Back to top](#bbn_top)
+### <a name="sum"></a>bbn.fn.sum(arr, prop, filter, mode)
 
   __Returns the sum of the values ​​contained.__
 
@@ -328,8 +337,9 @@ bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => 
 });
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="filter"></a>bbn.fn.filter(arr, prop, val, mode) [Back to top](#bbn_top)
+### <a name="filter"></a>bbn.fn.filter(arr, prop, val, mode)
 
   __Returns a filtered array, based on the function given as the second argument.__
 
@@ -348,8 +358,9 @@ bbn.fn.filter([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field
 });
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="get_row"></a>bbn.fn.get_row(arr, prop, val) [Back to top](#bbn_top)
+### <a name="get_row"></a>bbn.fn.get_row(arr, prop, val)
 
   __Returns if the object sought is contained in the array finds it.__
 
@@ -365,8 +376,9 @@ bbn.fn.filter([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field
 bbn.fn.get_row([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="get_field"></a>bbn.fn.get_field(arr, prop, val, field) [Back to top](#bbn_top)
+### <a name="get_field"></a>bbn.fn.get_field(arr, prop, val, field)
 
   __Allows to take the value of an object property within an array.__
 
@@ -391,8 +403,9 @@ bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field
 //4
 bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
 ```
+[Back to top](#bbn_top)  
 
-### <a name="numProperties"></a>bbn.fn.numProperties(obj) [Back to top](#bbn_top)
+### <a name="numProperties"></a>bbn.fn.numProperties(obj)
 
   __Returns the number of properties contained in the object.__
 
@@ -407,8 +420,9 @@ bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2
 //2
 bbn.fn.numProperties({field: 1, field2: 2});
 ```
+[Back to top](#bbn_top)  
 
-### <a name="removePrivateProp"></a>bbn.fn.removePrivateProp(obj, deep) [Back to top](#bbn_top)
+### <a name="removePrivateProp"></a>bbn.fn.removePrivateProp(obj, deep)
 
   __Removes private properties from the given object.__
 
@@ -423,8 +437,9 @@ bbn.fn.numProperties({field: 1, field2: 2});
 bbn.fn.removePrivateProp({field: 1, field1: 'value1', _field2: 'value2'});
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="isSame"></a>bbn.fn.isSame(obj1, obj2) [Back to top](#bbn_top)
+### <a name="isSame"></a>bbn.fn.isSame(obj1, obj2)
 
   __Checks if the two objects inserted with the arguments are identical in working order.__
 
@@ -444,8 +459,9 @@ bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 2});
 //false
 bbn.fn.isSame({field: 1, field2: 2}, {field: 1, field2: 3});
 ```
+[Back to top](#bbn_top)  
 
-### <a name="compareConditions"></a>bbn.fn.compareConditions(data, filter) [Back to top](#bbn_top)
+### <a name="compareConditions"></a>bbn.fn.compareConditions(data, filter)
 
   __Apply the conditions defined in the filter by querying the specified data object.__
 
@@ -463,8 +479,9 @@ bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
 });
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="filterToConditions"></a>bbn.fn.filterToConditions(filter, mode) [Back to top](#bbn_top)
+### <a name="filterToConditions"></a>bbn.fn.filterToConditions(filter, mode)
 
   __Converts the given object 'filter' to a valid format of condition.__
 
@@ -482,8 +499,9 @@ bbn.fn.filterToConditions({value:3},'>');
 //{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="extend"></a>bbn.fn.extend() [Back to top](#bbn_top)
+### <a name="extend"></a>bbn.fn.extend()
 
   __returns a single element by extending two or more elements.__
 
@@ -498,8 +516,9 @@ bbn.fn.filterToConditions({value:3},'>');
 bbn.fn.extend({field1: 1}, {field2: 2}, {field3: 3});
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="extendOut"></a>bbn.fn.extendOut() [Back to top](#bbn_top)
+### <a name="extendOut"></a>bbn.fn.extendOut()
 
   __Merges the contents of two or more objects together into the first object.__
 
@@ -514,8 +533,9 @@ bbn.fn.extend({field1: 1}, {field2: 2}, {field3: 3});
 bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4, items: {item1: 1, item2: 2}});
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="autoExtend"></a>bbn.fn.autoExtend(namespace, obj) [Back to top](#bbn_top)
+### <a name="autoExtend"></a>bbn.fn.autoExtend(namespace, obj)
 
   __Auto extends the bbn object by passing the namespace and the object it will contain.__
 
@@ -523,8 +543,9 @@ bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4
   * __obj__ _Object_ 
 
   __Returns__ _undefined_ 
+[Back to top](#bbn_top)  
 
-### <a name="removeEmpty"></a>bbn.fn.removeEmpty(arr) [Back to top](#bbn_top)
+### <a name="removeEmpty"></a>bbn.fn.removeEmpty(arr)
 
   __Returns the filtered array, removing all elements deemed empty.__
 
@@ -538,8 +559,9 @@ bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4
 bbn.fn.removeEmpty([{field: 1, field2: 2}, '', {field: 2, field2: 3}, '',  {field:3, field2:  4}, 0, false]);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="arrayFromProp"></a>bbn.fn.arrayFromProp(arr, prop) [Back to top](#bbn_top)
+### <a name="arrayFromProp"></a>bbn.fn.arrayFromProp(arr, prop)
 
   __Returns an array of the same size made of the given property's values.__
 
@@ -558,8 +580,9 @@ bbn.fn.arrayFromProp([
 ], 'year');
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="pickValue"></a>bbn.fn.pickValue(arr) [Back to top](#bbn_top)
+### <a name="pickValue"></a>bbn.fn.pickValue(arr)
 
   __Returns a random item from the given array.__
 
@@ -573,8 +596,9 @@ bbn.fn.arrayFromProp([
 bbn.fn.pickValue(['field1', 'field2', 'field3']);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="diffObj"></a>bbn.fn.diffObj(obj1, obj2, unchanged, notRoot) [Back to top](#bbn_top)
+### <a name="diffObj"></a>bbn.fn.diffObj(obj1, obj2, unchanged, notRoot)
 
   __Returns an object containing the differences between the given objects.__
 
@@ -598,17 +622,9 @@ bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3
 bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3: false}, 'unchanged');
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="fori"></a>bbn.fn.fori(fn, arr, max, min) [Back to top](#bbn_top)
-
-  * __fn__ _Function_ 
-  * __arr__ _Array_ 
-  * __max__ _Number_ 
-  * __min__ _Number_ 
-
-  __Returns__ _Mixed_ 
-
-### <a name="forir"></a>bbn.fn.forir(fn, arr, max, min) [Back to top](#bbn_top)
+### <a name="fori"></a>bbn.fn.fori(fn, arr, max, min)
 
   * __fn__ _Function_ 
   * __arr__ _Array_ 
@@ -616,8 +632,19 @@ bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3
   * __min__ _Number_ 
 
   __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
 
-### <a name="each"></a>bbn.fn.each(arr, fn) [Back to top](#bbn_top)
+### <a name="forir"></a>bbn.fn.forir(fn, arr, max, min)
+
+  * __fn__ _Function_ 
+  * __arr__ _Array_ 
+  * __max__ _Number_ 
+  * __min__ _Number_ 
+
+  __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
+
+### <a name="each"></a>bbn.fn.each(arr, fn)
 
   __Performs an iterative loop of an array or object given to it as a first argument and as a second argument a function that accepts 2 arguments,.__
 
@@ -639,8 +666,9 @@ bbn.fn.each([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6:
 })
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="iterate"></a>bbn.fn.iterate(obj, fn) [Back to top](#bbn_top)
+### <a name="iterate"></a>bbn.fn.iterate(obj, fn)
 
   __Scroll through the properties of an object by executing a function for each corresponding element.__
 
@@ -658,8 +686,9 @@ bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
 });
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="clone"></a>bbn.fn.clone(obj) [Back to top](#bbn_top)
+### <a name="clone"></a>bbn.fn.clone(obj)
 
   __Returns the clone argument removing the observability.__
 
@@ -673,8 +702,9 @@ bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
 bbn.fn.clone({field: 1});
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="map"></a>bbn.fn.map(arr, fn, deepProp) [Back to top](#bbn_top)
+### <a name="map"></a>bbn.fn.map(arr, fn, deepProp)
 
   __Returns a new array generated by the execution of a function for each item of the given array.__
 
@@ -693,8 +723,9 @@ bbn.fn.map([1, 2, 3, 4], a => {
 });
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="toCSV"></a>bbn.fn.toCSV(arr, [','], [';'], ['"']) [Back to top](#bbn_top)
+### <a name="toCSV"></a>bbn.fn.toCSV(arr, [','], [';'], ['"'])
 
   __Returns a string exportable into a csv from the given array.__
 
@@ -711,8 +742,9 @@ bbn.fn.map([1, 2, 3, 4], a => {
 bbn.fn.toCSV([['a', 'b', 'c']]);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, max) [Back to top](#bbn_top)
+### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, max)
 
   __Allows the abbreviation of all the strings contained in the object properties or element in a array.__
 
@@ -733,3 +765,5 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 //["va...", 2, "va...", 4, 5]
 bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
+
+[Back to top](#bbn_top)  

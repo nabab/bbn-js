@@ -5,7 +5,7 @@
 <a name="bbn_top"></a>[init](#init)  
 
 
-### <a name="init"></a>bbn.fn.init(cfg) [Back to top](#bbn_top)
+### <a name="init"></a>bbn.fn.init(cfg)
 
   __Initializes the library bbn basing on the given configuration object.__
 
@@ -18,3 +18,4 @@
   * __cfg__ _Object_ 
 
   __Returns__ _undefined_ 
+[Back to top](#bbn_top)  

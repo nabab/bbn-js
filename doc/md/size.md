@@ -10,7 +10,7 @@
 [toggleFullScreen](#toggleFullScreen)  
 
 
-### <a name="toggleFullScreen"></a>bbn.fn.toggleFullScreen() [Back to top](#bbn_top)
+### <a name="toggleFullScreen"></a>bbn.fn.toggleFullScreen()
 
   __Toggles the fullscreen mode.__
 
@@ -21,8 +21,9 @@
 ```javascript
 bbn.fn.toggle_full_screen();
 ```
+[Back to top](#bbn_top)  
 
-### <a name="getScrollBarSize"></a>bbn.fn.getScrollBarSize() [Back to top](#bbn_top)
+### <a name="getScrollBarSize"></a>bbn.fn.getScrollBarSize()
 
   __Retutns the size of the scrollbar realative to the current environment.__
 
@@ -33,8 +34,9 @@ bbn.fn.toggle_full_screen();
 ```javascript
 bbn.fn.getScrollBarSize();
 ```
+[Back to top](#bbn_top)  
 
-### <a name="adjustSize"></a>bbn.fn.adjustSize(type, eles) [Back to top](#bbn_top)
+### <a name="adjustSize"></a>bbn.fn.adjustSize(type, eles)
 
   __Adjusts the size of the given elements.__
 
@@ -47,8 +49,9 @@ bbn.fn.getScrollBarSize();
 ```javascript
 bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
 ```
+[Back to top](#bbn_top)  
 
-### <a name="adjustHeight"></a>bbn.fn.adjustHeight() [Back to top](#bbn_top)
+### <a name="adjustHeight"></a>bbn.fn.adjustHeight()
 
   __Adjusts the height of the element(s) given as argument.__
 
@@ -59,8 +62,9 @@ bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
 ```javascript
 bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
 ```
+[Back to top](#bbn_top)  
 
-### <a name="adjustWidth"></a>bbn.fn.adjustWidth() [Back to top](#bbn_top)
+### <a name="adjustWidth"></a>bbn.fn.adjustWidth()
 
   __Adjusts the width of the element(s) given as argument.__
 
@@ -71,8 +75,9 @@ bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
 ```javascript
 bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
 ```
+[Back to top](#bbn_top)  
 
-### <a name="calculateHeight"></a>bbn.fn.calculateHeight(element) [Back to top](#bbn_top)
+### <a name="calculateHeight"></a>bbn.fn.calculateHeight(element)
 
   __Returns the height of the given dom element and force the repaint of the element to trigger animations.__
 
@@ -85,3 +90,4 @@ bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
 // "17.5px"
 bbn.fn.calculateHeight(<p>Javascript documentation</p>);
 ```
+[Back to top](#bbn_top)  

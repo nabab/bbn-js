@@ -8,10 +8,11 @@
 [fdate](#fdate)  
 [fdatetime](#fdatetime)  
 [ftime](#ftime)  
+[getDay](#getDay)  
 [money](#money)  
 
 
-### <a name="money"></a>bbn.fn.money(val, kilo, currency, novalue, decimal, thousands, precision) [Back to top](#bbn_top)
+### <a name="money"></a>bbn.fn.money(val, kilo, currency, novalue, decimal, thousands, precision)
 
   __Returns the given value to money format basing on the given configuration.__
 
@@ -31,8 +32,9 @@
 bbn.fn.money(5856, false, '$', false, '.' ,false, 1); 
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="date"></a>bbn.fn.date(v) [Back to top](#bbn_top)
+### <a name="date"></a>bbn.fn.date(v)
 
   __Returns a date object from the given argument.__
 
@@ -46,8 +48,9 @@ bbn.fn.money(5856, false, '$', false, '.' ,false, 1);
 bbn.fn.date('2019/02/11')
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="dateSQL"></a>bbn.fn.dateSQL(v, dayOnly) [Back to top](#bbn_top)
+### <a name="dateSQL"></a>bbn.fn.dateSQL(v, dayOnly)
 
   __Returns a date with SQL format.__
 
@@ -63,8 +66,9 @@ let date = new Date();
 bbn.fn.dateSQL(date,false);
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="daysInMonth"></a>bbn.fn.daysInMonth(v) [Back to top](#bbn_top)
+### <a name="daysInMonth"></a>bbn.fn.daysInMonth(v)
 
   __Returns the number of days of the month given in the date.__
 
@@ -78,20 +82,27 @@ bbn.fn.dateSQL(date,false);
 bbn.fn.daysInMonth(new Date());
 ```
 
+[Back to top](#bbn_top)  
 
-### <a name="fdate"></a>bbn.fn.fdate(d, ) [Back to top](#bbn_top)
+
+[Back to top](#bbn_top)  
+
+### <a name="fdate"></a>bbn.fn.fdate(d, )
 
   * __d__ _String|Date_ 
   * ____ _rong_resul_ 
 
   __Returns__ _undefined_ 
+[Back to top](#bbn_top)  
 
-### <a name="fdatetime"></a>bbn.fn.fdatetime() [Back to top](#bbn_top)
-
-
-  __Returns__ _Mixed_ 
-
-### <a name="ftime"></a>bbn.fn.ftime() [Back to top](#bbn_top)
+### <a name="fdatetime"></a>bbn.fn.fdatetime()
 
 
   __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
+
+### <a name="ftime"></a>bbn.fn.ftime()
+
+
+  __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  

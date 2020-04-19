@@ -7,21 +7,24 @@
 [replaceHistory](#replaceHistory)  
 
 
-### <a name="history"></a>bbn.fn.history() [Back to top](#bbn_top)
+### <a name="history"></a>bbn.fn.history()
 
 
   __Returns__ _undefined_ 
+[Back to top](#bbn_top)  
 
-### <a name="replaceHistory"></a>bbn.fn.replaceHistory(url, title, data) [Back to top](#bbn_top)
+### <a name="replaceHistory"></a>bbn.fn.replaceHistory(url, title, data)
 
   * __url__ _String_ 
   * __title__ _String_ 
   * __data__ _Object_ 
 
   __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
 
-### <a name="addHistoryScript"></a>bbn.fn.addHistoryScript(script) [Back to top](#bbn_top)
+### <a name="addHistoryScript"></a>bbn.fn.addHistoryScript(script)
 
   * __script__ _Function_ 
 
   __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
