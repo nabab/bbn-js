@@ -92,7 +92,7 @@ errorFn, abortFn, e, and ele; The rules are:
 * An HTML element is ele
 *.
 
-  * __args__ _*_ 
+  * __args__ _Mixed_ 
 
   __Returns__ _Object_ The configuration object
 

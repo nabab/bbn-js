@@ -391,7 +391,7 @@ defined in the last argument of the function.
 
   * __arr__ _Array_ The source array
   * __prop__ _String|Object_ The property to check against or a filter object.
-  * __val__ _*_ The value of the property to check (if prop is a string)
+  * __val__ _Mixed_ The value of the property to check (if prop is a string)
   * __field__ _String_ The property from which the value is returned
 
   __Returns__ _undefined_ 
