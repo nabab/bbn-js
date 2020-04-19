@@ -194,21 +194,29 @@ bbn.fn.multiorder([
 
   The same array is returned, with its elements reordered according to the executed movement.
 
-  * __arr__ _Array_ 
-  * __fromIndex__ _Number_ 
-  * __toIndex__ _Number_ 
+  * __arr__ _Array_ The array
+  * __fromIndex__ _Number_ The index of the element to move
+  * __toIndex__ _Number_ The future index of the element
 
-  __Returns__ _Array_ 
+  __Returns__ _Array_ The same array, with elements repositionned.
 
 
 ```javascript
-//['field1', 'field3', 'field2', 'field4']
-bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
+bbbn.fn.move([
+  {movie: "Brazil", year: 1985},
+  {movie: "Donnie Darko", year: 2001},
+  {movie: "Out of Africa", year: 1985}
+], 1, 2);
+// [
+//   {movie: "Brazil", year: 1985},
+//   {movie: "Out of Africa", year: 1985},
+//   {movie: "Donnie Darko", year: 2001}
+// ]
 ```
  @example
 ```javascript
-bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
-// ['field4', 'field1', 'field2', 'field3"]
+bbn.fn.move([1, 2, 3, 4], 3, 0);
+// [4, 1, 2, 3]
 ```
 [Back to top](#bbn_top)  
 
@@ -240,7 +248,7 @@ The defaut operator (if none is given) is __==__ .
   * __v2__ _String|Number_ 
   * __mode__ _String_ 
 
-  __Returns__ _Boolean_ True if the values' comparisaon comply with the operator, false otherwise
+  __Returns__ _Boolean_ True if the values' comparison complies with the operator, false otherwise
 
 
 ```javascript
@@ -267,26 +275,43 @@ bbn.fn.compare("JavaScript", "script", 'contain');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="search"></a>bbn.fn.search(arr, prop, val, mode)
+### <a name="search"></a>bbn.fn.search(arr, prop, val, mode, startFrom)
 
   __Retrieves the index of the array's first element corresponding to the given filter.__
 
-  If it finds it, it returns the index where the object is positioned in the array;
-if it does not find what it requested then it will return -1.
+  Returns -1 if the element is not found. If the second parameter is an object or function 
+for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
+left, i.e. val becomes mode, and mode startFrom.
 
   * __arr__ _Array_ 
-  * __prop__ _String_ 
-  * __val__ _String|Number_ 
-  * __mode__ _String_ 
+  * __prop__ _String|Object|Function_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __mode__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
+  * __startFrom__ _Number_ The index from which the search should start
 
-  __Returns__ _Number_ array index of the object found, otherwise -1
+  __Returns__ _Number_ The index if found, otherwise -1
 
 
 ```javascript
-//2
-bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, field6: 6}], 'field5', 5);
+bbn.fn.search([
+  {name: "Raiders of the loast ark", id: 589},
+  {name: "Goonies", id: 689},
+  {name: "Star wars", id: 256},
+  {name: "Jaws", id: 423}
+], "id", 423);
+// 3
 ```
 
+
+```javascript
+bbn.fn.search([
+  {name: "Raiders of the loast ark", id: 589},
+  {name: "Goonies", id: 689},
+  {name: "Star wars", id: 256},
+  {name: "Jaws", id: 423}
+], {name: "Star wars"});
+// 2
+```
 [Back to top](#bbn_top)  
 
 ### <a name="count"></a>bbn.fn.count(arr, prop, val, mode)
