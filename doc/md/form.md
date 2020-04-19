@@ -12,7 +12,7 @@
 [submit](#submit)  
 
 
-- <a name="add_inputs"></a>**bbn.fn.add_inputs(form, params, prefix)** [Back to top](#bbn_top)
+### <a name="add_inputs"></a>bbn.fn.add_inputs(form, params, prefix) [Back to top](#bbn_top)
 
   * __form__ _Object_ 
   * __params__ _array_ 
@@ -20,21 +20,21 @@
 
   __Returns__ _Mixed_ 
 
-- <a name="cancel"></a>**bbn.fn.cancel(form, e)** [Back to top](#bbn_top)
+### <a name="cancel"></a>bbn.fn.cancel(form, e) [Back to top](#bbn_top)
 
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
 
   __Returns__ _Mixed_ 
 
-- <a name="reset"></a>**bbn.fn.reset(form, e)** [Back to top](#bbn_top)
+### <a name="reset"></a>bbn.fn.reset(form, e) [Back to top](#bbn_top)
 
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
 
   __Returns__ _Mixed_ 
 
-- <a name="submit"></a>**bbn.fn.submit(form, e)** [Back to top](#bbn_top)
+### <a name="submit"></a>bbn.fn.submit(form, e) [Back to top](#bbn_top)
 
   Fires {*}
   Fires {*}
@@ -43,27 +43,27 @@
 
   __Returns__ _Mixed_ 
 
-- <a name="fieldValue"></a>**bbn.fn.fieldValue(field)** [Back to top](#bbn_top)
+### <a name="fieldValue"></a>bbn.fn.fieldValue(field) [Back to top](#bbn_top)
 
   * __field__ _HTMLElement_ 
 
   __Returns__ _undefined_ 
 
-- <a name="formdata"></a>**bbn.fn.formdata(form)** [Back to top](#bbn_top)
+### <a name="formdata"></a>bbn.fn.formdata(form) [Back to top](#bbn_top)
 
   Fires {*}
   * __form__ _HTMLElementL_ 
 
   __Returns__ _undefined_ 
 
-- <a name="formChanges"></a>**bbn.fn.formChanges(form)** [Back to top](#bbn_top)
+### <a name="formChanges"></a>bbn.fn.formChanges(form) [Back to top](#bbn_top)
 
   Fires {*}
   * __form__ _HTMLElement_ 
 
   __Returns__ _undefined_ 
 
-- <a name="objectToFormData"></a>**bbn.fn.objectToFormData(obj, key, ignoreList)** [Back to top](#bbn_top)
+### <a name="objectToFormData"></a>bbn.fn.objectToFormData(obj, key, ignoreList) [Back to top](#bbn_top)
 
   * __obj__ _Object|Array|File_ 
   * __key__ _String_ 
