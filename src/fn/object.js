@@ -216,9 +216,9 @@
      * // ]
      * ```
      * @memberof bbn.fn
-     * @param    {Array} arr
-     * @param    {Array} orders
-     * @returns
+     * @param    {Array}        arr           The array to order
+     * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
+     * @returns  {Array}        The same array (arr), ordered differently
      */
     multiorder(arr, orders){
       if ( !Array.isArray(orders) && (typeof orders === 'object') ){
