@@ -407,4 +407,4 @@ bbn.fn.stopChrono('myChrono');
 ``` javascript
 //false
 bbn.fn.isMobile();
-```
+```

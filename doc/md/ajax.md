@@ -234,4 +234,4 @@ bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
 ```javascript
 // my/location:ec60cdf5001208a1fc5fbae05ac94a55
 bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
-```
+```
