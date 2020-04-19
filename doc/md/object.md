@@ -65,7 +65,7 @@ for deep property access, and returns its value if found and undefined otherwise
   * __obj__ _Object_ 
   * __prop__ _String_ 
 
-  __Returns__ _*_ The property's value or undefined
+  __Returns__ _Mixed_ The property's value or undefined
 
 
 ```javascript
@@ -591,7 +591,7 @@ bbn.fn.arrayFromProp([
 
   * __arr__ _Array_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 
 ```javascript
@@ -634,7 +634,7 @@ bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3
   * __max__ _Number_ 
   * __min__ _Number_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="forir"></a>**bbn.fn.forir(fn, arr, max, min)** [Back to top](#bbn_top)
 
@@ -643,7 +643,7 @@ bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3
   * __max__ _Number_ 
   * __min__ _Number_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="each"></a>**bbn.fn.each(arr, fn)** [Back to top](#bbn_top)
 
@@ -655,7 +655,7 @@ bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3
   * __arr__ _Array_ 
   * __fn__ _Function_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 
 ```javascript
@@ -678,7 +678,7 @@ bbn.fn.each([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6:
   * __obj__ _Object|Number_ 
   * __fn__ _Function_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 
 ```javascript

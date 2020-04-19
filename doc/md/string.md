@@ -156,7 +156,7 @@ bbn.fn.rgb2hex("rgb(255, 0, 0)");
 the properties that define the color and the corresponding value.
 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 
 ```javascript
@@ -618,14 +618,14 @@ bbn.fn.baseName('folder/other_folder/file.png', '.png');
 
   * ____ _orma_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="removeTrailingChars"></a>**bbn.fn.removeTrailingChars(st, char)** [Back to top](#bbn_top)
 
   * __st__ _String_ 
   * __char__ _String_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="formatSize"></a>**bbn.fn.formatSize(st)** [Back to top](#bbn_top)
 

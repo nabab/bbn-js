@@ -18,10 +18,10 @@
   * __title__ _String_ 
   * __data__ _Object_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="addHistoryScript"></a>**bbn.fn.addHistoryScript(script)** [Back to top](#bbn_top)
 
   * __script__ _Function_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 

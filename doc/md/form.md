@@ -18,21 +18,21 @@
   * __params__ _array_ 
   * __prefix__ _String_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="cancel"></a>**bbn.fn.cancel(form, e)** [Back to top](#bbn_top)
 
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="reset"></a>**bbn.fn.reset(form, e)** [Back to top](#bbn_top)
 
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="submit"></a>**bbn.fn.submit(form, e)** [Back to top](#bbn_top)
 
@@ -41,7 +41,7 @@
   * __form__ _HTMLElement_ 
   * __e__ _Event_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="fieldValue"></a>**bbn.fn.fieldValue(field)** [Back to top](#bbn_top)
 

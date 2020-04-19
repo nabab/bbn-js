@@ -95,9 +95,9 @@ bbn.fn.daysInMonth(new Date());
 - <a name="fdatetime"></a>**bbn.fn.fdatetime()** [Back to top](#bbn_top)
 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="ftime"></a>**bbn.fn.ftime()** [Back to top](#bbn_top)
 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 

@@ -267,7 +267,7 @@ bbn.fn.happy('I want to log the success of my function');
 
   * __args__ _...any_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="setCookie"></a>**bbn.fn.setCookie(name, value, days)** [Back to top](#bbn_top)
 
@@ -303,7 +303,7 @@ bbn.fn.getCookie('lang');
   __Erase the cookie corresponding to the given name;.__
 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 
 ``` javascript
@@ -362,7 +362,7 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
 
   * __img__ _HTMLElement_ 
 
-  __Returns__ _*_ 
+  __Returns__ _Mixed_ 
 
 - <a name="formatBytes"></a>**bbn.fn.formatBytes()** [Back to top](#bbn_top)
 
