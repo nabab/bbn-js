@@ -281,6 +281,8 @@
      * Performs a comparison between two values based on the given operator and returns a boolean.
      * 
      * It is internally used by all the filtering functions; the available operators are:  
+     * -
+     *  - jkjkl
      *   1. _===_, _=_, _equal_, _eq_, _is_, which stand for __===__  
      *   1. _!==_, _notequal_, _neq_, _isnot_, which stand for __!==__
      *   1. _!=_, _different_, which stand for __!=__
@@ -297,6 +299,7 @@
      *   1. _isnotnull_, which stands for __!== null__
      *   1. _isempty_, which stands for __=== ''__
      *   1. _isnotempty_, which stands for __!== ''__  
+     *   
      * The defaut operator (if none is given) is __ == __ .
      *
      * @method   compare

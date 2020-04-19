@@ -159,10 +159,10 @@ bbn.fn.order([
   The resulting array is the same object, the order is based on compareValues function
 applied for each given properties in orders argument.
 
-  * __arr__ _Array_ 
-  * __orders__ _Array_ 
+  * __arr__ _Array_ The array to order
+  * __orders__ _Array|Object_ The properties and directions (asc, desc) to order by
 
-  __Returns__ _undefined_ 
+  __Returns__ _Array_ The same array (arr), ordered differently
 
 
 ```javascript
@@ -217,23 +217,26 @@ bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
   __Performs a comparison between two values based on the given operator and returns a boolean.__
 
   It is internally used by all the filtering functions; the available operators are:  
-  1. *===*, *=*, *equal*, *eq*, *is*, which stand for **===**  
-  1. *!==*, *notequal*, *neq*, *isnot*, which stand for **!==**
-  1. *!=*, *different*, which stand for **!=**
-  1. *contains*, *contain*, *icontains*, *icontain*
-  1. *starts*, *start*
-  1. *startswith*, *startsi*, *starti*, *istarts*, *istart*
-  1. *endswith*, *endsi*, *endi*, *iends*, *iend*
-  1. *like*
-  1. *gt*, *>*, which stand for **>**
-  1. *lt*, *<*, which stand for **<**
-  1. *gte*, *>=*, which stand for **>=**
-  1. *lte*, *<=*, which stand for **<=**
-  1. *isnull*, which stands for **=== null**
-  1. *isnotnull*, which stands for **!== null**
-  1. *isempty*, which stands for **=== ''**
-  1. *isnotempty*, which stands for **!== ''**  
- The defaut operator (if none is given) is == .
+-
+ - jkjkl
+  1. _===_, _=_, _equal_, _eq_, _is_, which stand for __===__  
+  1. _!==_, _notequal_, _neq_, _isnot_, which stand for __!==__
+  1. _!=_, _different_, which stand for __!=__
+  1. _contains_, _contain_, _icontains_, _icontain_
+  1. _starts_, _start_
+  1. _startswith_, _startsi_, _starti_, _istarts_, _istart_
+  1. _endswith_, _endsi_, _endi_, _iends_, _iend_
+  1. _like_
+  1. _gt_, _>_, which stand for __>__
+  1. _lt_, _<_, which stand for __<__
+  1. _gte_, _>=_, which stand for __>=__
+  1. _lte_, _<=_, which stand for __<=__
+  1. _isnull_, which stands for __=== null__
+  1. _isnotnull_, which stands for __!== null__
+  1. _isempty_, which stands for __=== ''__
+  1. _isnotempty_, which stands for __!== ''__  
+
+The defaut operator (if none is given) is __ == __ .
 
   * __v1__ _String|Number_ 
   * __v2__ _String|Number_ 
@@ -766,4 +769,4 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
 
-[Back to top](#bbn_top)  
+[Back to top]
