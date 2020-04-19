@@ -767,4 +767,4 @@ bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, fiel
 bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
 ```
 
-[Back to top](#bbn_top)                                                                
+[Back to top](#bbn_top)  
