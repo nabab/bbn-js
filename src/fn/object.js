@@ -29,7 +29,7 @@
      * @param    {Array} arr 
      * @returns  {Array}
      */
-    unique(arr){
+    unique(arr) {
       return arr.filter(function(el, index, ar) {
         return index === ar.indexOf(el);
       });
@@ -63,7 +63,7 @@
      * @param    {String} prop
      * @returns  {*}      The property's value or undefined
      */
-    getProperty(obj, prop){
+    getProperty(obj, prop) {
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
         return prop.split('.').reduce((o, i) => {
           if (o && (o[i] !== undefined)) {
@@ -107,23 +107,23 @@
      * @param    {Object} a    First object for comparison
      * @param    {Object} b    Second object for comparison
      * @param    {String} prop Property to compare
-     * @param    {String} dir  Direction of comparison (desc or asc by default)
+     * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
      * @returns  {Number} Always either -1, 1, or 0
      */
-    compareValues(a, b, prop, dir){
+    compareValues(a, b, prop, dir = 'asc') {
       let va = bbn.fn.getProperty(a, prop),
           vb = bbn.fn.getProperty(b, prop),
           ta = (typeof (va)).toLowerCase(),
           tb = (typeof (vb)).toLowerCase();
-      if ( dir && (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ){
+      if ((dir !== 'asc') && bbn.fn.isString(dir) && (dir.toLowerCase() === 'desc')) {
         dir = 'desc';
       }
-      if ( ta !== tb ){
+      if (ta !== tb) {
         va = ta;
         vb = tb;
       }
-      else{
-        switch ( ta ){
+      else {
+        switch (ta) {
           case 'string':
             va = bbn.fn.removeAccents(va).toLowerCase();
             vb = bbn.fn.removeAccents(vb).toLowerCase();
@@ -133,17 +133,17 @@
             vb = vb ? 1 : 0;
             break;
           case 'object':
-            if ( bbn.fn.isDate(va) ){
+            if (bbn.fn.isDate(va)) {
               va = va.getTime();
               vb = bbn.fn.isDate(vb) ? vb.getTime() : 0;
             }
             break;
         }
       }
-      if ( va < vb ){
+      if (va < vb) {
         return dir === 'desc' ? 1 : -1;
       }
-      if ( va > vb ){
+      if (va > vb) {
         return dir === 'desc' ? -1 : 1;
       }
       return 0;
@@ -172,12 +172,11 @@
      * @memberof bbn.fn
      * @param    {Array}  arr  The array to order
      * @param    {String} prop The property on which the order is based
-     * @param    {String} dir  The direction of the order (desc or asc by default)
+     * @param    {String} [dir=asc]  The direction of the order (desc or asc by default)
      * @returns  {Array} 
      */
-    order(arr, prop, dir){
+    order(arr, prop, dir = 'asc'){
       if (arr) {
-        dir = (typeof(dir) === 'string') && (dir.toLowerCase() === 'desc') ? 'desc' : 'asc';
         return arr.sort(function(a, b){
           return bbn.fn.compareValues(a, b, prop, dir);
         });
@@ -195,17 +194,18 @@
      * @global
      * @example
      * ```javascript
-     * bbn.fn.multiorder([
+     * let ar = [
      *   {movie: "Brazil", year: 1985},
      *   {movie: "Donnie Darko", year: 2001},
      *   {movie: "Out of Africa", year: 1985},
      *   {movie: "Ran", year: 1985},
      *   {movie: "Back to the future", year: 1985},
      *   {movie: "Barry Lindon", year: 1976}
-     * ], {
-     *   year: "desc",
-     *   movie: "asc"
-     * });
+     * ];
+     * bbn.fn.multiorder(ar, [
+     *   {field: "year", dir: "desc"},
+     *   {field: "movie", dir: "asc"}
+     * ]);
      * // [
      * //   {movie: "Donnie Darko", year: 2001},
      * //   {movie: "Back to the future", year: 1985},
@@ -214,6 +214,8 @@
      * //   {movie: "Ran", year: 1985},
      * //   {movie: "Barry Lindon", year: 1976}
      * // ]
+     * bbn.fn.multiorder(ar, {year: "desc", movie: "asc"});
+     * // Same result with object shortcut
      * ```
      * @memberof bbn.fn
      * @param    {Array}        arr           The array to order
@@ -243,7 +245,7 @@
     },
 
     /**
-     * Moves an element of an array to a different position.
+     * Moves an element to a different position within the given array.
      *
      * The same array is returned, with its elements reordered according to the executed movement.
      *
@@ -437,23 +439,18 @@
      * @global
      * @example
      * ```javascript
-     * bbn.fn.search([
-     *   {name: "Raiders of the loast ark", id: 589},
-     *   {name: "Goonies", id: 689},
-     *   {name: "Star wars", id: 256},
-     *   {name: "Jaws", id: 423}
-     * ], "id", 423);
-     * // 3
-     * ```
-     * @example
-     * ```javascript
-     * bbn.fn.search([
-     *   {name: "Raiders of the loast ark", id: 589},
-     *   {name: "Goonies", id: 689},
-     *   {name: "Star wars", id: 256},
-     *   {name: "Jaws", id: 423}
-     * ], {name: "Star wars"});
+     * let ar = [
+     *   {name: "Raiders of the loast ark", director: "Steven Spielberg", year: 1981, id: 589},
+     *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+     *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+     *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+     * ];
+     * bbn.fn.search(ar, "id", 256);
      * // 2
+     * bbn.fn.search(ar, {director: "Steven Spielberg"});
+     * // 0
+     * bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
+     * // 3
      * ```
      * @memberof bbn.fn
      * @param    {Array}                  arr

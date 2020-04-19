@@ -85,14 +85,14 @@ bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="compareValues"></a>bbn.fn.compareValues(a, b, prop, dir)
+### <a name="compareValues"></a>bbn.fn.compareValues(a, b, prop, [dir=asc])
 
   __Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.__
 
   * __a__ _Object_ First object for comparison
   * __b__ _Object_ Second object for comparison
   * __prop__ _String_ Property to compare
-  * __dir__ _String_ Direction of comparison (desc or asc by default)
+  * __[dir=asc]__ _String_ Direction of comparison (desc or asc by default)
 
   __Returns__ _Number_ Always either -1, 1, or 0
 
@@ -125,7 +125,7 @@ bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="order"></a>bbn.fn.order(arr, prop, dir)
+### <a name="order"></a>bbn.fn.order(arr, prop, [dir=asc])
 
   __Sorts an array of objects based on the given property.__
 
@@ -133,7 +133,7 @@ bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
 
   * __arr__ _Array_ The array to order
   * __prop__ _String_ The property on which the order is based
-  * __dir__ _String_ The direction of the order (desc or asc by default)
+  * __[dir=asc]__ _String_ The direction of the order (desc or asc by default)
 
   __Returns__ _Array_ 
 
@@ -166,17 +166,18 @@ applied for each given properties in orders argument.
 
 
 ```javascript
-bbn.fn.multiorder([
+let ar = [
   {movie: "Brazil", year: 1985},
   {movie: "Donnie Darko", year: 2001},
   {movie: "Out of Africa", year: 1985},
   {movie: "Ran", year: 1985},
   {movie: "Back to the future", year: 1985},
   {movie: "Barry Lindon", year: 1976}
-], {
-  year: "desc",
-  movie: "asc"
-});
+];
+bbn.fn.multiorder(ar, [
+  {field: "year", dir: "desc"},
+  {field: "movie", dir: "asc"}
+]);
 // [
 //   {movie: "Donnie Darko", year: 2001},
 //   {movie: "Back to the future", year: 1985},
@@ -185,12 +186,14 @@ bbn.fn.multiorder([
 //   {movie: "Ran", year: 1985},
 //   {movie: "Barry Lindon", year: 1976}
 // ]
+bbn.fn.multiorder(ar, {year: "desc", movie: "asc"});
+// Same result with object shortcut
 ```
 [Back to top](#bbn_top)  
 
 ### <a name="move"></a>bbn.fn.move(arr, fromIndex, toIndex)
 
-  __Moves an element of an array to a different position.__
+  __Moves an element to a different position within the given array.__
 
   The same array is returned, with its elements reordered according to the executed movement.
 
@@ -293,24 +296,18 @@ left, i.e. val becomes mode, and mode startFrom.
 
 
 ```javascript
-bbn.fn.search([
-  {name: "Raiders of the loast ark", id: 589},
-  {name: "Goonies", id: 689},
-  {name: "Star wars", id: 256},
-  {name: "Jaws", id: 423}
-], "id", 423);
-// 3
-```
-
-
-```javascript
-bbn.fn.search([
-  {name: "Raiders of the loast ark", id: 589},
-  {name: "Goonies", id: 689},
-  {name: "Star wars", id: 256},
-  {name: "Jaws", id: 423}
-], {name: "Star wars"});
+let ar = [
+  {name: "Raiders of the loast ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.search(ar, "id", 256);
 // 2
+bbn.fn.search(ar, {director: "Steven Spielberg"});
+// 0
+bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
+// 3
 ```
 [Back to top](#bbn_top)  
 
