@@ -252,19 +252,27 @@
      * @todo     Finish doc
      * @example
      * ```javascript
-     * //['field1', 'field3', 'field2', 'field4']
-     * bbbn.fn.move(['field1', 'field2', 'field3', 'field4'], 1, 2);
+     * bbbn.fn.move([
+     *   {movie: "Brazil", year: 1985},
+     *   {movie: "Donnie Darko", year: 2001},
+     *   {movie: "Out of Africa", year: 1985}
+     * ], 1, 2);
+     * // [
+     * //   {movie: "Brazil", year: 1985},
+     * //   {movie: "Out of Africa", year: 1985},
+     * //   {movie: "Donnie Darko", year: 2001}
+     * // ]
      * ```
      *  @example
      * ```javascript
-     * bbn.fn.move(['field1', 'field2','field3', 'field4'], 3, 0);
-     * // ['field4', 'field1', 'field2', 'field3"]
+     * bbn.fn.move([1, 2, 3, 4], 3, 0);
+     * // [4, 1, 2, 3]
      * ```
      * @memberof bbn.fn
-     * @param    {Array}  arr
-     * @param    {Number} fromIndex
-     * @param    {Number} toIndex
-     * @returns  {Array}
+     * @param    {Array}  arr       The array
+     * @param    {Number} fromIndex The index of the element to move
+     * @param    {Number} toIndex   The future index of the element
+     * @returns  {Array}  The same array, with elements repositionned.
      */
     move(arr, fromIndex, toIndex){
       if (toIndex >= arr.length) {
@@ -326,7 +334,7 @@
      * @param    {String|Number} v1
      * @param    {String|Number} v2
      * @param    {String}        mode
-     * @returns  {Boolean}       True if the values' comparisaon comply with the operator, false otherwise
+     * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
      */
     compare(v1, v2, mode){
       switch ( mode ){
@@ -421,24 +429,39 @@
     /**
      * Retrieves the index of the array's first element corresponding to the given filter.
      *
-     * If it finds it, it returns the index where the object is positioned in the array;
-     * if it does not find what it requested then it will return -1.
+     * Returns -1 if the element is not found. If the second parameter is an object or function 
+     * for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
+     * left, i.e. val becomes mode, and mode startFrom.
      *
      * @method   search
      * @global
-     *
      * @example
      * ```javascript
-     * //2
-     * bbn.fn.search([{field1: 1, field2: 2}, {field3: 3, field4 : 4}, {field5: 5, field6: 6}], 'field5', 5);
+     * bbn.fn.search([
+     *   {name: "Raiders of the loast ark", id: 589},
+     *   {name: "Goonies", id: 689},
+     *   {name: "Star wars", id: 256},
+     *   {name: "Jaws", id: 423}
+     * ], "id", 423);
+     * // 3
      * ```
-     *
+     * @example
+     * ```javascript
+     * bbn.fn.search([
+     *   {name: "Raiders of the loast ark", id: 589},
+     *   {name: "Goonies", id: 689},
+     *   {name: "Star wars", id: 256},
+     *   {name: "Jaws", id: 423}
+     * ], {name: "Star wars"});
+     * // 2
+     * ```
      * @memberof bbn.fn
-     * @param    {Array}         arr
-     * @param    {String}        prop
-     * @param    {String|Number} val
-     * @param    {String}        mode
-     * @returns  {Number}  array index of the object found, otherwise -1
+     * @param    {Array}                  arr
+     * @param    {String|Object|Function} prop      A property's name or a filter object or function
+     * @param    {*}                      val       The value with which comparing the given property
+     * @param    {String}                 mode      The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {Number}                 startFrom The index from which the search should start
+     * @returns  {Number}                 The index if found, otherwise -1
      */
     search(arr, prop, val, mode, startFrom){
       if ( !bbn.fn.isArray(arr) ){
