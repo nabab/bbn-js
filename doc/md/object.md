@@ -17,9 +17,9 @@
 [filterToConditions](#filterToConditions)  
 [fori](#fori)  
 [forir](#forir)  
+[getField](#getField)  
 [getProperty](#getProperty)  
-[get_field](#get_field)  
-[get_row](#get_row)  
+[getRow](#getRow)  
 [isSame](#isSame)  
 [iterate](#iterate)  
 [map](#map)  
@@ -314,8 +314,8 @@ operators (as seen in bbn.fn.compare) and logics (AND/OR), and infinitely nested
 ```
 This way of managing the arguments is used in all the filtering functions.
 
-  * __arr__ _Array_ 
-  * __prop__ _String|Object|Function_ A property's name or a filter object or function
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
   * __startFrom__ _Number_ The index from which the search should start
@@ -344,7 +344,7 @@ bbn.fn.search(ar, {
   conditions: [
     {
       field: "director",
-      operator: "eq"
+      operator: "eq",
       value: "Steven Spielberg"
     }, {
       logic: "OR",
@@ -368,35 +368,70 @@ bbn.fn.search(ar, {
 
 ### <a name="count"></a>bbn.fn.count(arr, prop, val, operator)
 
-  __Counts the number of objects contained in the array matching the given filter.__
+  __Counts the number of objects matching the given filter in the given array.__
 
-  The second argument can be a string and in this case it will look for all the elements
-with the property which has the value equal to val; but it can also be an object with a 
-whole filter as defined in bbn.fn.filter.
+  The arguments follow the same scheme as bbn.fn.search.
 
-  * __arr__ _Array_ 
-  * __prop__ _String|Object_ 
-  * __val__ _String|Number_ 
-  * __operator__ _String_ 
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
   __Returns__ _Number_ 
 
 
 ```javascript
-bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
+let ar = [
+  {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.count(ar, "id", 256);
+// 1
+bbn.fn.count(ar, {director: "Steven Spielberg"});
+// 2
+bbn.fn.search(ar, "year", 1975, ">");
+// 3
+// Complex filters: all the movies from Spielberg between 1974 and 1980
+bbn.fn.search(ar, {
+  logic: "AND",
+  conditions: [
+    {
+      field: "director",
+      operator: "eq",
+      value: "Steven Spielberg"
+    }, {
+      logic: "AND",
+      conditions: [
+        {
+           field: "year",
+           operator: ">=",
+           value: 1974
+        }, {
+           field: "year",
+           operator: "<=",
+           value: 1980
+        }
+      ]
+    }
+  ]
+});
+// 1
 ```
 [Back to top](#bbn_top)  
 
-### <a name="sum"></a>bbn.fn.sum(arr, prop, filter, operator)
+### <a name="sum"></a>bbn.fn.sum(arr, numberProp, prop, val, operator)
 
-  __Returns the sum of the values ​​contained.__
+  __Returns the sum of the given property for the array's elements matching the filter.__
 
   in the various objects that have the property given in the second argument.
 
-  * __arr__ _Array_ 
-  * __prop__ _String_ 
-  * __filter__ _Object|Function_ 
-  * __operator__ _String_ 
+  * __arr__ _Array_ The subject array
+  * __numberProp__ _String_ 
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
   __Returns__ _Number_ 
 
@@ -421,10 +456,10 @@ bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => 
 
   __Returns a filtered array, based on the function given as the second argument.__
 
-  * __arr__ _Array_ 
-  * __prop__ _String|Object|Function_ 
-  * __val__ _Mixed_ 
-  * __operator__ _String_ 
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
   __Returns__ _Array_ 
 
@@ -438,34 +473,36 @@ bbn.fn.filter([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field
 
 [Back to top](#bbn_top)  
 
-### <a name="get_row"></a>bbn.fn.get_row(arr, prop, val)
+### <a name="getRow"></a>bbn.fn.getRow(arr, prop, val, operator)
 
   __Returns if the object sought is contained in the array finds it.__
 
-  * __arr__ _Array_ 
-  * __prop__ _String_ 
-  * __val__ _String|Number_ 
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
   __Returns__ _Object|Boolean_ 
 
 
 ```javascript
 //{field1: 2, field2: 3}
-bbn.fn.get_row([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
+bbn.fn. getRow([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
 ```
 
 [Back to top](#bbn_top)  
 
-### <a name="get_field"></a>bbn.fn.get_field(arr, prop, val, field)
+### <a name="getField"></a>bbn.fn.getField(arr, prop, val, operator, field)
 
   __Allows to take the value of an object property within an array.__
 
   It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
 defined in the last argument of the function.
 
-  * __arr__ _Array_ The source array
-  * __prop__ _String|Object_ The property to check against or a filter object.
-  * __val__ _Mixed_ The value of the property to check (if prop is a string)
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
   * __field__ _String_ The property from which the value is returned
 
   __Returns__ _undefined_ 
@@ -473,13 +510,13 @@ defined in the last argument of the function.
 
 ```javascript
 //2
-bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
+bbn.fn.getField([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
 ```
 
 
 ```javascript
 //4
-bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
+bbn.fn.getField([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
 ```
 [Back to top](#bbn_top)  
 

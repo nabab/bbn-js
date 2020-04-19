@@ -487,7 +487,7 @@
      *   conditions: [
      *     {
      *       field: "director",
-     *       operator: "eq"
+     *       operator: "eq",
      *       value: "Steven Spielberg"
      *     }, {
      *       logic: "OR",
@@ -508,12 +508,12 @@
      * // 3
      * ```
      * @memberof bbn.fn
-     * @param    {Array}                  arr
-     * @param    {String|Object|Function} prop      A property's name or a filter object or function
-     * @param    {*}                      val       The value with which comparing the given property
-     * @param    {String}                 operator      The operator to use for comparison with the value as used in the bbn.fn.compare
-     * @param    {Number}                 startFrom The index from which the search should start
-     * @returns  {Number}                 The index if found, otherwise -1
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {Number}                   startFrom The index from which the search should start
+     * @returns  {Number}                   The index if found, otherwise -1
      */
     search(arr, prop, val, operator, startFrom){
       if ( !bbn.fn.isArray(arr) ){
@@ -565,23 +565,57 @@
     },
 
     /**
-     * Counts the number of objects contained in the array matching the given filter.
+     * Counts the number of objects matching the given filter in the given array.
      * 
-     * The second argument can be a string and in this case it will look for all the elements
-     * with the property which has the value equal to val; but it can also be an object with a 
-     * whole filter as defined in bbn.fn.filter.
+     * The arguments follow the same scheme as bbn.fn.search.
      *
      * @method   count
      * @global
      * @example
      * ```javascript
-     * bbn.fn.count([{field1: 3, field2: 2}, {field3: 3, field4: 4}, {field1: 3, field4: 4}], 'field1', 3);
+     * let ar = [
+     *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+     *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+     *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+     *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+     * ];
+     * bbn.fn.count(ar, "id", 256);
+     * // 1
+     * bbn.fn.count(ar, {director: "Steven Spielberg"});
+     * // 2
+     * bbn.fn.search(ar, "year", 1975, ">");
+     * // 3
+     * // Complex filters: all the movies from Spielberg between 1974 and 1980
+     * bbn.fn.search(ar, {
+     *   logic: "AND",
+     *   conditions: [
+     *     {
+     *       field: "director",
+     *       operator: "eq",
+     *       value: "Steven Spielberg"
+     *     }, {
+     *       logic: "AND",
+     *       conditions: [
+     *         {
+     *            field: "year",
+     *            operator: ">=",
+     *            value: 1974
+     *         }, {
+     *            field: "year",
+     *            operator: "<=",
+     *            value: 1980
+     *         }
+     *       ]
+     *     }
+     *   ]
+     * });
+     * // 1
      * ```
      * @memberof bbn.fn
-     * @param    {Array}         arr
-     * @param    {String|Object} prop
-     * @param    {String|Number} val
-     * @param    {String}        operator
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
      * @returns  {Number}
      */
     count(arr, prop, val, operator){
@@ -589,7 +623,8 @@
     },
 
     /**
-     * Returns the sum of the values ​​contained
+     * Returns the sum of the given property for the array's elements matching the filter.
+     * 
      * in the various objects that have the property given in the second argument.
      *
      * @method   sum
@@ -610,17 +645,18 @@
      * ```
      *
      * @memberof bbn.fn
-     * @param    {Array}           arr
-     * @param    {String}          prop
-     * @param    {Object|Function} filter
-     * @param    {String}          operator
+     * @param    {Array}                    arr        The subject array
+     * @param    {String}                   numberProp
+     * @param    {(String|Object|Function)} prop       A property's name or a filter object or function
+     * @param    {*}                        val        The value with which comparing the given property
+     * @param    {String}                   operator   The operator to use for comparison with the value as used in the bbn.fn.compare
      * @returns  {Number}
      */
-    sum(arr, prop, filter, operator){
+    sum(arr, numberProp, prop, val, operator){
       let r = 0;
-      bbn.fn.each(bbn.fn.filter(arr, filter, operator), (a) => {
-        if ( a[prop] ){
-          r += (parseFloat(a[prop]) || 0);
+      bbn.fn.each(bbn.fn.filter(arr, prop, val, operator), (a) => {
+        if ( a[numberProp] ){
+          r += (parseFloat(a[numberProp]) || 0);
         }
       });
       return r;
@@ -640,10 +676,10 @@
      * ```
      *
      * @memberof bbn.fn
-     * @param    {Array}                  arr
-     * @param    {String|Object|Function} prop
-     * @param    {Mixed}                  val
-     * @param    {String}                 operator
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
      * @returns  {Array}
      */
     filter(arr, prop, val, operator){
@@ -692,23 +728,24 @@
     /**
      * Returns if the object sought is contained in the array finds it.
      *
-     * @method   get_row
+     * @method    getRow
      * @global
      *
      * @example
      * ```javascript
      * //{field1: 2, field2: 3}
-     * bbn.fn.get_row([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
+     * bbn.fn. getRow([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
      * ```
      *
      * @memberof bbn.fn
-     * @param    {Array}         arr
-     * @param    {String}        prop
-     * @param    {String|Number} val
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
      * @returns  {Object|Boolean}
      */
-    get_row(arr, prop, val){
-      var idx = bbn.fn.search(arr, prop, val);
+    getRow(arr, prop, val, operator){
+      var idx = bbn.fn.search(arr, prop, val, operator);
       if ( idx > -1 ){
         return arr[idx];
       }
@@ -721,29 +758,30 @@
      * It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
      * defined in the last argument of the function.
      *
-     * @method   get_field
+     * @method   getField
      * @global
      * @example
      * ```javascript
      * //2
-     * bbn.fn.get_field([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
+     * bbn.fn.getField([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
      * ```
      * @example
      * ```javascript
      * //4
-     * bbn.fn.get_field([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
+     * bbn.fn.getField([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
      * ```
      * @memberof bbn.fn
-     * @param    {Array}           arr   The source array
-     * @param    {String|Object}   prop  The property to check against or a filter object.
-     * @param    {*}               val   The value of the property to check (if prop is a string)
-     * @param    {String}          field The property from which the value is returned
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   field The property from which the value is returned
      * @returns
      */
-    get_field(arr, prop, val, prop2){
+    getField(arr, field, prop, val, operator) {
       var r;
-      if ( r = bbn.fn.get_row(arr, prop, val) ){
-        return r[prop2 ? prop2 : val] || false;
+      if ( r = bbn.fn. getRow(arr, prop, val, operator) ){
+        return r[field ? field : val] || false;
       }
       return false;
     },

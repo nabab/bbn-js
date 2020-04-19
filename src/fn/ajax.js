@@ -871,7 +871,7 @@
       let idx = bbn.fn.search(bbn.env.loaders, {key: idURL});
       if (idx > -1) {
         let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = bbn.fn.get_row(bbn.env.loadersHistory, {key: idURL, start: loader.start});
+        let history = bbn.fn. getRow(bbn.env.loadersHistory, {key: idURL, start: loader.start});
         if (history) {
           history.loading = false;
           history.duration = (new Date()).getTime() - loader.start;
