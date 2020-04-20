@@ -2,9 +2,12 @@
 
 ## Styling functions.
 
-<a name="bbn_top"></a>[addColors](#addColors)  
-[center](#center)  
-[colorToHex](#colorToHex)  
+<a name="bbn_top"></a>[bbn.fn.addColors](#addColors)  
+Adds the given color to the object bbn.var.colors in order to be able to use  
+[bbn.fn.center](#center)  
+Centers the given element by giving it a position absolute.  
+[bbn.fn.colorToHex](#colorToHex)  
+Returns the hex color of the given rgb or color name.  
 
 
 ### <a name="center"></a>bbn.fn.center(ele)

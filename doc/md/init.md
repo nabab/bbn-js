@@ -2,7 +2,8 @@
 
 ## Init function
 
-<a name="bbn_top"></a>[init](#init)  
+<a name="bbn_top"></a>[bbn.fn.init](#init)  
+Initializes the library bbn basing on the given configuration object.  
 
 
 ### <a name="init"></a>bbn.fn.init(cfg)

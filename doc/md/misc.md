@@ -2,42 +2,78 @@
 
 ## Miscellaneous functions.
 
-<a name="bbn_top"></a>[arrayBuffer2String](#arrayBuffer2String)  
-[canvasToImage](#canvasToImage)  
-[copy](#copy)  
-[eraseCookie](#eraseCookie)  
-[error](#error)  
-[formatBytes](#formatBytes)  
-[getCookie](#getCookie)  
-[getEventData](#getEventData)  
-[getHTMLOfSelection](#getHTMLOfSelection)  
-[getPath](#getPath)  
-[happy](#happy)  
-[imageToCanvas](#imageToCanvas)  
-[imgToBase64](#imgToBase64)  
-[info](#info)  
-[is](#is)  
-[isArray](#isArray)  
-[isBlob](#isBlob)  
-[isDate](#isDate)  
-[isDom](#isDom)  
-[isMobile](#isMobile)  
-[isNull](#isNull)  
-[isNumber](#isNumber)  
-[isObject](#isObject)  
-[isPercent](#isPercent)  
-[isString](#isString)  
-[isURL](#isURL)  
-[isValue](#isValue)  
-[isVue](#isVue)  
-[log](#log)  
-[setCookie](#setCookie)  
-[startChrono](#startChrono)  
-[stat](#stat)  
-[stopChrono](#stopChrono)  
-[string2ArrayBuffer](#string2ArrayBuffer)  
-[timestamp](#timestamp)  
-[warning](#warning)  
+<a name="bbn_top"></a>[bbn.fn.arrayBuffer2String](#arrayBuffer2String)  
+  
+[bbn.fn.canvasToImage](#canvasToImage)  
+Returns a canvas in a HTML element img  
+[bbn.fn.copy](#copy)  
+Copies to the clipboard the value of the given string.  
+[bbn.fn.eraseCookie](#eraseCookie)  
+Erase the cookie corresponding to the given name;  
+[bbn.fn.error](#error)  
+Logs the given argument in the browser's console highlighting it with a red background.  
+[bbn.fn.formatBytes](#formatBytes)  
+Formats the value given in bytes.  
+[bbn.fn.getCookie](#getCookie)  
+If it exsists returns the cookie corresponding to the given name.  
+[bbn.fn.getEventData](#getEventData)  
+Returns a promise having the event's data as argument.  
+[bbn.fn.getHTMLOfSelection](#getHTMLOfSelection)  
+  
+[bbn.fn.getPath](#getPath)  
+  
+[bbn.fn.happy](#happy)  
+Logs the given argument in the browser's console highlighting it with a green background.  
+[bbn.fn.imageToCanvas](#imageToCanvas)  
+Draws the given html image nto a canvas.  
+[bbn.fn.imgToBase64](#imgToBase64)  
+Returns the tag for the image in base64  
+[bbn.fn.info](#info)  
+Logs the given argument in the browser's console highlighting it with a blue background.  
+[bbn.fn.is](#is)  
+  
+[bbn.fn.isArray](#isArray)  
+Returns true if the given argument is array.  
+[bbn.fn.isBlob](#isBlob)  
+  
+[bbn.fn.isDate](#isDate)  
+Returns true if the given argument is a date object.  
+[bbn.fn.isDom](#isDom)  
+Returns true if the given argument is a dom element;  
+[bbn.fn.isMobile](#isMobile)  
+Returns true if the current browser is on a mobile device.  
+[bbn.fn.isNull](#isNull)  
+Returns true if the given argument is null;  
+[bbn.fn.isNumber](#isNumber)  
+Returns true if the given argument is a number  
+[bbn.fn.isObject](#isObject)  
+Returns true if the given argument is an object.  
+[bbn.fn.isPercent](#isPercent)  
+Returns true if the given argument is a percentage.  
+[bbn.fn.isString](#isString)  
+Returns true if the given argument is a string;  
+[bbn.fn.isURL](#isURL)  
+  
+[bbn.fn.isValue](#isValue)  
+Returns true if the given argument is not null or type object or array.  
+[bbn.fn.isVue](#isVue)  
+Returns true if the given argumen is a VueJS object.  
+[bbn.fn.log](#log)  
+Logs the given arguments in the browser's console.  
+[bbn.fn.setCookie](#setCookie)  
+Creates a cookie and assigns it to document.cookie.  
+[bbn.fn.startChrono](#startChrono)  
+Starts a timer and gives it a name.  
+[bbn.fn.stat](#stat)  
+  
+[bbn.fn.stopChrono](#stopChrono)  
+  
+[bbn.fn.string2ArrayBuffer](#string2ArrayBuffer)  
+  
+[bbn.fn.timestamp](#timestamp)  
+Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().  
+[bbn.fn.warning](#warning)  
+Logs the given argument in the browser's console highlighting it with a yellow background and red color.  
 
 
 ### <a name="is"></a>bbn.fn.is()

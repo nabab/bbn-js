@@ -7,21 +7,36 @@ i.e. a single page application where callback functions are already defined
 and bbn has been initiated through bbn.fn.init.
 
 
-<a name="bbn_top"></a>[_addLoader](#_addLoader)  
-[_deleteLoader](#_deleteLoader)  
-[abort](#abort)  
-[ajax](#ajax)  
-[callback](#callback)  
-[download](#download)  
-[downloadContent](#downloadContent)  
-[getIdURL](#getIdURL)  
-[getLoader](#getLoader)  
-[link](#link)  
-[post](#post)  
-[setNavigationVars](#setNavigationVars)  
-[treat_vars](#treat_vars)  
-[upload](#upload)  
-[window](#window)  
+<a name="bbn_top"></a>[bbn.fn._addLoader](#_addLoader)  
+Creates and adds a "loader" object to the property bbn.env.loaders.  
+[bbn.fn._deleteLoader](#_deleteLoader)  
+Deletes a loader and changes its history state after the promise is fullfilled.  
+[bbn.fn.abort](#abort)  
+Aborts (client side) the XHR corresponding to the given ID if it still exists.  
+[bbn.fn.ajax](#ajax)  
+Creates an XHR object and returns the Promise.  
+[bbn.fn.callback](#callback)  
+Executes a serie of predefined actions once a content has been loaded.  
+[bbn.fn.download](#download)  
+Downloads a file with given filename from a URL.  
+[bbn.fn.downloadContent](#downloadContent)  
+Downloads a file with given filename from its content.  
+[bbn.fn.getIdURL](#getIdURL)  
+Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.  
+[bbn.fn.getLoader](#getLoader)  
+Finds the loader corresponding to the given unique ID and returns it if found.  
+[bbn.fn.link](#link)  
+Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.  
+[bbn.fn.post](#post)  
+Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.  
+[bbn.fn.setNavigationVars](#setNavigationVars)  
+  
+[bbn.fn.treat_vars](#treat_vars)  
+Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.  
+[bbn.fn.upload](#upload)  
+Uploads a file synchronously through an XHR indicating progress.  
+[bbn.fn.window](#window)  
+  
 
 
 ### <a name="ajax"></a>bbn.fn.ajax(url, datatype, data, success, failure, abort)

@@ -2,9 +2,12 @@
 
 ## History related functions.
 
-<a name="bbn_top"></a>[addHistoryScript](#addHistoryScript)  
-[history](#history)  
-[replaceHistory](#replaceHistory)  
+<a name="bbn_top"></a>[bbn.fn.addHistoryScript](#addHistoryScript)  
+  
+[bbn.fn.history](#history)  
+  
+[bbn.fn.replaceHistory](#replaceHistory)  
+  
 
 
 ### <a name="history"></a>bbn.fn.history()

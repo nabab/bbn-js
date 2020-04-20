@@ -2,40 +2,74 @@
 
 ## Sizing functions.
 
-<a name="bbn_top"></a>[baseName](#baseName)  
-[br2nl](#br2nl)  
-[camelToCss](#camelToCss)  
-[camelize](#camelize)  
-[correctCase](#correctCase)  
-[dirName](#dirName)  
-[escapeRegExp](#escapeRegExp)  
-[fileExt](#fileExt)  
-[formatSize](#formatSize)  
-[hex2rgb](#hex2rgb)  
-[html2text](#html2text)  
-[isColor](#isColor)  
-[isDimension](#isDimension)  
-[isEmail](#isEmail)  
-[isEmpty](#isEmpty)  
-[md5](#md5)  
-[nl2br](#nl2br)  
-[percent](#percent)  
-[printf](#printf)  
-[randomInt](#randomInt)  
-[randomString](#randomString)  
-[removeAccents](#removeAccents)  
-[removeTrailingChars](#removeTrailingChars)  
-[remove_all](#remove_all)  
-[remove_nl](#remove_nl)  
-[remove_quotes](#remove_quotes)  
-[repeat](#repeat)  
-[replaceAll](#replaceAll)  
-[rgb2hex](#rgb2hex)  
-[roundDecimal](#roundDecimal)  
-[sanitize](#sanitize)  
-[shorten](#shorten)  
-[stringify](#stringify)  
-[uniqString](#uniqString)  
+<a name="bbn_top"></a>[bbn.fn.baseName](#baseName)  
+Returns the name of the element indicated by path given to it as an argument.  
+[bbn.fn.br2nl](#br2nl)  
+Replaces the html <br> tag with new line characters '\ n' if present in the string.  
+[bbn.fn.camelToCss](#camelToCss)  
+Returns the string passed as an argument in camelize mode for css.  
+[bbn.fn.camelize](#camelize)  
+Returns the string passed as an argument in camelize mode.  
+[bbn.fn.correctCase](#correctCase)  
+Converts the first character of the string to uppercase.  
+[bbn.fn.dirName](#dirName)  
+Returns the path of the folder containing the last hierarchical element of the path.  
+[bbn.fn.escapeRegExp](#escapeRegExp)  
+Returns a string escaped.  
+[bbn.fn.fileExt](#fileExt)  
+Gets the extension from a file's name.  
+[bbn.fn.formatSize](#formatSize)  
+Returns the value of size for element html  
+[bbn.fn.hex2rgb](#hex2rgb)  
+Convert an hexadecimmal string to RGB.  
+[bbn.fn.html2text](#html2text)  
+Convert text in html format to plain text.  
+[bbn.fn.isColor](#isColor)  
+Intended to check if the argument provided is a color.  
+[bbn.fn.isDimension](#isDimension)  
+  
+[bbn.fn.isEmail](#isEmail)  
+Intended to check if the argument provided is an e-mail address written correctly  
+[bbn.fn.isEmpty](#isEmpty)  
+Checks if the argument is empty or not.  
+[bbn.fn.md5](#md5)  
+Converts and returns the argument passed in a string in md5 format  
+[bbn.fn.nl2br](#nl2br)  
+Replace if new line characters '\ n' with html tag '<br>'.  
+[bbn.fn.percent](#percent)  
+Returns the value of the proportion giving the percentage and the total from where to be calculated.  
+[bbn.fn.printf](#printf)  
+  
+[bbn.fn.randomInt](#randomInt)  
+Returns a random integer.  
+[bbn.fn.randomString](#randomString)  
+Returns a random String with random lenght,  
+[bbn.fn.removeAccents](#removeAccents)  
+Returns the string passed as an argument without accents.  
+[bbn.fn.removeTrailingChars](#removeTrailingChars)  
+  
+[bbn.fn.remove_all](#remove_all)  
+Returns the string given as an argument,  
+[bbn.fn.remove_nl](#remove_nl)  
+Removes the '\n' characters that define a new line.  
+[bbn.fn.remove_quotes](#remove_quotes)  
+Replace quotes in ASCII code  
+[bbn.fn.repeat](#repeat)  
+Returns a string which is the repetition of the first argument for the number passed in the second argument.  
+[bbn.fn.replaceAll](#replaceAll)  
+Looks for and replaces parts of string with what we want.  
+[bbn.fn.rgb2hex](#rgb2hex)  
+Convert an RGB string to hexadecimal.  
+[bbn.fn.roundDecimal](#roundDecimal)  
+  
+[bbn.fn.sanitize](#sanitize)  
+Removes all unacceptable characters in a DOM node.  
+[bbn.fn.shorten](#shorten)  
+Returns an abbreviation to the given string.  
+[bbn.fn.stringify](#stringify)  
+Converts the argument passed to it into a single string.  
+[bbn.fn.uniqString](#uniqString)  
+Create a unique string in md5 format.  
 
 
 ### <a name="fileExt"></a>bbn.fn.fileExt(filename)

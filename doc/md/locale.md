@@ -2,14 +2,22 @@
 
 ## Locale functions.
 
-<a name="bbn_top"></a>[date](#date)  
-[dateSQL](#dateSQL)  
-[daysInMonth](#daysInMonth)  
-[fdate](#fdate)  
-[fdatetime](#fdatetime)  
-[ftime](#ftime)  
-[getDay](#getDay)  
-[money](#money)  
+<a name="bbn_top"></a>[bbn.fn.date](#date)  
+Returns a date object from the given argument.  
+[bbn.fn.dateSQL](#dateSQL)  
+Returns a date with SQL format.  
+[bbn.fn.daysInMonth](#daysInMonth)  
+Returns the number of days of the month given in the date.  
+[bbn.fn.fdate](#fdate)  
+  
+[bbn.fn.fdatetime](#fdatetime)  
+  
+[bbn.fn.ftime](#ftime)  
+  
+[bbn.fn.getDay](#getDay)  
+  
+[bbn.fn.money](#money)  
+Returns the given value to money format basing on the given configuration.  
 
 
 ### <a name="money"></a>bbn.fn.money(val, kilo, currency, novalue, decimal, thousands, precision)
