@@ -377,7 +377,7 @@ bbn.fn.search(ar, {
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
-  __Returns__ _Number_ 
+  __Returns__ _Number_ The number of items
 
 
 ```javascript
@@ -423,81 +423,144 @@ bbn.fn.search(ar, {
 
 ### <a name="sum"></a>bbn.fn.sum(arr, numberProp, prop, val, operator)
 
-  __Returns the sum of the given property for the array's elements matching the filter.__
+  __Returns the sum of the given property or function for the array's elements matching the filter.__
 
-  in the various objects that have the property given in the second argument.
+  The filtering arguments follow the same scheme as bbn.fn.search.
 
   * __arr__ _Array_ The subject array
-  * __numberProp__ _String_ 
+  * __numberProp__ _(String|Function)_ The property's name for which the value should be added to the sum, or a function returning the number.
   * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
-  __Returns__ _Number_ 
+  __Returns__ _Number_ The sum
 
 
 ```javascript
-//4
-bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}], 'field1');
+let invited = [
+  {name: "Robert De Niro", attendees: 2, confirmed: true},
+  {name: "Al Pacino", attendees: 1, confirmed: false},
+  {name: "James Caan", attendees: 4, confirmed: false},
+  {name: "Harvey Keitel", attendees: 5, confirmed: true}
+];
+// No filter
+bbn.fn.sum(invited, "attendees");
+// 12
+// Filter
+bbn.fn.sum(invited, "attendees", {confirmed: true});
+// 7
 ```
-
 
 
 ```javascript
-//7
-bbn.fn.sum([{field1: 1}, {field2: 2}, {field1: 3}, {field1: 6}], 'field1', v => {
-  return v.field1 != 3;
-});
+let cart = [
+   {article: "Toothpaste", price: 2.50, quantity: 1},
+   {article: "Toothbrush", price: 6, quantity: 2},
+   {article: "Banana", price: 0.50, quantity: 3},
+   {article: "T-shirt", price: 14, quantity: 3}
+];
+bbn.fn.sum(cart, a => a.price * a.quantity);
+// 58
+// Only the items with a quantity equal to 3
+bbn.fn.sum(cart, a => a.price * a.quantity, {quantity: 3});
+// 43.5
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="filter"></a>bbn.fn.filter(arr, prop, val, operator)
 
-  __Returns a filtered array, based on the function given as the second argument.__
+  __Returns a new array with only the data matching the given filter.__
+
+  The filtering arguments follow the same scheme as bbn.fn.search.
 
   * __arr__ _Array_ The subject array
   * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
-  __Returns__ _Array_ 
+  __Returns__ _Array_ A new filtered array
 
 
 ```javascript
-//[{field1: 3, field2: 4}]
-bbn.fn.filter([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], obj => {
-  return obj.field1 === 3;
-});
+let ar = [
+  {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.filter(ar, {director: "Steven Spielberg"});
+// [
+//   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+//   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+// ]
+bbn.fn.filter(ar, "director", "Steven Spielberg");
+// Same result as the previous example
+bbn.fn.filter(ar, {
+  logic: "OR",
+  conditions: [
+    {
+       field: "director",
+       value: "Richard Donner"
+    }, {
+       field: "director",
+       value: "George Lucas"
+    }
+  ]
+);
+// [
+//   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+//   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+// ]
 ```
 
 [Back to top](#bbn_top)  
 
 ### <a name="getRow"></a>bbn.fn.getRow(arr, prop, val, operator)
 
-  __Returns if the object sought is contained in the array finds it.__
+  __Returns the first object matching the given filter in an array of objects.__
+
+  The filtering arguments follow the same scheme as bbn.fn.search.
 
   * __arr__ _Array_ The subject array
   * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in the bbn.fn.compare
 
-  __Returns__ _Object|Boolean_ 
+  __Returns__ _Object|Boolean_ The item if found, false otherwise
 
 
 ```javascript
-//{field1: 2, field2: 3}
-bbn.fn. getRow([{field1: 1, field2: 2}, {field1: 2, field2: 3}, {field1: 3, field2: 4}], 'field1', 2);
+let ar = [
+  {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.getRow(ar, {director: "Steven Spielberg"});
+// {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+bbn.fn.getRow(ar, "director", "Steven Spielberg");
+// Same result as the previous example
+bbn.fn.getRow(ar, {
+  logic: "OR",
+  conditions: [
+    {
+       field: "director",
+       value: "Richard Donner"
+    }, {
+       field: "director",
+       value: "George Lucas"
+    }
+  ]
+);
+// {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="getField"></a>bbn.fn.getField(arr, prop, val, operator, field)
 
-  __Allows to take the value of an object property within an array.__
+  __Returns the value of the given field (property) from the first object matching the given filter in an array of objects.__
 
-  It occurs by providing arguments in addition to the array from which to search for a property and the value contained in the object to which we want to take the value of another property,
-defined in the last argument of the function.
+  The filtering arguments follow the same scheme as bbn.fn.search.
 
   * __arr__ _Array_ The subject array
   * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
@@ -509,31 +572,16 @@ defined in the last argument of the function.
 
 
 ```javascript
-//2
-bbn.fn.getField([{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2: 4}], 'field', 1, 'field2');
-```
-
-
-```javascript
-//4
-bbn.fn.getField([{field: 1, field2: 2}, {field :2, field2: 3}, {field:3, field2: 4}], 'field', 3, 'field2');
-```
-[Back to top](#bbn_top)  
-
-### <a name="numProperties"></a>bbn.fn.numProperties(obj)
-
-  __Returns the number of properties contained in the object.__
-
-  Only takes into account the own properties - not the inherited ones.
-
-  * __obj__ _Object_ The object to analyze
-
-  __Returns__ _Number_ The number of properties
-
-
-```javascript
-//2
-bbn.fn.numProperties({field: 1, field2: 2});
+let ar = [
+  {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.getField(ar, "movie", {id: 256});
+// Star wars
+bbn.fn.getField(ar, "movie", "id", 689);
+// Goonies
 ```
 [Back to top](#bbn_top)  
 
@@ -560,11 +608,44 @@ bbn.fn.removePrivateProp({
 ```
 [Back to top](#bbn_top)  
 
+### <a name="numProperties"></a>bbn.fn.numProperties(obj)
+
+  __Returns the number of properties contained in the object.__
+
+  Only takes into account the own properties - not the inherited ones - and the non _private_ ones.
+
+  * __obj__ _Object_ The object to analyze
+
+  __Returns__ _Number_ The number of properties
+
+
+```javascript
+bbn.fn.numProperties({author: "Chuck Palahniuk", "title": "Fight club"});
+// 2
+```
+
+
+```javascript
+bbn.fn.numProperties({username: "chuck", "password": "soap", _bbn_timestamp: 1587323193751});
+// 2
+
+
+```javascript
+let d = new Date();
+bbn.fn.numProperties(d);
+// 0
+d.myProp = 1;
+bbn.fn.numProperties(d);
+// 1
+```
+[Back to top](#bbn_top)  
+
 ### <a name="isSame"></a>bbn.fn.isSame(obj1, obj2)
 
   __Checks whether the data contained in the given objects is identical.__
 
-  The non alphanumerical properties are removed for the comparison, and the properties are 
+  The properties starting with a non alphanumerical character and the 
+inherited ones are removed for the comparison, then the properties are 
 compared individually without the order being taken into account.
 
   * __obj1__ _Object_ 
@@ -601,32 +682,12 @@ bbn.fn.isSame(
 ```
 [Back to top](#bbn_top)  
 
-### <a name="compareConditions"></a>bbn.fn.compareConditions(data, filter)
-
-  __Applies the filter to the given data object.__
-
-  * __data__ _Object_ 
-  * __filter__ _Object_ 
-
-  __Returns__ _undefined_ 
-
-
-```javascript
-//true
-bbn.fn.compareConditions({field1: 5, field2: 'value2'}, {
- conditions: [{field: 'field1', operator: '<=', value: 8}],
- logic:'AND'
-});
-```
-
-[Back to top](#bbn_top)  
-
 ### <a name="filterToConditions"></a>bbn.fn.filterToConditions(filter, operator)
 
   __Converts the given object 'filter' to a valid format of condition.__
 
-  The resulting format will comply with bbn databases functions and complex filters applied to
-bbn-vue list components.
+  The resulting format will comply with bbn.fn.compareConditions and also with 
+bbn databases functions and complex filters applied to bbn-vue list components.
 
   * __filter__ _Object_ 
   * __operator__ _String_ 
@@ -635,59 +696,220 @@ bbn-vue list components.
 
 
 ```javascript
-bbn.fn.filterToConditions({value:3},'>');
-//{conditions:[{field: "value", operator: ">", value: 3}], logic: "AND"}
+bbn.fn.filterToConditions({num: 3});
+// {
+//   logic: "AND",
+//   conditions: [{
+//     field: "num",
+//     operator: "=",
+//     value: 3
+//   }]
+// }
 ```
 
+
+```javascript
+bbn.fn.filterToConditions({num: 3}, '>');
+// {
+//   logic: "AND",
+//   conditions: [{
+//     field: "num",
+//     operator: ">",
+//     value: 3
+//   }]
+// }
+```
+[Back to top](#bbn_top)  
+
+### <a name="compareConditions"></a>bbn.fn.compareConditions(data, filter)
+
+  __Checks whether the given data object complies or not with the given filter.__
+
+  The filter format must be full (i.e. with the properties logic and conditions) such as
+seen in the function bbn.fn.search and can be generated by the function bbn.fn.filterToConditions.
+
+  * __data__ _Object_ 
+  * __filter__ _Object_ 
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+let item = {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589};
+bbn.fn.compareConditions(item, {
+  logic: "AND",
+  conditions: [
+    {
+       field: "director",
+       value: "Steven Spielberg"
+    }
+  ]
+});
+// true
+bbn.fn.compareConditions(item, bbn.fn.filterToConditions({director: "Steven Soderberg"}));
+// false
+bbn.fn.compareConditions(item, bbn.fn.filterToConditions({director: "Steven Spielberg"}));
+// true
+bbn.fn.compareConditions(item, bbn.fn.filterToConditions({year: 1980}, ">"));
+// true
+bbn.fn.compareConditions(item, {
+  logic: "AND",
+  conditions: [
+    {
+       field: "year",
+       operator: "<",
+       value: 1980
+    }
+  ]
+});
+// false
+```
 [Back to top](#bbn_top)  
 
 ### <a name="extend"></a>bbn.fn.extend()
 
-  __returns a single element by extending two or more elements.__
+  __Merges the contents of two or more objects together into the first object.__
 
-  If at the end we pass the value true as an argument it will make the extension in depth.
+  A boolean true argument can be done to operate a deep extend. In this case, 
+the content of properties or subproperties arrays and objects will also be merged.
 
 
-  __Returns__ _undefined_ 
+  __Returns__ _Object_ The first object argument, merged with the other objects given
 
 
 ```javascript
-//{field1: 1, field2: 2, field3: 3}
-bbn.fn.extend({field1: 1}, {field2: 2}, {field3: 3});
+bbn.fn.extend(
+  {prop1: 10, prop2: 20},
+  {prop1: 11, prop3: 21},
+  {prop2: 22, prop4: false},
+  {prop5: false, prop3: 45}
+);
+// {prop1: 11, prop2: 22, prop3: 45, prop4: false, prop5: false}
 ```
 
+
+```javascript
+bbn.fn.extend(
+  {
+    prop1: [3, 5, 6],
+    prop2: {
+      subprop1: 87,
+      subprop2: 100
+    }
+  }, {
+    prop1: 11,
+    prop3: [8, 12, {aProperty: 1, anotherProperty: true}, 26]
+  }, {
+    prop2: {
+      subprop1: 90,
+      subprop3: 25
+    },
+    prop4: false
+  }, {
+    prop5: false,
+    prop3: [8, 45, {anotherProperty: false, andAnother: true}]
+  }
+);
+// {
+//   prop1: 11,
+//   prop2: {subprop1: 90, subprop3: 25},
+//   prop3: [8, 45, {anotherProperty: false, andAnother: true}],
+//   prop4: false,
+//   prop5: false
+// }
+```
+
+
+```javascript
+// Deep
+bbn.fn.extend(
+  true, 
+  {
+    prop1: [3, 5, 6],
+    prop2: {
+      subprop1: 87,
+      subprop2: 100
+    }
+  }, {
+    prop1: 11,
+    prop3: [8, 12, {aProperty: 1, anotherProperty: true}, 26]
+  }, {
+    prop2: {
+      subprop1: 90,
+      subprop3: 25
+    },
+    prop4: false
+  }, {
+    prop5: false,
+    prop3: [8, 45, {anotherProperty: false, andAnother: true}]
+  }
+);
+// {
+//   prop1: 11,
+//   prop2: {subprop1: 90, subprop3: 25},
+//   prop3: [8, 45, {aProperty: 1, anotherProperty: false, andAnother: true}, 26],
+//   prop4: false,
+//   prop5: false
+// }
+```
 [Back to top](#bbn_top)  
 
 ### <a name="extendOut"></a>bbn.fn.extendOut()
 
-  __Merges the contents of two or more objects together into the first object.__
+  __Returns a new object made of the properties from all the given objects.__
 
-  Doesn't overwrite the property if defined in the two objects given.
+  Compared to bbn.fn.extend this still treats the arguments from left to right 
+but without overwriting existing properties, and returning a new object.
 
 
-  __Returns__ _undefined_ 
+  __Returns__ _Object_ 
 
 
 ```javascript
 //{field1: 1, field2: 2, field3: 3, items: {item: 0, item1: 1, item2: 2}, field4: 4}
 bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4, items: {item1: 1, item2: 2}});
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="autoExtend"></a>bbn.fn.autoExtend(namespace, obj)
 
-  __Auto extends the bbn object by passing the namespace and the object it will contain.__
+  __Extends the bbn object by passing the namespace and the object it will merge with.__
 
-  * __namespace__ _String_ 
-  * __obj__ _Object_ 
+  This function is a self-centric shortcut for adding functions or proerties 
+to the bbn object itself.
 
-  __Returns__ _undefined_ 
+  * __namespace__ _String_ The bbn property, existing or not, in which the object will be merged
+  * __obj__ _Object_ The object to merge
+
+  __Returns__ _undefined_ No return value
+
+
+```javascript
+bbn.fn.autoExtend("fn", {myOwnFunction: () => "Result of my own function"});
+bbn.fn.myOwnFunction();
+// Result of my own function
+```
+
+
+```javascript
+bbn.fn.autoExtend("env", {serverLanguage: "php"});
+bbn.env.sercerLanguage
+// php
+```
+
+
+```javascript
+bbn.fn.autoExtend("myProject", {name: "My Project"});
+bbn.myProject.name
+// Project
+```
 [Back to top](#bbn_top)  
 
 ### <a name="removeEmpty"></a>bbn.fn.removeEmpty(arr)
 
-  __Returns the filtered array, removing all elements deemed empty.__
+  __Returns a new array, having removed all elements deemed empty from the given array.__
+
+  Removes all the elements which are empty, i.e. false, 0, null, '', NaN, or undefined.
 
   * __arr__ _Array_ 
 
@@ -695,52 +917,73 @@ bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4
 
 
 ```javascript
-//[{field: 1, field2: 2}, {field: 2, field2: 3}, {field: 3, field2 : 4}]
-bbn.fn.removeEmpty([{field: 1, field2: 2}, '', {field: 2, field2: 3}, '',  {field:3, field2:  4}, 0, false]);
+bbn.fn.removeEmpty([{prop1: 10, prop2: 20}, '', {}, null, 1, undefined, 0, false, 25]);
+// [{prop1: 10, prop2: 20}, 1, 25]
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="arrayFromProp"></a>bbn.fn.arrayFromProp(arr, prop)
 
-  __Returns an array of the same size made of the given property's values.__
+  __Creates and returns a new array made of the given property's values from the given array of objects.__
+
+  The returned array will always have the same length of the given array, even if the property is not found.
 
   * __arr__ _Array_ 
   * __prop__ _String_ 
 
-  __Returns__ _Array_ 
+  __Returns__ _Array_ The new array
 
 
 ```javascript
-// [1985, 2001, 1976]
 bbn.fn.arrayFromProp([
   {movie: "Brazil", year: 1985},
   {movie: "Donnie Darko", year: 2001},
   {movie: "Barry Lindon", year: 1976}
-], 'year');
+], "year");
+// [1985, 2001, 1976]
 ```
 
+
+```javascript
+bbn.fn.arrayFromProp([
+  {pupil: "Agnes Varda", grade: {year: "B", month: "A"}},
+  {pupil: "Jacques Rivette"},
+  {pupil: "Luc Besson", grade: {year: "C", month: "D"}},
+  {pupil: "Nicole Garcia", grade: {year: "B", month: "B"}}
+], "grade.month");
+// ["A", undefined, "D", "B"]
+```
 [Back to top](#bbn_top)  
 
 ### <a name="pickValue"></a>bbn.fn.pickValue(arr)
 
   __Returns a random item from the given array.__
 
-  * __arr__ _Array_ 
+  * __arr__ _Array_ The array to pick from
 
-  __Returns__ _Mixed_ 
+  __Returns__ _Mixed_ The random value
 
 
 ```javascript
-//"field2"
-bbn.fn.pickValue(['field1', 'field2', 'field3']);
+bbn.fn.pickValue([1, 2, 3, 4, 5]);
+// 1
+bbn.fn.pickValue([1, 2, 3, 4, 5]);
+// 5
+bbn.fn.pickValue([1, 2, 3, 4, 5]);
+// 4
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="diffObj"></a>bbn.fn.diffObj(obj1, obj2, unchanged, notRoot)
 
-  __Returns an object containing the differences between the given objects.__
+  __Returns an object describing the differences for transforming the first given object into the second.__
+
+  The returned data will use the objects properties as keys. If unchanged is set to true, all the 
+properties will be returned, otherwise only the different ones. Each of these keys will have the 
+following properties: 
+- type: can be _modified_, _created_, _deleted_, and if unchanged is set to true _unchanged_
+- data: the first object's property's value, or the second if type is _created_
+- newData: the second object's property's value in case of type _updated_.
 
   * __obj1__ _Object_ 
   * __obj2__ _Object_ 
@@ -751,71 +994,179 @@ bbn.fn.pickValue(['field1', 'field2', 'field3']);
 
 
 ```javascript
-//{field2: {type: 'updated', data: 2, newData: 3}, field3: {type: 'created', data: false}}
-bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3: false});
+bbn.fn.diffObj(
+  {
+    name: "Thomas", 
+    age: 45
+  }, {
+    name: "Eva",
+    sex: "Female",
+    retired: false
+  }
+);
+// {
+//   name: {
+//     type: "updated",
+//     data: "Thomas",
+//     newData: "Eva"
+//   },
+//   age: {
+//     type: "deleted",
+//     data: 45
+//   },
+//   sex: {
+//     type: "created",
+//     data: "Female"
+//   },
+//   retired: {
+//     type: "created",
+//     data: false
+//   }
+// }
 ```
-
 
 
 ```javascript
-//{field: {type: 'unchanged', data: 'value1', newData: 'value1'}, field2: {type: 'updated', data: 2, newData: 3}, field3: {type: 'created', data: false}}
-bbn.fn.diffObj({field: 'value1', field2: 2}, {field: 'value1', field2: 3, field3: false}, 'unchanged');
+bbn.fn.diffObj(
+  {pupil: "Agnes Varda", grade: {year: "B", month: "A"}},
+  {pupil: "Luc Besson", grade: {year: "C", month: "D"}}
+);
+// {
+//   "pupil": {
+//     "type": "updated",
+//     "data": "Agnes Varda",
+//     "newData": "Luc Besson"
+//   },
+//   "grade": {
+//     "year": {
+//       "type": "updated",
+//       "data": "B",
+//       "newData": "C"
+//     },
+//     "month": {
+//       "type": "updated",
+//       "data": "A",
+//       "newData": "D"
+//     }
+//   }
+// }
+```
+[Back to top](#bbn_top)  
+
+### <a name="fori"></a>bbn.fn.fori(arr, fn, max, min)
+
+  __Executes the provided function on each element of the given array.__
+
+  A minimum and a maximum value can be provided, within the boundaries of the 
+array's indexes. Returning false will stop the loop.
+
+  * __arr__ _Array_ The array to loop on
+  * __fn__ _Function_ The function, gets the array's element and the index as arguments
+  * __max__ _Number_ The index to which the loop will stop
+  * __min__ _Number_ The index at which the loop will start
+
+  __Returns__ _undefined_ 
+
+
+```javascript
+let res = 0;
+bbn.fn.fori([4, 5, 5, 10, 1, 2], d => {
+  res += d;
+}, 3);
+// res = 24
 ```
 
+
+```javascript
+let res = 0;
+bbn.fn.fori([4, 5, 5, 10, 1, 2], d => {
+  if (res >= 20) {
+    return false;
+  }
+  res += d;
+}, 4, 1);
+// res = 20
+```
 [Back to top](#bbn_top)  
 
-### <a name="fori"></a>bbn.fn.fori(fn, arr, max, min)
+### <a name="forir"></a>bbn.fn.forir(arr, fn, max, min)
 
-  * __fn__ _Function_ 
-  * __arr__ _Array_ 
-  * __max__ _Number_ 
-  * __min__ _Number_ 
+  __Executes the provided function on each element of the given array, going backward.__
 
-  __Returns__ _Mixed_ 
-[Back to top](#bbn_top)  
+  A maximum and a minimum value can be provided, within the boundaries of the 
+array's indexes. Returning false will stop the loop.
 
-### <a name="forir"></a>bbn.fn.forir(fn, arr, max, min)
+  * __arr__ _Array_ The array to loop on
+  * __fn__ _Function_ The function, gets the array's element and the index as arguments
+  * __max__ _Number_ The index to which the loop will stop
+  * __min__ _Number_ The index at which the loop will start
 
-  * __fn__ _Function_ 
-  * __arr__ _Array_ 
-  * __max__ _Number_ 
-  * __min__ _Number_ 
+  __Returns__ _undefined_ 
 
-  __Returns__ _Mixed_ 
+
+```javascript
+let res = 0;
+bbn.fn.forir([4, 5, 5, 10, 1, 2], d => {
+  res += d;
+}, 4, 2);
+// res = 16
+```
+
+
+```javascript
+let res = 0;
+bbn.fn.forir([4, 5, 5, 10, 1, 2], d => {
+  if (res >= 20) {
+    return false;
+  }
+  res += d;
+});
+// res = 23
+```
 [Back to top](#bbn_top)  
 
 ### <a name="each"></a>bbn.fn.each(arr, fn)
 
-  __Performs an iterative loop of an array or object given to it as a first argument and as a second argument a function that accepts 2 arguments,.__
+  __Executes the provided function on each element of the given array.__
 
-  value and index.
+  Returning false will stop the loop.
 
-  * __arr__ _Array_ 
-  * __fn__ _Function_ 
+  * __arr__ _Array_ The array to loop on
+  * __fn__ _Function_ The function, gets the array's element and the index as arguments
 
-  __Returns__ _Mixed_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
-//4
-let num = 0;
-bbn.fn.each([{field1: 1, field2: 2}, {field3: 3, field4: 4}, {field5: 5, field6: 6}], (val,idx) => {
-  if ( val.field3 !== undefined ){
-    num = val.field3 + idx;
-  }
-})
+let res = 0;
+bbn.fn.each([4, 5, 5, 10, 1, 2], d => {
+  res += d;
+});
+// res = 27
 ```
 
+
+```javascript
+let res = 0;
+bbn.fn.each([4, 5, 5, 10, 1, 2], d => {
+  if (res >= 20) {
+    return false;
+  }
+  res += d;
+});
+// res = 24
+```
 [Back to top](#bbn_top)  
 
-### <a name="iterate"></a>bbn.fn.iterate(obj, fn)
+### <a name="iterate"></a>bbn.fn.iterate(obj, fn, noPrivate)
 
-  __Scroll through the properties of an object by executing a function for each corresponding element.__
+  __Executes the provided function on each property of the given object.__
 
-  * __obj__ _Object|Number_ 
-  * __fn__ _Function_ 
+  * __obj__ _(Object|Number)_ The object to loop on
+  * __fn__ _Function_ The function, gets the array's element and the index as arguments
+  * __noPrivate__ _Boolean_ If set to true the _private_ properties won't be included
 
-  __Returns__ _Mixed_ 
+  __Returns__ _undefined_ 
 
 
 ```javascript
@@ -825,28 +1176,32 @@ bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
   arr.push(value);
 });
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="clone"></a>bbn.fn.clone(obj)
 
-  __Returns the clone argument removing the observability.__
+  __Creates and returns a perfect clone - but different - from the given object.__
 
-  * __obj__ _mixed_ 
+  * __obj__ _Object_ The source object
 
-  __Returns__ _undefined_ 
+  __Returns__ _Object_ A new object
 
 
 ```javascript
-//{field: 1}
-bbn.fn.clone({field: 1});
+let obj = {name: "Thomas"};
+let objCopy = bbn.fn.clone(obj);
+obj.name = "Julie";
+// obj:     {name: "Julie"}
+// objCopy: {name: "Thomas"}
 ```
-
 [Back to top](#bbn_top)  
 
 ### <a name="map"></a>bbn.fn.map(arr, fn, deepProp)
 
   __Returns a new array generated by the execution of a function for each item of the given array.__
+
+  The deepProp argument is the name of property which should contain a nested array on which
+the function should also be applied recursively.
 
   * __arr__ _Array_ 
   * __fn__ _Function_ 
@@ -856,54 +1211,111 @@ bbn.fn.clone({field: 1});
 
 
 ```javascript
-//[2, 3, 4, 5]
 bbn.fn.map([1, 2, 3, 4], a => {
-  return a++;
-  return a;
+  return a + 1;
 });
+// [2, 3, 4, 5]
 ```
 
+
+```javascript
+bbn.fn.map(
+  [{
+    name: "tools",
+    items: [
+      {
+         name: "hammers"
+      }, {
+         name: "screwdrivers",
+         items: [
+           {name: "flat screwdrivers"},
+           {name: "slotted screwdrivers"},
+           {name: "Hex screwdrivers"},
+         ]
+      }
+    ]
+  }, {
+    name: "Kitchenware"
+  }],
+  d => {
+    d.warranty = d.name === "Hex screwdrivers" ? "10 years" : "1 year";
+    return d;
+  },
+  "items"
+);
+// [
+//    {
+//       name: "tools",
+//       warranty: "1 year",
+//       items: [
+//         {
+//            name: "hammers",
+//            warranty: "1 year",
+//         }, {
+//            name: "screwdrivers",
+//            warranty: "1 year",
+//            items: [
+//              {name: "flat screwdrivers", warranty: "1 year"},
+//              {name: "slotted screwdrivers", warranty: "1 year"},
+//              {name: "Hex screwdrivers", warranty: "10 year"},
+//            ]
+//         }
+//       ]
+//    }, {
+//       name: "Kitchenware",
+//       warranty: "1 year"
+//    }
+// ]
+```
 [Back to top](#bbn_top)  
 
-### <a name="toCSV"></a>bbn.fn.toCSV(arr, [','], [';'], ['"'])
+### <a name="toCSV"></a>bbn.fn.toCSV(arr, [valSep=,], [rowSep=;], [valEsc="])
 
-  __Returns a string exportable into a csv from the given array.__
+  __Returns a CSV string from the given array of arrays or objects.__
 
-  * __arr__ _Array_ 
-  * __[',']__ _String_ 
-  * __[';']__ _String_ 
-  * __['"']__ _String_ 
+  * __arr__ _Array_ The array to convert
+  * __[valSep=,]__ _String_ The value separator character
+  * __[rowSep=;]__ _String_ The row separator character
+  * __[valEsc="]__ _String_ The string escaper character
 
-  __Returns__ _String_ 
+  __Returns__ _String_ A CSV string
 
 
 ```javascript
-// ""a","b","c"";
-bbn.fn.toCSV([['a', 'b', 'c']]);
+bbn.fn.toCSV([['a', 'b', 'c'], ['d', 'e', 'f']]);
+// "a","b","c";
+// "d","e","f"
 ```
 
+
+```javascript
+bbn.fn.toCSV([{name: "Capuche", fname: "Marc-Antoine"}, {name: "Orfin", fname: "Louis"}]);
+// "Capuche","Marc-Antoine";
+// "Orfin","Louis"
+```
 [Back to top](#bbn_top)  
 
-### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, max)
+### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, [max=100])
 
-  __Allows the abbreviation of all the strings contained in the object properties or element in a array.__
+  __Shortens all the strings contained in the object properties or element in a array.__
 
-  * __obj__ _Object|Array_ 
-  * __max__ _Number_ 
+  Modifies directly the given object by cuttin all its too long strings, and adding ellipsis (...) in this case.
 
-  __Returns__ _Object|Array_ 
+  * __obj__ _(Object|Array)_ 
+  * __[max=100]__ _Number_ 
 
-
-```javascript
-//{field: "v...", field2: 2, field3: "v...", field4: 4, field5: 5}
-bbn.fn.shortenObj({field: 'value1', field2: 2, field3: 'value3', field4: 4, field5: 5}, 1);
-```
-
+  __Returns__ _(Object|Array)_ The same object, modified
 
 
 ```javascript
-//["va...", 2, "va...", 4, 5]
-bbn.fn.shortenObj(['value1', 2, 'value3', 4, 5], 2);
+bbn.fn.shortenObj({
+  title: "Once upon a time in the west",
+  synopsis: "There's a single piece of land around Flagstone with water on it, and rail baron Morton (Gabriele Ferzetti) aims to have it, knowing the new railroad will have to stop there. He sends his henchman Frank (Henry Fonda) to scare the land's owner, McBain (Frank Wolff), but Frank kills him instead and pins it on a known bandit, Cheyenne (Jason Robards). Meanwhile, a mysterious gunslinger with a score to settle (Charles Bronson) and McBain's new wife, Jill (Claudia Cardinale), arrive in town."
+}, 50)
+})
+// {
+//   "title": "Once upon a time in the west",
+//   "synopsis": "There's a single piece of land around Flagstone wi..."
+// }
 ```
-
 [Back to top](#bbn_top)  
