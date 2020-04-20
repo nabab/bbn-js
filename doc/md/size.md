@@ -2,17 +2,17 @@
 
 ## Sizing functions.
 
-<a name="bbn_top"></a>[bbn.fn.adjustHeight](#adjustHeight)  
+<a name="bbn_top"></a>[bbn.fn.__adjustHeight__](#adjustHeight)  
 Adjusts the height of the element(s) given as argument.  
-[bbn.fn.adjustSize](#adjustSize)  
+[bbn.fn.__adjustSize__](#adjustSize)  
 Adjusts the size of the given elements.  
-[bbn.fn.adjustWidth](#adjustWidth)  
+[bbn.fn.__adjustWidth__](#adjustWidth)  
 Adjusts the width of the element(s) given as argument.  
-[bbn.fn.calculateHeight](#calculateHeight)  
+[bbn.fn.__calculateHeight__](#calculateHeight)  
 Returns the height of the given dom element and force the repaint of the element to trigger animations.  
-[bbn.fn.getScrollBarSize](#getScrollBarSize)  
+[bbn.fn.__getScrollBarSize__](#getScrollBarSize)  
 Retutns the size of the scrollbar realative to the current environment.  
-[bbn.fn.toggleFullScreen](#toggleFullScreen)  
+[bbn.fn.__toggleFullScreen__](#toggleFullScreen)  
 Toggles the fullscreen mode.  
 
 

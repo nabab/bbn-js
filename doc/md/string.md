@@ -2,73 +2,73 @@
 
 ## Sizing functions.
 
-<a name="bbn_top"></a>[bbn.fn.baseName](#baseName)  
+<a name="bbn_top"></a>[bbn.fn.__baseName__](#baseName)  
 Returns the name of the element indicated by path given to it as an argument.  
-[bbn.fn.br2nl](#br2nl)  
+[bbn.fn.__br2nl__](#br2nl)  
 Replaces the html <br> tag with new line characters '\ n' if present in the string.  
-[bbn.fn.camelToCss](#camelToCss)  
+[bbn.fn.__camelToCss__](#camelToCss)  
 Returns the string passed as an argument in camelize mode for css.  
-[bbn.fn.camelize](#camelize)  
+[bbn.fn.__camelize__](#camelize)  
 Returns the string passed as an argument in camelize mode.  
-[bbn.fn.correctCase](#correctCase)  
+[bbn.fn.__correctCase__](#correctCase)  
 Converts the first character of the string to uppercase.  
-[bbn.fn.dirName](#dirName)  
+[bbn.fn.__dirName__](#dirName)  
 Returns the path of the folder containing the last hierarchical element of the path.  
-[bbn.fn.escapeRegExp](#escapeRegExp)  
+[bbn.fn.__escapeRegExp__](#escapeRegExp)  
 Returns a string escaped.  
-[bbn.fn.fileExt](#fileExt)  
+[bbn.fn.__fileExt__](#fileExt)  
 Gets the extension from a file's name.  
-[bbn.fn.formatSize](#formatSize)  
+[bbn.fn.__formatSize__](#formatSize)  
 Returns the value of size for element html  
-[bbn.fn.hex2rgb](#hex2rgb)  
+[bbn.fn.__hex2rgb__](#hex2rgb)  
 Convert an hexadecimmal string to RGB.  
-[bbn.fn.html2text](#html2text)  
+[bbn.fn.__html2text__](#html2text)  
 Convert text in html format to plain text.  
-[bbn.fn.isColor](#isColor)  
+[bbn.fn.__isColor__](#isColor)  
 Intended to check if the argument provided is a color.  
-[bbn.fn.isDimension](#isDimension)  
+[bbn.fn.__isDimension__](#isDimension)  
   
-[bbn.fn.isEmail](#isEmail)  
+[bbn.fn.__isEmail__](#isEmail)  
 Intended to check if the argument provided is an e-mail address written correctly  
-[bbn.fn.isEmpty](#isEmpty)  
+[bbn.fn.__isEmpty__](#isEmpty)  
 Checks if the argument is empty or not.  
-[bbn.fn.md5](#md5)  
+[bbn.fn.__md5__](#md5)  
 Converts and returns the argument passed in a string in md5 format  
-[bbn.fn.nl2br](#nl2br)  
+[bbn.fn.__nl2br__](#nl2br)  
 Replace if new line characters '\ n' with html tag '<br>'.  
-[bbn.fn.percent](#percent)  
+[bbn.fn.__percent__](#percent)  
 Returns the value of the proportion giving the percentage and the total from where to be calculated.  
-[bbn.fn.printf](#printf)  
+[bbn.fn.__printf__](#printf)  
   
-[bbn.fn.randomInt](#randomInt)  
+[bbn.fn.__randomInt__](#randomInt)  
 Returns a random integer.  
-[bbn.fn.randomString](#randomString)  
+[bbn.fn.__randomString__](#randomString)  
 Returns a random String with random lenght,  
-[bbn.fn.removeAccents](#removeAccents)  
+[bbn.fn.__removeAccents__](#removeAccents)  
 Returns the string passed as an argument without accents.  
-[bbn.fn.removeTrailingChars](#removeTrailingChars)  
+[bbn.fn.__removeTrailingChars__](#removeTrailingChars)  
   
-[bbn.fn.remove_all](#remove_all)  
+[bbn.fn.__remove_all__](#remove_all)  
 Returns the string given as an argument,  
-[bbn.fn.remove_nl](#remove_nl)  
+[bbn.fn.__remove_nl__](#remove_nl)  
 Removes the '\n' characters that define a new line.  
-[bbn.fn.remove_quotes](#remove_quotes)  
+[bbn.fn.__remove_quotes__](#remove_quotes)  
 Replace quotes in ASCII code  
-[bbn.fn.repeat](#repeat)  
+[bbn.fn.__repeat__](#repeat)  
 Returns a string which is the repetition of the first argument for the number passed in the second argument.  
-[bbn.fn.replaceAll](#replaceAll)  
+[bbn.fn.__replaceAll__](#replaceAll)  
 Looks for and replaces parts of string with what we want.  
-[bbn.fn.rgb2hex](#rgb2hex)  
+[bbn.fn.__rgb2hex__](#rgb2hex)  
 Convert an RGB string to hexadecimal.  
-[bbn.fn.roundDecimal](#roundDecimal)  
+[bbn.fn.__roundDecimal__](#roundDecimal)  
   
-[bbn.fn.sanitize](#sanitize)  
+[bbn.fn.__sanitize__](#sanitize)  
 Removes all unacceptable characters in a DOM node.  
-[bbn.fn.shorten](#shorten)  
+[bbn.fn.__shorten__](#shorten)  
 Returns an abbreviation to the given string.  
-[bbn.fn.stringify](#stringify)  
+[bbn.fn.__stringify__](#stringify)  
 Converts the argument passed to it into a single string.  
-[bbn.fn.uniqString](#uniqString)  
+[bbn.fn.__uniqString__](#uniqString)  
 Create a unique string in md5 format.  
 
 

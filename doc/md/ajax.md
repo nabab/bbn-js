@@ -7,35 +7,35 @@ i.e. a single page application where callback functions are already defined
 and bbn has been initiated through bbn.fn.init.
 
 
-<a name="bbn_top"></a>[bbn.fn._addLoader](#_addLoader)  
+<a name="bbn_top"></a>[bbn.fn.___addLoader__](#_addLoader)  
 Creates and adds a "loader" object to the property bbn.env.loaders.  
-[bbn.fn._deleteLoader](#_deleteLoader)  
+[bbn.fn.___deleteLoader__](#_deleteLoader)  
 Deletes a loader and changes its history state after the promise is fullfilled.  
-[bbn.fn.abort](#abort)  
+[bbn.fn.__abort__](#abort)  
 Aborts (client side) the XHR corresponding to the given ID if it still exists.  
-[bbn.fn.ajax](#ajax)  
+[bbn.fn.__ajax__](#ajax)  
 Creates an XHR object and returns the Promise.  
-[bbn.fn.callback](#callback)  
+[bbn.fn.__callback__](#callback)  
 Executes a serie of predefined actions once a content has been loaded.  
-[bbn.fn.download](#download)  
+[bbn.fn.__download__](#download)  
 Downloads a file with given filename from a URL.  
-[bbn.fn.downloadContent](#downloadContent)  
+[bbn.fn.__downloadContent__](#downloadContent)  
 Downloads a file with given filename from its content.  
-[bbn.fn.getIdURL](#getIdURL)  
+[bbn.fn.__getIdURL__](#getIdURL)  
 Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.  
-[bbn.fn.getLoader](#getLoader)  
+[bbn.fn.__getLoader__](#getLoader)  
 Finds the loader corresponding to the given unique ID and returns it if found.  
-[bbn.fn.link](#link)  
+[bbn.fn.__link__](#link)  
 Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.  
-[bbn.fn.post](#post)  
+[bbn.fn.__post__](#post)  
 Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.  
-[bbn.fn.setNavigationVars](#setNavigationVars)  
+[bbn.fn.__setNavigationVars__](#setNavigationVars)  
   
-[bbn.fn.treat_vars](#treat_vars)  
+[bbn.fn.__treat_vars__](#treat_vars)  
 Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.  
-[bbn.fn.upload](#upload)  
+[bbn.fn.__upload__](#upload)  
 Uploads a file synchronously through an XHR indicating progress.  
-[bbn.fn.window](#window)  
+[bbn.fn.__window__](#window)  
   
 
 

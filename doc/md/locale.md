@@ -2,21 +2,21 @@
 
 ## Locale functions.
 
-<a name="bbn_top"></a>[bbn.fn.date](#date)  
+<a name="bbn_top"></a>[bbn.fn.__date__](#date)  
 Returns a date object from the given argument.  
-[bbn.fn.dateSQL](#dateSQL)  
+[bbn.fn.__dateSQL__](#dateSQL)  
 Returns a date with SQL format.  
-[bbn.fn.daysInMonth](#daysInMonth)  
+[bbn.fn.__daysInMonth__](#daysInMonth)  
 Returns the number of days of the month given in the date.  
-[bbn.fn.fdate](#fdate)  
+[bbn.fn.__fdate__](#fdate)  
   
-[bbn.fn.fdatetime](#fdatetime)  
+[bbn.fn.__fdatetime__](#fdatetime)  
   
-[bbn.fn.ftime](#ftime)  
+[bbn.fn.__ftime__](#ftime)  
   
-[bbn.fn.getDay](#getDay)  
+[bbn.fn.__getDay__](#getDay)  
   
-[bbn.fn.money](#money)  
+[bbn.fn.__money__](#money)  
 Returns the given value to money format basing on the given configuration.  
 
 

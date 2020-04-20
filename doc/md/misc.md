@@ -2,77 +2,77 @@
 
 ## Miscellaneous functions.
 
-<a name="bbn_top"></a>[bbn.fn.arrayBuffer2String](#arrayBuffer2String)  
+<a name="bbn_top"></a>[bbn.fn.__arrayBuffer2String__](#arrayBuffer2String)  
   
-[bbn.fn.canvasToImage](#canvasToImage)  
+[bbn.fn.__canvasToImage__](#canvasToImage)  
 Returns a canvas in a HTML element img  
-[bbn.fn.copy](#copy)  
+[bbn.fn.__copy__](#copy)  
 Copies to the clipboard the value of the given string.  
-[bbn.fn.eraseCookie](#eraseCookie)  
+[bbn.fn.__eraseCookie__](#eraseCookie)  
 Erase the cookie corresponding to the given name;  
-[bbn.fn.error](#error)  
+[bbn.fn.__error__](#error)  
 Logs the given argument in the browser's console highlighting it with a red background.  
-[bbn.fn.formatBytes](#formatBytes)  
+[bbn.fn.__formatBytes__](#formatBytes)  
 Formats the value given in bytes.  
-[bbn.fn.getCookie](#getCookie)  
+[bbn.fn.__getCookie__](#getCookie)  
 If it exsists returns the cookie corresponding to the given name.  
-[bbn.fn.getEventData](#getEventData)  
+[bbn.fn.__getEventData__](#getEventData)  
 Returns a promise having the event's data as argument.  
-[bbn.fn.getHTMLOfSelection](#getHTMLOfSelection)  
+[bbn.fn.__getHTMLOfSelection__](#getHTMLOfSelection)  
   
-[bbn.fn.getPath](#getPath)  
+[bbn.fn.__getPath__](#getPath)  
   
-[bbn.fn.happy](#happy)  
+[bbn.fn.__happy__](#happy)  
 Logs the given argument in the browser's console highlighting it with a green background.  
-[bbn.fn.imageToCanvas](#imageToCanvas)  
+[bbn.fn.__imageToCanvas__](#imageToCanvas)  
 Draws the given html image nto a canvas.  
-[bbn.fn.imgToBase64](#imgToBase64)  
+[bbn.fn.__imgToBase64__](#imgToBase64)  
 Returns the tag for the image in base64  
-[bbn.fn.info](#info)  
+[bbn.fn.__info__](#info)  
 Logs the given argument in the browser's console highlighting it with a blue background.  
-[bbn.fn.is](#is)  
+[bbn.fn.__is__](#is)  
   
-[bbn.fn.isArray](#isArray)  
+[bbn.fn.__isArray__](#isArray)  
 Returns true if the given argument is array.  
-[bbn.fn.isBlob](#isBlob)  
+[bbn.fn.__isBlob__](#isBlob)  
   
-[bbn.fn.isDate](#isDate)  
+[bbn.fn.__isDate__](#isDate)  
 Returns true if the given argument is a date object.  
-[bbn.fn.isDom](#isDom)  
+[bbn.fn.__isDom__](#isDom)  
 Returns true if the given argument is a dom element;  
-[bbn.fn.isMobile](#isMobile)  
+[bbn.fn.__isMobile__](#isMobile)  
 Returns true if the current browser is on a mobile device.  
-[bbn.fn.isNull](#isNull)  
+[bbn.fn.__isNull__](#isNull)  
 Returns true if the given argument is null;  
-[bbn.fn.isNumber](#isNumber)  
+[bbn.fn.__isNumber__](#isNumber)  
 Returns true if the given argument is a number  
-[bbn.fn.isObject](#isObject)  
+[bbn.fn.__isObject__](#isObject)  
 Returns true if the given argument is an object.  
-[bbn.fn.isPercent](#isPercent)  
+[bbn.fn.__isPercent__](#isPercent)  
 Returns true if the given argument is a percentage.  
-[bbn.fn.isString](#isString)  
+[bbn.fn.__isString__](#isString)  
 Returns true if the given argument is a string;  
-[bbn.fn.isURL](#isURL)  
+[bbn.fn.__isURL__](#isURL)  
   
-[bbn.fn.isValue](#isValue)  
+[bbn.fn.__isValue__](#isValue)  
 Returns true if the given argument is not null or type object or array.  
-[bbn.fn.isVue](#isVue)  
+[bbn.fn.__isVue__](#isVue)  
 Returns true if the given argumen is a VueJS object.  
-[bbn.fn.log](#log)  
+[bbn.fn.__log__](#log)  
 Logs the given arguments in the browser's console.  
-[bbn.fn.setCookie](#setCookie)  
+[bbn.fn.__setCookie__](#setCookie)  
 Creates a cookie and assigns it to document.cookie.  
-[bbn.fn.startChrono](#startChrono)  
+[bbn.fn.__startChrono__](#startChrono)  
 Starts a timer and gives it a name.  
-[bbn.fn.stat](#stat)  
+[bbn.fn.__stat__](#stat)  
   
-[bbn.fn.stopChrono](#stopChrono)  
+[bbn.fn.__stopChrono__](#stopChrono)  
   
-[bbn.fn.string2ArrayBuffer](#string2ArrayBuffer)  
+[bbn.fn.__string2ArrayBuffer__](#string2ArrayBuffer)  
   
-[bbn.fn.timestamp](#timestamp)  
+[bbn.fn.__timestamp__](#timestamp)  
 Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().  
-[bbn.fn.warning](#warning)  
+[bbn.fn.__warning__](#warning)  
 Logs the given argument in the browser's console highlighting it with a yellow background and red color.  
 
 
