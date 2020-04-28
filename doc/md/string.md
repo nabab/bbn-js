@@ -1,6 +1,6 @@
 # string.js
 
-## Sizing functions.
+## String operations.
 
 <a name="bbn_top"></a>[bbn.fn.__baseName__](#baseName)  
 Returns the name of the element indicated by path given to it as an argument.  

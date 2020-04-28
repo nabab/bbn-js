@@ -1,5 +1,5 @@
 /**
- * @file   Sizing functions.
+ * @file   Size and resizing.
  * @author BBN Solutions <info@bbn.solutions>
  * @since  12/04/2020
  */

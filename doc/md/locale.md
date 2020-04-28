@@ -1,6 +1,6 @@
 # locale.js
 
-## Locale functions.
+## Locale and formatting.
 
 <a name="bbn_top"></a>[bbn.fn.__date__](#date)  
 Returns a date object from the given argument.  
@@ -13,8 +13,6 @@ Returns the number of days of the month given in the date.
 [bbn.fn.__fdatetime__](#fdatetime)  
   
 [bbn.fn.__ftime__](#ftime)  
-  
-[bbn.fn.__getDay__](#getDay)  
   
 [bbn.fn.__money__](#money)  
 Returns the given value to money format basing on the given configuration.  
@@ -89,9 +87,6 @@ bbn.fn.dateSQL(date,false);
 //30
 bbn.fn.daysInMonth(new Date());
 ```
-
-[Back to top](#bbn_top)  
-
 
 [Back to top](#bbn_top)  
 

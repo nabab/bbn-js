@@ -9,7 +9,7 @@ You can check the documentation:
 * [History](doc/md/history.md)
 * [Initialization](doc/md/init.md)
 * [Locale and formatting](doc/md/locale.md)
-* [Other functions](doc/md/misc.md)
+* [Miscellaneous functions](doc/md/misc.md)
 * [Objects and arrays operations](doc/md/object.md)
 * [Size and resizing](doc/md/size.md)
 * [String operations](doc/md/string.md)

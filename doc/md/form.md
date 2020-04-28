@@ -1,6 +1,6 @@
 # form.js
 
-## Form related functions.
+## Forms and data.
 
 <a name="bbn_top"></a>[bbn.fn.__add_inputs__](#add_inputs)  
   

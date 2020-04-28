@@ -1,6 +1,6 @@
 # style.js
 
-## Styling functions.
+## Styling.
 
 <a name="bbn_top"></a>[bbn.fn.__addColors__](#addColors)  
 Adds the given color to the object bbn.var.colors in order to be able to use  

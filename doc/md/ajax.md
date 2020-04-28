@@ -1,17 +1,13 @@
 # ajax.js
 
-## Routing and Navigation.
+## Routing and navigation.
 
 These functions are meant to be used in a configured BBN environment,
 i.e. a single page application where callback functions are already defined
 and bbn has been initiated through bbn.fn.init.
 
 
-<a name="bbn_top"></a>[bbn.fn.___addLoader__](#_addLoader)  
-Creates and adds a "loader" object to the property bbn.env.loaders.  
-[bbn.fn.___deleteLoader__](#_deleteLoader)  
-Deletes a loader and changes its history state after the promise is fullfilled.  
-[bbn.fn.__abort__](#abort)  
+<a name="bbn_top"></a>[bbn.fn.__abort__](#abort)  
 Aborts (client side) the XHR corresponding to the given ID if it still exists.  
 [bbn.fn.__ajax__](#ajax)  
 Creates an XHR object and returns the Promise.  
@@ -264,10 +260,4 @@ bbn.fn.getIdURL('my/other/location', {id: 1, test: 2});
 // my/location:ec60cdf5001208a1fc5fbae05ac94a55
 bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
 ```
-[Back to top](#bbn_top)  
-
-
-[Back to top](#bbn_top)  
-
-
 [Back to top](#bbn_top)  

@@ -1,6 +1,6 @@
 # init.js
 
-## Init function
+## Initialization.
 
 <a name="bbn_top"></a>[bbn.fn.__init__](#init)  
 Initializes the library bbn basing on the given configuration object.  

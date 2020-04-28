@@ -1,5 +1,5 @@
 /**
- * @file   Locale functions.
+ * @file   Locale and formatting.
  * @author BBN Solutions <info@bbn.solutions>
  * @since  12/04/2020
  */

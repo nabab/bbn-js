@@ -1,6 +1,6 @@
 # size.js
 
-## Sizing functions.
+## Size and resizing.
 
 <a name="bbn_top"></a>[bbn.fn.__adjustHeight__](#adjustHeight)  
 Adjusts the height of the element(s) given as argument.  

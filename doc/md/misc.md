@@ -2,26 +2,18 @@
 
 ## Miscellaneous functions.
 
-<a name="bbn_top"></a>[bbn.fn.__arrayBuffer2String__](#arrayBuffer2String)  
-  
-[bbn.fn.__canvasToImage__](#canvasToImage)  
+<a name="bbn_top"></a>[bbn.fn.__canvasToImage__](#canvasToImage)  
 Returns a canvas in a HTML element img  
 [bbn.fn.__copy__](#copy)  
 Copies to the clipboard the value of the given string.  
 [bbn.fn.__eraseCookie__](#eraseCookie)  
 Erase the cookie corresponding to the given name;  
-[bbn.fn.__error__](#error)  
-Logs the given argument in the browser's console highlighting it with a red background.  
 [bbn.fn.__formatBytes__](#formatBytes)  
 Formats the value given in bytes.  
 [bbn.fn.__getCookie__](#getCookie)  
 If it exsists returns the cookie corresponding to the given name.  
 [bbn.fn.__getEventData__](#getEventData)  
 Returns a promise having the event's data as argument.  
-[bbn.fn.__getHTMLOfSelection__](#getHTMLOfSelection)  
-  
-[bbn.fn.__getPath__](#getPath)  
-  
 [bbn.fn.__happy__](#happy)  
 Logs the given argument in the browser's console highlighting it with a green background.  
 [bbn.fn.__imageToCanvas__](#imageToCanvas)  
@@ -36,6 +28,8 @@ Logs the given argument in the browser's console highlighting it with a blue bac
 Returns true if the given argument is array.  
 [bbn.fn.__isBlob__](#isBlob)  
   
+[bbn.fn.__isCanvas__](#isCanvas)  
+Returns true if the given argumen is a Canvas.  
 [bbn.fn.__isDate__](#isDate)  
 Returns true if the given argument is a date object.  
 [bbn.fn.__isDom__](#isDom)  
@@ -52,8 +46,6 @@ Returns true if the given argument is an object.
 Returns true if the given argument is a percentage.  
 [bbn.fn.__isString__](#isString)  
 Returns true if the given argument is a string;  
-[bbn.fn.__isURL__](#isURL)  
-  
 [bbn.fn.__isValue__](#isValue)  
 Returns true if the given argument is not null or type object or array.  
 [bbn.fn.__isVue__](#isVue)  
@@ -64,11 +56,7 @@ Logs the given arguments in the browser's console.
 Creates a cookie and assigns it to document.cookie.  
 [bbn.fn.__startChrono__](#startChrono)  
 Starts a timer and gives it a name.  
-[bbn.fn.__stat__](#stat)  
-  
 [bbn.fn.__stopChrono__](#stopChrono)  
-  
-[bbn.fn.__string2ArrayBuffer__](#string2ArrayBuffer)  
   
 [bbn.fn.__timestamp__](#timestamp)  
 Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().  
@@ -231,6 +219,21 @@ bbn.fn.isDom('<div>myDiv</div>');
 ```
 [Back to top](#bbn_top)  
 
+### <a name="isCanvas"></a>bbn.fn.isCanvas()
+
+  __Returns true if the given argumen is a Canvas.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+let myCanvas = document.createElement('canvas');
+bbn.fn.isCanvas(myCanvas);
+```
+[Back to top](#bbn_top)  
+
 ### <a name="isVue"></a>bbn.fn.isVue()
 
   __Returns true if the given argumen is a VueJS object.__
@@ -260,9 +263,6 @@ bbn.fn.isVue(myObj);
 //true
 bbn.fn.isPercent('5%');
 ```
-[Back to top](#bbn_top)  
-
-
 [Back to top](#bbn_top)  
 
 ### <a name="timestamp"></a>bbn.fn.timestamp()
@@ -309,9 +309,6 @@ bbn.fn.warning('whatever you want to log as a warning');
 ```
 [Back to top](#bbn_top)  
 
-
-[Back to top](#bbn_top)  
-
 ### <a name="happy"></a>bbn.fn.happy(args)
 
   __Logs the given argument in the browser's console highlighting it with a green background.__
@@ -333,12 +330,6 @@ bbn.fn.happy('I want to log the success of my function');
   * __args__ _...any_ 
 
   __Returns__ _Mixed_ 
-[Back to top](#bbn_top)  
-
-
-[Back to top](#bbn_top)  
-
-
 [Back to top](#bbn_top)  
 
 ### <a name="setCookie"></a>bbn.fn.setCookie(name, value, days)
@@ -400,15 +391,6 @@ let type = e.type;
     bbn.fn.log("DATA FROM " + type, data);
   });
 ```
-[Back to top](#bbn_top)  
-
-
-[Back to top](#bbn_top)  
-
-
-[Back to top](#bbn_top)  
-
-
 [Back to top](#bbn_top)  
 
 ### <a name="copy"></a>bbn.fn.copy(st)

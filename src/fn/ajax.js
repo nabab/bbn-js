@@ -1,5 +1,5 @@
 /**
- * Routing and Navigation.
+ * Routing and navigation.
  * 
  * These functions are meant to be used in a configured BBN environment,
  * i.e. a single page application where callback functions are already defined
@@ -627,6 +627,21 @@
      * @returns           
      */
     downloadContent(filename, content, type){
+      if (bbn.fn.isCanvas(content)) {
+        bbn.fn.log("IS CANVAS!");
+        content.toBlob((blob) => {
+          // blob ready, download it
+          let a = document.createElement('a');
+          a.download = filename;
+          a.href = URL.createObjectURL(blob);
+          a.className = 'bbn-no';
+          a.click();
+        
+          // delete the internal blob reference, to let the browser clear memory from it
+          URL.revokeObjectURL(a.href);
+        }, type || 'image/png');
+        return;
+      }
       if ( !type ){
         type = bbn.fn.isObject(content) && content.type ? content.type : 'octet/stream';
       }
@@ -635,11 +650,24 @@
       }
       let a = window.document.createElement('a');
       a.className = 'bbn-no';
-      a.href = window.URL.createObjectURL(bbn.fn.isString(content) ? new Blob([content], {type: type}) : content);
+      let src = null;
+      if (bbn.fn.isString(content)) {
+        src = new Blob([content], {type: type})
+      }
+      else {
+        try {
+          src = content;
+        }
+        catch(e) {
+          bbn.fn.log(e);
+        }
+      }
+      a.href = window.URL.createObjectURL(src);
       a.download = filename;
       // Append anchor to body.
       document.body.appendChild(a);
       a.click();
+      URL.revokeObjectURL(a.href);
       // Remove anchor from body
       document.body.removeChild(a);
     },

@@ -1,5 +1,5 @@
 /**
- * @file   Init function
+ * @file   Initialization.
  * @author BBN Solutions <info@bbn.solutions>
  * @since  12/04/2020
  */

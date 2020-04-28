@@ -75,84 +75,9 @@
     },
 
     /**
-     * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
-     *
-     * @method   compareValues
-     * @global
-     * @example
-     * ```javascript
-     * // Same value
-     * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
-     * // 0
-     * ```
-     * @example
-     * ```javascript
-     * // First value smaller than second
-     * bbn.fn.compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
-     * // -1
-     * ```
-     * @example
-     * ```javascript
-     * // First value greater than second
-     * bbn.fn.compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
-     * // 1
-     * ```
-     * @example
-     * ```javascript
-     * // First value is undefined
-     * bbn.fn.compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
-     * // 1
-     * ```
-     * @memberof bbn.fn
-     * @param    {Object} a    First object for comparison
-     * @param    {Object} b    Second object for comparison
-     * @param    {String} prop Property to compare
-     * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
-     * @returns  {Number} Always either -1, 1, or 0
-     */
-    compareValues(a, b, prop, dir = 'asc') {
-      let va = bbn.fn.getProperty(a, prop),
-          vb = bbn.fn.getProperty(b, prop),
-          ta = (typeof (va)).toLowerCase(),
-          tb = (typeof (vb)).toLowerCase();
-      if ((dir !== 'asc') && bbn.fn.isString(dir) && (dir.toLowerCase() === 'desc')) {
-        dir = 'desc';
-      }
-      if (ta !== tb) {
-        va = ta;
-        vb = tb;
-      }
-      else {
-        switch (ta) {
-          case 'string':
-            va = bbn.fn.removeAccents(va).toLowerCase();
-            vb = bbn.fn.removeAccents(vb).toLowerCase();
-            break;
-          case 'boolean':
-            va = va ? 1 : 0;
-            vb = vb ? 1 : 0;
-            break;
-          case 'object':
-            if (bbn.fn.isDate(va)) {
-              va = va.getTime();
-              vb = bbn.fn.isDate(vb) ? vb.getTime() : 0;
-            }
-            break;
-        }
-      }
-      if (va < vb) {
-        return dir === 'desc' ? 1 : -1;
-      }
-      if (va > vb) {
-        return dir === 'desc' ? -1 : 1;
-      }
-      return 0;
-    },
-
-    /**
      * Sorts an array of objects based on the given property.
      * 
-     * The resulting array is the same object, the order is based on compareValues function.
+     * The resulting array is the same object, the order is based on _compareValues function.
      * 
      * @method   order
      * @global
@@ -170,15 +95,15 @@
      * // ]
      * ```
      * @memberof bbn.fn
-     * @param    {Array}  arr  The array to order
-     * @param    {String} prop The property on which the order is based
-     * @param    {String} [dir=asc]  The direction of the order (desc or asc by default)
+     * @param    {Array}  arr       The array to order
+     * @param    {String} prop      The property on which the order is based
+     * @param    {String} [dir=asc] The direction of the order (desc or asc by default)
      * @returns  {Array} 
      */
     order(arr, prop, dir = 'asc'){
       if (arr) {
         return arr.sort(function(a, b){
-          return bbn.fn.compareValues(a, b, prop, dir);
+          return bbn.fn._compareValues(a, b, prop, dir);
         });
       }
       return arr;
@@ -187,7 +112,7 @@
     /**
      * Sorts an array of objects based on a set of properties.
      * 
-     * The resulting array is the same object, the order is based on compareValues function
+     * The resulting array is the same object, the order is based on _compareValues function
      * applied for each given properties in orders argument.
      *
      * @method   multiorder
@@ -218,7 +143,7 @@
      * // Same result with object shortcut
      * ```
      * @memberof bbn.fn
-     * @param    {Array}        arr           The array to order
+     * @param    {Array}        arr    The array to order
      * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
      * @returns  {Array}        The same array (arr), ordered differently
      */
@@ -235,7 +160,7 @@
       return r.sort((a, b) => {
         let res;
         for ( let order of orders ){
-          res = bbn.fn.compareValues(a, b, order.field, order.dir);
+          res = bbn.fn._compareValues(a, b, order.field, order.dir);
           if ( res !== 0 ){
             return res;
           }
@@ -358,7 +283,7 @@
         case "contain":
         case "icontains":
         case "icontain":
-          if ( bbn.fn.isNull(v1) || bbn.fn.isNull(v2) ){
+          if ( bbn.fn.isEmpty(v1) || bbn.fn.isEmpty(v2) ){
             return false;
           }
           return bbn.fn.removeAccents(v1).toLowerCase().indexOf(bbn.fn.removeAccents(v2).toLowerCase()) !== -1;
@@ -511,7 +436,7 @@
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
-     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
      * @param    {Number}                   startFrom The index from which the search should start
      * @returns  {Number}                   The index if found, otherwise -1
      */
@@ -535,6 +460,7 @@
         }
         else if (bbn.fn.isFunction(prop)) {
           isFunction = true;
+          filter = prop;
         }
       }
       if (isFunction || (bbn.fn.isObject(filter) && bbn.fn.numProperties(filter))) {
@@ -615,11 +541,81 @@
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
-     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
      * @returns  {Number}                   The number of items
      */
     count(arr, prop, val, operator){
       return bbn.fn.filter(arr, prop, val, operator, false).length || 0;
+    },
+
+    /**
+     * Retrieves all elements of a hierarchical array corresponding to the filter.
+     * 
+     * The arguments follow the same scheme as bbn.fn.search.
+     *
+     * @method   findAll
+     * @global
+     * @example
+     * ```javascript
+     * let ar = [
+     *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+     *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+     *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+     *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+     * ];
+     * bbn.fn.count(ar, "id", 256);
+     * // 1
+     * bbn.fn.count(ar, {director: "Steven Spielberg"});
+     * // 2
+     * bbn.fn.search(ar, "year", 1975, ">");
+     * // 3
+     * // Complex filters: all the movies from Spielberg between 1974 and 1980
+     * bbn.fn.search(ar, {
+     *   logic: "AND",
+     *   conditions: [
+     *     {
+     *       field: "director",
+     *       operator: "eq",
+     *       value: "Steven Spielberg"
+     *     }, {
+     *       logic: "AND",
+     *       conditions: [
+     *         {
+     *            field: "year",
+     *            operator: ">=",
+     *            value: 1974
+     *         }, {
+     *            field: "year",
+     *            operator: "<=",
+     *            value: 1980
+     *         }
+     *       ]
+     *     }
+     *   ]
+     * });
+     * // 1
+     * ```
+     * @memberof bbn.fn
+     * @param    {Array}                    arr       The subject array
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+     * @returns  {Number}                   The number of items
+     */
+    findAll(arr, filter, deepProperty, res = [])
+    {
+      let idx;
+      let start = 0;
+      while ((idx = bbn.fn.search(arr, filter, start)) > -1) {
+        res.push(arr[idx]);
+        start = idx + 1;
+      }
+      bbn.fn.each(arr, it => {
+        if (bbn.fn.isArray(it[deepProperty])) {
+          bbn.fn.findAll(it[deepProperty], filter, deepProperty, res);
+        }
+      });
+      return res;
     },
 
     /**
@@ -663,7 +659,7 @@
      * @param    {(String|Function)}        numberProp The property's name for which the value should be added to the sum, or a function returning the number.
      * @param    {(String|Object|Function)} prop       A property's name or a filter object or function
      * @param    {*}                        val        The value with which comparing the given property
-     * @param    {String}                   operator   The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   operator   The operator to use for comparison with the value as used in bbn.fn.compare
      * @returns  {Number}                   The sum
      */
     sum(arr, numberProp, prop, val, operator){
@@ -722,7 +718,7 @@
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
-     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
      * @returns  {Array}                    A new filtered array
      */
     filter(arr, prop, val, operator) {
@@ -805,7 +801,7 @@
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
-     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
      * @returns  {Object|Boolean}           The item if found, false otherwise
      */
     getRow(arr, prop, val, operator){
@@ -840,8 +836,8 @@
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
-     * @param    {String}                   operator  The operator to use for comparison with the value as used in the bbn.fn.compare
-     * @param    {String}                   field The property from which the value is returned
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+     * @param    {String}                   field     The property from which the value is returned
      * @returns
      */
     getField(arr, field, prop, val, operator) {
@@ -1232,7 +1228,7 @@
       if ( !args.length ){
         throw new Error("No argument given");
       }
-      let out = args[0] || {};
+      let out = args[0];
       for ( let i = 1; i < args.length; i++ ){
         bbn.fn.iterate(args[i], (a, key) => {
           if ( deep ){
@@ -1550,7 +1546,7 @@
           VALUE_UPDATED = 'updated',
           VALUE_DELETED = 'deleted',
           VALUE_UNCHANGED = 'unchanged',
-          compareValues = function(value1, value2) {
+          _compareValues = function(value1, value2) {
             if (value1 === value2) {
               return VALUE_UNCHANGED;
             }
@@ -1576,10 +1572,10 @@
       let diff = {};
       if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj1) ){
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
-          let res = compareValues(obj1, obj2);
+          let res = _compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
             let ret = {
-              type: compareValues(obj1, obj2),
+              type: _compareValues(obj1, obj2),
               data: (obj1 === undefined) ? obj2 : obj1
             };
             if ( obj1 !== undefined ){
@@ -1782,7 +1778,7 @@
      * @returns  {undefined}
      */
     iterate(obj, fn, noPrivate) {
-      if ((obj !== null) && (typeof obj === 'object') && bbn.fn.isFunction(obj.hasOwnProperty)) {
+      if ((obj !== null) && (typeof obj === 'object')) {
         let iter = Object.keys(noPrivate ? bbn.fn.removePrivateProp(obj) : obj);
         bbn.fn.each(iter, prop => {
           if (fn(obj[prop], prop) === false) {
@@ -1891,13 +1887,14 @@
      * @param    {Array}    arr
      * @param    {Function} fn
      * @param    {Boolean}  deepProp
+     * @param    {Number}   level
      * @returns  {Array}
      */
-    map(arr, fn, deepProp){
+    map(arr, fn, deepProp, level = 0){
       return arr.map((a, i) => {
-        a = fn(a, i);
+        a = fn(a, i, level);
         if ( deepProp && a[deepProp] && bbn.fn.isArray(a[deepProp]) ){
-          a[deepProp] = bbn.fn.map(a[deepProp], fn, deepProp);
+          a[deepProp] = bbn.fn.map(a[deepProp], fn, deepProp, level + 1);
         }
         return a;
       });
@@ -2001,6 +1998,83 @@
         }
       });
       return o;
+    },
+
+    /**
+     * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
+     * 
+     * This is only used as a sorting function by bbn.fn.order and bbn.fn.multiorder.
+     *
+     * @method   _compareValues
+     * @global
+     * @example
+     * ```javascript
+     * // Same value
+     * bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
+     * // 0
+     * ```
+     * @example
+     * ```javascript
+     * // First value smaller than second
+     * bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
+     * // -1
+     * ```
+     * @example
+     * ```javascript
+     * // First value greater than second
+     * bbn.fn._compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
+     * // 1
+     * ```
+     * @example
+     * ```javascript
+     * // First value is undefined
+     * bbn.fn._compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
+     * // 1
+     * ```
+     * @memberof bbn.fn
+     * @param    {Object} a    First object for comparison
+     * @param    {Object} b    Second object for comparison
+     * @param    {String} prop Property to compare
+     * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
+     * @returns  {Number} Always either -1, 1, or 0
+     */
+    _compareValues(a, b, prop, dir = 'asc') {
+      let va = bbn.fn.getProperty(a, prop),
+          vb = bbn.fn.getProperty(b, prop),
+          ta = (typeof (va)).toLowerCase(),
+          tb = (typeof (vb)).toLowerCase();
+      if ((dir !== 'asc') && bbn.fn.isString(dir) && (dir.toLowerCase() === 'desc')) {
+        dir = 'desc';
+      }
+      if (ta !== tb) {
+        va = ta;
+        vb = tb;
+      }
+      else {
+        switch (ta) {
+          case 'string':
+            va = bbn.fn.removeAccents(va).toLowerCase();
+            vb = bbn.fn.removeAccents(vb).toLowerCase();
+            break;
+          case 'boolean':
+            va = va ? 1 : 0;
+            vb = vb ? 1 : 0;
+            break;
+          case 'object':
+            if (bbn.fn.isDate(va)) {
+              va = va.getTime();
+              vb = bbn.fn.isDate(vb) ? vb.getTime() : 0;
+            }
+            break;
+        }
+      }
+      if (va < vb) {
+        return dir === 'desc' ? 1 : -1;
+      }
+      if (va > vb) {
+        return dir === 'desc' ? -1 : 1;
+      }
+      return 0;
     },
 
   });

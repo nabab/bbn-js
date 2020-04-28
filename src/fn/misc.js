@@ -298,7 +298,32 @@
     },
 
     /**
+     * Returns true if the given argumen is a Canvas.
+     * 
+     * @method   isCanvas
+     * @global   
+     * @example
+     * ```javascript
+     * //true
+     * let myCanvas = document.createElement('canvas');
+     * bbn.fn.isCanvas(myCanvas);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}   
+     */
+    isCanvas(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof HTMLCanvasElement) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
      * Returns true if the given argumen is a VueJS object.
+     * 
      * @method   isVue
      * @global   
      * @example

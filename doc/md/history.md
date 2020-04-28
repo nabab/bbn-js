@@ -1,6 +1,6 @@
 # history.js
 
-## History related functions.
+## History.
 
 <a name="bbn_top"></a>[bbn.fn.__addHistoryScript__](#addHistoryScript)  
   
