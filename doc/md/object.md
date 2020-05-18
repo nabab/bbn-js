@@ -2,9 +2,7 @@
 
 ## Objects and arrays operations.
 
-<a name="bbn_top"></a>[bbn.fn.___compareValues__](#_compareValues)  
-Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.  
-[bbn.fn.__arrayFromProp__](#arrayFromProp)  
+<a name="bbn_top"></a>[bbn.fn.__arrayFromProp__](#arrayFromProp)  
 Creates and returns a new array made of the given property's values from the given array of objects.  
 [bbn.fn.__autoExtend__](#autoExtend)  
 Extends the bbn object by passing the namespace and the object it will merge with.  
@@ -28,6 +26,8 @@ Returns a new object made of the properties from all the given objects.
 Returns a new array with only the data matching the given filter.  
 [bbn.fn.__filterToConditions__](#filterToConditions)  
 Converts the given object 'filter' to a valid format of condition.  
+[bbn.fn.__findAll__](#findAll)  
+Retrieves all elements of a hierarchical array corresponding to the filter.  
 [bbn.fn.__fori__](#fori)  
 Executes the provided function on each element of the given array.  
 [bbn.fn.__forir__](#forir)  
@@ -362,6 +362,61 @@ bbn.fn.search(ar, {
 ### <a name="count"></a>bbn.fn.count(arr, prop, val, operator)
 
   __Counts the number of objects matching the given filter in the given array.__
+
+  The arguments follow the same scheme as bbn.fn.search.
+
+  * __arr__ _Array_ The subject array
+  * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
+  * __val__ _Mixed_ The value with which comparing the given property
+  * __operator__ _String_ The operator to use for comparison with the value as used in bbn.fn.compare
+
+  __Returns__ _Number_ The number of items
+
+
+```javascript
+let ar = [
+  {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+  {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+  {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+  {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+];
+bbn.fn.count(ar, "id", 256);
+// 1
+bbn.fn.count(ar, {director: "Steven Spielberg"});
+// 2
+bbn.fn.search(ar, "year", 1975, ">");
+// 3
+// Complex filters: all the movies from Spielberg between 1974 and 1980
+bbn.fn.search(ar, {
+  logic: "AND",
+  conditions: [
+    {
+      field: "director",
+      operator: "eq",
+      value: "Steven Spielberg"
+    }, {
+      logic: "AND",
+      conditions: [
+        {
+           field: "year",
+           operator: ">=",
+           value: 1974
+        }, {
+           field: "year",
+           operator: "<=",
+           value: 1980
+        }
+      ]
+    }
+  ]
+});
+// 1
+```
+[Back to top](#bbn_top)  
+
+### <a name="findAll"></a>bbn.fn.findAll(arr, prop, val, operator)
+
+  __Retrieves all elements of a hierarchical array corresponding to the filter.__
 
   The arguments follow the same scheme as bbn.fn.search.
 
@@ -1310,47 +1365,5 @@ bbn.fn.shortenObj({
 //   "title": "Once upon a time in the west",
 //   "synopsis": "There's a single piece of land around Flagstone wi..."
 // }
-```
-[Back to top](#bbn_top)  
-
-### <a name="_compareValues"></a>bbn.fn._compareValues(a, b, prop, [dir=asc])
-
-  __Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.__
-
-  This is only used as a sorting function by bbn.fn.order and bbn.fn.multiorder.
-
-  * __a__ _Object_ First object for comparison
-  * __b__ _Object_ Second object for comparison
-  * __prop__ _String_ Property to compare
-  * __[dir=asc]__ _String_ Direction of comparison (desc or asc by default)
-
-  __Returns__ _Number_ Always either -1, 1, or 0
-
-
-```javascript
-// Same value
-bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
-// 0
-```
-
-
-```javascript
-// First value smaller than second
-bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
-// -1
-```
-
-
-```javascript
-// First value greater than second
-bbn.fn._compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
-// 1
-```
-
-
-```javascript
-// First value is undefined
-bbn.fn._compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
-// 1
 ```
 [Back to top](#bbn_top)  
