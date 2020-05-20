@@ -546,11 +546,8 @@
         // Otherwise we add the global title at the end
         else {
           title = bbn.fn.html2text(title);
-          if (title.indexOf(' - ' + bbn.env.siteTitle) === -1) {
-            title += ' - ' + bbn.env.siteTitle;
-          }
         }
-        // Replacing state
+          // Replacing state
         if ( repl ){
           obj.reload = 1;
           h.replaceState(obj, title, bbn.env.url);
@@ -812,6 +809,7 @@
      * // my/location:ec60cdf5001208a1fc5fbae05ac94a55
      * bbn.fn.getIdURL('my/location', {data: {a: 1, b: 2}});
      * ```
+     * @ignore
      * @memberof bbn.fn
      * @param    {String} url      
      * @param    {Object} data     The data sent to the URL
