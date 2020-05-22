@@ -8,91 +8,91 @@
                 "file": "ajax.js",
                 "text": "abort",
                 "desc": "Aborts (client side) the XHR corresponding to the given ID if it still exists",
-                "value": "js\/ajax\/abort",
+                "value": "abort",
                 "url": "bbn-js\/doc\/ajax\/abort"
             },
             {
                 "file": "ajax.js",
                 "text": "ajax",
                 "desc": "Creates an XHR object and returns the Promise",
-                "value": "js\/ajax\/ajax",
+                "value": "ajax",
                 "url": "bbn-js\/doc\/ajax\/ajax"
             },
             {
                 "file": "ajax.js",
                 "text": "callback",
                 "desc": "Executes a serie of predefined actions once a content has been loaded",
-                "value": "js\/ajax\/callback",
+                "value": "callback",
                 "url": "bbn-js\/doc\/ajax\/callback"
             },
             {
                 "file": "ajax.js",
                 "text": "download",
                 "desc": "Downloads a file with given filename from a URL",
-                "value": "js\/ajax\/download",
+                "value": "download",
                 "url": "bbn-js\/doc\/ajax\/download"
             },
             {
                 "file": "ajax.js",
                 "text": "downloadContent",
                 "desc": "Downloads a file with given filename from its content",
-                "value": "js\/ajax\/downloadContent",
+                "value": "downloadContent",
                 "url": "bbn-js\/doc\/ajax\/downloadContent"
             },
             {
                 "file": "ajax.js",
                 "text": "getIdURL",
                 "desc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype",
-                "value": "js\/ajax\/getIdURL",
+                "value": "getIdURL",
                 "url": "bbn-js\/doc\/ajax\/getIdURL"
             },
             {
                 "file": "ajax.js",
                 "text": "getLoader",
                 "desc": "Finds the loader corresponding to the given unique ID and returns it if found",
-                "value": "js\/ajax\/getLoader",
+                "value": "getLoader",
                 "url": "bbn-js\/doc\/ajax\/getLoader"
             },
             {
                 "file": "ajax.js",
                 "text": "link",
                 "desc": "Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction",
-                "value": "js\/ajax\/link",
+                "value": "link",
                 "url": "bbn-js\/doc\/ajax\/link"
             },
             {
                 "file": "ajax.js",
                 "text": "post",
                 "desc": "Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result",
-                "value": "js\/ajax\/post",
+                "value": "post",
                 "url": "bbn-js\/doc\/ajax\/post"
             },
             {
                 "file": "ajax.js",
                 "text": "setNavigationVars",
                 "desc": false,
-                "value": "js\/ajax\/setNavigationVars",
+                "value": "setNavigationVars",
                 "url": "bbn-js\/doc\/ajax\/setNavigationVars"
             },
             {
                 "file": "ajax.js",
                 "text": "treat_vars",
                 "desc": "Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions",
-                "value": "js\/ajax\/treat_vars",
+                "value": "treat_vars",
                 "url": "bbn-js\/doc\/ajax\/treat_vars"
             },
             {
                 "file": "ajax.js",
                 "text": "upload",
                 "desc": "Uploads a file synchronously through an XHR indicating progress",
-                "value": "js\/ajax\/upload",
+                "value": "upload",
                 "url": "bbn-js\/doc\/ajax\/upload"
             },
             {
                 "file": "ajax.js",
                 "text": "window",
                 "desc": false,
-                "value": "js\/ajax\/window",
+                "value": "window",
                 "url": "bbn-js\/doc\/ajax\/window"
             }
         ]
@@ -106,56 +106,56 @@
                 "file": "form.js",
                 "text": "add_inputs",
                 "desc": false,
-                "value": "js\/form\/add_inputs",
+                "value": "add_inputs",
                 "url": "bbn-js\/doc\/form\/add_inputs"
             },
             {
                 "file": "form.js",
                 "text": "cancel",
                 "desc": false,
-                "value": "js\/form\/cancel",
+                "value": "cancel",
                 "url": "bbn-js\/doc\/form\/cancel"
             },
             {
                 "file": "form.js",
                 "text": "fieldValue",
                 "desc": false,
-                "value": "js\/form\/fieldValue",
+                "value": "fieldValue",
                 "url": "bbn-js\/doc\/form\/fieldValue"
             },
             {
                 "file": "form.js",
                 "text": "formChanges",
                 "desc": false,
-                "value": "js\/form\/formChanges",
+                "value": "formChanges",
                 "url": "bbn-js\/doc\/form\/formChanges"
             },
             {
                 "file": "form.js",
                 "text": "formdata",
                 "desc": false,
-                "value": "js\/form\/formdata",
+                "value": "formdata",
                 "url": "bbn-js\/doc\/form\/formdata"
             },
             {
                 "file": "form.js",
                 "text": "objectToFormData",
                 "desc": false,
-                "value": "js\/form\/objectToFormData",
+                "value": "objectToFormData",
                 "url": "bbn-js\/doc\/form\/objectToFormData"
             },
             {
                 "file": "form.js",
                 "text": "reset",
                 "desc": false,
-                "value": "js\/form\/reset",
+                "value": "reset",
                 "url": "bbn-js\/doc\/form\/reset"
             },
             {
                 "file": "form.js",
                 "text": "submit",
                 "desc": false,
-                "value": "js\/form\/submit",
+                "value": "submit",
                 "url": "bbn-js\/doc\/form\/submit"
             }
         ]
@@ -169,21 +169,21 @@
                 "file": "history.js",
                 "text": "addHistoryScript",
                 "desc": false,
-                "value": "js\/history\/addHistoryScript",
+                "value": "addHistoryScript",
                 "url": "bbn-js\/doc\/history\/addHistoryScript"
             },
             {
                 "file": "history.js",
                 "text": "history",
                 "desc": false,
-                "value": "js\/history\/history",
+                "value": "history",
                 "url": "bbn-js\/doc\/history\/history"
             },
             {
                 "file": "history.js",
                 "text": "replaceHistory",
                 "desc": false,
-                "value": "js\/history\/replaceHistory",
+                "value": "replaceHistory",
                 "url": "bbn-js\/doc\/history\/replaceHistory"
             }
         ]
@@ -197,7 +197,7 @@
                 "file": "init.js",
                 "text": "init",
                 "desc": "Initializes the library bbn basing on the given configuration object",
-                "value": "js\/init\/init",
+                "value": "init",
                 "url": "bbn-js\/doc\/init\/init"
             }
         ]
@@ -211,56 +211,56 @@
                 "file": "locale.js",
                 "text": "date",
                 "desc": "Returns a date object from the given argument",
-                "value": "js\/locale\/date",
+                "value": "date",
                 "url": "bbn-js\/doc\/locale\/date"
             },
             {
                 "file": "locale.js",
                 "text": "dateSQL",
                 "desc": "Returns a date with SQL format",
-                "value": "js\/locale\/dateSQL",
+                "value": "dateSQL",
                 "url": "bbn-js\/doc\/locale\/dateSQL"
             },
             {
                 "file": "locale.js",
                 "text": "daysInMonth",
                 "desc": "Returns the number of days of the month given in the date",
-                "value": "js\/locale\/daysInMonth",
+                "value": "daysInMonth",
                 "url": "bbn-js\/doc\/locale\/daysInMonth"
             },
             {
                 "file": "locale.js",
                 "text": "fdate",
                 "desc": false,
-                "value": "js\/locale\/fdate",
+                "value": "fdate",
                 "url": "bbn-js\/doc\/locale\/fdate"
             },
             {
                 "file": "locale.js",
                 "text": "fdatetime",
                 "desc": false,
-                "value": "js\/locale\/fdatetime",
+                "value": "fdatetime",
                 "url": "bbn-js\/doc\/locale\/fdatetime"
             },
             {
                 "file": "locale.js",
                 "text": "ftime",
                 "desc": false,
-                "value": "js\/locale\/ftime",
+                "value": "ftime",
                 "url": "bbn-js\/doc\/locale\/ftime"
             },
             {
                 "file": "locale.js",
                 "text": "getDay",
                 "desc": false,
-                "value": "js\/locale\/getDay",
+                "value": "getDay",
                 "url": "bbn-js\/doc\/locale\/getDay"
             },
             {
                 "file": "locale.js",
                 "text": "money",
                 "desc": "Returns the given value to money format basing on the given configuration",
-                "value": "js\/locale\/money",
+                "value": "money",
                 "url": "bbn-js\/doc\/locale\/money"
             }
         ]
@@ -274,259 +274,259 @@
                 "file": "misc.js",
                 "text": "arrayBuffer2String",
                 "desc": false,
-                "value": "js\/misc\/arrayBuffer2String",
+                "value": "arrayBuffer2String",
                 "url": "bbn-js\/doc\/misc\/arrayBuffer2String"
             },
             {
                 "file": "misc.js",
                 "text": "canvasToImage",
                 "desc": "Returns a canvas in a HTML element im",
-                "value": "js\/misc\/canvasToImage",
+                "value": "canvasToImage",
                 "url": "bbn-js\/doc\/misc\/canvasToImage"
             },
             {
                 "file": "misc.js",
                 "text": "copy",
                 "desc": "Copies to the clipboard the value of the given string",
-                "value": "js\/misc\/copy",
+                "value": "copy",
                 "url": "bbn-js\/doc\/misc\/copy"
             },
             {
                 "file": "misc.js",
                 "text": "eraseCookie",
                 "desc": "Erase the cookie corresponding to the given name",
-                "value": "js\/misc\/eraseCookie",
+                "value": "eraseCookie",
                 "url": "bbn-js\/doc\/misc\/eraseCookie"
             },
             {
                 "file": "misc.js",
                 "text": "error",
                 "desc": "Logs the given argument in the browser's console highlighting it with a red background",
-                "value": "js\/misc\/error",
+                "value": "error",
                 "url": "bbn-js\/doc\/misc\/error"
             },
             {
                 "file": "misc.js",
                 "text": "formatBytes",
                 "desc": "Formats the value given in bytes",
-                "value": "js\/misc\/formatBytes",
+                "value": "formatBytes",
                 "url": "bbn-js\/doc\/misc\/formatBytes"
             },
             {
                 "file": "misc.js",
                 "text": "getCookie",
                 "desc": "If it exsists returns the cookie corresponding to the given name",
-                "value": "js\/misc\/getCookie",
+                "value": "getCookie",
                 "url": "bbn-js\/doc\/misc\/getCookie"
             },
             {
                 "file": "misc.js",
                 "text": "getEventData",
                 "desc": "Returns a promise having the event's data as argument",
-                "value": "js\/misc\/getEventData",
+                "value": "getEventData",
                 "url": "bbn-js\/doc\/misc\/getEventData"
             },
             {
                 "file": "misc.js",
                 "text": "getHTMLOfSelection",
                 "desc": false,
-                "value": "js\/misc\/getHTMLOfSelection",
+                "value": "getHTMLOfSelection",
                 "url": "bbn-js\/doc\/misc\/getHTMLOfSelection"
             },
             {
                 "file": "misc.js",
                 "text": "getPath",
                 "desc": false,
-                "value": "js\/misc\/getPath",
+                "value": "getPath",
                 "url": "bbn-js\/doc\/misc\/getPath"
             },
             {
                 "file": "misc.js",
                 "text": "happy",
                 "desc": "Logs the given argument in the browser's console highlighting it with a green background",
-                "value": "js\/misc\/happy",
+                "value": "happy",
                 "url": "bbn-js\/doc\/misc\/happy"
             },
             {
                 "file": "misc.js",
                 "text": "imageToCanvas",
                 "desc": "Draws the given html image nto a canvas",
-                "value": "js\/misc\/imageToCanvas",
+                "value": "imageToCanvas",
                 "url": "bbn-js\/doc\/misc\/imageToCanvas"
             },
             {
                 "file": "misc.js",
                 "text": "imgToBase64",
                 "desc": "Returns the tag for the image in base6",
-                "value": "js\/misc\/imgToBase64",
+                "value": "imgToBase64",
                 "url": "bbn-js\/doc\/misc\/imgToBase64"
             },
             {
                 "file": "misc.js",
                 "text": "info",
                 "desc": "Logs the given argument in the browser's console highlighting it with a blue background",
-                "value": "js\/misc\/info",
+                "value": "info",
                 "url": "bbn-js\/doc\/misc\/info"
             },
             {
                 "file": "misc.js",
                 "text": "is",
                 "desc": false,
-                "value": "js\/misc\/is",
+                "value": "is",
                 "url": "bbn-js\/doc\/misc\/is"
             },
             {
                 "file": "misc.js",
                 "text": "isArray",
                 "desc": "Returns true if the given argument is array",
-                "value": "js\/misc\/isArray",
+                "value": "isArray",
                 "url": "bbn-js\/doc\/misc\/isArray"
             },
             {
                 "file": "misc.js",
                 "text": "isBlob",
                 "desc": false,
-                "value": "js\/misc\/isBlob",
+                "value": "isBlob",
                 "url": "bbn-js\/doc\/misc\/isBlob"
             },
             {
                 "file": "misc.js",
                 "text": "isCanvas",
                 "desc": "Returns true if the given argumen is a Canvas",
-                "value": "js\/misc\/isCanvas",
+                "value": "isCanvas",
                 "url": "bbn-js\/doc\/misc\/isCanvas"
             },
             {
                 "file": "misc.js",
                 "text": "isDate",
                 "desc": "Returns true if the given argument is a date object",
-                "value": "js\/misc\/isDate",
+                "value": "isDate",
                 "url": "bbn-js\/doc\/misc\/isDate"
             },
             {
                 "file": "misc.js",
                 "text": "isDom",
                 "desc": "Returns true if the given argument is a dom element",
-                "value": "js\/misc\/isDom",
+                "value": "isDom",
                 "url": "bbn-js\/doc\/misc\/isDom"
             },
             {
                 "file": "misc.js",
                 "text": "isMobile",
                 "desc": "Returns true if the current browser is on a mobile device",
-                "value": "js\/misc\/isMobile",
+                "value": "isMobile",
                 "url": "bbn-js\/doc\/misc\/isMobile"
             },
             {
                 "file": "misc.js",
                 "text": "isNull",
                 "desc": "Returns true if the given argument is null",
-                "value": "js\/misc\/isNull",
+                "value": "isNull",
                 "url": "bbn-js\/doc\/misc\/isNull"
             },
             {
                 "file": "misc.js",
                 "text": "isNumber",
                 "desc": "Returns true if the given argument is a numbe",
-                "value": "js\/misc\/isNumber",
+                "value": "isNumber",
                 "url": "bbn-js\/doc\/misc\/isNumber"
             },
             {
                 "file": "misc.js",
                 "text": "isObject",
                 "desc": "Returns true if the given argument is an object",
-                "value": "js\/misc\/isObject",
+                "value": "isObject",
                 "url": "bbn-js\/doc\/misc\/isObject"
             },
             {
                 "file": "misc.js",
                 "text": "isPercent",
                 "desc": "Returns true if the given argument is a percentage",
-                "value": "js\/misc\/isPercent",
+                "value": "isPercent",
                 "url": "bbn-js\/doc\/misc\/isPercent"
             },
             {
                 "file": "misc.js",
                 "text": "isString",
                 "desc": "Returns true if the given argument is a string",
-                "value": "js\/misc\/isString",
+                "value": "isString",
                 "url": "bbn-js\/doc\/misc\/isString"
             },
             {
                 "file": "misc.js",
                 "text": "isURL",
                 "desc": false,
-                "value": "js\/misc\/isURL",
+                "value": "isURL",
                 "url": "bbn-js\/doc\/misc\/isURL"
             },
             {
                 "file": "misc.js",
                 "text": "isValue",
                 "desc": "Returns true if the given argument is not null or type object or array",
-                "value": "js\/misc\/isValue",
+                "value": "isValue",
                 "url": "bbn-js\/doc\/misc\/isValue"
             },
             {
                 "file": "misc.js",
                 "text": "isVue",
                 "desc": "Returns true if the given argumen is a VueJS object",
-                "value": "js\/misc\/isVue",
+                "value": "isVue",
                 "url": "bbn-js\/doc\/misc\/isVue"
             },
             {
                 "file": "misc.js",
                 "text": "log",
                 "desc": "Logs the given arguments in the browser's console",
-                "value": "js\/misc\/log",
+                "value": "log",
                 "url": "bbn-js\/doc\/misc\/log"
             },
             {
                 "file": "misc.js",
                 "text": "setCookie",
                 "desc": "Creates a cookie and assigns it to document.cookie",
-                "value": "js\/misc\/setCookie",
+                "value": "setCookie",
                 "url": "bbn-js\/doc\/misc\/setCookie"
             },
             {
                 "file": "misc.js",
                 "text": "startChrono",
                 "desc": "Starts a timer and gives it a name",
-                "value": "js\/misc\/startChrono",
+                "value": "startChrono",
                 "url": "bbn-js\/doc\/misc\/startChrono"
             },
             {
                 "file": "misc.js",
                 "text": "stat",
                 "desc": false,
-                "value": "js\/misc\/stat",
+                "value": "stat",
                 "url": "bbn-js\/doc\/misc\/stat"
             },
             {
                 "file": "misc.js",
                 "text": "stopChrono",
                 "desc": false,
-                "value": "js\/misc\/stopChrono",
+                "value": "stopChrono",
                 "url": "bbn-js\/doc\/misc\/stopChrono"
             },
             {
                 "file": "misc.js",
                 "text": "string2ArrayBuffer",
                 "desc": false,
-                "value": "js\/misc\/string2ArrayBuffer",
+                "value": "string2ArrayBuffer",
                 "url": "bbn-js\/doc\/misc\/string2ArrayBuffer"
             },
             {
                 "file": "misc.js",
                 "text": "timestamp",
                 "desc": "Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date()",
-                "value": "js\/misc\/timestamp",
+                "value": "timestamp",
                 "url": "bbn-js\/doc\/misc\/timestamp"
             },
             {
                 "file": "misc.js",
                 "text": "warning",
                 "desc": "Logs the given argument in the browser's console highlighting it with a yellow background and red color",
-                "value": "js\/misc\/warning",
+                "value": "warning",
                 "url": "bbn-js\/doc\/misc\/warning"
             }
         ]
@@ -540,231 +540,231 @@
                 "file": "object.js",
                 "text": "arrayFromProp",
                 "desc": "Creates and returns a new array made of the given property's values from the given array of objects",
-                "value": "js\/object\/arrayFromProp",
+                "value": "arrayFromProp",
                 "url": "bbn-js\/doc\/object\/arrayFromProp"
             },
             {
                 "file": "object.js",
                 "text": "autoExtend",
                 "desc": "Extends the bbn object by passing the namespace and the object it will merge with",
-                "value": "js\/object\/autoExtend",
+                "value": "autoExtend",
                 "url": "bbn-js\/doc\/object\/autoExtend"
             },
             {
                 "file": "object.js",
                 "text": "clone",
                 "desc": "Creates and returns a perfect clone - but different - from the given object",
-                "value": "js\/object\/clone",
+                "value": "clone",
                 "url": "bbn-js\/doc\/object\/clone"
             },
             {
                 "file": "object.js",
                 "text": "compare",
                 "desc": "Performs a comparison between two values based on the given operator and returns a boolean",
-                "value": "js\/object\/compare",
+                "value": "compare",
                 "url": "bbn-js\/doc\/object\/compare"
             },
             {
                 "file": "object.js",
                 "text": "compareConditions",
                 "desc": "Checks whether the given data object complies or not with the given filter",
-                "value": "js\/object\/compareConditions",
+                "value": "compareConditions",
                 "url": "bbn-js\/doc\/object\/compareConditions"
             },
             {
                 "file": "object.js",
                 "text": "count",
                 "desc": "Counts the number of objects matching the given filter in the given array",
-                "value": "js\/object\/count",
+                "value": "count",
                 "url": "bbn-js\/doc\/object\/count"
             },
             {
                 "file": "object.js",
                 "text": "diffObj",
                 "desc": "Returns an object describing the differences for transforming the first given object into the second",
-                "value": "js\/object\/diffObj",
+                "value": "diffObj",
                 "url": "bbn-js\/doc\/object\/diffObj"
             },
             {
                 "file": "object.js",
                 "text": "each",
                 "desc": "Executes the provided function on each element of the given array",
-                "value": "js\/object\/each",
+                "value": "each",
                 "url": "bbn-js\/doc\/object\/each"
             },
             {
                 "file": "object.js",
                 "text": "extend",
                 "desc": "Merges the contents of two or more objects together into the first object",
-                "value": "js\/object\/extend",
+                "value": "extend",
                 "url": "bbn-js\/doc\/object\/extend"
             },
             {
                 "file": "object.js",
                 "text": "extendOut",
                 "desc": "Returns a new object made of the properties from all the given objects",
-                "value": "js\/object\/extendOut",
+                "value": "extendOut",
                 "url": "bbn-js\/doc\/object\/extendOut"
             },
             {
                 "file": "object.js",
                 "text": "filter",
                 "desc": "Returns a new array with only the data matching the given filter",
-                "value": "js\/object\/filter",
+                "value": "filter",
                 "url": "bbn-js\/doc\/object\/filter"
             },
             {
                 "file": "object.js",
                 "text": "filterToConditions",
                 "desc": "Converts the given object 'filter' to a valid format of condition",
-                "value": "js\/object\/filterToConditions",
+                "value": "filterToConditions",
                 "url": "bbn-js\/doc\/object\/filterToConditions"
             },
             {
                 "file": "object.js",
                 "text": "findAll",
                 "desc": "Retrieves all elements of a hierarchical array corresponding to the filter",
-                "value": "js\/object\/findAll",
+                "value": "findAll",
                 "url": "bbn-js\/doc\/object\/findAll"
             },
             {
                 "file": "object.js",
                 "text": "fori",
                 "desc": "Executes the provided function on each element of the given array",
-                "value": "js\/object\/fori",
+                "value": "fori",
                 "url": "bbn-js\/doc\/object\/fori"
             },
             {
                 "file": "object.js",
                 "text": "forir",
                 "desc": "Executes the provided function on each element of the given array, going backward",
-                "value": "js\/object\/forir",
+                "value": "forir",
                 "url": "bbn-js\/doc\/object\/forir"
             },
             {
                 "file": "object.js",
                 "text": "getField",
                 "desc": "Returns the value of the given field (property) from the first object matching the given filter in an array of objects",
-                "value": "js\/object\/getField",
+                "value": "getField",
                 "url": "bbn-js\/doc\/object\/getField"
             },
             {
                 "file": "object.js",
                 "text": "getProperty",
                 "desc": "Returns the value of the given property from the given object",
-                "value": "js\/object\/getProperty",
+                "value": "getProperty",
                 "url": "bbn-js\/doc\/object\/getProperty"
             },
             {
                 "file": "object.js",
                 "text": "getRow",
                 "desc": "Returns the first object matching the given filter in an array of objects",
-                "value": "js\/object\/getRow",
+                "value": "getRow",
                 "url": "bbn-js\/doc\/object\/getRow"
             },
             {
                 "file": "object.js",
                 "text": "isSame",
                 "desc": "Checks whether the data contained in the given objects is identical",
-                "value": "js\/object\/isSame",
+                "value": "isSame",
                 "url": "bbn-js\/doc\/object\/isSame"
             },
             {
                 "file": "object.js",
                 "text": "iterate",
                 "desc": "Executes the provided function on each property of the given object",
-                "value": "js\/object\/iterate",
+                "value": "iterate",
                 "url": "bbn-js\/doc\/object\/iterate"
             },
             {
                 "file": "object.js",
                 "text": "map",
                 "desc": "Returns a new array generated by the execution of a function for each item of the given array",
-                "value": "js\/object\/map",
+                "value": "map",
                 "url": "bbn-js\/doc\/object\/map"
             },
             {
                 "file": "object.js",
                 "text": "move",
                 "desc": "Moves an element to a different position within the given array",
-                "value": "js\/object\/move",
+                "value": "move",
                 "url": "bbn-js\/doc\/object\/move"
             },
             {
                 "file": "object.js",
                 "text": "multiorder",
                 "desc": "Sorts an array of objects based on a set of properties",
-                "value": "js\/object\/multiorder",
+                "value": "multiorder",
                 "url": "bbn-js\/doc\/object\/multiorder"
             },
             {
                 "file": "object.js",
                 "text": "numProperties",
                 "desc": "Returns the number of properties contained in the object",
-                "value": "js\/object\/numProperties",
+                "value": "numProperties",
                 "url": "bbn-js\/doc\/object\/numProperties"
             },
             {
                 "file": "object.js",
                 "text": "order",
                 "desc": "Sorts an array of objects based on the given property",
-                "value": "js\/object\/order",
+                "value": "order",
                 "url": "bbn-js\/doc\/object\/order"
             },
             {
                 "file": "object.js",
                 "text": "pickValue",
                 "desc": "Returns a random item from the given array",
-                "value": "js\/object\/pickValue",
+                "value": "pickValue",
                 "url": "bbn-js\/doc\/object\/pickValue"
             },
             {
                 "file": "object.js",
                 "text": "removeEmpty",
                 "desc": "Returns a new array, having removed all elements deemed empty from the given array",
-                "value": "js\/object\/removeEmpty",
+                "value": "removeEmpty",
                 "url": "bbn-js\/doc\/object\/removeEmpty"
             },
             {
                 "file": "object.js",
                 "text": "removePrivateProp",
                 "desc": "Returns an object with the original objects' properties starting with an alphanumeric character",
-                "value": "js\/object\/removePrivateProp",
+                "value": "removePrivateProp",
                 "url": "bbn-js\/doc\/object\/removePrivateProp"
             },
             {
                 "file": "object.js",
                 "text": "search",
                 "desc": "Retrieves the index of the array's first element corresponding to the given filter",
-                "value": "js\/object\/search",
+                "value": "search",
                 "url": "bbn-js\/doc\/object\/search"
             },
             {
                 "file": "object.js",
                 "text": "shortenObj",
                 "desc": "Shortens all the strings contained in the object properties or element in a array",
-                "value": "js\/object\/shortenObj",
+                "value": "shortenObj",
                 "url": "bbn-js\/doc\/object\/shortenObj"
             },
             {
                 "file": "object.js",
                 "text": "sum",
                 "desc": "Returns the sum of the given property or function for the array's elements matching the filter",
-                "value": "js\/object\/sum",
+                "value": "sum",
                 "url": "bbn-js\/doc\/object\/sum"
             },
             {
                 "file": "object.js",
                 "text": "toCSV",
                 "desc": "Returns a CSV string from the given array of arrays or objects",
-                "value": "js\/object\/toCSV",
+                "value": "toCSV",
                 "url": "bbn-js\/doc\/object\/toCSV"
             },
             {
                 "file": "object.js",
                 "text": "unique",
                 "desc": "Removes duplicate values from an array",
-                "value": "js\/object\/unique",
+                "value": "unique",
                 "url": "bbn-js\/doc\/object\/unique"
             }
         ]
@@ -778,42 +778,42 @@
                 "file": "size.js",
                 "text": "adjustHeight",
                 "desc": "Adjusts the height of the element(s) given as argument",
-                "value": "js\/size\/adjustHeight",
+                "value": "adjustHeight",
                 "url": "bbn-js\/doc\/size\/adjustHeight"
             },
             {
                 "file": "size.js",
                 "text": "adjustSize",
                 "desc": "Adjusts the size of the given elements",
-                "value": "js\/size\/adjustSize",
+                "value": "adjustSize",
                 "url": "bbn-js\/doc\/size\/adjustSize"
             },
             {
                 "file": "size.js",
                 "text": "adjustWidth",
                 "desc": "Adjusts the width of the element(s) given as argument",
-                "value": "js\/size\/adjustWidth",
+                "value": "adjustWidth",
                 "url": "bbn-js\/doc\/size\/adjustWidth"
             },
             {
                 "file": "size.js",
                 "text": "calculateHeight",
                 "desc": "Returns the height of the given dom element and force the repaint of the element to trigger animations",
-                "value": "js\/size\/calculateHeight",
+                "value": "calculateHeight",
                 "url": "bbn-js\/doc\/size\/calculateHeight"
             },
             {
                 "file": "size.js",
                 "text": "getScrollBarSize",
                 "desc": "Retutns the size of the scrollbar realative to the current environment",
-                "value": "js\/size\/getScrollBarSize",
+                "value": "getScrollBarSize",
                 "url": "bbn-js\/doc\/size\/getScrollBarSize"
             },
             {
                 "file": "size.js",
                 "text": "toggleFullScreen",
                 "desc": "Toggles the fullscreen mode",
-                "value": "js\/size\/toggleFullScreen",
+                "value": "toggleFullScreen",
                 "url": "bbn-js\/doc\/size\/toggleFullScreen"
             }
         ]
@@ -827,238 +827,238 @@
                 "file": "string.js",
                 "text": "baseName",
                 "desc": "Returns the name of the element indicated by path given to it as an argument",
-                "value": "js\/string\/baseName",
+                "value": "baseName",
                 "url": "bbn-js\/doc\/string\/baseName"
             },
             {
                 "file": "string.js",
                 "text": "br2nl",
                 "desc": "Replaces the html <br> tag with new line characters '\\ n' if present in the string",
-                "value": "js\/string\/br2nl",
+                "value": "br2nl",
                 "url": "bbn-js\/doc\/string\/br2nl"
             },
             {
                 "file": "string.js",
                 "text": "camelize",
                 "desc": "Returns the string passed as an argument in camelize mode",
-                "value": "js\/string\/camelize",
+                "value": "camelize",
                 "url": "bbn-js\/doc\/string\/camelize"
             },
             {
                 "file": "string.js",
                 "text": "camelToCss",
                 "desc": "Returns the string passed as an argument in camelize mode for css",
-                "value": "js\/string\/camelToCss",
+                "value": "camelToCss",
                 "url": "bbn-js\/doc\/string\/camelToCss"
             },
             {
                 "file": "string.js",
                 "text": "correctCase",
                 "desc": "Converts the first character of the string to uppercase",
-                "value": "js\/string\/correctCase",
+                "value": "correctCase",
                 "url": "bbn-js\/doc\/string\/correctCase"
             },
             {
                 "file": "string.js",
                 "text": "dirName",
                 "desc": "Returns the path of the folder containing the last hierarchical element of the path",
-                "value": "js\/string\/dirName",
+                "value": "dirName",
                 "url": "bbn-js\/doc\/string\/dirName"
             },
             {
                 "file": "string.js",
                 "text": "escapeRegExp",
                 "desc": "Returns a string escaped",
-                "value": "js\/string\/escapeRegExp",
+                "value": "escapeRegExp",
                 "url": "bbn-js\/doc\/string\/escapeRegExp"
             },
             {
                 "file": "string.js",
                 "text": "fileExt",
                 "desc": "Gets the extension from a file's name",
-                "value": "js\/string\/fileExt",
+                "value": "fileExt",
                 "url": "bbn-js\/doc\/string\/fileExt"
             },
             {
                 "file": "string.js",
                 "text": "formatSize",
                 "desc": "Returns the value of size for element htm",
-                "value": "js\/string\/formatSize",
+                "value": "formatSize",
                 "url": "bbn-js\/doc\/string\/formatSize"
             },
             {
                 "file": "string.js",
                 "text": "hex2rgb",
                 "desc": "Convert an hexadecimmal string to RGB",
-                "value": "js\/string\/hex2rgb",
+                "value": "hex2rgb",
                 "url": "bbn-js\/doc\/string\/hex2rgb"
             },
             {
                 "file": "string.js",
                 "text": "html2text",
                 "desc": "Convert text in html format to plain text",
-                "value": "js\/string\/html2text",
+                "value": "html2text",
                 "url": "bbn-js\/doc\/string\/html2text"
             },
             {
                 "file": "string.js",
                 "text": "isColor",
                 "desc": "Intended to check if the argument provided is a color",
-                "value": "js\/string\/isColor",
+                "value": "isColor",
                 "url": "bbn-js\/doc\/string\/isColor"
             },
             {
                 "file": "string.js",
                 "text": "isDimension",
                 "desc": false,
-                "value": "js\/string\/isDimension",
+                "value": "isDimension",
                 "url": "bbn-js\/doc\/string\/isDimension"
             },
             {
                 "file": "string.js",
                 "text": "isEmail",
                 "desc": "Intended to check if the argument provided is an e-mail address written correctl",
-                "value": "js\/string\/isEmail",
+                "value": "isEmail",
                 "url": "bbn-js\/doc\/string\/isEmail"
             },
             {
                 "file": "string.js",
                 "text": "isEmpty",
                 "desc": "Checks if the argument is empty or not",
-                "value": "js\/string\/isEmpty",
+                "value": "isEmpty",
                 "url": "bbn-js\/doc\/string\/isEmpty"
             },
             {
                 "file": "string.js",
                 "text": "md5",
                 "desc": "Converts and returns the argument passed in a string in md5 forma",
-                "value": "js\/string\/md5",
+                "value": "md5",
                 "url": "bbn-js\/doc\/string\/md5"
             },
             {
                 "file": "string.js",
                 "text": "nl2br",
                 "desc": "Replace if new line characters '\\ n' with html tag '<br>'",
-                "value": "js\/string\/nl2br",
+                "value": "nl2br",
                 "url": "bbn-js\/doc\/string\/nl2br"
             },
             {
                 "file": "string.js",
                 "text": "percent",
                 "desc": "Returns the value of the proportion giving the percentage and the total from where to be calculated",
-                "value": "js\/string\/percent",
+                "value": "percent",
                 "url": "bbn-js\/doc\/string\/percent"
             },
             {
                 "file": "string.js",
                 "text": "printf",
                 "desc": false,
-                "value": "js\/string\/printf",
+                "value": "printf",
                 "url": "bbn-js\/doc\/string\/printf"
             },
             {
                 "file": "string.js",
                 "text": "randomInt",
                 "desc": "Returns a random integer",
-                "value": "js\/string\/randomInt",
+                "value": "randomInt",
                 "url": "bbn-js\/doc\/string\/randomInt"
             },
             {
                 "file": "string.js",
                 "text": "randomString",
                 "desc": "Returns a random String with random lenght",
-                "value": "js\/string\/randomString",
+                "value": "randomString",
                 "url": "bbn-js\/doc\/string\/randomString"
             },
             {
                 "file": "string.js",
                 "text": "remove_all",
                 "desc": "Returns the string given as an argument",
-                "value": "js\/string\/remove_all",
+                "value": "remove_all",
                 "url": "bbn-js\/doc\/string\/remove_all"
             },
             {
                 "file": "string.js",
                 "text": "remove_nl",
                 "desc": "Removes the '\\n' characters that define a new line",
-                "value": "js\/string\/remove_nl",
+                "value": "remove_nl",
                 "url": "bbn-js\/doc\/string\/remove_nl"
             },
             {
                 "file": "string.js",
                 "text": "remove_quotes",
                 "desc": "Replace quotes in ASCII cod",
-                "value": "js\/string\/remove_quotes",
+                "value": "remove_quotes",
                 "url": "bbn-js\/doc\/string\/remove_quotes"
             },
             {
                 "file": "string.js",
                 "text": "removeAccents",
                 "desc": "Returns the string passed as an argument without accents",
-                "value": "js\/string\/removeAccents",
+                "value": "removeAccents",
                 "url": "bbn-js\/doc\/string\/removeAccents"
             },
             {
                 "file": "string.js",
                 "text": "removeTrailingChars",
                 "desc": false,
-                "value": "js\/string\/removeTrailingChars",
+                "value": "removeTrailingChars",
                 "url": "bbn-js\/doc\/string\/removeTrailingChars"
             },
             {
                 "file": "string.js",
                 "text": "repeat",
                 "desc": "Returns a string which is the repetition of the first argument for the number passed in the second argument",
-                "value": "js\/string\/repeat",
+                "value": "repeat",
                 "url": "bbn-js\/doc\/string\/repeat"
             },
             {
                 "file": "string.js",
                 "text": "replaceAll",
                 "desc": "Looks for and replaces parts of string with what we want",
-                "value": "js\/string\/replaceAll",
+                "value": "replaceAll",
                 "url": "bbn-js\/doc\/string\/replaceAll"
             },
             {
                 "file": "string.js",
                 "text": "rgb2hex",
                 "desc": "Convert an RGB string to hexadecimal",
-                "value": "js\/string\/rgb2hex",
+                "value": "rgb2hex",
                 "url": "bbn-js\/doc\/string\/rgb2hex"
             },
             {
                 "file": "string.js",
                 "text": "roundDecimal",
                 "desc": false,
-                "value": "js\/string\/roundDecimal",
+                "value": "roundDecimal",
                 "url": "bbn-js\/doc\/string\/roundDecimal"
             },
             {
                 "file": "string.js",
                 "text": "sanitize",
                 "desc": "Removes all unacceptable characters in a DOM node",
-                "value": "js\/string\/sanitize",
+                "value": "sanitize",
                 "url": "bbn-js\/doc\/string\/sanitize"
             },
             {
                 "file": "string.js",
                 "text": "shorten",
                 "desc": "Returns an abbreviation to the given string",
-                "value": "js\/string\/shorten",
+                "value": "shorten",
                 "url": "bbn-js\/doc\/string\/shorten"
             },
             {
                 "file": "string.js",
                 "text": "stringify",
                 "desc": "Converts the argument passed to it into a single string",
-                "value": "js\/string\/stringify",
+                "value": "stringify",
                 "url": "bbn-js\/doc\/string\/stringify"
             },
             {
                 "file": "string.js",
                 "text": "uniqString",
                 "desc": "Create a unique string in md5 format",
-                "value": "js\/string\/uniqString",
+                "value": "uniqString",
                 "url": "bbn-js\/doc\/string\/uniqString"
             }
         ]
@@ -1072,21 +1072,21 @@
                 "file": "style.js",
                 "text": "addColors",
                 "desc": "Adds the given color to the object bbn.var.colors in order to be able to us",
-                "value": "js\/style\/addColors",
+                "value": "addColors",
                 "url": "bbn-js\/doc\/style\/addColors"
             },
             {
                 "file": "style.js",
                 "text": "center",
                 "desc": "Centers the given element by giving it a position absolute",
-                "value": "js\/style\/center",
+                "value": "center",
                 "url": "bbn-js\/doc\/style\/center"
             },
             {
                 "file": "style.js",
                 "text": "colorToHex",
                 "desc": "Returns the hex color of the given rgb or color name",
-                "value": "js\/style\/colorToHex",
+                "value": "colorToHex",
                 "url": "bbn-js\/doc\/style\/colorToHex"
             }
         ]
