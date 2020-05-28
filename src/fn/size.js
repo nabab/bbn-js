@@ -265,5 +265,35 @@
       return height;
     },
 
+    contentSize(ele){
+      const origin = ele.getBoundingClientRect();
+      let maxH = 0;
+      let maxW = 0;
+      bbn.fn.each(ele.children, a => {
+        const coord = a.getBoundingClientRect();
+        const w = coord.x - origin.x + coord.width;
+        if (w > maxW) {
+          maxW = w;
+        }
+        if (a.offsetWidth > maxW) {
+          maxW = a.offsetWidth;
+        }
+        const h = coord.y - origin.y + coord.height;
+        if (h > maxH) {
+          maxH = h;
+        }
+        if (a.offsetHeight > maxW) {
+          maxW = a.offsetHeight;
+        }
+      });
+      bbn.fn.log("contentSize", maxH)
+      return {
+        width: maxW,
+        height: maxH
+      }
+
+
+    }
+
   });
 })(bbn);

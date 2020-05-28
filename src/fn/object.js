@@ -1859,7 +1859,7 @@
         let iter = Object.keys(noPrivate ? bbn.fn.removePrivateProp(obj) : obj);
         bbn.fn.each(iter, prop => {
           if (fn(obj[prop], prop) === false) {
-            return;
+            return false;
           }
         });
       }

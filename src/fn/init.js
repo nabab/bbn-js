@@ -56,6 +56,13 @@
         if ( bbn.env.lang && (undefined !== moment) ){
           moment.locale(bbn.env.lang);
         }
+        window.onfocus = () => {
+          bbn.env.isFocused = true;
+        };
+        window.onblur = () => {
+          bbn.env.isFocused = false;
+          bbn.env.timeoff = Math.round((new Date()).getTime() / 1000);
+        };
 
         document.addEventListener("focusin", e => {
           if (!e.target.classList.contains('bbn-no')) {
@@ -97,8 +104,12 @@
         let doResize;
        // $(window)
        //   .on("resize orientationchange", function() {
-        window.addEventListener("resize", bbn.fn.resize);
-        window.addEventListener("orientationchange", bbn.fn.resize);
+        window.addEventListener("resize", () => {
+          setTimeout(bbn.fn.resize, 1000);
+        });
+        window.addEventListener("orientationchange", () => {
+          setTimeout(bbn.fn.resize, 1000);
+        });
 
         bbn.fn.resize();
 

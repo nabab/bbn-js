@@ -1058,6 +1058,24 @@
     isMobile(){
       return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     },
+    /**
+     * Returns the length of time the window has not been focused in seconds. 
+     * @method   isMobile
+     * @global   
+     * @example
+     * ``` javascript
+     * //false
+     * bbn.fn.isMobile();
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean} 
+     */
+    getTimeoff(){
+      if (!bbn.env.isFocused) {
+        return Math.round((new Date()).getTime()/1000 - bbn.env.timeoff);
+      }
+      return 0
+    }
 
   });
 })(bbn);

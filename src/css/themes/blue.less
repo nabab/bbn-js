@@ -39,7 +39,7 @@
 @header-alt: #05386b;
 @header-alt-text: #999;
 @header-text: #2e2e2e;
-@text-size: 13px;
+@text-size: ~"calc(8px + 0.5vmin)";
 @button-text: #2e2e2e;
 @effect: rgba(255, 255, 255, .6);
 @font: 'OpenSans';
@@ -78,36 +78,42 @@
 @font: 'SourceSansPro';
 @font-face {
   font-family: @font;
-  src: url("../../fonts/SourceSansPro/SourceSansPro-Regular.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-Regular.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-Regular.ttf") format("truetype");
   font-style: normal;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/SourceSansPro/SourceSansPro-Italic.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-Italic.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-Italic.ttf") format("truetype");
   font-style: italic;
   font-weight: normal;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/SourceSansPro/SourceSansPro-Bold.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-Bold.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: bold;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/SourceSansPro/SourceSansPro-BoldItalic.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-BoldItalic.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-BoldItalic.ttf") format("truetype");
   font-style: italic;
   font-weight: bold;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/SourceSansPro/SourceSansPro-Light.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-Light.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-Light.ttf") format("truetype");
   font-style: normal;
   font-weight: 200;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/SourceSansPro/SourceSansPro-LightItalic.woff2") format("woff2");
+  src: url("../../fonts/SourceSansPro/SourceSansPro-LightItalic.woff2") format("woff2"),
+       url("../../fonts/SourceSansPro/SourceSansPro-LightItalic.ttf") format("truetype");
   font-style: italic;
   font-weight: 200;
 }

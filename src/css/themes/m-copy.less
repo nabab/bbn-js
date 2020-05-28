@@ -39,7 +39,7 @@
 @header-alt: #05386b;
 @header-alt-text: #999;
 @header-text: #2e2e2e;
-@text-size: 13px;
+@text-size: ~"calc(8px + 0.5vmin)";
 @button-text: #2e2e2e;
 @effect: rgba(255, 255, 255, .6);
 @font: 'OpenSans';
@@ -80,36 +80,42 @@
 @font: 'Lato';
 @font-face {
   font-family: @font;
-  src: url("../../fonts/Lato/Lato-Regular.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-Regular.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-Regular.ttf") format("truetype");
   font-style: normal;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/Lato/Lato-Italic.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-Italic.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-Italic.ttf") format("truetype");
   font-style: italic;
   font-weight: normal;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/Lato/Lato-Bold.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-Bold.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: bold;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/Lato/Lato-BoldItalic.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-BoldItalic.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
   font-style: italic;
   font-weight: bold;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/Lato/Lato-Light.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-Light.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-Light.ttf") format("truetype");
   font-style: normal;
   font-weight: 200;
 }
 @font-face {
   font-family: @font;
-  src:url("../../fonts/Lato/Lato-LightItalic.woff2") format("woff2");
+  src: url("../../fonts/Lato/Lato-LightItalic.woff2") format("woff2"),
+       url("../../fonts/Lato/Lato-LightItalic.ttf") format("truetype");
   font-style: italic;
   font-weight: 200;
 }
