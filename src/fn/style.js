@@ -81,14 +81,10 @@
         let i = 0;
         bbn.fn.iterate(colors, (v, n) => {
           bbn.var.colors[n] = v;
-          sheet.insertRule('.bbn-' + n + '{color: ' + v + ' !important;}', i);
-          i++;
-          sheet.insertRule('.bbn-bg-' + n + '{background-color: ' + v + ' !important;}', i);
-          i++;
-          sheet.insertRule('.bbn-border-' + n + '{border-color: ' + v + ' !important;}', i);
-          i++;
-          sheet.insertRule('.bbn-color-' + n + '{border-color: ' + v + '; background-color: ' + v + '; color: ' + v + ';}', i);
-          i++;
+          sheet.insertRule('.bbn-' + n + ', .bbn-color-text-' + n + ' {color: ' + v + ' !important;}', i);
+          sheet.insertRule('.bbn-bg-' + n + ', .bbn-color-bg-' + n + ', .bbn-color-background-' + n + ' {background-color: ' + v + ' !important;}', i);
+          sheet.insertRule('.bbn-border-' + n + ', .bbn-color-border-' + n + ' {border-color: ' + v + ' !important;}', i);
+          sheet.insertRule('.bbn-color-' + n + ' {border-color: ' + v + '; background-color: ' + v + '; color: ' + v + ';}', i);
         });
       }
     },

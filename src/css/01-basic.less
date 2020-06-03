@@ -1,11 +1,15 @@
 @charset "UTF-8";
-@black: #454545;
+@line-height: 1.7em;
+
+@black: #000000;
+@anthracite: #454545;
 @orange: #ff9900;
 @red: #db3340;
 @green: #00a03e;
 @blue: #6e9ecf;
 @yellow: #fdf200;
-@white: #fdfdfd;
+@beige: #fdfdfd;
+@white: #ffffff;
 @purple: #a333c8;
 @grey: #d3d3d3;
 @brown: #8c6954;
@@ -23,59 +27,23 @@
 @pastelorange: #fff2cc;
 @pastelblue: #ddebf6;
 @webblue: #2196f3;
-@line-height: 1.7em;
 
-/*
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-button, input,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	//font: inherit;
-	vertical-align: baseline;
-}*/
-html{
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
   width: 100%;
   height: 100%;
-  font-family: @font;
-}
-.bbn-reset{
-  background-color: @default-background;
-  color: @default-text;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: @text-size;
-  font-family: @font !important;
-  font-style: normal;
-  font-weight: normal;
-  text-align: left;
 }
 body{
+  margin: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
   transition: opacity 1s;
   .bbn-reset;
 }
 html, body, h1, h2, h3, h4, h5{
-  font-family: @font !important;
-}
-h1, h2, h3, h4, h5{
-  font-weight: 700 !important;
+  font-family: @font;
 }
 a, .bbn-link{
   outline-style: none;
@@ -107,6 +75,7 @@ input,select,textarea{
 h1, h2, h3, h4, h5{
   clear: both;
 }
+/*
 ul.bbn-reset{
   list-style: none;
   padding: 0;
@@ -115,6 +84,21 @@ ul.bbn-reset{
     padding: 0;
     margin: 0;
   }
+}
+*/
+.bbn-reset{
+  background-color: @default-background;
+  color: @default-text;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: @text-size;
+  font-family: @font !important;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  /*! modern-normalize v0.6.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+  //*,::after,::before{box-sizing:border-box}:root{-moz-tab-size:4;tab-size:4}html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'}hr{height:0}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{padding:0}progress{vertical-align:baseline}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
 }
 
 /* mouse pointer */
