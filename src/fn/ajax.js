@@ -51,6 +51,7 @@
      *   }
      * )
      * ```
+     * 
      * @example
      * ```javascript
      * // Promise
@@ -66,13 +67,15 @@
      *     }
      *   )
      * ```
+     * 
      * @param    {String}   url      The URL to be requested by XHR
      * @param    {String}   datatype The type of data expected
-     * @param    {Object}   data     The data (sent th)
-     * @param    {Function} success  
-     * @param    {Function} failure  
-     * @param    {Function} abort    
-     * @returns  {Promise} The Promise created by the generated XHR.
+     * @param    {Object}   data     The data to send through POST
+     * @param    {Function} success  The function to execute if the request goes well (200)
+     * @param    {Function} failure  The function to execute if the request goes bad
+     * @param    {Function} abort    The function to execute if the request is aborted
+     * 
+     * @returns  {Promise}  The Promise created by the generated XHR.
      */
     ajax(url, datatype, data, success, failure, abort){
       if (!url) {
@@ -91,8 +94,8 @@
         if ( bbn.env.token ){
           bbn.fn.extend(data || {}, {_bbn_token: bbn.env.token});
         }
-        let CancelToken = axios.CancelToken;
-        let source = CancelToken.source();
+        let cancelToken = axios.CancelToken;
+        let source = cancelToken.source();
         let options = {
           responseType: datatype,
           cancelToken: source.token
@@ -163,7 +166,9 @@
      * @method   treat_vars
      * @global   
      * @memberof bbn.fn
+     * 
      * @param    {*}      args 
+     * 
      * @returns  {Object} The configuration object
      */
     treat_vars(args){
@@ -247,6 +252,7 @@
      * @method   post
      * @global   
      * @memberof bbn.fn
+     * 
      * @returns  {undefined|Promise}
      */
     post(){
@@ -261,13 +267,14 @@
     /**
      * Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
      * 
-     * Once bbn has been initiated this funciton will be triggered every time a link is clicked 
+     * Once bbn has been initiated this function will be triggered every time a link is clicked 
      * (see treat_vars for the arguments).
      * 
      * @method   link
      * @todo     Manage anchors
      * @global   
      * @memberof bbn.fn
+     * 
      * @returns   
      */
     link(){
@@ -373,77 +380,47 @@
     },
 
     /**
-     * @method   window
-     * @todo     Add method description for window
-     * @global   
-     * @memberof bbn.fn
-     * @returns   
-     */
-    window(url){
-      var data = {},
-          w,
-          h,
-          fn,
-          type;
-      bbn.fn.each(arguments, function(v, i){
-        if ( i > 0 ){
-          if ( bbn.fn.isFunction(v) ){
-            fn = v;
-          }
-          else{
-            type = (typeof(v)).toLowerCase();
-            if ( type === 'object' ){
-              data = v;
-            }
-            else if ( (type === 'string') || (type === 'number') ){
-              if ( !w ){
-                w = v;
-              }
-              else if ( !h ){
-                h = v;
-              }
-            }
-          }
-        }
-      });
-      bbn.fn.post(url, data, function(d){
-        var type2 = (typeof(d)).toLowerCase();
-        if ( type2 === 'string' ){
-          bbn.fn.popup(d, "Returned...", w ? w : "auto", h ? h : "auto", function(ele){
-            bbn.fn.callback(url, d, fn, false, ele);
-          });
-        }
-        if ( (type2 === 'object') && d.content){
-          bbn.fn.popup(d.content, d.title ? d.title : ' ', w ? w : "auto", h ? h : "auto", function(ele){
-            bbn.fn.callback(url, d, fn, false, ele);
-          });
-        }
-      });
-    },
-
-    /**
-     * Executes a serie of predefined actions once a content has been loaded.
+     * Executes a serie of predefined actions once an Ajax request has been done.
+     * 
+     * Used to treat all the requests functions results, it expects at least url and res to be defined;
+     * The following properties from the object res have direct effects:
+     * - url {String}: if not given it will be automatically defined by the url parameter; 
+     *   important {String}: the given URL will be passed to location.href (without reloading)
+     * - prescript {String}: if defined it will attempt to evaluate the code contained in the property
+     * - content {String}: if defined and ele is defined too, the string will be inserted as content in the element
+     * - script {String}: if defined it will be evaluated and executed
+     * - data {Object}:
+     * If fn is defined it will be executed after prescript, otherwise it will be bbn.fn.defaultLinkFunction.
+     * If the first callback returns a non-empty result
      * 
      * @method   callback
      * @todo     Add method description for callback
      * @global   
      * @memberof bbn.fn
-     * @param    {String}      url 
-     * @param    {Object}      res 
-     * @param    {Function}    fn  
-     * @param    {Function}    fn2 
-     * @param    {HTMLElement} ele 
-     * @returns                
+     * 
+     * @param    {String}      url The URL that has been called
+     * @param    {Object}      res The object returned by the request
+     * @param    {Function}    fn  A first callback function to execute
+     * @param    {Function}    fn2 A second callback function to execute
+     * @param    {HTMLElement} ele A DOM element where the content will be inserted
+     * 
+     * @returns  {undefined}
      */
     callback(url, res, fn, fn2, ele){
+      let tmp = false;
       if ( res ){
-        var tmp = true,
-            t = typeof res,
-            isObj = t.toLowerCase() === 'object',
-            errTitle;
+        tmp = true;
+        let t = typeof res;
+        let isObj = t.toLowerCase() === 'object';
+        let errTitle;
         if ( isObj && res.prescript ){
           /* var ok can be changed to false in prescript execution */
-          eval(res.prescript);
+          try {
+            eval(res.prescript);
+          }
+          catch (e) {
+            bbn.fn.error(e.message || '')
+          }
         }
         if ( isObj && res.url === undefined ){
           res.url = url;
@@ -501,10 +478,12 @@
      * @todo     Add method description for setNavigationVars
      * @global   
      * @memberof bbn.fn
-     * @param    {String}  url   
-     * @param    {String}  title 
-     * @param    {Object}  data  
-     * @param    {Boolean} repl  
+     * 
+     * @param    {String}  url   The URL which will become the location.href
+     * @param    {String}  title The title corresponding to the given URL
+     * @param    {Object}  data  The data if any
+     * @param    {Boolean} repl  If true the history state object will replace the current one, will be added otherwise
+     * 
      * @returns            
      */
     setNavigationVars(url, title, data, repl){
@@ -559,9 +538,22 @@
       }
     },
 
-    post_out(action, params, successFn, target) {
-      var form=document.getElementById("bbn-form_out"),
-          has_bbn=false;
+    /**
+     * Posts a request in a new window.
+     * 
+     * @method   post_out
+     * @global   
+     * @memberof bbn.fn
+     * 
+     * @param    {String}   url     The url to which the request should be sent
+     * @param    {Object}   data    The data to be sent
+     * @param    {Function} success A function to execute in case of success
+     * @param    {String}   target  The target attribute of the form
+     * 
+     * @returns  {undefined}  
+     */
+    post_out(url, data, success, target) {
+      let form = document.getElementById("bbn-form_out");
       if (!form) { 
         form = document.createElement('form');
         form.classList.add('bbn-no');
@@ -572,19 +564,19 @@
         document.body.appendChild(form);
       }
       form.innerHTML = '';
-      form.setAttribute('action',action);
-      form.setAttribute('target',target || "_blank");
-      if (!params){ 
-        params={};
+      form.setAttribute('action', url);
+      form.setAttribute('target', target || "_blank");
+      if (!data) {
+        data = {};
       }
-      params = bbn.fn.extend({}, params, true);
-      if (!params.bbn) {
-        params.bbn='public';
+      data = bbn.fn.extend({}, params, true);
+      if (!data.bbn) {
+        data.bbn = 'public';
       }
-      bbn.fn.add_inputs(form,params);
+      bbn.fn.add_inputs(form, params);
       form.submit();
-      if (successFn) {
-        successFn();
+      if (success) {
+        success();
       }
     },
 
@@ -596,7 +588,9 @@
      * @method   abort
      * @global   
      * @memberof bbn.fn
+     * 
      * @param    {String} idURL An ID generated by getIdURL
+     * 
      * @returns  {undefined}  
      */
     abort(idURL){
@@ -605,8 +599,7 @@
         loader.source.cancel('Operation canceled by the user.');
       }
       else {
-        throw new Error("Impossible to find the loader " + idURL)
-
+        throw new Error("Impossible to find the loader " + idURL);
       }
     },
 
@@ -618,9 +611,11 @@
      * @method   downloadContent
      * @global   
      * @memberof bbn.fn
+     * 
      * @param    {String}        filename 
      * @param    {String}        content     
      * @param    {String}        type     
+     * 
      * @returns           
      */
     downloadContent(filename, content, type){
@@ -677,9 +672,11 @@
      * @method   download
      * @global   
      * @memberof bbn.fn
+     * 
      * @param    {String} url
      * @param    {String} filename 
      * @param    {Object} params     
+     * 
      * @returns  {undefined}
      */
     download(url, filename, params){
@@ -719,11 +716,13 @@
      * @method   upload
      * @global   
      * @memberof bbn.fn
+     * 
      * @param {String} url
      * @param {File} file
      * @param {Function} success
      * @param {Function} failure
      * @param {Function} progress
+     * 
      * @returns  {Promise}
      */
     upload(url, file, success, failure, progress){
@@ -763,9 +762,12 @@
     /**
      * Finds the loader corresponding to the given unique ID and returns it if found.
      * 
-     * The loader is an object with the following properties:
+     * The loader is an object representing an Ajax request, with the following properties:
+     * * _key_ is the unique ID of the loader based on a compbination of URl and parameters sent
+     * * _url_ is the URL called by the request
      * * _loader_ is the Promise from the Axios XHR
-     * *
+     * * _source_ is the data posted by the request
+     * * _start_ is the timestamp of the moment the request was sent
      * 
      * @method   getLoader
      * @global   
@@ -774,7 +776,9 @@
      * ```javascript
      * 
      * ```
+     * 
      * @param    {String} idURL The unique ID of the request as used in bbn.env.loaders
+     * 
      * @returns  {false|Promise} The corresponding Promise if it exists
      */
     getLoader(idURL){
@@ -811,9 +815,11 @@
      * ```
      * @ignore
      * @memberof bbn.fn
+     * 
      * @param    {String} url      
      * @param    {Object} data     The data sent to the URL
      * @param    {String} datatype The type of data requested (JSON by default)
+     * 
      * @returns  {String} The unique ID
      */
     getIdURL(url, data, datatype){
@@ -836,9 +842,11 @@
      * @global   
      * @ignore   
      * @memberof bbn.fn
+     * 
      * @param    {String}  idURL  
      * @param    {Promise} prom 
      * @param    {Object}  source 
+     * 
      * @returns  {Number}  The timestamp (in ms)          
      */
     _addLoader(idURL, prom, source) {
@@ -888,9 +896,11 @@
      * @global   
      * @ignore   
      * @memberof bbn.fn
+     * 
      * @param    {String}  idURL   The unique ID of the request sent
      * @param    {*}       res     The result of the request
      * @param    {Boolean} isAbort True if the deletion comes from abortion
+     * 
      * @returns  {Boolean} True if the loader was found
      */
     _deleteLoader(idURL, res, isAbort) {

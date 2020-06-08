@@ -21,7 +21,7 @@
             {
                 "file": "ajax.js",
                 "text": "callback",
-                "desc": "Executes a serie of predefined actions once a content has been loaded",
+                "desc": "Executes a serie of predefined actions once an Ajax request has been done",
                 "value": "callback",
                 "url": "bbn-js\/doc\/ajax\/callback"
             },
@@ -69,6 +69,13 @@
             },
             {
                 "file": "ajax.js",
+                "text": "post_out",
+                "desc": "Posts a request in a new window",
+                "value": "post_out",
+                "url": "bbn-js\/doc\/ajax\/post_out"
+            },
+            {
+                "file": "ajax.js",
                 "text": "setNavigationVars",
                 "desc": false,
                 "value": "setNavigationVars",
@@ -87,13 +94,6 @@
                 "desc": "Uploads a file synchronously through an XHR indicating progress",
                 "value": "upload",
                 "url": "bbn-js\/doc\/ajax\/upload"
-            },
-            {
-                "file": "ajax.js",
-                "text": "window",
-                "desc": false,
-                "value": "window",
-                "url": "bbn-js\/doc\/ajax\/window"
             }
         ]
     },
@@ -413,7 +413,7 @@
             {
                 "file": "misc.js",
                 "text": "isMobile",
-                "desc": "Returns true if the current browser is on a mobile device",
+                "desc": "Returns the length of time the window has not been focused in seconds",
                 "value": "isMobile",
                 "url": "bbn-js\/doc\/misc\/isMobile"
             },

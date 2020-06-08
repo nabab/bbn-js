@@ -35,7 +35,7 @@ Returns true if the given argument is a date object.
 [bbn.fn.__isDom__](#isDom)  
 Returns true if the given argument is a dom element;  
 [bbn.fn.__isMobile__](#isMobile)  
-Returns true if the current browser is on a mobile device.  
+Returns the length of time the window has not been focused in seconds.  
 [bbn.fn.__isNull__](#isNull)  
 Returns true if the given argument is null;  
 [bbn.fn.__isNumber__](#isNumber)  
@@ -472,7 +472,7 @@ bbn.fn.stopChrono('myChrono');
 
 ### <a name="isMobile"></a>bbn.fn.isMobile()
 
-  __Returns true if the current browser is on a mobile device.__
+  __Returns the length of time the window has not been focused in seconds.__
 
 
   __Returns__ _Boolean_ 
