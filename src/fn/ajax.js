@@ -162,7 +162,7 @@
      * * A boolean true is force
      * * An Event is e
      * * An HTML element is ele
-     * * 
+     *
      * @method   treat_vars
      * @global   
      * @memberof bbn.fn
@@ -385,7 +385,7 @@
      * Used to treat all the requests functions results, it expects at least url and res to be defined;
      * The following properties from the object res have direct effects:
      * - url {String}: if not given it will be automatically defined by the url parameter; 
-     *   important {String}: the given URL will be passed to location.href (without reloading)
+     *   *important:* the given URL will be passed to location.href (without reloading)
      * - prescript {String}: if defined it will attempt to evaluate the code contained in the property
      * - content {String}: if defined and ele is defined too, the string will be inserted as content in the element
      * - script {String}: if defined it will be evaluated and executed
