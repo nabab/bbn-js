@@ -23,11 +23,11 @@ Finds the loader corresponding to the given unique ID and returns it if found.
 Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.  
 [bbn.fn.__post__](#post)  
 Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.  
-[bbn.fn.__post_out__](#post_out)  
+[bbn.fn.__postOut__](#postOut)  
 Posts a request in a new window.  
 [bbn.fn.__setNavigationVars__](#setNavigationVars)  
   
-[bbn.fn.__treat_vars__](#treat_vars)  
+[bbn.fn.__treatAjaxArguments__](#treatAjaxArguments)  
 Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.  
 [bbn.fn.__upload__](#upload)  
 Uploads a file synchronously through an XHR indicating progress.  
@@ -91,7 +91,7 @@ bbn.fn.ajax('my/location')
 
 [Back to top](#bbn_top)  
 
-### <a name="treat_vars"></a>bbn.fn.treat_vars(args)
+### <a name="treatAjaxArguments"></a>bbn.fn.treatAjaxArguments(args)
 
   __Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.__
 
@@ -116,7 +116,7 @@ errorFn, abortFn, e, and ele; The rules are:
 
   __Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.__
 
-  URL is the only mandatory argument (see treat_vars for the arguments).
+  URL is the only mandatory argument (see treatAjaxArguments for the arguments).
 
 
   __Returns__ _undefined|Promise_ 
@@ -127,7 +127,7 @@ errorFn, abortFn, e, and ele; The rules are:
   __Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.__
 
   Once bbn has been initiated this function will be triggered every time a link is clicked 
-(see treat_vars for the arguments).
+(see treatAjaxArguments for the arguments).
 
 
   __Returns__ _undefined_ 
@@ -169,7 +169,7 @@ If the first callback returns a non-empty result.
   __Returns__ _undefined_ 
 [Back to top](#bbn_top)  
 
-### <a name="post_out"></a>bbn.fn.post_out(url, data, success, target)
+### <a name="postOut"></a>bbn.fn.postOut(url, data, success, target)
 
   __Posts a request in a new window.__
 

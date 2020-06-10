@@ -401,147 +401,7 @@
     },
 
     /**
-     * Intended to check if the argument provided is an e-mail address written correctly
-     *
-     * @method   isEmail
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //false
-     * bbn.fn.isEmail('test@testorg');
-     * ```
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmail('test@test.org');
-     * ```
-     * @memberof bbn.fn
-     * @param    {String} st
-     * @returns  {Boolean}
-     */
-    isEmail(st){
-      let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      return regex.test(st);
-    },
-
-    /**
-     * Intended to check if the argument provided is a color.
-     *
-     * It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
-     *
-     * @method   isColor
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isColor("#FF0000")
-     * ```
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isColor("rgb 255, 0, 0");
-     * ```
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isColor("red");
-     * ```
-     * @memberof bbn.fn
-     * @param    {String} st
-     * @returns  {Boolean}
-     */
-    isColor(st){
-      var reg = new RegExp('^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|rgba *\( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *\)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$', 'i');
-      return reg.test(st);
-    },
-
-    /**
-     * @method   isDimension
-     * @todo     Add method description for isDimension
-     * @global
-     * @memberof bbn.fn
-     * @param    {String} st
-     * @returns
-     */
-    isDimension(st){
-      if ( typeof(st) === 'number' ){
-        return 1;
-      }
-      if ( (typeof(st) === 'string') &&
-        (st.length > 0) && (
-          (st.indexOf('calc') === 0 ) ||
-          (!isNaN(st.substr(0,1))) ) ){
-        var el = document.createElement('div'),
-            style = el.style;
-        style.width = st;
-        return !!style.width.length;
-      }
-      return false;
-
-    },
-
-    /**
-     * Checks if the argument is empty or not.
-     * @method   isEmpty
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmpty({});
-     * ```
-     * @example
-     * ```javascript
-     * //false
-     * bbn.fn.isEmpty({test : 1});
-     * ```
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmpty([]);
-     * ```
-     * @example
-     * ```javascript
-     * //false
-     * bbn.fn.isEmpty(['test']);
-     * ```
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmpty('');
-     * ```
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmpty('test');
-     * ```
-     * @memberof bbn.fn
-     * @param    {Object|Array|String}
-     * @returns  {Boolean}
-     */
-    isEmpty(obj){
-      if ( !obj ){
-        return true;
-      }
-      if ( Array.isArray(obj) ){
-        return obj.length ? false : true;
-      }
-      if ( typeof(obj) === 'object' ){
-        for(var prop in obj ){
-          return false;
-        }
-        return true;
-      }
-      return false;
-    },
-
-    /**
-     * Returns an abbreviation to the given string.
+     * Shortens the given string after *len* characters.
      *
      * Provides an abbreviation to the string passed as the first argument,
      * deciding through the second argument the number of characters to keep and the remainder replaced
@@ -610,75 +470,51 @@
     /**
      * Replace quotes in ASCII code
      *
-     * @method   remove_quotes
+     * @method   quotes2html
      * @global
      *
      * @example
      * ```javascript
-     * //"hello &#39;word&#39;!"
-     * bbn.fn.remove_quotes("hello 'word'!");
+     * bbn.fn.quotes2html("hello 'world'!", 's');
+     * // hello &#39;world&#39;!
      * ```
+     * 
      * @example
      * ```javascript
-     * //"hello &quot;word&quot;!"
-     * bbn.fn.remove_quotes('hello "word"!');
+     * bbn.fn.quotes2html('hello "world\'s"!', 'd');
+     * // hello &quot;world'sd&quot;!
      * ```
+     * 
+     * @example
+     * ```javascript
+     * bbn.fn.quotes2html('hello "world\'s"!');
+     * // hello &quot;world&#39;sd&quot;!
+     * ```
+     * 
      * @memberof bbn.fn
      * @param    {String} st
      * @returns  {String}
      */
-    remove_quotes(st){
-      return bbn.fn.replaceAll('"', '&quot;', bbn.fn.replaceAll("'", "&#39;", st));
+    quotes2html(st, type) {
+      if (!type || (type.toLowerCase().indexOf('s') === 0)) {
+        st = bbn.fn.replaceAll("'", "&#39;", st);
+      }
+      if (!type || (type.toLowerCase().indexOf('d') === 0)) {
+        st = bbn.fn.replaceAll('"', '&quot;', st);
+      }
+      return st;
     },
 
     /**
-     * Removes the '\n' characters that define a new line.
-     * @method   remove_nl
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //"hello word!"
-     * bbn.fn.remove_nl("hello\nworld!")
-     * ```
-     * @memberof bbn.fn
-     * @param    {String} st
-     * @returns  {String}
-     */
-    remove_nl(st){
-      return bbn.fn.replaceAll("\n", " ", st);
-    },
-
-    /**
-     * Returns the string given as an argument,
-     * eliminating the new line characters '\ n' if contained and replaces
-     * the quotes in corresponding ASCII codes.
-     *
-     * @method   remove_all
-     * @global
-     *
-     * @example
-     * ```javascript
-     * //"hello &quot;word&quot;!"
-     * bbn.fn.remove_all('hello\n"word"!');
-     * ```
-     * @memberof bbn.fn
-     * @param    {String} st
-     * @returns  {String}
-     */
-    remove_all(st){
-      return bbn.fn.remove_nl(bbn.fn.remove_quotes(st));
-    },
-
-    /**
-     * Replace if new line characters '\ n' with html tag '<br>'.
+     * Replaces all new line characters '\ n' with html tag '<br>'.
+     * 
      * @method   nl2br
      * @global
      *
      * @example
      * ```javascript
-     * //"hello <br> word!"
      * bbn.fn.nl2br('hello \n word!');
+     * //"hello <br> word!"
      * ```
      * @memberof bbn.fn
      * @param    {String} st

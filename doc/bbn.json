@@ -69,10 +69,10 @@
             },
             {
                 "file": "ajax.js",
-                "text": "post_out",
+                "text": "postOut",
                 "desc": "Posts a request in a new window",
-                "value": "post_out",
-                "url": "bbn-js\/doc\/ajax\/post_out"
+                "value": "postOut",
+                "url": "bbn-js\/doc\/ajax\/postOut"
             },
             {
                 "file": "ajax.js",
@@ -83,10 +83,10 @@
             },
             {
                 "file": "ajax.js",
-                "text": "treat_vars",
+                "text": "treatAjaxArguments",
                 "desc": "Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions",
-                "value": "treat_vars",
-                "url": "bbn-js\/doc\/ajax\/treat_vars"
+                "value": "treatAjaxArguments",
+                "url": "bbn-js\/doc\/ajax\/treatAjaxArguments"
             },
             {
                 "file": "ajax.js",
@@ -104,36 +104,22 @@
         "items": [
             {
                 "file": "form.js",
-                "text": "add_inputs",
-                "desc": false,
-                "value": "add_inputs",
-                "url": "bbn-js\/doc\/form\/add_inputs"
-            },
-            {
-                "file": "form.js",
-                "text": "cancel",
-                "desc": false,
-                "value": "cancel",
-                "url": "bbn-js\/doc\/form\/cancel"
+                "text": "addInputs",
+                "desc": "Adds the given data to the given form by inserting hidden inputs",
+                "value": "addInputs",
+                "url": "bbn-js\/doc\/form\/addInputs"
             },
             {
                 "file": "form.js",
                 "text": "fieldValue",
-                "desc": false,
+                "desc": "Returns the value of a form's input, differenciating between checkboxes, radio and other inputs",
                 "value": "fieldValue",
                 "url": "bbn-js\/doc\/form\/fieldValue"
             },
             {
                 "file": "form.js",
-                "text": "formChanges",
-                "desc": false,
-                "value": "formChanges",
-                "url": "bbn-js\/doc\/form\/formChanges"
-            },
-            {
-                "file": "form.js",
                 "text": "formdata",
-                "desc": false,
+                "desc": "Returns all the data contained in a form as a single object",
                 "value": "formdata",
                 "url": "bbn-js\/doc\/form\/formdata"
             },
@@ -146,15 +132,8 @@
             },
             {
                 "file": "form.js",
-                "text": "reset",
-                "desc": false,
-                "value": "reset",
-                "url": "bbn-js\/doc\/form\/reset"
-            },
-            {
-                "file": "form.js",
                 "text": "submit",
-                "desc": false,
+                "desc": "Submit a form's data through an Ajax request",
                 "value": "submit",
                 "url": "bbn-js\/doc\/form\/submit"
             }
@@ -370,108 +349,10 @@
             },
             {
                 "file": "misc.js",
-                "text": "is",
-                "desc": false,
-                "value": "is",
-                "url": "bbn-js\/doc\/misc\/is"
-            },
-            {
-                "file": "misc.js",
-                "text": "isArray",
-                "desc": "Returns true if the given argument is array",
-                "value": "isArray",
-                "url": "bbn-js\/doc\/misc\/isArray"
-            },
-            {
-                "file": "misc.js",
-                "text": "isBlob",
-                "desc": false,
-                "value": "isBlob",
-                "url": "bbn-js\/doc\/misc\/isBlob"
-            },
-            {
-                "file": "misc.js",
-                "text": "isCanvas",
-                "desc": "Returns true if the given argumen is a Canvas",
-                "value": "isCanvas",
-                "url": "bbn-js\/doc\/misc\/isCanvas"
-            },
-            {
-                "file": "misc.js",
-                "text": "isDate",
-                "desc": "Returns true if the given argument is a date object",
-                "value": "isDate",
-                "url": "bbn-js\/doc\/misc\/isDate"
-            },
-            {
-                "file": "misc.js",
-                "text": "isDom",
-                "desc": "Returns true if the given argument is a dom element",
-                "value": "isDom",
-                "url": "bbn-js\/doc\/misc\/isDom"
-            },
-            {
-                "file": "misc.js",
                 "text": "isMobile",
                 "desc": "Returns the length of time the window has not been focused in seconds",
                 "value": "isMobile",
                 "url": "bbn-js\/doc\/misc\/isMobile"
-            },
-            {
-                "file": "misc.js",
-                "text": "isNull",
-                "desc": "Returns true if the given argument is null",
-                "value": "isNull",
-                "url": "bbn-js\/doc\/misc\/isNull"
-            },
-            {
-                "file": "misc.js",
-                "text": "isNumber",
-                "desc": "Returns true if the given argument is a numbe",
-                "value": "isNumber",
-                "url": "bbn-js\/doc\/misc\/isNumber"
-            },
-            {
-                "file": "misc.js",
-                "text": "isObject",
-                "desc": "Returns true if the given argument is an object",
-                "value": "isObject",
-                "url": "bbn-js\/doc\/misc\/isObject"
-            },
-            {
-                "file": "misc.js",
-                "text": "isPercent",
-                "desc": "Returns true if the given argument is a percentage",
-                "value": "isPercent",
-                "url": "bbn-js\/doc\/misc\/isPercent"
-            },
-            {
-                "file": "misc.js",
-                "text": "isString",
-                "desc": "Returns true if the given argument is a string",
-                "value": "isString",
-                "url": "bbn-js\/doc\/misc\/isString"
-            },
-            {
-                "file": "misc.js",
-                "text": "isURL",
-                "desc": false,
-                "value": "isURL",
-                "url": "bbn-js\/doc\/misc\/isURL"
-            },
-            {
-                "file": "misc.js",
-                "text": "isValue",
-                "desc": "Returns true if the given argument is not null or type object or array",
-                "value": "isValue",
-                "url": "bbn-js\/doc\/misc\/isValue"
-            },
-            {
-                "file": "misc.js",
-                "text": "isVue",
-                "desc": "Returns true if the given argumen is a VueJS object",
-                "value": "isVue",
-                "url": "bbn-js\/doc\/misc\/isVue"
             },
             {
                 "file": "misc.js",
@@ -902,34 +783,6 @@
             },
             {
                 "file": "string.js",
-                "text": "isColor",
-                "desc": "Intended to check if the argument provided is a color",
-                "value": "isColor",
-                "url": "bbn-js\/doc\/string\/isColor"
-            },
-            {
-                "file": "string.js",
-                "text": "isDimension",
-                "desc": false,
-                "value": "isDimension",
-                "url": "bbn-js\/doc\/string\/isDimension"
-            },
-            {
-                "file": "string.js",
-                "text": "isEmail",
-                "desc": "Intended to check if the argument provided is an e-mail address written correctl",
-                "value": "isEmail",
-                "url": "bbn-js\/doc\/string\/isEmail"
-            },
-            {
-                "file": "string.js",
-                "text": "isEmpty",
-                "desc": "Checks if the argument is empty or not",
-                "value": "isEmpty",
-                "url": "bbn-js\/doc\/string\/isEmpty"
-            },
-            {
-                "file": "string.js",
                 "text": "md5",
                 "desc": "Converts and returns the argument passed in a string in md5 forma",
                 "value": "md5",
@@ -938,7 +791,7 @@
             {
                 "file": "string.js",
                 "text": "nl2br",
-                "desc": "Replace if new line characters '\\ n' with html tag '<br>'",
+                "desc": "Replaces all new line characters '\\ n' with html tag '<br>'",
                 "value": "nl2br",
                 "url": "bbn-js\/doc\/string\/nl2br"
             },
@@ -958,6 +811,13 @@
             },
             {
                 "file": "string.js",
+                "text": "quotes2html",
+                "desc": "Replace quotes in ASCII cod",
+                "value": "quotes2html",
+                "url": "bbn-js\/doc\/string\/quotes2html"
+            },
+            {
+                "file": "string.js",
                 "text": "randomInt",
                 "desc": "Returns a random integer",
                 "value": "randomInt",
@@ -969,27 +829,6 @@
                 "desc": "Returns a random String with random lenght",
                 "value": "randomString",
                 "url": "bbn-js\/doc\/string\/randomString"
-            },
-            {
-                "file": "string.js",
-                "text": "remove_all",
-                "desc": "Returns the string given as an argument",
-                "value": "remove_all",
-                "url": "bbn-js\/doc\/string\/remove_all"
-            },
-            {
-                "file": "string.js",
-                "text": "remove_nl",
-                "desc": "Removes the '\\n' characters that define a new line",
-                "value": "remove_nl",
-                "url": "bbn-js\/doc\/string\/remove_nl"
-            },
-            {
-                "file": "string.js",
-                "text": "remove_quotes",
-                "desc": "Replace quotes in ASCII cod",
-                "value": "remove_quotes",
-                "url": "bbn-js\/doc\/string\/remove_quotes"
             },
             {
                 "file": "string.js",
@@ -1043,7 +882,7 @@
             {
                 "file": "string.js",
                 "text": "shorten",
-                "desc": "Returns an abbreviation to the given string",
+                "desc": "Shortens the given string after *len* characters",
                 "value": "shorten",
                 "url": "bbn-js\/doc\/string\/shorten"
             },
@@ -1088,6 +927,139 @@
                 "desc": "Returns the hex color of the given rgb or color name",
                 "value": "colorToHex",
                 "url": "bbn-js\/doc\/style\/colorToHex"
+            }
+        ]
+    },
+    {
+        "text": "Type check functions",
+        "desc": "",
+        "value": "type",
+        "items": [
+            {
+                "file": "type.js",
+                "text": "isArray",
+                "desc": "Returns true if the given argument is array",
+                "value": "isArray",
+                "url": "bbn-js\/doc\/type\/isArray"
+            },
+            {
+                "file": "type.js",
+                "text": "isBlob",
+                "desc": false,
+                "value": "isBlob",
+                "url": "bbn-js\/doc\/type\/isBlob"
+            },
+            {
+                "file": "type.js",
+                "text": "isCanvas",
+                "desc": "Returns true if the given argumen is a Canvas",
+                "value": "isCanvas",
+                "url": "bbn-js\/doc\/type\/isCanvas"
+            },
+            {
+                "file": "type.js",
+                "text": "isColor",
+                "desc": "Intended to check if the argument provided is a color",
+                "value": "isColor",
+                "url": "bbn-js\/doc\/type\/isColor"
+            },
+            {
+                "file": "type.js",
+                "text": "isDate",
+                "desc": "Returns true if the given argument is a date object",
+                "value": "isDate",
+                "url": "bbn-js\/doc\/type\/isDate"
+            },
+            {
+                "file": "type.js",
+                "text": "isDimension",
+                "desc": false,
+                "value": "isDimension",
+                "url": "bbn-js\/doc\/type\/isDimension"
+            },
+            {
+                "file": "type.js",
+                "text": "isDom",
+                "desc": "Returns true if the given argument is a dom element",
+                "value": "isDom",
+                "url": "bbn-js\/doc\/type\/isDom"
+            },
+            {
+                "file": "type.js",
+                "text": "isEmail",
+                "desc": "Intended to check if the argument provided is an e-mail address written correctl",
+                "value": "isEmail",
+                "url": "bbn-js\/doc\/type\/isEmail"
+            },
+            {
+                "file": "type.js",
+                "text": "isEmpty",
+                "desc": "Checks if the argument is empty or not",
+                "value": "isEmpty",
+                "url": "bbn-js\/doc\/type\/isEmpty"
+            },
+            {
+                "file": "type.js",
+                "text": "isNull",
+                "desc": "Returns true if the given argument is null",
+                "value": "isNull",
+                "url": "bbn-js\/doc\/type\/isNull"
+            },
+            {
+                "file": "type.js",
+                "text": "isNumber",
+                "desc": "Returns true if the given argument is a numbe",
+                "value": "isNumber",
+                "url": "bbn-js\/doc\/type\/isNumber"
+            },
+            {
+                "file": "type.js",
+                "text": "isObject",
+                "desc": "Returns true if the given argument is an object",
+                "value": "isObject",
+                "url": "bbn-js\/doc\/type\/isObject"
+            },
+            {
+                "file": "type.js",
+                "text": "isPercent",
+                "desc": "Returns true if the given argument is a percentage",
+                "value": "isPercent",
+                "url": "bbn-js\/doc\/type\/isPercent"
+            },
+            {
+                "file": "type.js",
+                "text": "isString",
+                "desc": "Returns true if the given argument is a string",
+                "value": "isString",
+                "url": "bbn-js\/doc\/type\/isString"
+            },
+            {
+                "file": "type.js",
+                "text": "isURL",
+                "desc": false,
+                "value": "isURL",
+                "url": "bbn-js\/doc\/type\/isURL"
+            },
+            {
+                "file": "type.js",
+                "text": "isValidDimension",
+                "desc": false,
+                "value": "isValidDimension",
+                "url": "bbn-js\/doc\/type\/isValidDimension"
+            },
+            {
+                "file": "type.js",
+                "text": "isValue",
+                "desc": "Returns true if the given argument is not null or type object or array",
+                "value": "isValue",
+                "url": "bbn-js\/doc\/type\/isValue"
+            },
+            {
+                "file": "type.js",
+                "text": "isVue",
+                "desc": "Returns true if the given argumen is a VueJS object",
+                "value": "isVue",
+                "url": "bbn-js\/doc\/type\/isVue"
             }
         ]
     }

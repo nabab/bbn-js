@@ -163,7 +163,7 @@
      * * An Event is e
      * * An HTML element is ele
      *
-     * @method   treat_vars
+     * @method   treatAjaxArguments
      * @global   
      * @memberof bbn.fn
      * 
@@ -171,7 +171,7 @@
      * 
      * @returns  {Object} The configuration object
      */
-    treat_vars(args){
+    treatAjaxArguments(args){
       var cfg = {}, t, i;
       if ( bbn.fn.isObject(args[0]) && (args.length === 1) ){
         return args[0];
@@ -247,7 +247,7 @@
     /**
      * Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.
      * 
-     * URL is the only mandatory argument (see treat_vars for the arguments).
+     * URL is the only mandatory argument (see treatAjaxArguments for the arguments).
      * 
      * @method   post
      * @global   
@@ -256,7 +256,7 @@
      * @returns  {undefined|Promise}
      */
     post(){
-      let cfg = bbn.fn.treat_vars(arguments);
+      let cfg = bbn.fn.treatAjaxArguments(arguments);
       if ( cfg.url ){
         return bbn.fn.ajax(cfg.url, cfg.datatype, cfg.obj, (res) => {
           bbn.fn.callback(cfg.url, res, cfg.successFn, false, cfg.ele);
@@ -268,7 +268,7 @@
      * Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
      * 
      * Once bbn has been initiated this function will be triggered every time a link is clicked 
-     * (see treat_vars for the arguments).
+     * (see treatAjaxArguments for the arguments).
      * 
      * @method   link
      * @todo     Manage anchors
@@ -278,7 +278,7 @@
      * @returns   
      */
     link(){
-      let cfg = bbn.fn.treat_vars(arguments),
+      let cfg = bbn.fn.treatAjaxArguments(arguments),
           ok = 1,
           id;
       if ( cfg === true ){
@@ -541,7 +541,7 @@
     /**
      * Posts a request in a new window.
      * 
-     * @method   post_out
+     * @method   postOut
      * @global   
      * @memberof bbn.fn
      * 
@@ -552,7 +552,7 @@
      * 
      * @returns  {undefined}  
      */
-    post_out(url, data, success, target) {
+    postOut(url, data, success, target) {
       let form = document.getElementById("bbn-form_out");
       if (!form) { 
         form = document.createElement('form');
@@ -573,7 +573,7 @@
       if (!data.bbn) {
         data.bbn = 'public';
       }
-      bbn.fn.add_inputs(form, params);
+      bbn.fn.addInputs(form, params);
       form.submit();
       if (success) {
         success();

@@ -14,4 +14,6 @@ You can check the documentation:
 * [Size and resizing](doc/md/size.md)
 * [String operations](doc/md/string.md)
 * [Styling](doc/md/style.md)
+* [Type check](doc/md/type.md)
+
 

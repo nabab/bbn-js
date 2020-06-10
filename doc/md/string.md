@@ -24,22 +24,16 @@ Returns the value of size for element html
 Convert an hexadecimmal string to RGB.  
 [bbn.fn.__html2text__](#html2text)  
 Convert text in html format to plain text.  
-[bbn.fn.__isColor__](#isColor)  
-Intended to check if the argument provided is a color.  
-[bbn.fn.__isDimension__](#isDimension)  
-  
-[bbn.fn.__isEmail__](#isEmail)  
-Intended to check if the argument provided is an e-mail address written correctly  
-[bbn.fn.__isEmpty__](#isEmpty)  
-Checks if the argument is empty or not.  
 [bbn.fn.__md5__](#md5)  
 Converts and returns the argument passed in a string in md5 format  
 [bbn.fn.__nl2br__](#nl2br)  
-Replace if new line characters '\ n' with html tag '<br>'.  
+Replaces all new line characters '\ n' with html tag '<br>'.  
 [bbn.fn.__percent__](#percent)  
 Returns the value of the proportion giving the percentage and the total from where to be calculated.  
 [bbn.fn.__printf__](#printf)  
   
+[bbn.fn.__quotes2html__](#quotes2html)  
+Replace quotes in ASCII code  
 [bbn.fn.__randomInt__](#randomInt)  
 Returns a random integer.  
 [bbn.fn.__randomString__](#randomString)  
@@ -48,12 +42,6 @@ Returns a random String with random lenght,
 Returns the string passed as an argument without accents.  
 [bbn.fn.__removeTrailingChars__](#removeTrailingChars)  
   
-[bbn.fn.__remove_all__](#remove_all)  
-Returns the string given as an argument,  
-[bbn.fn.__remove_nl__](#remove_nl)  
-Removes the '\n' characters that define a new line.  
-[bbn.fn.__remove_quotes__](#remove_quotes)  
-Replace quotes in ASCII code  
 [bbn.fn.__repeat__](#repeat)  
 Returns a string which is the repetition of the first argument for the number passed in the second argument.  
 [bbn.fn.__replaceAll__](#replaceAll)  
@@ -65,7 +53,7 @@ Convert an RGB string to hexadecimal.
 [bbn.fn.__sanitize__](#sanitize)  
 Removes all unacceptable characters in a DOM node.  
 [bbn.fn.__shorten__](#shorten)  
-Returns an abbreviation to the given string.  
+Shortens the given string after *len* characters.  
 [bbn.fn.__stringify__](#stringify)  
 Converts the argument passed to it into a single string.  
 [bbn.fn.__uniqString__](#uniqString)  
@@ -318,114 +306,9 @@ bbn.fn.randomString(3);
 
 [Back to top](#bbn_top)  
 
-### <a name="isEmail"></a>bbn.fn.isEmail(st)
-
-  __Intended to check if the argument provided is an e-mail address written correctly.__
-
-  * __st__ _String_ 
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//false
-bbn.fn.isEmail('test@testorg');
-```
-
-
-
-```javascript
-//true
-bbn.fn.isEmail('test@test.org');
-```
-[Back to top](#bbn_top)  
-
-### <a name="isColor"></a>bbn.fn.isColor(st)
-
-  __Intended to check if the argument provided is a color.__
-
-  It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
-
-  * __st__ _String_ 
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isColor("#FF0000")
-```
-
-
-
-```javascript
-//true
-bbn.fn.isColor("rgb 255, 0, 0");
-```
-
-
-
-```javascript
-//true
-bbn.fn.isColor("red");
-```
-[Back to top](#bbn_top)  
-
-### <a name="isDimension"></a>bbn.fn.isDimension(st)
-
-  * __st__ _String_ 
-
-  __Returns__ _undefined_ 
-[Back to top](#bbn_top)  
-
-### <a name="isEmpty"></a>bbn.fn.isEmpty()
-
-  __Checks if the argument is empty or not.__
-
-  * ____ _Object|Array|String_ 
-
-  __Returns__ _Boolean_ 
-
-
-```javascript
-//true
-bbn.fn.isEmpty({});
-```
-
-
-```javascript
-//false
-bbn.fn.isEmpty({test : 1});
-```
-
-
-```javascript
-//true
-bbn.fn.isEmpty([]);
-```
-
-
-```javascript
-//false
-bbn.fn.isEmpty(['test']);
-```
-
-
-```javascript
-//true
-bbn.fn.isEmpty('');
-```
-
-
-```javascript
-//true
-bbn.fn.isEmpty('test');
-```
-[Back to top](#bbn_top)  
-
 ### <a name="shorten"></a>bbn.fn.shorten(st, len)
 
-  __Returns an abbreviation to the given string.__
+  __Shortens the given string after *len* characters.__
 
   Provides an abbreviation to the string passed as the first argument,
 deciding through the second argument the number of characters to keep and the remainder replaced
@@ -468,7 +351,7 @@ bbn.fn.replaceAll('-', ' ', 'Today-is-a-beautiful-day');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="remove_quotes"></a>bbn.fn.remove_quotes(st)
+### <a name="quotes2html"></a>bbn.fn.quotes2html(st)
 
   __Replace quotes in ASCII code.__
 
@@ -478,53 +361,29 @@ bbn.fn.replaceAll('-', ' ', 'Today-is-a-beautiful-day');
 
 
 ```javascript
-//"hello &#39;word&#39;!"
-bbn.fn.remove_quotes("hello 'word'!");
+bbn.fn.quotes2html("hello 'world'!", 's');
+// hello &#39;world&#39;!
 ```
+
 
 
 ```javascript
-//"hello &quot;word&quot;!"
-bbn.fn.remove_quotes('hello "word"!');
+bbn.fn.quotes2html('hello "world\'s"!', 'd');
+// hello &quot;world'sd&quot;!
 ```
-[Back to top](#bbn_top)  
 
-### <a name="remove_nl"></a>bbn.fn.remove_nl(st)
-
-  __Removes the '\n' characters that define a new line.__
-
-  * __st__ _String_ 
-
-  __Returns__ _String_ 
 
 
 ```javascript
-//"hello word!"
-bbn.fn.remove_nl("hello\nworld!")
+bbn.fn.quotes2html('hello "world\'s"!');
+// hello &quot;world&#39;sd&quot;!
 ```
-[Back to top](#bbn_top)  
 
-### <a name="remove_all"></a>bbn.fn.remove_all(st)
-
-  __Returns the string given as an argument,.__
-
-  eliminating the new line characters '\ n' if contained and replaces
-the quotes in corresponding ASCII codes.
-
-  * __st__ _String_ 
-
-  __Returns__ _String_ 
-
-
-```javascript
-//"hello &quot;word&quot;!"
-bbn.fn.remove_all('hello\n"word"!');
-```
 [Back to top](#bbn_top)  
 
 ### <a name="nl2br"></a>bbn.fn.nl2br(st)
 
-  __Replace if new line characters '\ n' with html tag '<br>'.__
+  __Replaces all new line characters '\ n' with html tag '<br>'.__
 
   * __st__ _String_ 
 
@@ -532,8 +391,8 @@ bbn.fn.remove_all('hello\n"word"!');
 
 
 ```javascript
-//"hello <br> word!"
 bbn.fn.nl2br('hello \n word!');
+//"hello <br> word!"
 ```
 [Back to top](#bbn_top)  
 

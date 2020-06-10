@@ -14,16 +14,47 @@
 
   Object.assign(bbn.fn, {
     /**
-     * @method   add_inputs
-     * @todo     Add method description for add_inputs
+     * Adds the given data to the given form by inserting hidden inputs.
+     * 
+     * @method   addInputs
      * @global   
      * @memberof bbn.fn
-     * @param    {Object} form   
-     * @param    {array}  params 
-     * @param    {String} prefix 
-     * @returns  {*}      
+     * 
+     * @example
+     * ```javascript
+     * let o = {name: "Smith", fname: "John"};
+     * bbn.fn.addInputs(document.getElementById('myform'), o, 'bbn');
+     * // Will write at the end of the given form:
+     * // <input type="hidden" name="bbn[name]" value="Smith">
+     * // <input type="hidden" name="bbn[fname]" value="John">
+     * 
+     * ```
+     * 
+     * @example
+     * ```javascript
+     * let o = {
+     *   People: [
+     *     {name: "Smith", fname: "John"},
+     *     {name: "Smith", fname: "Eileen"}
+     *   ],
+     *   Dates: ['2021-08-25', '2021-09-06']
+     * };
+     * bbn.fn.addInputs(document.getElementById('myform'), o);
+     * // Will write at the end of the given form:
+     * // <input type="hidden" name="People[0][name]" value="Smith">
+     * // <input type="hidden" name="People[0][fname]" value="John">
+     * // <input type="hidden" name="People[1][name]" value="Smith">
+     * // <input type="hidden" name="People[1][fname]" value="Eileen">
+     * // <input type="hidden" name="Dates[0]" value="2021-08-25">
+     * // <input type="hidden" name="Dates[1]" value="2021-09-06">
+     * ```
+     * 
+     * @param    {HTMLElement} form   The form to which the inputs should be added
+     * @param    {Object}      params The data which will be added
+     * @param    {String}      prefix The optional object's name of the fields in the form
+     * @returns  {undefined}
      */
-    add_inputs(form, params, prefix){
+    addInputs(form, params, prefix){
       if ( form && (form.tagName === 'FORM') ){
         let appendToForm = (name, val) => {
           let input = document.createElement('input');
@@ -45,7 +76,7 @@
               param.forEach((e, i) => {
                 const tempName = `${name}[${i}]`;
                 if ( typeof e === 'object' ){
-                  bbn.fn.add_inputs(form, e, tempName);
+                  bbn.fn.addInputs(form, e, tempName);
                 }
                 else {
                   appendToForm(tempName, e.toString());
@@ -56,7 +87,7 @@
               (typeof param === 'object') &&
               !(param instanceof File)
             ){
-              bbn.fn.add_inputs(form, param, name);
+              bbn.fn.addInputs(form, param, name);
             }
             else {
               appendToForm(name, param.toString());
@@ -67,68 +98,24 @@
     },
 
     /**
-     * @method   cancel
-     * @todo     Add method description for cancel
-     * @global   
-     * @memberof bbn.fn
-     * @param    {HTMLElement} form 
-     * @param    {Event}       e    
-     * @returns  {*}           
-     */
-    cancel(form, e){
-      if ( e ){
-        e.preventDefault();
-      }
-      //bbn.fn.reset(form, e);
-      let obj = bbn.fn.formChanges(form);
-      for ( let n in obj ){
-        if ( obj[n].oldValue !== obj[n].value ){
-          let input = form.querySelector("input[name='" + n + "']");
-          //if ( input.is(":checkbox,:radio") ){
-          if ( (input.type === "checkbox") || (input.type === "radio") ){          
-            //input.trigger("click");
-            input.click();
-          }
-          else {
-            input.val(obj[n].oldValue);
-            //input.trigger("change").trigger("blur");
-            input.onchange(); 
-            input.blur();
-          }
-        }
-      }
-      bbn.fn.log("CANCEL", obj);
-    },
-
-    /**
-     * @method   reset
-     * @todo     Add method description for reset
-     * @global   
-     * @memberof bbn.fn
-     * @param    {HTMLElement} form 
-     * @param    {Event}       e    
-     * @returns  {*}           
-     */
-    reset(form, e){
-      //$(form).data("bbnSubmit", null);
-      if ( form ){
-        form.setAttribute('bbnSubmit', null);
-      }
-    },
-
-    /**
+     * Submit a form's data through an Ajax request.
+     * 
+     * It will also prevent the event if given, and execute the given callback, 
+     * or look for one in the data-script attribute.
+     * 
      * @method   submit
-     * @todo     Add method description for submit
      * @global   
      * @memberof bbn.fn
      * @fires    {*}           
      * @fires    {*}           
-     * @param    {HTMLElement} form 
-     * @param    {Event}       e    
+     * 
+     * @param    {HTMLElement} form The form to submit
+     * @param    {Event}       e    The optional submit event - which will be prevented
+     * @param    {Function}    fn   An optional callback function
+     * 
      * @returns  {*}           
      */
-    submit(form, e){
-      //let $form = $(form),
+    submit(form, e, fn){
       let url = form.getAttribute("action") || bbn.env.path,
           data;
       if ( url === '' ){
@@ -141,7 +128,6 @@
           e.preventDefault();
         }
         data = bbn.fn.formdata(form);
-        
         if ( data ){
           //$form.attr("action", null);
           form.setAttribute('action', null);          
@@ -160,10 +146,14 @@
               script(d);
             };
           }
-          //if ( $form.data("script") ){
-          if ( form.getAttribute("data-script") ){  
-            //bbn.fn.post(url, data, $form.data("script"));
-            bbn.fn.post(url, data, form.getAttribute("data-script"));
+          if (!fn) {
+            fn = form.getAttribute("data-script");
+          }
+          if (fn) {
+            if (bbn.fn.isString(fn)) {
+              fn = eval(fn);
+            }
+            bbn.fn.post(url, data, fn);
           }
           else{
             bbn.fn.post(url, data);
@@ -173,21 +163,19 @@
     },
 
     /**
+     * Returns the value of a form's input, differenciating between checkboxes, radio and other inputs.
+     * 
      * @method   fieldValue
-     * @todo     Add method description for fieldValue
      * @global   
      * @memberof bbn.fn
-     * @param    {HTMLElement} field 
-     * @returns                
+     * @param    {HTMLElement} field The input element
+     * 
+     * @returns  {Mixed}       The value
      */
     fieldValue(field){
-      //var $f = $(field),
-        let  v;
-      //if ( $f.is(":checkbox") ){
+      let  v;
       if ( field.type === "checkbox" ){
-      //if ( $f.is(":checked") ){
         if ( field.checked ){
-        //v = $f.val();
           v = field.value;
           if ( !v ){
             v = 1;
@@ -197,48 +185,68 @@
           v = 0;
         }
       }
-      //else if ( $f.is(":radio") ){
-        //if ( $f.is(":checked") ){
       else if ( field.type === "radio" ){      
         if ( field.checked ){  
-        //v = $f.val();
           v = field.value;
         }
       }
       else{
-        //v = $f.val();
         v = field.value;
       }
       return v;
     },
 
     /**
+     * Returns all the data contained in a form as a single object.
+     * 
      * @method   formdata
-     * @todo     Add method description for formdata
      * @global   
      * @memberof bbn.fn
      * @fires    {*}            
+     * 
+     * @example
+     * ```javascript
+     * // <form id="myform">
+     * // <input type="hidden" name="bbn[name]" value="Smith">
+     * // <input type="hidden" name="bbn[fname]" value="John">
+     * // </form>
+     * bbn.fn.formdata(document.getElementById('myform'));
+     * // {name: "Smith", fname: "John"};
+     * 
+     * ```
+     * 
+     * @example
+     * ```javascript
+     * // <form id="myform">
+     * // <input type="hidden" name="People[0][name]" value="Smith">
+     * // <input type="hidden" name="People[0][fname]" value="John">
+     * // <input type="hidden" name="People[1][name]" value="Smith">
+     * // <input type="hidden" name="People[1][fname]" value="Eileen">
+     * // <input type="hidden" name="Dates[0]" value="2021-08-25">
+     * // <input type="hidden" name="Dates[1]" value="2021-09-06">
+     * // </form>
+     * bbn.fn.formdata(document.getElementById('myform'));
+     * // {
+     * //   People: [
+     * //     {name: "Smith", fname: "John"},
+     * //     {name: "Smith", fname: "Eileen"}
+     * //   ],
+     * //   Dates: ['2021-08-25', '2021-09-06']
+     * // }
+     * ```
+     * 
      * @param    {HTMLElementL} form 
-     * @returns                 
+     * 
+     * @returns  {Object}
      */
     formdata(form){
-     // var $f = $(form),
-          // inputs with a name
-      //  $inputs = $f.find(":input").filter("[name]"),
-      let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]'),
-          num_changes = 0,
-          //$$,
-          res = {},
-          n,
-          v,
-          forget;
-      //$inputs.each(function(j){
+      let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
+      let res = {};
+      let n;
+      let v;
       bbn.fn.each($inputs, ( input, i ) => {
-        //$$ = $(this);
         v = bbn.fn.fieldValue(input);
-        //if ( (v !== undefined) && !$$.is(":disabled") ){
         if ( (v !== undefined) && !input.disabled ){  
-          //var name = this.name;
           let name = input.name;
           if (
             (name.indexOf("[]") === -1) &&
@@ -285,45 +293,6 @@
     },
 
     /**
-     * @method   formChanges
-     * @todo     Add method description for formChanges
-     * @global   
-     * @memberof bbn.fn
-     * @fires    {*}           
-     * @param    {HTMLElement} form 
-     * @returns                
-     */
-    formChanges(form){
-      //var $f = $(form),
-          //inputs with a name
-      //    $inputs = $f.find(":input[name]:not(.bbn-no,.bbn-no :input,.bbn-form :input)"),
-      let data = bbn.fn.formdata(form),
-          changes = {},
-          v,
-          name,
-          $inputs = form.querySelectorAll('input[name]:not(.bbn-no),select[name]:not(.bbn-no),textarea[name]:not(.bbn-no),button[name]:not(.bbn-no)');
-
-      bbn.fn.each($inputs, (val, i)=>{
-        if ( (val.classList.contains('bbn-form') === false) || (val.classList.contains('bbn-form') &&
-          (val.querySelectorAll('input,select,textarea,button').length === -1)) 
-        ){
-           //$inputs.each(function(){
-           //name = this.name;
-          name = val.name;
-          //v = $(this).data("bbnOriginalValue");
-          v = val.getAttribute("data-bbn-original-value");        
-          if ( (v !== null) && (data[name] !== undefined) && (data[name] !== v) ){
-            changes[name] = {
-              value: data[name],
-              oldValue: v
-            };
-          }
-        }  
-      });
-      return changes;
-    },
-
-    /**
      * @method   objectToFormData
      * @todo     Add method description for objectToFormData
      * @global   
@@ -335,7 +304,7 @@
      */
     objectToFormData(obj, key, ignoreList){
       let formData = new FormData();
-      function appendFormData(data, key = ''){
+      let appendFormData = (data, key = '') => {
         if ( !ignoreList || (bbn.fn.isArray(ignoreList) && !ignoreList.includes(key)) ){
           if ( data instanceof File ){
             formData.append(key, data);
