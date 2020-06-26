@@ -80,23 +80,54 @@
     },
 
     /**
+     * Returns true if the given object can be iterated as an array (numerically).
+     *
+     * It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
+     *
+     * @method   isIterable
+     * @global
+     * @memberof bbn.fn
+     *
+     * @example
+     * ```javascript
+     * // true
+     * bbn.fn.isIterable([1, 2])
+     * // false
+     * bbn.fn.isIterable({a: 1, b: 2})
+     * // false
+     * bbn.fn.isIterable(25)
+     * // true
+     * bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
+     * ```
+     * 
+     * @param    {String} st
+     * 
+     * @returns  {Boolean}
+     */
+    isIterable(v) {
+      return v && (typeof v === 'object') && (Symbol.iterator in Object(v));
+    },
+
+    /**
+     * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
+     * 
      * @method   isDimension
-     * @todo     Add method description for isDimension
      * @global
      * @memberof bbn.fn
      * @param    {String} st
      * @returns
      */
     isDimension(st) {
-      if ( typeof(st) === 'number' ){
+      if ((typeof(st) === 'number') && (st >= 0)) {
         return true;
       }
       return bbn.fn.isValidDimension(st);
     },
 
     /**
+     * Returns true if the given value is a valid CSS dimension string, false otherwise.
+     * 
      * @method   isValidDimension
-     * @todo     Add method description for isDimension
      * @global
      * @memberof bbn.fn
      * @param    {String} st

@@ -22,16 +22,12 @@
      * ```
      * @method   resize
      * @memberof bbn.fn
-     * @returns  
      */
     resize(){
-      var w = window.innerWidth,
-          h = window.innerHeight;
-      if ( (bbn.env.width !== w) || (bbn.env.height !== h) ){
-        bbn.env.width = w;
-        bbn.env.height = h;
+      if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
+        bbn.env.width = window.innerWidth;
+        bbn.env.height = window.innerHeight;
       }
-      //$(".bbn-sensor", document.body).not(".bbn-sensor .bbn-sensor").bbn("propagateResize");
       bbn.fn.defaultResizeFunction();
     },
 
@@ -40,15 +36,15 @@
      * 
      * @method   toggleFullScreen
      * @global   
+     * 
      * @example 
      * ```javascript
-     * bbn.fn.toggle_full_screen();
+     * // Straight forward isn't it?
+     * bbn.fn.toggleFullScreen();
      * ```
      * @memberof bbn.fn
-     * @returns  
      */
     toggleFullScreen(){
-      var wscript;
       if ( window.document.documentElement.mozRequestFullScreen ){
         if ( window.document.mozFullScreen ){
           window.document.mozCancelFullScreen();
@@ -93,6 +89,7 @@
      * @example 
      * ```javascript
      * bbn.fn.getScrollBarSize();
+     * // 16
      * ```
      * @memberof bbn.fn
      * @returns  {Number} 
@@ -130,25 +127,45 @@
      * Adjusts the size of the given elements.
      * 
      * @method   adjustSize
+     * @todo Take the padding into account
      * @global   
-     * @example 
-     * ```javascript
-     * bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
-     * ```
      * @memberof bbn.fn
+     * 
+     * @example 
+     * ```html
+     * <div class="container">
+     *   <div style="float: left; width: 25%; background-color: red">
+     *     This is a random text
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: blue">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: green">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: yellow">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     * </div>
+     * <script>
+     * bbn.fn.adjustSize('height', document.body.querySelectorAll('.container > div'));
+     * </script>
+     * ```
+     * 
      * @param    {String} type The dimension to adjust
      * @param    {Array} eles The elements to adjust for the dimension
+     * 
      * @returns  
      */
     adjustSize(type, eles){
       let max = 0,
           idx;
-      bbn.fn.each(eles, (el, i) => {
+      bbn.fn.each(eles, (el) => {
         el.style[type] = 'auto';
       });
       bbn.fn.each(eles, (el, i) => {
-        let s = parseFloat(getComputedStyle(el)[type]);
-        if ( s > max ){
+        let s = el['client' + (type === 'height' ? 'Height' : 'Width')];
+        if (s > max) {
           max = s;
           idx = i;
         }
@@ -164,18 +181,34 @@
      * Adjusts the height of the element(s) given as argument.
      * @method   adjustHeight
      * @global   
-     * @example 
-     * ```javascript
-     * bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
-     * ```
      * @memberof bbn.fn
+     * 
+     * @example 
+     * ```html
+     * <div class="container">
+     *   <div style="float: left; width: 25%; background-color: red">
+     *     This is a random text
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: blue">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: green">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; width: 25%; background-color: yellow">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     * </div>
+     * <script>
+     * bbn.fn.adjustHeight(document.body.querySelectorAll('.container > div'));
+     * </script>
+     * ```
+     * 
      * @returns  
      */
     adjustHeight(){
-      let maxH = 0,
-          idx,
-          args = arguments;
-      if ( (args.length === 1) && bbn.fn.isArray(args[0]) ){
+      let args = arguments;
+      if ( (args.length === 1) && bbn.fn.isIterable(args[0]) ){
         args = args[0];
       }
       return bbn.fn.adjustSize('height', args);
@@ -186,114 +219,37 @@
      * 
      * @method   adjustWidth
      * @global   
-     * @example
-     * ```javascript
-     * bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
-     * ```
      * @memberof bbn.fn
+     * 
+     * @example 
+     * ```html
+     * <div class="container">
+     *   <div style="float: left; background-color: red">
+     *     This is a random text
+     *   </div>
+     *   <div style="float: left; background-color: blue">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; background-color: green">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     *   <div style="float: left; background-color: yellow">
+     *     This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+     *   </div>
+     * </div>
+     * <script>
+     * bbn.fn.adjustWidth(document.body.querySelectorAll('.container > div'));
+     * </script>
+     * ```
+     * 
      * @returns  
      */
     adjustWidth(){
-      let maxW = 0,
-          idx,
-          args = arguments;
-      if ( (args.length === 1) && bbn.fn.isArray(args[0]) ){
+      let args = arguments;
+      if ( (args.length === 1) && bbn.fn.isIterable(args[0]) ){
         args = args[0];
       }
       return bbn.fn.adjustSize('width', args);
-    },
-
-    /**
-     * @ignore
-     * @method   getScrollParent
-     * @global   
-     * @memberof bbn.fn
-     * @param    {HTMLElement} node 
-     * @returns                
-     */
-    getScrollParent(node) {
-      if ( node == null ){
-        return null;
-      }
-    
-      if ( node.clientHeight && (node.scrollHeight > node.clientHeight) ){
-        return node;
-      }
-      else {
-        return bbn.fn.getScrollParent(node.parentNode);
-      }
-    },
-
-    /**
-     * Returns the height of the given dom element and force the repaint of the element to trigger animations.
-     * 
-     * @method   calculateHeight
-     * @global   
-     * 
-     * @example 
-     * ```javascript
-     * // "17.5px"
-     * bbn.fn.calculateHeight(<p>Javascript documentation</p>);
-     * ```
-     * @memberof bbn.fn
-     * @param    {HTMLElement} element 
-     * @returns  {String} The height of the element with its unit of measure.              
-     */
-    calculateHeight(element){
-      const oldVis = element.style.visibility;
-      element.style.visibility = 'hidden';
-      const oldDisp = element.style.display;
-      if ( oldDisp === 'none' ){
-        element.style.display = 'block';
-      }
-      const width = getComputedStyle(element).width;
-      const oldWidth = element.style.width;
-      const oldHeight = element.style.height;
-      const oldPos = element.style.position;
-      element.style.width = width;
-      element.style.position = 'absolute';
-      element.style.height = 'auto';
-      const height = getComputedStyle(element).height;
-      element.style.width = oldWidth || null;
-      element.style.position = oldPos || null;
-      element.style.visibility = oldVis || null;
-      element.style.display = oldDisp || null;
-      element.style.height = oldHeight || null;
-      // Force repaint to make sure the
-      // animation is triggered correctly.
-      getComputedStyle(element).height;
-      return height;
-    },
-
-    contentSize(ele){
-      const origin = ele.getBoundingClientRect();
-      let maxH = 0;
-      let maxW = 0;
-      bbn.fn.each(ele.children, a => {
-        const coord = a.getBoundingClientRect();
-        const w = coord.x - origin.x + coord.width;
-        if (w > maxW) {
-          maxW = w;
-        }
-        if (a.offsetWidth > maxW) {
-          maxW = a.offsetWidth;
-        }
-        const h = coord.y - origin.y + coord.height;
-        if (h > maxH) {
-          maxH = h;
-        }
-        if (a.offsetHeight > maxW) {
-          maxW = a.offsetHeight;
-        }
-      });
-      bbn.fn.log("contentSize", maxH)
-      return {
-        width: maxW,
-        height: maxH
-      }
-
-
     }
-
   });
 })(bbn);

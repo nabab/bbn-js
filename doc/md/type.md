@@ -13,13 +13,15 @@ Intended to check if the argument provided is a color.
 [bbn.fn.__isDate__](#isDate)  
 Returns true if the given argument is a date object.  
 [bbn.fn.__isDimension__](#isDimension)  
-  
+Returns true if the given value is a valid CSS dimension string or a number, false otherwise.  
 [bbn.fn.__isDom__](#isDom)  
 Returns true if the given argument is a dom element;  
 [bbn.fn.__isEmail__](#isEmail)  
 Intended to check if the argument provided is an e-mail address written correctly  
 [bbn.fn.__isEmpty__](#isEmpty)  
 Checks if the argument is empty or not.  
+[bbn.fn.__isIterable__](#isIterable)  
+Returns true if the given object can be iterated as an array (numerically).  
 [bbn.fn.__isNull__](#isNull)  
 Returns true if the given argument is null;  
 [bbn.fn.__isNumber__](#isNumber)  
@@ -31,7 +33,7 @@ Returns true if the given argument is a percentage.
 [bbn.fn.__isString__](#isString)  
 Returns true if the given argument is a string;  
 [bbn.fn.__isValidDimension__](#isValidDimension)  
-  
+Returns true if the given value is a valid CSS dimension string, false otherwise.  
 [bbn.fn.__isValue__](#isValue)  
 Returns true if the given argument is not null or type object or array.  
 [bbn.fn.__isVue__](#isVue)  
@@ -91,7 +93,34 @@ bbn.fn.isColor("red");
 ```
 [Back to top](#bbn_top)  
 
+### <a name="isIterable"></a>bbn.fn.isIterable(st)
+
+  __Returns true if the given object can be iterated as an array (numerically).__
+
+  It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
+
+  * __st__ _String_ 
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+// true
+bbn.fn.isIterable([1, 2])
+// false
+bbn.fn.isIterable({a: 1, b: 2})
+// false
+bbn.fn.isIterable(25)
+// true
+bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
+```
+
+[Back to top](#bbn_top)  
+
 ### <a name="isDimension"></a>bbn.fn.isDimension(st)
+
+  __Returns true if the given value is a valid CSS dimension string or a number, false otherwise.__
 
   * __st__ _String_ 
 
@@ -99,6 +128,8 @@ bbn.fn.isColor("red");
 [Back to top](#bbn_top)  
 
 ### <a name="isValidDimension"></a>bbn.fn.isValidDimension(st)
+
+  __Returns true if the given value is a valid CSS dimension string, false otherwise.__
 
   * __st__ _String_ 
 

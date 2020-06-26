@@ -8,6 +8,8 @@ Adds the given color to the object bbn.var.colors in order to be able to use
 Centers the given element by giving it a position absolute.  
 [bbn.fn.__colorToHex__](#colorToHex)  
 Returns the hex color of the given rgb or color name.  
+[bbn.fn.__lightenDarkenHex__](#lightenDarkenHex)  
+Takes color in hex format and lightens or darkens it with the given value.  
 
 
 ### <a name="center"></a>bbn.fn.center(ele)
@@ -60,5 +62,26 @@ bbn.fn.colorToHex('red');
 ```javascript
 //"#ff0000"
 bbn.fn.colorToHex('rgb(255,0,0)');
+```
+[Back to top](#bbn_top)  
+
+### <a name="lightenDarkenHex"></a>bbn.fn.lightenDarkenHex()
+
+  __Takes color in hex format and lightens or darkens it with the given value.__
+
+
+  __Returns__ _String_ 
+
+
+```javascript
+//"#eccb28"
+bbn.fn.lightenDarkenHex('#c4a300', 40);
+```
+
+
+
+```javascript
+//"#9c7b00"
+bbn.fn.lightenDarkenHex(#c4a300', -40);
 ```
 [Back to top](#bbn_top)  

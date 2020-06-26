@@ -35,28 +35,28 @@
             {
                 "file": "ajax.js",
                 "text": "downloadContent",
-                "desc": "Downloads a file with given filename from its content",
+                "desc": "Downloads a file with given filename from the given content",
                 "value": "downloadContent",
                 "url": "bbn-js\/doc\/ajax\/downloadContent"
             },
             {
                 "file": "ajax.js",
-                "text": "getIdURL",
-                "desc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype",
-                "value": "getIdURL",
-                "url": "bbn-js\/doc\/ajax\/getIdURL"
-            },
-            {
-                "file": "ajax.js",
                 "text": "getLoader",
-                "desc": "Finds the loader corresponding to the given unique ID and returns it if found",
+                "desc": "Finds the loader object corresponding to the given unique ID and returns it if found",
                 "value": "getLoader",
                 "url": "bbn-js\/doc\/ajax\/getLoader"
             },
             {
                 "file": "ajax.js",
+                "text": "getRequestId",
+                "desc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype",
+                "value": "getRequestId",
+                "url": "bbn-js\/doc\/ajax\/getRequestId"
+            },
+            {
+                "file": "ajax.js",
                 "text": "link",
-                "desc": "Follows a link by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction",
+                "desc": "Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction",
                 "value": "link",
                 "url": "bbn-js\/doc\/ajax\/link"
             },
@@ -77,7 +77,7 @@
             {
                 "file": "ajax.js",
                 "text": "setNavigationVars",
-                "desc": false,
+                "desc": "Changes the URL and the associated variables and updates the history",
                 "value": "setNavigationVars",
                 "url": "bbn-js\/doc\/ajax\/setNavigationVars"
             },
@@ -146,24 +146,10 @@
         "items": [
             {
                 "file": "history.js",
-                "text": "addHistoryScript",
-                "desc": false,
-                "value": "addHistoryScript",
-                "url": "bbn-js\/doc\/history\/addHistoryScript"
-            },
-            {
-                "file": "history.js",
                 "text": "history",
                 "desc": false,
                 "value": "history",
                 "url": "bbn-js\/doc\/history\/history"
-            },
-            {
-                "file": "history.js",
-                "text": "replaceHistory",
-                "desc": false,
-                "value": "replaceHistory",
-                "url": "bbn-js\/doc\/history\/replaceHistory"
             }
         ]
     },
@@ -678,13 +664,6 @@
             },
             {
                 "file": "size.js",
-                "text": "calculateHeight",
-                "desc": "Returns the height of the given dom element and force the repaint of the element to trigger animations",
-                "value": "calculateHeight",
-                "url": "bbn-js\/doc\/size\/calculateHeight"
-            },
-            {
-                "file": "size.js",
                 "text": "getScrollBarSize",
                 "desc": "Retutns the size of the scrollbar realative to the current environment",
                 "value": "getScrollBarSize",
@@ -784,7 +763,7 @@
             {
                 "file": "string.js",
                 "text": "md5",
-                "desc": "Converts and returns the argument passed in a string in md5 forma",
+                "desc": "Converts and returns the argument passed in a string in md5 format",
                 "value": "md5",
                 "url": "bbn-js\/doc\/string\/md5"
             },
@@ -888,13 +867,6 @@
             },
             {
                 "file": "string.js",
-                "text": "stringify",
-                "desc": "Converts the argument passed to it into a single string",
-                "value": "stringify",
-                "url": "bbn-js\/doc\/string\/stringify"
-            },
-            {
-                "file": "string.js",
                 "text": "uniqString",
                 "desc": "Create a unique string in md5 format",
                 "value": "uniqString",
@@ -927,6 +899,13 @@
                 "desc": "Returns the hex color of the given rgb or color name",
                 "value": "colorToHex",
                 "url": "bbn-js\/doc\/style\/colorToHex"
+            },
+            {
+                "file": "style.js",
+                "text": "lightenDarkenHex",
+                "desc": "Takes color in hex format and lightens or darkens it with the given value",
+                "value": "lightenDarkenHex",
+                "url": "bbn-js\/doc\/style\/lightenDarkenHex"
             }
         ]
     },
@@ -973,7 +952,7 @@
             {
                 "file": "type.js",
                 "text": "isDimension",
-                "desc": false,
+                "desc": "Returns true if the given value is a valid CSS dimension string or a number, false otherwise",
                 "value": "isDimension",
                 "url": "bbn-js\/doc\/type\/isDimension"
             },
@@ -997,6 +976,13 @@
                 "desc": "Checks if the argument is empty or not",
                 "value": "isEmpty",
                 "url": "bbn-js\/doc\/type\/isEmpty"
+            },
+            {
+                "file": "type.js",
+                "text": "isIterable",
+                "desc": "Returns true if the given object can be iterated as an array (numerically)",
+                "value": "isIterable",
+                "url": "bbn-js\/doc\/type\/isIterable"
             },
             {
                 "file": "type.js",
@@ -1043,7 +1029,7 @@
             {
                 "file": "type.js",
                 "text": "isValidDimension",
-                "desc": false,
+                "desc": "Returns true if the given value is a valid CSS dimension string, false otherwise",
                 "value": "isValidDimension",
                 "url": "bbn-js\/doc\/type\/isValidDimension"
             },

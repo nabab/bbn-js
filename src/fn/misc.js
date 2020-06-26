@@ -14,6 +14,15 @@
 
   Object.assign(bbn.fn, {
     /**
+     * 
+     */
+    translate(o, namespace) {
+      let lng = namespace ? bbn.lng[namespace.indexOf('_') === 0 ? namespace : '_' + namespace] : bbn.lng;
+      bbn.fn.iterate(o, (v, k) => {
+        lng[k] = v;
+      });
+    },
+    /**
      * Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().
      * @method   timestamp
      * @global   

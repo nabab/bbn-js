@@ -212,13 +212,14 @@ iframe.bbn-hidden{
 }
 .bbn-grid{
   display: grid;
-  grid-column-gap: 2.5em;
+  grid-column-gap: 0.4em;
   grid-row-gap: 0.4em;
   grid-auto-rows: max-content;
 }
 .bbn-grid-fields{
   //padding: 1em;
   .bbn-grid;
+  grid-column-gap: 2.5em;
   grid-template-columns: minmax(auto,max-content) auto;
   > *:not(.bbn-grid-full){
     word-break: break-word;

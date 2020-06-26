@@ -1824,7 +1824,7 @@
      * @returns  {undefined}
      */
     each(arr, fn){
-      if ( bbn.fn.isArray(arr) ){
+      if ( bbn.fn.isIterable(arr) ){
         for ( let i = 0; i < arr.length; i++ ){
           if ( fn(arr[i], i) === false ){
             return;

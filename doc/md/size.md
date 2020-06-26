@@ -8,8 +8,6 @@ Adjusts the height of the element(s) given as argument.
 Adjusts the size of the given elements.  
 [bbn.fn.__adjustWidth__](#adjustWidth)  
 Adjusts the width of the element(s) given as argument.  
-[bbn.fn.__calculateHeight__](#calculateHeight)  
-Returns the height of the given dom element and force the repaint of the element to trigger animations.  
 [bbn.fn.__getScrollBarSize__](#getScrollBarSize)  
 Retutns the size of the scrollbar realative to the current environment.  
 [bbn.fn.__toggleFullScreen__](#toggleFullScreen)  
@@ -25,7 +23,8 @@ Toggles the fullscreen mode.
 
 
 ```javascript
-bbn.fn.toggle_full_screen();
+// Straight forward isn't it?
+bbn.fn.toggleFullScreen();
 ```
 [Back to top](#bbn_top)  
 
@@ -39,6 +38,7 @@ bbn.fn.toggle_full_screen();
 
 ```javascript
 bbn.fn.getScrollBarSize();
+// 16
 ```
 [Back to top](#bbn_top)  
 
@@ -49,12 +49,30 @@ bbn.fn.getScrollBarSize();
   * __type__ _String_ The dimension to adjust
   * __eles__ _Array_ The elements to adjust for the dimension
 
+
   __Returns__ _undefined_ 
 
 
-```javascript
-bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
+```html
+<div class="container">
+  <div style="float: left; width: 25%; background-color: red">
+    This is a random text
+  </div>
+  <div style="float: left; width: 25%; background-color: blue">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; width: 25%; background-color: green">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; width: 25%; background-color: yellow">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+</div>
+<script>
+bbn.fn.adjustSize('height', document.body.querySelectorAll('.container > div'));
+</script>
 ```
+
 [Back to top](#bbn_top)  
 
 ### <a name="adjustHeight"></a>bbn.fn.adjustHeight()
@@ -65,9 +83,26 @@ bbn.fn.adjustSize('height', ['<div><span>Adjusting height</span></div>']);
   __Returns__ _undefined_ 
 
 
-```javascript
-bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
+```html
+<div class="container">
+  <div style="float: left; width: 25%; background-color: red">
+    This is a random text
+  </div>
+  <div style="float: left; width: 25%; background-color: blue">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; width: 25%; background-color: green">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; width: 25%; background-color: yellow">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+</div>
+<script>
+bbn.fn.adjustHeight(document.body.querySelectorAll('.container > div'));
+</script>
 ```
+
 [Back to top](#bbn_top)  
 
 ### <a name="adjustWidth"></a>bbn.fn.adjustWidth()
@@ -78,22 +113,24 @@ bbn.fn.adjustHeight(['<div><span>Adjusting height</span></div>']);
   __Returns__ _undefined_ 
 
 
-```javascript
-bbn.fn.adjustWidth('<div><span>Adjusting width</span></div>');
+```html
+<div class="container">
+  <div style="float: left; background-color: red">
+    This is a random text
+  </div>
+  <div style="float: left; background-color: blue">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; background-color: green">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+  <div style="float: left; background-color: yellow">
+    This is a random text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+  </div>
+</div>
+<script>
+bbn.fn.adjustWidth(document.body.querySelectorAll('.container > div'));
+</script>
 ```
-[Back to top](#bbn_top)  
 
-### <a name="calculateHeight"></a>bbn.fn.calculateHeight(element)
-
-  __Returns the height of the given dom element and force the repaint of the element to trigger animations.__
-
-  * __element__ _HTMLElement_ 
-
-  __Returns__ _String_ The height of the element with its unit of measure.
-
-
-```javascript
-// "17.5px"
-bbn.fn.calculateHeight(<p>Javascript documentation</p>);
-```
 [Back to top](#bbn_top)  

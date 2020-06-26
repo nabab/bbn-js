@@ -25,7 +25,7 @@ Convert an hexadecimmal string to RGB.
 [bbn.fn.__html2text__](#html2text)  
 Convert text in html format to plain text.  
 [bbn.fn.__md5__](#md5)  
-Converts and returns the argument passed in a string in md5 format  
+Converts and returns the argument passed in a string in md5 format.  
 [bbn.fn.__nl2br__](#nl2br)  
 Replaces all new line characters '\ n' with html tag '<br>'.  
 [bbn.fn.__percent__](#percent)  
@@ -54,8 +54,6 @@ Convert an RGB string to hexadecimal.
 Removes all unacceptable characters in a DOM node.  
 [bbn.fn.__shorten__](#shorten)  
 Shortens the given string after *len* characters.  
-[bbn.fn.__stringify__](#stringify)  
-Converts the argument passed to it into a single string.  
 [bbn.fn.__uniqString__](#uniqString)  
 Create a unique string in md5 format.  
 
@@ -120,6 +118,9 @@ bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
 ### <a name="md5"></a>bbn.fn.md5(st)
 
   __Converts and returns the argument passed in a string in md5 format.__
+
+  This is a formatted version of popular md5 implementation  
+Original copyright (c) Paul Johnston & Greg Holt.
 
   * __st__ _Mixed_ 
 
@@ -346,8 +347,8 @@ the second argument with what you have to replace instead and the third argument
 
 
 ```javascript
-//"Today is a beautiful day"
-bbn.fn.replaceAll('-', ' ', 'Today-is-a-beautiful-day');
+bbn.fn.replaceAll('day', 'night', 'Today is a beautiful day');
+//"Tonight is a beautiful night"
 ```
 [Back to top](#bbn_top)  
 
@@ -391,8 +392,8 @@ bbn.fn.quotes2html('hello "world\'s"!');
 
 
 ```javascript
-bbn.fn.nl2br('hello \n word!');
-//"hello <br> word!"
+bbn.fn.nl2br('hello \n world!');
+//"hello <br> world!"
 ```
 [Back to top](#bbn_top)  
 
@@ -407,8 +408,8 @@ bbn.fn.nl2br('hello \n word!');
 
 ```javascript
 //"hello
-//word!"
-bbn.fn.br2nl('hello <br> word!')
+//world!"
+bbn.fn.br2nl('hello <br> world!')
 ```
 
 [Back to top](#bbn_top)  
@@ -441,39 +442,6 @@ bbn.fn.html2text("<div><p>Hello <b>world!</b></p></div>");
 //"eeou"
 bbn.fn.removeAccents("èéòù");
 ```
-[Back to top](#bbn_top)  
-
-### <a name="stringify"></a>bbn.fn.stringify(v)
-
-  __Converts the argument passed to it into a single string.__
-
-  It's possible to give as arguments elements of different nature specifically: array, number and function. 
-It will return the argument on string format.
-
-  * __v__ _Array|Number|Function_ 
-
-  __Returns__ _String_ 
-
-
-```javascript
-//"helo,world"
-bbn.fn.stringify(["helo", "world"]);
-```
-
-
-
-```javascript
-//"3"
-bbn.fn.removeAccents("3");
-```
-
-
-
-```javascript
-//"function(){alert("hello world!")}"
-bbn.fn.stringify(function(){alert("hello world!")});
-```
-
 [Back to top](#bbn_top)  
 
 ### <a name="percent"></a>bbn.fn.percent(percent, cent)

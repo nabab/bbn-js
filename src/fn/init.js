@@ -113,13 +113,9 @@
 
         bbn.fn.resize();
 
-        if (bbn.fn.history) {
-
-          //bbn.fn.history.clearAllIntervals();
-          //window.localStorage.clear();
-          //window.sessionStorage.clear();
+        if (window.history) {
           window.onpopstate = function(e){
-            let h = bbn.fn.history();
+            let h = window.history;
             if (!bbn.env.historyDisabled && h) {
               //e.preventDefault();
               let state = h.state;

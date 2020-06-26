@@ -9,7 +9,7 @@
     /* This variable should be set to true in debugging mode only */
     logging: false,
     /* Address of the CDN (where this file should be hosted) */
-    cdn: 'http://cdn.app-ui.com/',
+    cdn: '',
     /* Default language */
     lang: 'en',
     host: window.location.protocol + '//' + window.location.hostname,

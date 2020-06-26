@@ -9,19 +9,31 @@
  *  - variables (v),
  *  - language (l)
  */
-;(function(window){
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.bbn = factory());
+}(this, (
+  function(){
   "use strict";
-
-  if (window.axios) {
-    window.axios.defaults.headers.post['Content-Type'] = 'text/json';
+  if (axios) {
+    axios.defaults.headers.post['Content-Type'] = 'text/json';
   }
-  window.bbn = {
+  return {
     version: "0.2",
     opt: {
       _cat: {}
     },
-    _: function(a){
-      return bbn.lng[a] || a;
+    _(st, namespace){
+      if (namespace && bbn.fn.isString(namespace)) {
+        if (namespace.indexOf('_') !== 0) {
+          namespace = '_' + namespace;
+        }
+        if (bbn.lng[namespace]) {
+          return bbn.lng[namespace][st] || st;
+        }
+      }
+      return bbn.lng[st] || st;
     },
     _popups: [],
     lng: {
@@ -54,5 +66,4 @@
       popups: [],
     },
   };
-
-})(window);
+})));
