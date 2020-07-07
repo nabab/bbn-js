@@ -332,7 +332,7 @@ bbn.fn.shorten('testing', 4);
 ```
 [Back to top](#bbn_top)  
 
-### <a name="replaceAll"></a>bbn.fn.replaceAll(find, replace, str)
+### <a name="replaceAll"></a>bbn.fn.replaceAll(find, replace, str, flags)
 
   __Looks for and replaces parts of string with what we want.__
 
@@ -341,7 +341,8 @@ the second argument with what you have to replace instead and the third argument
 
   * __find__ _String_ 
   * __replace__ _String_ 
-  * __str__ _String_ 
+  * __str__ _String|RegExp_ 
+  * __flags__ _String_ 
 
   __Returns__ _String_ 
 

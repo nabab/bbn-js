@@ -497,12 +497,13 @@
      * @memberof bbn.fn
      * @param    {String} find
      * @param    {String} replace
-     * @param    {String} str
+     * @param    {String|RegExp} str
+     * @param    {String} flags
      * @returns  {String}
      */
-    replaceAll(find, replace, str){
+    replaceAll(find, replace, str, flags = ''){
       if ( str !== undefined ){
-        return str.toString().replace(new RegExp(bbn.fn.escapeRegExp(find), 'g'), replace);
+        return str.toString().replace(bbn.fn.isObject(find) ? find : new RegExp(bbn.fn.escapeRegExp(find), 'g' + flags), replace);
       }
       return false;
     },

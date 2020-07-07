@@ -492,7 +492,7 @@
             switch (res.status) {
               case 200:
                 if (bbn.fn.isFunction(success)) {
-                  success(res.data);
+                  success(res.data, res.headers);
                 }
                 break;
               default:
@@ -1032,11 +1032,11 @@
       if (!data) {
         data = {};
       }
-      data = bbn.fn.extend({}, params, true);
+      data = bbn.fn.extend({}, data, true);
       if (!data.bbn) {
         data.bbn = 'public';
       }
-      bbn.fn.addInputs(form, params);
+      bbn.fn.addInputs(form, data);
       form.submit();
       if (success) {
         success();
@@ -1184,9 +1184,15 @@
         url,
         'blob',
         params || {_bbn_download: 1},
-        d => {
+        (d, headers) => {
           if (!filename) {
-            filename = bbn.fn.baseName(url)
+            let cd = 'attachment; filename=';
+            if (headers && headers['content-disposition'] && (headers['content-disposition'].indexOf(cd) === 0)) {
+              filename = headers['content-disposition'].substr(cd.length + 1, headers['content-disposition'].length - cd.length - 2);
+            }
+            else {
+              filename = bbn.fn.baseName(url)
+            }
           }
           if (bbn.fn.isBlob(d)) {
             let extension = bbn.fn.fileExt(filename);
@@ -5945,12 +5951,13 @@
      * @memberof bbn.fn
      * @param    {String} find
      * @param    {String} replace
-     * @param    {String} str
+     * @param    {String|RegExp} str
+     * @param    {String} flags
      * @returns  {String}
      */
-    replaceAll(find, replace, str){
+    replaceAll(find, replace, str, flags = ''){
       if ( str !== undefined ){
-        return str.toString().replace(new RegExp(bbn.fn.escapeRegExp(find), 'g'), replace);
+        return str.toString().replace(bbn.fn.isObject(find) ? find : new RegExp(bbn.fn.escapeRegExp(find), 'g' + flags), replace);
       }
       return false;
     },

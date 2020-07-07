@@ -136,17 +136,17 @@ h5 {
 .bbn-alt-background-internal {
   background-color: #edf5e1;
 }
-.bbn-background-effect {
-  background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #f8fbf4 !important;
-}
-.bbn-background-effect-internal {
-  background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #f8fbf4;
-}
 .bbn-alt-background-effect {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #edf5e1 !important;
 }
 .bbn-alt-background-effect-internal {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #edf5e1;
+}
+.bbn-background-primary {
+  background: #05386b !important;
+}
+.bbn-background-primary-internal {
+  background: #05386b;
 }
 .bbn-background-effect-primary {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #05386b !important;
@@ -154,11 +154,23 @@ h5 {
 .bbn-background-effect-primary-internal {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #05386b;
 }
+.bbn-background-secondary {
+  background: #C9351C !important;
+}
+.bbn-background-secondary-internal {
+  background: #C9351C;
+}
 .bbn-background-effect-secondary {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #C9351C !important;
 }
 .bbn-background-effect-secondary-internal {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #C9351C;
+}
+.bbn-background-tertiary {
+  background: #1AABFF !important;
+}
+.bbn-background-tertiary-internal {
+  background: #1AABFF;
 }
 .bbn-background-effect-tertiary {
   background: none, linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0) 100%) 50% 50% repeat #1AABFF !important;
