@@ -1,8 +1,8 @@
 {
-  "name": "@bbn/bbn",
+  "name": "@bbn/bbnjs",
   "email": "contact@bbn.io",
   "version": "1.0.0",
-  "description": "bbn",
+  "description": "BBN JS",
   "author": "BBN Solutions",
   "keywords": [
     "bbn"
