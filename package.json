@@ -1,47 +1,14 @@
 {
   "name": "@bbn/bbn",
-  "email": "dev@bbn.so",
-  "version": "1.1.2",
+  "email": "contact@bbn.io",
+  "version": "1.0.0",
   "description": "bbn",
-  "main": "index.js",
-  "author": "bbnSoluitions",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "author": "BBN Solutions",
   "keywords": [
     "bbn"
   ],
   "license": "MIT",
   "dependencies": {
-    "animate.css": "^3.5.1",
-    "babelify": "^7.3.0",
-    "child_process": "^1.0.2",
-    "history": "^1.7.0",
-    "jquery": "^3.1.0",
-    "md5": "^2.2.1",
-    "modernizr": "^3.5.0",
-    "moment": "^2.12.0",
-    "pace": "0.0.4"
-  },
-  "devDependencies": {
-    "browserify": "^13.3.0",
-    "browserify-builder": "^1.0.1",
-    "browserify-css": "^0.10.1",
-    "browserify-incremental": "^3.1.1",
-    "json": "^9.0.6",
-    "lodash": "^4.17.4",
-    "uglify-js": "^2.6.2",
-    "watchify": "^3.0.0",
-    "window": "^3.1.6"
-  },
-  "browserify-css": {
-    "autoInject": true,
-    "minify": true,
-    "rootDir": "."
-  },
-  "browserify": {
-    "transform": [
-      "browserify-css"
-    ]
+    "moment": "^2.27.0"
   }
 }

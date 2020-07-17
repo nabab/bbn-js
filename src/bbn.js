@@ -35,6 +35,12 @@
       }
       return bbn.lng[st] || st;
     },
+    $(selector, context) {
+      if (context && context.querySelectorAll) {
+        return context.querySelectorAll(selector)
+      }
+      return document.body.querySelectorAll(selector)
+    },
     _popups: [],
     lng: {
       /* User-defined languages elements */

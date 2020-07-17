@@ -663,8 +663,8 @@
      * @global   
      * @example
      * ``` javascript
-     * //20162
      * bbn.fn.stopChrono('myChrono');
+     * // 20162
      * ```
      * @memberof bbn.fn
      * @param {String} name
@@ -685,8 +685,8 @@
      * @global   
      * @example
      * ``` javascript
-     * //false
      * bbn.fn.isMobile();
+     * // false
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean} 
@@ -696,12 +696,12 @@
     },
     /**
      * Returns the length of time the window has not been focused in seconds. 
-     * @method   isMobile
+     * @method   getTimeoff
      * @global   
      * @example
      * ``` javascript
-     * //false
-     * bbn.fn.isMobile();
+     * bbn.fn.getTimeoff();
+     * // 0
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean} 
@@ -711,6 +711,28 @@
         return Math.round((new Date()).getTime()/1000 - bbn.env.timeoff);
       }
       return 0
+    },
+    /**
+     * Checks whether the given elemet is focused or not.
+     * 
+     * @method   isFocused
+     * @global   
+     * @example
+     * ``` javascript
+     * bbn.fn.isFocused(document.getElementById('input_name'));
+     * // false
+     * bbn.fn.isFocused(bbn.sel('.container'));
+     * // true
+     * ```
+     * @memberof bbn.fn
+     * 
+     * @param {Element} ele     The element to be checked for focus
+     * @param {Boolean} contain If true will check if the focused element is contained in the given element
+     * 
+     * @returns  {Boolean} True if focused
+     */
+    isFocused(ele, contain) {
+      return (ele === document.activeElement) || (contain && ele.contains && (ele.contains(document.activeElement)));
     }
 
   });

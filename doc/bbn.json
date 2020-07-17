@@ -307,6 +307,13 @@
             },
             {
                 "file": "misc.js",
+                "text": "getTimeoff",
+                "desc": "Returns the length of time the window has not been focused in seconds",
+                "value": "getTimeoff",
+                "url": "bbn-js\/doc\/misc\/getTimeoff"
+            },
+            {
+                "file": "misc.js",
                 "text": "happy",
                 "desc": "Logs the given argument in the browser's console highlighting it with a green background",
                 "value": "happy",
@@ -335,8 +342,15 @@
             },
             {
                 "file": "misc.js",
+                "text": "isFocused",
+                "desc": "Checks whether the given elemet is focused or not",
+                "value": "isFocused",
+                "url": "bbn-js\/doc\/misc\/isFocused"
+            },
+            {
+                "file": "misc.js",
                 "text": "isMobile",
-                "desc": "Returns the length of time the window has not been focused in seconds",
+                "desc": "Returns true if the current browser is on a mobile device",
                 "value": "isMobile",
                 "url": "bbn-js\/doc\/misc\/isMobile"
             },

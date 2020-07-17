@@ -14,6 +14,8 @@ Formats the value given in bytes.
 If it exsists returns the cookie corresponding to the given name.  
 [bbn.fn.__getEventData__](#getEventData)  
 Returns a promise having the event's data as argument.  
+[bbn.fn.__getTimeoff__](#getTimeoff)  
+Returns the length of time the window has not been focused in seconds.  
 [bbn.fn.__happy__](#happy)  
 Logs the given argument in the browser's console highlighting it with a green background.  
 [bbn.fn.__imageToCanvas__](#imageToCanvas)  
@@ -22,8 +24,10 @@ Draws the given html image nto a canvas.
 Returns the tag for the image in base64  
 [bbn.fn.__info__](#info)  
 Logs the given argument in the browser's console highlighting it with a blue background.  
+[bbn.fn.__isFocused__](#isFocused)  
+Checks whether the given elemet is focused or not.  
 [bbn.fn.__isMobile__](#isMobile)  
-Returns the length of time the window has not been focused in seconds.  
+Returns true if the current browser is on a mobile device.  
 [bbn.fn.__log__](#log)  
 Logs the given arguments in the browser's console.  
 [bbn.fn.__setCookie__](#setCookie)  
@@ -238,12 +242,26 @@ bbn.fn.formatBytes(54764654);
 
 
 ``` javascript
-//20162
 bbn.fn.stopChrono('myChrono');
+// 20162
 ```
 [Back to top](#bbn_top)  
 
 ### <a name="isMobile"></a>bbn.fn.isMobile()
+
+  __Returns true if the current browser is on a mobile device.__
+
+
+  __Returns__ _Boolean_ 
+
+
+``` javascript
+bbn.fn.isMobile();
+// false
+```
+[Back to top](#bbn_top)  
+
+### <a name="getTimeoff"></a>bbn.fn.getTimeoff()
 
   __Returns the length of time the window has not been focused in seconds.__
 
@@ -252,7 +270,26 @@ bbn.fn.stopChrono('myChrono');
 
 
 ``` javascript
-//false
-bbn.fn.isMobile();
+bbn.fn.getTimeoff();
+// 0
+```
+[Back to top](#bbn_top)  
+
+### <a name="isFocused"></a>bbn.fn.isFocused(ele, contain)
+
+  __Checks whether the given elemet is focused or not.__
+
+  * __ele__ _Element_ The element to be checked for focus
+  * __contain__ _Boolean_ If true will check if the focused element is contained in the given element
+
+
+  __Returns__ _Boolean_ True if focused
+
+
+``` javascript
+bbn.fn.isFocused(document.getElementById('input_name'));
+// false
+bbn.fn.isFocused(bbn.sel('.container'));
+// true
 ```
 [Back to top](#bbn_top)  

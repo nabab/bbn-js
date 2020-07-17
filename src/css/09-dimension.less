@@ -26,6 +26,23 @@
     .bbn-border-box;
     height: @num + ~"%";
   }
+  .bbn-padded-@{t}, .bbn-hpadded-@{t} {
+    padding-left: @num + ~"%";
+    padding-right: @num + ~"%";
+  }
+  .bbn-padded-@{t}, .bbn-vpadded-@{t} {
+    padding-top: @num + ~"%";
+    padding-bottom: @num + ~"%";
+  }
+  .bbn-margin-@{t}, .bbn-hmargin-@{t} {
+    margin-left: @num + ~"%";
+    margin-right: @num + ~"%";
+  }
+  .bbn-margin-@{t}, .bbn-vmargin-@{t} {
+    margin-top: @num + ~"%";
+    margin-bottom: @num + ~"%";
+  }
+
 }
 .create-dimensions-rules(90);
 .create-dimensions-rules(80);

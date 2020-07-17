@@ -887,6 +887,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 90%;
 }
+.bbn-padded-90,
+.bbn-hpadded-90 {
+  padding-left: 90%;
+  padding-right: 90%;
+}
+.bbn-padded-90,
+.bbn-vpadded-90 {
+  padding-top: 90%;
+  padding-bottom: 90%;
+}
+.bbn-margin-90,
+.bbn-hmargin-90 {
+  margin-left: 90%;
+  margin-right: 90%;
+}
+.bbn-margin-90,
+.bbn-vmargin-90 {
+  margin-top: 90%;
+  margin-bottom: 90%;
+}
 .bbn-80,
 .bbn-w-80 {
   position: relative;
@@ -904,6 +924,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 80%;
+}
+.bbn-padded-80,
+.bbn-hpadded-80 {
+  padding-left: 80%;
+  padding-right: 80%;
+}
+.bbn-padded-80,
+.bbn-vpadded-80 {
+  padding-top: 80%;
+  padding-bottom: 80%;
+}
+.bbn-margin-80,
+.bbn-hmargin-80 {
+  margin-left: 80%;
+  margin-right: 80%;
+}
+.bbn-margin-80,
+.bbn-vmargin-80 {
+  margin-top: 80%;
+  margin-bottom: 80%;
 }
 .bbn-75,
 .bbn-w-75 {
@@ -923,6 +963,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 75%;
 }
+.bbn-padded-75,
+.bbn-hpadded-75 {
+  padding-left: 75%;
+  padding-right: 75%;
+}
+.bbn-padded-75,
+.bbn-vpadded-75 {
+  padding-top: 75%;
+  padding-bottom: 75%;
+}
+.bbn-margin-75,
+.bbn-hmargin-75 {
+  margin-left: 75%;
+  margin-right: 75%;
+}
+.bbn-margin-75,
+.bbn-vmargin-75 {
+  margin-top: 75%;
+  margin-bottom: 75%;
+}
 .bbn-70,
 .bbn-w-70 {
   position: relative;
@@ -940,6 +1000,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 70%;
+}
+.bbn-padded-70,
+.bbn-hpadded-70 {
+  padding-left: 70%;
+  padding-right: 70%;
+}
+.bbn-padded-70,
+.bbn-vpadded-70 {
+  padding-top: 70%;
+  padding-bottom: 70%;
+}
+.bbn-margin-70,
+.bbn-hmargin-70 {
+  margin-left: 70%;
+  margin-right: 70%;
+}
+.bbn-margin-70,
+.bbn-vmargin-70 {
+  margin-top: 70%;
+  margin-bottom: 70%;
 }
 .bbn-66,
 .bbn-w-66 {
@@ -959,6 +1039,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 66.6666%;
 }
+.bbn-padded-66,
+.bbn-hpadded-66 {
+  padding-left: 66.6666%;
+  padding-right: 66.6666%;
+}
+.bbn-padded-66,
+.bbn-vpadded-66 {
+  padding-top: 66.6666%;
+  padding-bottom: 66.6666%;
+}
+.bbn-margin-66,
+.bbn-hmargin-66 {
+  margin-left: 66.6666%;
+  margin-right: 66.6666%;
+}
+.bbn-margin-66,
+.bbn-vmargin-66 {
+  margin-top: 66.6666%;
+  margin-bottom: 66.6666%;
+}
 .bbn-60,
 .bbn-w-60 {
   position: relative;
@@ -976,6 +1076,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 60%;
+}
+.bbn-padded-60,
+.bbn-hpadded-60 {
+  padding-left: 60%;
+  padding-right: 60%;
+}
+.bbn-padded-60,
+.bbn-vpadded-60 {
+  padding-top: 60%;
+  padding-bottom: 60%;
+}
+.bbn-margin-60,
+.bbn-hmargin-60 {
+  margin-left: 60%;
+  margin-right: 60%;
+}
+.bbn-margin-60,
+.bbn-vmargin-60 {
+  margin-top: 60%;
+  margin-bottom: 60%;
 }
 .bbn-50,
 .bbn-w-50 {
@@ -995,6 +1115,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 50%;
 }
+.bbn-padded-50,
+.bbn-hpadded-50 {
+  padding-left: 50%;
+  padding-right: 50%;
+}
+.bbn-padded-50,
+.bbn-vpadded-50 {
+  padding-top: 50%;
+  padding-bottom: 50%;
+}
+.bbn-margin-50,
+.bbn-hmargin-50 {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+.bbn-margin-50,
+.bbn-vmargin-50 {
+  margin-top: 50%;
+  margin-bottom: 50%;
+}
 .bbn-40,
 .bbn-w-40 {
   position: relative;
@@ -1012,6 +1152,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 40%;
+}
+.bbn-padded-40,
+.bbn-hpadded-40 {
+  padding-left: 40%;
+  padding-right: 40%;
+}
+.bbn-padded-40,
+.bbn-vpadded-40 {
+  padding-top: 40%;
+  padding-bottom: 40%;
+}
+.bbn-margin-40,
+.bbn-hmargin-40 {
+  margin-left: 40%;
+  margin-right: 40%;
+}
+.bbn-margin-40,
+.bbn-vmargin-40 {
+  margin-top: 40%;
+  margin-bottom: 40%;
 }
 .bbn-30,
 .bbn-w-30 {
@@ -1031,6 +1191,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 30%;
 }
+.bbn-padded-30,
+.bbn-hpadded-30 {
+  padding-left: 30%;
+  padding-right: 30%;
+}
+.bbn-padded-30,
+.bbn-vpadded-30 {
+  padding-top: 30%;
+  padding-bottom: 30%;
+}
+.bbn-margin-30,
+.bbn-hmargin-30 {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.bbn-margin-30,
+.bbn-vmargin-30 {
+  margin-top: 30%;
+  margin-bottom: 30%;
+}
 .bbn-33,
 .bbn-w-33 {
   position: relative;
@@ -1048,6 +1228,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 33.3333%;
+}
+.bbn-padded-33,
+.bbn-hpadded-33 {
+  padding-left: 33.3333%;
+  padding-right: 33.3333%;
+}
+.bbn-padded-33,
+.bbn-vpadded-33 {
+  padding-top: 33.3333%;
+  padding-bottom: 33.3333%;
+}
+.bbn-margin-33,
+.bbn-hmargin-33 {
+  margin-left: 33.3333%;
+  margin-right: 33.3333%;
+}
+.bbn-margin-33,
+.bbn-vmargin-33 {
+  margin-top: 33.3333%;
+  margin-bottom: 33.3333%;
 }
 .bbn-25,
 .bbn-w-25 {
@@ -1067,6 +1267,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 25%;
 }
+.bbn-padded-25,
+.bbn-hpadded-25 {
+  padding-left: 25%;
+  padding-right: 25%;
+}
+.bbn-padded-25,
+.bbn-vpadded-25 {
+  padding-top: 25%;
+  padding-bottom: 25%;
+}
+.bbn-margin-25,
+.bbn-hmargin-25 {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+.bbn-margin-25,
+.bbn-vmargin-25 {
+  margin-top: 25%;
+  margin-bottom: 25%;
+}
 .bbn-20,
 .bbn-w-20 {
   position: relative;
@@ -1084,6 +1304,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 20%;
+}
+.bbn-padded-20,
+.bbn-hpadded-20 {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.bbn-padded-20,
+.bbn-vpadded-20 {
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+.bbn-margin-20,
+.bbn-hmargin-20 {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.bbn-margin-20,
+.bbn-vmargin-20 {
+  margin-top: 20%;
+  margin-bottom: 20%;
 }
 .bbn-15,
 .bbn-w-15 {
@@ -1103,6 +1343,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 15%;
 }
+.bbn-padded-15,
+.bbn-hpadded-15 {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.bbn-padded-15,
+.bbn-vpadded-15 {
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
+.bbn-margin-15,
+.bbn-hmargin-15 {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.bbn-margin-15,
+.bbn-vmargin-15 {
+  margin-top: 15%;
+  margin-bottom: 15%;
+}
 .bbn-10,
 .bbn-w-10 {
   position: relative;
@@ -1121,6 +1381,26 @@ i.nf.bbn-xxxxl {
   box-sizing: border-box !important;
   height: 10%;
 }
+.bbn-padded-10,
+.bbn-hpadded-10 {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.bbn-padded-10,
+.bbn-vpadded-10 {
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+.bbn-margin-10,
+.bbn-hmargin-10 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.bbn-margin-10,
+.bbn-vmargin-10 {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
 .bbn-5,
 .bbn-w-5 {
   position: relative;
@@ -1138,6 +1418,26 @@ i.nf.bbn-xxxxl {
   position: relative;
   box-sizing: border-box !important;
   height: 5%;
+}
+.bbn-padded-5,
+.bbn-hpadded-5 {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.bbn-padded-5,
+.bbn-vpadded-5 {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.bbn-margin-5,
+.bbn-hmargin-5 {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.bbn-margin-5,
+.bbn-vmargin-5 {
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .bbn-full-width {
   position: relative;

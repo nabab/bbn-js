@@ -1,3 +1,6 @@
+/*
+I don't know to do that, help!
+
 var bar = function(total){
   count = 0,
   pace = require('pace')(total);
