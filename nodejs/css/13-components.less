@@ -1,0 +1,514 @@
+.bbn-button{
+  padding: 0.0833em 1em;
+  box-sizing: border-box;
+  border-width: @default-border-width;
+  border-style: @default-border-style;
+  white-space: nowrap;
+  font: inherit;
+  line-height: @line-height;
+  min-height: @line-height;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+  vertical-align: middle;
+  user-select: none; 
+  cursor: pointer;
+  outline: none;
+  .bbn-reactive-block;
+  .bbn-radius;
+  display: inline-block;
+  //white-space: nowrap;
+  //white-space: pre-line;
+  &.bbn-button-icon-only{
+    text-align: center;
+    font-size: larger;
+    vertical-align: middle;
+    line-height: @line-height;
+    padding: 0;
+    height: @line-height;
+    width: @line-height;
+  }
+  i {
+    line-height: inherit !important;
+  }
+  &:hover:not(.bbn-disabled):not(:disabled){
+    .bbn-background-effect-hover-internal;
+  }
+  &:active, &.bbn-active{
+    // .bbn-alt-background;
+    .bbn-alt-background-effect-internal;
+  }
+  &:disabled{
+    .bbn-disabled;
+  }
+}
+.bbn-disabled > .bbn-button{
+  opacity: 1;
+}
+.bbn-textbox{
+  > .bbn-button{
+    border-radius: inherit;
+  }
+}
+.bbn-textbox .bbn-button{
+  line-height: inherit;
+  padding: 0 0.5em;
+  /*
+  min-width: 2em;
+  min-height: 100%;
+  vertical-align: top;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  */
+  &.bbn-button-left{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left-width: 0;
+  }
+  &.bbn-button-right{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-right-width: 0;
+  }
+}
+.bbn-textbox input{
+  font-family: inherit;
+  color: inherit;
+  border: 0;
+  width: 100%;
+  padding: 0.0833em 0.25em;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+input[type=checkbox].bbn-checkbox, input[type=radio].bbn-radio{
+  display: inline;
+  opacity: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  overflow: hidden;
+}
+.bbn-checkbox-label, .bbn-radio-label{
+  position: relative;
+  padding-left: 2em;
+  line-height: @line-height;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 0;
+}
+
+.bbn-checkbox:focus + .bbn-checkbox-label:before {
+  border-color: @state-selected-border;
+}
+.bbn-checkbox:checked + .bbn-checkbox-label:before{
+  .bbn-bordered-internal;
+  .bbn-background-internal;
+  color: @state-selected-border;
+  content: "\f00c";
+}
+.bbn-checkbox:checked + .bbn-checkbox-label:before{
+  content: "\f00c";
+}
+.bbn-checkbox-label:before{
+  .bbn-bordered-internal;
+  .bbn-background-internal;
+  border-radius: 3px;
+  font: 1.2em 'NerdFontsSymbols Nerd Font', monospace;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-width: 1px;
+  border-style: solid;
+  width: 1.2em;
+  height: 1.1em;
+  font-size: 1.2em;
+  line-height: 1.1em;
+  text-align: center;
+}
+.bbn-checkbox:disabled + .bbn-checkbox-label {
+  color: @disabled-color;
+}
+.bbn-checkbox:disabled + .bbn-checkbox-label:hover:before {
+  box-shadow: none;
+}
+.bbn-checkbox:disabled + .k-checkbox-label:before,
+.bbn-checkbox:checked:disabled + .bbn-checkbox-label:before,
+.bbn-checkbox:checked:disabled + .bbn-checkbox-label:active:before,
+.bbn-checkbox:checked:disabled + .bbn-checkbox-label:hover:before {
+  color: @disabled-color;
+  background: @disabled-background;
+  border-color: @disabled-border;
+  border-radius: 3px;
+}
+
+.bbn-radio-label:before{
+  .bbn-bordered-internal;
+  .bbn-background-internal;
+  border-radius: 50%;
+  border-width: 1px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.2em;
+  height: 1.2em;
+  border-style: solid;
+}
+.bbn-radio:checked+.bbn-radio-label:after {
+  background-color: @state-selected-border;
+  border-radius: 50%;
+  content: "";
+  width: 0.8em;
+  height: 0.8em;
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+}
+.bbn-radio:disabled+.bbn-radio-label {
+  cursor: auto;
+}
+.bbn-radio:disabled:checked + .bbn-radio-label:after {
+  //background-color: @state-selected-background;
+  opacity: 0.5;
+}
+.bbn-radio:focus + .bbn-radio-label:before {
+  border-color: @state-selected-border;
+  box-shadow: 0 0 3px 0 @state-selected-background;
+}
+.bbn-radio:disabled + .bbn-radio-label {
+  color: @disabled-color;
+}
+.bbn-radio:disabled + .bbn-radio-label:hover:after,
+.bbn-radio:disabled + .bbn-radio-label:hover:before,
+.bbn-radio:disabled + .bbn-radio-label:before,
+.bbn-radio:disabled + .bbn-radio-label:active:before
+ {
+  background: @disabled-background;
+  border-color: @disabled-border;
+  box-shadow: none;
+}
+
+.bbn-numeric{
+  .bbn-reactive-block:focus:not(.bbn-disabled), .bbn-reactive-block:hover:focus:not(.bbn-disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled), .bbn-reactive-block:hover:focus-within:not(.bbn-disabled)
+.bbn-reactive-block:focus:not(:disabled), .bbn-reactive-block:hover:focus:not(:disabled), .bbn-reactive-block:focus-within:not(:disabled), .bbn-reactive-block:hover:focus-within:not(:disabled), .bbn-reactive-block:focus-within:not(.bbn-disabled){
+  .bbn-background-effect-internal;
+  .bbn-bordered;
+  }
+}
+/*
+.bbn-switch{
+  position: relative;
+  display: inline-block;
+  // changed to rem because in the component css rem is used for the size of internal square of bbn-switch
+  width: 2.96rem;
+  height: 1.7rem;
+}
+ */
+.bbn-form-full{
+  .bbn-block;
+  .bbn-flex-fill;
+  width: 100%;
+  margin:0.3em 0;
+  min-height: 1.5em;
+}
+.bbn-form-full::after{
+  .bbn-block-after;
+}
+.bbn-table{
+  //.bbn-background-internal;
+  border-width: 0;
+  table > tbody > tr, > thead > tr{
+    > td{
+      .bbn-background-internal;
+      .bbn-spadded;
+      border-collapse: collapse;
+    }
+  }
+  table > tbody > tr{
+    border: 0;
+    &:hover{
+      > td {
+        .bbn-alt-background-effect-internal;
+      }
+    }
+    &.bbn-alt{
+      
+      > td{
+        .bbn-alt-background-internal;
+      }
+    }
+    > td{
+      border-color: @default-border;
+      border-width: @default-border-width;
+      border-style: @default-border-style;
+      &.bbn-buttons-flex{
+        .bbn-block{
+          div{
+            display: flex!important;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            .bbn-button.bbn-button-icon-only{
+              margin: .1em .1em !important;
+              height: 2em;
+              width: 2em;
+              span{
+                //padding-top: 0.25em;
+              }
+            }
+          }
+        }
+        &.bbn-c {
+          .bbn-block{
+            div{
+              justify-content: center;
+            }
+          }
+        }
+        &.bbn-r {
+          .bbn-block{
+            div{
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+    }
+  }
+  table > thead > tr > td{
+    border-color: @alt-border;
+    border-width: @alt-border-width;
+    border-style: @alt-border-style;
+  }
+}
+.bbn-diode {
+  .bbn-unselectable;
+  background: #FFF;
+  color: #FFF;
+  border: 0.1em solid rgba(0,0,0, 0.25) !important;
+  font-size: 80%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  display: inline-block;
+	filter: grayscale(30%) brightness(80%);
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: content-box;
+  > * {
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1em;
+    visibility: hidden;
+  }
+  &:hover, &.bbn-hover{
+    filter: none !important;
+    > * {
+      visibility: visible;
+    }
+  }
+  &.bbn-on {
+    filter: none;
+  }
+  &.bbn-on:hover, &.bbn-on.bbn-hover {
+    filter: grayscale(30%) brightness(80%) !important;
+    > * {
+      visibility: visible;
+    }
+  }
+  &.bbn-dark {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    > * {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+[class^='bbn-icon-'], *[class*='bbn-icon-'] {
+  display: inline-block;
+  font-weight: bold;
+  vertical-align: middle;
+  background: #fff;
+  border: 0.2em solid #666;
+  color: #666;
+  text-align: center;
+  padding: 0.1em;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  font-size: 1em;
+}
+.bbn-xxxxl, .bbn-xxxxlarge{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+    font-size: 4em;
+  }
+}
+.bbn-xxxl, .bbn-xxxlarge{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 2.5em;
+    height: 2.5em;
+    line-height: 2.5em;
+    font-size: 2.5em;
+  }
+}
+.bbn-xxl, .bbn-xxlarge{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8em;
+    font-size: 1.8em;
+  }
+}
+.bbn-xl, .bbn-xlarge{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    font-size: 1.5em;
+  }
+}
+.bbn-lg, .bbn-large{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+    font-size: 1.3em;
+  }
+}
+.bbn-m, .bbn-medium{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 1.1em;
+    height: 1.1em;
+    line-height: 1.1em;
+    font-size: 1.1em;
+  }
+}
+.bbn-s, .bbn-small{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 0.85em;
+    height: 0.85em;
+    line-height: 0.85em;
+    font-size: 0.85em;
+  }
+}
+.bbn-xs, .bbn-xsmall{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 0.75em;
+    height: 0.75em;
+    line-height: 0.75em;
+    font-size: 0.75em;
+  }
+}
+.bbn-xxs, .bbn-xxsmall{
+  [class^='bbn-icon-'], [class*='bbn-icon-'], &[class^='bbn-icon-'], &[class*='bbn-icon-'] {
+    width: 0.66em;
+    height: 0.66em;
+    line-height: 0.66em;
+    font-size: 0.66em;
+  }
+}
+.bbn-icon-circle {
+  border-radius: 50%;
+  background: @default-background;
+  border: 0.2em solid @default-text;
+  color: @default-text;
+}
+.bbn-icon-circle-full {
+  border-radius: 50%;
+  background: @default-text;
+  border: 0.2em solid @default-text;
+  color: @default-background;
+}
+.bbn-icon-squarer {
+  border-radius: 0.2em;
+  background: @default-background;
+  border: 0.2em solid @default-text;
+  color: @default-text;
+}
+.bbn-icon-squarer-full {
+  border-radius: 0.2em;
+  background: @default-text;
+  border: 0.2em solid @default-text;
+  color: @default-background;
+}
+.bbn-icon-square {
+  background: @default-background;
+  border: 0.2em solid @default-text;
+  color: @default-text;
+}
+.bbn-icon-square-full {
+  background: @default-text;
+  border: 0.2em solid @default-text;
+  color: @default-background;
+}
+.bbn-icon-circle-alt {
+  border-radius: 50%;
+  background: @alt-background;
+  border: 0.2em solid @alt-text;
+  color: @alt-text;
+}
+.bbn-icon-circle-full-alt {
+  border-radius: 50%;
+  background: @alt-text;
+  border: 0.2em solid @alt-text;
+  color: @alt-background;
+}
+.bbn-icon-squarer-alt {
+  border-radius: 0.2em;
+  background: @alt-background;
+  border: 0.2em solid @alt-text;
+  color: @alt-text;
+}
+.bbn-icon-squarer-full-alt {
+  border-radius: 0.2em;
+  background: @alt-text;
+  border: 0.2em solid @alt-text;
+  color: @alt-background;
+}
+.bbn-icon-square-alt {
+  background: @alt-background;
+  border: 0.2em solid @alt-text;
+  color: @alt-text;
+}
+.bbn-icon-square-full-alt {
+  background: @alt-text;
+  border: 0.2em solid @alt-text;
+  color: @alt-background;
+}
+.bbn-nav-dots {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  li {
+    .bbn-state-default;
+    font-size: 1em;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    -js-display: inline-flex;
+    display: -moz-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 5px;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;    
+  }
+  li:active{
+    .bbn-state-selected;
+  }
+}

@@ -1,0 +1,159 @@
+.bbn-state-default{
+  border-color: @active-border;
+}
+.bbn-state-hover{
+  color: @hover-text;
+  background-color: @hover-background;
+  border-color: @hover-border;
+  //.bbn-alt-background-effect-internal;
+}
+
+.bbn-state-active{
+  .bbn-active-background;
+  .bbn-active-text;
+  border-color: @active-border !important;
+  //contrast(@active-background);
+}
+.bbn-state-selected{
+  .bbn-selected-background;
+  .bbn-selected-text;
+  border-color: @state-selected-border !important;
+  border-width: @default-border-width !important;
+  border-style: @default-border-style !important;
+  //contrast(@active-background);
+}
+.bbn-state-error{
+  border-style: ridge;
+}
+.bbn-error-colored{
+  color: #7f5050;
+  border-color: #dfd0d0;
+  background-color: #fff0f0;
+}
+.bbn-state-empty{
+  font-style: italic;
+}
+.bbn-state-focus{
+  .bbn-bordered-internal;
+  border-style: dotted;
+}
+
+.bbn-disabled, .bbn-state-disabled{
+  .bbn-disabled-text;
+  background-color: @disabled-background;
+  border-color: @disabled-border;
+  cursor: default !important;
+}
+
+.bbn-reactive{
+  .bbn-state-default;
+  &:hover:not(.bbn-disabled):not(:disabled),
+  &.bbn-hover:not(.bbn-disabled):not(:disabled){
+    .bbn-state-hover;
+  }
+  &:active:not(.bbn-disabled):not(:disabled),
+  &.bbn-active:not(.bbn-disabled):not(:disabled){
+    .bbn-state-active;
+  }
+  &:focus:not(.bbn-disabled):not(:disabled),
+  &.bbn-focus:not(.bbn-disabled):not(:disabled){
+    .bbn-state-active;
+  }
+}
+/*
+.bbn-reactive:hover:not(.bbn-disabled),
+.bbn-reactive.bbn-hover:not(.bbn-disabled){
+  border-color: @hover-border;
+  color: @hover-text;
+}
+.bbn-reactive:hover:focus, .bbn-reactive.bbn-hover.bbn-focus{
+  border-color: @state-selected-border!important;
+}
+.bbn-reactive:active{
+  border-color: @active-border;
+}
+.bbn-reactive:hover:not(.bbn-disabled), .bbn-reactive.bbn-hover:not(.bbn-disabled){
+  background-color: @hover-background!important;
+}
+.bbn-reactive:active, .bbn-reactive.bbn-active{
+  .bbn-background-effect-primary-internal;
+  color: @hover-text;
+}
+*/
+.bbn-primary {
+  .bbn-background-primary-internal;
+  color: @primary-text!important;
+  border-color: @primary-border;
+}
+.bbn-secondary {
+  .bbn-background-secondary-internal;
+  color: @secondary-text!important;
+  border-color: @secondary-border;
+}
+.bbn-tertiary {
+  .bbn-background-tertiary-internal;
+  color: @tertiary-text!important;
+  border-color: @tertiary-border;
+}
+.bbn-primary:hover:not(.bbn-disabled),.bbn-primary.bbn-hover:not(.bbn-disabled){
+  //background: @primary-background !important;
+  //.bbn-background-effect-primary-internal;
+  color: @primary-text !important;
+  border-color: @primary-border;
+  text-shadow: 0 0 0.1em @primary-text;
+}
+.bbn-secondary:hover:not(.bbn-disabled),.bbn-secondary.bbn-hover:not(.bbn-disabled){
+  color: @secondary-text !important;
+  border-color: @secondary-border;
+  text-shadow: 0 0 0.1em @secondary-text;
+}
+.bbn-tertiary:hover:not(.bbn-disabled),.bbn-tertiary.bbn-hover:not(.bbn-disabled){
+  color: @tertiary-text !important;
+  border-color: @tertiary-border;
+  text-shadow: 0 0 0.1em @tertiary-text;
+}
+.bbn-primary:active,.bbn-primary.bbn-active{
+  .bbn-background-effect-primary-internal;
+}
+.bbn-secondary:active,.bbn-secondary.bbn-active{
+  .bbn-background-effect-secondary-internal;
+}
+.bbn-tertiary:active,.bbn-tertiary.bbn-active{
+  .bbn-background-effect-tertiary-internal;
+}
+.bbn-primary:disabled,.bbn-primary.bbn-disabled,
+.bbn-secondary:disabled,.bbn-secondary.bbn-disabled,
+.bbn-tertiary:disabled,.bbn-tertiary.bbn-disabled
+{
+  opacity: 0.7;
+  cursor: default !important;
+  outline: 0;
+}
+
+@media print{
+  .bbn-disabled,
+  .bbn-disabled *{
+    opacity: 1 !important;
+  }
+}
+
+:focus{
+  outline: 0;
+}
+.bbn-negative{
+  background-color: @default-text;
+  color: @default-background;
+}
+.bbn-unselectable{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.bbn-sort-helper{
+  position: fixed;
+  display: none;
+  opacity: 0.5;
+}
