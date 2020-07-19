@@ -8,7 +8,21 @@
     "bbn"
   ],
   "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
+  "main": "dist/bbn.js",
   "dependencies": {
+    "axios": "^0.19.2",
+    "define": "^1.0.1",
     "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "file-loader": "^6.0.0",
+    "glob": "^7.1.6",
+    "less-loader": "^6.2.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   }
 }

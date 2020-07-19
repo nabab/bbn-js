@@ -5,6 +5,7 @@ logs
 .idea/
 doc/src/
 src/fn/backup/
+node_modules/
 *DS_STORE*
 
 [core]

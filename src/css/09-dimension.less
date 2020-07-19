@@ -11,54 +11,53 @@
   .bbn-h-100;
   .bbn-w-100;
 }
-.create-dimensions-rules(@num) {
-  @t: floor(@num);
-  .bbn-@{t}, .bbn-w-@{t} {
+.create-dimensions-rules(@name, @num) {
+  .bbn-@{name}, .bbn-w-@{name} {
     .bbn-block;
     width: @num + ~"%";
   }
-  .bbn-w-@{t}.bbn-block-right{
+  .bbn-w-@{name}.bbn-block-right{
     width: ~"-webkit-calc(" + @num + "% - 2em)";
     width: ~"-moz-calc(" + @num + "% - 2em)";
     width: ~"calc(" + @num + "% - 2em)";
   }
-  .bbn-@{t}, .bbn-h-@{t} {
+  .bbn-@{name}, .bbn-h-@{name} {
     .bbn-border-box;
     height: @num + ~"%";
   }
-  .bbn-padded-@{t}, .bbn-hpadded-@{t} {
+  .bbn-padded-@{name}, .bbn-hpadded-@{name} {
     padding-left: @num + ~"%";
     padding-right: @num + ~"%";
   }
-  .bbn-padded-@{t}, .bbn-vpadded-@{t} {
+  .bbn-padded-@{name}, .bbn-vpadded-@{name} {
     padding-top: @num + ~"%";
     padding-bottom: @num + ~"%";
   }
-  .bbn-margin-@{t}, .bbn-hmargin-@{t} {
+  .bbn-margin-@{name}, .bbn-hmargin-@{name} {
     margin-left: @num + ~"%";
     margin-right: @num + ~"%";
   }
-  .bbn-margin-@{t}, .bbn-vmargin-@{t} {
+  .bbn-margin-@{name}, .bbn-vmargin-@{name} {
     margin-top: @num + ~"%";
     margin-bottom: @num + ~"%";
   }
 
 }
-.create-dimensions-rules(90);
-.create-dimensions-rules(80);
-.create-dimensions-rules(75);
-.create-dimensions-rules(70);
-.create-dimensions-rules(66.6666);
-.create-dimensions-rules(60);
-.create-dimensions-rules(50);
-.create-dimensions-rules(40);
-.create-dimensions-rules(30);
-.create-dimensions-rules(33.3333);
-.create-dimensions-rules(25);
-.create-dimensions-rules(20);
-.create-dimensions-rules(15);
-.create-dimensions-rules(10);
-.create-dimensions-rules(5);
+.create-dimensions-rules(90, 90);
+.create-dimensions-rules(80, 80);
+.create-dimensions-rules(75, 75);
+.create-dimensions-rules(70, 70);
+.create-dimensions-rules(66, 66.6666);
+.create-dimensions-rules(60, 60);
+.create-dimensions-rules(50, 50);
+.create-dimensions-rules(40, 40);
+.create-dimensions-rules(30, 30);
+.create-dimensions-rules(33, 33.3333);
+.create-dimensions-rules(25, 25);
+.create-dimensions-rules(20, 20);
+.create-dimensions-rules(15, 15);
+.create-dimensions-rules(10, 10);
+.create-dimensions-rules(5, 5);
 .bbn-full-width{
   .bbn-block;
   .bbn-w-100;

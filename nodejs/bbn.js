@@ -10,7 +10,9 @@
  *  - language (l)
  */
 const axios = require("axios");
-const functions = require("./fn/index");
+const env = require('./env/_def');
+const functions = require('./fn/index');
+const variables = require('./var/index');
 
 function createBbn() {
   "use strict";
@@ -70,7 +72,9 @@ function createBbn() {
     app: {
       popups: [],
     },
-    fn: functions
+    fn: functions,
+    env: env,
+    var: variables
   };
 }
 
