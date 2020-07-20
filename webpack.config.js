@@ -1,6 +1,8 @@
+const glob = require('glob');
+
 module.exports = {
   mode: 'development',
-  entry: './nodejs/bbn.js',
+  entry: ['./nodejs/bbn.js', './nodejs/bbn.less'],
   module: {
     rules: [
       {

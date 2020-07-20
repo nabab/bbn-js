@@ -11,3 +11,12 @@ node_modules/
 [core]
 filemode = false
 *.* text eol=lf
+
+# Build
+dist/
+
+# Node
+node_modules/
+
+# Archives
+*.tgz
