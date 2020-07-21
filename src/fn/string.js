@@ -680,14 +680,21 @@
      * @returns  {String} path of the folder
      */
     dirName(path){
-      var bits = path.split("/");
-      if ( bits.length < 2 ){
-        return false;
+      if (bbn.fn.isString(path) && path) {
+        while (path.substr(path.length-1) === '/') {
+          path = path.substr(0, path.length-1);
+        }
+        let pos = path.lastIndexOf('/');
+        if (pos > 0) {
+          return path.substr(0, pos);
+        }
+        if (pos === 0) {
+          return '/';
+        }
       }
-      bits.pop();
-      return bits.join("/");
+      return '';
     },
-
+  
     /**
      * Returns the name of the element indicated by path given to it as an argument.
      *

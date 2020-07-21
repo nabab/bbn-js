@@ -1,38 +1,4 @@
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-Regular.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-Regular.ttf") format("truetype");
-  font-style: normal;
-}
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-Italic.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-Italic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: normal;
-}
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-Bold.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-Bold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: bold;
-}
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-BoldItalic.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-BoldItalic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: bold;
-}
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-Light.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-Light.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 200;
-}
-@font-face {
-  font-family: 'OpenSans';
-  src: url("../fonts/OpenSans/OpenSans-LightItalic.woff2") format("woff2"), url("../fonts/OpenSans/OpenSans-LightItalic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 200;
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 html {
   width: 100%;
   height: 100%;
@@ -49,7 +15,7 @@ body {
   padding: 0;
   border: 0;
   font-size: calc(8px + 0.5vmin);
-  font-family: 'OpenSans' !important;
+  font-family: 'Open Sans', sans-serif !important;
   font-style: normal;
   font-weight: normal;
   text-align: left;
@@ -61,7 +27,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'OpenSans';
+  font-family: 'Open Sans', sans-serif;
 }
 a,
 .bbn-link {
@@ -107,7 +73,7 @@ h5 {
   padding: 0;
   border: 0;
   font-size: calc(8px + 0.5vmin);
-  font-family: 'OpenSans' !important;
+  font-family: 'Open Sans', sans-serif !important;
   font-style: normal;
   font-weight: normal;
   text-align: left;
@@ -904,6 +870,138 @@ i.nf.bbn-xxxxl {
   width: 100%;
   clear: both;
 }
+.bbn-full-width {
+  position: relative;
+  box-sizing: border-box !important;
+  float: left;
+  width: 100%;
+  clear: both;
+}
+.bbn-full-height {
+  position: relative;
+  box-sizing: border-box !important;
+  float: left;
+  height: 100%;
+}
+.bbn-narrow {
+  width: 8em;
+}
+.bbn-narrower {
+  width: 4em;
+}
+.bbn-regular {
+  width: 12em;
+}
+.bbn-wide {
+  width: 20em;
+}
+.bbn-wider {
+  width: 30em;
+}
+.bbn-auto-width {
+  width: auto !important;
+}
+.bbn-flex-width {
+  display: flex !important;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100%;
+}
+.bbn-flex-width.bbn-reverse {
+  flex-direction: row-reverse;
+}
+.bbn-flex-height {
+  display: flex !important;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  height: 100%;
+}
+.bbn-flex-height.bbn-reverse {
+  flex-direction: column-reverse;
+}
+.bbn-flex-fill {
+  flex-grow: 1;
+  position: relative;
+}
+.bbn-button-group {
+  display: flex !important;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100%;
+  padding: 0;
+  border-radius: 0px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  border-width: 0;
+}
+.bbn-button-group.bbn-reverse {
+  flex-direction: row-reverse;
+}
+.bbn-button-group.bbn-reverse {
+  flex-direction: row-reverse;
+}
+.bbn-button-group > .bbn-button {
+  flex-grow: 1;
+  position: relative;
+  border-radius: 0;
+}
+.bbn-button-group > .bbn-button:first-child {
+  border-radius: inherit 0 0 inherit;
+}
+.bbn-button-group > .bbn-button:last-child {
+  border-radius: 0 inherit inherit 0;
+}
+.bbn-full-screen,
+.bbn-overlay {
+  box-sizing: border-box;
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  height: 100%;
+}
+.bbn-full-content {
+  position: relative;
+  box-sizing: border-box !important;
+  float: left;
+  width: 100%;
+  clear: both;
+  height: 100% !important;
+  overflow: auto;
+  background-color: #2e2e2e !important;
+}
+.bbn-flex {
+  display: flex !important;
+  flex-wrap: nowrap;
+}
+.bbn-transition-width {
+  transition: width 0.3s;
+}
+.bbn-transition-height {
+  transition: height 0.3s;
+}
+.bbn-w-100 {
+  position: relative;
+  box-sizing: border-box !important;
+  float: left;
+  width: 100%;
+  clear: both;
+}
+.bbn-h-100 {
+  position: relative;
+  box-sizing: border-box !important;
+  height: 100% !important;
+}
+.bbn-100 {
+  position: relative;
+  box-sizing: border-box !important;
+  height: 100% !important;
+  float: left;
+  width: 100%;
+  clear: both;
+}
 .bbn-90,
 .bbn-w-90 {
   position: relative;
@@ -1538,6 +1636,9 @@ i.nf.bbn-xxxxl {
   display: flex;
   justify-content: flex-end;
   border-width: 0;
+}
+.bbn-button-group.bbn-reverse {
+  flex-direction: row-reverse;
 }
 .bbn-button-group.bbn-reverse {
   flex-direction: row-reverse;

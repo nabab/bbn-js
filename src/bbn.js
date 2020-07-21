@@ -20,7 +20,7 @@
     axios.defaults.headers.post['Content-Type'] = 'text/json';
   }
   return {
-    version: "0.2",
+    version: "1.0.1",
     opt: {
       _cat: {}
     },
