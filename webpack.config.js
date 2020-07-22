@@ -1,8 +1,19 @@
 const glob = require('glob');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
-module.exports = {
+module.exports = [{
   mode: 'development',
-  entry: ['./nodejs/bbn.js', './nodejs/bbn.less'],
+  entry: './nodejs/bbn.js',
+  output: {
+    libraryTarget: 'commonjs',
+    filename: 'bbn.js',
+  }
+}, {
+  mode: 'development',
+  entry: createLessEntryPoints(),
+  plugins: [new FixStyleOnlyEntriesPlugin(), new MiniCssExtractPlugin({filename: '[name].css'})],
   module: {
     rules: [
       {
@@ -19,16 +30,20 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader'},
-          {loader: 'less-loader'}
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
       }
     ],
-  },
-  output: {
-    libraryTarget: 'commonjs',
-    filename: 'bbn.js',
   }
-};
+}];
+
+function createLessEntryPoints() {
+  const lessFiles = glob.sync('./nodejs/css/**/*.less');
+
+  const lessEntryPoints = {};
+  lessFiles.forEach(file => {
+    const basename = path.basename(file);
+    const filenameWithoutExtension = path.parse(basename).name;
+    lessEntryPoints[filenameWithoutExtension] = file;
+  });
+  return lessEntryPoints;
+}
