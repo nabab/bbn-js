@@ -1,0 +1,7 @@
+{
+  "all": true,
+  "include": [
+    "nodejs/**/*.js"
+  ],
+  "reporter": ["html", "text"]
+}
