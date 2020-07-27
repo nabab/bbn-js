@@ -23,4 +23,22 @@ describe(`Type Functions`, () => {
       expect(functions.isEmail(() => {})).to.be.false;
     });
   });
+
+  describe(`isColor`, () => {
+    it('should determine if text is a color', () => {
+      expect(functions.isColor("red")).to.be.true;
+      expect(functions.isColor("#FF0000")).to.be.true;
+      expect(functions.isColor("rgb 255, 0, 0")).to.be.true;
+
+      expect(functions.isColor("#FF00")).to.be.false;
+      expect(functions.isColor("#FF00FF00")).to.be.false;
+    });
+
+    it('should check for types other than string', () => {
+      expect(functions.isColor({})).to.be.false;
+      expect(functions.isColor([])).to.be.false;
+      expect(functions.isColor([{}])).to.be.false;
+      expect(functions.isColor(() => {})).to.be.false;
+    });
+  });
 });
