@@ -12,7 +12,7 @@
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
     "build": "webpack",
-    "test": "mocha"
+    "test": "nyc mocha"
   },
   "main": "dist/bbn.js",
   "dependencies": {
@@ -28,6 +28,7 @@
     "less-loader": "^6.2.0",
     "mini-css-extract-plugin": "^0.9.0",
     "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
