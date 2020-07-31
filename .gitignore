@@ -5,7 +5,6 @@ logs
 .idea/
 doc/src/
 src/fn/backup/
-node_modules/
 *DS_STORE*
 
 [core]
@@ -14,6 +13,8 @@ filemode = false
 
 # Build
 dist/
+.nyc_output/
+coverage/
 
 # Node
 node_modules/
