@@ -1,6 +1,6 @@
 <p align="center"><img alt="BBN JS" src="https://cdn.bbn.io/img/240w/js.png"></p>
 
-![Build](https://github.com/ashraymehta/bbnjs/workflows/Build/badge.svg)
+![Build](https://github.com/nabab/bbnjs/workflows/Build/badge.svg)
 
 ### BBNJS is an opiniated library used by our [VueJS Components](https://bbn.io/bbn-vue/home), and by our [Application AppUI](https://app-ui.com), and designed to work in conjonction with our [PHP Framework BBN](https://bbn.io/bbn-php/home).
 
