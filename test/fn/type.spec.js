@@ -1,4 +1,5 @@
 const {expect} = require('chai');
+require('jsdom-global')();
 
 describe(`Type Functions`, () => {
   const functions = require('../../nodejs/fn/type');
@@ -39,6 +40,18 @@ describe(`Type Functions`, () => {
       expect(functions.isColor([])).to.be.false;
       expect(functions.isColor([{}])).to.be.false;
       expect(functions.isColor(() => {})).to.be.false;
+    });
+  });
+
+  describe(`isDom`, () => {
+    it('should determine if element is a DOM element', () => {
+      expect(functions.isDom(document.createElement("div"))).to.be.true;
+      expect(functions.isDom(document.createElement("p"))).to.be.true;
+
+      expect(functions.isDom({})).to.be.false;
+      expect(functions.isDom([])).to.be.false;
+      expect(functions.isDom([{}])).to.be.false;
+      expect(functions.isDom(() => {})).to.be.false;
     });
   });
 });
