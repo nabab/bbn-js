@@ -363,6 +363,13 @@
             },
             {
                 "file": "misc.js",
+                "text": "selectElementText",
+                "desc": "Selects the content of an element",
+                "value": "selectElementText",
+                "url": "bbn-js\/doc\/misc\/selectElementText"
+            },
+            {
+                "file": "misc.js",
                 "text": "setCookie",
                 "desc": "Creates a cookie and assigns it to document.cookie",
                 "value": "setCookie",

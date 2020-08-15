@@ -105,10 +105,10 @@
        // $(window)
        //   .on("resize orientationchange", function() {
         window.addEventListener("resize", () => {
-          setTimeout(bbn.fn.resize, 1000);
+          bbn.fn.resize();
         });
         window.addEventListener("orientationchange", () => {
-          setTimeout(bbn.fn.resize, 1000);
+          bbn.fn.resize();
         });
 
         bbn.fn.resize();

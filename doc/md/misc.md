@@ -30,6 +30,8 @@ Checks whether the given elemet is focused or not.
 Returns true if the current browser is on a mobile device.  
 [bbn.fn.__log__](#log)  
 Logs the given arguments in the browser's console.  
+[bbn.fn.__selectElementText__](#selectElementText)  
+Selects the content of an element.  
 [bbn.fn.__setCookie__](#setCookie)  
 Creates a cookie and assigns it to document.cookie.  
 [bbn.fn.__startChrono__](#startChrono)  
@@ -290,6 +292,25 @@ bbn.fn.getTimeoff();
 bbn.fn.isFocused(document.getElementById('input_name'));
 // false
 bbn.fn.isFocused(bbn.sel('.container'));
+// true
+```
+[Back to top](#bbn_top)  
+
+### <a name="selectElementText"></a>bbn.fn.selectElementText(ele, win)
+
+  __Selects the content of an element.__
+
+  * __ele__ _Element_ The element in which the text should be selected
+  * __win__ _Boolean_ The window object
+
+
+  __Returns__ _Boolean_ True if focused
+
+
+``` javascript
+bbn.fn.selectElementText(document.getElementById('my_input_id'));
+// false
+bbn.fn.selectElementText(bbn.$('#my_span_id'));
 // true
 ```
 [Back to top](#bbn_top)  

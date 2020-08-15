@@ -47,6 +47,7 @@ describe(`Type Functions`, () => {
     it('should determine if element is a DOM element', () => {
       expect(functions.isDom(document.createElement("div"))).to.be.true;
       expect(functions.isDom(document.createElement("p"))).to.be.true;
+      expect(functions.isDom(window)).to.be.false;
 
       expect(functions.isDom({})).to.be.false;
       expect(functions.isDom([])).to.be.false;

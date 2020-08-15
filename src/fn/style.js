@@ -182,7 +182,7 @@
      * @returns  {*} 
      */
     selector(ele) {
-      return (typeof el === 'string') ? document.querySelector(el) : el;
+      return (typeof el === 'string') ? document.querySelector(ele) : ele;
     },
 
     /**
