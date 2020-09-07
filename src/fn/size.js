@@ -25,10 +25,33 @@
      */
     resize(){
       if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
-        bbn.env.width = window.innerWidth;
-        bbn.env.height = window.innerHeight;
+        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
       }
       bbn.fn.defaultResizeFunction();
+    },
+
+    /**
+     * Returns the value of size for element html
+     *
+     * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
+     *
+     * @method   formatSize
+     * @global
+     *
+     *
+     * @memberof bbn.fn
+     * @param    {String|Number} st
+     * @returns  {String}
+     */
+    formatSize(st, noValid){
+      if ( bbn.fn.isNumber(st) ){
+        return st + 'px';
+      }
+      if (bbn.fn.isString(st)) {
+        return st;
+      }
+      return noValid ? false : 'auto';
     },
 
     /**

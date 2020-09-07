@@ -776,7 +776,26 @@
         range.moveToElementText(ele);
         range.select();
       }
-  }
+    },
+    getAncestors(ele, sel) {
+      let r = [];
+      if (ele instanceof HTMLElement) {
+        if (typeof(sel) === 'string') {
+          while (ele = ele.closest(sel)) {
+            r.push(ele);
+          }
+        }
+        else {
+          if (sel === true) {
+            r.push(ele);
+          }
+          while (ele = ele.parentNode) {
+            r.push(ele);
+          }
+        }
+      }
+      return r;
+    }
 
   });
 })(bbn);

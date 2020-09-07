@@ -775,29 +775,6 @@
     },
 
     /**
-     * Returns the value of size for element html
-     *
-     * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
-     *
-     * @method   formatSize
-     * @global
-     *
-     *
-     * @memberof bbn.fn
-     * @param    {String|Number} st
-     * @returns  {String}
-     */
-    formatSize(st){
-      if ( !st ){
-        return 'auto';
-      }
-      if ( bbn.fn.isNumber(st) ){
-        return st + 'px';
-      }
-      return st.toString();
-    },
-
-    /**
      * Returns a string which is the repetition of the first argument for the number passed in the second argument.
      *
      * @method   repeat
