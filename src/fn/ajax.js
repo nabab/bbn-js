@@ -972,24 +972,7 @@
      * @returns  {String} The unique ID
      */
     getRequestId(url, data, datatype){
-      let d = [];
-      if (data) {
-        let fn = (data) => {
-          let r = [];
-          let keys = Object.keys(data).sort();
-          bbn.fn.each(keys, (n) => {
-            if (n.indexOf('_bbn') !== 0) {
-              r.push(n);
-              if (bbn.fn.isObject(data[n])) {
-                r.push(fn(data[n]));
-              }
-            }
-          });
-          return r;
-        }
-        d = fn(data);
-      }
-      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
+      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(data || []));
     },
 
     /**

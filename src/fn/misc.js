@@ -13,6 +13,61 @@
   let _private = {};
 
   Object.assign(bbn.fn, {
+    checkPropsDetails(obj, props, checkEmpty) {
+      let res = {
+        error: false,
+        result: true
+      };
+      if (bbn.fn.isString(props)) {
+        props = [props];
+      }
+      if (!bbn.fn.isArray(props)) {
+        res.error = bbn._("checkProps must receive a string or an array as props argument");
+      }
+      if (!bbn.fn.isObject(obj)) {
+        res.error = bbn._("checkProps must receive an object as obj argument");
+      }
+      if (!res.error) {
+        let check;
+        bbn.fn.each(props, varName => {
+          varName = varName.trim().split(':');
+          let type = varName[1] || false;
+          varName = varName[0];
+          if (obj[varName] === undefined) {
+            res.error = varName+ ' ' + bbn._("is not defined");
+          }
+          else if (type) {
+            check = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1).toLowerCase();
+            if (bbn.fn[check] === undefined) {
+              res.error = type + ' ' + bbn._("is not a valid type");
+            }
+            else if (!bbn.fn[check](obj[varName])) {
+              res.error = varName+ ' ' + bbn._("is not a") + ' ' + type;
+            }
+          }
+          else if (checkEmpty && !obj[varName]) {
+            res.error = varName+ ' ' + bbn._("is empty");
+          }
+          if (res.error) {
+            return false;
+          }
+        });
+      }
+      if (res.error) {
+        res.result = false;
+      }
+      return res;
+    },
+    checkProps(obj, props, checkEmpty) {
+      return bbn.fn.checkPropsDetails(obj, props, checkEmpty).result;
+    },
+    checkPropsOrDie(obj, props, checkEmpty) {
+      let res = bbn.fn.checkPropsDetails(obj, props, checkEmpty);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      return true;
+    },
     /**
      * 
      */
@@ -680,20 +735,86 @@
     },
 
     /**
-     * Returns true if the current browser is on a mobile device. 
-     * @method   isMobile
-     * @global   
-     * @example
-     * ``` javascript
-     * bbn.fn.isMobile();
-     * // false
-     * ```
-     * @memberof bbn.fn
-     * @returns  {Boolean} 
-     */
-    isMobile(){
-      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    * Returns the current device type. 
+    * @method   getDeviceType
+    * @global   
+    * @example
+    * ``` javascript
+    * bbn.fn.getDeviceType();
+    * // mobile
+    * ```
+    * @memberof bbn.fn
+    * @returns  {String} 
+    */
+    getDeviceType(){
+      if ( /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent) ){
+        return "tablet";
+      }
+      if ( /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(navigator.userAgent) ){
+        return "mobile";
+      }
+      return "desktop";
     },
+    /**
+      * Returns true if the current device type is a mobile. 
+      * @method   isMobileDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isMobileDevice();
+      * // false
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isMobileDevice(){
+        return this.getDeviceType() === 'mobile';
+      },
+    /**
+      * Returns true if the current device type is a tablet. 
+      * @method   isTabletDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isTabletDevice();
+      * // false
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isTabletDevice(){
+        return this.getDeviceType() === 'tablet';
+      },
+    /**
+      * Returns true if the current device type is a desktop. 
+      * @method   isDesktopDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isDesktopDevice();
+      * // true
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isDesktopDevice(){
+        return this.getDeviceType() === 'desktop';
+      },
+      /**
+       * Returns true if the current browser is on a mobile device (smartphone or tablet). 
+       * @method   isMobile
+       * @global   
+       * @example
+       * ``` javascript
+       * bbn.fn.isMobile();
+       * // false
+       * ```
+       * @memberof bbn.fn
+       * @returns  {Boolean} 
+       */
+      isMobile(){
+        return bbn.fn.isMobileDevice() || bbn.fn.isTabletDevice();
+      },
     /**
      * Returns the length of time the window has not been focused in seconds. 
      * @method   getTimeoff

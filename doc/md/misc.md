@@ -12,6 +12,8 @@ Erase the cookie corresponding to the given name;
 Formats the value given in bytes.  
 [bbn.fn.__getCookie__](#getCookie)  
 If it exsists returns the cookie corresponding to the given name.  
+[bbn.fn.__getDeviceType__](#getDeviceType)  
+Returns the current device type.  
 [bbn.fn.__getEventData__](#getEventData)  
 Returns a promise having the event's data as argument.  
 [bbn.fn.__getTimeoff__](#getTimeoff)  
@@ -24,10 +26,16 @@ Draws the given html image nto a canvas.
 Returns the tag for the image in base64  
 [bbn.fn.__info__](#info)  
 Logs the given argument in the browser's console highlighting it with a blue background.  
+[bbn.fn.__isDesktopDevice__](#isDesktopDevice)  
+Returns true if the current device type is a desktop.  
 [bbn.fn.__isFocused__](#isFocused)  
 Checks whether the given elemet is focused or not.  
 [bbn.fn.__isMobile__](#isMobile)  
-Returns true if the current browser is on a mobile device.  
+Returns true if the current browser is on a mobile device (smartphone or tablet).  
+[bbn.fn.__isMobileDevice__](#isMobileDevice)  
+Returns true if the current device type is a mobile.  
+[bbn.fn.__isTabletDevice__](#isTabletDevice)  
+Returns true if the current device type is a tablet.  
 [bbn.fn.__log__](#log)  
 Logs the given arguments in the browser's console.  
 [bbn.fn.__selectElementText__](#selectElementText)  
@@ -249,9 +257,65 @@ bbn.fn.stopChrono('myChrono');
 ```
 [Back to top](#bbn_top)  
 
+### <a name="getDeviceType"></a>bbn.fn.getDeviceType()
+
+  __Returns the current device type.__
+
+
+  __Returns__ _String_ 
+
+
+``` javascript
+bbn.fn.getDeviceType();
+// mobile
+```
+[Back to top](#bbn_top)  
+
+### <a name="isMobileDevice"></a>bbn.fn.isMobileDevice()
+
+  __Returns true if the current device type is a mobile.__
+
+
+  __Returns__ _Boolean_ 
+
+
+``` javascript
+bbn.fn.isMobileDevice();
+// false
+```
+[Back to top](#bbn_top)  
+
+### <a name="isTabletDevice"></a>bbn.fn.isTabletDevice()
+
+  __Returns true if the current device type is a tablet.__
+
+
+  __Returns__ _Boolean_ 
+
+
+``` javascript
+bbn.fn.isTabletDevice();
+// false
+```
+[Back to top](#bbn_top)  
+
+### <a name="isDesktopDevice"></a>bbn.fn.isDesktopDevice()
+
+  __Returns true if the current device type is a desktop.__
+
+
+  __Returns__ _Boolean_ 
+
+
+``` javascript
+bbn.fn.isDesktopDevice();
+// true
+```
+[Back to top](#bbn_top)  
+
 ### <a name="isMobile"></a>bbn.fn.isMobile()
 
-  __Returns true if the current browser is on a mobile device.__
+  __Returns true if the current browser is on a mobile device (smartphone or tablet).__
 
 
   __Returns__ _Boolean_ 

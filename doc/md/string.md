@@ -18,8 +18,6 @@ Returns the path of the folder containing the last hierarchical element of the p
 Returns a string escaped.  
 [bbn.fn.__fileExt__](#fileExt)  
 Gets the extension from a file's name.  
-[bbn.fn.__formatSize__](#formatSize)  
-Returns the value of size for element html  
 [bbn.fn.__hex2rgb__](#hex2rgb)  
 Convert an hexadecimmal string to RGB.  
 [bbn.fn.__html2text__](#html2text)  
@@ -519,17 +517,6 @@ bbn.fn.baseName('folder/other_folder/file.png', '.png');
   * __char__ _String_ 
 
   __Returns__ _Mixed_ 
-[Back to top](#bbn_top)  
-
-### <a name="formatSize"></a>bbn.fn.formatSize(st)
-
-  __Returns the value of size for element html.__
-
-  If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
-
-  * __st__ _String|Number_ 
-
-  __Returns__ _String_ 
 [Back to top](#bbn_top)  
 
 ### <a name="repeat"></a>bbn.fn.repeat()

@@ -286,6 +286,13 @@
             },
             {
                 "file": "misc.js",
+                "text": "getDeviceType",
+                "desc": "Returns the current device type",
+                "value": "getDeviceType",
+                "url": "bbn-js\/doc\/misc\/getDeviceType"
+            },
+            {
+                "file": "misc.js",
                 "text": "getEventData",
                 "desc": "Returns a promise having the event's data as argument",
                 "value": "getEventData",
@@ -342,6 +349,13 @@
             },
             {
                 "file": "misc.js",
+                "text": "isDesktopDevice",
+                "desc": "Returns true if the current device type is a desktop",
+                "value": "isDesktopDevice",
+                "url": "bbn-js\/doc\/misc\/isDesktopDevice"
+            },
+            {
+                "file": "misc.js",
                 "text": "isFocused",
                 "desc": "Checks whether the given elemet is focused or not",
                 "value": "isFocused",
@@ -350,9 +364,23 @@
             {
                 "file": "misc.js",
                 "text": "isMobile",
-                "desc": "Returns true if the current browser is on a mobile device",
+                "desc": "Returns true if the current browser is on a mobile device (smartphone or tablet)",
                 "value": "isMobile",
                 "url": "bbn-js\/doc\/misc\/isMobile"
+            },
+            {
+                "file": "misc.js",
+                "text": "isMobileDevice",
+                "desc": "Returns true if the current device type is a mobile",
+                "value": "isMobileDevice",
+                "url": "bbn-js\/doc\/misc\/isMobileDevice"
+            },
+            {
+                "file": "misc.js",
+                "text": "isTabletDevice",
+                "desc": "Returns true if the current device type is a tablet",
+                "value": "isTabletDevice",
+                "url": "bbn-js\/doc\/misc\/isTabletDevice"
             },
             {
                 "file": "misc.js",
@@ -685,6 +713,13 @@
             },
             {
                 "file": "size.js",
+                "text": "formatSize",
+                "desc": "Returns the value of size for element htm",
+                "value": "formatSize",
+                "url": "bbn-js\/doc\/size\/formatSize"
+            },
+            {
+                "file": "size.js",
                 "text": "getScrollBarSize",
                 "desc": "Retutns the size of the scrollbar realative to the current environment",
                 "value": "getScrollBarSize",
@@ -759,13 +794,6 @@
                 "desc": "Gets the extension from a file's name",
                 "value": "fileExt",
                 "url": "bbn-js\/doc\/string\/fileExt"
-            },
-            {
-                "file": "string.js",
-                "text": "formatSize",
-                "desc": "Returns the value of size for element htm",
-                "value": "formatSize",
-                "url": "bbn-js\/doc\/string\/formatSize"
             },
             {
                 "file": "string.js",

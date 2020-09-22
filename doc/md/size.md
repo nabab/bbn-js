@@ -8,11 +8,24 @@ Adjusts the height of the element(s) given as argument.
 Adjusts the size of the given elements.  
 [bbn.fn.__adjustWidth__](#adjustWidth)  
 Adjusts the width of the element(s) given as argument.  
+[bbn.fn.__formatSize__](#formatSize)  
+Returns the value of size for element html  
 [bbn.fn.__getScrollBarSize__](#getScrollBarSize)  
 Retutns the size of the scrollbar realative to the current environment.  
 [bbn.fn.__toggleFullScreen__](#toggleFullScreen)  
 Toggles the fullscreen mode.  
 
+
+### <a name="formatSize"></a>bbn.fn.formatSize(st)
+
+  __Returns the value of size for element html.__
+
+  If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
+
+  * __st__ _String|Number_ 
+
+  __Returns__ _String_ 
+[Back to top](#bbn_top)  
 
 ### <a name="toggleFullScreen"></a>bbn.fn.toggleFullScreen()
 
