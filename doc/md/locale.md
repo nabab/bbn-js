@@ -90,10 +90,10 @@ bbn.fn.daysInMonth(new Date());
 
 [Back to top](#bbn_top)  
 
-### <a name="fdate"></a>bbn.fn.fdate(d, )
+### <a name="fdate"></a>bbn.fn.fdate(d, wrong_result)
 
   * __d__ _String|Date_ 
-  * ____ _rong_resul_ 
+  * __wrong_result__ _String_ 
 
   __Returns__ _undefined_ 
 [Back to top](#bbn_top)  

@@ -250,7 +250,7 @@
      * @global   
      * @memberof bbn.fn
      * @param    {String|Date} d 
-     * @param    wrong_result    
+     * @param    {String}      wrong_result
      * @returns                
      */
     fdate(d, wrong_result){

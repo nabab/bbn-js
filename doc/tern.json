@@ -2,87 +2,87 @@
     "ajax": {
         "!type": "fn(url: String, datatype: String, data: Object, success: Function, failure: Function, abort: Function) -> Promise",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/ajax",
-        "!doc": "Checks the URL, makes an ID, creates a loader, sets the general callbacks,\nmakes a POST if data is given a GET otherwise (GET data should be added\ndirectly in the URL), and returns the Promise."
+        "!doc": "Creates an XHR object and returns the Promise."
     },
     "treatAjaxArguments": {
         "!type": "fn(args: mixed) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/treatAjaxArguments",
-        "!doc": "The final object will have the following arguments: url, obj, datatype, force, successFn,\nerrorFn, abortFn, e, and ele; The rules are:\n* The first string found is the URL\n* The second string found is the datatype\n* The first function is successFn\n* The second function is errorFn\n* The third function is abortFn\n* A boolean true is force\n* An Event is e\n* An HTML element is ele\n\nIf no object is given the _bbn property will be added in order to always post something \nand let the bbn server scripts know if a whole DOM is requested or a JSON answer."
+        "!doc": "Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions."
     },
     "post": {
         "!type": "fn() -> undefined|Promise",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/post",
-        "!doc": "URL is the only mandatory argument (see treatAjaxArguments for the arguments)."
+        "!doc": "Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result."
     },
     "link": {
         "!type": "fn() -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/link",
-        "!doc": "Once bbn has been initiated this function will be triggered every time a link is clicked.  \nIt accepts the same arguments as seen in treatAjaxArguments but will tipically just be called with a URL,\nthe defaultLinkURL functions being in charge of loading the content."
+        "!doc": "Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction."
     },
     "callback": {
-        "!type": "fn(url: String, res: Object, fn: Function, fn2: Function, ele: HTMLElement) -> *",
+        "!type": "fn(url: String, res: Object, fn: Function, fn2: Function, ele: HTMLElement) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/callback",
-        "!doc": "Used to treat all the requests functions results, it expects at least url and res to be defined;\nThe following properties from the object res have direct effects:\n- __url__ {String}: if not given it will be automatically defined by the url parameter;  \n  __the given URL will be passed to location.href (without reloading)__\n- __prescript__ {String}: if defined it will attempt to evaluate the code contained in the property\n- __content__ {String}: if defined and ele is defined too, the string will be inserted as content in the element\n- __script__ {String}: if defined it will be evaluated, executed, and its result will be returned\n- __data__ {Object}:\n- __postscript__ {String}: if defined it will be evaluated and executed\n- __error__ {String}: if defined it will be trigger bbn.fn.defaultAlertFunction  \n\nIf fn is defined it will be executed after prescript, otherwise it will be bbn.fn.defaultLinkFunction.  \n\nThe rest of the function comes executed if either of these results is not empty.  \n\nIf fn2 is defined it will be executed after script, otherwise it will be bbn.fn.defaultPostLinkFunction.\n\nAlthough not private this function should only be used internally."
+        "!doc": "Executes a serie of predefined actions once an Ajax request has been done."
     },
     "setNavigationVars": {
         "!type": "fn(url: String, title: String, data: Object, repl: Boolean) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/setNavigationVars",
-        "!doc": ""
+        "!doc": "Changes the URL and the associated variables and updates the history."
     },
     "postOut": {
         "!type": "fn(url: String, data: Object, success: Function, target: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/postOut",
-        "!doc": ""
+        "!doc": "Posts a request in a new window."
     },
     "abort": {
         "!type": "fn(requestId: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/abort",
-        "!doc": "This will throw an error if the loader can't be found."
+        "!doc": "Aborts (client side) the XHR corresponding to the given ID if it still exists."
     },
     "downloadContent": {
         "!type": "fn(filename: String, content: HTMLCanvasElement|File|String, type: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/downloadContent",
-        "!doc": "Creates a link putting in href a URL Object Blob made of the given content,\nwhich can be a canvas, a file or a blob object, or just a string."
+        "!doc": "Downloads a file with given filename from the given content."
     },
     "download": {
         "!type": "fn(url: String, filename: String, params: Object) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/download",
-        "!doc": "Gets the file's content as Blob through XHR, then sends it to bbn.fn.downloadContent.  \n__Attention__ The CORS policy applies."
+        "!doc": "Downloads a file with given filename from a URL."
     },
     "upload": {
         "!type": "fn(url: String, file: File, success: Function, failure: Function, progress: Function) -> Promise",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/upload",
-        "!doc": ""
+        "!doc": "Uploads a file synchronously through an XHR indicating progress."
     },
     "getLoader": {
         "!type": "fn(requestId: String) -> false|Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/getLoader",
-        "!doc": "The loader is an object representing an Ajax request, with the following properties:\n* _key_ is the unique ID (_requestId_) of the loader\n* _url_ is the URL called by the request\n* _loader_ is the Promise from the Axios XHR\n* _source_ is the source object for aborting the request\n* _start_ is the timestamp of the moment the request was sent."
+        "!doc": "Finds the loader object corresponding to the given unique ID and returns it if found."
     },
     "getRequestId": {
         "!type": "fn(url: String, data: Object, datatype: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/getRequestId",
-        "!doc": "The routing functions don't allow to send the same request at the same moment,\ntherefore a unique ID is generated to identify them, based on the URL,\nthe keys of the data sent, and the expected returned data type."
+        "!doc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype."
     },
     "addInputs": {
         "!type": "fn(form: HTMLElement, params: Object, prefix: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/addInputs",
-        "!doc": ""
+        "!doc": "Adds the given data to the given form by inserting hidden inputs."
     },
     "submit": {
-        "!type": "fn(form: HTMLElement, e: Event, fn: Function) -> *",
+        "!type": "fn(form: HTMLElement, e: Event, fn: Function) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/submit",
-        "!doc": "It will also prevent the event if given, and execute the given callback, \nor look for one in the data-script attribute."
+        "!doc": "Submit a form's data through an Ajax request."
     },
     "fieldValue": {
         "!type": "fn(field: HTMLElement) -> Mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/fieldValue",
-        "!doc": ""
+        "!doc": "Returns the value of a form's input, differenciating between checkboxes, radio and other inputs."
     },
     "formdata": {
         "!type": "fn(form: HTMLElementL) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/formdata",
-        "!doc": ""
+        "!doc": "Returns all the data contained in a form as a single object."
     },
     "objectToFormData": {
         "!type": "fn(obj: Object|Array|File, key: String, ignoreList: Array) -> undefined",
@@ -97,27 +97,27 @@
     "init": {
         "!type": "fn(cfg: Object) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/init\/init",
-        "!doc": "- Gives to the environment the dimension of the window.innerWidth and window.innerHeight\n- Defines the server's path (difference between the host and the current dir)\n- Adds the colors contained in bbn.var.colors to define the css classes for background and colors.\n- Adds the event listener to the document\n- Activates the history."
+        "!doc": "Initializes the library bbn basing on the given configuration object."
     },
     "money": {
         "!type": "fn(val: String|Number, kilo: Boolean, currency: String, novalue: String, decimal: String, thousands: String, precision: Number) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/money",
-        "!doc": ""
+        "!doc": "Returns the given value to money format basing on the given configuration."
     },
     "date": {
         "!type": "fn(v: String|Number) -> date",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/date",
-        "!doc": ""
+        "!doc": "Returns a date object from the given argument."
     },
     "dateSQL": {
         "!type": "fn(v: Date|String, dayOnly: Boolean) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/dateSQL",
-        "!doc": ""
+        "!doc": "Returns a date with SQL format."
     },
     "daysInMonth": {
         "!type": "fn(v: String|Date) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/daysInMonth",
-        "!doc": ""
+        "!doc": "Returns the number of days of the month given in the date."
     },
     "getDay": {
         "!type": "fn(v: String|Date) -> undefined",
@@ -125,124 +125,124 @@
         "!doc": ""
     },
     "fdate": {
-        "!type": "fn(d: String|Date, : rong_resul) -> undefined",
+        "!type": "fn(d: String|Date, wrong_result: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/fdate",
         "!doc": ""
     },
     "fdatetime": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/fdatetime",
         "!doc": ""
     },
     "ftime": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/ftime",
         "!doc": ""
     },
     "timestamp": {
         "!type": "fn(: Number) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/timestamp",
-        "!doc": ""
+        "!doc": "Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date()."
     },
     "log": {
         "!type": "fn(args: ...any) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/log",
-        "!doc": ""
+        "!doc": "Logs the given arguments in the browser's console."
     },
     "warning": {
         "!type": "fn(args: ...any) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/warning",
-        "!doc": ""
+        "!doc": "Logs the given argument in the browser's console highlighting it with a yellow background and red color."
     },
     "error": {
         "!type": "fn(args: ...any) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/error",
-        "!doc": ""
+        "!doc": "Logs the given argument in the browser's console highlighting it with a red background."
     },
     "happy": {
         "!type": "fn(args: ...any) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/happy",
-        "!doc": ""
+        "!doc": "Logs the given argument in the browser's console highlighting it with a green background."
     },
     "info": {
-        "!type": "fn(args: ...any) -> *",
+        "!type": "fn(args: ...any) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/info",
-        "!doc": ""
+        "!doc": "Logs the given argument in the browser's console highlighting it with a blue background."
     },
     "stat": {
-        "!type": "fn(returnStat: *) -> *",
+        "!type": "fn(returnStat: mixed) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/stat",
         "!doc": ""
     },
     "getPath": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getPath",
         "!doc": ""
     },
     "setCookie": {
         "!type": "fn(name: String, value: String, days: Number) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/setCookie",
-        "!doc": ""
+        "!doc": "Creates a cookie and assigns it to document.cookie."
     },
     "getCookie": {
         "!type": "fn(name: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getCookie",
-        "!doc": ""
+        "!doc": "If it exsists returns the cookie corresponding to the given name."
     },
     "eraseCookie": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/eraseCookie",
-        "!doc": ""
+        "!doc": "Erase the cookie corresponding to the given name;"
     },
     "getEventData": {
         "!type": "fn() -> Promise",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getEventData",
-        "!doc": ""
+        "!doc": "Returns a promise having the event's data as argument."
     },
     "arrayBuffer2String": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/arrayBuffer2String",
         "!doc": ""
     },
     "string2ArrayBuffer": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/string2ArrayBuffer",
         "!doc": ""
     },
     "getHTMLOfSelection": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getHTMLOfSelection",
         "!doc": ""
     },
     "copy": {
         "!type": "fn(st: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/copy",
-        "!doc": ""
+        "!doc": "Copies to the clipboard the value of the given string."
     },
     "imageToCanvas": {
         "!type": "fn(img: HTMLElement) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/imageToCanvas",
-        "!doc": ""
+        "!doc": "Draws the given html image nto a canvas."
     },
     "canvasToImage": {
         "!type": "fn(canvas: canvas) -> HTMLElement",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/canvasToImage",
-        "!doc": ""
+        "!doc": "Returns a canvas in a HTML element img"
     },
     "imgToBase64": {
-        "!type": "fn(img: HTMLElement) -> *",
+        "!type": "fn(img: HTMLElement) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/imgToBase64",
-        "!doc": ""
+        "!doc": "Returns the tag for the image in base64"
     },
     "formatBytes": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/formatBytes",
-        "!doc": ""
+        "!doc": "Formats the value given in bytes."
     },
     "startChrono": {
         "!type": "fn() -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/startChrono",
-        "!doc": ""
+        "!doc": "Starts a timer and gives it a name."
     },
     "stopChrono": {
         "!type": "fn(name: String) -> Number",
@@ -252,257 +252,257 @@
     "getDeviceType": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getDeviceType",
-        "!doc": ""
+        "!doc": "Returns the current device type."
     },
     "isMobileDevice": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isMobileDevice",
-        "!doc": ""
+        "!doc": "Returns true if the current device type is a mobile."
     },
     "isTabletDevice": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isTabletDevice",
-        "!doc": ""
+        "!doc": "Returns true if the current device type is a tablet."
     },
     "isDesktopDevice": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isDesktopDevice",
-        "!doc": ""
+        "!doc": "Returns true if the current device type is a desktop."
     },
     "isMobile": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isMobile",
-        "!doc": ""
+        "!doc": "Returns true if the current browser is on a mobile device (smartphone or tablet)."
     },
     "getTimeoff": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/getTimeoff",
-        "!doc": ""
+        "!doc": "Returns the length of time the window has not been focused in seconds."
     },
     "isFocused": {
         "!type": "fn(ele: Element, contain: Boolean) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isFocused",
-        "!doc": ""
+        "!doc": "Checks whether the given elemet is focused or not."
     },
     "selectElementText": {
         "!type": "fn(ele: Element, win: Boolean) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/selectElementText",
-        "!doc": ""
+        "!doc": "Selects the content of an element."
     },
     "unique": {
         "!type": "fn(arr: Array) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/unique",
-        "!doc": "Takes an input array and returns a new array without duplicate values."
+        "!doc": "Removes duplicate values from an array."
     },
     "getProperty": {
-        "!type": "fn(obj: Object, prop: String) -> *",
+        "!type": "fn(obj: Object, prop: String) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/getProperty",
-        "!doc": "Looks for the given property in the given object, accepting dot (.) separator \nfor deep property access, and returns its value if found and undefined otherwise."
+        "!doc": "Returns the value of the given property from the given object."
     },
     "order": {
         "!type": "fn(arr: Array, prop: String, [dir=asc]: String) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/order",
-        "!doc": "The resulting array is the same object, the order is based on _compareValues function."
+        "!doc": "Sorts an array of objects based on the given property."
     },
     "multiorder": {
         "!type": "fn(arr: Array, orders: Array|Object) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/multiorder",
-        "!doc": "The resulting array is the same object, the order is based on _compareValues function\napplied for each given properties in orders argument."
+        "!doc": "Sorts an array of objects based on a set of properties."
     },
     "move": {
         "!type": "fn(arr: Array, fromIndex: Number, toIndex: Number) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/move",
-        "!doc": "The same array is returned, with its elements reordered according to the executed movement."
+        "!doc": "Moves an element to a different position within the given array."
     },
     "compare": {
         "!type": "fn(v1: String|Number, v2: String|Number, operator: String) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/compare",
-        "!doc": "It is internally used by all the filtering functions; the available operators are:  \n- _===_, _=_, _equal_, _eq_, _is_, which stand for __===__  \n- _!==_, _notequal_, _neq_, _isnot_, which stand for __!==__\n- _!=_, _different_, which stand for __!=__\n- _contains_, _contain_, _icontains_, _icontain_\n- _starts_, _start_\n- _startswith_, _startsi_, _starti_, _istarts_, _istart_\n- _endswith_, _endsi_, _endi_, _iends_, _iend_\n- _like_\n- _gt_, _>_, which stand for __>__\n- _lt_, _<_, which stand for __<__\n- _gte_, _>=_, which stand for __>=__\n- _lte_, _<=_, which stand for __<=__\n- _isnull_, which stands for __=== null__\n- _isnotnull_, which stands for __!== null__\n- _isempty_, which stands for __=== ''__\n- _isnotempty_, which stands for __!== ''__  \n\nThe defaut operator (if none is given) is __==__ ."
+        "!doc": "Performs a comparison between two values based on the given operator and returns a boolean."
     },
     "search": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String, startFrom: Number) -> Number",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String, startFrom: Number) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/search",
-        "!doc": "Returns -1 if the element is not found. If the second parameter is an object or function \nfor filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the\nleft, i.e. val becomes operator, and operator startFrom. And if operator is a number, its value will\nbe given to startFrom and operator will be undefined. The filter object can be complex with different\noperators (as seen in bbn.fn.compare) and logics (AND\/OR), and infinitely nested, of this form:\n```javascript\n{\n  logic: \"AND\",\n  conditions: [\n    {\n      field: \"prop1\",\n      operator: \"eq\",\n      value: \"value1\"\n    }, {\n      logic: \"OR\",\n      conditions: [\n        {\n           field: \"prop2\",\n           operator: \"eq\",\n           value: 1\n        }. {\n           field: \"prop2\",\n           operator: \"eq\",\n           value: 2\n        }\n      ]\n    }\n  ]\n}\n```\nThis way of managing the arguments is used in all the filtering functions."
+        "!doc": "Retrieves the index of the array's first element corresponding to the given filter."
     },
     "count": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String) -> Number",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/count",
-        "!doc": "The arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Counts the number of objects matching the given filter in the given array."
     },
     "findAll": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String) -> Number",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/findAll",
-        "!doc": "The arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Retrieves all elements of a hierarchical array corresponding to the filter."
     },
     "sum": {
-        "!type": "fn(arr: Array, numberProp: (String|Function), prop: (String|Object|Function), val: *, operator: String) -> Number",
+        "!type": "fn(arr: Array, numberProp: (String|Function), prop: (String|Object|Function), val: mixed, operator: String) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/sum",
-        "!doc": "The filtering arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Returns the sum of the given property or function for the array's elements matching the filter."
     },
     "filter": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String) -> Array",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/filter",
-        "!doc": "The filtering arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Returns a new array with only the data matching the given filter."
     },
     "getRow": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String) -> Object|Boolean",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String) -> Object|Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/getRow",
-        "!doc": "The filtering arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Returns the first object matching the given filter in an array of objects."
     },
     "getField": {
-        "!type": "fn(arr: Array, prop: (String|Object|Function), val: *, operator: String, field: String) -> undefined",
+        "!type": "fn(arr: Array, prop: (String|Object|Function), val: mixed, operator: String, field: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/getField",
-        "!doc": "The filtering arguments follow the same scheme as bbn.fn.search."
+        "!doc": "Returns the value of the given field (property) from the first object matching the given filter in an array of objects."
     },
     "removePrivateProp": {
         "!type": "fn(obj: Object, deep: Boolean) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/removePrivateProp",
-        "!doc": "It is presumed that external libraries, bbn variables use prefixes such as _ or $ for\nnaming private properties; this returns a new object purged from these properties."
+        "!doc": "Returns an object with the original objects' properties starting with an alphanumeric character."
     },
     "numProperties": {
         "!type": "fn(obj: Object) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/numProperties",
-        "!doc": "Only takes into account the own properties - not the inherited ones - and the non _private_ ones."
+        "!doc": "Returns the number of properties contained in the object."
     },
     "isSame": {
         "!type": "fn(obj1: Object, obj2: Object) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/isSame",
-        "!doc": "The properties starting with a non alphanumerical character and the \ninherited ones are removed for the comparison, then the properties are \ncompared individually without the order being taken into account."
+        "!doc": "Checks whether the data contained in the given objects is identical."
     },
     "filterToConditions": {
         "!type": "fn(filter: Object, operator: String) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/filterToConditions",
-        "!doc": "The resulting format will comply with bbn.fn.compareConditions and also with \nbbn databases functions and complex filters applied to bbn-vue list components."
+        "!doc": "Converts the given object 'filter' to a valid format of condition."
     },
     "compareConditions": {
         "!type": "fn(data: Object, filter: Object) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/compareConditions",
-        "!doc": "The filter format must be full (i.e. with the properties logic and conditions) such as\nseen in the function bbn.fn.search and can be generated by the function bbn.fn.filterToConditions."
+        "!doc": "Checks whether the given data object complies or not with the given filter."
     },
     "extend": {
         "!type": "fn() -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/extend",
-        "!doc": "A boolean true argument can be done to operate a deep extend. In this case, \nthe content of properties or subproperties arrays and objects will also be merged."
+        "!doc": "Merges the contents of two or more objects together into the first object."
     },
     "extendOut": {
         "!type": "fn() -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/extendOut",
-        "!doc": "Compared to bbn.fn.extend this still treats the arguments from left to right \nbut without overwriting existing properties, and returning a new object."
+        "!doc": "Returns a new object made of the properties from all the given objects."
     },
     "autoExtend": {
         "!type": "fn(namespace: String, obj: Object) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/autoExtend",
-        "!doc": "This function is a self-centric shortcut for adding functions or proerties \nto the bbn object itself."
+        "!doc": "Extends the bbn object by passing the namespace and the object it will merge with."
     },
     "removeEmpty": {
         "!type": "fn(arr: Array) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/removeEmpty",
-        "!doc": "Removes all the elements which are empty, i.e. false, 0, null, '', NaN, or undefined."
+        "!doc": "Returns a new array, having removed all elements deemed empty from the given array."
     },
     "arrayFromProp": {
         "!type": "fn(arr: Array, prop: String) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/arrayFromProp",
-        "!doc": "The returned array will always have the same length of the given array, even if the property is not found."
+        "!doc": "Creates and returns a new array made of the given property's values from the given array of objects."
     },
     "pickValue": {
-        "!type": "fn(arr: Array) -> *",
+        "!type": "fn(arr: Array) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/pickValue",
-        "!doc": ""
+        "!doc": "Returns a random item from the given array."
     },
     "diffObj": {
         "!type": "fn(obj1: Object, obj2: Object, unchanged: String, notRoot: Boolean) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/diffObj",
-        "!doc": "The returned data will use the objects properties as keys. If unchanged is set to true, all the \nproperties will be returned, otherwise only the different ones. Each of these keys will have the \nfollowing properties: \n- type: can be _modified_, _created_, _deleted_, and if unchanged is set to true _unchanged_\n- data: the first object's property's value, or the second if type is _created_\n- newData: the second object's property's value in case of type _updated_."
+        "!doc": "Returns an object describing the differences for transforming the first given object into the second."
     },
     "fori": {
         "!type": "fn(arr: Array, fn: Function, max: Number, min: Number) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/fori",
-        "!doc": "A minimum and a maximum value can be provided, within the boundaries of the \narray's indexes. Returning false will stop the loop."
+        "!doc": "Executes the provided function on each element of the given array."
     },
     "forir": {
         "!type": "fn(arr: Array, fn: Function, max: Number, min: Number) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/forir",
-        "!doc": "A maximum and a minimum value can be provided, within the boundaries of the \narray's indexes. Returning false will stop the loop."
+        "!doc": "Executes the provided function on each element of the given array, going backward."
     },
     "each": {
         "!type": "fn(arr: Array, fn: Function) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/each",
-        "!doc": "Returning false will stop the loop."
+        "!doc": "Executes the provided function on each element of the given array."
     },
     "iterate": {
         "!type": "fn(obj: (Object|Number), fn: Function, noPrivate: Boolean) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/iterate",
-        "!doc": ""
+        "!doc": "Executes the provided function on each property of the given object."
     },
     "clone": {
         "!type": "fn(obj: Object) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/clone",
-        "!doc": ""
+        "!doc": "Creates and returns a perfect clone - but different - from the given object."
     },
     "map": {
         "!type": "fn(arr: Array, fn: Function, deepProp: Boolean, level: Number) -> Array",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/map",
-        "!doc": "The deepProp argument is the name of property which should contain a nested array on which\nthe function should also be applied recursively."
+        "!doc": "Returns a new array generated by the execution of a function for each item of the given array."
     },
     "toCSV": {
         "!type": "fn(arr: Array, [valSep=,]: String, [rowSep=;]: String, [valEsc=\"]: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/toCSV",
-        "!doc": ""
+        "!doc": "Returns a CSV string from the given array of arrays or objects."
     },
     "shortenObj": {
         "!type": "fn(obj: (Object|Array), [max=100]: Number) -> (Object|Array)",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/shortenObj",
-        "!doc": "Modifies directly the given object by cuttin all its too long strings, and adding ellipsis (...) in this case."
+        "!doc": "Shortens all the strings contained in the object properties or element in a array."
     },
     "formatSize": {
         "!type": "fn(st: String|Number) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/formatSize",
-        "!doc": "If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'."
+        "!doc": "Returns the value of size for element html"
     },
     "toggleFullScreen": {
         "!type": "fn() -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/toggleFullScreen",
-        "!doc": ""
+        "!doc": "Toggles the fullscreen mode."
     },
     "getScrollBarSize": {
         "!type": "fn() -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/getScrollBarSize",
-        "!doc": ""
+        "!doc": "Retutns the size of the scrollbar realative to the current environment."
     },
     "adjustSize": {
         "!type": "fn(type: String, eles: Array) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/adjustSize",
-        "!doc": ""
+        "!doc": "Adjusts the size of the given elements."
     },
     "adjustHeight": {
         "!type": "fn() -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/adjustHeight",
-        "!doc": ""
+        "!doc": "Adjusts the height of the element(s) given as argument."
     },
     "adjustWidth": {
         "!type": "fn() -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/size\/adjustWidth",
-        "!doc": ""
+        "!doc": "Adjusts the width of the element(s) given as argument."
     },
     "fileExt": {
         "!type": "fn(filename: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/fileExt",
-        "!doc": "The extension is returned in lower case; if the filename has no extension\nor is not valid it will return an empty string."
+        "!doc": "Gets the extension from a file's name."
     },
     "uniqString": {
         "!type": "fn(: Mixed) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/uniqString",
-        "!doc": "Converts and return all the arguments inserted in a unique string in md5 format."
+        "!doc": "Create a unique string in md5 format."
     },
     "md5": {
         "!type": "fn(st: Mixed) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/md5",
-        "!doc": "This is a formatted version of popular md5 implementation  \nOriginal copyright (c) Paul Johnston & Greg Holt."
+        "!doc": "Converts and returns the argument passed in a string in md5 format."
     },
     "escapeRegExp": {
         "!type": "fn(str: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/escapeRegExp",
-        "!doc": "To escape the string by reducing the ambiguity between quotation marks and other characters used."
+        "!doc": "Returns a string escaped."
     },
     "roundDecimal": {
         "!type": "fn(value: Number, decimals: Number) -> ",
@@ -512,157 +512,157 @@
     "rgb2hex": {
         "!type": "fn(rgb: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/rgb2hex",
-        "!doc": "Passing a string with the format that defines the rgb value as an argument,\nit will return the corresponding string in hexadecimal format."
+        "!doc": "Convert an RGB string to hexadecimal."
     },
     "hex2rgb": {
-        "!type": "fn() -> *",
+        "!type": "fn() -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/hex2rgb",
-        "!doc": "Converts a string that expresses a color in hexadecimal format into an object with\nthe properties that define the color and the corresponding value."
+        "!doc": "Convert an hexadecimmal string to RGB."
     },
     "camelize": {
         "!type": "fn(: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/camelize",
-        "!doc": "A string can be separated for example by a underscore, a dash or space;\nso the camelize function will automatically convert them to a single string."
+        "!doc": "Returns the string passed as an argument in camelize mode."
     },
     "sanitize": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/sanitize",
-        "!doc": ""
+        "!doc": "Removes all unacceptable characters in a DOM node."
     },
     "camelToCss": {
         "!type": "fn(str: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/camelToCss",
-        "!doc": ""
+        "!doc": "Returns the string passed as an argument in camelize mode for css."
     },
     "correctCase": {
         "!type": "fn(str: STring) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/correctCase",
-        "!doc": ""
+        "!doc": "Converts the first character of the string to uppercase."
     },
     "randomInt": {
         "!type": "fn(min: Number, max: Number) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/randomInt",
-        "!doc": "Generates and returns a random number in a range of numbers defined\nby passed arguments a minimum and a maximum."
+        "!doc": "Returns a random integer."
     },
     "randomString": {
         "!type": "fn(length: Number, chars: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/randomString",
-        "!doc": "Generates a random string from the length of the random number,\ntaken from a range of numbers providing either only the minimum or also the maximum as arguments."
+        "!doc": "Returns a random String with random lenght,"
     },
     "shorten": {
         "!type": "fn(st: String, len: Number) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/shorten",
-        "!doc": "Provides an abbreviation to the string passed as the first argument,\ndeciding through the second argument the number of characters to keep and the remainder replaced\nby what is passed as the third argument and if not given a defalut it is: '...'."
+        "!doc": "Shortens the given string after *len* characters."
     },
     "replaceAll": {
         "!type": "fn(find: String, replace: String, str: String|RegExp, flags: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/replaceAll",
-        "!doc": "With the first argument you define what to replace,\nthe second argument with what you have to replace instead and the third argument is the string to be replaced."
+        "!doc": "Looks for and replaces parts of string with what we want."
     },
     "quotes2html": {
         "!type": "fn(st: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/quotes2html",
-        "!doc": ""
+        "!doc": "Replace quotes in ASCII code"
     },
     "nl2br": {
         "!type": "fn(st: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/nl2br",
-        "!doc": ""
+        "!doc": "Replaces all new line characters '\\ n' with html tag '<br>'."
     },
     "br2nl": {
         "!type": "fn(st: trin) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/br2nl",
-        "!doc": ""
+        "!doc": "Replaces the html <br> tag with new line characters '\\ n' if present in the string."
     },
     "html2text": {
         "!type": "fn(st: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/html2text",
-        "!doc": ""
+        "!doc": "Convert text in html format to plain text."
     },
     "removeAccents": {
         "!type": "fn(st: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/removeAccents",
-        "!doc": ""
+        "!doc": "Returns the string passed as an argument without accents."
     },
     "percent": {
         "!type": "fn(percent: Number|String, cent: Number|String) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/percent",
-        "!doc": ""
+        "!doc": "Returns the value of the proportion giving the percentage and the total from where to be calculated."
     },
     "dirName": {
         "!type": "fn(path: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/dirName",
-        "!doc": ""
+        "!doc": "Returns the path of the folder containing the last hierarchical element of the path."
     },
     "baseName": {
         "!type": "fn(path: String, suffix: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/baseName",
-        "!doc": ""
+        "!doc": "Returns the name of the element indicated by path given to it as an argument."
     },
     "printf": {
-        "!type": "fn(: orma) -> *",
+        "!type": "fn(: orma) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/printf",
         "!doc": ""
     },
     "removeTrailingChars": {
-        "!type": "fn(st: String, char: String) -> *",
+        "!type": "fn(st: String, char: String) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/removeTrailingChars",
         "!doc": ""
     },
     "repeat": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/repeat",
-        "!doc": ""
+        "!doc": "Returns a string which is the repetition of the first argument for the number passed in the second argument."
     },
     "center": {
         "!type": "fn(ele: HTMLElement) -> HTMLElement",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/style\/center",
-        "!doc": ""
+        "!doc": "Centers the given element by giving it a position absolute."
     },
     "addColors": {
         "!type": "fn(colors: Object) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/style\/addColors",
-        "!doc": "the css classes bbn-bg-myColor for the background and bbn-myColor for the text color."
+        "!doc": "Adds the given color to the object bbn.var.colors in order to be able to use"
     },
     "colorToHex": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/style\/colorToHex",
-        "!doc": ""
+        "!doc": "Returns the hex color of the given rgb or color name."
     },
     "lightenDarkenHex": {
         "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/style\/lightenDarkenHex",
-        "!doc": ""
+        "!doc": "Takes color in hex format and lightens or darkens it with the given value."
     },
     "isEmail": {
         "!type": "fn(st: String) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isEmail",
-        "!doc": ""
+        "!doc": "Intended to check if the argument provided is an e-mail address written correctly"
     },
     "isColor": {
         "!type": "fn(st: String) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isColor",
-        "!doc": "It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color."
+        "!doc": "Intended to check if the argument provided is a color."
     },
     "isIterable": {
         "!type": "fn(st: String) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isIterable",
-        "!doc": "It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color."
+        "!doc": "Returns true if the given object can be iterated as an array (numerically)."
     },
     "isDimension": {
         "!type": "fn(st: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isDimension",
-        "!doc": ""
+        "!doc": "Returns true if the given value is a valid CSS dimension string or a number, false otherwise."
     },
     "isValidDimension": {
         "!type": "fn(st: String) -> undefined",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isValidDimension",
-        "!doc": ""
+        "!doc": "Returns true if the given value is a valid CSS dimension string, false otherwise."
     },
     "isEmpty": {
         "!type": "fn(: Object|Array|String) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isEmpty",
-        "!doc": ""
+        "!doc": "Checks if the argument is empty or not."
     },
     "isBlob": {
         "!type": "fn() -> Boolean",
@@ -672,57 +672,57 @@
     "isNumber": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isNumber",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is a number"
     },
     "isString": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isString",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is a string;"
     },
     "isArray": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isArray",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is array."
     },
     "isDate": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isDate",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is a date object."
     },
     "isObject": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isObject",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is an object."
     },
     "isNull": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isNull",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is null;"
     },
     "isValue": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isValue",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is not null or type object or array."
     },
     "isDom": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isDom",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is a dom element;"
     },
     "isCanvas": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isCanvas",
-        "!doc": ""
+        "!doc": "Returns true if the given argumen is a Canvas."
     },
     "isVue": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isVue",
-        "!doc": ""
+        "!doc": "Returns true if the given argumen is a VueJS object."
     },
     "isPercent": {
         "!type": "fn() -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isPercent",
-        "!doc": ""
+        "!doc": "Returns true if the given argument is a percentage."
     },
     "isURL": {
         "!type": "fn() -> Boolean",
