@@ -5,7 +5,7 @@
         "!doc": "Checks the URL, makes an ID, creates a loader, sets the general callbacks,\nmakes a POST if data is given a GET otherwise (GET data should be added\ndirectly in the URL), and returns the Promise."
     },
     "treatAjaxArguments": {
-        "!type": "fn(args: *) -> Object",
+        "!type": "fn(args: mixed) -> Object",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/treatAjaxArguments",
         "!doc": "The final object will have the following arguments: url, obj, datatype, force, successFn,\nerrorFn, abortFn, e, and ele; The rules are:\n* The first string found is the URL\n* The second string found is the datatype\n* The first function is successFn\n* The second function is errorFn\n* The third function is abortFn\n* A boolean true is force\n* An Event is e\n* An HTML element is ele\n\nIf no object is given the _bbn property will be added in order to always post something \nand let the bbn server scripts know if a whole DOM is requested or a JSON answer."
     },
