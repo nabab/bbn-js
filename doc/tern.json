@@ -335,7 +335,7 @@
         "!doc": "Retrieves all elements of a hierarchical array corresponding to the filter."
     },
     "sum": {
-        "!type": "fn(arr: Array, numberProp: String|Function, prop: (String|Object|Function), val: mixed, operator: String) -> Number",
+        "!type": "fn(arr: Array, numberProp: String|Function, prop: String|Object|Function, val: mixed, operator: String) -> Number",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/sum",
         "!doc": "Returns the sum of the given property or function for the array's elements matching the filter."
     },
