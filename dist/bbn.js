@@ -2384,7 +2384,7 @@
      * bbn.fn.timestamp();
      * ```
      * @memberof bbn.fn
-     * @param    {Number}
+     * @param    {Number} seconds
      * @returns  {Boolean}            
      */
     timestamp(seconds){
@@ -5736,7 +5736,6 @@
      * bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
      * ```
      * @memberof bbn.fn
-     * @param    {Mixed}
      * @returns  {String} The unique string in md5 format
      */
     uniqString(){
@@ -5934,7 +5933,7 @@
      * bbn.fn.camelize("this_is-a test");
      * ```
      * @memberof bbn.fn
-     * @param    {String}
+     * @param    {String} str
      * @returns  {String}
      */
     camelize(str){
@@ -5959,7 +5958,7 @@
      * ```
      *
      * @memberof bbn.fn
-     * @returns  {String}
+     * @returns  {String} str
      */
     sanitize(str){
       return str.replace(/[^a-z0-9]/gi, '_').replace(/[_]+/g, '_');
@@ -6401,7 +6400,7 @@
      * @todo     Add method description for printf
      * @global   
      * @memberof bbn.fn
-     * @param    format  
+     * @param    String format
      * @returns  {*}    
      */
     printf(format){
@@ -6947,7 +6946,7 @@
      * bbn.fn.isEmpty('test');
      * ```
      * @memberof bbn.fn
-     * @param    {Object|Array|String}
+     * @param    {*} obj
      * @returns  {Boolean}
      */
     isEmpty(obj) {
@@ -6958,7 +6957,7 @@
         return obj.length ? false : true;
       }
       if ( typeof(obj) === 'object' ){
-        for(var prop in obj ){
+        if (bbn.fn.numProperties(obj)) {
           return false;
         }
         return true;

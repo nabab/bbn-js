@@ -183,7 +183,7 @@
      * bbn.fn.isEmpty('test');
      * ```
      * @memberof bbn.fn
-     * @param    {Object|Array|String}
+     * @param    {*} obj
      * @returns  {Boolean}
      */
     isEmpty(obj) {
@@ -194,7 +194,7 @@
         return obj.length ? false : true;
       }
       if ( typeof(obj) === 'object' ){
-        for(var prop in obj ){
+        if (bbn.fn.numProperties(obj)) {
           return false;
         }
         return true;

@@ -102,7 +102,6 @@ bbn.fn.fileExt('.MY_FILE')
 
   Converts and return all the arguments inserted in a unique string in md5 format.
 
-  * ____ _Mixed_ 
 
   __Returns__ _String_ The unique string in md5 format
 
@@ -193,14 +192,14 @@ bbn.fn.hex2rgb("#FF0000");
 
 [Back to top](#bbn_top)  
 
-### <a name="camelize"></a>bbn.fn.camelize()
+### <a name="camelize"></a>bbn.fn.camelize(str)
 
   __Returns the string passed as an argument in camelize mode.__
 
   A string can be separated for example by a underscore, a dash or space;
 so the camelize function will automatically convert them to a single string.
 
-  * ____ _String_ 
+  * __str__ _String_ 
 
   __Returns__ _String_ 
 
@@ -216,7 +215,7 @@ bbn.fn.camelize("this_is-a test");
   __Removes all unacceptable characters in a DOM node.__
 
 
-  __Returns__ _String_ 
+  __Returns__ _String_ str
 
 
 ```javascript
@@ -504,9 +503,9 @@ bbn.fn.baseName('folder/other_folder/file.png', '.png');
 
 [Back to top](#bbn_top)  
 
-### <a name="printf"></a>bbn.fn.printf()
+### <a name="printf"></a>bbn.fn.printf(format)
 
-  * ____ _orma_ 
+  * __format__ _trin_ 
 
   __Returns__ _Mixed_ 
 [Back to top](#bbn_top)  

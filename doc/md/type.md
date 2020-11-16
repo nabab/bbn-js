@@ -136,11 +136,11 @@ bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
   __Returns__ _undefined_ 
 [Back to top](#bbn_top)  
 
-### <a name="isEmpty"></a>bbn.fn.isEmpty()
+### <a name="isEmpty"></a>bbn.fn.isEmpty(obj)
 
   __Checks if the argument is empty or not.__
 
-  * ____ _Object|Array|String_ 
+  * __obj__ _Mixed_ 
 
   __Returns__ _Boolean_ 
 

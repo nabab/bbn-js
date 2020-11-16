@@ -140,7 +140,7 @@
         "!doc": ""
     },
     "timestamp": {
-        "!type": "fn(: Number) -> Boolean",
+        "!type": "fn(seconds: Number) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/timestamp",
         "!doc": "Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date()."
     },
@@ -490,7 +490,7 @@
         "!doc": "Gets the extension from a file's name."
     },
     "uniqString": {
-        "!type": "fn(: Mixed) -> String",
+        "!type": "fn() -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/uniqString",
         "!doc": "Create a unique string in md5 format."
     },
@@ -520,7 +520,7 @@
         "!doc": "Convert an hexadecimmal string to RGB."
     },
     "camelize": {
-        "!type": "fn(: String) -> String",
+        "!type": "fn(str: String) -> String",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/camelize",
         "!doc": "Returns the string passed as an argument in camelize mode."
     },
@@ -600,7 +600,7 @@
         "!doc": "Returns the name of the element indicated by path given to it as an argument."
     },
     "printf": {
-        "!type": "fn(: orma) -> mixed",
+        "!type": "fn(format: trin) -> mixed",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/printf",
         "!doc": ""
     },
@@ -660,7 +660,7 @@
         "!doc": "Returns true if the given value is a valid CSS dimension string, false otherwise."
     },
     "isEmpty": {
-        "!type": "fn(: Object|Array|String) -> Boolean",
+        "!type": "fn(obj: mixed) -> Boolean",
         "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isEmpty",
         "!doc": "Checks if the argument is empty or not."
     },

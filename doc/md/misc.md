@@ -52,11 +52,11 @@ Returns the timestamp of the given seconds if an argument is given, else returns
 Logs the given argument in the browser's console highlighting it with a yellow background and red color.  
 
 
-### <a name="timestamp"></a>bbn.fn.timestamp()
+### <a name="timestamp"></a>bbn.fn.timestamp(seconds)
 
   __Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().__
 
-  * ____ _Number_ 
+  * __seconds__ _Number_ 
 
   __Returns__ _Boolean_ 
 

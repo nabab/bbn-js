@@ -87,7 +87,7 @@
      * bbn.fn.timestamp();
      * ```
      * @memberof bbn.fn
-     * @param    {Number}
+     * @param    {Number} seconds
      * @returns  {Boolean}            
      */
     timestamp(seconds){
