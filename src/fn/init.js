@@ -26,9 +26,9 @@
      * @param    {Object} cfg 
      * @returns 
      */
-    init(cfg){
+    init(cfg, force){
       let parts;
-      if ( !bbn.env.isInit ){
+      if ( !bbn.env.isInit || force){
         bbn.env.width = window.innerWidth;
         bbn.env.height = window.innerHeight;
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;

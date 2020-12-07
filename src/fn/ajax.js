@@ -971,8 +971,17 @@
      * 
      * @returns  {String} The unique ID
      */
-    getRequestId(url, data, datatype){
-      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(data || []));
+    getRequestId(url, data, datatype) {
+      let d = {};
+      if (data) {
+        bbn.fn.iterate(data, (a, n) => {
+          if (n.indexOf('_bbn') === -1) {
+            d[n] = a;
+          }
+        })
+      }
+
+      return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
 
     /**

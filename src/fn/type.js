@@ -203,6 +203,32 @@
     },
 
     /**
+     * Returns true if the given argument is a promise.
+     * @global 
+     * @example
+     * ```javascript
+     * bbn.fn.isPromise(bbn.fn.post('myUrl'));
+     * // true
+     * bbn.fn.isPromise(setTimeout(() => {}))
+     * // false
+     * bbn.fn.isPromise(myVueObject.$nextTick());
+     * // true
+     * ```
+     * @method   isFunction
+     * @memberof bbn.fn
+     * @returns  {Boolean}  
+     */
+    isPromise() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Promise]' ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
      * Returns true if the given argument is a function.
      * @global 
      * @example
@@ -546,13 +572,34 @@
      * @returns  {Boolean}   
      */
     isURL(str){
-      let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-      return pattern.test(str);
+      return bbn.var.regexp.url.test(str);
     },
+    /**
+     * @method   isIP
+     * @ignore
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {Boolean}   
+     */
+    isIP(st){
+      if (bbn.fn.isString(st)) {
+        return bbn.var.regexp.ip.test(st);
+      }
+    },
+    /**
+     * @method   isHostname
+     * @ignore
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {Boolean}   
+     */
+    isHostname(){
+      if (bbn.fn.isString(st)) {
+        if (bbn.fn.isIp(st)) {
+          return true;
+        }
+        return bbn.var.regexp.hostname.test(st);
+      }
+    }
   });
 })(bbn);

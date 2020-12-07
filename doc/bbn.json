@@ -1028,6 +1028,20 @@
             },
             {
                 "file": "type.js",
+                "text": "isHostname",
+                "desc": false,
+                "value": "isHostname",
+                "url": "bbn-js\/doc\/type\/isHostname"
+            },
+            {
+                "file": "type.js",
+                "text": "isIP",
+                "desc": false,
+                "value": "isIP",
+                "url": "bbn-js\/doc\/type\/isIP"
+            },
+            {
+                "file": "type.js",
                 "text": "isIterable",
                 "desc": "Returns true if the given object can be iterated as an array (numerically)",
                 "value": "isIterable",
