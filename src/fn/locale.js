@@ -86,7 +86,7 @@
         return novalue;
       }
       if ( isNaN(val) || !val ){
-        return 0;
+        return 0 + (currency ? (' ' + currency) : '');
       }
       if ( kilo && val ){
         val = val / 1000;
