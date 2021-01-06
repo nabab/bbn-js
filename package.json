@@ -16,7 +16,7 @@
   },
   "main": "dist/bbn.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "define": "^1.0.1",
     "moment": "^2.27.0"
   },
