@@ -24,16 +24,27 @@
     opt: {
       _cat: {}
     },
-    _(st, namespace){
-      if (namespace && bbn.fn.isString(namespace)) {
-        if (namespace.indexOf('_') !== 0) {
-          namespace = '_' + namespace;
-        }
-        if (bbn.lng[namespace]) {
-          return bbn.lng[namespace][st] || st;
-        }
+    _(st) {
+      let res = bbn.lng[st] || st;
+      let args = Array.prototype.slice.call(arguments, 1);
+      if (args.length) {
+        let i = 0;
+        return res.replace(/\%([d|s])/g, (match, type) => {
+          let tmp = args[i];
+          i++;
+          if (((type === 'd') && bbn.fn.isNumber(tmp))
+              || ((type === 's') && bbn.fn.isString(tmp))
+          ) {
+            return tmp;
+          }
+
+          return match;
+        })
+
+
       }
-      return bbn.lng[st] || st;
+
+      return res;
     },
     $(selector, context) {
       if (context && context.querySelectorAll) {
@@ -474,8 +485,27 @@
      * @returns  {Promise}  The Promise created by the generated XHR.
      */
     ajax(url, datatype, data, success, failure, abort){
+      if ((arguments.length === 1) && bbn.fn.isObject(url) && url.url) {
+        if (url.abort) {
+          abort = url.abort;
+        }
+        if (url.failure) {
+          failure = url.failure;
+        }
+        if (url.success) {
+          success = url.success;
+        }
+        if (url.data) {
+          data = url.data;
+        }
+        if (url.datatype) {
+          datatype = url.datatype;
+        }
+        url = url.url;
+      }
+
       if (!url) {
-        url = bbn.env.path;
+        return;
       }
       if ( url ){
         if ( !datatype ){
@@ -2072,7 +2102,7 @@
         return novalue;
       }
       if ( isNaN(val) || !val ){
-        return 0;
+        return 0 + (currency ? (' ' + currency) : '');
       }
       if ( kilo && val ){
         val = val / 1000;
@@ -7375,9 +7405,9 @@
      * @memberof bbn.fn
      * @returns  {Boolean}   
      */
-    isHostname(){
+    isHostname(st) {
       if (bbn.fn.isString(st)) {
-        if (bbn.fn.isIp(st)) {
+        if (bbn.fn.isIP(st)) {
           return true;
         }
         return bbn.var.regexp.hostname.test(st);

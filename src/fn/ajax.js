@@ -78,8 +78,27 @@
      * @returns  {Promise}  The Promise created by the generated XHR.
      */
     ajax(url, datatype, data, success, failure, abort){
+      if ((arguments.length === 1) && bbn.fn.isObject(url) && url.url) {
+        if (url.abort) {
+          abort = url.abort;
+        }
+        if (url.failure) {
+          failure = url.failure;
+        }
+        if (url.success) {
+          success = url.success;
+        }
+        if (url.data) {
+          data = url.data;
+        }
+        if (url.datatype) {
+          datatype = url.datatype;
+        }
+        url = url.url;
+      }
+
       if (!url) {
-        url = bbn.env.path;
+        return;
       }
       if ( url ){
         if ( !datatype ){

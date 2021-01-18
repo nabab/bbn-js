@@ -24,16 +24,27 @@
     opt: {
       _cat: {}
     },
-    _(st, namespace){
-      if (namespace && bbn.fn.isString(namespace)) {
-        if (namespace.indexOf('_') !== 0) {
-          namespace = '_' + namespace;
-        }
-        if (bbn.lng[namespace]) {
-          return bbn.lng[namespace][st] || st;
-        }
+    _(st) {
+      let res = bbn.lng[st] || st;
+      let args = Array.prototype.slice.call(arguments, 1);
+      if (args.length) {
+        let i = 0;
+        return res.replace(/\%([d|s])/g, (match, type) => {
+          let tmp = args[i];
+          i++;
+          if (((type === 'd') && bbn.fn.isNumber(tmp))
+              || ((type === 's') && bbn.fn.isString(tmp))
+          ) {
+            return tmp;
+          }
+
+          return match;
+        })
+
+
       }
-      return bbn.lng[st] || st;
+
+      return res;
     },
     $(selector, context) {
       if (context && context.querySelectorAll) {

@@ -593,9 +593,9 @@
      * @memberof bbn.fn
      * @returns  {Boolean}   
      */
-    isHostname(){
+    isHostname(st) {
       if (bbn.fn.isString(st)) {
-        if (bbn.fn.isIp(st)) {
+        if (bbn.fn.isIP(st)) {
           return true;
         }
         return bbn.var.regexp.hostname.test(st);
