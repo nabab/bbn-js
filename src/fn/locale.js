@@ -250,7 +250,7 @@
      * @global   
      * @memberof bbn.fn
      * @param    {String|Date} d 
-     * @param    wrong_result    
+     * @param    {String}      wrong_result
      * @returns                
      */
     fdate(d, wrong_result){
@@ -263,9 +263,8 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).format('L');
-        /*
-        return moment(r).calendar(null, {
+        //return moment(r).format('L');
+        return moment(r).calendar({
           sameDay: '[' + bbn._('Today') + ']',
           nextDay: '[' + bbn._('Tomorrow') + ']',
           nextWeek: 'ddd D',
@@ -273,7 +272,6 @@
           lastWeek: 'ddd D',
           sameElse: 'DD/MM/YYYY'
         });
-        */
       }
       return r.toLocaleDateString();
     },
@@ -291,17 +289,15 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).format('lll');
-        /*
-        return moment(r).calendar(null, {
-          sameDay: '[' + bbn._('Today at') + '] HH:mm',
-          nextDay: '[' + bbn._('Tomorrow at') + '] HH:mm',
-          nextWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
-          lastDay: '[' + bbn._('Yesterday at') + '] HH:mm',
-          lastWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
+        //return moment(r).format('lll');
+        return moment(r).calendar({
+          sameDay: '[' + bbn._('Today') + '] HH:mm',
+          nextDay: '[' + bbn._('Tomorrow') + '] HH:mm',
+          nextWeek: 'ddd D HH:mm',
+          lastDay: '[' + bbn._('Yesterday') + '] HH:mm',
+          lastWeek: 'ddd D HH:mm',
           sameElse: 'DD/MM/YYYY HH:mm'
         });
-        */
         //return moment(r).format("DD/MM/YYYY HH:mm")
       }
       return r.toLocaleDateString();

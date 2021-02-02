@@ -72,7 +72,6 @@
      * bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
      * ```
      * @memberof bbn.fn
-     * @param    {Mixed}
      * @returns  {String} The unique string in md5 format
      */
     uniqString(){
@@ -270,7 +269,7 @@
      * bbn.fn.camelize("this_is-a test");
      * ```
      * @memberof bbn.fn
-     * @param    {String}
+     * @param    {String} str
      * @returns  {String}
      */
     camelize(str){
@@ -295,7 +294,7 @@
      * ```
      *
      * @memberof bbn.fn
-     * @returns  {String}
+     * @returns  {String} str
      */
     sanitize(str){
       return str.replace(/[^a-z0-9]/gi, '_').replace(/[_]+/g, '_');
@@ -737,7 +736,7 @@
      * @todo     Add method description for printf
      * @global   
      * @memberof bbn.fn
-     * @param    format  
+     * @param    String format
      * @returns  {*}    
      */
     printf(format){
@@ -772,29 +771,6 @@
         }
       }
       return st;
-    },
-
-    /**
-     * Returns the value of size for element html
-     *
-     * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
-     *
-     * @method   formatSize
-     * @global
-     *
-     *
-     * @memberof bbn.fn
-     * @param    {String|Number} st
-     * @returns  {String}
-     */
-    formatSize(st){
-      if ( !st ){
-        return 'auto';
-      }
-      if ( bbn.fn.isNumber(st) ){
-        return st + 'px';
-      }
-      return st.toString();
     },
 
     /**

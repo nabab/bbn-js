@@ -26,11 +26,9 @@
      * @param    {Object} cfg 
      * @returns 
      */
-    init(cfg){
+    init(cfg, force){
       let parts;
-      bbn.fn.log("TRYING TO INIT");
-      if ( !bbn.env.isInit ){
-        bbn.fn.log("REAL INIT");
+      if ( !bbn.env.isInit || force){
         bbn.env.width = window.innerWidth;
         bbn.env.height = window.innerHeight;
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
@@ -87,7 +85,6 @@
             }
           }
           if (target && target.href && !target.target && !target.classList.contains('bbn-no')) {
-            bbn.fn.log("DOING IT HEY");
             e.preventDefault();
             e.stopPropagation();
             bbn.fn.link(target.href);

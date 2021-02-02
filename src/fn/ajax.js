@@ -78,8 +78,27 @@
      * @returns  {Promise}  The Promise created by the generated XHR.
      */
     ajax(url, datatype, data, success, failure, abort){
+      if ((arguments.length === 1) && bbn.fn.isObject(url) && url.url) {
+        if (url.abort) {
+          abort = url.abort;
+        }
+        if (url.failure) {
+          failure = url.failure;
+        }
+        if (url.success) {
+          success = url.success;
+        }
+        if (url.data) {
+          data = url.data;
+        }
+        if (url.datatype) {
+          datatype = url.datatype;
+        }
+        url = url.url;
+      }
+
       if (!url) {
-        url = bbn.env.path;
+        return;
       }
       if ( url ){
         if ( !datatype ){
@@ -971,24 +990,16 @@
      * 
      * @returns  {String} The unique ID
      */
-    getRequestId(url, data, datatype){
-      let d = [];
+    getRequestId(url, data, datatype) {
+      let d = {};
       if (data) {
-        let fn = (data) => {
-          let r = [];
-          let keys = Object.keys(data).sort();
-          bbn.fn.each(keys, (n) => {
-            if (n.indexOf('_bbn') !== 0) {
-              r.push(n);
-              if (bbn.fn.isObject(data[n])) {
-                r.push(fn(data[n]));
-              }
-            }
-          });
-          return r;
-        }
-        d = fn(data);
+        bbn.fn.iterate(data, (a, n) => {
+          if (n.indexOf('_bbn') === -1) {
+            d[n] = a;
+          }
+        })
       }
+
       return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
 

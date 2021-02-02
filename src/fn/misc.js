@@ -13,6 +13,61 @@
   let _private = {};
 
   Object.assign(bbn.fn, {
+    checkPropsDetails(obj, props, checkEmpty) {
+      let res = {
+        error: false,
+        result: true
+      };
+      if (bbn.fn.isString(props)) {
+        props = [props];
+      }
+      if (!bbn.fn.isArray(props)) {
+        res.error = bbn._("checkProps must receive a string or an array as props argument");
+      }
+      if (!bbn.fn.isObject(obj)) {
+        res.error = bbn._("checkProps must receive an object as obj argument");
+      }
+      if (!res.error) {
+        let check;
+        bbn.fn.each(props, varName => {
+          varName = varName.trim().split(':');
+          let type = varName[1] || false;
+          varName = varName[0];
+          if (obj[varName] === undefined) {
+            res.error = varName+ ' ' + bbn._("is not defined");
+          }
+          else if (type) {
+            check = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1).toLowerCase();
+            if (bbn.fn[check] === undefined) {
+              res.error = type + ' ' + bbn._("is not a valid type");
+            }
+            else if (!bbn.fn[check](obj[varName])) {
+              res.error = varName+ ' ' + bbn._("is not a") + ' ' + type;
+            }
+          }
+          else if (checkEmpty && !obj[varName]) {
+            res.error = varName+ ' ' + bbn._("is empty");
+          }
+          if (res.error) {
+            return false;
+          }
+        });
+      }
+      if (res.error) {
+        res.result = false;
+      }
+      return res;
+    },
+    checkProps(obj, props, checkEmpty) {
+      return bbn.fn.checkPropsDetails(obj, props, checkEmpty).result;
+    },
+    checkPropsOrDie(obj, props, checkEmpty) {
+      let res = bbn.fn.checkPropsDetails(obj, props, checkEmpty);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      return true;
+    },
     /**
      * 
      */
@@ -32,7 +87,7 @@
      * bbn.fn.timestamp();
      * ```
      * @memberof bbn.fn
-     * @param    {Number}
+     * @param    {Number} seconds
      * @returns  {Boolean}            
      */
     timestamp(seconds){
@@ -842,7 +897,26 @@
         range.moveToElementText(ele);
         range.select();
       }
-  }
+    },
+    getAncestors(ele, sel) {
+      let r = [];
+      if (ele instanceof HTMLElement) {
+        if (typeof(sel) === 'string') {
+          while (ele = ele.closest(sel)) {
+            r.push(ele);
+          }
+        }
+        else {
+          if (sel === true) {
+            r.push(ele);
+          }
+          while (ele = ele.parentNode) {
+            r.push(ele);
+          }
+        }
+      }
+      return r;
+    }
 
   });
 })(bbn);

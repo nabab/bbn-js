@@ -118,7 +118,7 @@ bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
 ```
 [Back to top](#bbn_top)  
 
-### <a name="order"></a>bbn.fn.order(arr, prop, [dir=asc])
+### <a name="order"></a>bbn.fn.order(arr, prop, dir)
 
   __Sorts an array of objects based on the given property.__
 
@@ -1318,7 +1318,7 @@ bbn.fn.map(
 ```
 [Back to top](#bbn_top)  
 
-### <a name="toCSV"></a>bbn.fn.toCSV(arr, [valSep=,], [rowSep=;], [valEsc="])
+### <a name="toCSV"></a>bbn.fn.toCSV(arr, valSep, rowSep, valEsc)
 
   __Returns a CSV string from the given array of arrays or objects.__
 
@@ -1344,7 +1344,7 @@ bbn.fn.toCSV([{name: "Capuche", fname: "Marc-Antoine"}, {name: "Orfin", fname: "
 ```
 [Back to top](#bbn_top)  
 
-### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, [max=100])
+### <a name="shortenObj"></a>bbn.fn.shortenObj(obj, max)
 
   __Shortens all the strings contained in the object properties or element in a array.__
 

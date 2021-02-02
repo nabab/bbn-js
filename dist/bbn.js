@@ -24,16 +24,27 @@
     opt: {
       _cat: {}
     },
-    _(st, namespace){
-      if (namespace && bbn.fn.isString(namespace)) {
-        if (namespace.indexOf('_') !== 0) {
-          namespace = '_' + namespace;
-        }
-        if (bbn.lng[namespace]) {
-          return bbn.lng[namespace][st] || st;
-        }
+    _(st) {
+      let res = bbn.lng[st] || st;
+      let args = Array.prototype.slice.call(arguments, 1);
+      if (args.length) {
+        let i = 0;
+        return res.replace(/\%([d|s])/g, (match, type) => {
+          let tmp = args[i];
+          i++;
+          if (((type === 'd') && bbn.fn.isNumber(tmp))
+              || ((type === 's') && bbn.fn.isString(tmp))
+          ) {
+            return tmp;
+          }
+
+          return match;
+        })
+
+
       }
-      return bbn.lng[st] || st;
+
+      return res;
     },
     $(selector, context) {
       if (context && context.querySelectorAll) {
@@ -212,7 +223,17 @@
       pastelblue: '#ddebf6',
       webblue: '#2196f3'
     },
-    mockText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    mockText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    regexp: {
+      url: new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'),
+      ip: new RegExp("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"),
+      hostname: new RegExp("^[a-z\\d]([a-z\\d\\-]{0,61}[a-z\\d])?(\\.[a-z\\d]([a-z\\d\\-]{0,61}[a-z\\d])?)*$", 'i'),
+    }
   };
 
 })(bbn);
@@ -464,8 +485,27 @@
      * @returns  {Promise}  The Promise created by the generated XHR.
      */
     ajax(url, datatype, data, success, failure, abort){
+      if ((arguments.length === 1) && bbn.fn.isObject(url) && url.url) {
+        if (url.abort) {
+          abort = url.abort;
+        }
+        if (url.failure) {
+          failure = url.failure;
+        }
+        if (url.success) {
+          success = url.success;
+        }
+        if (url.data) {
+          data = url.data;
+        }
+        if (url.datatype) {
+          datatype = url.datatype;
+        }
+        url = url.url;
+      }
+
       if (!url) {
-        url = bbn.env.path;
+        return;
       }
       if ( url ){
         if ( !datatype ){
@@ -1357,24 +1397,16 @@
      * 
      * @returns  {String} The unique ID
      */
-    getRequestId(url, data, datatype){
-      let d = [];
+    getRequestId(url, data, datatype) {
+      let d = {};
       if (data) {
-        let fn = (data) => {
-          let r = [];
-          let keys = Object.keys(data).sort();
-          bbn.fn.each(keys, (n) => {
-            if (n.indexOf('_bbn') !== 0) {
-              r.push(n);
-              if (bbn.fn.isObject(data[n])) {
-                r.push(fn(data[n]));
-              }
-            }
-          });
-          return r;
-        }
-        d = fn(data);
+        bbn.fn.iterate(data, (a, n) => {
+          if (n.indexOf('_bbn') === -1) {
+            d[n] = a;
+          }
+        })
       }
+
       return url + ':' + bbn.fn.md5((datatype || 'json') + JSON.stringify(d));
     },
 
@@ -1871,11 +1903,9 @@
      * @param    {Object} cfg 
      * @returns 
      */
-    init(cfg){
+    init(cfg, force){
       let parts;
-      bbn.fn.log("TRYING TO INIT");
-      if ( !bbn.env.isInit ){
-        bbn.fn.log("REAL INIT");
+      if ( !bbn.env.isInit || force){
         bbn.env.width = window.innerWidth;
         bbn.env.height = window.innerHeight;
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
@@ -1932,7 +1962,6 @@
             }
           }
           if (target && target.href && !target.target && !target.classList.contains('bbn-no')) {
-            bbn.fn.log("DOING IT HEY");
             e.preventDefault();
             e.stopPropagation();
             bbn.fn.link(target.href);
@@ -2073,7 +2102,7 @@
         return novalue;
       }
       if ( isNaN(val) || !val ){
-        return 0;
+        return 0 + (currency ? (' ' + currency) : '');
       }
       if ( kilo && val ){
         val = val / 1000;
@@ -2237,7 +2266,7 @@
      * @global   
      * @memberof bbn.fn
      * @param    {String|Date} d 
-     * @param    wrong_result    
+     * @param    {String}      wrong_result
      * @returns                
      */
     fdate(d, wrong_result){
@@ -2250,9 +2279,8 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).format('L');
-        /*
-        return moment(r).calendar(null, {
+        //return moment(r).format('L');
+        return moment(r).calendar({
           sameDay: '[' + bbn._('Today') + ']',
           nextDay: '[' + bbn._('Tomorrow') + ']',
           nextWeek: 'ddd D',
@@ -2260,7 +2288,6 @@
           lastWeek: 'ddd D',
           sameElse: 'DD/MM/YYYY'
         });
-        */
       }
       return r.toLocaleDateString();
     },
@@ -2278,17 +2305,15 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== moment ){
-        return moment(r).format('lll');
-        /*
-        return moment(r).calendar(null, {
-          sameDay: '[' + bbn._('Today at') + '] HH:mm',
-          nextDay: '[' + bbn._('Tomorrow at') + '] HH:mm',
-          nextWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
-          lastDay: '[' + bbn._('Yesterday at') + '] HH:mm',
-          lastWeek: 'ddd D [' + bbn._('at') + '] HH:mm',
+        //return moment(r).format('lll');
+        return moment(r).calendar({
+          sameDay: '[' + bbn._('Today') + '] HH:mm',
+          nextDay: '[' + bbn._('Tomorrow') + '] HH:mm',
+          nextWeek: 'ddd D HH:mm',
+          lastDay: '[' + bbn._('Yesterday') + '] HH:mm',
+          lastWeek: 'ddd D HH:mm',
           sameElse: 'DD/MM/YYYY HH:mm'
         });
-        */
         //return moment(r).format("DD/MM/YYYY HH:mm")
       }
       return r.toLocaleDateString();
@@ -2334,6 +2359,61 @@
   let _private = {};
 
   Object.assign(bbn.fn, {
+    checkPropsDetails(obj, props, checkEmpty) {
+      let res = {
+        error: false,
+        result: true
+      };
+      if (bbn.fn.isString(props)) {
+        props = [props];
+      }
+      if (!bbn.fn.isArray(props)) {
+        res.error = bbn._("checkProps must receive a string or an array as props argument");
+      }
+      if (!bbn.fn.isObject(obj)) {
+        res.error = bbn._("checkProps must receive an object as obj argument");
+      }
+      if (!res.error) {
+        let check;
+        bbn.fn.each(props, varName => {
+          varName = varName.trim().split(':');
+          let type = varName[1] || false;
+          varName = varName[0];
+          if (obj[varName] === undefined) {
+            res.error = varName+ ' ' + bbn._("is not defined");
+          }
+          else if (type) {
+            check = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1).toLowerCase();
+            if (bbn.fn[check] === undefined) {
+              res.error = type + ' ' + bbn._("is not a valid type");
+            }
+            else if (!bbn.fn[check](obj[varName])) {
+              res.error = varName+ ' ' + bbn._("is not a") + ' ' + type;
+            }
+          }
+          else if (checkEmpty && !obj[varName]) {
+            res.error = varName+ ' ' + bbn._("is empty");
+          }
+          if (res.error) {
+            return false;
+          }
+        });
+      }
+      if (res.error) {
+        res.result = false;
+      }
+      return res;
+    },
+    checkProps(obj, props, checkEmpty) {
+      return bbn.fn.checkPropsDetails(obj, props, checkEmpty).result;
+    },
+    checkPropsOrDie(obj, props, checkEmpty) {
+      let res = bbn.fn.checkPropsDetails(obj, props, checkEmpty);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      return true;
+    },
     /**
      * 
      */
@@ -2353,7 +2433,7 @@
      * bbn.fn.timestamp();
      * ```
      * @memberof bbn.fn
-     * @param    {Number}
+     * @param    {Number} seconds
      * @returns  {Boolean}            
      */
     timestamp(seconds){
@@ -3001,20 +3081,86 @@
     },
 
     /**
-     * Returns true if the current browser is on a mobile device. 
-     * @method   isMobile
-     * @global   
-     * @example
-     * ``` javascript
-     * bbn.fn.isMobile();
-     * // false
-     * ```
-     * @memberof bbn.fn
-     * @returns  {Boolean} 
-     */
-    isMobile(){
-      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    * Returns the current device type. 
+    * @method   getDeviceType
+    * @global   
+    * @example
+    * ``` javascript
+    * bbn.fn.getDeviceType();
+    * // mobile
+    * ```
+    * @memberof bbn.fn
+    * @returns  {String} 
+    */
+    getDeviceType(){
+      if ( /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent) ){
+        return "tablet";
+      }
+      if ( /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(navigator.userAgent) ){
+        return "mobile";
+      }
+      return "desktop";
     },
+    /**
+      * Returns true if the current device type is a mobile. 
+      * @method   isMobileDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isMobileDevice();
+      * // false
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isMobileDevice(){
+        return this.getDeviceType() === 'mobile';
+      },
+    /**
+      * Returns true if the current device type is a tablet. 
+      * @method   isTabletDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isTabletDevice();
+      * // false
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isTabletDevice(){
+        return this.getDeviceType() === 'tablet';
+      },
+    /**
+      * Returns true if the current device type is a desktop. 
+      * @method   isDesktopDevice
+      * @global   
+      * @example
+      * ``` javascript
+      * bbn.fn.isDesktopDevice();
+      * // true
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean} 
+      */
+      isDesktopDevice(){
+        return this.getDeviceType() === 'desktop';
+      },
+      /**
+       * Returns true if the current browser is on a mobile device (smartphone or tablet). 
+       * @method   isMobile
+       * @global   
+       * @example
+       * ``` javascript
+       * bbn.fn.isMobile();
+       * // false
+       * ```
+       * @memberof bbn.fn
+       * @returns  {Boolean} 
+       */
+      isMobile(){
+        return bbn.fn.isMobileDevice() || bbn.fn.isTabletDevice();
+      },
     /**
      * Returns the length of time the window has not been focused in seconds. 
      * @method   getTimeoff
@@ -3097,7 +3243,26 @@
         range.moveToElementText(ele);
         range.select();
       }
-  }
+    },
+    getAncestors(ele, sel) {
+      let r = [];
+      if (ele instanceof HTMLElement) {
+        if (typeof(sel) === 'string') {
+          while (ele = ele.closest(sel)) {
+            r.push(ele);
+          }
+        }
+        else {
+          if (sel === true) {
+            r.push(ele);
+          }
+          while (ele = ele.parentNode) {
+            r.push(ele);
+          }
+        }
+      }
+      return r;
+    }
 
   });
 })(bbn);
@@ -5292,10 +5457,33 @@
      */
     resize(){
       if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
-        bbn.env.width = window.innerWidth;
-        bbn.env.height = window.innerHeight;
+        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
       }
       bbn.fn.defaultResizeFunction();
+    },
+
+    /**
+     * Returns the value of size for element html
+     *
+     * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
+     *
+     * @method   formatSize
+     * @global
+     *
+     *
+     * @memberof bbn.fn
+     * @param    {String|Number} st
+     * @returns  {String}
+     */
+    formatSize(st, noValid){
+      if ( bbn.fn.isNumber(st) ){
+        return st + 'px';
+      }
+      if (bbn.fn.isString(st)) {
+        return st;
+      }
+      return noValid ? false : 'auto';
     },
 
     /**
@@ -5597,7 +5785,6 @@
      * bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
      * ```
      * @memberof bbn.fn
-     * @param    {Mixed}
      * @returns  {String} The unique string in md5 format
      */
     uniqString(){
@@ -5795,7 +5982,7 @@
      * bbn.fn.camelize("this_is-a test");
      * ```
      * @memberof bbn.fn
-     * @param    {String}
+     * @param    {String} str
      * @returns  {String}
      */
     camelize(str){
@@ -5820,7 +6007,7 @@
      * ```
      *
      * @memberof bbn.fn
-     * @returns  {String}
+     * @returns  {String} str
      */
     sanitize(str){
       return str.replace(/[^a-z0-9]/gi, '_').replace(/[_]+/g, '_');
@@ -6262,7 +6449,7 @@
      * @todo     Add method description for printf
      * @global   
      * @memberof bbn.fn
-     * @param    format  
+     * @param    String format
      * @returns  {*}    
      */
     printf(format){
@@ -6297,29 +6484,6 @@
         }
       }
       return st;
-    },
-
-    /**
-     * Returns the value of size for element html
-     *
-     * If the argument passed is a number it will return the value expressed in 'px' otherwise if string returns this ose nothing is passed it will return 'auto'.
-     *
-     * @method   formatSize
-     * @global
-     *
-     *
-     * @memberof bbn.fn
-     * @param    {String|Number} st
-     * @returns  {String}
-     */
-    formatSize(st){
-      if ( !st ){
-        return 'auto';
-      }
-      if ( bbn.fn.isNumber(st) ){
-        return st + 'px';
-      }
-      return st.toString();
     },
 
     /**
@@ -6831,7 +6995,7 @@
      * bbn.fn.isEmpty('test');
      * ```
      * @memberof bbn.fn
-     * @param    {Object|Array|String}
+     * @param    {*} obj
      * @returns  {Boolean}
      */
     isEmpty(obj) {
@@ -6842,12 +7006,38 @@
         return obj.length ? false : true;
       }
       if ( typeof(obj) === 'object' ){
-        for(var prop in obj ){
+        if (bbn.fn.numProperties(obj)) {
           return false;
         }
         return true;
       }
       return false;
+    },
+
+    /**
+     * Returns true if the given argument is a promise.
+     * @global 
+     * @example
+     * ```javascript
+     * bbn.fn.isPromise(bbn.fn.post('myUrl'));
+     * // true
+     * bbn.fn.isPromise(setTimeout(() => {}))
+     * // false
+     * bbn.fn.isPromise(myVueObject.$nextTick());
+     * // true
+     * ```
+     * @method   isFunction
+     * @memberof bbn.fn
+     * @returns  {Boolean}  
+     */
+    isPromise() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( {}.toString.apply(a) !== '[object Promise]' ){
+          return false
+        }
+      }
+      return true;
     },
 
     /**
@@ -7194,14 +7384,35 @@
      * @returns  {Boolean}   
      */
     isURL(str){
-      let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-      return pattern.test(str);
+      return bbn.var.regexp.url.test(str);
     },
+    /**
+     * @method   isIP
+     * @ignore
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {Boolean}   
+     */
+    isIP(st){
+      if (bbn.fn.isString(st)) {
+        return bbn.var.regexp.ip.test(st);
+      }
+    },
+    /**
+     * @method   isHostname
+     * @ignore
+     * @global   
+     * @memberof bbn.fn
+     * @returns  {Boolean}   
+     */
+    isHostname(st) {
+      if (bbn.fn.isString(st)) {
+        if (bbn.fn.isIP(st)) {
+          return true;
+        }
+        return bbn.var.regexp.hostname.test(st);
+      }
+    }
   });
 })(bbn);
 
