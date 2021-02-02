@@ -680,31 +680,97 @@
     },
 
     /**
-     * Returns true if the current browser is on a mobile device. 
+     * Returns the current device type.
+     * @method   getDeviceType
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.getDeviceType();
+     * // mobile
+     * ```
+     * @memberof bbn.fn
+     * @returns  {String}
+     */
+    getDeviceType(){
+      if ( /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent) ){
+        return "tablet";
+      }
+      if ( /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(navigator.userAgent) ){
+        return "mobile";
+      }
+      return "desktop";
+    },
+    /**
+     * Returns true if the current device type is a mobile.
+     * @method   isMobileDevice
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.isMobileDevice();
+     * // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+		isMobileDevice(){
+			return this.getDeviceType() === 'mobile';
+		},
+    /**
+      * Returns true if the current device type is a tablet.
+      * @method   isTabletDevice
+      * @global
+      * @example
+      * ``` javascript
+      * bbn.fn.isTabletDevice();
+      * // false
+      * ```
+      * @memberof bbn.fn
+      * @returns  {Boolean}
+      */
+		isTabletDevice(){
+			return this.getDeviceType() === 'tablet';
+		},
+    /**
+     * Returns true if the current device type is a desktop.
+     * @method   isDesktopDevice
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.isDesktopDevice();
+     * // true
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+		isDesktopDevice(){
+			return this.getDeviceType() === 'desktop';
+		},
+    /**
+     * Returns true if the current browser is on a mobile device (smartphone or tablet).
      * @method   isMobile
-     * @global   
+     * @global
      * @example
      * ``` javascript
      * bbn.fn.isMobile();
      * // false
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean} 
+     * @returns  {Boolean}
      */
     isMobile(){
-      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+			return bbn.fn.isMobileDevice() || bbn.fn.isTabletDevice();
     },
     /**
-     * Returns the length of time the window has not been focused in seconds. 
+     * Returns the length of time the window has not been focused in seconds.
      * @method   getTimeoff
-     * @global   
+     * @global
      * @example
      * ``` javascript
      * bbn.fn.getTimeoff();
      * // 0
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean} 
+     * @returns  {Boolean}
      */
     getTimeoff(){
       if (!bbn.env.isFocused) {
