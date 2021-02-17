@@ -111,7 +111,7 @@
           return decimal;
         }
         return i && ((a.length - i - decimalPosition) % 3 === 0) && (i < decimalIdx) ? thousands + c : c;
-      }) + ( currency ? ' ' + currency : '');
+      }) + (currency ? ' ' + currency : '');
     },
 
     /**
