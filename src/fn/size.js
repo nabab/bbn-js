@@ -187,14 +187,16 @@
         el.style[type] = 'auto';
       });
       bbn.fn.each(eles, (el, i) => {
-        let s = el['client' + (type === 'height' ? 'Height' : 'Width')];
+        let rect = el.getBoundingClientRect(),
+            s = rect[type] % 1 ? (rect[type] - (rect[type] % 1) + 1) : rect[type];
+            //s = rect[type];
         if (s > max) {
           max = s;
           idx = i;
         }
       });
       bbn.fn.each(eles, (el, i) => {
-        if ( max && (idx !== i)){
+        if (max){
           el.style[type] = max + 'px';
         }
       });

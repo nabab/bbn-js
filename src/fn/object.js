@@ -348,6 +348,10 @@
           return v1 === '';
         case "isnotempty":
           return v1 !== '';
+        case '==':
+          if (bbn.fn.isObject(v1, v2)) {
+            return bbn.fn.isSame(v1, v2);
+          }
         default:
           return v1 == v2;
       }
@@ -1053,8 +1057,18 @@
           return false;
         }
         let ok = true;
-        bbn.fn.each(tmp1, (a ,i) => {
-          if ( !bbn.fn.isSame(obj1[a], obj2[a]) ){
+        bbn.fn.each(tmp1, a => {
+          if (bbn.fn.isObject(obj1[a], obj2[a])) {
+            if (!bbn.fn.isSame(obj1[a], obj2[a])) {
+              ok = false;
+              return false;
+            }
+          }
+          /* else if (obj1[a] !== obj2[a]) {
+            ok = false;
+            return false;
+          } */
+          else if (bbn.fn.numProperties(bbn.fn.diffObj(obj1[a], obj2[a]))) {
             ok = false;
             return false;
           }

@@ -3619,6 +3619,10 @@
           return v1 === '';
         case "isnotempty":
           return v1 !== '';
+        case '==':
+          if (bbn.fn.isObject(v1, v2)) {
+            return bbn.fn.isSame(v1, v2);
+          }
         default:
           return v1 == v2;
       }
@@ -4324,8 +4328,18 @@
           return false;
         }
         let ok = true;
-        bbn.fn.each(tmp1, (a ,i) => {
-          if ( !bbn.fn.isSame(obj1[a], obj2[a]) ){
+        bbn.fn.each(tmp1, a => {
+          if (bbn.fn.isObject(obj1[a], obj2[a])) {
+            if (!bbn.fn.isSame(obj1[a], obj2[a])) {
+              ok = false;
+              return false;
+            }
+          }
+          /* else if (obj1[a] !== obj2[a]) {
+            ok = false;
+            return false;
+          } */
+          else if (bbn.fn.numProperties(bbn.fn.diffObj(obj1[a], obj2[a]))) {
             ok = false;
             return false;
           }
@@ -5619,14 +5633,16 @@
         el.style[type] = 'auto';
       });
       bbn.fn.each(eles, (el, i) => {
-        let s = el['client' + (type === 'height' ? 'Height' : 'Width')];
+        let rect = el.getBoundingClientRect(),
+            s = rect[type] % 1 ? (rect[type] - (rect[type] % 1) + 1) : rect[type];
+            //s = rect[type];
         if (s > max) {
           max = s;
           idx = i;
         }
       });
       bbn.fn.each(eles, (el, i) => {
-        if ( max && (idx !== i)){
+        if (max){
           el.style[type] = max + 'px';
         }
       });
