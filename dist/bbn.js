@@ -2127,7 +2127,7 @@
           return decimal;
         }
         return i && ((a.length - i - decimalPosition) % 3 === 0) && (i < decimalIdx) ? thousands + c : c;
-      }) + ( currency ? ' ' + currency : '');
+      }) + (currency ? ' ' + currency : '');
     },
 
     /**
@@ -3081,17 +3081,17 @@
     },
 
     /**
-    * Returns the current device type. 
-    * @method   getDeviceType
-    * @global   
-    * @example
-    * ``` javascript
-    * bbn.fn.getDeviceType();
-    * // mobile
-    * ```
-    * @memberof bbn.fn
-    * @returns  {String} 
-    */
+     * Returns the current device type.
+     * @method   getDeviceType
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.getDeviceType();
+     * // mobile
+     * ```
+     * @memberof bbn.fn
+     * @returns  {String}
+     */
     getDeviceType(){
       if ( /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent) ){
         return "tablet";
@@ -3102,76 +3102,76 @@
       return "desktop";
     },
     /**
-      * Returns true if the current device type is a mobile. 
-      * @method   isMobileDevice
-      * @global   
-      * @example
-      * ``` javascript
-      * bbn.fn.isMobileDevice();
-      * // false
-      * ```
-      * @memberof bbn.fn
-      * @returns  {Boolean} 
-      */
-      isMobileDevice(){
-        return this.getDeviceType() === 'mobile';
-      },
+     * Returns true if the current device type is a mobile.
+     * @method   isMobileDevice
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.isMobileDevice();
+     * // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+		isMobileDevice(){
+			return this.getDeviceType() === 'mobile';
+		},
     /**
-      * Returns true if the current device type is a tablet. 
+      * Returns true if the current device type is a tablet.
       * @method   isTabletDevice
-      * @global   
+      * @global
       * @example
       * ``` javascript
       * bbn.fn.isTabletDevice();
       * // false
       * ```
       * @memberof bbn.fn
-      * @returns  {Boolean} 
+      * @returns  {Boolean}
       */
-      isTabletDevice(){
-        return this.getDeviceType() === 'tablet';
-      },
+		isTabletDevice(){
+			return this.getDeviceType() === 'tablet';
+		},
     /**
-      * Returns true if the current device type is a desktop. 
-      * @method   isDesktopDevice
-      * @global   
-      * @example
-      * ``` javascript
-      * bbn.fn.isDesktopDevice();
-      * // true
-      * ```
-      * @memberof bbn.fn
-      * @returns  {Boolean} 
-      */
-      isDesktopDevice(){
-        return this.getDeviceType() === 'desktop';
-      },
-      /**
-       * Returns true if the current browser is on a mobile device (smartphone or tablet). 
-       * @method   isMobile
-       * @global   
-       * @example
-       * ``` javascript
-       * bbn.fn.isMobile();
-       * // false
-       * ```
-       * @memberof bbn.fn
-       * @returns  {Boolean} 
-       */
-      isMobile(){
-        return bbn.fn.isMobileDevice() || bbn.fn.isTabletDevice();
-      },
+     * Returns true if the current device type is a desktop.
+     * @method   isDesktopDevice
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.isDesktopDevice();
+     * // true
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+		isDesktopDevice(){
+			return this.getDeviceType() === 'desktop';
+		},
     /**
-     * Returns the length of time the window has not been focused in seconds. 
+     * Returns true if the current browser is on a mobile device (smartphone or tablet).
+     * @method   isMobile
+     * @global
+     * @example
+     * ``` javascript
+     * bbn.fn.isMobile();
+     * // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+    isMobile(){
+			return bbn.fn.isMobileDevice() || bbn.fn.isTabletDevice();
+    },
+    /**
+     * Returns the length of time the window has not been focused in seconds.
      * @method   getTimeoff
-     * @global   
+     * @global
      * @example
      * ``` javascript
      * bbn.fn.getTimeoff();
      * // 0
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean} 
+     * @returns  {Boolean}
      */
     getTimeoff(){
       if (!bbn.env.isFocused) {
