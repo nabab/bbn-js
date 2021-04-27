@@ -42,6 +42,11 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/abort",
                 "!doc": "Aborts (client side) the XHR corresponding to the given ID if it still exists."
             },
+            "abortURL": {
+                "!type": "fn(requestId: string) -> undefined",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/abortURL",
+                "!doc": "Aborts (client side) all the XHR using the given URL if it still exists."
+            },
             "downloadContent": {
                 "!type": "fn(filename: string, content: HTMLCanvasElement|File|String, type: string) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/downloadContent",

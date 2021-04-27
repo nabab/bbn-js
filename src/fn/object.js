@@ -301,7 +301,7 @@
           if ( (typeof(v1) !== 'string') ){
             v1 = v1.toString() || '';
           }
-          if ( (typeof(v1) !== 'string') ){
+          if ( (typeof(v2) !== 'string') ){
             v2 = v2.toString() || '';
           }
           return v1.indexOf(v2) === 0;

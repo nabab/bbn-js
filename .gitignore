@@ -5,7 +5,9 @@ logs
 .idea/
 doc/src/
 src/fn/backup/
-*DS_STORE*
+.DS_STORE*
+._*
+
 
 [core]
 filemode = false

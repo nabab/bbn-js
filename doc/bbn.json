@@ -13,6 +13,13 @@
             },
             {
                 "file": "ajax.js",
+                "text": "abortURL",
+                "desc": "Aborts (client side) all the XHR using the given URL if it still exists",
+                "value": "abortURL",
+                "url": "bbn-js\/doc\/ajax\/abortURL"
+            },
+            {
+                "file": "ajax.js",
                 "text": "ajax",
                 "desc": "Creates an XHR object and returns the Promise",
                 "value": "ajax",

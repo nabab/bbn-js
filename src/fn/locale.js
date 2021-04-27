@@ -82,6 +82,13 @@
       if ( !bbn.fn.isNumber(precision) ){
         precision = kilo ? 3 : 0;
       }
+      if (val === 0) {
+        let res = val.toFixed(precision);
+        if ( currency ){
+          res += ' ' + (kilo ? 'K' + currency : currency);
+        }
+        return res;
+      }
       if ( (isNaN(val) || !val) && novalue ){
         return novalue;
       }
