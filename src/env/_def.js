@@ -42,7 +42,8 @@
     timeoff: Math.round((new Date()).getTime() / 1000),
     loggingLevel: 5,
     ignoreUnload: false,
-    historyDisabled: false
+    historyDisabled: false,
+    nav: 'ajax'
   };
 
 })();

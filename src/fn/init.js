@@ -68,6 +68,9 @@
           }
         });
         document.addEventListener('click', (e) => {
+          if (bbn.env.nav !== 'ajax') {
+            return;
+          }
           let target = e.target;
           if ( target.tagName !== 'A' ){
             let p = target;

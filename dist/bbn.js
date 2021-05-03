@@ -163,7 +163,8 @@
     timeoff: Math.round((new Date()).getTime() / 1000),
     loggingLevel: 5,
     ignoreUnload: false,
-    historyDisabled: false
+    historyDisabled: false,
+    nav: 'ajax'
   };
 
 })();
@@ -1983,6 +1984,9 @@
           }
         });
         document.addEventListener('click', (e) => {
+          if (bbn.env.nav !== 'ajax') {
+            return;
+          }
           let target = e.target;
           if ( target.tagName !== 'A' ){
             let p = target;
