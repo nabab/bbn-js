@@ -4,6 +4,7 @@
  * @since  12/04/2020
  */
 
+
 ;((bbn) => {
   "use strict";
 
@@ -24,11 +25,20 @@
      * @memberof bbn.fn
      */
     resize(){
-      if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
-        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+      let diffW = bbn.env.width !== window.innerWidth;
+      let diffH = bbn.env.height !== window.innerHeight;
+      if (diffW || diffH){
+        if (diffW) {
+          bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+          document.documentElement.style.setProperty('--vw', bbn.env.width * 0.01);
+        }
+        if (diffH) {
+          bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+          document.documentElement.style.setProperty('--vh', bbn.env.height * 0.01);
+        }
+
+        bbn.fn.defaultResizeFunction();
       }
-      bbn.fn.defaultResizeFunction();
     },
 
     /**
@@ -45,7 +55,7 @@
      * @returns  {String}
      */
     formatSize(st, noValid){
-      if ( bbn.fn.isNumber(st) ){
+      if (bbn.fn.isNumber(st)) {
         return st + 'px';
       }
       if (bbn.fn.isString(st)) {
