@@ -30,11 +30,11 @@
       if (diffW || diffH){
         if (diffW) {
           bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-          document.documentElement.style.setProperty('--vw', bbn.env.width * 0.01);
+          document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
         }
         if (diffH) {
           bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
-          document.documentElement.style.setProperty('--vh', bbn.env.height * 0.01);
+          document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         }
 
         bbn.fn.defaultResizeFunction();
