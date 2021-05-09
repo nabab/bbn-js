@@ -898,8 +898,12 @@
         range.select();
       }
     },
+
     getAncestors(ele, sel) {
       let r = [];
+      if (bbn.fn.isString(ele)) {
+        ele = document.querySelector(ele);
+      }
       if (ele instanceof HTMLElement) {
         if (typeof(sel) === 'string') {
           while (ele = ele.closest(sel)) {
@@ -916,7 +920,22 @@
         }
       }
       return r;
+    },
+
+    isInside(ele, ancestor) {
+      let ancestors = bbn.fn.getAncestors(ele);
+      if (ancestors.length) {
+        if (bbn.fn.isString(ancestor)) {
+          ancestor = document.querySelector(ancestor);
+        }
+        if (ancestor instanceof HTMLElement) {
+          return ancestors.indexOf(ancestor) > -1;
+        }
+      }
+
+      return false;
     }
+
 
   });
 })(bbn);
