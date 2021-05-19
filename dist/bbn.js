@@ -157,6 +157,7 @@
     maxLoadersHistory: 20,
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
+    hashChanged: 0,
     params: [],
     isInit: false,
     isFocused: false,
@@ -1945,8 +1946,10 @@
     init(cfg, force){
       let parts;
       if ( !bbn.env.isInit || force){
-        bbn.env.width = window.innerWidth;
-        bbn.env.height = window.innerHeight;
+        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+        document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
+        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+        document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
           bbn.env.root += '/';
@@ -2017,9 +2020,9 @@
         }); 
 
 
-        let doResize;
-       // $(window)
-       //   .on("resize orientationchange", function() {
+        window.addEventListener('hashchange', () => {
+          bbn.env.hashChanged = (new Date()).getTime();
+        }, false);
         window.addEventListener("resize", () => {
           bbn.fn.resize();
         });
@@ -2768,15 +2771,15 @@
      * @returns           
      */
     getCookie(name){
-      let nameEQ = name + "=";
+      let nameEqual = name + "=";
       let ca = document.cookie.split(';');
       for ( let i = 0; i < ca.length; i++ ){
         let c = ca[i];
         while ( c.charAt(0) == ' ' ){
           c = c.substring(1,c.length);
         }
-        if (c.indexOf(nameEQ) == 0){
-          let st = c.substring(nameEQ.length,c.length);
+        if (c.indexOf(nameEqual) == 0){
+          let st = c.substring(nameEqual.length,c.length);
           if ( st ){
             return JSON.parse(unescape(st)).value;
           }
@@ -3293,8 +3296,12 @@
         range.select();
       }
     },
+
     getAncestors(ele, sel) {
       let r = [];
+      if (bbn.fn.isString(ele)) {
+        ele = document.querySelector(ele);
+      }
       if (ele instanceof HTMLElement) {
         if (typeof(sel) === 'string') {
           while (ele = ele.closest(sel)) {
@@ -3311,7 +3318,22 @@
         }
       }
       return r;
+    },
+
+    isInside(ele, ancestor) {
+      let ancestors = bbn.fn.getAncestors(ele);
+      if (ancestors.length) {
+        if (bbn.fn.isString(ancestor)) {
+          ancestor = document.querySelector(ancestor);
+        }
+        if (ancestor instanceof HTMLElement) {
+          return ancestors.indexOf(ancestor) > -1;
+        }
+      }
+
+      return false;
     }
+
 
   });
 })(bbn);
@@ -5499,6 +5521,7 @@
  * @since  12/04/2020
  */
 
+
 ;((bbn) => {
   "use strict";
 
@@ -5519,11 +5542,20 @@
      * @memberof bbn.fn
      */
     resize(){
-      if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
-        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+      let diffW = bbn.env.width !== window.innerWidth;
+      let diffH = bbn.env.height !== window.innerHeight;
+      if (diffW || diffH){
+        if (diffW) {
+          bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+          document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
+        }
+        if (diffH) {
+          bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+          document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
+        }
+
+        bbn.fn.defaultResizeFunction();
       }
-      bbn.fn.defaultResizeFunction();
     },
 
     /**
@@ -5540,7 +5572,7 @@
      * @returns  {String}
      */
     formatSize(st, noValid){
-      if ( bbn.fn.isNumber(st) ){
+      if (bbn.fn.isNumber(st)) {
         return st + 'px';
       }
       if (bbn.fn.isString(st)) {
