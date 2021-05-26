@@ -540,8 +540,14 @@
             tmp = res.script(res.data ? res.data : {}, ele ? ele : false);
           }
           else{
-            tmp = (function(data, ele){
-              var r = eval(res.script);
+            tmp = ((data, ele) => {
+              let r = null;
+              try {
+                r = eval(res.script)(data, ele);
+              }
+              catch (e) {
+                bbn.fn.error(e.getMessage());
+              }
               return r;
             })(res.data ? res.data : {}, ele ? ele : false);
           }
