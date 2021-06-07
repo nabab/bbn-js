@@ -36,6 +36,7 @@
     maxLoadersHistory: 20,
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
+    hashChanged: 0,
     params: [],
     isInit: false,
     isFocused: false,

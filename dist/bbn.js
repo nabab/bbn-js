@@ -157,6 +157,7 @@
     maxLoadersHistory: 20,
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
+    hashChanged: 0,
     params: [],
     isInit: false,
     isFocused: false,
@@ -948,8 +949,14 @@
             tmp = res.script(res.data ? res.data : {}, ele ? ele : false);
           }
           else{
-            tmp = (function(data, ele){
-              var r = eval(res.script);
+            tmp = ((data, ele) => {
+              let r = null;
+              try {
+                r = eval(res.script)(data, ele);
+              }
+              catch (e) {
+                bbn.fn.error(e.getMessage());
+              }
               return r;
             })(res.data ? res.data : {}, ele ? ele : false);
           }
@@ -1945,8 +1952,10 @@
     init(cfg, force){
       let parts;
       if ( !bbn.env.isInit || force){
-        bbn.env.width = window.innerWidth;
-        bbn.env.height = window.innerHeight;
+        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+        document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
+        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+        document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
           bbn.env.root += '/';
@@ -2017,9 +2026,9 @@
         }); 
 
 
-        let doResize;
-       // $(window)
-       //   .on("resize orientationchange", function() {
+        window.addEventListener('hashchange', () => {
+          bbn.env.hashChanged = (new Date()).getTime();
+        }, false);
         window.addEventListener("resize", () => {
           bbn.fn.resize();
         });
@@ -2768,15 +2777,15 @@
      * @returns           
      */
     getCookie(name){
-      let nameEQ = name + "=";
+      let nameEqual = name + "=";
       let ca = document.cookie.split(';');
       for ( let i = 0; i < ca.length; i++ ){
         let c = ca[i];
         while ( c.charAt(0) == ' ' ){
           c = c.substring(1,c.length);
         }
-        if (c.indexOf(nameEQ) == 0){
-          let st = c.substring(nameEQ.length,c.length);
+        if (c.indexOf(nameEqual) == 0){
+          let st = c.substring(nameEqual.length,c.length);
           if ( st ){
             return JSON.parse(unescape(st)).value;
           }
@@ -3226,7 +3235,8 @@
       if (!bbn.env.isFocused) {
         return Math.round((new Date()).getTime()/1000 - bbn.env.timeoff);
       }
-      return 0
+
+      return 0;
     },
     /**
      * Checks whether the given elemet is focused or not.
@@ -3293,8 +3303,12 @@
         range.select();
       }
     },
+
     getAncestors(ele, sel) {
       let r = [];
+      if (bbn.fn.isString(ele)) {
+        ele = document.querySelector(ele);
+      }
       if (ele instanceof HTMLElement) {
         if (typeof(sel) === 'string') {
           while (ele = ele.closest(sel)) {
@@ -3311,7 +3325,22 @@
         }
       }
       return r;
+    },
+
+    isInside(ele, ancestor) {
+      let ancestors = bbn.fn.getAncestors(ele);
+      if (ancestors.length) {
+        if (bbn.fn.isString(ancestor)) {
+          ancestor = document.querySelector(ancestor);
+        }
+        if (ancestor instanceof HTMLElement) {
+          return ancestors.indexOf(ancestor) > -1;
+        }
+      }
+
+      return false;
     }
+
 
   });
 })(bbn);
@@ -5312,6 +5341,55 @@
     },
 
     /**
+     * Parses XML and returns an object.
+     * 
+     * Picked from https://stackoverflow.com/questions/4200913/xml-to-javascript-object
+     * 
+     * @memberof bbn.fn
+     * @param   {String} xml       The XML to be parsed
+     * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
+     * @returns {Object}
+     */
+    fromXml(xml, arrayTags) {
+      let dom = null;
+      if (window.DOMParser) dom = (new DOMParser()).parseFromString(xml, "text/xml");
+      else if (window.ActiveXObject) {
+          dom = new ActiveXObject('Microsoft.XMLDOM');
+          dom.async = false;
+          if (!dom.loadXML(xml)) throw dom.parseError.reason + " " + dom.parseError.srcText;
+      }
+      else throw new Error("cannot parse xml string!");
+  
+      function parseNode(xmlNode, result) {
+          if (xmlNode.nodeName == "#text") {
+              let v = xmlNode.nodeValue;
+              if (v.trim()) result['#text'] = v;
+              return;
+          }
+  
+          let jsonNode = {},
+              existing = result[xmlNode.nodeName];
+          if (existing) {
+              if (!Array.isArray(existing)) result[xmlNode.nodeName] = [existing, jsonNode];
+              else result[xmlNode.nodeName].push(jsonNode);
+          }
+          else {
+              if (arrayTags && arrayTags.indexOf(xmlNode.nodeName) != -1) result[xmlNode.nodeName] = [jsonNode];
+              else result[xmlNode.nodeName] = jsonNode;
+          }
+  
+          if (xmlNode.attributes) for (let attribute of xmlNode.attributes) jsonNode[attribute.nodeName] = attribute.nodeValue;
+  
+          for (let node of xmlNode.childNodes) parseNode(node, jsonNode);
+      }
+  
+      let result = {};
+      for (let node of dom.childNodes) parseNode(node, result);
+  
+      return result;
+    },
+
+    /**
      * Returns a CSV string from the given array of arrays or objects.
      *
      * @method   toCSV
@@ -5499,6 +5577,7 @@
  * @since  12/04/2020
  */
 
+
 ;((bbn) => {
   "use strict";
 
@@ -5519,11 +5598,20 @@
      * @memberof bbn.fn
      */
     resize(){
-      if ( (bbn.env.width !== window.innerWidth) || (bbn.env.height !== window.innerHeight) ){
-        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+      let diffW = bbn.env.width !== window.innerWidth;
+      let diffH = bbn.env.height !== window.innerHeight;
+      if (diffW || diffH){
+        if (diffW) {
+          bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+          document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
+        }
+        if (diffH) {
+          bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+          document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
+        }
+
+        bbn.fn.defaultResizeFunction();
       }
-      bbn.fn.defaultResizeFunction();
     },
 
     /**
@@ -5540,7 +5628,7 @@
      * @returns  {String}
      */
     formatSize(st, noValid){
-      if ( bbn.fn.isNumber(st) ){
+      if (bbn.fn.isNumber(st)) {
         return st + 'px';
       }
       if (bbn.fn.isString(st)) {

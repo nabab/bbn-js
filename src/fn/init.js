@@ -29,11 +29,54 @@
     init(cfg, force){
       let parts;
       if ( !bbn.env.isInit || force){
-        bbn.env.width = window.innerWidth;
-        bbn.env.height = window.innerHeight;
+        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
+        document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
+        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
+        document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
           bbn.env.root += '/';
+        }
+        if (!bbn.env.isInit && (typeof dayjs !== 'undefined')) {
+          bbn.fn.each([
+            'advancedFormat',
+            'arraySupport',
+            'badMutable',
+            'buddhistEra',
+            'calendar',
+            'customParseFormat',
+            'dayOfYear',
+            'devHelper',
+            'duration',
+            'isBetween',
+            'isLeapYear',
+            'isSameOrAfter',
+            'isSameOrBefore',
+            'isToday',
+            'isTomorrow',
+            'isYesterday',
+            'isoWeek',
+            'isoWeeksInYear',
+            'localeData',
+            'localizedFormat',
+            'minMax',
+            'objectSupport',
+            'pluralGetSet',
+            'quarterOfYear',
+            'relativeTime',
+            'timezone',
+            'toArray',
+            'toObject',
+            'updateLocale',
+            'utc',
+            'weekOfYear',
+            'weekYear',
+            'weekday'
+          ], plugin => {
+            if (window['dayjs_plugin_' + plugin]) {
+              dayjs.extend(window['dayjs_plugin_' + plugin]);
+            }
+          });
         }
         /* The server's path (difference between the host and the current dir */
         if ( typeof (cfg) === 'object' ){
@@ -51,8 +94,8 @@
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors);
         }
-        if ( bbn.env.lang && (undefined !== moment) ){
-          moment.locale(bbn.env.lang);
+        if ( bbn.env.lang && (undefined !== dayjs) ){
+          dayjs.locale(bbn.env.lang);
         }
         window.onfocus = () => {
           bbn.env.isFocused = true;
@@ -101,9 +144,9 @@
         }); 
 
 
-        let doResize;
-       // $(window)
-       //   .on("resize orientationchange", function() {
+        window.addEventListener('hashchange', () => {
+          bbn.env.hashChanged = (new Date()).getTime();
+        }, false);
         window.addEventListener("resize", () => {
           bbn.fn.resize();
         });

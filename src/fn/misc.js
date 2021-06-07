@@ -831,7 +831,8 @@
       if (!bbn.env.isFocused) {
         return Math.round((new Date()).getTime()/1000 - bbn.env.timeoff);
       }
-      return 0
+
+      return 0;
     },
     /**
      * Checks whether the given elemet is focused or not.
@@ -898,8 +899,12 @@
         range.select();
       }
     },
+
     getAncestors(ele, sel) {
       let r = [];
+      if (bbn.fn.isString(ele)) {
+        ele = document.querySelector(ele);
+      }
       if (ele instanceof HTMLElement) {
         if (typeof(sel) === 'string') {
           while (ele = ele.closest(sel)) {
@@ -916,7 +921,22 @@
         }
       }
       return r;
+    },
+
+    isInside(ele, ancestor) {
+      let ancestors = bbn.fn.getAncestors(ele);
+      if (ancestors.length) {
+        if (bbn.fn.isString(ancestor)) {
+          ancestor = document.querySelector(ancestor);
+        }
+        if (ancestor instanceof HTMLElement) {
+          return ancestors.indexOf(ancestor) > -1;
+        }
+      }
+
+      return false;
     }
+
 
   });
 })(bbn);
