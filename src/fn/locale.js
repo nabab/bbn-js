@@ -83,7 +83,7 @@
         precision = kilo ? 3 : 0;
       }
       if (val === 0) {
-        let res = val.toFixed(precision);
+        let res = val.toFixed(precision).replace('.', decimal);
         if ( currency ){
           res += ' ' + (kilo ? 'K' + currency : currency);
         }
