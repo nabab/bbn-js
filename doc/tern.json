@@ -72,6 +72,41 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/ajax\/getRequestId",
                 "!doc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype."
             },
+            "date": {
+                "!type": "fn(v: String|Number) -> date",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/date",
+                "!doc": "Returns a date object from the given argument."
+            },
+            "dateSQL": {
+                "!type": "fn(v: Date|String, dayOnly: Boolean) -> String",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/dateSQL",
+                "!doc": "Returns a date with SQL format."
+            },
+            "daysInMonth": {
+                "!type": "fn(v: String|Date) -> Number",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/daysInMonth",
+                "!doc": "Returns the number of days of the month given in the date."
+            },
+            "getDay": {
+                "!type": "fn(v: String|Date) -> undefined",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/getDay",
+                "!doc": ""
+            },
+            "fdate": {
+                "!type": "fn(d: String|Date, wrong_result: string) -> undefined",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/fdate",
+                "!doc": ""
+            },
+            "fdatetime": {
+                "!type": "fn() -> mixed",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/fdatetime",
+                "!doc": ""
+            },
+            "ftime": {
+                "!type": "fn() -> mixed",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/datetime\/ftime",
+                "!doc": ""
+            },
             "addInputs": {
                 "!type": "fn(form: HTMLElement, params: Object, prefix: string) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/addInputs",
@@ -111,41 +146,6 @@
                 "!type": "fn(val: String|Number, kilo: Boolean, currency: string, novalue: string, decimal: string, thousands: string, precision: Number) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/money",
                 "!doc": "Returns the given value to money format basing on the given configuration."
-            },
-            "date": {
-                "!type": "fn(v: String|Number) -> date",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/date",
-                "!doc": "Returns a date object from the given argument."
-            },
-            "dateSQL": {
-                "!type": "fn(v: Date|String, dayOnly: Boolean) -> String",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/dateSQL",
-                "!doc": "Returns a date with SQL format."
-            },
-            "daysInMonth": {
-                "!type": "fn(v: String|Date) -> Number",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/daysInMonth",
-                "!doc": "Returns the number of days of the month given in the date."
-            },
-            "getDay": {
-                "!type": "fn(v: String|Date) -> undefined",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/getDay",
-                "!doc": ""
-            },
-            "fdate": {
-                "!type": "fn(d: String|Date, wrong_result: string) -> undefined",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/fdate",
-                "!doc": ""
-            },
-            "fdatetime": {
-                "!type": "fn() -> mixed",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/fdatetime",
-                "!doc": ""
-            },
-            "ftime": {
-                "!type": "fn() -> mixed",
-                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/locale\/ftime",
-                "!doc": ""
             },
             "timestamp": {
                 "!type": "fn(seconds: Number) -> Boolean",

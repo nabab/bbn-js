@@ -105,6 +105,62 @@
         ]
     },
     {
+        "text": "Dates and time, uses daysjs for now",
+        "desc": "",
+        "value": "datetime",
+        "items": [
+            {
+                "file": "datetime.js",
+                "text": "date",
+                "desc": "Returns a date object from the given argument",
+                "value": "date",
+                "url": "bbn-js\/doc\/datetime\/date"
+            },
+            {
+                "file": "datetime.js",
+                "text": "dateSQL",
+                "desc": "Returns a date with SQL format",
+                "value": "dateSQL",
+                "url": "bbn-js\/doc\/datetime\/dateSQL"
+            },
+            {
+                "file": "datetime.js",
+                "text": "daysInMonth",
+                "desc": "Returns the number of days of the month given in the date",
+                "value": "daysInMonth",
+                "url": "bbn-js\/doc\/datetime\/daysInMonth"
+            },
+            {
+                "file": "datetime.js",
+                "text": "fdate",
+                "desc": "",
+                "value": "fdate",
+                "url": "bbn-js\/doc\/datetime\/fdate"
+            },
+            {
+                "file": "datetime.js",
+                "text": "fdatetime",
+                "desc": "",
+                "value": "fdatetime",
+                "url": "bbn-js\/doc\/datetime\/fdatetime"
+            },
+            {
+                "file": "datetime.js",
+                "text": "ftime",
+                "desc": "",
+                "value": "ftime",
+                "url": "bbn-js\/doc\/datetime\/ftime"
+            },
+            {
+                "file": "datetime.js",
+                "text": "getDay",
+                "desc": "",
+                "value": "getDay",
+                "url": "bbn-js\/doc\/datetime\/getDay"
+            }
+        ]
+    },
+    {
         "text": "Forms and data",
         "desc": "",
         "value": "form",
@@ -133,7 +189,7 @@
             {
                 "file": "form.js",
                 "text": "objectToFormData",
-                "desc": false,
+                "desc": "",
                 "value": "objectToFormData",
                 "url": "bbn-js\/doc\/form\/objectToFormData"
             },
@@ -154,7 +210,7 @@
             {
                 "file": "history.js",
                 "text": "history",
-                "desc": false,
+                "desc": "",
                 "value": "history",
                 "url": "bbn-js\/doc\/history\/history"
             }
@@ -181,55 +237,6 @@
         "items": [
             {
                 "file": "locale.js",
-                "text": "date",
-                "desc": "Returns a date object from the given argument",
-                "value": "date",
-                "url": "bbn-js\/doc\/locale\/date"
-            },
-            {
-                "file": "locale.js",
-                "text": "dateSQL",
-                "desc": "Returns a date with SQL format",
-                "value": "dateSQL",
-                "url": "bbn-js\/doc\/locale\/dateSQL"
-            },
-            {
-                "file": "locale.js",
-                "text": "daysInMonth",
-                "desc": "Returns the number of days of the month given in the date",
-                "value": "daysInMonth",
-                "url": "bbn-js\/doc\/locale\/daysInMonth"
-            },
-            {
-                "file": "locale.js",
-                "text": "fdate",
-                "desc": false,
-                "value": "fdate",
-                "url": "bbn-js\/doc\/locale\/fdate"
-            },
-            {
-                "file": "locale.js",
-                "text": "fdatetime",
-                "desc": false,
-                "value": "fdatetime",
-                "url": "bbn-js\/doc\/locale\/fdatetime"
-            },
-            {
-                "file": "locale.js",
-                "text": "ftime",
-                "desc": false,
-                "value": "ftime",
-                "url": "bbn-js\/doc\/locale\/ftime"
-            },
-            {
-                "file": "locale.js",
-                "text": "getDay",
-                "desc": false,
-                "value": "getDay",
-                "url": "bbn-js\/doc\/locale\/getDay"
-            },
-            {
-                "file": "locale.js",
                 "text": "money",
                 "desc": "Returns the given value to money format basing on the given configuration",
                 "value": "money",
@@ -245,7 +252,7 @@
             {
                 "file": "misc.js",
                 "text": "arrayBuffer2String",
-                "desc": false,
+                "desc": "",
                 "value": "arrayBuffer2String",
                 "url": "bbn-js\/doc\/misc\/arrayBuffer2String"
             },
@@ -308,14 +315,14 @@
             {
                 "file": "misc.js",
                 "text": "getHTMLOfSelection",
-                "desc": false,
+                "desc": "",
                 "value": "getHTMLOfSelection",
                 "url": "bbn-js\/doc\/misc\/getHTMLOfSelection"
             },
             {
                 "file": "misc.js",
                 "text": "getPath",
-                "desc": false,
+                "desc": "",
                 "value": "getPath",
                 "url": "bbn-js\/doc\/misc\/getPath"
             },
@@ -420,21 +427,21 @@
             {
                 "file": "misc.js",
                 "text": "stat",
-                "desc": false,
+                "desc": "",
                 "value": "stat",
                 "url": "bbn-js\/doc\/misc\/stat"
             },
             {
                 "file": "misc.js",
                 "text": "stopChrono",
-                "desc": false,
+                "desc": "",
                 "value": "stopChrono",
                 "url": "bbn-js\/doc\/misc\/stopChrono"
             },
             {
                 "file": "misc.js",
                 "text": "string2ArrayBuffer",
-                "desc": false,
+                "desc": "",
                 "value": "string2ArrayBuffer",
                 "url": "bbn-js\/doc\/misc\/string2ArrayBuffer"
             },
@@ -840,7 +847,7 @@
             {
                 "file": "string.js",
                 "text": "printf",
-                "desc": false,
+                "desc": "",
                 "value": "printf",
                 "url": "bbn-js\/doc\/string\/printf"
             },
@@ -875,7 +882,7 @@
             {
                 "file": "string.js",
                 "text": "removeTrailingChars",
-                "desc": false,
+                "desc": "",
                 "value": "removeTrailingChars",
                 "url": "bbn-js\/doc\/string\/removeTrailingChars"
             },
@@ -903,7 +910,7 @@
             {
                 "file": "string.js",
                 "text": "roundDecimal",
-                "desc": false,
+                "desc": "",
                 "value": "roundDecimal",
                 "url": "bbn-js\/doc\/string\/roundDecimal"
             },
@@ -980,7 +987,7 @@
             {
                 "file": "type.js",
                 "text": "isBlob",
-                "desc": false,
+                "desc": "",
                 "value": "isBlob",
                 "url": "bbn-js\/doc\/type\/isBlob"
             },
@@ -1036,14 +1043,14 @@
             {
                 "file": "type.js",
                 "text": "isHostname",
-                "desc": false,
+                "desc": "",
                 "value": "isHostname",
                 "url": "bbn-js\/doc\/type\/isHostname"
             },
             {
                 "file": "type.js",
                 "text": "isIP",
-                "desc": false,
+                "desc": "",
                 "value": "isIP",
                 "url": "bbn-js\/doc\/type\/isIP"
             },
@@ -1092,7 +1099,7 @@
             {
                 "file": "type.js",
                 "text": "isURL",
-                "desc": false,
+                "desc": "",
                 "value": "isURL",
                 "url": "bbn-js\/doc\/type\/isURL"
             },

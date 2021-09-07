@@ -162,17 +162,27 @@
         return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
       }
       if ( undefined !== dayjs ){
-        //return dayjs(r).format('L');
-        return dayjs(r).calendar({
-          sameDay: '[' + bbn._('Today') + ']',
-          nextDay: '[' + bbn._('Tomorrow') + ']',
-          nextWeek: 'ddd D',
-          lastDay: '[' + bbn._('Yesterday') + ']',
-          lastWeek: 'ddd D',
-          sameElse: 'DD/MM/YYYY'
-        });
+        return dayjs(r).format('L');
       }
       return r.toLocaleDateString();
+    },
+
+    calendar(d, wrong_result) {
+      if ( undefined === dayjs ){
+        return bbn.fn.fdate(d, wrong_result);
+      }
+      let r = bbn.fn.date(d);
+      if ( !bbn.fn.isDate(r) ){
+        return wrong_result && bbn.fn.isString(wrong_result) ? wrong_result : '';
+      }
+      return dayjs(r).calendar(null, {
+        sameDay: '[' + bbn._('Today') + ']',
+        nextDay: '[' + bbn._('Tomorrow') + ']',
+        nextWeek: 'ddd D',
+        lastDay: '[' + bbn._('Yesterday') + ']',
+        lastWeek: 'ddd D',
+        sameElse: 'L'
+      });
     },
 
     formatDate(date, format)

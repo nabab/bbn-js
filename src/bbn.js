@@ -48,9 +48,9 @@
     },
     $(selector, context) {
       if (context && context.querySelectorAll) {
-        return context.querySelectorAll(selector)
+        return context.querySelectorAll(selector);
       }
-      return document.body.querySelectorAll(selector)
+      return document.body.querySelectorAll(selector);
     },
     _popups: [],
     lng: {
@@ -81,6 +81,6 @@
     },
     app: {
       popups: [],
-    },
+    }
   };
 })));
