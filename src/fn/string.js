@@ -281,6 +281,30 @@
       });
     },
 
+    trim(str, hair = ' ') {
+      if (hair === ' ') {
+        return str.trim();
+      }
+
+      if (!hair) {
+        return str;
+      }
+
+      if (hair === str) {
+        return '';
+      }
+
+      while (str.indexOf(hair) === 0) {
+        str = str.substr(hair.length);
+      }
+
+      while (str.lastIndexOf(hair) === str.length - hair.length) {
+        str = str.substr(0, str.length - hair.length);
+      }
+
+      return str;
+    },
+
     /**
      * Removes all unacceptable characters in a DOM node.
      *
@@ -296,8 +320,21 @@
      * @memberof bbn.fn
      * @returns  {String} str
      */
-    sanitize(str){
-      return str.replace(/[^a-z0-9]/gi, '_').replace(/[_]+/g, '_');
+    sanitize(str, separator = '_'){
+      let escaped = ['[', ']', '{', '}', '(', ')', '-', '+', '*', '/'];
+      let exp = '[';
+      for (let i = 0; i < separator.length; i++) {
+        if (escaped.includes(separator[i])) {
+          exp += '\\';
+        }
+
+        exp += separator[i];
+      }
+
+      exp += ']+';
+      let re = new RegExp(exp, 'g');
+      let res = bbn.fn.removeAccents(str).replace(/[^a-z0-9]/gi, separator).replace(re, separator);
+      return bbn.fn.trim(res, separator);
     },
 
     /**
