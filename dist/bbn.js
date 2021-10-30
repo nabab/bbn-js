@@ -1788,7 +1788,7 @@
      * // }
      * ```
      * 
-     * @param    {HTMLElementL} form 
+     * @param    {HTMLElement} form 
      * 
      * @returns  {Object}
      */
@@ -6528,6 +6528,23 @@
       });
       return res;
     },
+
+    removeHtmlComments(st) {
+      return st.replace(/<!--[\s\S]*?-->/g, '');
+    },
+
+    getText(ele) {
+      return ele.innerText().trim();
+    },
+
+    getHtml(ele, stripComments = false) {
+      let st = ele.innerHTML();
+      if (stripComments) {
+        st = bbn.fn.removeHtmlComments(st);
+      }
+      
+      return st.trim();
+    }
 
   });
 })(bbn);

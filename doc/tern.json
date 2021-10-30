@@ -123,7 +123,7 @@
                 "!doc": "Returns the value of a form's input, differenciating between checkboxes, radio and other inputs."
             },
             "formdata": {
-                "!type": "fn(form: HTMLElementL) -> Object",
+                "!type": "fn(form: HTMLElement) -> Object",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/form\/formdata",
                 "!doc": "Returns all the data contained in a form as a single object."
             },
