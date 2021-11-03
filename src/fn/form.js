@@ -235,7 +235,7 @@
      * // }
      * ```
      * 
-     * @param    {HTMLElementL} form 
+     * @param    {HTMLElement} form 
      * 
      * @returns  {Object}
      */
