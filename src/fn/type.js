@@ -99,9 +99,9 @@
      * // true
      * bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
      * ```
-     * 
+     *
      * @param    {String} st
-     * 
+     *
      * @returns  {Boolean}
      */
     isIterable(v) {
@@ -110,7 +110,7 @@
 
     /**
      * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
-     * 
+     *
      * @method   isDimension
      * @global
      * @memberof bbn.fn
@@ -126,7 +126,7 @@
 
     /**
      * Returns true if the given value is a valid CSS dimension string, false otherwise.
-     * 
+     *
      * @method   isValidDimension
      * @global
      * @memberof bbn.fn
@@ -204,7 +204,7 @@
 
     /**
      * Returns true if the given argument is a promise.
-     * @global 
+     * @global
      * @example
      * ```javascript
      * bbn.fn.isPromise(bbn.fn.post('myUrl'));
@@ -216,7 +216,7 @@
      * ```
      * @method   isFunction
      * @memberof bbn.fn
-     * @returns  {Boolean}  
+     * @returns  {Boolean}
      */
     isPromise() {
       if (!arguments.length) return false;
@@ -230,7 +230,7 @@
 
     /**
      * Returns true if the given argument is a function.
-     * @global 
+     * @global
      * @example
      * ```javascript
      * //true
@@ -240,7 +240,7 @@
      * ```
      * @method   isFunction
      * @memberof bbn.fn
-     * @returns  {Boolean}  
+     * @returns  {Boolean}
      */
     isFunction() {
       if (!arguments.length) return false;
@@ -255,9 +255,9 @@
     /**
      * @method   isBlob
      * @todo     Add method description for isFunction
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isBlob() {
       if (!arguments.length) return false;
@@ -272,7 +272,7 @@
     /**
      * Returns true if the given argument is a number
      * @method   isNumber
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
@@ -284,12 +284,12 @@
      * bbn.fn.isNumber(0.5);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( ['boolean', 'object'].includes(typeof a) || isNaN(a) ){
+        if ( ['boolean', 'object'].includes(typeof a) || (a === '') ||isNaN(a)){
           return false;
         }
       }
@@ -299,14 +299,14 @@
     /**
      * Returns true if the given argument is a string;
      * @method   isString
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
      * bbn.fn.isString('bbn');
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isString() {
       if (!arguments.length) return false;
@@ -321,14 +321,14 @@
     /**
      * Returns true if the given argument is array.
      * @method   isArray
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
      * bbn.fn.isArray([5,2,6]);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}    
+     * @returns  {Boolean}
      */
     isArray() {
       if (!arguments.length) return false;
@@ -343,7 +343,7 @@
     /**
      * Returns true if the given argument is a date object.
      * @method   isDate
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
@@ -356,7 +356,7 @@
      * bbn.fn.isDate('16/04/2020');
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isDate() {
       if (!arguments.length) return false;
@@ -372,9 +372,9 @@
      * @ignore
      * @method   isSQLDate
      * @todo     Add method description for isSQLDate
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isSQLDate() {
       if (!arguments.length) return false;
@@ -392,7 +392,7 @@
     /**
      * Returns true if the given argument is an object.
      * @method   isObject
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
@@ -404,7 +404,7 @@
      * bbn.fn.isObject([{name: 'cami', age: 7}]);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isObject() {
       if (!arguments.length) return false;
@@ -419,14 +419,14 @@
     /**
      * Returns true if the given argument is null;
      * @method   isNull
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
      * bbn.fn.isNull(myData);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isNull() {
       if (!arguments.length) return false;
@@ -456,9 +456,9 @@
      * //false
      * bbn.fn.isValue([80,10,22]);
      * ```
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isValue() {
       if (!arguments.length) return false;
@@ -478,9 +478,9 @@
      * //true
      * bbn.fn.isDom('<div>myDiv</div>');
      * ```
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isDom(){
       if (!arguments.length) return false;
@@ -494,9 +494,9 @@
 
     /**
      * Returns true if the given argumen is a Canvas.
-     * 
+     *
      * @method   isCanvas
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
@@ -504,7 +504,7 @@
      * bbn.fn.isCanvas(myCanvas);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isCanvas(){
       if (!arguments.length) return false;
@@ -518,9 +518,9 @@
 
     /**
      * Returns true if the given argumen is a VueJS object.
-     * 
+     *
      * @method   isVue
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
@@ -530,7 +530,7 @@
      * bbn.fn.isVue(myObj);
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isVue(){
       if (!arguments.length) return false;
@@ -545,14 +545,14 @@
     /**
      * Returns true if the given argument is a percentage.
      * @method   isPercent
-     * @global   
+     * @global
      * @example
      * ```javascript
      * //true
      * bbn.fn.isPercent('5%');
      * ```
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isPercent(){
       if ( !arguments.length ) return false;
@@ -567,9 +567,9 @@
     /**
      * @method   isURL
      * @ignore
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isURL(str){
       return bbn.var.regexp.url.test(str);
@@ -577,9 +577,9 @@
     /**
      * @method   isIP
      * @ignore
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isIP(st){
       if (bbn.fn.isString(st)) {
@@ -589,9 +589,9 @@
     /**
      * @method   isHostname
      * @ignore
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @returns  {Boolean}   
+     * @returns  {Boolean}
      */
     isHostname(st) {
       if (bbn.fn.isString(st)) {
