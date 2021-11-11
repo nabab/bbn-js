@@ -15,38 +15,38 @@
   Object.assign(bbn.fn, {
     /**
      * Gets the extension from a file's name.
-     * 
+     *
      * The extension is returned in lower case; if the filename has no extension
      * or is not valid it will return an empty string.
-     * 
+     *
      * @method   fileExt
      * @global
-     * 
+     *
      * @example
      * ```javascript
      * // "txt"
      * bbn.fn.fileExt('my_file.txt')
      * ```
-     * 
+     *
      * @example
      * ```javascript
      * // "txt"
      * bbn.fn.fileExt('MY_FILE.TXT')
      * ```
-     * 
+     *
      * @example
      * ```javascript
      * // ""
      * bbn.fn.fileExt('MY_FILE')
      * ```
-     * 
+     *
      * @example
      * ```javascript
      * // ""
      * bbn.fn.fileExt('.MY_FILE')
      * ```
-     * 
-     * @param   {String} filename 
+     *
+     * @param   {String} filename
      * @returns {String} The file's extension
      */
     fileExt(filename) {
@@ -106,10 +106,10 @@
 
     /**
      * Converts and returns the argument passed in a string in md5 format.
-     * 
-     * This is a formatted version of popular md5 implementation  
+     *
+     * This is a formatted version of popular md5 implementation
      * Original copyright (c) Paul Johnston & Greg Holt.
-     * 
+     *
      *
      * @method   md5
      * @global
@@ -191,11 +191,11 @@
     /**
      * @method   roundDecimal
      * @todo     Add method description for roundDecimal
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @param    {Number} value    
-     * @param    {Number} decimals 
-     * @returns  {}         
+     * @param    {Number} value
+     * @param    {Number} decimals
+     * @returns  {}
      */
     roundDecimal(value, decimals){
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
@@ -339,7 +339,7 @@
 
     /**
      * Returns the string passed as an argument in camelize mode for css.
-     * 
+     *
      * @method   camelToCss
      * @global
      *
@@ -555,19 +555,19 @@
      * bbn.fn.quotes2html("hello 'world'!", 's');
      * // hello &#39;world&#39;!
      * ```
-     * 
+     *
      * @example
      * ```javascript
      * bbn.fn.quotes2html('hello "world\'s"!', 'd');
      * // hello &quot;world'sd&quot;!
      * ```
-     * 
+     *
      * @example
      * ```javascript
      * bbn.fn.quotes2html('hello "world\'s"!');
      * // hello &quot;world&#39;sd&quot;!
      * ```
-     * 
+     *
      * @memberof bbn.fn
      * @param    {String} st
      * @returns  {String}
@@ -584,7 +584,7 @@
 
     /**
      * Replaces all new line characters '\ n' with html tag '<br>'.
-     * 
+     *
      * @method   nl2br
      * @global
      *
@@ -666,12 +666,21 @@
      * @returns  {String}
      */
     removeAccents(st){
-      if (bbn.fn.isString(st)) {
-        let m = bbn.var.defaultDiacriticsRemovalMap;
-        for(var i=0; i < m.length; i++ ){
-          st = st.replace(m[i].letters, m[i].base);
+      if (!bbn.fn.isString(st)) {
+        if (st.toString) {
+          st = st.toString();
+        }
+        else {
+          bbn.fn.log(st);
+          throw new Error(bbn._("removeAccent expects a string"));
         }
       }
+
+      let m = bbn.var.defaultDiacriticsRemovalMap;
+      for(var i=0; i < m.length; i++ ){
+        st = st.replace(m[i].letters, m[i].base);
+      }
+
       return st;
     },
 
@@ -730,7 +739,7 @@
       }
       return '';
     },
-  
+
     /**
      * Returns the name of the element indicated by path given to it as an argument.
      *
@@ -771,10 +780,10 @@
     /**
      * @method   printf
      * @todo     Add method description for printf
-     * @global   
+     * @global
      * @memberof bbn.fn
      * @param    String format
-     * @returns  {*}    
+     * @returns  {*}
      */
     printf(format){
       var args = Array.prototype.slice.call(arguments, 1);
@@ -789,11 +798,11 @@
     /**
      * @method   removeTrailingChars
      * @todo     Add method description for removeTrailingChars
-     * @global   
+     * @global
      * @memberof bbn.fn
-     * @param    {String} st   
-     * @param    {String} char 
-     * @returns  {*}      
+     * @param    {String} st
+     * @param    {String} char
+     * @returns  {*}
      */
     removeTrailingChars(st, char){
       if ( !char ){
@@ -845,7 +854,7 @@
       if (stripComments) {
         st = bbn.fn.removeHtmlComments(st);
       }
-      
+
       return st.trim();
     }
 
