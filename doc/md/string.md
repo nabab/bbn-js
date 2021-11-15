@@ -116,7 +116,7 @@ bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
 
   __Converts and returns the argument passed in a string in md5 format.__
 
-  This is a formatted version of popular md5 implementation  
+  This is a formatted version of popular md5 implementation
 Original copyright (c) Paul Johnston & Greg Holt.
 
   * __st__ _Mixed_ 
