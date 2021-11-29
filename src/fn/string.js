@@ -101,7 +101,7 @@
           st += arguments[i];
         }
       }
-      return md5(st);
+      return bbn.fn.md5(st);
     },
 
     /**

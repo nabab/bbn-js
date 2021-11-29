@@ -7,38 +7,38 @@
 module.exports = {
   /**
    * Gets the extension from a file's name.
-   * 
+   *
    * The extension is returned in lower case; if the filename has no extension
    * or is not valid it will return an empty string.
-   * 
+   *
    * @method   fileExt
    * @global
-   * 
+   *
    * @example
    * ```javascript
    * // "txt"
    * bbn.fn.fileExt('my_file.txt')
    * ```
-   * 
+   *
    * @example
    * ```javascript
    * // "txt"
    * bbn.fn.fileExt('MY_FILE.TXT')
    * ```
-   * 
+   *
    * @example
    * ```javascript
    * // ""
    * bbn.fn.fileExt('MY_FILE')
    * ```
-   * 
+   *
    * @example
    * ```javascript
    * // ""
    * bbn.fn.fileExt('.MY_FILE')
    * ```
-   * 
-   * @param   {String} filename 
+   *
+   * @param   {String} filename
    * @returns {String} The file's extension
    */
   fileExt(filename) {
@@ -94,15 +94,15 @@ module.exports = {
         st += arguments[i];
       }
     }
-    return md5(st);
+    return bbn.fn.md5(st);
   },
 
   /**
    * Converts and returns the argument passed in a string in md5 format.
-   * 
-   * This is a formatted version of popular md5 implementation  
+   *
+   * This is a formatted version of popular md5 implementation
    * Original copyright (c) Paul Johnston & Greg Holt.
-   * 
+   *
    *
    * @method   md5
    * @global
@@ -184,11 +184,11 @@ module.exports = {
   /**
    * @method   roundDecimal
    * @todo     Add method description for roundDecimal
-   * @global   
+   * @global
    * @memberof bbn.fn
-   * @param    {Number} value    
-   * @param    {Number} decimals 
-   * @returns  {}         
+   * @param    {Number} value
+   * @param    {Number} decimals
+   * @returns  {}
    */
   roundDecimal(value, decimals){
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
@@ -295,7 +295,7 @@ module.exports = {
 
   /**
    * Returns the string passed as an argument in camelize mode for css.
-   * 
+   *
    * @method   camelToCss
    * @global
    *
@@ -511,19 +511,19 @@ module.exports = {
    * bbn.fn.quotes2html("hello 'world'!", 's');
    * // hello &#39;world&#39;!
    * ```
-   * 
+   *
    * @example
    * ```javascript
    * bbn.fn.quotes2html('hello "world\'s"!', 'd');
    * // hello &quot;world'sd&quot;!
    * ```
-   * 
+   *
    * @example
    * ```javascript
    * bbn.fn.quotes2html('hello "world\'s"!');
    * // hello &quot;world&#39;sd&quot;!
    * ```
-   * 
+   *
    * @memberof bbn.fn
    * @param    {String} st
    * @returns  {String}
@@ -540,7 +540,7 @@ module.exports = {
 
   /**
    * Replaces all new line characters '\ n' with html tag '<br>'.
-   * 
+   *
    * @method   nl2br
    * @global
    *
@@ -727,10 +727,10 @@ module.exports = {
   /**
    * @method   printf
    * @todo     Add method description for printf
-   * @global   
+   * @global
    * @memberof bbn.fn
-   * @param    format  
-   * @returns  {*}    
+   * @param    format
+   * @returns  {*}
    */
   printf(format){
     var args = Array.prototype.slice.call(arguments, 1);
@@ -745,11 +745,11 @@ module.exports = {
   /**
    * @method   removeTrailingChars
    * @todo     Add method description for removeTrailingChars
-   * @global   
+   * @global
    * @memberof bbn.fn
-   * @param    {String} st   
-   * @param    {String} char 
-   * @returns  {*}      
+   * @param    {String} st
+   * @param    {String} char
+   * @returns  {*}
    */
   removeTrailingChars(st, char){
     if ( !char ){
