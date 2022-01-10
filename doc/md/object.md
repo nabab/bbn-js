@@ -604,19 +604,19 @@ bbn.fn.getRow(ar, {
 ```
 [Back to top](#bbn_top)  
 
-### <a name="getField"></a>bbn.fn.getField(arr, prop, val, operator, field)
+### <a name="getField"></a>bbn.fn.getField(arr, field, prop, val, operator)
 
   __Returns the value of the given field (property) from the first object matching the given filter in an array of objects.__
 
   The filtering arguments follow the same scheme as bbn.fn.search.
 
   * __arr__ _Array_ The subject array
+  * __field__ _String_ The property from which the value is returned
   * __prop__ _(String|Object|Function)_ A property's name or a filter object or function
   * __val__ _Mixed_ The value with which comparing the given property
   * __operator__ _String_ The operator to use for comparison with the value as used in bbn.fn.compare
-  * __field__ _String_ The property from which the value is returned
 
-  __Returns__ _undefined_ 
+  __Returns__ _Mixed_ 
 
 
 ```javascript
@@ -626,9 +626,9 @@ let ar = [
   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
 ];
-bbn.fn.getField(ar, "movie", {id: 256});
+bbn.fn.getField(ar, "name", {id: 256});
 // Star wars
-bbn.fn.getField(ar, "movie", "id", 689);
+bbn.fn.getField(ar, "name", "id", 689);
 // Goonies
 ```
 [Back to top](#bbn_top)  

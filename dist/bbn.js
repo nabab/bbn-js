@@ -4088,25 +4088,26 @@
      *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
      *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
      * ];
-     * bbn.fn.getField(ar, "movie", {id: 256});
+     * bbn.fn.getField(ar, "name", {id: 256});
      * // Star wars
-     * bbn.fn.getField(ar, "movie", "id", 689);
+     * bbn.fn.getField(ar, "name", "id", 689);
      * // Goonies
      * ```
      * @memberof bbn.fn
      * @param    {Array}                    arr       The subject array
+     * @param    {String}                   field     The property from which the value is returned
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
      * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
-     * @param    {String}                   field     The property from which the value is returned
-     * @returns
+     * @returns  {*}
      */
     getField(arr, field, prop, val, operator) {
       var r;
-      if ( r = bbn.fn. getRow(arr, prop, val, operator) ){
-        return r[field ? field : val] || false;
+      if (field && (r = bbn.fn. getRow(arr, prop, val, operator))) {
+        return r[field];
       }
-      return false;
+
+      return undefined;
     },
 
     /**

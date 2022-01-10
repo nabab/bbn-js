@@ -358,7 +358,7 @@
                 "!doc": "Returns the first object matching the given filter in an array of objects."
             },
             "getField": {
-                "!type": "fn(arr: Array, prop: String|Object|Function, val: mixed, operator: string, field: string) -> undefined",
+                "!type": "fn(arr: Array, field: string, prop: String|Object|Function, val: mixed, operator: string) -> mixed",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/getField",
                 "!doc": "Returns the value of the given field (property) from the first object matching the given filter in an array of objects."
             },
