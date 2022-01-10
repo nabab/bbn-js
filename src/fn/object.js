@@ -915,10 +915,10 @@
      * ```
      * @memberof bbn.fn
      * @param    {Array}                    arr       The subject array
+     * @param    {String}                   field     The property from which the value is returned
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
      * @param    {*}                        val       The value with which comparing the given property
      * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
-     * @param    {String}                   field     The property from which the value is returned
      * @returns
      */
     getField(arr, field, prop, val, operator) {
