@@ -37,6 +37,25 @@
           document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         }
 
+        let smallWidth = bbn.fn.getCssVar('mobile-limit') || 650;
+        let newCls = 'bbn-screen-' + (bbn.env.width < parseInt(smallWidth)  ? 'small' : 'regular');
+        let classes = (document.body.className || '').split(' ');
+        let done = false;
+        bbn.fn.each(classes, (cls, idx) => {
+          let bits = cls.split('-');
+          if ((bits.length === 3) && (cls.indexOf('bbn-screen-') === 0)) {
+            done = true;
+            if (cls !== newCls) {
+              classes.splice(idx, 1, newCls);
+            }
+            return false;
+          }
+        });
+        if (!done) {
+          classes.push(newCls);
+        }
+
+        document.body.className = classes.join(' ');
         bbn.fn.defaultResizeFunction();
       }
     },

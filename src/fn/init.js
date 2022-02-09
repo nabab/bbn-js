@@ -29,10 +29,6 @@
     init(cfg, force){
       let parts;
       if ( !bbn.env.isInit || force){
-        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-        document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
-        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
-        document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
           bbn.env.root += '/';

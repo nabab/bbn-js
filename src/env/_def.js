@@ -18,9 +18,9 @@
     /* True when non asynchronous Ajax loads */
     loading: false,
     /* Window width */
-    width: window.innerWidth,
+    width: 0,
     /* Window height */
-    height: window.innerHeight,
+    height: 0,
     /* Element currently focused (Element object) */
     focused: false,
     /* Last time user has been active */

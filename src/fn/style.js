@@ -290,5 +290,32 @@
       }
     },
 
+    /**
+     * Gets a CSS variable value
+     * @param {String*} varname 
+     * @returns 
+     */
+    getCssVar(varname) {
+      if (varname.indexOf('--') !== 0) {
+        varname = '--' + varname;
+      }
+
+      return getComputedStyle(document.documentElement).getPropertyValue(varname);
+    },
+
+    /**
+     * Creates a CSS variable
+     * @param {String*} varname 
+     * @param {String*} value
+     * @returns 
+     */
+     setCssVar(varname, value) {
+      if (varname.indexOf('--') !== 0) {
+        varname = '--' + varname;
+      }
+
+      document.documentElement.setProperty(varname, value);
+    }
+
   });
 })(bbn);
