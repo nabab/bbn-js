@@ -137,7 +137,7 @@
       if ( (typeof(st) === 'string') &&
         (st.length > 0) && (
           (st.indexOf('calc') === 0 ) ||
-          (!isNaN(st.substr(0,1))) ) ){
+          (!isNaN(bbn.fn.substr(st, 0,1))) ) ){
         let el = document.createElement('div');
         el.style.width = st;
         let res = !!el.style.width.length;
@@ -286,13 +286,40 @@
      * @memberof bbn.fn
      * @returns  {Boolean}
      */
-    isNumber() {
+     isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( ['boolean', 'object'].includes(typeof a) || (a === '') ||isNaN(a)){
           return false;
         }
       }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is an integer
+     * @method   isInt
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.isInt(5);
+     * // true
+     * bbn.fn.isInt(0.5);
+     * // false
+     * bbn.fn.isInt("hello");
+     * // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isInt() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (!Number.isInteger(a)){
+          return false;
+        }
+      }
+
       return true;
     },
 

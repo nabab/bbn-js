@@ -30,7 +30,7 @@
       let parts;
       if ( !bbn.env.isInit || force){
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
-        if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
+        if (bbn.env.root.length && (bbn.fn.substr(bbn.env.root, -1) !== '/')) {
           bbn.env.root += '/';
         }
         if (!bbn.env.isInit && (typeof dayjs !== 'undefined')) {
@@ -78,7 +78,7 @@
         if ( typeof (cfg) === 'object' ){
          bbn.fn.extend(true, window.bbn, cfg);
         }
-        bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
+        bbn.env.path = bbn.fn.substr(bbn.env.url, bbn.env.root.length);
         parts = bbn.env.path.split("/");
         //$.each(parts, function(i, v){
         bbn.fn.each(parts, (v, i) => {
@@ -160,7 +160,7 @@
               let state = h.state;
               if (state) {
                 if (bbn.fn.defaultHistoryFunction(state)) {
-                  //bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+                  //bbn.fn.link(bbn.fn.substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
                   bbn.fn.link(state.url, bbn.fn.extend({title: state.title || bbn.env.siteTitle}, state.data || {}));
                 }
                 else if ( state && state.data && bbn.fn.isFunction(state.data.script) ){

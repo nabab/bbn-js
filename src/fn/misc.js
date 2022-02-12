@@ -37,7 +37,7 @@
             res.error = varName+ ' ' + bbn._("is not defined");
           }
           else if (type) {
-            check = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1).toLowerCase();
+            check = 'is' + bbn.fn.substr(type, 0, 1).toUpperCase() + bbn.fn.substr(type, 1).toLowerCase();
             if (bbn.fn[check] === undefined) {
               res.error = type + ' ' + bbn._("is not a valid type");
             }

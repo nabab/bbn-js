@@ -295,11 +295,11 @@
       }
 
       while (str.indexOf(hair) === 0) {
-        str = str.substr(hair.length);
+        str = bbn.fn.substr(str, hair.length);
       }
 
       while (str.lastIndexOf(hair) === str.length - hair.length) {
-        str = str.substr(0, str.length - hair.length);
+        str = bbn.fn.substr(str, 0, str.length - hair.length);
       }
 
       return str;
@@ -510,7 +510,7 @@
           adj = '...';
         }
         if ( st.length > len ){
-          st = st.substr(0, len) + adj;
+          st = bbn.fn.substr(st, 0, len) + adj;
         }
       }
       return st;
@@ -710,6 +710,43 @@
     },
 
     /**
+     * Basic substring function accepting both positive and negative values.
+     *
+     * @method   substr
+     * @global
+     *
+     * @example
+     * ```javascript
+     * bbn.fn.substr(bbn.fn, 'Hello', -3, -1);
+     * // "ll"
+     * bbn.fn.substr(bbn.fn, 'Hello', -3);
+     * // "llo"
+     * bbn.fn.substr(bbn.fn, 'Hello', 0, 1);
+     * // "H"
+     * ```
+     * @memberof bbn.fn
+     * @param    {String} str
+     * @param    {Number} from
+     * @param    {Number} length
+     * @returns  {String} Result substring
+     */
+     substr(str, from, length) {
+      if (!bbn.fn.isString(str) || !bbn.fn.isInt(from)) {
+        throw new Error(_("The substr function should be applied to a string and at least a from argument should be given"));
+      }
+
+      if (from < 0) {
+        from = str.length + from;
+      }
+
+      if (!bbn.fn.isInt(length)) {
+        return str.substring(from);
+      }
+
+      return str.substring(from, (length < 0 ? str.length : from) + length);
+    },
+
+    /**
      * Returns the path of the folder containing the last hierarchical element of the path.
      *
      * @method   dirName
@@ -726,12 +763,12 @@
      */
     dirName(path){
       if (bbn.fn.isString(path) && path) {
-        while (path.substr(path.length-1) === '/') {
-          path = path.substr(0, path.length-1);
+        while (bbn.fn.substr(path, path.length-1) === '/') {
+          path = bbn.fn.substr(path, 0, path.length-1);
         }
         let pos = path.lastIndexOf('/');
         if (pos > 0) {
-          return path.substr(0, pos);
+          return bbn.fn.substr(path, 0, pos);
         }
         if (pos === 0) {
           return '/';
@@ -770,8 +807,8 @@
           return res;
         }
         let len = suffix.length;
-        if (res && res.substr(-len) === suffix) {
-          return res.substr(0, res.length - len);
+        if (res && bbn.fn.substr(res, -len) === suffix) {
+          return bbn.fn.substr(res, 0, res.length - len);
         }
       }
       return '';
@@ -809,11 +846,11 @@
         char = ' ';
       }
       if ( char.length ){
-        while ( st.substr(-char.length) === char ){
-          st = st.substr(0, st.length - char.length);
+        while ( bbn.fn.substr(st, -char.length) === char ){
+          st = bbn.fn.substr(st, 0, st.length - char.length);
         }
-        while ( st.substr(0, char.length) === char ){
-          st = st.substr(char.length);
+        while ( bbn.fn.substr(st, 0, char.length) === char ){
+          st = bbn.fn.substr(st, char.length);
         }
       }
       return st;

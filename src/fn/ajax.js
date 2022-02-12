@@ -254,13 +254,13 @@
           if (!cfg.url) {
             /* Hash */
             if ( args[i].indexOf('#') === 0 || args[i].indexOf(bbn.env.root + '#') === 0 ){
-              cfg.url = args[i].substr(bbn.env.root.length);
+              cfg.url = bbn.fn.substr(args[i], bbn.env.root.length);
             }
             /* Link */
             else{
               cfg.url = args[i];
               if ( cfg.url.indexOf(bbn.env.root) === 0 ){
-                cfg.url = cfg.url.substr(bbn.env.root.length);
+                cfg.url = bbn.fn.substr(cfg.url, bbn.env.root.length);
               }
             }
           }
@@ -600,9 +600,9 @@
       // Current path becomes old path
       bbn.env.old_path = bbn.env.path;
       // URL includes the domain
-      bbn.env.url = ['https:/', 'http://'].includes(url.substr(0, 7)) ? url : bbn.env.root + url;
+      bbn.env.url = ['https:/', 'http://'].includes(bbn.fn.substr(url, 0, 7)) ? url : bbn.env.root + url;
       // Path does not
-      bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
+      bbn.env.path = bbn.fn.substr(bbn.env.url, bbn.env.root.length);
       // Params will include each part of the URL
       bbn.env.params = bbn.fn.filter(bbn.env.path.split("/"), (v) => {
         return v !== '';
@@ -871,7 +871,7 @@
           if (!filename) {
             let cd = 'attachment; filename=';
             if (headers && headers['content-disposition'] && (headers['content-disposition'].indexOf(cd) === 0)) {
-              filename = headers['content-disposition'].substr(cd.length + 1, headers['content-disposition'].length - cd.length - 2);
+              filename = bbn.fn.substr(headers['content-disposition'], cd.length + 1, headers['content-disposition'].length - cd.length - 2);
             }
             else {
               filename = bbn.fn.baseName(url)
@@ -1065,7 +1065,7 @@
       /** @var {Number} tst Current timestamp */
       let tst = (new Date()).getTime();
       /** @var {String} url The original URL (part of requestId before : and md5) */
-      let url = requestId.substr(0, requestId.length - 33);
+      let url = bbn.fn.substr(requestId, 0, requestId.length - 33);
       /** @var {Object} loader The loader object */
       let loader = {
         key: requestId,

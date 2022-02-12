@@ -957,7 +957,7 @@
       if ( typeof(obj) === "object" ){
         r = {};
         for ( var n in obj ){
-          if (n.substr(0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
+          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
             if ( deep && (typeof(obj[n]) === "object")){
               r[n] = bbn.fn.removePrivateProp(obj[n], true);
             }

@@ -262,7 +262,7 @@
             (name.length > 2) &&
             (name.indexOf("[]") === (name.length - 2))
           ){
-            n = name.substr(0, name.length - 2);
+            n = bbn.fn.substr(name, 0, name.length - 2);
             if ( res[n] === undefined ){
               res[n] = [];
             }

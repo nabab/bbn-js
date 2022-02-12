@@ -44,20 +44,20 @@
       if ( t === 'string' ){
         if ( v.length === 10 ){
           return (new Date(
-            parseInt(v.substr(0, 4)),
-            parseInt(v.substr(5, 2)) - 1,
-            parseInt(v.substr(8, 2)),
+            parseInt(bbn.fn.substr(v, 0, 4)),
+            parseInt(bbn.fn.substr(v, 5, 2)) - 1,
+            parseInt(bbn.fn.substr(v, 8, 2)),
             12
           ));
         }
         else if ( v.length === 19 ){
           return (new Date(
-            parseInt(v.substr(0, 4)),
-            parseInt(v.substr(5, 2)) - 1,
-            parseInt(v.substr(8, 2)),
-            parseInt(v.substr(11, 2)),
-            parseInt(v.substr(14, 2)),
-            parseInt(v.substr(17, 2))
+            parseInt(bbn.fn.substr(v, 0, 4)),
+            parseInt(bbn.fn.substr(v, 5, 2)) - 1,
+            parseInt(bbn.fn.substr(v, 8, 2)),
+            parseInt(bbn.fn.substr(v, 11, 2)),
+            parseInt(bbn.fn.substr(v, 14, 2)),
+            parseInt(bbn.fn.substr(v, 17, 2))
           ));
         }
       }
