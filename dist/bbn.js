@@ -10,80 +10,89 @@
  *  - language (l)
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.bbn = factory());
-}(this, (
-  function(){
-  "use strict";
-  if (axios) {
-    axios.defaults.headers.post['Content-Type'] = 'text/json';
+  if (typeof exports === 'object' && typeof module !== 'undefined') {
+    module.exports = factory();
   }
-  return {
-    version: "1.0.1",
-    opt: {
-      _cat: {}
-    },
-    _(st) {
-      let res = bbn.lng[st] || st;
-      let args = Array.prototype.slice.call(arguments, 1);
-      if (args.length) {
-        let i = 0;
-        return res.replace(/\%([d|s])/g, (match, type) => {
-          let tmp = args[i];
-          i++;
-          if (((type === 'd') && bbn.fn.isNumber(tmp))
-              || ((type === 's') && bbn.fn.isString(tmp))
-          ) {
-            return tmp;
-          }
-
-          return match;
-        })
-
-
-      }
-
-      return res;
-    },
-    $(selector, context) {
-      if (context && context.querySelectorAll) {
-        return context.querySelectorAll(selector);
-      }
-      return document.body.querySelectorAll(selector);
-    },
-    _popups: [],
-    lng: {
-      /* User-defined languages elements */
-      select_unselect_all: "Select/Clear all",
-      select_all: "Select all",
-      search: 'Search',
-      loading: 'Loading...',
-      choose: 'Choose',
-      error: 'Error',
-      server_response: 'Server response',
-      reload: 'Reload',
-      errorText: 'Something went wrong',
-      closeAll: "Close all",
-      closeOthers: "Close others",
-      pin: "Pin",
-      arrange: "Arrange",
-      cancel: "Cancel",
-      unpin: "Unpin",
-      yes: "Yes",
-      no: "No",
-      unknown: "Unknown",
-      untitled: "Untitled",
-      confirmation: "Confirmation",
-      Today: "Today",
-      Tomorrow: "Tomorrow",
-      Yesterday: "Yesterday"
-    },
-    app: {
-      popups: [],
+  else if (typeof define === 'function' && define.amd) {
+    define(factory);
+  }
+  else {
+    global.bbn = factory();
+    global.exports = global;
+  }
+}(
+  this,
+  () => {
+    "use strict";
+    if (axios) {
+      axios.defaults.headers.post['Content-Type'] = 'text/json';
     }
-  };
-})));
+    return {
+      version: "1.0.1",
+      opt: {
+        _cat: {}
+      },
+      _(st) {
+        let res = bbn.lng[st] || st;
+        let args = Array.prototype.slice.call(arguments, 1);
+        if (args.length) {
+          let i = 0;
+          return res.replace(/\%([d|s])/g, (match, type) => {
+            let tmp = args[i];
+            i++;
+            if (((type === 'd') && bbn.fn.isNumber(tmp))
+                || ((type === 's') && bbn.fn.isString(tmp))
+            ) {
+              return tmp;
+            }
+
+            return match;
+          })
+
+
+        }
+
+        return res;
+      },
+      $(selector, context) {
+        if (context && context.querySelectorAll) {
+          return context.querySelectorAll(selector);
+        }
+        return document.body.querySelectorAll(selector);
+      },
+      _popups: [],
+      lng: {
+        /* User-defined languages elements */
+        select_unselect_all: "Select/Clear all",
+        select_all: "Select all",
+        search: 'Search',
+        loading: 'Loading...',
+        choose: 'Choose',
+        error: 'Error',
+        server_response: 'Server response',
+        reload: 'Reload',
+        errorText: 'Something went wrong',
+        closeAll: "Close all",
+        closeOthers: "Close others",
+        pin: "Pin",
+        arrange: "Arrange",
+        cancel: "Cancel",
+        unpin: "Unpin",
+        yes: "Yes",
+        no: "No",
+        unknown: "Unknown",
+        untitled: "Untitled",
+        confirmation: "Confirmation",
+        Today: "Today",
+        Tomorrow: "Tomorrow",
+        Yesterday: "Yesterday"
+      },
+      app: {
+        popups: [],
+      }
+    };
+  }
+));
 
 
 
@@ -139,9 +148,9 @@
     /* True when non asynchronous Ajax loads */
     loading: false,
     /* Window width */
-    width: window.innerWidth,
+    width: 0,
     /* Window height */
-    height: window.innerHeight,
+    height: 0,
     /* Element currently focused (Element object) */
     focused: false,
     /* Last time user has been active */
@@ -663,13 +672,13 @@
           if (!cfg.url) {
             /* Hash */
             if ( args[i].indexOf('#') === 0 || args[i].indexOf(bbn.env.root + '#') === 0 ){
-              cfg.url = args[i].substr(bbn.env.root.length);
+              cfg.url = bbn.fn.substr(args[i], bbn.env.root.length);
             }
             /* Link */
             else{
               cfg.url = args[i];
               if ( cfg.url.indexOf(bbn.env.root) === 0 ){
-                cfg.url = cfg.url.substr(bbn.env.root.length);
+                cfg.url = bbn.fn.substr(cfg.url, bbn.env.root.length);
               }
             }
           }
@@ -1009,9 +1018,9 @@
       // Current path becomes old path
       bbn.env.old_path = bbn.env.path;
       // URL includes the domain
-      bbn.env.url = ['https:/', 'http://'].includes(url.substr(0, 7)) ? url : bbn.env.root + url;
+      bbn.env.url = ['https:/', 'http://'].includes(bbn.fn.substr(url, 0, 7)) ? url : bbn.env.root + url;
       // Path does not
-      bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
+      bbn.env.path = bbn.fn.substr(bbn.env.url, bbn.env.root.length);
       // Params will include each part of the URL
       bbn.env.params = bbn.fn.filter(bbn.env.path.split("/"), (v) => {
         return v !== '';
@@ -1280,7 +1289,7 @@
           if (!filename) {
             let cd = 'attachment; filename=';
             if (headers && headers['content-disposition'] && (headers['content-disposition'].indexOf(cd) === 0)) {
-              filename = headers['content-disposition'].substr(cd.length + 1, headers['content-disposition'].length - cd.length - 2);
+              filename = bbn.fn.substr(headers['content-disposition'], cd.length + 1, headers['content-disposition'].length - cd.length - 2);
             }
             else {
               filename = bbn.fn.baseName(url)
@@ -1474,7 +1483,7 @@
       /** @var {Number} tst Current timestamp */
       let tst = (new Date()).getTime();
       /** @var {String} url The original URL (part of requestId before : and md5) */
-      let url = requestId.substr(0, requestId.length - 33);
+      let url = bbn.fn.substr(requestId, 0, requestId.length - 33);
       /** @var {Object} loader The loader object */
       let loader = {
         key: requestId,
@@ -1815,7 +1824,7 @@
             (name.length > 2) &&
             (name.indexOf("[]") === (name.length - 2))
           ){
-            n = name.substr(0, name.length - 2);
+            n = bbn.fn.substr(name, 0, name.length - 2);
             if ( res[n] === undefined ){
               res[n] = [];
             }
@@ -1952,12 +1961,8 @@
     init(cfg, force){
       let parts;
       if ( !bbn.env.isInit || force){
-        bbn.env.width = window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth;
-        document.documentElement.style.setProperty('--vw', (bbn.env.width * 0.01) + 'px');
-        bbn.env.height = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
-        document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
-        if (bbn.env.root.length && (bbn.env.root.substr(-1) !== '/')) {
+        if (bbn.env.root.length && (bbn.fn.substr(bbn.env.root, -1) !== '/')) {
           bbn.env.root += '/';
         }
         if (!bbn.env.isInit && (typeof dayjs !== 'undefined')) {
@@ -2005,7 +2010,7 @@
         if ( typeof (cfg) === 'object' ){
          bbn.fn.extend(true, window.bbn, cfg);
         }
-        bbn.env.path = bbn.env.url.substr(bbn.env.root.length);
+        bbn.env.path = bbn.fn.substr(bbn.env.url, bbn.env.root.length);
         parts = bbn.env.path.split("/");
         //$.each(parts, function(i, v){
         bbn.fn.each(parts, (v, i) => {
@@ -2087,7 +2092,7 @@
               let state = h.state;
               if (state) {
                 if (bbn.fn.defaultHistoryFunction(state)) {
-                  //bbn.fn.link(state.url.substr(bbn.env.root.length), $.extend({title: state.title}, state.data));
+                  //bbn.fn.link(bbn.fn.substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
                   bbn.fn.link(state.url, bbn.fn.extend({title: state.title || bbn.env.siteTitle}, state.data || {}));
                 }
                 else if ( state && state.data && bbn.fn.isFunction(state.data.script) ){
@@ -2272,7 +2277,7 @@
             res.error = varName+ ' ' + bbn._("is not defined");
           }
           else if (type) {
-            check = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1).toLowerCase();
+            check = 'is' + bbn.fn.substr(type, 0, 1).toUpperCase() + bbn.fn.substr(type, 1).toLowerCase();
             if (bbn.fn[check] === undefined) {
               res.error = type + ' ' + bbn._("is not a valid type");
             }
@@ -4137,7 +4142,7 @@
       if ( typeof(obj) === "object" ){
         r = {};
         for ( var n in obj ){
-          if (n.substr(0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
+          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
             if ( deep && (typeof(obj[n]) === "object")){
               r[n] = bbn.fn.removePrivateProp(obj[n], true);
             }
@@ -5442,6 +5447,25 @@
           document.documentElement.style.setProperty('--vh', (bbn.env.height * 0.01) + 'px');
         }
 
+        let smallWidth = bbn.fn.getCssVar('mobile-limit') || 650;
+        let newCls = 'bbn-screen-' + (bbn.env.width < parseInt(smallWidth)  ? 'small' : 'regular');
+        let classes = (document.body.className || '').split(' ');
+        let done = false;
+        bbn.fn.each(classes, (cls, idx) => {
+          let bits = cls.split('-');
+          if ((bits.length === 3) && (cls.indexOf('bbn-screen-') === 0)) {
+            done = true;
+            if (cls !== newCls) {
+              classes.splice(idx, 1, newCls);
+            }
+            return false;
+          }
+        });
+        if (!done) {
+          classes.push(newCls);
+        }
+
+        document.body.className = classes.join(' ');
         bbn.fn.defaultResizeFunction();
       }
     },
@@ -5993,11 +6017,11 @@
       }
 
       while (str.indexOf(hair) === 0) {
-        str = str.substr(hair.length);
+        str = bbn.fn.substr(str, hair.length);
       }
 
       while (str.lastIndexOf(hair) === str.length - hair.length) {
-        str = str.substr(0, str.length - hair.length);
+        str = bbn.fn.substr(str, 0, str.length - hair.length);
       }
 
       return str;
@@ -6208,7 +6232,7 @@
           adj = '...';
         }
         if ( st.length > len ){
-          st = st.substr(0, len) + adj;
+          st = bbn.fn.substr(st, 0, len) + adj;
         }
       }
       return st;
@@ -6408,6 +6432,91 @@
     },
 
     /**
+     * Basic substring function accepting both positive and negative values.
+     *
+     * @method   substr
+     * @global
+     *
+     * @example
+     * ```javascript
+     * bbn.fn.substr(bbn.fn, 'Hello', -3, -1);
+     * // "ll"
+     * bbn.fn.substr(bbn.fn, 'Hello', -3);
+     * // "llo"
+     * bbn.fn.substr(bbn.fn, 'Hello', 0, 1);
+     * // "H"
+     * ```
+     * @memberof bbn.fn
+     * @param    {String} str
+     * @param    {Number} from
+     * @param    {Number} length
+     * @returns  {String} Result substring
+     */
+     substr(str, from, length) {
+      if (!bbn.fn.isString(str) || !bbn.fn.isInt(from)) {
+        throw new Error(_("The substr function should be applied to a string and at least a from argument should be given"));
+      }
+
+      if (from < 0) {
+        from = str.length + from;
+      }
+
+      if (!bbn.fn.isInt(length)) {
+        return str.substring(from);
+      }
+
+      return str.substring(from, (length < 0 ? str.length : from) + length);
+    },
+
+    /**
+     * Escapes a URL or a file path, optionally adding parameters (get type, to append to the URL without the first separator).
+     * 
+     * @param {*} url 
+     * @param {*} params 
+     * @returns 
+     */
+    escapeUrl(url, params) {
+      let st = '';
+      if (url.match('^(http|https)://')) {
+        st += 'http';
+        url = url.substring(4);
+        if (url.substr(0, 1) === 's') {
+          st += 's';
+          url = url.substring(1);
+        }
+        st += '://';
+        url = url.substring(3);
+      }
+
+      bbn.fn.each(bbn.fn.dirName(url).split('/'), a => {
+        st += encodeURIComponent(a) + '/';
+      });
+
+      let base = bbn.fn.baseName(url);
+      let sep = '?';
+      let existingParams = '';
+      if (base.indexOf(sep)) {
+        let tmp = base.split('?');
+        sep = '&';
+        existingParams = '?' + tmp[1];
+        base = tmp[0];
+      }
+
+      if (params && bbn.fn.isString(params)) {
+         if (params.match('^(\\&|\\?)')) {
+           params = params.substring(1);
+         }
+
+         params = sep + params;
+      }
+      else {
+        params = '';
+      }
+
+      return st + encodeURIComponent(base) + existingParams + params;
+    },
+
+    /**
      * Returns the path of the folder containing the last hierarchical element of the path.
      *
      * @method   dirName
@@ -6424,12 +6533,12 @@
      */
     dirName(path){
       if (bbn.fn.isString(path) && path) {
-        while (path.substr(path.length-1) === '/') {
-          path = path.substr(0, path.length-1);
+        while (bbn.fn.substr(path, path.length-1) === '/') {
+          path = bbn.fn.substr(path, 0, path.length-1);
         }
         let pos = path.lastIndexOf('/');
         if (pos > 0) {
-          return path.substr(0, pos);
+          return bbn.fn.substr(path, 0, pos);
         }
         if (pos === 0) {
           return '/';
@@ -6468,8 +6577,8 @@
           return res;
         }
         let len = suffix.length;
-        if (res && res.substr(-len) === suffix) {
-          return res.substr(0, res.length - len);
+        if (res && bbn.fn.substr(res, -len) === suffix) {
+          return bbn.fn.substr(res, 0, res.length - len);
         }
       }
       return '';
@@ -6507,11 +6616,11 @@
         char = ' ';
       }
       if ( char.length ){
-        while ( st.substr(-char.length) === char ){
-          st = st.substr(0, st.length - char.length);
+        while ( bbn.fn.substr(st, -char.length) === char ){
+          st = bbn.fn.substr(st, 0, st.length - char.length);
         }
-        while ( st.substr(0, char.length) === char ){
-          st = st.substr(char.length);
+        while ( bbn.fn.substr(st, 0, char.length) === char ){
+          st = bbn.fn.substr(st, char.length);
         }
       }
       return st;
@@ -6853,6 +6962,33 @@
       }
     },
 
+    /**
+     * Gets a CSS variable value
+     * @param {String*} varname 
+     * @returns 
+     */
+    getCssVar(varname) {
+      if (varname.indexOf('--') !== 0) {
+        varname = '--' + varname;
+      }
+
+      return getComputedStyle(document.documentElement).getPropertyValue(varname);
+    },
+
+    /**
+     * Creates a CSS variable
+     * @param {String*} varname 
+     * @param {String*} value
+     * @returns 
+     */
+     setCssVar(varname, value) {
+      if (varname.indexOf('--') !== 0) {
+        varname = '--' + varname;
+      }
+
+      document.documentElement.setProperty(varname, value);
+    }
+
   });
 })(bbn);
 
@@ -6997,7 +7133,7 @@
       if ( (typeof(st) === 'string') &&
         (st.length > 0) && (
           (st.indexOf('calc') === 0 ) ||
-          (!isNaN(st.substr(0,1))) ) ){
+          (!isNaN(bbn.fn.substr(st, 0,1))) ) ){
         let el = document.createElement('div');
         el.style.width = st;
         let res = !!el.style.width.length;
@@ -7146,13 +7282,40 @@
      * @memberof bbn.fn
      * @returns  {Boolean}
      */
-    isNumber() {
+     isNumber() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( ['boolean', 'object'].includes(typeof a) || (a === '') ||isNaN(a)){
           return false;
         }
       }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is an integer
+     * @method   isInt
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.isInt(5);
+     * // true
+     * bbn.fn.isInt(0.5);
+     * // false
+     * bbn.fn.isInt("hello");
+     * // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isInt() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (!Number.isInteger(a)){
+          return false;
+        }
+      }
+
       return true;
     },
 

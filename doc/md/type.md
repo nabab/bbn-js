@@ -20,6 +20,8 @@ Returns true if the given argument is a dom element;
 Intended to check if the argument provided is an e-mail address written correctly  
 [bbn.fn.__isEmpty__](#isEmpty)  
 Checks if the argument is empty or not.  
+[bbn.fn.__isInt__](#isInt)  
+Returns true if the given argument is an integer  
 [bbn.fn.__isIterable__](#isIterable)  
 Returns true if the given object can be iterated as an array (numerically).  
 [bbn.fn.__isNull__](#isNull)  
@@ -204,6 +206,24 @@ bbn.fn.isNumber(5);
 ```javascript
 //true
 bbn.fn.isNumber(0.5);
+```
+[Back to top](#bbn_top)  
+
+### <a name="isInt"></a>bbn.fn.isInt()
+
+  __Returns true if the given argument is an integer.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+bbn.fn.isInt(5);
+// true
+bbn.fn.isInt(0.5);
+// false
+bbn.fn.isInt("hello");
+// false
 ```
 [Back to top](#bbn_top)  
 

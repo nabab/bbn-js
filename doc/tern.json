@@ -597,6 +597,11 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/percent",
                 "!doc": "Returns the value of the proportion giving the percentage and the total from where to be calculated."
             },
+            "substr": {
+                "!type": "fn(str: string, from: Number, length: Number) -> String",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/substr",
+                "!doc": "Basic substring function accepting both positive and negative values."
+            },
             "dirName": {
                 "!type": "fn(path: string) -> String",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/string\/dirName",
@@ -681,6 +686,11 @@
                 "!type": "fn() -> Boolean",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isNumber",
                 "!doc": "Returns true if the given argument is a number"
+            },
+            "isInt": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isInt",
+                "!doc": "Returns true if the given argument is an integer"
             },
             "isString": {
                 "!type": "fn() -> Boolean",

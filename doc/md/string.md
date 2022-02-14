@@ -52,6 +52,8 @@ Convert an RGB string to hexadecimal.
 Removes all unacceptable characters in a DOM node.  
 [bbn.fn.__shorten__](#shorten)  
 Shortens the given string after *len* characters.  
+[bbn.fn.__substr__](#substr)  
+Basic substring function accepting both positive and negative values.  
 [bbn.fn.__uniqString__](#uniqString)  
 Create a unique string in md5 format.  
 
@@ -462,6 +464,27 @@ bbn.fn.percent('15',1000);
 ```javascript
 //75
 bbn.fn.percent(15,500);
+```
+[Back to top](#bbn_top)  
+
+### <a name="substr"></a>bbn.fn.substr(str, from, length)
+
+  __Basic substring function accepting both positive and negative values.__
+
+  * __str__ _String_ 
+  * __from__ _Number_ 
+  * __length__ _Number_ 
+
+  __Returns__ _String_ Result substring
+
+
+```javascript
+bbn.fn.substr(bbn.fn, 'Hello', -3, -1);
+// "ll"
+bbn.fn.substr(bbn.fn, 'Hello', -3);
+// "llo"
+bbn.fn.substr(bbn.fn, 'Hello', 0, 1);
+// "H"
 ```
 [Back to top](#bbn_top)  
 
