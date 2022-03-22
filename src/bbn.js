@@ -47,9 +47,7 @@
             }
 
             return match;
-          })
-
-
+          });
         }
 
         return res;
