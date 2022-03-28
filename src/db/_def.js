@@ -58,17 +58,57 @@
       });
     };
 
-    this.update = (table, what, where) => {
+    this.update = (table, data, where) => {
       return new Promise(resolve => {
         const tx    = conn.transaction(table, "readwrite");
         const store = tx.objectStore(table);
-      
+        const arch    = structure[table];
+        const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+        if (!where[primary]) {
+          throw new Error(bbn._("No "))
+        }
+
+        let   res     = 1;
+        const request = store.put(data, where[primary]);
+
+        request.onerror = () => {
+          bbn.fn.log(request.error);
+          res--;
+        }
+
+        tx.onabort = () => {
+          throw new Error(tx.error);
+        };
+        tx.oncomplete = () => {
+          resolve(res);
+        }
       });
     };
+
     this.delete = (table, where) => {
       return new Promise(resolve => {
         const tx    = conn.transaction(table, "readwrite");
         const store = tx.objectStore(table);
+        const arch    = structure[table];
+        const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+        if (!where[primary]) {
+          throw new Error(bbn._("No "))
+        }
+
+        let   res     = 1;
+        const request = store.delete(where[primary]);
+
+        request.onerror = () => {
+          bbn.fn.log(request.error);
+          res--;
+        }
+
+        tx.onabort = () => {
+          throw new Error(tx.error);
+        };
+        tx.oncomplete = () => {
+          resolve(res);
+        }
       });
     };
 

@@ -720,11 +720,14 @@
     abort(requestId){
       let loader = bbn.fn.getLoader(requestId);
       if (loader && loader.source) {
+        //this._deleteLoader(requestId);
         loader.source.cancel('Operation canceled by the user.');
       }
+      /*
       else {
         throw new Error("Impossible to find the loader " + requestId);
       }
+      */
     },
 
     /**
