@@ -747,11 +747,12 @@
      * @returns  {String}
      */
     getDeviceType(){
-      if ( /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent) ){
-        return "tablet";
-      }
-      if ( /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(navigator.userAgent) ){
+      const userAgent = navigator.userAgent.toLowerCase();
+      if ( /iPhone|Android/i.test(navigator.userAgent) ){
         return "mobile";
+      }
+      if ( /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent) ){
+        return "tablet";
       }
       return "desktop";
     },
