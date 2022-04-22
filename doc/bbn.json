@@ -3,14 +3,14 @@
         "text": "Routing and navigation",
         "desc": "These functions are meant to be used in a configured BBN environment,\ni.e. a single page application where callback functions are already defined\nand bbn has been initiated through bbn.fn.init.\n",
         "value": "ajax",
-        "lastmod": 1645646870,
+        "lastmod": 1648443128,
         "items": [
             {
                 "file": "ajax.js",
                 "text": "abort",
                 "desc": "Aborts (client side) the XHR corresponding to the given ID if it still exists",
                 "value": "abort",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/abort"
             },
             {
@@ -18,7 +18,7 @@
                 "text": "abortURL",
                 "desc": "Aborts (client side) all the XHR using the given URL if it still exists",
                 "value": "abortURL",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/abortURL"
             },
             {
@@ -26,7 +26,7 @@
                 "text": "ajax",
                 "desc": "Creates an XHR object and returns the Promise",
                 "value": "ajax",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/ajax"
             },
             {
@@ -34,7 +34,7 @@
                 "text": "callback",
                 "desc": "Executes a serie of predefined actions once an Ajax request has been done",
                 "value": "callback",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/callback"
             },
             {
@@ -42,7 +42,7 @@
                 "text": "download",
                 "desc": "Downloads a file with given filename from a URL",
                 "value": "download",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/download"
             },
             {
@@ -50,7 +50,7 @@
                 "text": "downloadContent",
                 "desc": "Downloads a file with given filename from the given content",
                 "value": "downloadContent",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/downloadContent"
             },
             {
@@ -58,7 +58,7 @@
                 "text": "getLoader",
                 "desc": "Finds the loader object corresponding to the given unique ID and returns it if found",
                 "value": "getLoader",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/getLoader"
             },
             {
@@ -66,7 +66,7 @@
                 "text": "getRequestId",
                 "desc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype",
                 "value": "getRequestId",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/getRequestId"
             },
             {
@@ -74,7 +74,7 @@
                 "text": "link",
                 "desc": "Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction",
                 "value": "link",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/link"
             },
             {
@@ -82,7 +82,7 @@
                 "text": "post",
                 "desc": "Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result",
                 "value": "post",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/post"
             },
             {
@@ -90,7 +90,7 @@
                 "text": "postOut",
                 "desc": "Posts a request in a new window",
                 "value": "postOut",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/postOut"
             },
             {
@@ -98,7 +98,7 @@
                 "text": "setNavigationVars",
                 "desc": "Changes the URL and the associated variables and updates the history",
                 "value": "setNavigationVars",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/setNavigationVars"
             },
             {
@@ -106,7 +106,7 @@
                 "text": "treatAjaxArguments",
                 "desc": "Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions",
                 "value": "treatAjaxArguments",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/treatAjaxArguments"
             },
             {
@@ -114,7 +114,7 @@
                 "text": "upload",
                 "desc": "Uploads a file synchronously through an XHR indicating progress",
                 "value": "upload",
-                "lastmod": 1645646870,
+                "lastmod": 1648443128,
                 "url": "bbn-js\/doc\/ajax\/upload"
             }
         ]

@@ -1198,8 +1198,12 @@
         if ( a.conditions && bbn.fn.isArray(a.conditions) ){
           compare = bbn.fn.compareConditions(data, a);
         }
-        else{
+        else {
           compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
+          // Case where both are undefined: value and prop which doesn't exist; they are not the same!
+          if (compare && !Object.keys(data).includes(a.field)) {
+            compare = false;
+          }
         }
         if ( compare ){
           if ( filter.logic === 'OR' ){

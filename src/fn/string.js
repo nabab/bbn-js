@@ -676,12 +676,7 @@
         }
       }
 
-      let m = bbn.var.defaultDiacriticsRemovalMap;
-      for(var i=0; i < m.length; i++ ){
-        st = st.replace(m[i].letters, m[i].base);
-      }
-
-      return st;
+      return st.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     },
 
     /**
@@ -732,7 +727,7 @@
      */
      substr(str, from, length) {
       if (!bbn.fn.isString(str) || !bbn.fn.isInt(from)) {
-        throw new Error(_("The substr function should be applied to a string and at least a from argument should be given"));
+        throw new Error(bbn._("The substr function should be applied to a string and at least a from argument should be given"));
       }
 
       if (from < 0) {
