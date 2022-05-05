@@ -727,7 +727,8 @@
      */
      substr(str, from, length) {
       if (!bbn.fn.isString(str) || !bbn.fn.isInt(from)) {
-        throw new Error(bbn._("The substr function should be applied to a string and at least a from argument should be given"));
+        bbn.fn.log(arguments);
+        throw new Error(bbn._("The substr function should be applied to a string and at least a `from` argument should be given"));
       }
 
       if (from < 0) {
