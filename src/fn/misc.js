@@ -596,13 +596,40 @@
      * @returns  
      */
     copy(st){
-      let input = document.createElement("textarea");
-      input.style.opacity = 0;
-      input.value = st;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
+      return new Promise(resolve => {
+        if (st) {
+          if (navigator && navigator.clipboard) {
+            if (st instanceof Blob) {
+              navigator.clipboard.write([new ClipboardItem({[st.type.toString()]: st})]).then(() => {
+                resolve();
+              });
+            }
+            else if (bbn.fn.isObject(st) && bbn.fn.isFunction(st.toBlob)) {
+              st.toBlob(blob => {
+                navigator.clipboard.write([new ClipboardItem({[blob.type.toString()]: blob})]).then(() => {
+                  resolve();
+                });
+              })
+            }
+            else {
+              navigator.clipboard.writeText(st);
+              resolve();
+            }
+            return;
+          }
+    
+          let input = document.createElement("textarea");
+          input.style.opacity = 0;
+          input.value = st;
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          document.body.removeChild(input);
+          resolve();
+        }
+
+        resolve();
+      })
     },
 
     /**
@@ -665,6 +692,28 @@
       let canvas = bbn.fn.imageToCanvas(img);
       return bbn.fn.canvasToImage(canvas);
     },
+
+    /**
+     * Tells if the interface is beeing active for the past x seconds. 
+     * @method   isActiveInterface
+     * @global   
+     * @example
+     * // true
+     * ``` javascript
+     * bbn.fn.isActiveInterface(54764654);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean} 
+     */
+     isActiveInterface(secs = 600) {
+      if (!bbn.env.last_focus) {
+        return false;
+      }
+
+      let t = (new Date()).getTime();
+      return (t - bbn.env.last_focus) < (secs*1000);
+    },
+
 
     /**
      * Formats the value given in bytes. 

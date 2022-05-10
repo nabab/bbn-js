@@ -1951,8 +1951,10 @@
           if (!e.target.classList.contains('bbn-no')) {
             bbn.env.focused = e.target;
           }
+          bbn.env.last_focus = (new Date()).getTime();
         });
         document.addEventListener('click', (e) => {
+          bbn.env.last_focus = (new Date()).getTime();
           if (bbn.env.nav !== 'ajax') {
             return;
           }
@@ -2750,13 +2752,40 @@
      * @returns  
      */
     copy(st){
-      let input = document.createElement("textarea");
-      input.style.opacity = 0;
-      input.value = st;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
+      return new Promise(resolve => {
+        if (st) {
+          if (navigator && navigator.clipboard) {
+            if (st instanceof Blob) {
+              navigator.clipboard.write([new ClipboardItem({[st.type.toString()]: st})]).then(() => {
+                resolve();
+              });
+            }
+            else if (bbn.fn.isObject(st) && bbn.fn.isFunction(st.toBlob)) {
+              st.toBlob(blob => {
+                navigator.clipboard.write([new ClipboardItem({[blob.type.toString()]: blob})]).then(() => {
+                  resolve();
+                });
+              })
+            }
+            else {
+              navigator.clipboard.writeText(st);
+              resolve();
+            }
+            return;
+          }
+    
+          let input = document.createElement("textarea");
+          input.style.opacity = 0;
+          input.value = st;
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          document.body.removeChild(input);
+          resolve();
+        }
+
+        resolve();
+      })
     },
 
     /**
@@ -2819,6 +2848,28 @@
       let canvas = bbn.fn.imageToCanvas(img);
       return bbn.fn.canvasToImage(canvas);
     },
+
+    /**
+     * Tells if the interface is beeing active for the past x seconds. 
+     * @method   isActiveInterface
+     * @global   
+     * @example
+     * // true
+     * ``` javascript
+     * bbn.fn.isActiveInterface(54764654);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean} 
+     */
+     isActiveInterface(secs = 600) {
+      if (!bbn.env.last_focus) {
+        return false;
+      }
+
+      let t = (new Date()).getTime();
+      return (t - bbn.env.last_focus) < (secs*1000);
+    },
+
 
     /**
      * Formats the value given in bytes. 
@@ -4300,9 +4351,16 @@
         }
         else {
           compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
-          // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-          if (compare && !Object.keys(data).includes(a.field)) {
-            compare = false;
+          if (compare) {
+            let bits = a.field.split('.');
+            let prop = bits.pop();
+            if (bits.length) {
+              bbn.fn.each(bits, b => data = data[b]);
+            }
+            // Case where both are undefined: value and prop which doesn't exist; they are not the same!
+            if (!Object.keys(data).includes(prop)) {
+              compare = false;
+            }
           }
         }
         if ( compare ){

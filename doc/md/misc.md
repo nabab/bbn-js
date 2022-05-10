@@ -26,6 +26,8 @@ Draws the given html image nto a canvas.
 Returns the tag for the image in base64  
 [bbn.fn.__info__](#info)  
 Logs the given argument in the browser's console highlighting it with a blue background.  
+[bbn.fn.__isActiveInterface__](#isActiveInterface)  
+Tells if the interface is beeing active for the past x seconds.  
 [bbn.fn.__isDesktopDevice__](#isDesktopDevice)  
 Returns true if the current device type is a desktop.  
 [bbn.fn.__isFocused__](#isFocused)  
@@ -220,6 +222,20 @@ bbn.fn.imageToCanvas('<img src="path/myImage.png">');
   * __img__ _HTMLElement_ 
 
   __Returns__ _Mixed_ 
+[Back to top](#bbn_top)  
+
+### <a name="isActiveInterface"></a>bbn.fn.isActiveInterface()
+
+  __Tells if the interface is beeing active for the past x seconds.__
+
+
+  __Returns__ _Boolean_ 
+
+
+// true
+``` javascript
+bbn.fn.isActiveInterface(54764654);
+```
 [Back to top](#bbn_top)  
 
 ### <a name="formatBytes"></a>bbn.fn.formatBytes()

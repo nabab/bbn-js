@@ -1200,9 +1200,16 @@
         }
         else {
           compare = bbn.fn.compare(bbn.fn.getProperty(data, a.field), a.value, a.operator);
-          // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-          if (compare && !Object.keys(data).includes(a.field)) {
-            compare = false;
+          if (compare) {
+            let bits = a.field.split('.');
+            let prop = bits.pop();
+            if (bits.length) {
+              bbn.fn.each(bits, b => data = data[b]);
+            }
+            // Case where both are undefined: value and prop which doesn't exist; they are not the same!
+            if (!Object.keys(data).includes(prop)) {
+              compare = false;
+            }
           }
         }
         if ( compare ){

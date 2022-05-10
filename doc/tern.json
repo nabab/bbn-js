@@ -242,6 +242,11 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/imgToBase64",
                 "!doc": "Returns the tag for the image in base64"
             },
+            "isActiveInterface": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/isActiveInterface",
+                "!doc": "Tells if the interface is beeing active for the past x seconds."
+            },
             "formatBytes": {
                 "!type": "fn() -> String",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/formatBytes",

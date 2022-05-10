@@ -105,8 +105,10 @@
           if (!e.target.classList.contains('bbn-no')) {
             bbn.env.focused = e.target;
           }
+          bbn.env.last_focus = (new Date()).getTime();
         });
         document.addEventListener('click', (e) => {
+          bbn.env.last_focus = (new Date()).getTime();
           if (bbn.env.nav !== 'ajax') {
             return;
           }
