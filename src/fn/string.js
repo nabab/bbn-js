@@ -644,8 +644,8 @@
       */
       let $test = document.createElement('div');
       document.body.appendChild($test);
-      $test.innerHTML = bbn.fn.br2nl(st);
-      st = $test.textContent;
+      $test.innerHTML = st;
+      st = $test.innerText;
       document.body.removeChild($test);
       return st;
     },

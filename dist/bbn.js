@@ -32,6 +32,12 @@
       opt: {
         _cat: {}
       },
+      /**
+       * Translate an expression using the object bbn.lng
+       * 
+       * @param {String} st 
+       * @returns {String}
+       */
       _(st) {
         let res = bbn.lng[st] || st;
         let args = Array.prototype.slice.call(arguments, 1);
@@ -1191,6 +1197,7 @@
      */
     download(url, filename, params) {
       // We can intervert the arguments
+      bbn.fn.log("DOWNLOAD", arguments);
       if (bbn.fn.isObject(filename)) {
         params = filename;
         filename = null;
@@ -6343,8 +6350,8 @@
       */
       let $test = document.createElement('div');
       document.body.appendChild($test);
-      $test.innerHTML = bbn.fn.br2nl(st);
-      st = $test.textContent;
+      $test.innerHTML = st;
+      st = $test.innerText;
       document.body.removeChild($test);
       return st;
     },

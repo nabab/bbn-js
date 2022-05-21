@@ -32,6 +32,12 @@
       opt: {
         _cat: {}
       },
+      /**
+       * Translate an expression using the object bbn.lng
+       * 
+       * @param {String} st 
+       * @returns {String}
+       */
       _(st) {
         let res = bbn.lng[st] || st;
         let args = Array.prototype.slice.call(arguments, 1);
