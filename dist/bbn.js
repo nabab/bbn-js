@@ -1197,7 +1197,6 @@
      */
     download(url, filename, params) {
       // We can intervert the arguments
-      bbn.fn.log("DOWNLOAD", arguments);
       if (bbn.fn.isObject(filename)) {
         params = filename;
         filename = null;
