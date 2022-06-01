@@ -3223,9 +3223,10 @@
     getProperty(obj, prop) {
       if ( (typeof obj === 'object') && (typeof prop === 'string')){
         return prop.split('.').reduce((o, i) => {
-          if (o && (o[i] !== undefined)) {
+          if (o) {
             return o[i];
           }
+
           return undefined;
         }, obj);
       }
@@ -4364,7 +4365,7 @@
               bbn.fn.each(bits, b => data = data[b]);
             }
             // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-            if (!Object.keys(data).includes(prop)) {
+            if (!Object.keys(data).includes(prop) && (a.value !== undefined)) {
               compare = false;
             }
           }

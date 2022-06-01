@@ -206,7 +206,6 @@
           conn.onsuccess = () => {
             bbn.db._connections[name] = conn.result;
             let obj = new dbObject(name);
-            bbn.fn.log("CREATION", obj, conn.result);
             resolve(obj);
           };
           return;
