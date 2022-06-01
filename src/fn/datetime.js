@@ -204,7 +204,7 @@
       }
       if ( undefined !== dayjs ){
         //return dayjs(r).format('lll');
-        return dayjs(r).calendar({
+        return dayjs(r).calendar(null, {
           sameDay: '[' + bbn._('Today') + '] HH:mm',
           nextDay: '[' + bbn._('Tomorrow') + '] HH:mm',
           nextWeek: 'ddd D HH:mm',
