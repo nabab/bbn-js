@@ -283,14 +283,14 @@
         "text": "Miscellaneous functions",
         "desc": "",
         "value": "misc",
-        "lastmod": 1652130816,
+        "lastmod": 1654004974,
         "items": [
             {
                 "file": "misc.js",
                 "text": "arrayBuffer2String",
                 "desc": "",
                 "value": "arrayBuffer2String",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/arrayBuffer2String"
             },
             {
@@ -298,7 +298,7 @@
                 "text": "canvasToImage",
                 "desc": "Returns a canvas in a HTML element im",
                 "value": "canvasToImage",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/canvasToImage"
             },
             {
@@ -306,7 +306,7 @@
                 "text": "copy",
                 "desc": "Copies to the clipboard the value of the given string",
                 "value": "copy",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/copy"
             },
             {
@@ -314,7 +314,7 @@
                 "text": "eraseCookie",
                 "desc": "Erase the cookie corresponding to the given name",
                 "value": "eraseCookie",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/eraseCookie"
             },
             {
@@ -322,7 +322,7 @@
                 "text": "error",
                 "desc": "Logs the given argument in the browser's console highlighting it with a red background",
                 "value": "error",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/error"
             },
             {
@@ -330,7 +330,7 @@
                 "text": "formatBytes",
                 "desc": "Formats the value given in bytes",
                 "value": "formatBytes",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/formatBytes"
             },
             {
@@ -338,7 +338,7 @@
                 "text": "getCookie",
                 "desc": "If it exsists returns the cookie corresponding to the given name",
                 "value": "getCookie",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getCookie"
             },
             {
@@ -346,7 +346,7 @@
                 "text": "getDeviceType",
                 "desc": "Returns the current device type",
                 "value": "getDeviceType",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getDeviceType"
             },
             {
@@ -354,7 +354,7 @@
                 "text": "getEventData",
                 "desc": "Returns a promise having the event's data as argument",
                 "value": "getEventData",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getEventData"
             },
             {
@@ -362,7 +362,7 @@
                 "text": "getHTMLOfSelection",
                 "desc": "",
                 "value": "getHTMLOfSelection",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getHTMLOfSelection"
             },
             {
@@ -370,7 +370,7 @@
                 "text": "getPath",
                 "desc": "",
                 "value": "getPath",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getPath"
             },
             {
@@ -378,7 +378,7 @@
                 "text": "getTimeoff",
                 "desc": "Returns the length of time the window has not been focused in seconds",
                 "value": "getTimeoff",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/getTimeoff"
             },
             {
@@ -386,7 +386,7 @@
                 "text": "happy",
                 "desc": "Logs the given argument in the browser's console highlighting it with a green background",
                 "value": "happy",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/happy"
             },
             {
@@ -394,7 +394,7 @@
                 "text": "imageToCanvas",
                 "desc": "Draws the given html image nto a canvas",
                 "value": "imageToCanvas",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/imageToCanvas"
             },
             {
@@ -402,7 +402,7 @@
                 "text": "imgToBase64",
                 "desc": "Returns the tag for the image in base6",
                 "value": "imgToBase64",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/imgToBase64"
             },
             {
@@ -410,7 +410,7 @@
                 "text": "info",
                 "desc": "Logs the given argument in the browser's console highlighting it with a blue background",
                 "value": "info",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/info"
             },
             {
@@ -418,7 +418,7 @@
                 "text": "isActiveInterface",
                 "desc": "Tells if the interface is beeing active for the past x seconds",
                 "value": "isActiveInterface",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isActiveInterface"
             },
             {
@@ -426,7 +426,7 @@
                 "text": "isDesktopDevice",
                 "desc": "Returns true if the current device type is a desktop",
                 "value": "isDesktopDevice",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isDesktopDevice"
             },
             {
@@ -434,7 +434,7 @@
                 "text": "isFocused",
                 "desc": "Checks whether the given elemet is focused or not",
                 "value": "isFocused",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isFocused"
             },
             {
@@ -442,7 +442,7 @@
                 "text": "isMobile",
                 "desc": "Returns true if the current browser is on a mobile device (smartphone or tablet)",
                 "value": "isMobile",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isMobile"
             },
             {
@@ -450,7 +450,7 @@
                 "text": "isMobileDevice",
                 "desc": "Returns true if the current device type is a mobile",
                 "value": "isMobileDevice",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isMobileDevice"
             },
             {
@@ -458,7 +458,7 @@
                 "text": "isTabletDevice",
                 "desc": "Returns true if the current device type is a tablet",
                 "value": "isTabletDevice",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/isTabletDevice"
             },
             {
@@ -466,7 +466,7 @@
                 "text": "log",
                 "desc": "Logs the given arguments in the browser's console",
                 "value": "log",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/log"
             },
             {
@@ -474,7 +474,7 @@
                 "text": "selectElementText",
                 "desc": "Selects the content of an element",
                 "value": "selectElementText",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/selectElementText"
             },
             {
@@ -482,7 +482,7 @@
                 "text": "setCookie",
                 "desc": "Creates a cookie and assigns it to document.cookie",
                 "value": "setCookie",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/setCookie"
             },
             {
@@ -490,7 +490,7 @@
                 "text": "startChrono",
                 "desc": "Starts a timer and gives it a name",
                 "value": "startChrono",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/startChrono"
             },
             {
@@ -498,7 +498,7 @@
                 "text": "stat",
                 "desc": "",
                 "value": "stat",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/stat"
             },
             {
@@ -506,7 +506,7 @@
                 "text": "stopChrono",
                 "desc": "",
                 "value": "stopChrono",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/stopChrono"
             },
             {
@@ -514,7 +514,7 @@
                 "text": "string2ArrayBuffer",
                 "desc": "",
                 "value": "string2ArrayBuffer",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/string2ArrayBuffer"
             },
             {
@@ -522,7 +522,7 @@
                 "text": "timestamp",
                 "desc": "Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date()",
                 "value": "timestamp",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/timestamp"
             },
             {
@@ -530,7 +530,7 @@
                 "text": "warning",
                 "desc": "Logs the given argument in the browser's console highlighting it with a yellow background and red color",
                 "value": "warning",
-                "lastmod": 1652130816,
+                "lastmod": 1654004974,
                 "url": "bbn-js\/doc\/misc\/warning"
             }
         ]

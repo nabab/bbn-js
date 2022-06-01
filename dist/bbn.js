@@ -3139,7 +3139,14 @@
       let ancestors = bbn.fn.getAncestors(ele);
       if (ancestors.length) {
         if (bbn.fn.isString(ancestor)) {
-          ancestor = document.querySelector(ancestor);
+          let ok = false;
+          bbn.fn.each(ancestors, a => {
+            if (a.matches && a.matches(ancestor)) {
+              ok = true;
+              return false;
+            }
+          });
+          return ok;
         }
         if (ancestor instanceof HTMLElement) {
           return ancestors.indexOf(ancestor) > -1;
