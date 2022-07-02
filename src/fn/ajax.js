@@ -232,7 +232,7 @@
         return args[0];
       }
       for (i = 0; i < args.length; i++ ){
-        t = typeof(args[i])
+        t = typeof(args[i]);
         t = t.toLowerCase();
         /* Callbacks */
         if ( bbn.fn.isFunction(args[i]) ){
@@ -270,11 +270,8 @@
           }
         }
         /* Event */
-        else if ( t.toLowerCase() === 'object' ){
-          if ( (args[i].type !== undefined) &&
-            (args[i].target !== undefined) &&
-            (args[i].preventDefault !== undefined)
-          ){
+        else if (args[i] && (t === 'object')) {
+          if (args[i] instanceof Event) {
             cfg.e = args[i];
           }
           /* HTML Element */

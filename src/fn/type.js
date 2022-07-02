@@ -444,6 +444,23 @@
     },
 
     /**
+     * Returns true if the given argument is an event.
+     * @method   isEvent
+     * @global
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isEvent() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (!(a instanceof Event)){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
      * Returns true if the given argument is null;
      * @method   isNull
      * @global
