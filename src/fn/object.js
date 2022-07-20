@@ -455,7 +455,11 @@
       let filter = {};
       let isFunction = false;
       if (bbn.fn.isString(prop)) {
-        filter[prop] = val;
+        filter.conditions = [{
+          field: prop,
+          value: val,
+          operator: operator || '='
+        }];
       }
       else {
         startFrom = operator;
