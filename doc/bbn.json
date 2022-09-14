@@ -3,14 +3,14 @@
         "text": "Routing and navigation",
         "desc": "These functions are meant to be used in a configured BBN environment,\ni.e. a single page application where callback functions are already defined\nand bbn has been initiated through bbn.fn.init.\n",
         "value": "ajax",
-        "lastmod": 1653129378,
+        "lastmod": 1662343612,
         "items": [
             {
                 "file": "ajax.js",
                 "text": "abort",
                 "desc": "Aborts (client side) the XHR corresponding to the given ID if it still exists",
                 "value": "abort",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/abort"
             },
             {
@@ -18,7 +18,7 @@
                 "text": "abortURL",
                 "desc": "Aborts (client side) all the XHR using the given URL if it still exists",
                 "value": "abortURL",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/abortURL"
             },
             {
@@ -26,7 +26,7 @@
                 "text": "ajax",
                 "desc": "Creates an XHR object and returns the Promise",
                 "value": "ajax",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/ajax"
             },
             {
@@ -34,7 +34,7 @@
                 "text": "callback",
                 "desc": "Executes a serie of predefined actions once an Ajax request has been done",
                 "value": "callback",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/callback"
             },
             {
@@ -42,7 +42,7 @@
                 "text": "download",
                 "desc": "Downloads a file with given filename from a URL",
                 "value": "download",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/download"
             },
             {
@@ -50,7 +50,7 @@
                 "text": "downloadContent",
                 "desc": "Downloads a file with given filename from the given content",
                 "value": "downloadContent",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/downloadContent"
             },
             {
@@ -58,7 +58,7 @@
                 "text": "getLoader",
                 "desc": "Finds the loader object corresponding to the given unique ID and returns it if found",
                 "value": "getLoader",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/getLoader"
             },
             {
@@ -66,7 +66,7 @@
                 "text": "getRequestId",
                 "desc": "Returns a unique ID for a \"loader\" based on the URL, the data keys and the datatype",
                 "value": "getRequestId",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/getRequestId"
             },
             {
@@ -74,7 +74,7 @@
                 "text": "link",
                 "desc": "Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction",
                 "value": "link",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/link"
             },
             {
@@ -82,7 +82,7 @@
                 "text": "post",
                 "desc": "Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result",
                 "value": "post",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/post"
             },
             {
@@ -90,7 +90,7 @@
                 "text": "postOut",
                 "desc": "Posts a request in a new window",
                 "value": "postOut",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/postOut"
             },
             {
@@ -98,7 +98,7 @@
                 "text": "setNavigationVars",
                 "desc": "Changes the URL and the associated variables and updates the history",
                 "value": "setNavigationVars",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/setNavigationVars"
             },
             {
@@ -106,7 +106,7 @@
                 "text": "treatAjaxArguments",
                 "desc": "Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions",
                 "value": "treatAjaxArguments",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/treatAjaxArguments"
             },
             {
@@ -114,7 +114,7 @@
                 "text": "upload",
                 "desc": "Uploads a file synchronously through an XHR indicating progress",
                 "value": "upload",
-                "lastmod": 1653129378,
+                "lastmod": 1662343612,
                 "url": "bbn-js\/doc\/ajax\/upload"
             }
         ]
@@ -123,14 +123,14 @@
         "text": "Dates and time, uses daysjs for now",
         "desc": "",
         "value": "datetime",
-        "lastmod": 1652123334,
+        "lastmod": 1654130691,
         "items": [
             {
                 "file": "datetime.js",
                 "text": "date",
                 "desc": "Returns a date object from the given argument",
                 "value": "date",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/date"
             },
             {
@@ -138,7 +138,7 @@
                 "text": "dateSQL",
                 "desc": "Returns a date with SQL format",
                 "value": "dateSQL",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/dateSQL"
             },
             {
@@ -146,7 +146,7 @@
                 "text": "daysInMonth",
                 "desc": "Returns the number of days of the month given in the date",
                 "value": "daysInMonth",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/daysInMonth"
             },
             {
@@ -154,7 +154,7 @@
                 "text": "fdate",
                 "desc": "",
                 "value": "fdate",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/fdate"
             },
             {
@@ -162,7 +162,7 @@
                 "text": "fdatetime",
                 "desc": "",
                 "value": "fdatetime",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/fdatetime"
             },
             {
@@ -170,7 +170,7 @@
                 "text": "ftime",
                 "desc": "",
                 "value": "ftime",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/ftime"
             },
             {
@@ -178,7 +178,7 @@
                 "text": "getDay",
                 "desc": "",
                 "value": "getDay",
-                "lastmod": 1652123334,
+                "lastmod": 1654130691,
                 "url": "bbn-js\/doc\/datetime\/getDay"
             }
         ]
@@ -539,14 +539,14 @@
         "text": "Objects and arrays operations",
         "desc": "",
         "value": "object",
-        "lastmod": 1653957338,
+        "lastmod": 1659285092,
         "items": [
             {
                 "file": "object.js",
                 "text": "arrayFromProp",
                 "desc": "Creates and returns a new array made of the given property's values from the given array of objects",
                 "value": "arrayFromProp",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/arrayFromProp"
             },
             {
@@ -554,7 +554,7 @@
                 "text": "autoExtend",
                 "desc": "Extends the bbn object by passing the namespace and the object it will merge with",
                 "value": "autoExtend",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/autoExtend"
             },
             {
@@ -562,7 +562,7 @@
                 "text": "clone",
                 "desc": "Creates and returns a perfect clone - but different - from the given object",
                 "value": "clone",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/clone"
             },
             {
@@ -570,7 +570,7 @@
                 "text": "compare",
                 "desc": "Performs a comparison between two values based on the given operator and returns a boolean",
                 "value": "compare",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/compare"
             },
             {
@@ -578,7 +578,7 @@
                 "text": "compareConditions",
                 "desc": "Checks whether the given data object complies or not with the given filter",
                 "value": "compareConditions",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/compareConditions"
             },
             {
@@ -586,7 +586,7 @@
                 "text": "count",
                 "desc": "Counts the number of objects matching the given filter in the given array",
                 "value": "count",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/count"
             },
             {
@@ -594,7 +594,7 @@
                 "text": "diffObj",
                 "desc": "Returns an object describing the differences for transforming the first given object into the second",
                 "value": "diffObj",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/diffObj"
             },
             {
@@ -602,7 +602,7 @@
                 "text": "each",
                 "desc": "Executes the provided function on each element of the given array",
                 "value": "each",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/each"
             },
             {
@@ -610,7 +610,7 @@
                 "text": "extend",
                 "desc": "Merges the contents of two or more objects together into the first object",
                 "value": "extend",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/extend"
             },
             {
@@ -618,7 +618,7 @@
                 "text": "extendOut",
                 "desc": "Returns a new object made of the properties from all the given objects",
                 "value": "extendOut",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/extendOut"
             },
             {
@@ -626,7 +626,7 @@
                 "text": "filter",
                 "desc": "Returns a new array with only the data matching the given filter",
                 "value": "filter",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/filter"
             },
             {
@@ -634,7 +634,7 @@
                 "text": "filterToConditions",
                 "desc": "Converts the given object 'filter' to a valid format of condition",
                 "value": "filterToConditions",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/filterToConditions"
             },
             {
@@ -642,7 +642,7 @@
                 "text": "findAll",
                 "desc": "Retrieves all elements of a hierarchical array corresponding to the filter",
                 "value": "findAll",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/findAll"
             },
             {
@@ -650,7 +650,7 @@
                 "text": "fori",
                 "desc": "Executes the provided function on each element of the given array",
                 "value": "fori",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/fori"
             },
             {
@@ -658,7 +658,7 @@
                 "text": "forir",
                 "desc": "Executes the provided function on each element of the given array, going backward",
                 "value": "forir",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/forir"
             },
             {
@@ -666,7 +666,7 @@
                 "text": "getField",
                 "desc": "Returns the value of the given field (property) from the first object matching the given filter in an array of objects",
                 "value": "getField",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/getField"
             },
             {
@@ -674,7 +674,7 @@
                 "text": "getProperty",
                 "desc": "Returns the value of the given property from the given object",
                 "value": "getProperty",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/getProperty"
             },
             {
@@ -682,7 +682,7 @@
                 "text": "getRow",
                 "desc": "Returns the first object matching the given filter in an array of objects",
                 "value": "getRow",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/getRow"
             },
             {
@@ -690,7 +690,7 @@
                 "text": "isSame",
                 "desc": "Checks whether the data contained in the given objects is identical",
                 "value": "isSame",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/isSame"
             },
             {
@@ -698,7 +698,7 @@
                 "text": "iterate",
                 "desc": "Executes the provided function on each property of the given object",
                 "value": "iterate",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/iterate"
             },
             {
@@ -706,7 +706,7 @@
                 "text": "map",
                 "desc": "Returns a new array generated by the execution of a function for each item of the given array",
                 "value": "map",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/map"
             },
             {
@@ -714,7 +714,7 @@
                 "text": "move",
                 "desc": "Moves an element to a different position within the given array",
                 "value": "move",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/move"
             },
             {
@@ -722,7 +722,7 @@
                 "text": "multiorder",
                 "desc": "Sorts an array of objects based on a set of properties",
                 "value": "multiorder",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/multiorder"
             },
             {
@@ -730,7 +730,7 @@
                 "text": "numProperties",
                 "desc": "Returns the number of properties contained in the object",
                 "value": "numProperties",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/numProperties"
             },
             {
@@ -738,7 +738,7 @@
                 "text": "order",
                 "desc": "Sorts an array of objects based on the given property",
                 "value": "order",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/order"
             },
             {
@@ -746,7 +746,7 @@
                 "text": "pickValue",
                 "desc": "Returns a random item from the given array",
                 "value": "pickValue",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/pickValue"
             },
             {
@@ -754,7 +754,7 @@
                 "text": "removeEmpty",
                 "desc": "Returns a new array, having removed all elements deemed empty from the given array",
                 "value": "removeEmpty",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/removeEmpty"
             },
             {
@@ -762,7 +762,7 @@
                 "text": "removePrivateProp",
                 "desc": "Returns an object with the original objects' properties starting with an alphanumeric character",
                 "value": "removePrivateProp",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/removePrivateProp"
             },
             {
@@ -770,7 +770,7 @@
                 "text": "search",
                 "desc": "Retrieves the index of the array's first element corresponding to the given filter",
                 "value": "search",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/search"
             },
             {
@@ -778,7 +778,7 @@
                 "text": "shortenObj",
                 "desc": "Shortens all the strings contained in the object properties or element in a array",
                 "value": "shortenObj",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/shortenObj"
             },
             {
@@ -786,7 +786,7 @@
                 "text": "sum",
                 "desc": "Returns the sum of the given property or function for the array's elements matching the filter",
                 "value": "sum",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/sum"
             },
             {
@@ -794,7 +794,7 @@
                 "text": "toCSV",
                 "desc": "Returns a CSV string from the given array of arrays or objects",
                 "value": "toCSV",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/toCSV"
             },
             {
@@ -802,7 +802,7 @@
                 "text": "unique",
                 "desc": "Removes duplicate values from an array",
                 "value": "unique",
-                "lastmod": 1653957338,
+                "lastmod": 1659285092,
                 "url": "bbn-js\/doc\/object\/unique"
             }
         ]
@@ -1131,14 +1131,14 @@
         "text": "Type check functions",
         "desc": "",
         "value": "type",
-        "lastmod": 1644673215,
+        "lastmod": 1661270422,
         "items": [
             {
                 "file": "type.js",
                 "text": "isArray",
                 "desc": "Returns true if the given argument is array",
                 "value": "isArray",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isArray"
             },
             {
@@ -1146,7 +1146,7 @@
                 "text": "isBlob",
                 "desc": "",
                 "value": "isBlob",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isBlob"
             },
             {
@@ -1154,7 +1154,7 @@
                 "text": "isCanvas",
                 "desc": "Returns true if the given argumen is a Canvas",
                 "value": "isCanvas",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isCanvas"
             },
             {
@@ -1162,7 +1162,7 @@
                 "text": "isColor",
                 "desc": "Intended to check if the argument provided is a color",
                 "value": "isColor",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isColor"
             },
             {
@@ -1170,7 +1170,7 @@
                 "text": "isDate",
                 "desc": "Returns true if the given argument is a date object",
                 "value": "isDate",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isDate"
             },
             {
@@ -1178,7 +1178,7 @@
                 "text": "isDimension",
                 "desc": "Returns true if the given value is a valid CSS dimension string or a number, false otherwise",
                 "value": "isDimension",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isDimension"
             },
             {
@@ -1186,7 +1186,7 @@
                 "text": "isDom",
                 "desc": "Returns true if the given argument is a dom element",
                 "value": "isDom",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isDom"
             },
             {
@@ -1194,7 +1194,7 @@
                 "text": "isEmail",
                 "desc": "Intended to check if the argument provided is an e-mail address written correctl",
                 "value": "isEmail",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isEmail"
             },
             {
@@ -1202,15 +1202,23 @@
                 "text": "isEmpty",
                 "desc": "Checks if the argument is empty or not",
                 "value": "isEmpty",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isEmpty"
+            },
+            {
+                "file": "type.js",
+                "text": "isEvent",
+                "desc": "Returns true if the given argument is an event",
+                "value": "isEvent",
+                "lastmod": 1661270422,
+                "url": "bbn-js\/doc\/type\/isEvent"
             },
             {
                 "file": "type.js",
                 "text": "isHostname",
                 "desc": "",
                 "value": "isHostname",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isHostname"
             },
             {
@@ -1218,7 +1226,7 @@
                 "text": "isInt",
                 "desc": "Returns true if the given argument is an intege",
                 "value": "isInt",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isInt"
             },
             {
@@ -1226,7 +1234,7 @@
                 "text": "isIP",
                 "desc": "",
                 "value": "isIP",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isIP"
             },
             {
@@ -1234,7 +1242,7 @@
                 "text": "isIterable",
                 "desc": "Returns true if the given object can be iterated as an array (numerically)",
                 "value": "isIterable",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isIterable"
             },
             {
@@ -1242,7 +1250,7 @@
                 "text": "isNull",
                 "desc": "Returns true if the given argument is null",
                 "value": "isNull",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isNull"
             },
             {
@@ -1250,7 +1258,7 @@
                 "text": "isNumber",
                 "desc": "Returns true if the given argument is a numbe",
                 "value": "isNumber",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isNumber"
             },
             {
@@ -1258,7 +1266,7 @@
                 "text": "isObject",
                 "desc": "Returns true if the given argument is an object",
                 "value": "isObject",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isObject"
             },
             {
@@ -1266,7 +1274,7 @@
                 "text": "isPercent",
                 "desc": "Returns true if the given argument is a percentage",
                 "value": "isPercent",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isPercent"
             },
             {
@@ -1274,7 +1282,7 @@
                 "text": "isString",
                 "desc": "Returns true if the given argument is a string",
                 "value": "isString",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isString"
             },
             {
@@ -1282,7 +1290,7 @@
                 "text": "isURL",
                 "desc": "",
                 "value": "isURL",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isURL"
             },
             {
@@ -1290,7 +1298,7 @@
                 "text": "isValidDimension",
                 "desc": "Returns true if the given value is a valid CSS dimension string, false otherwise",
                 "value": "isValidDimension",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isValidDimension"
             },
             {
@@ -1298,7 +1306,7 @@
                 "text": "isValue",
                 "desc": "Returns true if the given argument is not null or type object or array",
                 "value": "isValue",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isValue"
             },
             {
@@ -1306,7 +1314,7 @@
                 "text": "isVue",
                 "desc": "Returns true if the given argumen is a VueJS object",
                 "value": "isVue",
-                "lastmod": 1644673215,
+                "lastmod": 1661270422,
                 "url": "bbn-js\/doc\/type\/isVue"
             }
         ]

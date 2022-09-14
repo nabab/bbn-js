@@ -403,14 +403,19 @@
      *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
      *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
      * ];
+     * 
      * bbn.fn.search(ar, "id", 256);
      * // 2
+     * 
      * bbn.fn.search(ar, {director: "Steven Spielberg"});
      * // 0
+     * 
      * bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
      * // 3
+     * 
      * bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
      * // 3
+     * 
      * // Complex filters
      * bbn.fn.search(ar, {
      *   logic: "AND",
@@ -436,7 +441,13 @@
      *   ]
      * });
      * // 3
+     * 
+     * Simple array
+     * bbn.fn.search(['a', 'b', 'c'], null, 'b');
+     * // 1
+     * 
      * ```
+     * 
      * @memberof bbn.fn
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
@@ -449,7 +460,7 @@
       if ( !bbn.fn.isArray(arr) ){
         throw new Error(bbn._("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
       }
-      if ( !prop || !arr.length ){
+      if (!arr.length) {
         return -1;
       }
       let filter = {};
@@ -460,6 +471,24 @@
           value: val,
           operator: operator || '='
         }];
+      }
+      else if (!prop) {
+        isFunction = true;
+        filter = a => {
+          return bbn.fn.compareConditions(
+            {value: a},
+            bbn.fn.filterToConditions({
+              logic: 'AND',
+              conditions: [
+                {
+                  field: 'value',
+                  operator: operator || '=',
+                  value: val
+                }
+              ]
+            })
+          );
+        }
       }
       else {
         startFrom = operator;
@@ -482,7 +511,7 @@
         }
         if (isFunction) {
           for ( let i = startFrom; i < arr.length; i++ ){
-            if ( filter(arr[i]) ){
+            if (filter(arr[i])) {
               return i;
             }
           }

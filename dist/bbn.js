@@ -210,33 +210,34 @@
     },
     comparators: [">=", "<=", ">", "<", "="],
     operators: ["+", "-", "/", "*"],
+    tags: ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'slot', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr'],
     colors: {
-      black: '#000000',
-      anthracite: '#454545',
-      orange: '#ff9900',
-      red: '#db3340',
-      green: '#00a03e',
-      blue: '#6e9ecf',
-      yellow: '#fdf200',
-      beige: '#fdfdfd',
-      white: '#ffffff',
-      purple: '#a333c8',
+	    darkgrey: '#5a6a62',
+	    black: '#000000',
+	    anthracite: '#454545',
       grey: '#d3d3d3',
-      brown: '#8c6954',
-      olive: '#92b06a',
-      pink: '#eb65a0',
-      turquoise: '#1fda9a',
+	    white: '#ffffff',
+	    beige: '#fdfdfd',
+	    lightgrey: '#dcdcdc',
+	    pastelblue: '#ddebf6',
       cyan: '#00c8f8',
-      navy: '#354458',
-      darkgrey: '#5a6a62',
-      lightgrey: '#dcdcdc',
-      teal: '#009688',
-      indigo: '#3f51b5',
-      palegreen: '#ccffcc',
-      pastelgreen: '#E2EFDA',
-      pastelorange: '#fff2cc',
-      pastelblue: '#ddebf6',
-      webblue: '#2196f3'
+	    blue: '#6e9ecf',
+	    indigo: '#3f51b5',
+	    navy: '#354458',
+	    webblue: '#2196f3',
+	    teal: '#009688',
+	    turquoise: '#1fda9a',
+      pastelgreen: '#e2efda',
+	    palegreen: '#ccffcc',
+	    green: '#00a03e',
+	    olive: '#92b06a',
+	    pastelorange: '#fff2cc',
+	    yellow: '#fdf200',
+	    orange: '#ff9900',
+	    pink: '#eb65a0',
+	    purple: '#a333c8',
+	    red: '#db3340',
+	    brown: '#8c6954'
     },
     mockText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     regexp: {
@@ -252,6 +253,7 @@
   };
 
 })(bbn);
+
 
 
 /**
@@ -567,7 +569,7 @@
         return args[0];
       }
       for (i = 0; i < args.length; i++ ){
-        t = typeof(args[i])
+        t = typeof(args[i]);
         t = t.toLowerCase();
         /* Callbacks */
         if ( bbn.fn.isFunction(args[i]) ){
@@ -605,11 +607,8 @@
           }
         }
         /* Event */
-        else if ( t.toLowerCase() === 'object' ){
-          if ( (args[i].type !== undefined) &&
-            (args[i].target !== undefined) &&
-            (args[i].preventDefault !== undefined)
-          ){
+        else if (args[i] && (t === 'object')) {
+          if (args[i] instanceof Event) {
             cfg.e = args[i];
           }
           /* HTML Element */
@@ -3567,14 +3566,19 @@
      *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
      *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
      * ];
+     * 
      * bbn.fn.search(ar, "id", 256);
      * // 2
+     * 
      * bbn.fn.search(ar, {director: "Steven Spielberg"});
      * // 0
+     * 
      * bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
      * // 3
+     * 
      * bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
      * // 3
+     * 
      * // Complex filters
      * bbn.fn.search(ar, {
      *   logic: "AND",
@@ -3600,7 +3604,13 @@
      *   ]
      * });
      * // 3
+     * 
+     * Simple array
+     * bbn.fn.search(['a', 'b', 'c'], null, 'b');
+     * // 1
+     * 
      * ```
+     * 
      * @memberof bbn.fn
      * @param    {Array}                    arr       The subject array
      * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
@@ -3613,13 +3623,35 @@
       if ( !bbn.fn.isArray(arr) ){
         throw new Error(bbn._("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
       }
-      if ( !prop || !arr.length ){
+      if (!arr.length) {
         return -1;
       }
       let filter = {};
       let isFunction = false;
       if (bbn.fn.isString(prop)) {
-        filter[prop] = val;
+        filter.conditions = [{
+          field: prop,
+          value: val,
+          operator: operator || '='
+        }];
+      }
+      else if (!prop) {
+        isFunction = true;
+        filter = a => {
+          return bbn.fn.compareConditions(
+            {value: a},
+            bbn.fn.filterToConditions({
+              logic: 'AND',
+              conditions: [
+                {
+                  field: 'value',
+                  operator: operator || '=',
+                  value: val
+                }
+              ]
+            })
+          );
+        }
       }
       else {
         startFrom = operator;
@@ -3642,7 +3674,7 @@
         }
         if (isFunction) {
           for ( let i = startFrom; i < arr.length; i++ ){
-            if ( filter(arr[i]) ){
+            if (filter(arr[i])) {
               return i;
             }
           }
@@ -4730,6 +4762,29 @@
       if ( Array.isArray(arr) && arr.length ){
         return arr[Math.floor(Math.random() * arr.length)]
       }
+    },
+
+    /**
+     * 
+     * @param {Array} array 
+     * @returns Array
+     */
+    shuffle(array) {
+      let currentIndex = array.length,  randomIndex;
+    
+      // While there remain elements to shuffle.
+      while (currentIndex != 0) {
+    
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+    
+      return array;
     },
 
     /**
@@ -7427,6 +7482,23 @@
     },
 
     /**
+     * Returns true if the given argument is an event.
+     * @method   isEvent
+     * @global
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isEvent() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (!(a instanceof Event)){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
      * Returns true if the given argument is null;
      * @method   isNull
      * @global
@@ -7543,12 +7615,25 @@
      * @returns  {Boolean}
      */
     isVue(){
-      if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( !(a instanceof Vue) ){
-          return false
+      if (!arguments.length) {
+        return false;
+      }
+
+      if (bbn.vue.app) {
+        for ( let a of arguments ){
+          if (!a || (typeof a.render !== 'function')) {
+            return false;
+          }
         }
       }
+      else {
+        for ( let a of arguments ){
+          if ( !(a instanceof Vue) ){
+            return false;
+          }
+        }
+      }
+
       return true;
     },
 

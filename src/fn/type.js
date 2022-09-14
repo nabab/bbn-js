@@ -577,12 +577,25 @@
      * @returns  {Boolean}
      */
     isVue(){
-      if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( !(a instanceof Vue) ){
-          return false
+      if (!arguments.length) {
+        return false;
+      }
+
+      if (bbn.vue.app) {
+        for ( let a of arguments ){
+          if (!a || (typeof a.render !== 'function')) {
+            return false;
+          }
         }
       }
+      else {
+        for ( let a of arguments ){
+          if ( !(a instanceof Vue) ){
+            return false;
+          }
+        }
+      }
+
       return true;
     },
 

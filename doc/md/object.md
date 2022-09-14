@@ -323,14 +323,19 @@ let ar = [
   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
 ];
+
 bbn.fn.search(ar, "id", 256);
 // 2
+
 bbn.fn.search(ar, {director: "Steven Spielberg"});
 // 0
+
 bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
 // 3
+
 bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
 // 3
+
 // Complex filters
 bbn.fn.search(ar, {
   logic: "AND",
@@ -356,7 +361,13 @@ bbn.fn.search(ar, {
   ]
 });
 // 3
+
+Simple array
+bbn.fn.search(['a', 'b', 'c'], null, 'b');
+// 1
+
 ```
+
 [Back to top](#bbn_top)  
 
 ### <a name="count"></a>bbn.fn.count(arr, prop, val, operator)

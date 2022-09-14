@@ -20,6 +20,8 @@ Returns true if the given argument is a dom element;
 Intended to check if the argument provided is an e-mail address written correctly  
 [bbn.fn.__isEmpty__](#isEmpty)  
 Checks if the argument is empty or not.  
+[bbn.fn.__isEvent__](#isEvent)  
+Returns true if the given argument is an event.  
 [bbn.fn.__isInt__](#isInt)  
 Returns true if the given argument is an integer  
 [bbn.fn.__isIterable__](#isIterable)  
@@ -294,6 +296,14 @@ bbn.fn.isObject({name: 'cami', age: 7});
 //false
 bbn.fn.isObject([{name: 'cami', age: 7}]);
 ```
+[Back to top](#bbn_top)  
+
+### <a name="isEvent"></a>bbn.fn.isEvent()
+
+  __Returns true if the given argument is an event.__
+
+
+  __Returns__ _Boolean_ 
 [Back to top](#bbn_top)  
 
 ### <a name="isNull"></a>bbn.fn.isNull()

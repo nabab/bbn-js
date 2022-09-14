@@ -717,6 +717,11 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isObject",
                 "!doc": "Returns true if the given argument is an object."
             },
+            "isEvent": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isEvent",
+                "!doc": "Returns true if the given argument is an event."
+            },
             "isNull": {
                 "!type": "fn() -> Boolean",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isNull",
