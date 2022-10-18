@@ -290,7 +290,7 @@
       if (!arguments.length) return false;
       let ok = true;
       for ( let a of arguments ){
-        if (!NaN(a) || (a === null) || bbn.fn.isBoolean(a)) {
+        if (!isNaN(a) || (a === null) || bbn.fn.isBoolean(a)) {
           ok = false;
           break;
         }
