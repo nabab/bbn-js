@@ -338,7 +338,7 @@
     isString() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( typeof a !== 'string' ){
+        if ({}.toString.apply(a) !== '[object String]'){
           return false
         }
       }
