@@ -540,11 +540,16 @@
             tmp = ((data, ele) => {
               let r = null;
               try {
-                r = eval(res.script)(data, ele);
+                r = eval(res.script);
+                if (bbn.fn.isFunction(r)) {
+                  r = r(data, ele);
+                }
               }
               catch (e) {
-                bbn.fn.error(e.getMessage());
+                bbn.fn.log(e, res);
+                bbn.fn.error(bbn.fn.isFunction(e.getMessage) ? e.getMessage() : null);
               }
+
               return r;
             })(res.data ? res.data : {}, ele ? ele : false);
           }

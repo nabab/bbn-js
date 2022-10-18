@@ -288,9 +288,40 @@
      */
      isNumber() {
       if (!arguments.length) return false;
+      let ok = true;
       for ( let a of arguments ){
-        if ( ['boolean', 'object'].includes(typeof a) || (a === '') ||isNaN(a)){
-          return false;
+        if (!NaN(a) || (a === null) || bbn.fn.isBoolean(a)) {
+          ok = false;
+          break;
+        }
+      }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a boolean
+     * @method   isBoolean
+     * @global
+     * @example
+     * ```javascript
+     * //true
+     * bbn.fn.isNumber(false);
+     * ```
+     * @example
+     * ```javascript
+     * //false
+     * bbn.fn.isNumber(1);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isBoolean() {
+      if (!arguments.length) return false;
+      let ok = true;
+      for ( let a of arguments ){
+        if ({}.toString.apply(a) !== '[object Boolean]') {
+          ok = false;
+          break;
         }
       }
       return true;
@@ -336,9 +367,12 @@
      * @returns  {Boolean}
      */
     isString() {
-      if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( typeof a !== 'string' ){
+      if (!arguments.length) {
+        return false;
+      }
+
+      for (let a of arguments) {
+        if ({}.toString.apply(a) !== '[object String]') {
           return false
         }
       }

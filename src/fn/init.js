@@ -87,12 +87,15 @@
             bbn.env.params.push(v);
           }
         });
+
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors);
         }
+
         if ( bbn.env.lang && (undefined !== dayjs) ){
           dayjs.locale(bbn.env.lang);
         }
+
         window.onfocus = () => {
           bbn.env.isFocused = true;
         };
@@ -153,6 +156,13 @@
         });
 
         bbn.fn.resize();
+        if (bbn.fn.isMobile()) {
+          document.body.classList.add('bbn-mobile');
+          if ( bbn.fn.isTabletDevice() ){
+            document.body.classList.add('bbn-tablet');
+          }
+        }
+
 
         if (window.history) {
           window.onpopstate = function(e){
