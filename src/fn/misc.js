@@ -992,7 +992,18 @@
       }
 
       return false;
+    },
+
+    /**
+     * Gets all the tag names present in the DOM
+     * @returns array
+     */
+    getAllTags() {
+      return bbn.fn.unique(Array.prototype.map.apply(document.all, [a => a.tagName.toLowerCase()]));
     }
+
+
+
 
 
   });
