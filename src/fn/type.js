@@ -335,13 +335,37 @@
      * @memberof bbn.fn
      * @returns  {Boolean}
      */
-    isString() {
+     isString() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ({}.toString.apply(a) !== '[object String]'){
           return false
         }
       }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a symbol;
+     * @method   isSymbol
+     * @global
+     * @example
+     * ```javascript
+     * //true
+     * const sb = Symbol();
+     * bbn.fn.isSymbol(sb);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isSymbol() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ({}.toString.apply(a) !== '[object Symbol]'){
+          return false
+        }
+      }
+
       return true;
     },
 

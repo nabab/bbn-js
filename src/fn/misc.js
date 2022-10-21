@@ -333,6 +333,36 @@
       return path;
     },
 
+    checkType(value, type, errMsg) {
+      let ok = false;
+      if (!bbn.fn.isArray(type)) {
+        type = [type];
+      }
+      bbn.fn.each(type, t => {
+        if (bbn.fn.isFunction(t)) {
+          if (value instanceof t) {
+            ok = true;
+            return false;
+          }
+        }
+        else if (bbn.fn.isString(t) && bbn.fn['is' + bbn.fn.correctCase(t)](value)) {
+          ok = true;
+          return false;
+        }
+        else {
+          err(`The type ${t} is not recognized`);
+        }
+      });
+
+      if (errMsg === false) {
+        return ok;
+      }
+
+      if (!ok) {
+        err(errMsg || bbn._(`The value should be a %s`, type.join(bbn._(" or a "))));
+      }      
+    },
+
     /**
      * Creates a cookie and assigns it to document.cookie.
      * @method   setCookie
