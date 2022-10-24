@@ -44,15 +44,9 @@
         if (args.length) {
           let i = 0;
           return res.replace(/\%([d|s])/g, (match, type) => {
-            let tmp = args[i];
-            i++;
-            if (((type === 'd') && bbn.fn.isNumber(tmp))
-                || ((type === 's') && bbn.fn.isString(tmp))
-            ) {
-              return tmp;
-            }
-
-            return match;
+            let tmp = args[i++];
+            bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+            return tmp;
           });
         }
 
