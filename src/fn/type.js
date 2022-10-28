@@ -244,8 +244,9 @@
      */
     isFunction() {
       if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( {}.toString.apply(a) !== '[object Function]' ){
+      const possible = ['[object Function]', '[object AsyncFunction]']
+      for ( let a of arguments ) {
+        if (!possible.includes({}.toString.apply(a))) {
           return false
         }
       }
