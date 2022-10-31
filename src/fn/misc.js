@@ -92,7 +92,7 @@
      */
     timestamp(seconds){
       var r = (new Date()).getTime();
-      return seconds ? r*1000 : r;
+      return seconds ? Math.round(r/1000) : r;
     },
 
     /**
@@ -987,7 +987,7 @@
       }
       if (ele instanceof HTMLElement) {
         if (typeof(sel) === 'string') {
-          while (ele = ele.closest(sel)) {
+          while (ele = ele.parentNode.closest(sel)) {
             r.push(ele);
           }
         }

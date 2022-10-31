@@ -244,9 +244,10 @@
      */
     isFunction() {
       if (!arguments.length) return false;
-      const possible = ['[object Function]', '[object AsyncFunction]']
+      const possible = ['[object Function]', '[object AsyncFunction]'];
       for ( let a of arguments ) {
-        if (!possible.includes({}.toString.apply(a))) {
+        let stValue = {}.toString.apply(a);
+        if (!possible.includes(stValue)) {
           return false
         }
       }

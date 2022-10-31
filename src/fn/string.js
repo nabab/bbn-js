@@ -643,10 +643,8 @@
       $test.remove();
       */
       let $test = document.createElement('div');
-      document.body.appendChild($test);
       $test.innerHTML = st;
       st = $test.innerText;
-      document.body.removeChild($test);
       return st;
     },
 
