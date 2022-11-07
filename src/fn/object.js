@@ -1941,11 +1941,20 @@
      * // res = 24
      * ```
      * @memberof bbn.fn
-     * @param    {Array}     arr The array to loop on
+     * @param    {*}     arr The array to loop on
      * @param    {Function}  fn  The function, gets the array's element and the index as arguments
      * @returns  {undefined}
      */
     each(arr, fn){
+      if (bbn.fn.isNumber(arr) && (arr > 0)) {
+        for (let i = 0; i < arr; i++) {
+          if ( fn(i) === false ){
+            return;
+          }
+        }
+        return;
+      }
+
       if ( bbn.fn.isIterable(arr) ){
         for ( let i = 0; i < arr.length; i++ ){
           if ( fn(arr[i], i) === false ){
@@ -1954,6 +1963,7 @@
         }
         return;
       }
+
       return bbn.fn.iterate(arr, fn);
     },
 

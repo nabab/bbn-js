@@ -986,17 +986,19 @@
         ele = document.querySelector(ele);
       }
       if (ele instanceof HTMLElement) {
-        if (typeof(sel) === 'string') {
-          while (ele = ele.parentNode.closest(sel)) {
-            r.push(ele);
+        if (ele.parentNode) {
+          if (typeof(sel) === 'string') {
+            while (ele = ele.parentNode.closest(sel)) {
+              r.push(ele);
+            }
           }
-        }
-        else {
-          if (sel === true) {
-            r.push(ele);
-          }
-          while (ele = ele.parentNode) {
-            r.push(ele);
+          else {
+            if (sel === true) {
+              r.push(ele);
+            }
+            while (ele = ele.parentNode) {
+              r.push(ele);
+            }
           }
         }
       }
