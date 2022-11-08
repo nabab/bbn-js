@@ -935,7 +935,14 @@
       }
 
       return st.trim();
+    },
+    escapeDquotes(str) {
+      return str.replace(/"/g, '\"');
+    },
+    escapeSquotes(str) {
+      return str.replace(/'/g, "\'");
     }
+
 
   });
 })(bbn);
