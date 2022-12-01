@@ -316,7 +316,7 @@
           } 
           else if ( bbn.fn.isObject(data) && Object.keys(data).length ){
             bbn.fn.iterate(data, (v, i) => {
-              if ( data.hasOwnProperty(i) ){
+              if ( Object.hasOwn(data, i) ){
                 appendFormData(v, !key ? i : key + '[' + i + ']');
               }
             })

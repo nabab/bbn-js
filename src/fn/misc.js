@@ -159,7 +159,7 @@
     },
 
     /**
-     * Logs the given argument in the browser's console highlighting it with a red background.
+     * Throws an error.
      * @method   error
      * @global   
      * @ignore
@@ -167,16 +167,11 @@
      * bbn.fn.error('I log this error in console with a red background')
      * ```
      * @memberof bbn.fn
-     * @param    {...any} args 
+     * @param    {String} errorMsg
      * @returns    
      */
-    error(...args){
-      args.unshift({
-        _bbn_console_level: 1,
-        _bbn_console_style: "color: white; background: red; font-size: 22px;"
-      });
-      bbn.fn.log.apply(this, args);
-      return this;
+    error(errorMsg){
+      throw new Error(errorMsg);
     },
 
     /**
@@ -333,34 +328,86 @@
       return path;
     },
 
-    checkType(value, type, errMsg) {
+    checkType(value, type, msg, ...logs) {
       let ok = false;
       if (!bbn.fn.isArray(type)) {
         type = [type];
       }
       bbn.fn.each(type, t => {
+        if (t === String) {
+          t = 'string'
+        }
+        else if (t === Number) {
+          t = 'number'
+        }
+        else if (t === Array) {
+          t = 'array'
+        }
+        else if (t === Boolean) {
+          t = 'boolean'
+        }
+        else if (t === Object) {
+          t = 'object'
+        }
+        else if (t === Function) {
+          t = 'function'
+        }
         if (bbn.fn.isFunction(t)) {
           if (value instanceof t) {
             ok = true;
             return false;
           }
         }
-        else if (bbn.fn.isString(t) && bbn.fn['is' + bbn.fn.correctCase(t)](value)) {
+        else if (!bbn.fn.isString(t) || !bbn.fn.isFunction(bbn.fn['is' + bbn.fn.correctCase(t)])) {
+          bbn.fn.error(`The type ${t} is not recognized`);
+        }
+        else if (bbn.fn['is' + bbn.fn.correctCase(t)](value)) {
           ok = true;
           return false;
         }
-        else {
-          err(`The type ${t} is not recognized`);
+      });
+    
+      if (!ok) {
+        bbn.fn.log(["Value given", value, typeof value]);
+        if (logs.length) {
+          bbn.fn.log(logs)
+        }
+
+        bbn.fn.error((msg ? msg + ' - ' : '') + bbn._(`The value should be a %s`, type.join(bbn._(" or a "))));
+      }
+    },
+
+    /**
+    * Return all the attributes of an HTML element
+    * @return {Object}
+    */
+    getAttributes(ele) {
+      if (!ele.getAttributeNames) {
+        bbn.fn.error("The element is not a proper HTML Element");
+      }
+
+      let res = Object.create(null);
+      ele.getAttributeNames().forEach(name => {
+        res[name] = ele.getAttribute(name);
+      });
+      return res;
+    },
+
+
+    /**
+    * Check if the property contain sizing
+    * @return {Boolean}
+    */
+    isPropSize(name) {
+      let isTrue = false;
+      bbn.fn.each(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], a => {
+        if (name.indexOf(a) !== -1) {
+          isTrue = true;
+          return false;
         }
       });
 
-      if (errMsg === false) {
-        return ok;
-      }
-
-      if (!ok) {
-        err(errMsg || bbn._(`The value should be a %s`, type.join(bbn._(" or a "))));
-      }      
+      return isTrue;
     },
 
     /**

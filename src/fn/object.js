@@ -1030,7 +1030,7 @@
       if ( typeof(obj) === "object" ){
         r = {};
         for ( var n in obj ){
-          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
+          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && Object.hasOwn(obj, n)) {
             if ( deep && (typeof(obj[n]) === "object")){
               r[n] = bbn.fn.removePrivateProp(obj[n], true);
             }
@@ -1460,29 +1460,22 @@
      * @returns  {Object}
      */
     extendOut(){
-      let r = {};
-      for ( let i = 0; i < arguments.length; i++ ){
-        if ( typeof(arguments[i]) !== 'object' ){
+      let r = null;
+      for ( let a of arguments) {
+        if (!bbn.fn.isObject(a)) {
           throw new Error("Each argument for bbn.fn.extendOut must be an object, " + typeof(arguments[i]) + " given");
         }
-        if ( Array.isArray(arguments[i]) ){
-          throw new Error("You cannot extend arrays with bbn.fn.extendOut");
-        }
-        if ( i === 0 ){
-          r = arguments[0];
+
+        if (r === null){
+          r = a;
         }
         else{
-          for ( let n in arguments[i] ){
-            if ( (typeof(r[n]) === 'object') &&
-              (typeof(arguments[i][n]) === 'object') &&
-              !bbn.fn.isFunction(r[n]) &&
-              !Array.isArray(r[n]) &&
-              !Array.isArray(arguments[i][n])
-            ){
-              bbn.fn.extendOut(r[n], arguments[i][n]);
+          for ( let n in a ){
+            if (bbn.fn.isObject(r[n], a[n])) {
+              bbn.fn.extendOut(r[n], a[n]);
             }
             else if ( r[n] === undefined){
-              r[n] = arguments[i][n];
+              r[n] = a[n];
             }
           }
         }
@@ -1813,6 +1806,39 @@
     },
 
     /**
+     * Returns a function to give to JSON.stringify in order to avoid circular values.
+     * 
+     * @returns Function
+     */
+    circularReplacer() {
+      const visited = new WeakSet();
+      return (key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (visited.has(value)) {
+            return;
+          }
+          visited.add(value);
+        }
+        return value;
+      };
+    },
+
+    /**
+     * Makes a hash out of an object
+     * @param {Object|Array} obj 
+     * @returns {String}
+     */
+    hash(obj) {
+      let st = 'bbn';
+      for (let i in arguments) {
+        if (arguments[i]) {
+          st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+        }
+      }
+
+      return bbn.fn.md5(st);
+    },
+    /**
      * Executes the provided function on each element of the given array.
      * 
      * A minimum and a maximum value can be provided, within the boundaries of the 
@@ -1948,7 +1974,7 @@
     each(arr, fn){
       if (bbn.fn.isNumber(arr) && (arr > 0)) {
         for (let i = 0; i < arr; i++) {
-          if ( fn(i) === false ){
+          if ( fn(i, i) === false ){
             return;
           }
         }
@@ -2021,10 +2047,10 @@
           return typeof(a) === 'object' ? bbn.fn.clone(a) : a;
         });
       }
-      if ( bbn.fn.isObject(obj) ){
-        return bbn.fn.extend(true, {}, obj);
-      }
-      return obj;
+
+      return Object.create(
+        Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)
+      );
     },
 
     /**
@@ -2257,6 +2283,59 @@
       });
       return o;
     },
+
+    createObject() {
+      const obj = Object.create(null);
+      if (arguments.length) {
+        Object.assign(obj, ...arguments);
+      }
+
+      return obj;
+    },
+
+    /**
+     * Sets a given property on the given object
+     * 
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @param {*} value 
+     * @param {Boolean} writable 
+     * @param {Boolean} configurable 
+     */
+    setProp(obj, prop, value, writable = true, configurable = true) {
+      checkType(prop, "string");
+      checkType(obj, "object");
+      Object.defineProperty(obj, prop, {
+        value: value,
+        writable: writable,
+        configurable: configurable
+      });
+    },
+
+    /**
+     * Gets the given property from the given object
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @returns 
+     */
+    getProp(obj, prop) {
+      checkType(obj, "object");
+      checkType(prop, "string");
+      return obj[prop];
+    },
+
+    /**
+     * Gets the given property from the given object
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @returns 
+     */
+    deleteProp(obj, prop) {
+      checkType(obj, "object");
+      checkType(prop, "string");
+      delete obj[prop];
+    },
+
 
     /**
      * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.

@@ -411,7 +411,7 @@
     isArray() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( {}.toString.apply(a) !== '[object Array]' ){
+        if (!Array.isArray(a)){
           return false
         }
       }
