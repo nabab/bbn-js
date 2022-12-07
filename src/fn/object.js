@@ -2048,6 +2048,11 @@
         });
       }
 
+      if ( bbn.fn.isObject(obj) ){
+        return bbn.fn.extend(true, {}, obj);
+      }
+      return obj;
+
       return Object.create(
         Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)
       );
