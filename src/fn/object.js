@@ -6,6 +6,8 @@
 
 ;((bbn) => {
   "use strict";
+  let diffObjProcessed = [];
+
 
   /**
    * @var {Object} _private Misc variable for internal use
@@ -1734,6 +1736,10 @@
      * @returns  {Object}
      */
     diffObj(obj1, obj2, unchanged, notRoot){
+      if (!notRoot) {
+        diffObjProcessed = [];
+      }
+
       let VALUE_CREATED = 'created',
           VALUE_UPDATED = 'updated',
           VALUE_DELETED = 'deleted',
@@ -1761,22 +1767,37 @@
         notRoot = false;
       }
 
-      let diff = {};
-      if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj1) ){
+      let diff = bbn.fn.createObject();
+      if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj2) ){
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
           let res = _compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
-            let ret = {
+            let ret = bbn.fn.createObject({
               type: _compareValues(obj1, obj2),
               data: (obj1 === undefined) ? obj2 : obj1
-            };
+            });
             if ( obj1 !== undefined ){
               ret.newData = obj2;
             }
+
             return ret;
           }
+
           return false;
         }
+
+        if (bbn.fn.isDom(obj1) || bbn.fn.isDom(obj2) ){
+          return false;
+        }
+
+        if (diffObjProcessed.includes(obj1) || diffObjProcessed.includes(obj2)) {
+          bbn.fn.log(obj1, obj2);
+          //bbn.fn.error(bbn._("Can't compare objects because they contain circular references"));
+          return false;
+        }
+
+        diffObjProcessed.push(obj1, obj2);
+
         for ( let key in obj1 ){
           if ( bbn.fn.isFunction(obj1[key]) ){
             continue;
@@ -1802,6 +1823,7 @@
         }
 
       }
+
       return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
     },
 
@@ -2049,13 +2071,12 @@
       }
 
       if ( bbn.fn.isObject(obj) ){
-        return bbn.fn.extend(true, {}, obj);
+        const o = Object.create(Object.getPrototypeOf(obj))
+        return bbn.fn.extend(true, o, obj);
       }
+
       return obj;
 
-      return Object.create(
-        Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)
-      );
     },
 
     /**
@@ -2292,7 +2313,7 @@
     createObject() {
       const obj = Object.create(null);
       if (arguments.length) {
-        Object.assign(obj, ...arguments);
+        bbn.fn.extend(obj, ...arguments);
       }
 
       return obj;

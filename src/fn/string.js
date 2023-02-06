@@ -875,6 +875,15 @@
     },
 
     /**
+     * Removes all group of spaces by one single space.
+     * @param {String} str 
+     * @returns 
+     */
+    removeExtraSpaces(str) {
+      return str.replace(/\s+/g, ' ').trim();
+    },
+
+    /**
      * @method   removeTrailingChars
      * @todo     Add method description for removeTrailingChars
      * @global

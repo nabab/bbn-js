@@ -110,25 +110,29 @@
      */
     log(...args){
       if ( window.console !== undefined ){
-        let cfg,
-            level = 5;
+        let cfg;
+        let level = 5;
+        let fn = "log";
         if ( args[0] && (typeof args[0] === 'object') && args[0]._bbn_console_style){
-          cfg = args[0]._bbn_console_style;
-          level = args[0]._bbn_console_level;
+          if (args[0]._bbn_console_mode && bbn.fn.isFunction(console[args[0]._bbn_console_mode])){ 
+            fn = args[0]._bbn_console_mode;
+          }
+          else {
+            cfg   = args[0]._bbn_console_style;
+            level = args[0]._bbn_console_level;
+          }
+
           args.shift();
-        }
-        else{
-          cfg = "background: #EEE; color: #666; font-size: 12px";
         }
         if ( bbn.env.loggingLevel >= level  ){
           let i = 0;
           while (i < args.length ){
             let t = typeof args[i];
             if ( (t === 'string') || (t === 'number') ){
-              window.console.log("%c %s ", cfg, args[i]);
+              window.console[fn]("%c %s ", cfg, args[i]);
             }
             else{
-              window.console.log(args[i]);
+              window.console[fn](args[i]);
             }
             i++;
           }
@@ -149,10 +153,12 @@
      * @param    {...any} args 
      * @returns  
      */
-    warning(...args){
+    warning(message) {
+      const args = ["BBN: " + message];
       args.unshift({
+        _bbn_console_mode: "warn",
         _bbn_console_level: 2,
-        _bbn_console_style: "color: red; background: yellow; font-size: 16px; width: 100%;"
+        _bbn_console_style: "color: #E64141; background: #F7E195; font-size: 14px"
       });
       bbn.fn.log.apply(this, args);
       return this;
@@ -171,6 +177,20 @@
      * @returns    
      */
     error(errorMsg){
+      if (arguments.length > 1) {
+        const args = [];
+        for (let i = 1; i < arguments.length; i++) {
+          args.push(arguments[i]);
+        }
+
+        args.unshift({
+          _bbn_console_mode: "error",
+          _bbn_console_level: 1,
+          _bbn_console_style: "color: #E64141; background: #F7E195; font-size: 14px"
+        });
+        bbn.fn.log.apply(this, args);
+      }
+
       throw new Error(errorMsg);
     },
 
@@ -205,6 +225,7 @@
      */
     info(...args){
       args.unshift({
+        //_bbn_console_mode: "info",
         _bbn_console_level: 4,
         _bbn_console_style: "color: #EEE; background: blue; font-size: 12px;"
       });

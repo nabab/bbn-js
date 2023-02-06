@@ -686,7 +686,7 @@
       if (!data) {
         data = {};
       }
-      data = bbn.fn.extend({}, data, true);
+      data = bbn.fn.createObject(data);
       if (!data.bbn) {
         data.bbn = 'public';
       }
