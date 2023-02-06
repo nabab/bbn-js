@@ -1791,7 +1791,6 @@
         }
 
         if (diffObjProcessed.includes(obj1) || diffObjProcessed.includes(obj2)) {
-          bbn.fn.log(obj1, obj2);
           //bbn.fn.error(bbn._("Can't compare objects because they contain circular references"));
           return false;
         }
