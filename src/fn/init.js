@@ -183,6 +183,7 @@
           };
         }
         bbn.env.isInit = true;
+        document.dispatchEvent(new Event('bbninit'));
       }
     },
 
