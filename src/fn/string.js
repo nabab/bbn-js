@@ -945,6 +945,9 @@
 
       return st.trim();
     },
+    escapeTick(str) {
+      return str.replace(/`/g, "\\`");
+    },
     escapeDquotes(str) {
       return str.replace(/"/g, '\"');
     },

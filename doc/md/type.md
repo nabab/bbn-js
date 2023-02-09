@@ -6,6 +6,8 @@
 Returns true if the given argument is array.  
 [bbn.fn.__isBlob__](#isBlob)  
   
+[bbn.fn.__isBoolean__](#isBoolean)  
+Returns true if the given argument is a boolean  
 [bbn.fn.__isCanvas__](#isCanvas)  
 Returns true if the given argumen is a Canvas.  
 [bbn.fn.__isColor__](#isColor)  
@@ -36,6 +38,8 @@ Returns true if the given argument is an object.
 Returns true if the given argument is a percentage.  
 [bbn.fn.__isString__](#isString)  
 Returns true if the given argument is a string;  
+[bbn.fn.__isSymbol__](#isSymbol)  
+Returns true if the given argument is a symbol;  
 [bbn.fn.__isValidDimension__](#isValidDimension)  
 Returns true if the given value is a valid CSS dimension string, false otherwise.  
 [bbn.fn.__isValue__](#isValue)  
@@ -240,6 +244,37 @@ bbn.fn.isInt("hello");
 ```javascript
 //true
 bbn.fn.isString('bbn');
+```
+[Back to top](#bbn_top)  
+
+### <a name="isSymbol"></a>bbn.fn.isSymbol()
+
+  __Returns true if the given argument is a symbol;.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+const sb = Symbol();
+bbn.fn.isSymbol(sb);
+```
+[Back to top](#bbn_top)  
+
+### <a name="isBoolean"></a>bbn.fn.isBoolean()
+
+  __Returns true if the given argument is a boolean.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+const sb = true;
+bbn.fn.isBoolean(sb); // true
+const sb = 1;
+bbn.fn.isBoolean(sb); // false
 ```
 [Back to top](#bbn_top)  
 
