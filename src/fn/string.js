@@ -945,11 +945,14 @@
 
       return st.trim();
     },
+    escapeTicks(str) {
+      return str.replace(/`/g, "\\`");
+    },
     escapeDquotes(str) {
-      return str.replace(/"/g, '\"');
+      return str.replace(/"/g, '\\"');
     },
     escapeSquotes(str) {
-      return str.replace(/'/g, "\'");
+      return str.replace(/'/g, "\\'");
     }
 
 

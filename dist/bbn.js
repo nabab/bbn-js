@@ -44,15 +44,9 @@
         if (args.length) {
           let i = 0;
           return res.replace(/\%([d|s])/g, (match, type) => {
-            let tmp = args[i];
-            i++;
-            if (((type === 'd') && bbn.fn.isNumber(tmp))
-                || ((type === 's') && bbn.fn.isString(tmp))
-            ) {
-              return tmp;
-            }
-
-            return match;
+            let tmp = args[i++];
+            bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+            return tmp;
           });
         }
 
@@ -877,11 +871,16 @@
             tmp = ((data, ele) => {
               let r = null;
               try {
-                r = eval(res.script)(data, ele);
+                r = eval(res.script);
+                if (bbn.fn.isFunction(r)) {
+                  r = r(data, ele);
+                }
               }
               catch (e) {
-                bbn.fn.error(e.getMessage());
+                bbn.fn.log(e, res);
+                bbn.fn.error(bbn.fn.isFunction(e.getMessage) ? e.getMessage() : null);
               }
+
               return r;
             })(res.data ? res.data : {}, ele ? ele : false);
           }
@@ -1018,7 +1017,7 @@
       if (!data) {
         data = {};
       }
-      data = bbn.fn.extend({}, data, true);
+      data = bbn.fn.createObject(data);
       if (!data.bbn) {
         data.bbn = 'public';
       }
@@ -1797,7 +1796,7 @@
           } 
           else if ( bbn.fn.isObject(data) && Object.keys(data).length ){
             bbn.fn.iterate(data, (v, i) => {
-              if ( data.hasOwnProperty(i) ){
+              if ( Object.hasOwn(data, i) ){
                 appendFormData(v, !key ? i : key + '[' + i + ']');
               }
             })
@@ -1938,12 +1937,15 @@
             bbn.env.params.push(v);
           }
         });
+
         if ( bbn.var.colors ){
           bbn.fn.addColors(bbn.var.colors);
         }
+
         if ( bbn.env.lang && (undefined !== dayjs) ){
           dayjs.locale(bbn.env.lang);
         }
+
         window.onfocus = () => {
           bbn.env.isFocused = true;
         };
@@ -2004,6 +2006,13 @@
         });
 
         bbn.fn.resize();
+        if (bbn.fn.isMobile()) {
+          document.body.classList.add('bbn-mobile');
+          if ( bbn.fn.isTabletDevice() ){
+            document.body.classList.add('bbn-tablet');
+          }
+        }
+
 
         if (window.history) {
           window.onpopstate = function(e){
@@ -2024,6 +2033,7 @@
           };
         }
         bbn.env.isInit = true;
+        document.dispatchEvent(new Event('bbninit'));
       }
     },
 
@@ -2253,7 +2263,7 @@
      */
     timestamp(seconds){
       var r = (new Date()).getTime();
-      return seconds ? r*1000 : r;
+      return seconds ? Math.round(r/1000) : r;
     },
 
     /**
@@ -2271,25 +2281,29 @@
      */
     log(...args){
       if ( window.console !== undefined ){
-        let cfg,
-            level = 5;
+        let cfg;
+        let level = 5;
+        let fn = "log";
         if ( args[0] && (typeof args[0] === 'object') && args[0]._bbn_console_style){
-          cfg = args[0]._bbn_console_style;
-          level = args[0]._bbn_console_level;
+          if (args[0]._bbn_console_mode && bbn.fn.isFunction(console[args[0]._bbn_console_mode])){ 
+            fn = args[0]._bbn_console_mode;
+          }
+          else {
+            cfg   = args[0]._bbn_console_style;
+            level = args[0]._bbn_console_level;
+          }
+
           args.shift();
-        }
-        else{
-          cfg = "background: #EEE; color: #666; font-size: 12px";
         }
         if ( bbn.env.loggingLevel >= level  ){
           let i = 0;
           while (i < args.length ){
             let t = typeof args[i];
             if ( (t === 'string') || (t === 'number') ){
-              window.console.log("%c %s ", cfg, args[i]);
+              window.console[fn]("%c %s ", cfg, args[i]);
             }
             else{
-              window.console.log(args[i]);
+              window.console[fn](args[i]);
             }
             i++;
           }
@@ -2310,17 +2324,19 @@
      * @param    {...any} args 
      * @returns  
      */
-    warning(...args){
+    warning(message) {
+      const args = ["BBN: " + message];
       args.unshift({
+        _bbn_console_mode: "warn",
         _bbn_console_level: 2,
-        _bbn_console_style: "color: red; background: yellow; font-size: 16px; width: 100%;"
+        _bbn_console_style: "color: #E64141; background: #F7E195; font-size: 14px"
       });
       bbn.fn.log.apply(this, args);
       return this;
     },
 
     /**
-     * Logs the given argument in the browser's console highlighting it with a red background.
+     * Throws an error.
      * @method   error
      * @global   
      * @ignore
@@ -2328,16 +2344,25 @@
      * bbn.fn.error('I log this error in console with a red background')
      * ```
      * @memberof bbn.fn
-     * @param    {...any} args 
+     * @param    {String} errorMsg
      * @returns    
      */
-    error(...args){
-      args.unshift({
-        _bbn_console_level: 1,
-        _bbn_console_style: "color: white; background: red; font-size: 22px;"
-      });
-      bbn.fn.log.apply(this, args);
-      return this;
+    error(errorMsg){
+      if (arguments.length > 1) {
+        const args = [];
+        for (let i = 1; i < arguments.length; i++) {
+          args.push(arguments[i]);
+        }
+
+        args.unshift({
+          _bbn_console_mode: "error",
+          _bbn_console_level: 1,
+          _bbn_console_style: "color: #E64141; background: #F7E195; font-size: 14px"
+        });
+        bbn.fn.log.apply(this, args);
+      }
+
+      throw new Error(errorMsg);
     },
 
     /**
@@ -2371,6 +2396,7 @@
      */
     info(...args){
       args.unshift({
+        //_bbn_console_mode: "info",
         _bbn_console_level: 4,
         _bbn_console_style: "color: #EEE; background: blue; font-size: 12px;"
       });
@@ -2492,6 +2518,88 @@
       }
 
       return path;
+    },
+
+    checkType(value, type, msg, ...logs) {
+      let ok = false;
+      if (!bbn.fn.isArray(type)) {
+        type = [type];
+      }
+      bbn.fn.each(type, t => {
+        if (t === String) {
+          t = 'string'
+        }
+        else if (t === Number) {
+          t = 'number'
+        }
+        else if (t === Array) {
+          t = 'array'
+        }
+        else if (t === Boolean) {
+          t = 'boolean'
+        }
+        else if (t === Object) {
+          t = 'object'
+        }
+        else if (t === Function) {
+          t = 'function'
+        }
+        if (bbn.fn.isFunction(t)) {
+          if (value instanceof t) {
+            ok = true;
+            return false;
+          }
+        }
+        else if (!bbn.fn.isString(t) || !bbn.fn.isFunction(bbn.fn['is' + bbn.fn.correctCase(t)])) {
+          bbn.fn.error(`The type ${t} is not recognized`);
+        }
+        else if (bbn.fn['is' + bbn.fn.correctCase(t)](value)) {
+          ok = true;
+          return false;
+        }
+      });
+    
+      if (!ok) {
+        bbn.fn.log(["Value given", value, typeof value]);
+        if (logs.length) {
+          bbn.fn.log(logs)
+        }
+
+        bbn.fn.error((msg ? msg + ' - ' : '') + bbn._(`The value should be a %s`, type.join(bbn._(" or a "))));
+      }
+    },
+
+    /**
+    * Return all the attributes of an HTML element
+    * @return {Object}
+    */
+    getAttributes(ele) {
+      if (!ele.getAttributeNames) {
+        bbn.fn.error("The element is not a proper HTML Element");
+      }
+
+      let res = Object.create(null);
+      ele.getAttributeNames().forEach(name => {
+        res[name] = ele.getAttribute(name);
+      });
+      return res;
+    },
+
+
+    /**
+    * Check if the property contain sizing
+    * @return {Boolean}
+    */
+    isPropSize(name) {
+      let isTrue = false;
+      bbn.fn.each(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], a => {
+        if (name.indexOf(a) !== -1) {
+          isTrue = true;
+          return false;
+        }
+      });
+
+      return isTrue;
     },
 
     /**
@@ -3117,17 +3225,19 @@
         ele = document.querySelector(ele);
       }
       if (ele instanceof HTMLElement) {
-        if (typeof(sel) === 'string') {
-          while (ele = ele.closest(sel)) {
-            r.push(ele);
+        if (ele.parentNode) {
+          if (typeof(sel) === 'string') {
+            while (ele = ele.parentNode.closest(sel)) {
+              r.push(ele);
+            }
           }
-        }
-        else {
-          if (sel === true) {
-            r.push(ele);
-          }
-          while (ele = ele.parentNode) {
-            r.push(ele);
+          else {
+            if (sel === true) {
+              r.push(ele);
+            }
+            while (ele = ele.parentNode) {
+              r.push(ele);
+            }
           }
         }
       }
@@ -3153,7 +3263,18 @@
       }
 
       return false;
+    },
+
+    /**
+     * Gets all the tag names present in the DOM
+     * @returns array
+     */
+    getAllTags() {
+      return bbn.fn.unique(Array.prototype.map.apply(document.all, [a => a.tagName.toLowerCase()]));
     }
+
+
+
 
 
   });
@@ -3169,6 +3290,8 @@
 
 ;((bbn) => {
   "use strict";
+  let diffObjProcessed = [];
+
 
   /**
    * @var {Object} _private Misc variable for internal use
@@ -3750,6 +3873,45 @@
     },
 
     /**
+     * Returns all the unique values of the given field (property) from the first object matching the given filter in an array.
+     *
+     * The filtering arguments follow the same scheme as bbn.fn.search.
+     *
+     * @method   getFieldValues
+     * @global
+     * @example
+     * ```javascript
+     * let ar = [
+     *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+     *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+     *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+     *   {name: "Barry Lindon", director: "Stanley Kubrick", year: 1975, id: 802}
+     * ];
+     * bbn.fn.getFieldValues(ar, "director");
+     * // ["Steven Spielberg", "George Lucas", "Stanley Kubrick"]
+     * bbn.fn.getFieldValues(ar, "name", {year: 1975});
+     * // ["Jaws", "Barry Lindon"]
+     * ```
+     * @memberof bbn.fn
+     * @param    {Array}                    arr       The subject array
+     * @param    {String}                   field     The property from which the values are returned
+     * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+     * @param    {*}                        val       The value with which comparing the given property
+     * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+     * @returns  {*}
+     */
+    getFieldValues(arr, field, prop, val, operator) {
+      bbn.fn.checkType(field, 'string');
+      if (prop) {
+        arr = bbn.fn.filter(arr, prop, val, operator, false);
+      }
+
+      let res = [];
+      bbn.fn.each(arr, a => res.indexOf(a[field]) === -1 ? res.push(a[field]) : null);
+      return res;
+    },
+
+    /**
      * Retrieves all elements of a hierarchical array corresponding to the filter.
      * 
      * The arguments follow the same scheme as bbn.fn.search.
@@ -4154,7 +4316,7 @@
       if ( typeof(obj) === "object" ){
         r = {};
         for ( var n in obj ){
-          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && obj.hasOwnProperty(n)) {
+          if (bbn.fn.substr(n, 0, 1).match(/^[A-z0-9]$/) && Object.hasOwn(obj, n)) {
             if ( deep && (typeof(obj[n]) === "object")){
               r[n] = bbn.fn.removePrivateProp(obj[n], true);
             }
@@ -4584,29 +4746,22 @@
      * @returns  {Object}
      */
     extendOut(){
-      let r = {};
-      for ( let i = 0; i < arguments.length; i++ ){
-        if ( typeof(arguments[i]) !== 'object' ){
+      let r = null;
+      for ( let a of arguments) {
+        if (!bbn.fn.isObject(a)) {
           throw new Error("Each argument for bbn.fn.extendOut must be an object, " + typeof(arguments[i]) + " given");
         }
-        if ( Array.isArray(arguments[i]) ){
-          throw new Error("You cannot extend arrays with bbn.fn.extendOut");
-        }
-        if ( i === 0 ){
-          r = arguments[0];
+
+        if (r === null){
+          r = a;
         }
         else{
-          for ( let n in arguments[i] ){
-            if ( (typeof(r[n]) === 'object') &&
-              (typeof(arguments[i][n]) === 'object') &&
-              !bbn.fn.isFunction(r[n]) &&
-              !Array.isArray(r[n]) &&
-              !Array.isArray(arguments[i][n])
-            ){
-              bbn.fn.extendOut(r[n], arguments[i][n]);
+          for ( let n in a ){
+            if (bbn.fn.isObject(r[n], a[n])) {
+              bbn.fn.extendOut(r[n], a[n]);
             }
             else if ( r[n] === undefined){
-              r[n] = arguments[i][n];
+              r[n] = a[n];
             }
           }
         }
@@ -4865,6 +5020,10 @@
      * @returns  {Object}
      */
     diffObj(obj1, obj2, unchanged, notRoot){
+      if (!notRoot) {
+        diffObjProcessed = [];
+      }
+
       let VALUE_CREATED = 'created',
           VALUE_UPDATED = 'updated',
           VALUE_DELETED = 'deleted',
@@ -4892,22 +5051,36 @@
         notRoot = false;
       }
 
-      let diff = {};
-      if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj1) ){
+      let diff = bbn.fn.createObject();
+      if ( !bbn.fn.isFunction(obj1) && !bbn.fn.isFunction(obj2) ){
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
           let res = _compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
-            let ret = {
+            let ret = bbn.fn.createObject({
               type: _compareValues(obj1, obj2),
               data: (obj1 === undefined) ? obj2 : obj1
-            };
+            });
             if ( obj1 !== undefined ){
               ret.newData = obj2;
             }
+
             return ret;
           }
+
           return false;
         }
+
+        if (bbn.fn.isDom(obj1) || bbn.fn.isDom(obj2) ){
+          return false;
+        }
+
+        if (diffObjProcessed.includes(obj1) || diffObjProcessed.includes(obj2)) {
+          //bbn.fn.error(bbn._("Can't compare objects because they contain circular references"));
+          return false;
+        }
+
+        diffObjProcessed.push(obj1, obj2);
+
         for ( let key in obj1 ){
           if ( bbn.fn.isFunction(obj1[key]) ){
             continue;
@@ -4933,9 +5106,43 @@
         }
 
       }
+
       return !notRoot || unchanged || bbn.fn.numProperties(diff) ? diff : false;
     },
 
+    /**
+     * Returns a function to give to JSON.stringify in order to avoid circular values.
+     * 
+     * @returns Function
+     */
+    circularReplacer() {
+      const visited = new WeakSet();
+      return (key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (visited.has(value)) {
+            return;
+          }
+          visited.add(value);
+        }
+        return value;
+      };
+    },
+
+    /**
+     * Makes a hash out of an object
+     * @param {Object|Array} obj 
+     * @returns {String}
+     */
+    hash(obj) {
+      let st = 'bbn';
+      for (let i in arguments) {
+        if (arguments[i]) {
+          st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+        }
+      }
+
+      return bbn.fn.md5(st);
+    },
     /**
      * Executes the provided function on each element of the given array.
      * 
@@ -5065,11 +5272,20 @@
      * // res = 24
      * ```
      * @memberof bbn.fn
-     * @param    {Array}     arr The array to loop on
+     * @param    {*}     arr The array to loop on
      * @param    {Function}  fn  The function, gets the array's element and the index as arguments
      * @returns  {undefined}
      */
     each(arr, fn){
+      if (bbn.fn.isNumber(arr) && (arr > 0)) {
+        for (let i = 0; i < arr; i++) {
+          if ( fn(i, i) === false ){
+            return;
+          }
+        }
+        return;
+      }
+
       if ( bbn.fn.isIterable(arr) ){
         for ( let i = 0; i < arr.length; i++ ){
           if ( fn(arr[i], i) === false ){
@@ -5078,6 +5294,7 @@
         }
         return;
       }
+
       return bbn.fn.iterate(arr, fn);
     },
 
@@ -5135,10 +5352,14 @@
           return typeof(a) === 'object' ? bbn.fn.clone(a) : a;
         });
       }
+
       if ( bbn.fn.isObject(obj) ){
-        return bbn.fn.extend(true, {}, obj);
+        const o = Object.create(Object.getPrototypeOf(obj))
+        return bbn.fn.extend(true, o, obj);
       }
+
       return obj;
+
     },
 
     /**
@@ -5371,6 +5592,59 @@
       });
       return o;
     },
+
+    createObject() {
+      const obj = Object.create(null);
+      if (arguments.length) {
+        bbn.fn.extend(obj, ...arguments);
+      }
+
+      return obj;
+    },
+
+    /**
+     * Sets a given property on the given object
+     * 
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @param {*} value 
+     * @param {Boolean} writable 
+     * @param {Boolean} configurable 
+     */
+    setProp(obj, prop, value, writable = true, configurable = true) {
+      checkType(prop, "string");
+      checkType(obj, "object");
+      Object.defineProperty(obj, prop, {
+        value: value,
+        writable: writable,
+        configurable: configurable
+      });
+    },
+
+    /**
+     * Gets the given property from the given object
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @returns 
+     */
+    getProp(obj, prop) {
+      checkType(obj, "object");
+      checkType(prop, "string");
+      return obj[prop];
+    },
+
+    /**
+     * Gets the given property from the given object
+     * @param {Object} obj 
+     * @param {String} prop 
+     * @returns 
+     */
+    deleteProp(obj, prop) {
+      checkType(obj, "object");
+      checkType(prop, "string");
+      delete obj[prop];
+    },
+
 
     /**
      * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
@@ -6411,10 +6685,8 @@
       $test.remove();
       */
       let $test = document.createElement('div');
-      document.body.appendChild($test);
       $test.innerHTML = st;
       st = $test.innerText;
-      document.body.removeChild($test);
       return st;
     },
 
@@ -6645,6 +6917,15 @@
     },
 
     /**
+     * Removes all group of spaces by one single space.
+     * @param {String} str 
+     * @returns 
+     */
+    removeExtraSpaces(str) {
+      return str.replace(/\s+/g, ' ').trim();
+    },
+
+    /**
      * @method   removeTrailingChars
      * @todo     Add method description for removeTrailingChars
      * @global
@@ -6705,7 +6986,17 @@
       }
 
       return st.trim();
+    },
+    escapeTick(str) {
+      return str.replace(/`/g, "\\`");
+    },
+    escapeDquotes(str) {
+      return str.replace(/"/g, '\\"');
+    },
+    escapeSquotes(str) {
+      return str.replace(/'/g, "\\'");
     }
+
 
   });
 })(bbn);
@@ -7282,9 +7573,10 @@
      */
     isFunction() {
       if (!arguments.length) return false;
-      for ( let a of arguments ){
-        if ( {}.toString.apply(a) !== '[object Function]' ){
-          return false
+
+      for ( let obj of arguments ) {
+        if (!(obj && obj.constructor && obj.call && obj.apply)) {
+          return false;
         }
       }
       return true;
@@ -7373,13 +7665,62 @@
      * @memberof bbn.fn
      * @returns  {Boolean}
      */
-    isString() {
+     isString() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( typeof a !== 'string' ){
+        if ({}.toString.apply(a) !== '[object String]'){
           return false
         }
       }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a symbol;
+     * @method   isSymbol
+     * @global
+     * @example
+     * ```javascript
+     * //true
+     * const sb = Symbol();
+     * bbn.fn.isSymbol(sb);
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isSymbol() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ({}.toString.apply(a) !== '[object Symbol]'){
+          return false
+        }
+      }
+
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a boolean
+     * @method   isBoolean
+     * @global
+     * @example
+     * ```javascript
+     * const sb = true;
+     * bbn.fn.isBoolean(sb); // true
+     * const sb = 1;
+     * bbn.fn.isBoolean(sb); // false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+     isBoolean() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (![true, false].includes(a)) {
+          return false
+        }
+      }
+
       return true;
     },
 
@@ -7398,7 +7739,7 @@
     isArray() {
       if (!arguments.length) return false;
       for ( let a of arguments ){
-        if ( {}.toString.apply(a) !== '[object Array]' ){
+        if (!Array.isArray(a)){
           return false
         }
       }

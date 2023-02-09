@@ -163,9 +163,9 @@
                 "!doc": "Logs the given argument in the browser's console highlighting it with a yellow background and red color."
             },
             "error": {
-                "!type": "fn(args: ...any) -> undefined",
+                "!type": "fn(errorMsg: string) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/misc\/error",
-                "!doc": "Logs the given argument in the browser's console highlighting it with a red background."
+                "!doc": "Throws an error."
             },
             "happy": {
                 "!type": "fn(args: ...any) -> undefined",
@@ -342,6 +342,11 @@
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/count",
                 "!doc": "Counts the number of objects matching the given filter in the given array."
             },
+            "getFieldValues": {
+                "!type": "fn(arr: Array, field: string, prop: String|Object|Function, val: mixed, operator: string) -> mixed",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/getFieldValues",
+                "!doc": "Returns all the unique values of the given field (property) from the first object matching the given filter in an array."
+            },
             "findAll": {
                 "!type": "fn(arr: Array, prop: String|Object|Function, val: mixed, operator: string) -> Number",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/findAll",
@@ -438,7 +443,7 @@
                 "!doc": "Executes the provided function on each element of the given array, going backward."
             },
             "each": {
-                "!type": "fn(arr: Array, fn: Function) -> undefined",
+                "!type": "fn(arr: mixed, fn: Function) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/each",
                 "!doc": "Executes the provided function on each element of the given array."
             },
@@ -701,6 +706,16 @@
                 "!type": "fn() -> Boolean",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isString",
                 "!doc": "Returns true if the given argument is a string;"
+            },
+            "isSymbol": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isSymbol",
+                "!doc": "Returns true if the given argument is a symbol;"
+            },
+            "isBoolean": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isBoolean",
+                "!doc": "Returns true if the given argument is a boolean"
             },
             "isArray": {
                 "!type": "fn() -> Boolean",
