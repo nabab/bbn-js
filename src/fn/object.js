@@ -2233,15 +2233,12 @@
      * @param    {String} [valEsc="] The string escaper character
      * @returns  {String} A CSV string
      */
-    toCSV(arr, valSep = ',', rowSep = ';', valEsc = '"'){
+    toCSV(arr, valSep = ',', rowSep = '', valEsc = '"'){
       if ( !valSep ){
         valSep = ',';
       }
       if ( !valEsc ){
         valEsc = '"';
-      }
-      if ( !rowSep ){
-        rowSep = ';';
       }
       let csvContent = '';
       let total = arr.length;

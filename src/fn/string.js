@@ -929,8 +929,11 @@
       return res;
     },
 
-    removeHtmlComments(st) {
-      return st.replace(/<!--[\s\S]*?-->/g, '');
+    removeHtmlComments(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
+      return str.replace(/<!--[\s\S]*?-->/g, '');
     },
 
     getText(ele) {
@@ -946,12 +949,21 @@
       return st.trim();
     },
     escapeTicks(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/`/g, "\\`");
     },
     escapeDquotes(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/"/g, '\\"');
     },
     escapeSquotes(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/'/g, "\\'");
     }
 
