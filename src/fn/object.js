@@ -1134,17 +1134,7 @@
         }
         let ok = true;
         bbn.fn.each(tmp1, a => {
-          if (bbn.fn.isObject(obj1[a], obj2[a])) {
-            if (!bbn.fn.isSame(obj1[a], obj2[a])) {
-              ok = false;
-              return false;
-            }
-          }
-          /* else if (obj1[a] !== obj2[a]) {
-            ok = false;
-            return false;
-          } */
-          else if (bbn.fn.numProperties(bbn.fn.diffObj(obj1[a], obj2[a]))) {
+          if (!bbn.fn.isSame(obj1[a], obj2[a])) {
             ok = false;
             return false;
           }
@@ -1772,12 +1762,24 @@
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
           let res = _compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
-            let ret = bbn.fn.createObject({
-              type: _compareValues(obj1, obj2),
-              data: (obj1 === undefined) ? obj2 : obj1
+            let ret = bbn.fn.createObject();
+            Object.defineProperty(ret, 'type', {
+              value: res,
+              enumerable: false
+            });
+            Object.defineProperty(ret, 'data', {
+              value: (obj1 === undefined) ? obj2 : obj1,
+              enumerable: false
+            });
+            Object.defineProperty(ret, '_bbnDiffObjProof', {
+              value: true,
+              enumerable: false
             });
             if ( obj1 !== undefined ){
-              ret.newData = obj2;
+              Object.defineProperty(ret, 'newData', {
+                value: obj2,
+                enumerable: false
+              });
             }
 
             return ret;
@@ -1990,7 +1992,7 @@
      * @memberof bbn.fn
      * @param    {*}     arr The array to loop on
      * @param    {Function}  fn  The function, gets the array's element and the index as arguments
-     * @returns  {undefined}
+     * @returns  {[Array, Object, void]}
      */
     each(arr, fn){
       if (bbn.fn.isNumber(arr) && (arr > 0)) {
@@ -1999,6 +2001,7 @@
             return;
           }
         }
+
         return;
       }
 
@@ -2008,7 +2011,7 @@
             return;
           }
         }
-        return;
+        return arr;
       }
 
       return bbn.fn.iterate(arr, fn);
@@ -2031,7 +2034,7 @@
      * @param    {(Object|Number)} obj       The object to loop on
      * @param    {Function}        fn        The function, gets the array's element and the index as arguments
      * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
-     * @returns  {undefined}
+     * @returns  {Object}
      */
     iterate(obj, fn, noPrivate) {
       if ((obj !== null) && (typeof obj === 'object')) {
@@ -2042,7 +2045,8 @@
           }
         });
       }
-      return;
+
+      return obj;
     },
 
     /**
