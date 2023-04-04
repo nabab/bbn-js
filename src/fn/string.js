@@ -361,6 +361,20 @@
       });
     },
 
+    format(str) {
+      let args = Array.prototype.slice.call(arguments, 1);
+      if (args.length) {
+        let i = 0;
+        return str.replace(/\%([d|s])/g, (match, type) => {
+          let tmp = args[i++];
+          bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+          return tmp;
+        });
+      }
+
+      return str;
+    },
+
     /**
      * Converts the first character of the string to uppercase.
      *

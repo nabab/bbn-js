@@ -570,7 +570,7 @@
      * @example
      * ```javascript
      * //true
-     * bbn.fn.isDom('<div>myDiv</div>');
+     * bbn.fn.isDom(document.body.childNodes[0]);
      * ```
      * @global
      * @memberof bbn.fn
@@ -580,6 +580,28 @@
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof HTMLElement) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a dom comment;
+     * @method   isComment
+     * @example
+     * ```javascript
+     * //true
+     * bbn.fn.isComment(node.childNodes[0]);
+     * ```
+     * @global
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+    isComment(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof Comment) ){
           return false
         }
       }
