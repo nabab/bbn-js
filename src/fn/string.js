@@ -611,8 +611,8 @@
      * @param    {String} st
      * @returns  {String}
      */
-    nl2br(st){
-      return bbn.fn.replaceAll("\n", "<br>", st);
+    nl2br(st, keepNl){
+      return bbn.fn.replaceAll("\n", "<br>" + (keepNl ? "\n" : ""), st);
     },
 
     /**
