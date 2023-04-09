@@ -459,8 +459,8 @@
      * @returns  {Number}                   The index if found, otherwise -1
      */
     search(arr, prop, val, operator, startFrom){
-      if ( !bbn.fn.isArray(arr) ){
-        throw new Error(bbn._("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
+      if ( !bbn.fn.isIterable(arr) ){
+        throw new Error(bbn._("The first argument for a search should be iterable") + " " + (typeof arr) + " " + bbn._("given"));
       }
       if (!arr.length) {
         return -1;
@@ -503,6 +503,7 @@
           filter = prop;
         }
       }
+
       if (isFunction || (bbn.fn.isObject(filter) && bbn.fn.numProperties(filter))) {
         if (bbn.fn.isNumber(operator)) {
           startFrom = operator;
@@ -511,6 +512,7 @@
         if (!bbn.fn.isNumber(startFrom)) {
           startFrom = 0;
         }
+
         if (isFunction) {
           for ( let i = startFrom; i < arr.length; i++ ){
             if (filter(arr[i])) {
@@ -527,6 +529,7 @@
           }
         }
       }
+
       return -1;
     },
 
@@ -1257,6 +1260,7 @@
       if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
         throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
       }
+
       let ok = filter.logic === 'AND' ? true : false;
       bbn.fn.each(filter.conditions, (a) => {
         let compare;
@@ -1272,7 +1276,7 @@
               bbn.fn.each(bits, b => data = data[b]);
             }
             // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-            if (!Object.keys(data).includes(prop) && (a.value !== undefined)) {
+            if ((bbn.fn.getProperty(data, prop) === undefined) && (a.value !== undefined)) {
               compare = false;
             }
           }
