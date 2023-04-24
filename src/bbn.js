@@ -24,9 +24,11 @@
   this,
   () => {
     "use strict";
+    /*
     if (axios) {
       axios.defaults.headers.post['Content-Type'] = 'text/json';
     }
+    */
     return {
       version: "1.0.1",
       opt: {

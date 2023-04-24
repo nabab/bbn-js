@@ -163,7 +163,6 @@
           }
         }
 
-
         if (window.history) {
           window.onpopstate = function(e){
             let h = window.history;
@@ -184,6 +183,10 @@
         }
         bbn.env.isInit = true;
         document.dispatchEvent(new Event('bbninit'));
+
+        if (bbn.env.logging) {
+          bbn.fn.log("Logging in bbn is enabled");
+        }
       }
     },
 
