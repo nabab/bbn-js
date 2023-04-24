@@ -24,9 +24,11 @@
   this,
   () => {
     "use strict";
+    /*
     if (axios) {
       axios.defaults.headers.post['Content-Type'] = 'text/json';
     }
+    */
     return {
       version: "1.0.1",
       opt: {
@@ -2013,7 +2015,6 @@
           }
         }
 
-
         if (window.history) {
           window.onpopstate = function(e){
             let h = window.history;
@@ -2034,6 +2035,10 @@
         }
         bbn.env.isInit = true;
         document.dispatchEvent(new Event('bbninit'));
+
+        if (bbn.env.logging) {
+          bbn.fn.log("Logging in bbn is enabled");
+        }
       }
     },
 
@@ -3176,6 +3181,50 @@
       return (ele === document.activeElement) || (contain && ele.contains && (ele.contains(document.activeElement)));
     },
 
+    replaceSelection(html, selectInserted) {
+      let sel, range, fragment;
+      sel = window.getSelection();
+
+      // Test that the Selection object contains at least one Range
+      if (sel.getRangeAt && sel.rangeCount) {
+          // Get the first Range (only Firefox supports more than one)
+          range = window.getSelection().getRangeAt(0);
+          range.deleteContents();
+
+          // Create a DocumentFragment to insert and populate it with HTML
+          // Need to test for the existence of range.createContextualFragment
+          // because it's non-standard and IE 9 does not support it
+          if (range.createContextualFragment) {
+              fragment = range.createContextualFragment(html);
+          }
+          else {
+              // In IE 9 we need to use innerHTML of a temporary element
+              const div = document.createElement("div");
+              let child;
+              div.innerHTML = html;
+              fragment = document.createDocumentFragment();
+              while ( (child = div.firstChild) ) {
+                  fragment.appendChild(child);
+              }
+          }
+          const firstInsertedNode = fragment.firstChild;
+          const lastInsertedNode = fragment.lastChild;
+          range.insertNode(fragment);
+          sel.removeAllRanges();
+          if (selectInserted) {
+              if (firstInsertedNode) {
+                  range.setStartBefore(firstInsertedNode);
+                  range.setEndAfter(lastInsertedNode);
+              }
+              sel.addRange(range);
+          }
+          else {
+            range.setStartAfter(lastInsertedNode);
+            sel.addRange(range);
+          }
+      }
+    },
+
     /**
      * Selects the content of an element.
      * 
@@ -3743,8 +3792,8 @@
      * @returns  {Number}                   The index if found, otherwise -1
      */
     search(arr, prop, val, operator, startFrom){
-      if ( !bbn.fn.isArray(arr) ){
-        throw new Error(bbn._("The first argument for a search should be an array") + " " + (typeof arr) + " " + bbn._("given"));
+      if ( !bbn.fn.isIterable(arr) ){
+        throw new Error(bbn._("The first argument for a search should be iterable") + " " + (typeof arr) + " " + bbn._("given"));
       }
       if (!arr.length) {
         return -1;
@@ -3787,6 +3836,7 @@
           filter = prop;
         }
       }
+
       if (isFunction || (bbn.fn.isObject(filter) && bbn.fn.numProperties(filter))) {
         if (bbn.fn.isNumber(operator)) {
           startFrom = operator;
@@ -3795,6 +3845,7 @@
         if (!bbn.fn.isNumber(startFrom)) {
           startFrom = 0;
         }
+
         if (isFunction) {
           for ( let i = startFrom; i < arr.length; i++ ){
             if (filter(arr[i])) {
@@ -3811,6 +3862,7 @@
           }
         }
       }
+
       return -1;
     },
 
@@ -4418,17 +4470,7 @@
         }
         let ok = true;
         bbn.fn.each(tmp1, a => {
-          if (bbn.fn.isObject(obj1[a], obj2[a])) {
-            if (!bbn.fn.isSame(obj1[a], obj2[a])) {
-              ok = false;
-              return false;
-            }
-          }
-          /* else if (obj1[a] !== obj2[a]) {
-            ok = false;
-            return false;
-          } */
-          else if (bbn.fn.numProperties(bbn.fn.diffObj(obj1[a], obj2[a]))) {
+          if (!bbn.fn.isSame(obj1[a], obj2[a])) {
             ok = false;
             return false;
           }
@@ -4551,6 +4593,7 @@
       if ( !filter.conditions || !filter.logic || !bbn.fn.isArray(filter.conditions) ){
         throw new Error("Error in bbn.fn.compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
       }
+
       let ok = filter.logic === 'AND' ? true : false;
       bbn.fn.each(filter.conditions, (a) => {
         let compare;
@@ -4566,7 +4609,7 @@
               bbn.fn.each(bits, b => data = data[b]);
             }
             // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-            if (!Object.keys(data).includes(prop) && (a.value !== undefined)) {
+            if ((bbn.fn.getProperty(data, prop) === undefined) && (a.value !== undefined)) {
               compare = false;
             }
           }
@@ -5056,12 +5099,24 @@
         if (bbn.fn.isValue(obj1) || bbn.fn.isValue(obj2) ){
           let res = _compareValues(obj1, obj2);
           if ( unchanged || (res !== VALUE_UNCHANGED) ){
-            let ret = bbn.fn.createObject({
-              type: _compareValues(obj1, obj2),
-              data: (obj1 === undefined) ? obj2 : obj1
+            let ret = bbn.fn.createObject();
+            Object.defineProperty(ret, 'type', {
+              value: res,
+              enumerable: false
+            });
+            Object.defineProperty(ret, 'data', {
+              value: (obj1 === undefined) ? obj2 : obj1,
+              enumerable: false
+            });
+            Object.defineProperty(ret, '_bbnDiffObjProof', {
+              value: true,
+              enumerable: false
             });
             if ( obj1 !== undefined ){
-              ret.newData = obj2;
+              Object.defineProperty(ret, 'newData', {
+                value: obj2,
+                enumerable: false
+              });
             }
 
             return ret;
@@ -5274,7 +5329,7 @@
      * @memberof bbn.fn
      * @param    {*}     arr The array to loop on
      * @param    {Function}  fn  The function, gets the array's element and the index as arguments
-     * @returns  {undefined}
+     * @returns  {[Array, Object, void]}
      */
     each(arr, fn){
       if (bbn.fn.isNumber(arr) && (arr > 0)) {
@@ -5283,6 +5338,7 @@
             return;
           }
         }
+
         return;
       }
 
@@ -5292,7 +5348,7 @@
             return;
           }
         }
-        return;
+        return arr;
       }
 
       return bbn.fn.iterate(arr, fn);
@@ -5315,7 +5371,7 @@
      * @param    {(Object|Number)} obj       The object to loop on
      * @param    {Function}        fn        The function, gets the array's element and the index as arguments
      * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
-     * @returns  {undefined}
+     * @returns  {Object}
      */
     iterate(obj, fn, noPrivate) {
       if ((obj !== null) && (typeof obj === 'object')) {
@@ -5326,7 +5382,8 @@
           }
         });
       }
-      return;
+
+      return obj;
     },
 
     /**
@@ -5517,15 +5574,12 @@
      * @param    {String} [valEsc="] The string escaper character
      * @returns  {String} A CSV string
      */
-    toCSV(arr, valSep = ',', rowSep = ';', valEsc = '"'){
+    toCSV(arr, valSep = ',', rowSep = '', valEsc = '"'){
       if ( !valSep ){
         valSep = ',';
       }
       if ( !valEsc ){
         valEsc = '"';
-      }
-      if ( !rowSep ){
-        rowSep = ';';
       }
       let csvContent = '';
       let total = arr.length;
@@ -6403,6 +6457,20 @@
       });
     },
 
+    format(str) {
+      let args = Array.prototype.slice.call(arguments, 1);
+      if (args.length) {
+        let i = 0;
+        return str.replace(/\%([d|s])/g, (match, type) => {
+          let tmp = args[i++];
+          bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+          return tmp;
+        });
+      }
+
+      return str;
+    },
+
     /**
      * Converts the first character of the string to uppercase.
      *
@@ -6639,8 +6707,8 @@
      * @param    {String} st
      * @returns  {String}
      */
-    nl2br(st){
-      return bbn.fn.replaceAll("\n", "<br>", st);
+    nl2br(st, keepNl){
+      return bbn.fn.replaceAll("\n", "<br>" + (keepNl ? "\n" : ""), st);
     },
 
     /**
@@ -6971,8 +7039,11 @@
       return res;
     },
 
-    removeHtmlComments(st) {
-      return st.replace(/<!--[\s\S]*?-->/g, '');
+    removeHtmlComments(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
+      return str.replace(/<!--[\s\S]*?-->/g, '');
     },
 
     getText(ele) {
@@ -6987,13 +7058,22 @@
 
       return st.trim();
     },
-    escapeTick(str) {
+    escapeTicks(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/`/g, "\\`");
     },
     escapeDquotes(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/"/g, '\\"');
     },
     escapeSquotes(str) {
+      if (!bbn.fn.isString(str)) {
+        return str;
+      }
       return str.replace(/'/g, "\\'");
     }
 
@@ -7899,7 +7979,7 @@
      * @example
      * ```javascript
      * //true
-     * bbn.fn.isDom('<div>myDiv</div>');
+     * bbn.fn.isDom(document.body.childNodes[0]);
      * ```
      * @global
      * @memberof bbn.fn
@@ -7909,6 +7989,28 @@
       if (!arguments.length) return false;
       for ( let a of arguments ){
         if ( !(a instanceof HTMLElement) ){
+          return false
+        }
+      }
+      return true;
+    },
+
+    /**
+     * Returns true if the given argument is a dom comment;
+     * @method   isComment
+     * @example
+     * ```javascript
+     * //true
+     * bbn.fn.isComment(node.childNodes[0]);
+     * ```
+     * @global
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+    isComment(){
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if ( !(a instanceof Comment) ){
           return false
         }
       }

@@ -1224,7 +1224,7 @@ bbn.fn.forir([4, 5, 5, 10, 1, 2], d => {
   * __arr__ _Mixed_ The array to loop on
   * __fn__ _Function_ The function, gets the array's element and the index as arguments
 
-  __Returns__ _undefined_ 
+  __Returns__ _[Array_ Object, void]}
 
 
 ```javascript
@@ -1256,7 +1256,7 @@ bbn.fn.each([4, 5, 5, 10, 1, 2], d => {
   * __fn__ _Function_ The function, gets the array's element and the index as arguments
   * __noPrivate__ _Boolean_ If set to true the _private_ properties won't be included
 
-  __Returns__ _undefined_ 
+  __Returns__ _Object_ 
 
 
 ```javascript

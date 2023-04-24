@@ -12,6 +12,8 @@ Returns true if the given argument is a boolean
 Returns true if the given argumen is a Canvas.  
 [bbn.fn.__isColor__](#isColor)  
 Intended to check if the argument provided is a color.  
+[bbn.fn.__isComment__](#isComment)  
+Returns true if the given argument is a dom comment;  
 [bbn.fn.__isDate__](#isDate)  
 Returns true if the given argument is a date object.  
 [bbn.fn.__isDimension__](#isDimension)  
@@ -391,7 +393,21 @@ bbn.fn.isValue([80,10,22]);
 
 ```javascript
 //true
-bbn.fn.isDom('<div>myDiv</div>');
+bbn.fn.isDom(document.body.childNodes[0]);
+```
+[Back to top](#bbn_top)  
+
+### <a name="isComment"></a>bbn.fn.isComment()
+
+  __Returns true if the given argument is a dom comment;.__
+
+
+  __Returns__ _Boolean_ 
+
+
+```javascript
+//true
+bbn.fn.isComment(node.childNodes[0]);
 ```
 [Back to top](#bbn_top)  
 

@@ -443,12 +443,12 @@
                 "!doc": "Executes the provided function on each element of the given array, going backward."
             },
             "each": {
-                "!type": "fn(arr: mixed, fn: Function) -> undefined",
+                "!type": "fn(arr: mixed, fn: Function) -> [Array",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/each",
                 "!doc": "Executes the provided function on each element of the given array."
             },
             "iterate": {
-                "!type": "fn(obj: Object|Number, fn: Function, noPrivate: Boolean) -> undefined",
+                "!type": "fn(obj: Object|Number, fn: Function, noPrivate: Boolean) -> Object",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/object\/iterate",
                 "!doc": "Executes the provided function on each property of the given object."
             },
@@ -751,6 +751,11 @@
                 "!type": "fn() -> Boolean",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isDom",
                 "!doc": "Returns true if the given argument is a dom element;"
+            },
+            "isComment": {
+                "!type": "fn() -> Boolean",
+                "!url": "https:\/\/bbn.io\/bbn-js\/doc\/type\/isComment",
+                "!doc": "Returns true if the given argument is a dom comment;"
             },
             "isCanvas": {
                 "!type": "fn() -> Boolean",
