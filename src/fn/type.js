@@ -648,24 +648,20 @@
      * @memberof bbn.fn
      * @returns  {Boolean}
      */
-    isVue(){
+    isVue() {
       if (!arguments.length) {
         return false;
       }
 
-      if (bbn.vue.app) {
-        for ( let a of arguments ){
-          if (!a || (typeof a.render !== 'function')) {
+      if (Object.hasOwn(bbn, 'wc')) {
+        for (let a of arguments) {
+          if (!a || !bbn.wc.isComponent(a)) {
             return false;
           }
         }
       }
       else {
-        for ( let a of arguments ){
-          if ( !(a instanceof Vue) ){
-            return false;
-          }
-        }
+        return false;
       }
 
       return true;
