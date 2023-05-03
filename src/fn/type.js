@@ -653,19 +653,25 @@
         return false;
       }
 
-      if (bbn.vue.app) {
-        for ( let a of arguments ){
-          if (!a || (typeof a.render !== 'function')) {
-            return false;
+      if (Object.hasOwn(bbn, 'vue')) {
+        if (bbn.vue.app) {
+          for ( let a of arguments ){
+            if (!a || (typeof a.render !== 'function')) {
+              return false;
+            }
+          }
+        }
+        else {
+          for ( let a of arguments ){
+            if ( !(a instanceof Vue) ){
+              return false;
+            }
           }
         }
       }
-      else {
-        for ( let a of arguments ){
-          if ( !(a instanceof Vue) ){
-            return false;
-          }
-        }
+
+      if (Object.hasOwn(bbn, 'wc')) {
+        return bbn.wc.isComponent(...arguments);
       }
 
       return true;
