@@ -2333,8 +2333,8 @@
      * @param {Boolean} configurable 
      */
     setProp(obj, prop, value, writable = true, configurable = true) {
-      checkType(prop, "string");
-      checkType(obj, "object");
+      checkType(prop, "string", bbn._("The prop must be a string in setProp"));
+      checkType(obj, "object", bbn._("The obj must be an object in setProp"));
       Object.defineProperty(obj, prop, {
         value: value,
         writable: writable,
@@ -2349,8 +2349,8 @@
      * @returns 
      */
     getProp(obj, prop) {
-      checkType(obj, "object");
-      checkType(prop, "string");
+      checkType(obj, "object", bbn._("The obj must be an object in setProp"));
+      checkType(prop, "string", bbn._("The prop must be a string in setProp"));
       return obj[prop];
     },
 
@@ -2361,8 +2361,8 @@
      * @returns 
      */
     deleteProp(obj, prop) {
-      checkType(obj, "object");
-      checkType(prop, "string");
+      checkType(obj, "object", bbn._("The obj must be an object in setProp"));
+      checkType(prop, "string", bbn._("The prop must be a string in setProp"));
       delete obj[prop];
     },
 

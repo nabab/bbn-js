@@ -41,13 +41,18 @@
        * @returns {String}
        */
       _(st) {
+        bbn.fn.checkType(st, 'string', "Undeerscore function takes strings as arguments");
         let res = bbn.lng[st] || st;
         let args = Array.prototype.slice.call(arguments, 1);
         if (args.length) {
           let i = 0;
           return res.replace(/\%([d|s])/g, (match, type) => {
             let tmp = args[i++];
-            bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+            if (!tmp) {
+              tmp = type === 'd' ? 0 : '';
+            }
+
+            bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string', bbn._("The value you gave did not correspond, check the loggg"));
             return tmp;
           });
         }

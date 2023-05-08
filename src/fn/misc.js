@@ -354,6 +354,7 @@
       if (!bbn.fn.isArray(type)) {
         type = [type];
       }
+      const typesList = [];
       bbn.fn.each(type, t => {
         if (t === String) {
           t = 'string'
@@ -374,6 +375,7 @@
           t = 'function'
         }
         if (bbn.fn.isFunction(t)) {
+          typesList.push(t.name || t.constructor?.name || t.toString());
           if (value instanceof t) {
             ok = true;
             return false;
@@ -386,6 +388,9 @@
           ok = true;
           return false;
         }
+        else {
+          typesList.push(t);
+        }
       });
     
       if (!ok) {
@@ -394,7 +399,7 @@
           bbn.fn.log(logs)
         }
 
-        bbn.fn.error((msg ? msg + ' - ' : '') + bbn._(`The value should be a %s`, type.join(bbn._(" or a "))));
+        throw new Error((msg ? msg + ' - ' : '') + bbn._("The value should be a %s", typesList.join(' ' + bbn._("8or a") + ' ')));
       }
     },
 

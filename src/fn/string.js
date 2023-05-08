@@ -367,7 +367,7 @@
         let i = 0;
         return str.replace(/\%([d|s])/g, (match, type) => {
           let tmp = args[i++];
-          bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string');
+          bbn.fn.checkType(tmp, type === 'd' ? 'number' : 'string', bbn._("The value doesn't correspond to the format"));
           return tmp;
         });
       }
