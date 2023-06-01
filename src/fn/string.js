@@ -652,10 +652,6 @@
      * @returns {String}
      */
     html2text(st){
-      /*var $test = $('<div/>').html(bbn.fn.br2nl(st)).appendTo(document.body);
-      st = $test.text();
-      $test.remove();
-      */
       let $test = document.createElement('div');
       $test.innerHTML = st;
       st = $test.innerText;
