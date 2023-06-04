@@ -394,7 +394,7 @@
       });
     
       if (!ok) {
-        bbn.fn.log(["Value given", value, typeof value]);
+        bbn.fn.log(["Value given", value, "type", typeof value, "expected", typesList.join(' or ')]);
         if (logs.length) {
           bbn.fn.log(logs)
         }
