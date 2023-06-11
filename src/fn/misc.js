@@ -622,15 +622,19 @@
           throw Error("Unexpected end of function while parsing function");
         }
       }
+
+      const argString = args.map(arg => arg.name + (arg.default ? ' = ' + arg.default : '')).join(', ');
+      const hash = bbn.fn.md5(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
     
       return {
         body,
         args,
-        argString: args.map(arg => arg.name + (arg.default ? ' = ' + arg.default : '')).join(', '),
+        argString,
         isArrow,
         hasFunction,
         name,
-        isAsync
+        isAsync,
+        hash
       };
     },
 
