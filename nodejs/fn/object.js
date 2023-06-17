@@ -57,7 +57,10 @@ module.exports = {
    */
   getProperty(obj, prop) {
     if ( (typeof obj === 'object') && (typeof prop === 'string')){
-      return prop.split('.').reduce((o, i) => {
+      return prop.replace(/\[([^\[\]]*)\]/g, '.$1.')
+      .split('.')
+      .filter(t => t !== '')
+      .reduce((o, i) => {
         if (o && (o[i] !== undefined)) {
           return o[i];
         }

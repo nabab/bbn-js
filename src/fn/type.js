@@ -21,14 +21,14 @@
      *
      * @example
      * ```javascript
-     * //false
      * bbn.fn.isEmail('test@testorg');
+     * //false
      * ```
      *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isEmail('test@test.org');
+     * //true
      * ```
      * @memberof bbn.fn
      * @param    {String} st
@@ -52,20 +52,20 @@
      *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isColor("#FF0000")
+     * //true
      * ```
      *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isColor("rgb 255, 0, 0");
+     * //true
      * ```
      *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isColor("red");
+     * //true
      * ```
      * @memberof bbn.fn
      * @param    {String} st
@@ -90,14 +90,14 @@
      *
      * @example
      * ```javascript
-     * // true
      * bbn.fn.isIterable([1, 2])
-     * // false
+     * // true
      * bbn.fn.isIterable({a: 1, b: 2})
      * // false
      * bbn.fn.isIterable(25)
-     * // true
+     * // false
      * bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
+     * // true
      * ```
      *
      * @param    {String} st
@@ -154,33 +154,33 @@
      *
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isEmpty({});
+     * //true
      * ```
      * @example
      * ```javascript
-     * //false
      * bbn.fn.isEmpty({test : 1});
-     * ```
-     * @example
-     * ```javascript
-     * //true
-     * bbn.fn.isEmpty([]);
-     * ```
-     * @example
-     * ```javascript
      * //false
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.isEmpty([]);
+     * //true
+     * ```
+     * @example
+     * ```javascript
      * bbn.fn.isEmpty(['test']);
+     * //false
      * ```
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isEmpty('');
+     * //true
      * ```
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isEmpty('test');
+     * //false
      * ```
      * @memberof bbn.fn
      * @param    {*} obj
@@ -233,10 +233,10 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isFunction(() => {
      *  alert('Hello world');
      * });
+     * //true
      * ```
      * @method   isFunction
      * @memberof bbn.fn
@@ -276,13 +276,13 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isNumber(5);
+     * //true
      * ```
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isNumber(0.5);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -330,8 +330,8 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isString('bbn');
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -352,9 +352,9 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * const sb = Symbol();
      * bbn.fn.isSymbol(sb);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -401,8 +401,8 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isArray([5,2,6]);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -423,14 +423,14 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * let date = new Date();
      * bbn.fn.isDate(date);
+     * //true
      * ```
      * @example
      * ```javascript
-     * //false
      * bbn.fn.isDate('16/04/2020');
+     * //false
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -472,13 +472,13 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isObject({name: 'cami', age: 7});
+     * //true
      * ```
      * @example
      * ```javascript
-     * //false
      * bbn.fn.isObject([{name: 'cami', age: 7}]);
+     * //false
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -516,8 +516,8 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isNull(myData);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -532,23 +532,54 @@
       return true;
     },
 
+
+    /**
+     * Returns true if the given arguments are primitive;
+     * @method   isPrimitive
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.isPrimitive('myString', 6, true);
+     * //true
+     * bbn.fn.isPrimitive([80,10,22]);
+     * //false
+     * bbn.fn.isPrimitive({});
+     * //false
+     * ```
+     * @memberof bbn.fn
+     * @returns  {Boolean}
+     */
+    isPrimitive() {
+      if (!arguments.length) return false;
+      for ( let a of arguments ){
+        if (a !== Object(a)){
+          return false;
+        }
+      }
+
+      return true;
+    },
+
+
     /**
      * Returns true if the given argument is not null or type object or array.
      * @method   isValue
+     * @deprecated
+     * @see bbn.fn.isPrimitive
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isValue('myString');
-     * ```
-     * @example
-     * ```javascript
      * //true
-     * bbn.fn.isValue(6);
      * ```
      * @example
      * ```javascript
-     * //false
+     * bbn.fn.isValue(6);
+     * //true
+     * ```
+     * @example
+     * ```javascript
      * bbn.fn.isValue([80,10,22]);
+     * //false
      * ```
      * @global
      * @memberof bbn.fn
@@ -569,8 +600,8 @@
      * @method   isDom
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isDom(document.body.childNodes[0]);
+     * //true
      * ```
      * @global
      * @memberof bbn.fn
@@ -591,8 +622,8 @@
      * @method   isComment
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isComment(node.childNodes[0]);
+     * //true
      * ```
      * @global
      * @memberof bbn.fn
@@ -615,9 +646,9 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * let myCanvas = document.createElement('canvas');
      * bbn.fn.isCanvas(myCanvas);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -639,11 +670,9 @@
      * @global
      * @example
      * ```javascript
-     * //true
-     * let myObj =  new Vue({
-     *                //options
-     *              });
+     * let myObj =  new Vue({});
      * bbn.fn.isVue(myObj);
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}
@@ -683,8 +712,8 @@
      * @global
      * @example
      * ```javascript
-     * //true
      * bbn.fn.isPercent('5%');
+     * //true
      * ```
      * @memberof bbn.fn
      * @returns  {Boolean}

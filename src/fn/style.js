@@ -315,7 +315,8 @@
       }
 
       document.documentElement.setProperty(varname, value);
-    }
+    },
+
 
   });
 })(bbn);
