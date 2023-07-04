@@ -1840,12 +1840,14 @@
     circularReplacer() {
       const visited = new WeakSet();
       return (key, value) => {
-        if (typeof value === "object" && value !== null) {
+        if ((typeof value === "object") && (value !== null)) {
           if (visited.has(value)) {
             return;
           }
+
           visited.add(value);
         }
+
         return value;
       };
     },
@@ -1859,7 +1861,12 @@
       let st = 'bbn';
       for (let i in arguments) {
         if (arguments[i]) {
-          st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+          try {
+            st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+          }
+          catch (e) {
+            st += '.';;
+          }
         }
       }
 
@@ -2038,11 +2045,15 @@
      * @param    {(Object|Number)} obj       The object to loop on
      * @param    {Function}        fn        The function, gets the array's element and the index as arguments
      * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
+     * @param    {Boolean}         reverse   If set to true the order of the keys will be reversed
      * @returns  {Object}
      */
-    iterate(obj, fn, noPrivate) {
+    iterate(obj, fn, noPrivate, reverse) {
       if ((obj !== null) && (typeof obj === 'object')) {
         let iter = Object.keys(noPrivate ? bbn.fn.removePrivateProp(obj) : obj);
+        if (reverse) {
+          iter.reverse();
+        }
         bbn.fn.each(iter, prop => {
           if (fn(obj[prop], prop) === false) {
             return false;
@@ -2053,6 +2064,28 @@
       return obj;
     },
 
+    /**
+     * Executes the provided function on each property of the given object.
+     *
+     * @method   riterate
+     * @global
+     * @example
+     * ```javascript
+     * //["value1", 2]
+     * let arr = [];
+     * bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
+     *   arr.push(value);
+     * });
+     * ```
+     * @memberof bbn.fn
+     * @param    {(Object|Number)} obj       The object to loop on
+     * @param    {Function}        fn        The function, gets the array's element and the index as arguments
+     * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
+     * @returns  {Object}
+     */
+    riterate(obj, fn, noPrivate) {
+      return bbn.fn.iterate(obj, fn, noPrivate, true);  
+    },
     /**
      * Creates and returns a perfect clone - but different - from the given object.
      *
@@ -2364,6 +2397,282 @@
       checkType(obj, "object", bbn._("The obj must be an object in setProp"));
       checkType(prop, "string", bbn._("The prop must be a string in setProp"));
       delete obj[prop];
+    },
+
+
+    /*
+    makeReactive(obj, onSet, parent, parentProp) {
+      if (obj && (typeof obj === 'object') && [undefined, Object, Array].includes(obj.constructor)) {
+        if (obj.__bbnIsProxy && (obj.__bbnParent === parent)) {
+          return obj;
+        }
+
+        const handler = {
+          get(target, key) {
+            if (key === '__bbnRoot') {
+              let root = obj;
+              while (root && root?.__bbnTarget) {
+                root = root.__bbnTarget;
+              }
+
+              return root;
+            }
+
+            if (key === '__bbnIsProxy') {
+              return true;
+            }
+
+            if (key === '__bbnTarget') {
+              return target
+            }
+
+            if (key === '__bbnParent') {
+              return parent;
+            }
+
+            const prop = target[key];
+        
+            // return if property not found
+            if (typeof prop == 'undefined') {
+              return;
+            }
+        
+            if (prop && (typeof prop === 'object') && [undefined, Object, Array].includes(prop.constructor)) {
+              if (prop.__bbnIsProxy && (prop.__bbnParent === parent)) {
+                return prop;
+              }
+              target[key] = bbn.fn.makeReactive(prop, onSet, obj);
+            }
+                    
+            return target[key];
+          },
+          set(target, key, value) {
+            if (target[key] !== value) {
+              if (parent && parent.$options) {
+                bbn.fn.log(['Setting proxy prop in ' + parent.$options.name, key, value, target]);
+              }
+              target[key] = value;
+              onSet(target, key, value);
+            }
+  
+            return true;
+          },
+          defineProperty(target, key, value) {
+            bbn.fn.log(`defined: ${key} in ${parent?.$options?.name || 'unknown'}`);  
+            target[key] = bbn.fn.makeReactive(value, onSet, parent);
+            onSet(target, key, value);
+            return true;
+          },
+          deleteProperty(target, prop) {
+            console.log(`deleted: ${prop}`);
+            return true;
+          }
+        };
+  
+        return (new Proxy(obj, handler));
+      }
+  
+      return obj;
+      
+    },
+    */
+
+    
+    makeReactive(obj, onSet, parent, parentProp) {
+      const parentString = parent?.$cid || '';
+      const prefix = '__bbn_' + (parentString ? parentString + '_' : '');
+      if (obj && (typeof obj === 'object') && [undefined, Object, Array].includes(obj.constructor)) {
+        if (obj.__bbnIsProxy && (obj.__bbnParent === parent)) {
+          return obj;
+        }
+        if (parent && parent.$options && (parent.$options.name === 'bbn-loadbar')) {
+          bbn.fn.log(["MAKING bbn-loadbar", obj]);
+        }
+
+        if (!obj.__bbnWatchers) {
+          Reflect.defineProperty(obj, '__bbnWatchers', {
+            value: bbn.fn.createObject(),
+            writable: true,
+            configurable: true,
+            enumerable: false
+          });
+        }
+
+        const handler = {
+          get(target, key) {
+            const realValue = Reflect.get(target, key);
+            const realTarget = target.__bbnRoot || target;
+
+            if (bbn.fn.isSymbol(key)) {
+              return Reflect.get(realTarget, key);
+            }
+
+
+            const propName = parentProp ? parentProp + '.' + key : key;
+            const hiddenKey = prefix + (bbn.fn.isNumber(key) ? key.toString() : key);
+            
+            if (['fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'].includes(key) && bbn.fn.isArray(target)) {
+              return function(...args) {
+                let res = realTarget[key](...args);
+                bbn.fn.warning("DOING ARRAY STUFF");
+                bbn.fn.log(target.__bbnParent);
+                onSet(target, 'length', parent);
+                return res;
+
+              };
+            }
+
+            if (bbn.fn.isFunction(realValue)) {
+              return realValue;
+            }
+
+            if (key === '__bbnRoot') {
+              let root = obj;
+              while (root && root?.__bbnTarget) {
+                root = root.__bbnTarget;
+              }
+
+              return root;
+            }
+
+            if (key === '__bbnIsProxy') {
+              return true;
+            }
+
+            if (key === '__bbnTarget') {
+              return target
+            }
+
+            if (key === '__bbnParent') {
+              return parent;
+            }
+
+            if (key === '__bbnWatchers') {
+              return target.__bbnWatchers;
+            }
+
+            if (key.indexOf('__bbn_') === 0) {
+              return Reflect.get(target, key);
+            }
+        
+            if ((key === 'length') && bbn.fn.isArray(target.__bbnRoot || target)) {
+              return realTarget.length;
+            }
+ 
+            if (!Object.hasOwn(target, key)) {
+              return realValue
+            }
+
+            if (realValue && (typeof realValue === 'object') && [undefined, Object, Array].includes(realValue.constructor)) {
+              if (realValue.__bbnIsProxy && (realValue.__bbnParent === parent)) {
+                return realTarget[hiddenKey];
+              }
+
+              if (!Object.hasOwn(realTarget, hiddenKey)) {
+                Reflect.defineProperty(realTarget, hiddenKey, {
+                  value: bbn.fn.makeReactive(realValue, onSet, parent, propName),
+                  writable: true,
+                  configurable: true,
+                  enumerable: false
+                });
+              }
+              if (realTarget[hiddenKey].__bbnIsProxy && !realTarget.__bbnWatchers[parentString]) {
+                realTarget.__bbnWatchers[parentString] = propName;
+              }
+
+              return realTarget[hiddenKey];
+            }
+
+            return realValue;
+          },
+          set(target, key, value) {
+            if (bbn.fn.isSymbol(key)) {
+              return Reflect.get(target, key, value);
+            }
+            
+            const realTarget = target.__bbnRoot || target;
+            const propName = parentProp ? parentProp + '.' + key : key;
+            if (bbn.fn.isSymbol(key)) {
+              return Reflect.get(target, key);
+            }
+
+            if (parent && parent.$options && (parent.$options.name === 'bbn-loadbar')) {
+              bbn.fn.log(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
+            }
+
+            if (!bbn.fn.isSame(realTarget[key], value)) {
+              if (key.indexOf('__bbn_') === 0) {
+                Reflect.defineProperty(realTarget, key, {
+                  value: bbn.fn.makeReactive(value, onSet, parent, propName),
+                  writable: true,
+                  configurable: true,
+                  enumerable: false
+                });
+              }
+              else {
+                if (value && (typeof value === 'object') && [undefined, Object, Array].includes(value.constructor)) {
+                  const hiddenKey = prefix + (bbn.fn.isNumber(key) ? key.toString() : key);
+                  Reflect.defineProperty(realTarget, hiddenKey, {
+                    value: bbn.fn.makeReactive(value, onSet, parent, propName),
+                    writable: true,
+                    configurable: true,
+                    enumerable: false
+                  });
+                  if (realTarget[hiddenKey].__bbnIsProxy && !realTarget.__bbnWatchers[parentString]) {
+                    realTarget.__bbnWatchers[parentString] = propName;
+                  }
+                }
+              }
+
+              if (parent && parent.$options && (parent.$options.name === 'bbn-loadbar')) {
+                bbn.fn.log(['Setting proxy prop in ' + parent.$options.name  + ' ' + (bbn.fn.isNumber(key) ? key.toString() : key), value, target]);
+              }
+
+              Reflect.set(realTarget, key, value);
+              onSet(target, key, parent);
+            }
+  
+            return true;
+          },
+          defineProperty(target, key, description) {
+            const realTarget = target;
+            const propName = parentProp ? parentProp + '.' + key : key;
+            if ((key === '__bbnWatchers') || bbn.fn.isSymbol(key) || (key.indexOf('__bbn_') === 0)) {
+              Reflect.defineProperty(realTarget, key, description);
+            }
+            else {
+              const hiddenKey = prefix + (bbn.fn.isNumber(key) ? key.toString() : key);
+              Reflect.defineProperty(realTarget, hiddenKey, {
+                value: bbn.fn.makeReactive(description.value, onSet, parent, propName),
+                writable: true,
+                configurable: true,
+                enumerable: false
+              });
+            }
+
+            onSet(target, key, parent);
+            return true;
+          },
+          deleteProperty(target, key) {
+            const realTarget = target;
+            if (key.indexOf('__bbn_') === 0) {
+              Reflect.deleteProperty(realTarget, key);
+            }
+            else {
+              const hiddenKey = prefix + (bbn.fn.isNumber(key) ? key.toString() : key);
+              Reflect.deleteProperty(realTarget, hiddenKey);
+              Reflect.deleteProperty(target, key);
+            }
+
+            return true;
+          }
+        };
+  
+        return (new Proxy(obj, handler));
+      }
+  
+      return obj;
+      
     },
 
 

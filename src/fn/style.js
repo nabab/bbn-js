@@ -82,6 +82,7 @@
         bbn.fn.iterate(colors, (v, n) => {
           bbn.var.colors[n] = v;
           sheet.insertRule('.bbn-' + n + ', .bbn-color-text-' + n + ' {color: ' + v + ' !important;}', i);
+          sheet.insertRule('svg.bbn-' + n + ', .bbn-' + n + ' svg, svg.bbn-color-text-' + n + ', .bbn-color-text-' + n + ' svg {fill: ' + v + ';}', i);
           sheet.insertRule('.bbn-bg-' + n + ', .bbn-color-bg-' + n + ', .bbn-color-background-' + n + ' {background-color: ' + v + ' !important;}', i);
           sheet.insertRule('.bbn-border-' + n + ', .bbn-color-border-' + n + ' {border-color: ' + v + ' !important;}', i);
           sheet.insertRule('.bbn-color-' + n + ' {border-color: ' + v + '; background-color: ' + v + '; color: ' + v + ';}', i);

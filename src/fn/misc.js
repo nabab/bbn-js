@@ -399,7 +399,7 @@
           bbn.fn.log(logs)
         }
 
-        throw new Error((msg ? msg + ' - ' : '') + bbn._("The value should be a %s", typesList.join(' ' + bbn._("8or a") + ' ')));
+        throw new Error((msg ? msg + ' - ' : '') + bbn._("The value should be a %s", typesList.join(' ' + bbn._("or a") + ' ')));
       }
     },
 
