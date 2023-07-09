@@ -20,7 +20,7 @@
     global.bbn = factory();
     global.exports = global;
   }
-  "hasOwn"in Object||(Object.hasOwn=Object.call.bind(Object.hasOwnProperty));
+  "hasOwn" in Object || (Object.hasOwn = Object.call.bind(Object.hasOwnProperty));
 }(
   this,
   () => {

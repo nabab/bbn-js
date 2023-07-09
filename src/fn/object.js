@@ -1078,11 +1078,11 @@
      * @returns  {Number} The number of properties
      */
     numProperties(obj) {
-      let i = 0;
       if (!obj || (typeof obj !== 'object')) {
-        return i;
+        return 0;
       }
-      return Object.keys(bbn.fn.removePrivateProp(obj)).length;
+
+      return Object.keys(obj).length;
     },
 
     /**
@@ -1124,18 +1124,30 @@
      * @param    {Object} obj2
      * @returns  {Boolean}
      */
-    isSame(obj1, obj2){
+    isSame(obj1, obj2, done){
+      if (!done) {
+        done = [];
+      }
+
       if ( obj1 === obj2 ){
         return true;
       }
-      if ( obj1 && obj2 && (typeof(obj1) === 'object') && (typeof(obj2) === 'object') ){
-        let tmp1 = Object.keys(bbn.fn.removePrivateProp(obj1)).sort(),
-            tmp2 = Object.keys(bbn.fn.removePrivateProp(obj2)).sort();
+      if (obj1 && obj2 && (typeof(obj1) === 'object') && (typeof(obj2) === 'object')) {
+        let tmp1 = Object.keys(obj1).sort(),
+            tmp2 = Object.keys(obj2).sort();
         // Case where the keys are different
-        if ( JSON.stringify(tmp1) !== JSON.stringify(tmp2) ){
+        if ( bbn.fn.hash(tmp1) !== bbn.fn.hash(tmp2) ){
           return false;
         }
         let ok = true;
+        if (obj1 && (typeof obj1 === 'object')) {
+          if (done.includes(obj1)) {
+            return ok;
+          }
+          
+          done.push(obj1);
+        }
+
         bbn.fn.each(tmp1, a => {
           if (!bbn.fn.isSame(obj1[a], obj2[a])) {
             ok = false;
@@ -1846,7 +1858,17 @@
           }
 
           visited.add(value);
+          if (![undefined, Object, Array].includes(value.constructor)) {
+            if (bbn.fn.isFunction(value.toString)) {
+              value = value.toString();
+            }
+            else if (value.constructor) {
+              value = value.constructor.toString();
+            }
+          }
+
         }
+
 
         return value;
       };
@@ -1858,6 +1880,7 @@
      * @returns {String}
      */
     hash(obj) {
+      //bbn.fn.log(obj);
       let st = 'bbn';
       for (let i in arguments) {
         if (arguments[i]) {
@@ -1865,7 +1888,7 @@
             st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
           }
           catch (e) {
-            st += '.';;
+            st += '.';
           }
         }
       }
