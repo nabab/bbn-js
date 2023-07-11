@@ -739,8 +739,8 @@
         }
       }
 
-      if (Object.hasOwn(bbn, 'wc')) {
-        return bbn.wc.isComponent(...arguments);
+      if (Object.hasOwn(bbn, 'cp')) {
+        return bbn.cp.isComponent(...arguments);
       }
 
       return true;
