@@ -100,7 +100,12 @@
       if (!url) {
         return;
       }
-      if ( url ){
+      if (url) {
+        if (url.indexOf('://') === -1) {
+          // Prevent protocol mismatch by Axios
+          url = bbn.fn.replaceAll("//", "/", url);
+        }
+
         if ( !datatype ){
           datatype = 'json';
         }
