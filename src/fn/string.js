@@ -6,6 +6,15 @@
 
 ;((bbn) => {
   "use strict";
+  const crc32Table = [];
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let j = 0; j < 8; j++) {
+      c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    }
+    crc32Table.push(c);
+  }
+
 
   /**
    * @var {Object} _private Misc variable for internal use
@@ -103,6 +112,46 @@
       }
       return bbn.fn.md5(st);
     },
+
+    /**
+     * CRC32 implementation.
+     */
+    crc32(str) {
+      let crc = 0 ^ (-1);
+      for (let i = 0; i < str.length; i++) {
+        const charCode = str.charCodeAt(i);
+        crc = (crc >>> 8) ^ crc32Table[(crc ^ charCode) & 0xFF];
+      }
+      return (crc ^ (-1)) >>> 0;  // Make sure the result is a 32-bit positive integer
+    },
+
+
+    simpleHash1(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0; // Convert to 32-bit integer
+      }
+      return hash;
+    },
+    
+    simpleHash2(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = char + (hash << 6) + (hash << 16) - hash;
+        hash |= 0; // Convert to 32-bit integer
+      }
+      return hash;
+    },
+    
+    simpleHash(str) {
+      const part1 = bbn.fn.simpleHash1(str).toString(16).padStart(8, '0');
+      const part2 = bbn.fn.simpleHash2(str).toString(16).padStart(8, '0');
+      return part1 + part2;
+    },
+    
 
     /**
      * Converts and returns the argument passed in a string in md5 format.
@@ -273,7 +322,7 @@
      * @returns  {String}
      */
     camelize(str){
-      return str.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset){
+      return str.replace(/^([A-Z])|[\s-](\w)/g, function(match, p1, p2, offset){
         if ( p2 ){
           return p2.toUpperCase();
         }

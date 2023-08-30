@@ -1129,7 +1129,7 @@
       let idx = bbn.fn.search(bbn.env.loaders, {key: requestId});
       if (idx > -1) {
         let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = bbn.fn. getRow(bbn.env.loadersHistory, {key: requestId, start: loader.start});
+        let history = bbn.fn.getRow(bbn.env.loadersHistory, {key: requestId, start: loader.start});
         if (history) {
           history.loading = false;
           history.duration = (new Date()).getTime() - loader.start;

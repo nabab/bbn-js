@@ -1447,6 +1447,14 @@
             out[key] = a;
           }
         });
+        if (args[i].__bbnNoData) {
+          Object.defineProperty(out, '__bbnNoData', {
+            value: true,
+            enumerable: false,
+            configurable: false,
+            writable: false
+          });
+        }
       }
       return out;
     },
@@ -1881,7 +1889,7 @@
      */
     hash(obj) {
       //bbn.fn.log(obj);
-      let st = 'bbn';
+      let st = '__bbn__';
       for (let i in arguments) {
         if (arguments[i]) {
           try {
@@ -1893,7 +1901,7 @@
         }
       }
 
-      return bbn.fn.md5(st);
+      return bbn.fn.simpleHash(st);
     },
     /**
      * Executes the provided function on each element of the given array.
