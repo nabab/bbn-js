@@ -1437,7 +1437,7 @@
               });
             }
             else if ( bbn.fn.isObject(a) ){
-              out[key] = bbn.fn.extend(true, out[key] && (typeof out[key] === 'object') ? out[key] : {}, a);
+              out[key] = bbn.fn.extend(true, out[key] && (typeof out[key] === 'object') ? out[key] : Object.create(Object.getPrototypeOf(a)), a);
             }
             else{
               out[key] = a;

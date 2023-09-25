@@ -367,7 +367,7 @@
      * 
      * @returns   
      */
-    link(){
+    link() {
       let cfg = bbn.fn.treatAjaxArguments(arguments),
           ok = 1;
       if ( cfg === true ){
@@ -993,6 +993,7 @@
       if ( idx > -1 ){
         return bbn.env.loaders[idx];
       }
+
       return false;
     },
 
@@ -1082,21 +1083,17 @@
         url: url,
         loader: prom,
         source: source,
+        loading: true,
+        error: false,
+        abort: false,
+        errorMessage: false,
+        success: false,
         start: tst
       };
       // Adding the loader in bbn.env.loaders
       bbn.env.loaders.push(loader);
       // Adding an object with this loader info in bbn.env.loadersHistory
-      bbn.env.loadersHistory.unshift({
-        key: requestId,
-        url: url,
-        loading: true,
-        start: tst,
-        error: false,
-        abort: false,
-        errorMessage: false,
-        success: false
-      });
+      bbn.env.loadersHistory.unshift(loader);
       /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
       let idx = bbn.env.loadersHistory.length;
       // Removing elements from the loadersHistory object if their number is higher
