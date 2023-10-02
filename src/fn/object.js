@@ -78,6 +78,56 @@
     },
 
     /**
+     * Returns the value of the given property from the given object.
+     * 
+     * Looks for the given property in the given object, accepting dot (.) separator 
+     * for deep property access, and returns its value if found and undefined otherwise.
+     *
+     * @method   getProperty
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: 2}, 'b');
+     * // 2
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+     * // 33
+     * ```
+     * @example
+     * ```javascript
+     * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+     * // undefined
+     * ```
+     * @memberof bbn.fn
+     * @param    {Object} obj
+     * @param    {String} prop
+     * @returns  {*}      The property's value or undefined
+     */
+    setProperty(obj, prop, value, force) {
+      if ( (typeof obj === 'object') && (typeof prop === 'string')){
+        let o = obj;
+        const bits = prop.split('.');
+        bbn.fn.each(bits, (v, i) => {
+          if (!o) {
+            if (!force) {
+              throw new Error(bbn._("The object is invalid"));
+            }
+            o = {};
+          }
+
+          if (bits.length - 1 === i) {
+            o[v] = value;
+          }
+          else {
+            o = o[v];
+          }
+        });
+      }
+    },
+
+    /**
      * Sorts an array of objects based on the given property.
      * 
      * The resulting array is the same object, the order is based on _compareValues function.
@@ -1866,11 +1916,20 @@
           }
 
           visited.add(value);
-          if (![undefined, Object, Array].includes(value.constructor)) {
-            if (bbn.fn.isFunction(value.toString)) {
-              value = value.toString();
+          if (![undefined, Object, Array, null].includes(value.constructor)) {
+            if (bbn.fn.isDom(value)) {
+              if (value.bbnId) {
+                value = '__BBN_DOM__' + value.tagName + '/' + value.bbnId + value.bbnHash;
+              }
+              else {
+                value = '__BBN_DOM__' + value.tagName + '/' + value.className;
+              }
             }
-            else if (value.constructor) {
+            else if (bbn.fn.isCp(value)) {
+              bbn.fn.log("IS CP")
+              value = '__BBN_CP__' + value.$options.name + '/' + value.$cid;
+            }
+            else {
               value = value.constructor.toString();
             }
           }
@@ -1892,12 +1951,28 @@
       let st = '__bbn__';
       for (let i in arguments) {
         if (arguments[i]) {
-          try {
-            st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+          let value = arguments[i];
+          if (bbn.fn.isDom(value)) {
+            if (value.bbnId) {
+              st += '__BBN_DOM__' + value.tagName + '/' + value.bbnId + value.bbnHash;
+            }
+            else {
+              st += '__BBN_DOM__' + value.tagName + '/' + value.className;
+            }
           }
-          catch (e) {
-            st += '.';
+          else if (bbn.fn.isCp(value)) {
+            bbn.fn.log("IS CP")
+            st += '__BBN_CP__' + value.$options.name + '/' + value.$cid;
           }
+          else {
+            try {
+              st += JSON.stringify(arguments[i], bbn.fn.circularReplacer());
+            }
+            catch (e) {
+              st += '.';
+            }
+          }
+
         }
       }
 

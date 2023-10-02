@@ -746,6 +746,25 @@
       return true;
     },
 
+    isCp(){
+      if (!arguments.length) {
+        return false;
+      }
+
+      if (!Object.hasOwn(bbn, 'cp')) {
+        return false;
+      }
+
+      for (let a of arguments) {
+        let res = bbn.cp.isComponent(a);
+        if (!res || bbn.fn.isDom(res) || !res.$el) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+
     /**
      * Returns true if the given argument is a percentage.
      * @method   isPercent
