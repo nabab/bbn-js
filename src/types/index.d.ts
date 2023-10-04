@@ -78,7 +78,8 @@ declare global {
     lng: Lng;
     fn: {
       [key: string]: (...args: any[]) => any;
-    };  
+    };
+    db?: object;
     vue?: object;
     cp?: object;
     _: (st: string, ...args: string[]) => string;

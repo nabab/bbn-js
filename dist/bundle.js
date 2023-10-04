@@ -497,6 +497,190 @@
         };
         exports.env = env;
     });
+    define("db", ["require", "exports", "_", "fn/each", "fn/iterate", "fn/log"], function (require, exports, _1, each_2, iterate_2, log_4) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.db = void 0;
+        const idb = indexedDB || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
+        const dbObject = function (dbName) {
+            const conn = db._connections[dbName];
+            const structure = db._structures[dbName];
+            this.insert = (table, data) => {
+                if (!Array.isArray(data)) {
+                    data = [data];
+                }
+                return new Promise(resolve => {
+                    const tx = conn.transaction(table, "readwrite");
+                    const store = tx.objectStore(table);
+                    let res = data.length;
+                    (0, each_2.each)(data, a => {
+                        const request = store.put(a);
+                        request.onerror = () => {
+                            (0, log_4.log)(request.error);
+                            res--;
+                        };
+                    });
+                    tx.onabort = () => {
+                        throw new Error(tx.error);
+                    };
+                    tx.oncomplete = () => {
+                        resolve(res);
+                    };
+                });
+            };
+            this.update = (table, data, where) => {
+                return new Promise(resolve => {
+                    const tx = conn.transaction(table, "readwrite");
+                    const store = tx.objectStore(table);
+                    const arch = structure[table];
+                    const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+                    if (!where[primary]) {
+                        throw new Error((0, _1._)("No "));
+                    }
+                    let res = 1;
+                    const request = store.put(data, where[primary]);
+                    request.onerror = () => {
+                        (0, log_4.log)(request.error);
+                        res--;
+                    };
+                    tx.onabort = () => {
+                        throw new Error(tx.error);
+                    };
+                    tx.oncomplete = () => {
+                        resolve(res);
+                    };
+                });
+            };
+            this.delete = (table, where) => {
+                return new Promise(resolve => {
+                    const tx = conn.transaction(table, "readwrite");
+                    const store = tx.objectStore(table);
+                    const arch = structure[table];
+                    const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+                    if (!where[primary]) {
+                        throw new Error((0, _1._)("No "));
+                    }
+                    let res = 1;
+                    const request = store.delete(where[primary]);
+                    request.onerror = () => {
+                        (0, log_4.log)(request.error);
+                        res--;
+                    };
+                    tx.onabort = () => {
+                        throw new Error(tx.error);
+                    };
+                    tx.oncomplete = () => {
+                        resolve(res);
+                    };
+                });
+            };
+            this.selectOne = (table, field, where, order, start, limit) => {
+                return new Promise(resolve => {
+                    this.select(table, [field], where, order, start, limit).then(d => {
+                        resolve(d[field] ?? undefined);
+                    });
+                });
+            };
+            this.select = (table, fields, where, order, start, limit) => {
+                const tx = conn.transaction(table, "readonly");
+                const store = tx.objectStore(table);
+                const arch = structure[table];
+                const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+                if (!where[primary]) {
+                    throw new Error((0, _1._)("No "));
+                }
+                return new Promise(resolve => {
+                    const req = store.get(where[primary]);
+                    req.onsuccess = () => {
+                        let obj = req.result;
+                        if (fields.length) {
+                            let res = {};
+                            (0, iterate_2.iterate)(obj, (v, n) => {
+                                if (fields.indexOf(n) > -1) {
+                                    res[n] = v;
+                                }
+                            });
+                            return resolve(res);
+                        }
+                        else {
+                            resolve(obj);
+                        }
+                    };
+                });
+            };
+            this.selectAll = (table, fields, where, order, start, limit) => {
+                const tx = conn.transaction(table, "read");
+                const store = tx.objectStore(table);
+                const arch = structure[table];
+                const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+                if (!where[primary]) {
+                    throw new Error((0, _1._)("No "));
+                }
+                return new Promise(resolve => {
+                    const req = store.get(structure.keys.PRIMARY);
+                });
+            };
+            this.getColumnValues = (table, field, where, order, start, limit) => {
+                return new Promise(resolve => {
+                    const tx = conn.transaction(table, "read");
+                    const store = tx.objectStore(table);
+                });
+            };
+            return this;
+        };
+        const db = {
+            _structures: {},
+            /* This variable should be set to true in debugging mode only */
+            _connections: {},
+            /* Address of the CDN (where this file should be hosted) */
+            _stores: {},
+            ok: idb !== undefined,
+            open(name) {
+                return new Promise((resolve) => {
+                    if (!db._connections[name]) {
+                        if (!db._structures[name]) {
+                            throw new Error((0, _1._)("Impossible to find a structure for the database %s", name));
+                        }
+                        const conn = idb.open(name);
+                        conn.onupgradeneeded = () => {
+                            (0, log_4.log)("UPGRADE NEEDED");
+                            const res = conn.result;
+                            (0, iterate_2.iterate)(db._structures[name], (structure, storeName) => {
+                                const primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
+                                const store = res.createObjectStore(storeName, { keyPath: primary });
+                                (0, iterate_2.iterate)(structure.keys, (a, n) => {
+                                    if (n !== 'PRIMARY') {
+                                        store.createIndex(n, a.columns.length > 1 ? a.columns : a.columns[0], {
+                                            unique: !!a.unique
+                                        });
+                                    }
+                                });
+                            });
+                        };
+                        conn.onsuccess = () => {
+                            db._connections[name] = conn.result;
+                            let obj = dbObject(name);
+                            resolve(obj);
+                        };
+                        return;
+                    }
+                    resolve(dbObject(db._connections[name]));
+                });
+            },
+            add(database, name, structure) {
+                if (structure?.keys?.PRIMARY && structure?.fields) {
+                    if (!db._structures[database]) {
+                        db._structures[database] = {};
+                    }
+                    db._structures[database][name] = structure;
+                }
+                else {
+                    throw new Error((0, _1._)("The database structure for %s is not valid (are there keys and field? Is there a primary?", name));
+                }
+            }
+        };
+        exports.db = db;
+    });
     define("fn/_addLoader", ["require", "exports", "fn/substr"], function (require, exports, substr_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -554,7 +738,7 @@
         };
         exports.getProperty = getProperty;
     });
-    define("fn/removeAccents", ["require", "exports", "fn/isString", "fn/log"], function (require, exports, isString_3, log_4) {
+    define("fn/removeAccents", ["require", "exports", "fn/isString", "fn/log"], function (require, exports, isString_3, log_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeAccents = void 0;
@@ -564,7 +748,7 @@
                     st = st.toString();
                 }
                 else {
-                    (0, log_4.log)(st);
+                    (0, log_5.log)(st);
                     throw new Error(bbn._('removeAccent expects a string'));
                 }
             }
@@ -731,7 +915,7 @@
         };
         exports.isCp = isCp;
     });
-    define("fn/circularReplacer", ["require", "exports", "fn/isDom", "fn/isCp", "fn/log"], function (require, exports, isDom_2, isCp_1, log_5) {
+    define("fn/circularReplacer", ["require", "exports", "fn/isDom", "fn/isCp", "fn/log"], function (require, exports, isDom_2, isCp_1, log_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.circularReplacer = void 0;
@@ -753,7 +937,7 @@
                             }
                         }
                         else if ((0, isCp_1.isCp)(value)) {
-                            (0, log_5.log)('IS CP');
+                            (0, log_6.log)('IS CP');
                             value = '__BBN_CP__' + value.$options.name + '/' + value.$cid;
                         }
                         else {
@@ -807,7 +991,7 @@
         };
         exports.simpleHash = simpleHash;
     });
-    define("fn/hash", ["require", "exports", "fn/log", "fn/isDom", "fn/isCp", "fn/circularReplacer", "fn/simpleHash"], function (require, exports, log_6, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
+    define("fn/hash", ["require", "exports", "fn/log", "fn/isDom", "fn/isCp", "fn/circularReplacer", "fn/simpleHash"], function (require, exports, log_7, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hash = void 0;
@@ -826,7 +1010,7 @@
                         }
                     }
                     else if ((0, isCp_2.isCp)(value)) {
-                        (0, log_6.log)('IS CP');
+                        (0, log_7.log)('IS CP');
                         st += '__BBN_CP__' + value.$options.name + '/' + value.$cid;
                     }
                     else {
@@ -843,7 +1027,7 @@
         };
         exports.hash = hash;
     });
-    define("fn/isSame", ["require", "exports", "fn/hash", "fn/each"], function (require, exports, hash_1, each_2) {
+    define("fn/isSame", ["require", "exports", "fn/hash", "fn/each"], function (require, exports, hash_1, each_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSame = void 0;
@@ -867,7 +1051,7 @@
                     }
                     done.push(obj1);
                 }
-                (0, each_2.each)(tmp1, (a) => {
+                (0, each_3.each)(tmp1, (a) => {
                     if (!isSame(obj1[a], obj2[a])) {
                         ok = false;
                         return false;
@@ -978,7 +1162,7 @@
         };
         exports.compare = compare;
     });
-    define("fn/compareConditions", ["require", "exports", "fn/isArray", "fn/each", "fn/compare", "fn/getProperty"], function (require, exports, isArray_3, each_3, compare_1, getProperty_2) {
+    define("fn/compareConditions", ["require", "exports", "fn/isArray", "fn/each", "fn/compare", "fn/getProperty"], function (require, exports, isArray_3, each_4, compare_1, getProperty_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compareConditions = void 0;
@@ -987,7 +1171,7 @@
                 throw new Error('Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects');
             }
             let ok = filter.logic === 'AND' ? true : false;
-            (0, each_3.each)(filter.conditions, (a) => {
+            (0, each_4.each)(filter.conditions, (a) => {
                 let comparator;
                 if (a.conditions && (0, isArray_3.isArray)(a.conditions)) {
                     comparator = compareConditions(data, a);
@@ -998,7 +1182,7 @@
                         let bits = a.field.split('.');
                         let prop = bits.pop();
                         if (bits.length) {
-                            (0, each_3.each)(bits, (b) => (data = data[b]));
+                            (0, each_4.each)(bits, (b) => (data = data[b]));
                         }
                         // Case where both are undefined: value and prop which doesn't exist; they are not the same!
                         if ((0, getProperty_2.getProperty)(data, prop) === undefined && a.value !== undefined) {
@@ -1021,7 +1205,7 @@
         };
         exports.compareConditions = compareConditions;
     });
-    define("fn/filterToConditions", ["require", "exports", "fn/isObject", "fn/isArray", "fn/iterate"], function (require, exports, isObject_2, isArray_4, iterate_2) {
+    define("fn/filterToConditions", ["require", "exports", "fn/isObject", "fn/isArray", "fn/iterate"], function (require, exports, isObject_2, isArray_4, iterate_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filterToConditions = void 0;
@@ -1031,7 +1215,7 @@
             }
             if (!filter.conditions || !(0, isArray_4.isArray)(filter.conditions)) {
                 let tmp = [];
-                (0, iterate_2.iterate)(filter, (a, n) => {
+                (0, iterate_3.iterate)(filter, (a, n) => {
                     if ((0, isObject_2.isObject)(a) && typeof a.conditions === 'object') {
                         tmp.push(filterToConditions(a));
                     }
@@ -1203,7 +1387,7 @@
         };
         exports.abort = abort;
     });
-    define("fn/filter", ["require", "exports", "fn/isArray", "fn/each", "fn/filterToConditions", "fn/compareConditions"], function (require, exports, isArray_5, each_4, filterToConditions_2, compareConditions_2) {
+    define("fn/filter", ["require", "exports", "fn/isArray", "fn/each", "fn/filterToConditions", "fn/compareConditions"], function (require, exports, isArray_5, each_5, filterToConditions_2, compareConditions_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filter = void 0;
@@ -1230,7 +1414,7 @@
                     throw new Error('Search function error: The prop argument should be a string or an object');
                 }
                 if (typeof (prop) === 'function') {
-                    (0, each_4.each)(arr, (a, i) => {
+                    (0, each_5.each)(arr, (a, i) => {
                         if (prop(a, i)) {
                             res.push(a);
                         }
@@ -1239,7 +1423,7 @@
                 else {
                     cfg = (0, filterToConditions_2.filterToConditions)(cfg, operator);
                     if (cfg.conditions && cfg.logic) {
-                        (0, each_4.each)(arr, (a) => {
+                        (0, each_5.each)(arr, (a) => {
                             if ((0, compareConditions_2.compareConditions)(a, cfg)) {
                                 res.push(a);
                             }
@@ -1251,12 +1435,12 @@
         };
         exports.filter = filter;
     });
-    define("fn/abortURL", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_5, filter_1) {
+    define("fn/abortURL", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_6, filter_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abortURL = void 0;
         const abortURL = function (url) {
-            (0, each_5.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
+            (0, each_6.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
                 if (a && a.source) {
                     a.source.cancel('Operation canceled by the user.');
                 }
@@ -1267,7 +1451,7 @@
         };
         exports.abortURL = abortURL;
     });
-    define("fn/addColors", ["require", "exports", "fn/numProperties", "fn/iterate"], function (require, exports, numProperties_3, iterate_3) {
+    define("fn/addColors", ["require", "exports", "fn/numProperties", "fn/iterate"], function (require, exports, numProperties_3, iterate_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addColors = void 0;
@@ -1281,7 +1465,7 @@
                 let sheet = element.sheet;
                 // Append style element to head
                 let i = 0;
-                (0, iterate_3.iterate)(colors, (v, n) => {
+                (0, iterate_4.iterate)(colors, (v, n) => {
                     bbn.vars.colors[n] = v;
                     sheet.insertRule('.bbn-' + n + ', .bbn-color-text-' + n + ' {color: ' + v + ' !important;}', i);
                     sheet.insertRule('svg.bbn-' +
@@ -1311,7 +1495,7 @@
         };
         exports.addColors = addColors;
     });
-    define("fn/addInputs", ["require", "exports", "fn/iterate"], function (require, exports, iterate_4) {
+    define("fn/addInputs", ["require", "exports", "fn/iterate"], function (require, exports, iterate_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addInputs = void 0;
@@ -1327,7 +1511,7 @@
                 params = JSON.parse(JSON.stringify(params || {}));
                 prefix = prefix || '';
                 if (params) {
-                    (0, iterate_4.iterate)(params, (param, key) => {
+                    (0, iterate_5.iterate)(params, (param, key) => {
                         let name = prefix ? `${prefix}[${key}]` : key;
                         if (param instanceof Date) {
                             appendToForm(name, param.toISOString());
@@ -1355,29 +1539,29 @@
         };
         exports.addInputs = addInputs;
     });
-    define("fn/addStyle", ["require", "exports", "fn/isObject", "fn/iterate"], function (require, exports, isObject_5, iterate_5) {
+    define("fn/addStyle", ["require", "exports", "fn/isObject", "fn/iterate"], function (require, exports, isObject_5, iterate_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addStyle = void 0;
         const addStyle = function (ele, o) {
             if ((0, isObject_5.isObject)(o)) {
-                (0, iterate_5.iterate)(o, (v, k) => {
+                (0, iterate_6.iterate)(o, (v, k) => {
                     ele.style[k] = v;
                 });
             }
         };
         exports.addStyle = addStyle;
     });
-    define("fn/adjustSize", ["require", "exports", "fn/each"], function (require, exports, each_6) {
+    define("fn/adjustSize", ["require", "exports", "fn/each"], function (require, exports, each_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustSize = void 0;
         const adjustSize = function (type, eles) {
             let max = 0, idx;
-            (0, each_6.each)(eles, (el) => {
+            (0, each_7.each)(eles, (el) => {
                 el.style[type] = 'auto';
             });
-            (0, each_6.each)(eles, (el, i) => {
+            (0, each_7.each)(eles, (el, i) => {
                 let rect = el.getBoundingClientRect(), s = rect[type] % 1 ? rect[type] - (rect[type] % 1) + 1 : rect[type];
                 //s = rect[type];
                 if (s > max) {
@@ -1385,7 +1569,7 @@
                     idx = i;
                 }
             });
-            (0, each_6.each)(eles, (el, i) => {
+            (0, each_7.each)(eles, (el, i) => {
                 if (max) {
                     el.style[type] = max + 'px';
                 }
@@ -1563,14 +1747,14 @@
         };
         exports.md5 = md5;
     });
-    define("fn/getRequestId", ["require", "exports", "fn/iterate", "fn/md5"], function (require, exports, iterate_6, md5_1) {
+    define("fn/getRequestId", ["require", "exports", "fn/iterate", "fn/md5"], function (require, exports, iterate_7, md5_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getRequestId = void 0;
         const getRequestId = function (url, data, datatype) {
             let d = {};
             if (data) {
-                (0, iterate_6.iterate)(data, (a, n) => {
+                (0, iterate_7.iterate)(data, (a, n) => {
                     if (n.indexOf('_bbn') === -1) {
                         d[n] = a;
                     }
@@ -1580,7 +1764,7 @@
         };
         exports.getRequestId = getRequestId;
     });
-    define("fn/extend", ["require", "exports", "fn/iterate", "fn/isArray", "fn/each", "fn/isObject"], function (require, exports, iterate_7, isArray_6, each_7, isObject_7) {
+    define("fn/extend", ["require", "exports", "fn/iterate", "fn/isArray", "fn/each", "fn/isObject"], function (require, exports, iterate_8, isArray_6, each_8, isObject_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extend = void 0;
@@ -1606,11 +1790,11 @@
             }
             let out = args[0];
             for (let i = 1; i < args.length; i++) {
-                (0, iterate_7.iterate)(args[i], (a, key) => {
+                (0, iterate_8.iterate)(args[i], (a, key) => {
                     if (deep) {
                         if ((0, isArray_6.isArray)(a)) {
                             out[key] = (0, isArray_6.isArray)(out[key]) ? out[key] : [];
-                            (0, each_7.each)(a, (b, i) => {
+                            (0, each_8.each)(a, (b, i) => {
                                 if (b && typeof b === 'object') {
                                     let tmp = out[key][i];
                                     if ((0, isArray_6.isArray)(b)) {
@@ -1670,12 +1854,12 @@
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
-    define("fn/defaultAjaxAbortFunction", ["require", "exports", "fn/log"], function (require, exports, log_7) {
+    define("fn/defaultAjaxAbortFunction", ["require", "exports", "fn/log"], function (require, exports, log_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
         const defaultAjaxAbortFunction = function (message, url = '') {
-            (0, log_7.log)(message);
+            (0, log_8.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
@@ -1973,13 +2157,13 @@
         };
         exports.arrayBuffer2String = arrayBuffer2String;
     });
-    define("fn/arrayFromProp", ["require", "exports", "fn/each", "fn/getProperty"], function (require, exports, each_8, getProperty_3) {
+    define("fn/arrayFromProp", ["require", "exports", "fn/each", "fn/getProperty"], function (require, exports, each_9, getProperty_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayFromProp = void 0;
         const arrayFromProp = function (arr, prop) {
             let r = [];
-            (0, each_8.each)(arr, (a, i) => {
+            (0, each_9.each)(arr, (a, i) => {
                 r.push((0, getProperty_3.getProperty)(a, prop));
             });
             return r;
@@ -2159,7 +2343,7 @@
         };
         exports.defaultAlertFunction = defaultAlertFunction;
     });
-    define("fn/callback", ["require", "exports", "fn/error", "fn/defaultLinkFunction", "fn/isFunction", "fn/log", "fn/defaultPostLinkFunction", "fn/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_8, defaultPostLinkFunction_1, defaultAlertFunction_1) {
+    define("fn/callback", ["require", "exports", "fn/error", "fn/defaultLinkFunction", "fn/isFunction", "fn/log", "fn/defaultPostLinkFunction", "fn/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_9, defaultPostLinkFunction_1, defaultAlertFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -2211,7 +2395,7 @@
                                 }
                             }
                             catch (e) {
-                                (0, log_8.log)(e, res);
+                                (0, log_9.log)(e, res);
                                 (0, error_2.error)((0, isFunction_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
@@ -2309,7 +2493,7 @@
         };
         exports.center = center;
     });
-    define("fn/checkPropsDetails", ["require", "exports", "fn/isArray", "fn/isObject", "fn/each", "fn/substr"], function (require, exports, isArray_7, isObject_9, each_9, substr_5) {
+    define("fn/checkPropsDetails", ["require", "exports", "fn/isArray", "fn/isObject", "fn/each", "fn/substr"], function (require, exports, isArray_7, isObject_9, each_10, substr_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsDetails = void 0;
@@ -2329,7 +2513,7 @@
             }
             if (!res.error) {
                 let check;
-                (0, each_9.each)(props, (varName) => {
+                (0, each_10.each)(props, (varName) => {
                     varName = varName.trim().split(':');
                     let type = varName[1] || false;
                     varName = varName[0];
@@ -2554,7 +2738,7 @@
         };
         exports.daysInMonth = daysInMonth;
     });
-    define("fn/deepPath", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_4, each_10, isArray_9) {
+    define("fn/deepPath", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_4, each_11, isArray_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deepPath = void 0;
@@ -2565,7 +2749,7 @@
                 res.push(idx);
                 return res;
             }
-            (0, each_10.each)(arr, (it, i) => {
+            (0, each_11.each)(arr, (it, i) => {
                 if ((0, isArray_9.isArray)(it[deepProperty])) {
                     let r = res.slice();
                     r.push(i);
@@ -2597,12 +2781,12 @@
         };
         exports.defaultConfirmFunction = defaultConfirmFunction;
     });
-    define("fn/defaultErrorFunction", ["require", "exports", "fn/log"], function (require, exports, log_9) {
+    define("fn/defaultErrorFunction", ["require", "exports", "fn/log"], function (require, exports, log_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultErrorFunction = void 0;
         const defaultErrorFunction = function (message) {
-            (0, log_9.log)(message);
+            (0, log_10.log)(message);
         };
         exports.defaultErrorFunction = defaultErrorFunction;
     });
@@ -2818,7 +3002,7 @@
         };
         exports.isCanvas = isCanvas;
     });
-    define("fn/downloadContent", ["require", "exports", "fn/isCanvas", "fn/isObject", "fn/isString", "fn/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_10) {
+    define("fn/downloadContent", ["require", "exports", "fn/isCanvas", "fn/isObject", "fn/isString", "fn/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.downloadContent = void 0;
@@ -2853,7 +3037,7 @@
                     src = content;
                 }
                 catch (e) {
-                    (0, log_10.log)(e);
+                    (0, log_11.log)(e);
                 }
             }
             a.href = window.URL.createObjectURL(src);
@@ -2946,7 +3130,7 @@
         };
         exports.escapeTicks = escapeTicks;
     });
-    define("fn/escapeUrl", ["require", "exports", "fn/each", "fn/dirName", "fn/baseName", "fn/isString"], function (require, exports, each_11, dirName_1, baseName_2, isString_15) {
+    define("fn/escapeUrl", ["require", "exports", "fn/each", "fn/dirName", "fn/baseName", "fn/isString"], function (require, exports, each_12, dirName_1, baseName_2, isString_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeUrl = void 0;
@@ -2962,7 +3146,7 @@
                 st += '://';
                 url = url.substring(3);
             }
-            (0, each_11.each)((0, dirName_1.dirName)(url).split('/'), (a) => {
+            (0, each_12.each)((0, dirName_1.dirName)(url).split('/'), (a) => {
                 st += encodeURIComponent(a) + '/';
             });
             let base = (0, baseName_2.baseName)(url);
@@ -3044,7 +3228,7 @@
         };
         exports.fieldValue = fieldValue;
     });
-    define("fn/findAll", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_5, each_12, isArray_10) {
+    define("fn/findAll", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_5, each_13, isArray_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.findAll = void 0;
@@ -3055,7 +3239,7 @@
                 res.push(arr[idx]);
                 start = idx + 1;
             }
-            (0, each_12.each)(arr, (it) => {
+            (0, each_13.each)(arr, (it) => {
                 if ((0, isArray_10.isArray)(it[deepProperty])) {
                     findAll(it[deepProperty], filter, deepProperty, res);
                 }
@@ -3163,7 +3347,7 @@
         };
         exports.formatSize = formatSize;
     });
-    define("fn/formdata", ["require", "exports", "fn/each", "fn/fieldValue", "fn/replaceAll", "fn/substr"], function (require, exports, each_13, fieldValue_1, replaceAll_3, substr_8) {
+    define("fn/formdata", ["require", "exports", "fn/each", "fn/fieldValue", "fn/replaceAll", "fn/substr"], function (require, exports, each_14, fieldValue_1, replaceAll_3, substr_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formdata = void 0;
@@ -3172,7 +3356,7 @@
             let res = {};
             let n;
             let v;
-            (0, each_13.each)($inputs, (input, i) => {
+            (0, each_14.each)($inputs, (input, i) => {
                 v = (0, fieldValue_1.fieldValue)(input);
                 if (v !== undefined && !input.disabled) {
                     let name = input.name;
@@ -3473,7 +3657,7 @@
         };
         exports.getDeviceType = getDeviceType;
     });
-    define("fn/getHTMLOfSelection", ["require", "exports", "fn/log"], function (require, exports, log_11) {
+    define("fn/getHTMLOfSelection", ["require", "exports", "fn/log"], function (require, exports, log_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHTMLOfSelection = void 0;
@@ -3482,9 +3666,9 @@
             let selection = window.getSelection();
             if (selection.rangeCount > 0) {
                 range = selection.getRangeAt(0);
-                (0, log_11.log)('RANGE', range);
+                (0, log_12.log)('RANGE', range);
                 let clonedSelection = range.cloneContents();
-                (0, log_11.log)('clonedSelection', clonedSelection);
+                (0, log_12.log)('clonedSelection', clonedSelection);
                 let div = document.createElement('div');
                 div.appendChild(clonedSelection);
                 return div.innerHTML;
@@ -3495,7 +3679,7 @@
         };
         exports.getHTMLOfSelection = getHTMLOfSelection;
     });
-    define("fn/getEventData", ["require", "exports", "fn/getHTMLOfSelection", "fn/each", "fn/defaultErrorFunction"], function (require, exports, getHTMLOfSelection_1, each_14, defaultErrorFunction_1) {
+    define("fn/getEventData", ["require", "exports", "fn/getHTMLOfSelection", "fn/each", "fn/defaultErrorFunction"], function (require, exports, getHTMLOfSelection_1, each_15, defaultErrorFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getEventData = void 0;
@@ -3533,7 +3717,7 @@
                 if (!done) {
                     let strings = [];
                     let num = dt.items.length;
-                    (0, each_14.each)(dt.items, (item, idx) => {
+                    (0, each_15.each)(dt.items, (item, idx) => {
                         let kind = item.kind;
                         let type = item.type;
                         if (kind === 'file') {
@@ -3612,7 +3796,7 @@
         };
         exports.getField = getField;
     });
-    define("fn/getFieldValues", ["require", "exports", "fn/checkType", "fn/filter", "fn/each"], function (require, exports, checkType_4, filter_3, each_15) {
+    define("fn/getFieldValues", ["require", "exports", "fn/checkType", "fn/filter", "fn/each"], function (require, exports, checkType_4, filter_3, each_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getFieldValues = void 0;
@@ -3622,7 +3806,7 @@
                 arr = (0, filter_3.filter)(arr, prop, val, operator);
             }
             let res = [];
-            (0, each_15.each)(arr, (a) => (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null));
+            (0, each_16.each)(arr, (a) => (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null));
             return res;
         };
         exports.getFieldValues = getFieldValues;
@@ -3760,7 +3944,7 @@
         };
         exports.getTimeoff = getTimeoff;
     });
-    define("fn/happy", ["require", "exports", "fn/log"], function (require, exports, log_12) {
+    define("fn/happy", ["require", "exports", "fn/log"], function (require, exports, log_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.happy = void 0;
@@ -3769,7 +3953,7 @@
                 _bbn_console_level: 3,
                 _bbn_console_style: 'color: white; background: green; font-size: 18px;',
             });
-            log_12.log.apply(this, args);
+            log_13.log.apply(this, args);
             return this;
         };
         exports.happy = happy;
@@ -3835,7 +4019,7 @@
         };
         exports.imgToBase64 = imgToBase64;
     });
-    define("fn/info", ["require", "exports", "fn/log"], function (require, exports, log_13) {
+    define("fn/info", ["require", "exports", "fn/log"], function (require, exports, log_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.info = void 0;
@@ -3845,7 +4029,7 @@
                 _bbn_console_level: 4,
                 _bbn_console_style: 'color: #EEE; background: blue; font-size: 12px;',
             });
-            log_13.log.apply(this, args);
+            log_14.log.apply(this, args);
             return this;
         };
         exports.info = info;
@@ -3985,7 +4169,7 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/link", ["require", "exports", "fn/treatAjaxArguments", "fn/getLoader", "fn/defaultPreLinkFunction", "fn/ajax", "fn/log", "fn/isObject", "fn/callback", "fn/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_14, isObject_15, callback_1, setNavigationVars_1) {
+    define("fn/link", ["require", "exports", "fn/treatAjaxArguments", "fn/getLoader", "fn/defaultPreLinkFunction", "fn/ajax", "fn/log", "fn/isObject", "fn/callback", "fn/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_15, isObject_15, callback_1, setNavigationVars_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
@@ -4059,12 +4243,12 @@
                     let errSt = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
                     return (0, ajax_2.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
                         if (!res) {
-                            (0, log_14.log)(errSt + bbn._('returned no answer'));
+                            (0, log_15.log)(errSt + bbn._('returned no answer'));
                         }
                         if ((0, isObject_15.isObject)(res)) {
                             // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
                             if (Object.keys(res).length === 0) {
-                                (0, log_14.log)(errSt + bbn._('returned an empty object'));
+                                (0, log_15.log)(errSt + bbn._('returned an empty object'));
                             }
                             if (res.new_url) {
                                 res.old_path = cfg.url;
@@ -4137,7 +4321,7 @@
         };
         exports.submit = submit;
     });
-    define("fn/resize", ["require", "exports", "fn/getCssVar", "fn/each", "fn/defaultResizeFunction"], function (require, exports, getCssVar_1, each_16, defaultResizeFunction_1) {
+    define("fn/resize", ["require", "exports", "fn/getCssVar", "fn/each", "fn/defaultResizeFunction"], function (require, exports, getCssVar_1, each_17, defaultResizeFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.resize = void 0;
@@ -4159,7 +4343,7 @@
                 let newCls = 'bbn-screen-' + (bbn.env.width < smallWidth ? 'small' : 'regular');
                 let classes = (document.body.className || '').split(' ');
                 let done = false;
-                (0, each_16.each)(classes, (cls, idx) => {
+                (0, each_17.each)(classes, (cls, idx) => {
                     let bits = cls.split('-');
                     if (bits.length === 3 && cls.indexOf('bbn-screen-') === 0) {
                         done = true;
@@ -4205,7 +4389,7 @@
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/substr", "fn/each", "fn/extend", "fn/addColors", "fn/link", "fn/submit", "fn/resize", "fn/isMobile", "fn/isTabletDevice", "fn/defaultHistoryFunction", "fn/isFunction", "fn/log"], function (require, exports, substr_11, each_17, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_15) {
+    define("fn/init", ["require", "exports", "fn/substr", "fn/each", "fn/extend", "fn/addColors", "fn/link", "fn/submit", "fn/resize", "fn/isMobile", "fn/isTabletDevice", "fn/defaultHistoryFunction", "fn/isFunction", "fn/log"], function (require, exports, substr_11, each_18, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
@@ -4217,7 +4401,7 @@
                     bbn.env.root += '/';
                 }
                 if (!bbn.env.isInit && typeof dayjs !== 'undefined') {
-                    (0, each_17.each)([
+                    (0, each_18.each)([
                         'advancedFormat',
                         'arraySupport',
                         'badMutable',
@@ -4264,7 +4448,7 @@
                 bbn.env.path = (0, substr_11.substr)(bbn.env.url, bbn.env.root.length);
                 parts = bbn.env.path.split('/');
                 //$.each(parts, function(i, v){
-                (0, each_17.each)(parts, (v, i) => {
+                (0, each_18.each)(parts, (v, i) => {
                     v = decodeURI(v.trim());
                     if (v !== '') {
                         bbn.env.params.push(v);
@@ -4317,7 +4501,7 @@
                         return false;
                     }
                 });
-                (0, each_17.each)(document.querySelectorAll('form:not(.bbn-no), form:not(.bbn-form)'), (ele) => {
+                (0, each_18.each)(document.querySelectorAll('form:not(.bbn-no), form:not(.bbn-form)'), (ele) => {
                     ele.addEventListener('submit', (e) => {
                         (0, submit_1.submit)(ele, e);
                     });
@@ -4359,7 +4543,7 @@
                 bbn.env.isInit = true;
                 document.dispatchEvent(new Event('bbninit'));
                 if (bbn.env.logging) {
-                    (0, log_15.log)('Logging in bbn is enabled');
+                    (0, log_16.log)('Logging in bbn is enabled');
                 }
             }
         };
@@ -4554,7 +4738,7 @@
         };
         exports.isHostname = isHostname;
     });
-    define("fn/isInside", ["require", "exports", "fn/getAncestors", "fn/isString", "fn/each"], function (require, exports, getAncestors_1, isString_23, each_18) {
+    define("fn/isInside", ["require", "exports", "fn/getAncestors", "fn/isString", "fn/each"], function (require, exports, getAncestors_1, isString_23, each_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isInside = void 0;
@@ -4563,7 +4747,7 @@
             if (ancestors.length) {
                 if ((0, isString_23.isString)(ancestor)) {
                     let ok = false;
-                    (0, each_18.each)(ancestors, (a) => {
+                    (0, each_19.each)(ancestors, (a) => {
                         if (a.matches && a.matches(ancestor)) {
                             ok = true;
                             return false;
@@ -4627,13 +4811,13 @@
         };
         exports.isPromise = isPromise;
     });
-    define("fn/isPropSize", ["require", "exports", "fn/each"], function (require, exports, each_19) {
+    define("fn/isPropSize", ["require", "exports", "fn/each"], function (require, exports, each_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPropSize = void 0;
         const isPropSize = function (name) {
             let isTrue = false;
-            (0, each_19.each)(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], (a) => {
+            (0, each_20.each)(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], (a) => {
                 if (name.indexOf(a) !== -1) {
                     isTrue = true;
                     return false;
@@ -4772,7 +4956,7 @@
         };
         exports.lightenDarkenHex = lightenDarkenHex;
     });
-    define("fn/warning", ["require", "exports", "fn/log"], function (require, exports, log_16) {
+    define("fn/warning", ["require", "exports", "fn/log"], function (require, exports, log_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.warning = void 0;
@@ -4784,11 +4968,11 @@
                 _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
             };
             args.unshift(obj);
-            log_16.log.apply(this, args);
+            log_17.log.apply(this, args);
         };
         exports.warning = warning;
     });
-    define("fn/makeReactive", ["require", "exports", "fn/log", "fn/createObject", "fn/isSymbol", "fn/isNumber", "fn/isArray", "fn/warning", "fn/isFunction", "fn/isSame"], function (require, exports, log_17, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
+    define("fn/makeReactive", ["require", "exports", "fn/log", "fn/createObject", "fn/isSymbol", "fn/isNumber", "fn/isArray", "fn/warning", "fn/isFunction", "fn/isSame"], function (require, exports, log_18, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
@@ -4800,7 +4984,7 @@
                     return obj;
                 }
                 if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                    (0, log_17.log)(['MAKING bbn-loadbar', obj]);
+                    (0, log_18.log)(['MAKING bbn-loadbar', obj]);
                 }
                 if (!obj.__bbnWatchers) {
                     Reflect.defineProperty(obj, '__bbnWatchers', {
@@ -4824,7 +5008,7 @@
                             return function (...args) {
                                 let res = realTarget[key](...args);
                                 (0, warning_1.warning)('DOING ARRAY STUFF');
-                                (0, log_17.log)(target.__bbnParent);
+                                (0, log_18.log)(target.__bbnParent);
                                 onSet(target, 'length', parent);
                                 return res;
                             };
@@ -4891,7 +5075,7 @@
                             return Reflect.get(target, key);
                         }
                         if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                            (0, log_17.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
+                            (0, log_18.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
                         }
                         if (!(0, isSame_2.isSame)(realTarget[key], value)) {
                             if (key.indexOf('__bbn_') === 0) {
@@ -4919,7 +5103,7 @@
                                 }
                             }
                             if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                                (0, log_17.log)([
+                                (0, log_18.log)([
                                     'Setting proxy prop in ' +
                                         parent.$options.name +
                                         ' ' +
@@ -5141,7 +5325,7 @@
         };
         exports.nl2br = nl2br;
     });
-    define("fn/objectToFormData", ["require", "exports", "fn/isArray", "fn/each", "fn/isObject", "fn/iterate", "fn/isNull"], function (require, exports, isArray_15, each_20, isObject_16, iterate_8, isNull_3) {
+    define("fn/objectToFormData", ["require", "exports", "fn/isArray", "fn/each", "fn/isObject", "fn/iterate", "fn/isNull"], function (require, exports, isArray_15, each_21, isObject_16, iterate_9, isNull_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.objectToFormData = void 0;
@@ -5153,12 +5337,12 @@
                         formData.append(key, data);
                     }
                     else if ((0, isArray_15.isArray)(data)) {
-                        (0, each_20.each)(data, (v, i) => {
+                        (0, each_21.each)(data, (v, i) => {
                             appendFormData(v, key + '[' + i + ']');
                         });
                     }
                     else if ((0, isObject_16.isObject)(data) && Object.keys(data).length) {
-                        (0, iterate_8.iterate)(data, (v, i) => {
+                        (0, iterate_9.iterate)(data, (v, i) => {
                             if (i in data) {
                                 appendFormData(v, !key ? i : key + '[' + i + ']');
                             }
@@ -5497,12 +5681,12 @@
         };
         exports.rgb2hex = rgb2hex;
     });
-    define("fn/riterate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_9) {
+    define("fn/riterate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.riterate = void 0;
         const riterate = function (obj, fn, noPrivate) {
-            return (0, iterate_9.iterate)(obj, fn, noPrivate, true);
+            return (0, iterate_10.iterate)(obj, fn, noPrivate, true);
         };
         exports.riterate = riterate;
     });
@@ -5631,7 +5815,7 @@
         };
         exports.setProp = setProp;
     });
-    define("fn/setProperty", ["require", "exports", "fn/each"], function (require, exports, each_21) {
+    define("fn/setProperty", ["require", "exports", "fn/each"], function (require, exports, each_22) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setProperty = void 0;
@@ -5639,7 +5823,7 @@
             if (typeof obj === 'object' && typeof prop === 'string') {
                 let o = obj;
                 const bits = prop.split('.');
-                (0, each_21.each)(bits, (v, i) => {
+                (0, each_22.each)(bits, (v, i) => {
                     if (!o) {
                         if (!force) {
                             throw new Error(bbn._('The object is invalid'));
@@ -5677,13 +5861,13 @@
         };
         exports.shorten = shorten;
     });
-    define("fn/shortenObj", ["require", "exports", "fn/clone", "fn/each", "fn/isString", "fn/shorten"], function (require, exports, clone_1, each_22, isString_26, shorten_1) {
+    define("fn/shortenObj", ["require", "exports", "fn/clone", "fn/each", "fn/isString", "fn/shorten"], function (require, exports, clone_1, each_23, isString_26, shorten_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shortenObj = void 0;
         const shortenObj = function (obj, max = 100) {
             let o = (0, clone_1.clone)(obj);
-            (0, each_22.each)(o, (a, n) => {
+            (0, each_23.each)(o, (a, n) => {
                 if ((0, isString_26.isString)(a) && a.length > max) {
                     o[n] = (0, shorten_1.shorten)(a, max);
                 }
@@ -5713,7 +5897,7 @@
         };
         exports.shuffle = shuffle;
     });
-    define("fn/chrono", ["require", "exports", "fn/each"], function (require, exports, each_23) {
+    define("fn/chrono", ["require", "exports", "fn/each"], function (require, exports, each_24) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.stopChrono = exports.startChrono = void 0;
@@ -5722,7 +5906,7 @@
             let now = new Date().getTime();
             let h1 = 3600 * 1000;
             if (_private.length) {
-                (0, each_23.each)(_private, (t, n) => {
+                (0, each_24.each)(_private, (t, n) => {
                     if (now - t > h1) {
                         delete _private[n];
                     }
@@ -5809,13 +5993,13 @@
         };
         exports.string2ArrayBuffer = string2ArrayBuffer;
     });
-    define("fn/sum", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_24, filter_5) {
+    define("fn/sum", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_25, filter_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.sum = void 0;
         const sum = function (arr, numberProp, prop, val, operator) {
             let r = 0;
-            (0, each_24.each)((0, filter_5.filter)(arr, prop, val, operator), (a) => {
+            (0, each_25.each)((0, filter_5.filter)(arr, prop, val, operator), (a) => {
                 let tmp = typeof numberProp === 'function' ? numberProp(a) : a[numberProp];
                 if (tmp) {
                     r += parseFloat(tmp) || 0;
@@ -5835,7 +6019,7 @@
         };
         exports.timestamp = timestamp;
     });
-    define("fn/toCSV", ["require", "exports", "fn/each", "fn/isArray", "fn/replaceAll"], function (require, exports, each_25, isArray_17, replaceAll_7) {
+    define("fn/toCSV", ["require", "exports", "fn/each", "fn/isArray", "fn/replaceAll"], function (require, exports, each_26, isArray_17, replaceAll_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.toCSV = void 0;
@@ -5848,10 +6032,10 @@
             }
             let csvContent = '';
             let total = arr.length;
-            (0, each_25.each)(arr, (a, i) => {
+            (0, each_26.each)(arr, (a, i) => {
                 let num = (0, isArray_17.isArray)(a) ? a.length : Object.values(a).length;
                 let j = 0;
-                (0, each_25.each)(a, (b) => {
+                (0, each_26.each)(a, (b) => {
                     if (typeof b === 'string') {
                         csvContent += valEsc + (0, replaceAll_7.replaceAll)(valEsc, '\\' + valEsc, b) + valEsc;
                     }
@@ -5920,19 +6104,19 @@
         };
         exports.toggleFullScreen = toggleFullScreen;
     });
-    define("fn/translate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_10) {
+    define("fn/translate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.translate = void 0;
         const translate = function (o, namespace) {
             let lng = namespace ? bbn.lng[namespace.indexOf('_') === 0 ? namespace : '_' + namespace] : bbn.lng;
-            (0, iterate_10.iterate)(o, (v, k) => {
+            (0, iterate_11.iterate)(o, (v, k) => {
                 lng[k] = v;
             });
         };
         exports.translate = translate;
     });
-    define("fn/uniqString", ["require", "exports", "fn/isArray", "fn/each", "fn/md5"], function (require, exports, isArray_18, each_26, md5_3) {
+    define("fn/uniqString", ["require", "exports", "fn/isArray", "fn/each", "fn/md5"], function (require, exports, isArray_18, each_27, md5_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.uniqString = void 0;
@@ -5950,7 +6134,7 @@
                         // An object with the same properties, even in different order, should produce the same answer
                         let tmp = {};
                         let ks = Object.keys(args[i]).sort();
-                        (0, each_26.each)(ks, (k) => {
+                        (0, each_27.each)(ks, (k) => {
                             tmp[k] = args[i][k];
                         });
                         st += JSON.stringify(tmp);
@@ -5967,7 +6151,7 @@
         };
         exports.uniqString = uniqString;
     });
-    define("fn/upload", ["require", "exports", "fn/objectToFormData", "fn/log"], function (require, exports, objectToFormData_1, log_18) {
+    define("fn/upload", ["require", "exports", "fn/objectToFormData", "fn/log"], function (require, exports, objectToFormData_1, log_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.upload = void 0;
@@ -5992,13 +6176,13 @@
                 return fn()
                     .then((res) => {
                     if (success) {
-                        (0, log_18.log)('SUCCESS', res);
+                        (0, log_19.log)('SUCCESS', res);
                         success(res);
                     }
                 })
                     .catch((err) => {
                     if (failure) {
-                        (0, log_18.log)('ERROR', err);
+                        (0, log_19.log)('ERROR', err);
                         failure(err);
                     }
                 });
@@ -6006,7 +6190,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/_addLoader", "fn/_compareValues", "fn/_deleteLoader", "fn/abort", "fn/abortURL", "fn/addColors", "fn/addInputs", "fn/addStyle", "fn/adjustHeight", "fn/adjustSize", "fn/adjustWidth", "fn/ajax", "fn/analyzeFunction", "fn/animateCss", "fn/arrayBuffer2String", "fn/arrayFromProp", "fn/autoExtend", "fn/baseName", "fn/br2nl", "fn/calendar", "fn/callback", "fn/camelize", "fn/camelToCss", "fn/canvasToImage", "fn/center", "fn/checkProps", "fn/checkPropsDetails", "fn/checkPropsOrDie", "fn/checkType", "fn/circularReplacer", "fn/clone", "fn/colorToHex", "fn/compare", "fn/compareConditions", "fn/copy", "fn/correctCase", "fn/count", "fn/crc32", "fn/createObject", "fn/cssExists", "fn/date", "fn/dateSQL", "fn/daysInMonth", "fn/deepPath", "fn/defaultAjaxAbortFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAlertFunction", "fn/defaultConfirmFunction", "fn/defaultEndLoadingFunction", "fn/defaultErrorFunction", "fn/defaultHistoryFunction", "fn/defaultLinkFunction", "fn/defaultPostLinkFunction", "fn/defaultPreLinkFunction", "fn/defaultResizeFunction", "fn/defaultStartLoadingFunction", "fn/deleteProp", "fn/diffObj", "fn/dirName", "fn/download", "fn/downloadContent", "fn/each", "fn/eraseCookie", "fn/error", "fn/escapeDquotes", "fn/escapeRegExp", "fn/escapeSquotes", "fn/escapeTicks", "fn/escapeUrl", "fn/extend", "fn/extendOut", "fn/fdate", "fn/fdatetime", "fn/fieldValue", "fn/fileExt", "fn/filter", "fn/filterToConditions", "fn/findAll", "fn/fori", "fn/forir", "fn/format", "fn/formatBytes", "fn/formatDate", "fn/formatSize", "fn/formdata", "fn/fromXml", "fn/ftime", "fn/getAllTags", "fn/getAncestors", "fn/getAttributes", "fn/getBrowserName", "fn/getBrowserVersion", "fn/getCookie", "fn/getCssVar", "fn/getDay", "fn/getDeviceType", "fn/getEventData", "fn/getField", "fn/getFieldValues", "fn/getHtml", "fn/getHTMLOfSelection", "fn/getLoader", "fn/getPath", "fn/getProp", "fn/getProperty", "fn/getRequestId", "fn/getRow", "fn/getScrollBarSize", "fn/getText", "fn/getTimeoff", "fn/happy", "fn/hash", "fn/hex2rgb", "fn/history", "fn/html2text", "fn/imageToCanvas", "fn/imgToBase64", "fn/info", "fn/init", "fn/isActiveInterface", "fn/isArray", "fn/isBlob", "fn/isBoolean", "fn/isCanvas", "fn/isColor", "fn/isComment", "fn/isCp", "fn/isDate", "fn/isDesktopDevice", "fn/isDimension", "fn/isDom", "fn/isEmail", "fn/isEmpty", "fn/isEvent", "fn/isFocused", "fn/isFunction", "fn/isHostname", "fn/isInside", "fn/isInt", "fn/isIP", "fn/isIterable", "fn/isMobile", "fn/isMobileDevice", "fn/isNull", "fn/isNumber", "fn/isObject", "fn/isPercent", "fn/isPrimitive", "fn/isPromise", "fn/isPropSize", "fn/isSame", "fn/isSQLDate", "fn/isString", "fn/isSymbol", "fn/isTabletDevice", "fn/isURL", "fn/isValidDimension", "fn/isValidName", "fn/isValue", "fn/isVue", "fn/iterate", "fn/lightenDarkenHex", "fn/link", "fn/log", "fn/makeReactive", "fn/map", "fn/md5", "fn/money", "fn/move", "fn/multiorder", "fn/nl2br", "fn/numProperties", "fn/objectToFormData", "fn/order", "fn/outerHeight", "fn/outerWidth", "fn/percent", "fn/pickValue", "fn/post", "fn/postOut", "fn/printf", "fn/quotes2html", "fn/randomInt", "fn/randomString", "fn/removeAccents", "fn/removeEmpty", "fn/removeExtraSpaces", "fn/removeHtmlComments", "fn/removePrivateProp", "fn/removeTrailingChars", "fn/repeat", "fn/replaceAll", "fn/replaceSelection", "fn/resize", "fn/rgb2hex", "fn/riterate", "fn/roundDecimal", "fn/sanitize", "fn/search", "fn/selectElementText", "fn/selector", "fn/setCookie", "fn/setCssVar", "fn/setNavigationVars", "fn/setProp", "fn/setProperty", "fn/shorten", "fn/shortenObj", "fn/shuffle", "fn/simpleHash", "fn/simpleHash1", "fn/simpleHash2", "fn/chrono", "fn/stat", "fn/string2ArrayBuffer", "fn/submit", "fn/substr", "fn/sum", "fn/timestamp", "fn/toCSV", "fn/toggleFullScreen", "fn/translate", "fn/treatAjaxArguments", "fn/trim", "fn/uniqString", "fn/unique", "fn/upload", "fn/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_27, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_11, lightenDarkenHex_1, link_2, log_19, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, stat_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/_addLoader", "fn/_compareValues", "fn/_deleteLoader", "fn/abort", "fn/abortURL", "fn/addColors", "fn/addInputs", "fn/addStyle", "fn/adjustHeight", "fn/adjustSize", "fn/adjustWidth", "fn/ajax", "fn/analyzeFunction", "fn/animateCss", "fn/arrayBuffer2String", "fn/arrayFromProp", "fn/autoExtend", "fn/baseName", "fn/br2nl", "fn/calendar", "fn/callback", "fn/camelize", "fn/camelToCss", "fn/canvasToImage", "fn/center", "fn/checkProps", "fn/checkPropsDetails", "fn/checkPropsOrDie", "fn/checkType", "fn/circularReplacer", "fn/clone", "fn/colorToHex", "fn/compare", "fn/compareConditions", "fn/copy", "fn/correctCase", "fn/count", "fn/crc32", "fn/createObject", "fn/cssExists", "fn/date", "fn/dateSQL", "fn/daysInMonth", "fn/deepPath", "fn/defaultAjaxAbortFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAlertFunction", "fn/defaultConfirmFunction", "fn/defaultEndLoadingFunction", "fn/defaultErrorFunction", "fn/defaultHistoryFunction", "fn/defaultLinkFunction", "fn/defaultPostLinkFunction", "fn/defaultPreLinkFunction", "fn/defaultResizeFunction", "fn/defaultStartLoadingFunction", "fn/deleteProp", "fn/diffObj", "fn/dirName", "fn/download", "fn/downloadContent", "fn/each", "fn/eraseCookie", "fn/error", "fn/escapeDquotes", "fn/escapeRegExp", "fn/escapeSquotes", "fn/escapeTicks", "fn/escapeUrl", "fn/extend", "fn/extendOut", "fn/fdate", "fn/fdatetime", "fn/fieldValue", "fn/fileExt", "fn/filter", "fn/filterToConditions", "fn/findAll", "fn/fori", "fn/forir", "fn/format", "fn/formatBytes", "fn/formatDate", "fn/formatSize", "fn/formdata", "fn/fromXml", "fn/ftime", "fn/getAllTags", "fn/getAncestors", "fn/getAttributes", "fn/getBrowserName", "fn/getBrowserVersion", "fn/getCookie", "fn/getCssVar", "fn/getDay", "fn/getDeviceType", "fn/getEventData", "fn/getField", "fn/getFieldValues", "fn/getHtml", "fn/getHTMLOfSelection", "fn/getLoader", "fn/getPath", "fn/getProp", "fn/getProperty", "fn/getRequestId", "fn/getRow", "fn/getScrollBarSize", "fn/getText", "fn/getTimeoff", "fn/happy", "fn/hash", "fn/hex2rgb", "fn/history", "fn/html2text", "fn/imageToCanvas", "fn/imgToBase64", "fn/info", "fn/init", "fn/isActiveInterface", "fn/isArray", "fn/isBlob", "fn/isBoolean", "fn/isCanvas", "fn/isColor", "fn/isComment", "fn/isCp", "fn/isDate", "fn/isDesktopDevice", "fn/isDimension", "fn/isDom", "fn/isEmail", "fn/isEmpty", "fn/isEvent", "fn/isFocused", "fn/isFunction", "fn/isHostname", "fn/isInside", "fn/isInt", "fn/isIP", "fn/isIterable", "fn/isMobile", "fn/isMobileDevice", "fn/isNull", "fn/isNumber", "fn/isObject", "fn/isPercent", "fn/isPrimitive", "fn/isPromise", "fn/isPropSize", "fn/isSame", "fn/isSQLDate", "fn/isString", "fn/isSymbol", "fn/isTabletDevice", "fn/isURL", "fn/isValidDimension", "fn/isValidName", "fn/isValue", "fn/isVue", "fn/iterate", "fn/lightenDarkenHex", "fn/link", "fn/log", "fn/makeReactive", "fn/map", "fn/md5", "fn/money", "fn/move", "fn/multiorder", "fn/nl2br", "fn/numProperties", "fn/objectToFormData", "fn/order", "fn/outerHeight", "fn/outerWidth", "fn/percent", "fn/pickValue", "fn/post", "fn/postOut", "fn/printf", "fn/quotes2html", "fn/randomInt", "fn/randomString", "fn/removeAccents", "fn/removeEmpty", "fn/removeExtraSpaces", "fn/removeHtmlComments", "fn/removePrivateProp", "fn/removeTrailingChars", "fn/repeat", "fn/replaceAll", "fn/replaceSelection", "fn/resize", "fn/rgb2hex", "fn/riterate", "fn/roundDecimal", "fn/sanitize", "fn/search", "fn/selectElementText", "fn/selector", "fn/setCookie", "fn/setCssVar", "fn/setNavigationVars", "fn/setProp", "fn/setProperty", "fn/shorten", "fn/shortenObj", "fn/shuffle", "fn/simpleHash", "fn/simpleHash1", "fn/simpleHash2", "fn/chrono", "fn/stat", "fn/string2ArrayBuffer", "fn/submit", "fn/substr", "fn/sum", "fn/timestamp", "fn/toCSV", "fn/toggleFullScreen", "fn/translate", "fn/treatAjaxArguments", "fn/trim", "fn/uniqString", "fn/unique", "fn/upload", "fn/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_20, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, stat_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -6072,7 +6256,7 @@
             dirName: dirName_2.dirName,
             download: download_1.download,
             downloadContent: downloadContent_2.downloadContent,
-            each: each_27.each,
+            each: each_28.each,
             eraseCookie: eraseCookie_1.eraseCookie,
             error: error_4.error,
             escapeDquotes: escapeDquotes_1.escapeDquotes,
@@ -6171,10 +6355,10 @@
             isValidName: isValidName_1.isValidName,
             isValue: isValue_2.isValue,
             isVue: isVue_1.isVue,
-            iterate: iterate_11.iterate,
+            iterate: iterate_12.iterate,
             lightenDarkenHex: lightenDarkenHex_1.lightenDarkenHex,
             link: link_2.link,
-            log: log_19.log,
+            log: log_20.log,
             makeReactive: makeReactive_1.makeReactive,
             map: map_1.map,
             md5: md5_4.md5,
@@ -6243,7 +6427,7 @@
         };
         exports.fn = fn;
     });
-    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "fn"], function (require, exports, _1, _2, lng_1, vars_1, env_1, fn_1) {
+    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "db", "fn"], function (require, exports, _2, _3, lng_1, vars_1, env_1, db_1, fn_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.bbn = void 0;
@@ -6253,11 +6437,12 @@
                 _cat: {}
             },
             app: {},
-            _: _1._,
-            $: _2.$,
+            _: _2._,
+            $: _3.$,
             lng: lng_1.lng,
             vars: vars_1.vars,
             env: env_1.env,
+            db: db_1.db,
             fn: fn_1.fn
         };
         exports.bbn = bbn;

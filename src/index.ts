@@ -3,6 +3,7 @@ import {$} from './$';
 import {lng} from './lng';
 import {vars} from './vars';
 import {env} from './env';
+import {db} from './db';
 import {fn} from './fn';
 
 const bbn: Bbn = {
@@ -17,6 +18,7 @@ const bbn: Bbn = {
   lng,
   vars,
   env,
+  db,
   fn
 };
 
