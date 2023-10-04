@@ -8,6 +8,7 @@
     "/dist"
   ],
   "scripts": {
+    "publish": "tsc && tsc-bundle tsconfig.json && npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
