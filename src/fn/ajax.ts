@@ -112,7 +112,7 @@ const ajax = function (
 				}
 				return res;
 			})
-			.catch((err: bbnXQR) => {
+			.catch((err: bbnXHR) => {
 				let isAbort = axios.isCancel(err);
 				_deleteLoader(requestId, err.message || err.response.data, isAbort);
 				defaultEndLoadingFunction(url, tst, data, err);

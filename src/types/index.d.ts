@@ -137,7 +137,7 @@ declare global {
     errorTitle?: string;
   }
 
-  interface bbnXQR {
+  interface bbnXHR {
     error?: string;
     message?: string;
     request?: string;
@@ -151,7 +151,7 @@ declare global {
     CancelToken: {
       source: () => any
     };
-    isCancel: (a: bbnXQR) => boolean
+    isCancel: (a: bbnXHR) => boolean
     get: () => any;
     post: (url: string, data: object, options?: object) => any;
   }
