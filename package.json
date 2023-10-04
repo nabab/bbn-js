@@ -1,34 +1,30 @@
 {
-  "name": "@bbn/bbn-js",
-  "email": "contact@bbn.io",
-  "version": "1.0.2",
-  "description": "BBN JS",
-  "author": "BBN Solutions",
-  "keywords": [
-    "bbn"
+  "name": "@bbn/bbn",
+  "version": "1.0.48",
+  "description": "Javascript toolkit",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
   ],
-  "license": "MIT",
   "scripts": {
-    "clean": "rm -rf dist",
-    "prebuild": "npm run clean",
-    "build": "webpack",
-    "test": "nyc mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "main": "dist/bbn.js",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "define": "^1.0.1",
-    "dayjs": "^2.27.0"
-  },
+  "keywords": [
+    "toolkit"
+  ],
+  "author": "Thomas Nabet <thomas.nabet@gmail.com>",
+  "license": "ISC",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "file-loader": "^6.0.0",
-    "glob": "^7.1.6",
-    "jsdom": "^16.3.0",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^8.1.0",
-    "nyc": "^15.1.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^5.2.2"
+  },
+  "bugs": {
+    "url": "https://github.com/nabab/bbn-js/issues"
+  },
+  "homepage": "https://github.com/nabab/bbn-js#readme",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dayjs": "^1.11.10",
+    "typescript-bundle": "^1.0.18"
   }
 }
