@@ -15,7 +15,7 @@
     "toolkit"
   ],
   "author": "Thomas Nabet <thomas.nabet@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "typescript": "^5.2.2"
   },
@@ -27,5 +27,13 @@
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",
     "typescript-bundle": "^1.0.18"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nabab/bbn-js.git"
   }
 }
