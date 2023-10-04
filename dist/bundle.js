@@ -9,6 +9,47 @@
         Object.defineProperty(exports, "__cjsModule", { value: true });
         Object.defineProperty(exports, "default", { value: (name) => resolve(name) });
     });
+    define("fn/isArray", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.isArray = void 0;
+        const isArray = function (...args) {
+            if (!args.length)
+                return false;
+            for (let a of args) {
+                if (!Array.isArray(a)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        exports.isArray = isArray;
+    });
+    define("fn/isNumber", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.isNumber = void 0;
+        const isNumber = function (...args) {
+            if (!args.length)
+                return false;
+            for (let a of args) {
+                if (['boolean', 'object', 'symbol'].includes(typeof a) || a === '' || isNaN(a)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        exports.isNumber = isNumber;
+    });
+    define("fn/isIterable", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.isIterable = void 0;
+        const isIterable = function (v) {
+            return v && typeof v === 'object' && Symbol.iterator in Object(v);
+        };
+        exports.isIterable = isIterable;
+    });
     define("fn/isString", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -113,180 +154,7 @@
         };
         exports.substr = substr;
     });
-    define("fn/_addLoader", ["require", "exports", "fn/substr"], function (require, exports, substr_1) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports._addLoader = void 0;
-        const _addLoader = function (requestId, prom, source) {
-            /** @var {Number} tst Current timestamp */
-            let tst = (new Date()).getTime();
-            /** @var {String} url The original URL (part of requestId before : and md5) */
-            let url = (0, substr_1.substr)(requestId, 0, requestId.length - 33);
-            /** @var {Object} loader The loader object */
-            let loader = {
-                key: requestId,
-                url: url,
-                loader: prom,
-                source: source,
-                loading: true,
-                error: false,
-                abort: false,
-                errorMessage: false,
-                success: false,
-                start: tst
-            };
-            // Adding the loader in bbn.env.loaders
-            bbn.env.loaders.push(loader);
-            // Adding an object with this loader info in bbn.env.loadersHistory
-            bbn.env.loadersHistory.unshift(loader);
-            /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
-            let idx = bbn.env.loadersHistory.length;
-            // Removing elements from the loadersHistory object if their number is higher
-            // than bbn.env.maxLoadersHistory
-            while (idx && (bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory)) {
-                idx--;
-                // Not removing the ones still loading
-                if (!bbn.env.loading) {
-                    bbn.env.loadersHistory.splice(idx, 1);
-                }
-            }
-            return tst;
-        };
-        exports._addLoader = _addLoader;
-    });
-    define("fn/getProperty", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.getProperty = void 0;
-        const getProperty = function (obj, prop) {
-            if (typeof obj === 'object' && typeof prop === 'string') {
-                return prop.split('.').reduce((o, i) => {
-                    if (o) {
-                        return o[i];
-                    }
-                    return undefined;
-                }, obj);
-            }
-        };
-        exports.getProperty = getProperty;
-    });
-    define("fn/removeAccents", ["require", "exports", "fn/isString", "fn/log"], function (require, exports, isString_2, log_2) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.removeAccents = void 0;
-        const removeAccents = function (st) {
-            if (!(0, isString_2.isString)(st)) {
-                if (st.toString) {
-                    st = st.toString();
-                }
-                else {
-                    (0, log_2.log)(st);
-                    throw new Error(bbn._('removeAccent expects a string'));
-                }
-            }
-            return st.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        };
-        exports.removeAccents = removeAccents;
-    });
-    define("fn/isDate", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.isDate = void 0;
-        const isDate = function (...args) {
-            if (!args.length)
-                return false;
-            for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Date]') {
-                    return false;
-                }
-            }
-            return true;
-        };
-        exports.isDate = isDate;
-    });
-    define("fn/_compareValues", ["require", "exports", "fn/getProperty", "fn/isString", "fn/removeAccents", "fn/isDate"], function (require, exports, getProperty_1, isString_3, removeAccents_1, isDate_1) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports._compareValues = void 0;
-        const _compareValues = function (a, b, prop, dir = 'asc') {
-            let va = (0, getProperty_1.getProperty)(a, prop), vb = (0, getProperty_1.getProperty)(b, prop), ta = (typeof (va)).toLowerCase(), tb = (typeof (vb)).toLowerCase();
-            if ((dir !== 'asc') && (0, isString_3.isString)(dir) && (dir.toLowerCase() === 'desc')) {
-                dir = 'desc';
-            }
-            if (ta !== tb) {
-                va = ta;
-                vb = tb;
-            }
-            else {
-                switch (ta) {
-                    case 'string':
-                        va = (0, removeAccents_1.removeAccents)(va).toLowerCase();
-                        vb = (0, removeAccents_1.removeAccents)(vb).toLowerCase();
-                        break;
-                    case 'boolean':
-                        va = va ? 1 : 0;
-                        vb = vb ? 1 : 0;
-                        break;
-                    case 'object':
-                        if ((0, isDate_1.isDate)(va)) {
-                            va = va.getTime();
-                            vb = (0, isDate_1.isDate)(vb) ? vb.getTime() : 0;
-                        }
-                        break;
-                }
-            }
-            if (va < vb) {
-                return dir === 'desc' ? 1 : -1;
-            }
-            if (va > vb) {
-                return dir === 'desc' ? -1 : 1;
-            }
-            return 0;
-        };
-        exports._compareValues = _compareValues;
-    });
-    define("fn/isIterable", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.isIterable = void 0;
-        const isIterable = function (v) {
-            return v && typeof v === 'object' && Symbol.iterator in Object(v);
-        };
-        exports.isIterable = isIterable;
-    });
-    define("fn/isArray", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.isArray = void 0;
-        const isArray = function (...args) {
-            if (!args.length)
-                return false;
-            for (let a of args) {
-                if (!Array.isArray(a)) {
-                    return false;
-                }
-            }
-            return true;
-        };
-        exports.isArray = isArray;
-    });
-    define("fn/isNumber", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.isNumber = void 0;
-        const isNumber = function (...args) {
-            if (!args.length)
-                return false;
-            for (let a of args) {
-                if (['boolean', 'object', 'symbol'].includes(typeof a) || a === '' || isNaN(a)) {
-                    return false;
-                }
-            }
-            return true;
-        };
-        exports.isNumber = isNumber;
-    });
-    define("fn/removePrivateProp", ["require", "exports", "fn/substr"], function (require, exports, substr_2) {
+    define("fn/removePrivateProp", ["require", "exports", "fn/substr"], function (require, exports, substr_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removePrivateProp = void 0;
@@ -295,7 +163,7 @@
             if (typeof obj === 'object') {
                 r = {};
                 for (var n in obj) {
-                    if ((0, substr_2.substr)(n, 0, 1).match(/^[A-z0-9]$/) && (n in obj)) {
+                    if ((0, substr_1.substr)(n, 0, 1).match(/^[A-z0-9]$/) && (n in obj)) {
                         if (deep && typeof obj[n] === 'object') {
                             r[n] = removePrivateProp(obj[n], true);
                         }
@@ -354,6 +222,413 @@
         };
         exports.each = each;
     });
+    define("fn/correctCase", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.correctCase = void 0;
+        const correctCase = function (str) {
+            return str.replace(/[A-z]{1}/, (c) => c.toUpperCase());
+        };
+        exports.correctCase = correctCase;
+    });
+    define("fn/error", ["require", "exports", "fn/log"], function (require, exports, log_2) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.error = void 0;
+        const error = function (errorMsg) {
+            if (arguments.length > 1) {
+                const args = [];
+                for (let i = 1; i < arguments.length; i++) {
+                    args.push(arguments[i]);
+                }
+                args.unshift({
+                    _bbn_console_mode: 'error',
+                    _bbn_console_level: 1,
+                    _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
+                });
+                log_2.log.apply(this, args);
+            }
+            throw new Error(errorMsg);
+        };
+        exports.error = error;
+    });
+    define("fn/checkType", ["require", "exports", "fn/isArray", "fn/each", "fn/isFunction", "fn/isString", "fn/correctCase", "fn/error", "fn/log"], function (require, exports, isArray_1, each_1, isFunction_2, isString_2, correctCase_1, error_1, log_3) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.checkType = void 0;
+        const checkType = function (value, type, msg, ...logs) {
+            let ok = false;
+            if (!(0, isArray_1.isArray)(type)) {
+                type = [type];
+            }
+            const typesList = [];
+            (0, each_1.each)(type, (t) => {
+                if (t === String) {
+                    t = 'string';
+                }
+                else if (t === Number) {
+                    t = 'number';
+                }
+                else if (t === Array) {
+                    t = 'array';
+                }
+                else if (t === Boolean) {
+                    t = 'boolean';
+                }
+                else if (t === Object) {
+                    t = 'object';
+                }
+                else if (t === Function) {
+                    t = 'function';
+                }
+                if ((0, isFunction_2.isFunction)(t)) {
+                    typesList.push(t.name || t.constructor?.name || t.toString());
+                    if (value instanceof t) {
+                        ok = true;
+                        return false;
+                    }
+                }
+                else if (!(0, isString_2.isString)(t) || !(0, isFunction_2.isFunction)(bbn.fn['is' + (0, correctCase_1.correctCase)(t)])) {
+                    (0, error_1.error)(`The type ${t} is not recognized`);
+                }
+                else if (bbn.fn['is' + (0, correctCase_1.correctCase)(t)](value)) {
+                    ok = true;
+                    return false;
+                }
+                else {
+                    typesList.push(t);
+                }
+            });
+            if (!ok) {
+                (0, log_3.log)(['Value given', value, 'type', typeof value, 'expected', typesList.join(' or ')]);
+                if (logs.length) {
+                    (0, log_3.log)(logs);
+                }
+                throw new Error((msg ? msg + ' - ' : '') + bbn._('The value should be a %s', typesList.join(' ' + bbn._('or a') + ' ')));
+            }
+        };
+        exports.checkType = checkType;
+    });
+    define("_", ["require", "exports", "fn/checkType"], function (require, exports, checkType_1) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports._ = void 0;
+        /**
+         * Translate an expression using the object bbn.lng
+         *
+         * @param {String} st
+         * @returns {String}
+         */
+        const _ = (...args) => {
+            let st = args.shift();
+            let res = bbn.lng[st] || st;
+            if (args.length) {
+                let i = 0;
+                return res.replace(/\%([d|s])/g, (match, type) => {
+                    let tmp = args[i++];
+                    if (!tmp) {
+                        tmp = type === 'd' ? 0 : '';
+                    }
+                    (0, checkType_1.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value you gave did not correspond, check the loggg"));
+                    return tmp;
+                });
+            }
+            return res;
+        };
+        exports._ = _;
+    });
+    define("$", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.$ = void 0;
+        const $ = (selector, context) => {
+            if (context?.querySelectorAll) {
+                return context.querySelectorAll(selector);
+            }
+            return document.body.querySelectorAll(selector);
+        };
+        exports.$ = $;
+    });
+    define("lng", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.lng = void 0;
+        const lng = {
+            /* User-defined languages elements */
+            select_unselect_all: "Select/Clear all",
+            select_all: "Select all",
+            search: 'Search',
+            loading: 'Loading...',
+            choose: 'Choose',
+            error: 'Error',
+            server_response: 'Server response',
+            reload: 'Reload',
+            errorText: 'Something went wrong',
+            closeAll: "Close all",
+            closeOthers: "Close others",
+            pin: "Pin",
+            arrange: "Arrange",
+            cancel: "Cancel",
+            unpin: "Unpin",
+            yes: "Yes",
+            no: "No",
+            unknown: "Unknown",
+            untitled: "Untitled",
+            confirmation: "Confirmation",
+            Today: "Today",
+            Tomorrow: "Tomorrow",
+            Yesterday: "Yesterday"
+        };
+        exports.lng = lng;
+    });
+    define("vars", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.vars = void 0;
+        const vars = {
+            loggers: {
+                _num: 0
+            },
+            /* Usable datatypes through Ajax function */
+            datatypes: ['xml', 'html', 'script', 'json', 'jsonp', 'text', 'blob'],
+            /* The default value used by the function shorten */
+            shortenLen: 30,
+            /* Categorizing keyboard map */
+            keys: {
+                upDown: [33, 34, 35, 36, 38, 40],
+                leftRight: [36, 35, 37, 39],
+                dels: [8, 46, 45],
+                confirm: [13, 9],
+                alt: [20, 16, 17, 18, 144],
+                numbers: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105],
+                numsigns: [109, 110, 189, 190]
+            },
+            comparators: [">=", "<=", ">", "<", "="],
+            operators: ["+", "-", "/", "*"],
+            tags: ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'slot', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr'],
+            colors: {
+                darkgrey: '#5a6a62',
+                black: '#000000',
+                anthracite: '#454545',
+                grey: '#d3d3d3',
+                white: '#ffffff',
+                beige: '#fdfdfd',
+                lightgrey: '#dcdcdc',
+                pastelblue: '#ddebf6',
+                cyan: '#00c8f8',
+                blue: '#6e9ecf',
+                indigo: '#3f51b5',
+                navy: '#354458',
+                webblue: '#2196f3',
+                teal: '#009688',
+                turquoise: '#1fda9a',
+                pastelgreen: '#e2efda',
+                palegreen: '#ccffcc',
+                green: '#00a03e',
+                olive: '#92b06a',
+                pastelorange: '#fff2cc',
+                yellow: '#fdf200',
+                orange: '#ff9900',
+                pink: '#eb65a0',
+                purple: '#a333c8',
+                red: '#db3340',
+                brown: '#8c6954'
+            },
+            reserved: ['abstract', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'continue', 'const', 'debugger', 'default', 'delete', 'do', 'double', 'else', 'enum', 'export', 'extends', 'false', 'final', 'finally', 'float', 'for', 'function', 'goto', 'if', 'implements', 'import', 'in', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected', 'public', 'return', 'short', 'static', 'super', 'switch', 'synchronized', 'this', 'throw', 'throws', 'transient', 'true', 'try', 'typeof', 'var', 'void', 'while', 'with'],
+            mockText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            regexp: {
+                url: new RegExp('^(https?:\\/\\/)?' + // protocol
+                    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+                    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                    '(\\#[-a-z\\d_]*)?$', 'i'),
+                ip: /^((\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$/,
+                hostname: /^[a-z\d]([a-z\d-]{0,61}[a-z\d])?(\.[a-z\d]([a-z\d-]{0,61}[a-z\d])?)*$/i,
+            }
+        };
+        exports.vars = vars;
+    });
+    define("env", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.env = void 0;
+        const env = {
+            siteTitle: window.document.title,
+            /* This variable should be set to true in debugging mode only */
+            logging: false,
+            /* Address of the CDN (where this file should be hosted) */
+            cdn: '',
+            /* Default language */
+            lang: 'en',
+            host: window.location.protocol + '//' + window.location.hostname,
+            url: window.location.href,
+            old_path: null,
+            /* True when non asynchronous Ajax loads */
+            loading: false,
+            /* Window width */
+            width: 0,
+            /* Window height */
+            height: 0,
+            /* Element currently focused (Element object) */
+            focused: false,
+            /* Last time user has been active */
+            last_focus: (new Date()).getTime(),
+            /* Sleep mode (tab or window unfocused */
+            sleep: false,
+            /**
+             *  @var bbn.env.loaders Object where the props are MD5 of data and url while the values are the requests,
+             *  for preventing the same call to be made at the same time
+             **/
+            loaders: [],
+            loadersHistory: [],
+            maxLoadersHistory: 20,
+            /* bbn.env.params is an array of each element of the path */
+            resizeTimer: false,
+            hashChanged: 0,
+            params: [],
+            isInit: false,
+            isFocused: false,
+            timeoff: Math.round((new Date()).getTime() / 1000),
+            loggingLevel: 5,
+            ignoreUnload: false,
+            historyDisabled: false,
+            nav: 'ajax'
+        };
+        exports.env = env;
+    });
+    define("fn/_addLoader", ["require", "exports", "fn/substr"], function (require, exports, substr_2) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports._addLoader = void 0;
+        const _addLoader = function (requestId, prom, source) {
+            /** @var {Number} tst Current timestamp */
+            let tst = (new Date()).getTime();
+            /** @var {String} url The original URL (part of requestId before : and md5) */
+            let url = (0, substr_2.substr)(requestId, 0, requestId.length - 33);
+            /** @var {Object} loader The loader object */
+            let loader = {
+                key: requestId,
+                url: url,
+                loader: prom,
+                source: source,
+                loading: true,
+                error: false,
+                abort: false,
+                errorMessage: false,
+                success: false,
+                start: tst
+            };
+            // Adding the loader in bbn.env.loaders
+            bbn.env.loaders.push(loader);
+            // Adding an object with this loader info in bbn.env.loadersHistory
+            bbn.env.loadersHistory.unshift(loader);
+            /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
+            let idx = bbn.env.loadersHistory.length;
+            // Removing elements from the loadersHistory object if their number is higher
+            // than bbn.env.maxLoadersHistory
+            while (idx && (bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory)) {
+                idx--;
+                // Not removing the ones still loading
+                if (!bbn.env.loading) {
+                    bbn.env.loadersHistory.splice(idx, 1);
+                }
+            }
+            return tst;
+        };
+        exports._addLoader = _addLoader;
+    });
+    define("fn/getProperty", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.getProperty = void 0;
+        const getProperty = function (obj, prop) {
+            if (typeof obj === 'object' && typeof prop === 'string') {
+                return prop.split('.').reduce((o, i) => {
+                    if (o) {
+                        return o[i];
+                    }
+                    return undefined;
+                }, obj);
+            }
+        };
+        exports.getProperty = getProperty;
+    });
+    define("fn/removeAccents", ["require", "exports", "fn/isString", "fn/log"], function (require, exports, isString_3, log_4) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.removeAccents = void 0;
+        const removeAccents = function (st) {
+            if (!(0, isString_3.isString)(st)) {
+                if (st.toString) {
+                    st = st.toString();
+                }
+                else {
+                    (0, log_4.log)(st);
+                    throw new Error(bbn._('removeAccent expects a string'));
+                }
+            }
+            return st.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        exports.removeAccents = removeAccents;
+    });
+    define("fn/isDate", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.isDate = void 0;
+        const isDate = function (...args) {
+            if (!args.length)
+                return false;
+            for (let a of args) {
+                if ({}.toString.apply(a) !== '[object Date]') {
+                    return false;
+                }
+            }
+            return true;
+        };
+        exports.isDate = isDate;
+    });
+    define("fn/_compareValues", ["require", "exports", "fn/getProperty", "fn/isString", "fn/removeAccents", "fn/isDate"], function (require, exports, getProperty_1, isString_4, removeAccents_1, isDate_1) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports._compareValues = void 0;
+        const _compareValues = function (a, b, prop, dir = 'asc') {
+            let va = (0, getProperty_1.getProperty)(a, prop), vb = (0, getProperty_1.getProperty)(b, prop), ta = (typeof (va)).toLowerCase(), tb = (typeof (vb)).toLowerCase();
+            if ((dir !== 'asc') && (0, isString_4.isString)(dir) && (dir.toLowerCase() === 'desc')) {
+                dir = 'desc';
+            }
+            if (ta !== tb) {
+                va = ta;
+                vb = tb;
+            }
+            else {
+                switch (ta) {
+                    case 'string':
+                        va = (0, removeAccents_1.removeAccents)(va).toLowerCase();
+                        vb = (0, removeAccents_1.removeAccents)(vb).toLowerCase();
+                        break;
+                    case 'boolean':
+                        va = va ? 1 : 0;
+                        vb = vb ? 1 : 0;
+                        break;
+                    case 'object':
+                        if ((0, isDate_1.isDate)(va)) {
+                            va = va.getTime();
+                            vb = (0, isDate_1.isDate)(vb) ? vb.getTime() : 0;
+                        }
+                        break;
+                }
+            }
+            if (va < vb) {
+                return dir === 'desc' ? 1 : -1;
+            }
+            if (va > vb) {
+                return dir === 'desc' ? -1 : 1;
+            }
+            return 0;
+        };
+        exports._compareValues = _compareValues;
+    });
     define("fn/numProperties", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -366,7 +641,7 @@
         };
         exports.numProperties = numProperties;
     });
-    define("fn/isEmpty", ["require", "exports", "fn/isArray", "fn/numProperties"], function (require, exports, isArray_1, numProperties_1) {
+    define("fn/isEmpty", ["require", "exports", "fn/isArray", "fn/numProperties"], function (require, exports, isArray_2, numProperties_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEmpty = void 0;
@@ -374,7 +649,7 @@
             if (!obj) {
                 return true;
             }
-            if ((0, isArray_1.isArray)(obj)) {
+            if ((0, isArray_2.isArray)(obj)) {
                 return obj.length ? false : true;
             }
             if (typeof obj === 'object') {
@@ -456,7 +731,7 @@
         };
         exports.isCp = isCp;
     });
-    define("fn/circularReplacer", ["require", "exports", "fn/isDom", "fn/isCp", "fn/log"], function (require, exports, isDom_2, isCp_1, log_3) {
+    define("fn/circularReplacer", ["require", "exports", "fn/isDom", "fn/isCp", "fn/log"], function (require, exports, isDom_2, isCp_1, log_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.circularReplacer = void 0;
@@ -478,7 +753,7 @@
                             }
                         }
                         else if ((0, isCp_1.isCp)(value)) {
-                            (0, log_3.log)('IS CP');
+                            (0, log_5.log)('IS CP');
                             value = '__BBN_CP__' + value.$options.name + '/' + value.$cid;
                         }
                         else {
@@ -532,7 +807,7 @@
         };
         exports.simpleHash = simpleHash;
     });
-    define("fn/hash", ["require", "exports", "fn/log", "fn/isDom", "fn/isCp", "fn/circularReplacer", "fn/simpleHash"], function (require, exports, log_4, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
+    define("fn/hash", ["require", "exports", "fn/log", "fn/isDom", "fn/isCp", "fn/circularReplacer", "fn/simpleHash"], function (require, exports, log_6, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hash = void 0;
@@ -551,7 +826,7 @@
                         }
                     }
                     else if ((0, isCp_2.isCp)(value)) {
-                        (0, log_4.log)('IS CP');
+                        (0, log_6.log)('IS CP');
                         st += '__BBN_CP__' + value.$options.name + '/' + value.$cid;
                     }
                     else {
@@ -568,7 +843,7 @@
         };
         exports.hash = hash;
     });
-    define("fn/isSame", ["require", "exports", "fn/hash", "fn/each"], function (require, exports, hash_1, each_1) {
+    define("fn/isSame", ["require", "exports", "fn/hash", "fn/each"], function (require, exports, hash_1, each_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSame = void 0;
@@ -592,7 +867,7 @@
                     }
                     done.push(obj1);
                 }
-                (0, each_1.each)(tmp1, (a) => {
+                (0, each_2.each)(tmp1, (a) => {
                     if (!isSame(obj1[a], obj2[a])) {
                         ok = false;
                         return false;
@@ -703,18 +978,18 @@
         };
         exports.compare = compare;
     });
-    define("fn/compareConditions", ["require", "exports", "fn/isArray", "fn/each", "fn/compare", "fn/getProperty"], function (require, exports, isArray_2, each_2, compare_1, getProperty_2) {
+    define("fn/compareConditions", ["require", "exports", "fn/isArray", "fn/each", "fn/compare", "fn/getProperty"], function (require, exports, isArray_3, each_3, compare_1, getProperty_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compareConditions = void 0;
         const compareConditions = function (data, filter) {
-            if (!filter.conditions || !filter.logic || !(0, isArray_2.isArray)(filter.conditions)) {
+            if (!filter.conditions || !filter.logic || !(0, isArray_3.isArray)(filter.conditions)) {
                 throw new Error('Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects');
             }
             let ok = filter.logic === 'AND' ? true : false;
-            (0, each_2.each)(filter.conditions, (a) => {
+            (0, each_3.each)(filter.conditions, (a) => {
                 let comparator;
-                if (a.conditions && (0, isArray_2.isArray)(a.conditions)) {
+                if (a.conditions && (0, isArray_3.isArray)(a.conditions)) {
                     comparator = compareConditions(data, a);
                 }
                 else {
@@ -723,7 +998,7 @@
                         let bits = a.field.split('.');
                         let prop = bits.pop();
                         if (bits.length) {
-                            (0, each_2.each)(bits, (b) => (data = data[b]));
+                            (0, each_3.each)(bits, (b) => (data = data[b]));
                         }
                         // Case where both are undefined: value and prop which doesn't exist; they are not the same!
                         if ((0, getProperty_2.getProperty)(data, prop) === undefined && a.value !== undefined) {
@@ -746,7 +1021,7 @@
         };
         exports.compareConditions = compareConditions;
     });
-    define("fn/filterToConditions", ["require", "exports", "fn/isObject", "fn/isArray", "fn/iterate"], function (require, exports, isObject_2, isArray_3, iterate_2) {
+    define("fn/filterToConditions", ["require", "exports", "fn/isObject", "fn/isArray", "fn/iterate"], function (require, exports, isObject_2, isArray_4, iterate_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filterToConditions = void 0;
@@ -754,7 +1029,7 @@
             if (!(0, isObject_2.isObject)(filter)) {
                 throw new Error('Error in filterToCondition: filter must be an object');
             }
-            if (!filter.conditions || !(0, isArray_3.isArray)(filter.conditions)) {
+            if (!filter.conditions || !(0, isArray_4.isArray)(filter.conditions)) {
                 let tmp = [];
                 (0, iterate_2.iterate)(filter, (a, n) => {
                     if ((0, isObject_2.isObject)(a) && typeof a.conditions === 'object') {
@@ -928,12 +1203,12 @@
         };
         exports.abort = abort;
     });
-    define("fn/filter", ["require", "exports", "fn/isArray", "fn/each", "fn/filterToConditions", "fn/compareConditions"], function (require, exports, isArray_4, each_3, filterToConditions_2, compareConditions_2) {
+    define("fn/filter", ["require", "exports", "fn/isArray", "fn/each", "fn/filterToConditions", "fn/compareConditions"], function (require, exports, isArray_5, each_4, filterToConditions_2, compareConditions_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filter = void 0;
         const filter = function (arr, prop, val = null, operator = '=') {
-            if (!(0, isArray_4.isArray)(arr)) {
+            if (!(0, isArray_5.isArray)(arr)) {
                 bbn.fn.log("NOT ARRAY", arr);
                 throw new Error('Error in filter: The first argument must be an array');
             }
@@ -955,7 +1230,7 @@
                     throw new Error('Search function error: The prop argument should be a string or an object');
                 }
                 if (typeof (prop) === 'function') {
-                    (0, each_3.each)(arr, (a, i) => {
+                    (0, each_4.each)(arr, (a, i) => {
                         if (prop(a, i)) {
                             res.push(a);
                         }
@@ -964,7 +1239,7 @@
                 else {
                     cfg = (0, filterToConditions_2.filterToConditions)(cfg, operator);
                     if (cfg.conditions && cfg.logic) {
-                        (0, each_3.each)(arr, (a) => {
+                        (0, each_4.each)(arr, (a) => {
                             if ((0, compareConditions_2.compareConditions)(a, cfg)) {
                                 res.push(a);
                             }
@@ -976,12 +1251,12 @@
         };
         exports.filter = filter;
     });
-    define("fn/abortURL", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_4, filter_1) {
+    define("fn/abortURL", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_5, filter_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abortURL = void 0;
         const abortURL = function (url) {
-            (0, each_4.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
+            (0, each_5.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
                 if (a && a.source) {
                     a.source.cancel('Operation canceled by the user.');
                 }
@@ -1093,16 +1368,16 @@
         };
         exports.addStyle = addStyle;
     });
-    define("fn/adjustSize", ["require", "exports", "fn/each"], function (require, exports, each_5) {
+    define("fn/adjustSize", ["require", "exports", "fn/each"], function (require, exports, each_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustSize = void 0;
         const adjustSize = function (type, eles) {
             let max = 0, idx;
-            (0, each_5.each)(eles, (el) => {
+            (0, each_6.each)(eles, (el) => {
                 el.style[type] = 'auto';
             });
-            (0, each_5.each)(eles, (el, i) => {
+            (0, each_6.each)(eles, (el, i) => {
                 let rect = el.getBoundingClientRect(), s = rect[type] % 1 ? rect[type] - (rect[type] % 1) + 1 : rect[type];
                 //s = rect[type];
                 if (s > max) {
@@ -1110,7 +1385,7 @@
                     idx = i;
                 }
             });
-            (0, each_5.each)(eles, (el, i) => {
+            (0, each_6.each)(eles, (el, i) => {
                 if (max) {
                     el.style[type] = max + 'px';
                 }
@@ -1305,7 +1580,7 @@
         };
         exports.getRequestId = getRequestId;
     });
-    define("fn/extend", ["require", "exports", "fn/iterate", "fn/isArray", "fn/each", "fn/isObject"], function (require, exports, iterate_7, isArray_5, each_6, isObject_7) {
+    define("fn/extend", ["require", "exports", "fn/iterate", "fn/isArray", "fn/each", "fn/isObject"], function (require, exports, iterate_7, isArray_6, each_7, isObject_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extend = void 0;
@@ -1333,13 +1608,13 @@
             for (let i = 1; i < args.length; i++) {
                 (0, iterate_7.iterate)(args[i], (a, key) => {
                     if (deep) {
-                        if ((0, isArray_5.isArray)(a)) {
-                            out[key] = (0, isArray_5.isArray)(out[key]) ? out[key] : [];
-                            (0, each_6.each)(a, (b, i) => {
+                        if ((0, isArray_6.isArray)(a)) {
+                            out[key] = (0, isArray_6.isArray)(out[key]) ? out[key] : [];
+                            (0, each_7.each)(a, (b, i) => {
                                 if (b && typeof b === 'object') {
                                     let tmp = out[key][i];
-                                    if ((0, isArray_5.isArray)(b)) {
-                                        if (!(0, isArray_5.isArray)(tmp)) {
+                                    if ((0, isArray_6.isArray)(b)) {
+                                        if (!(0, isArray_6.isArray)(tmp)) {
                                             tmp = [];
                                         }
                                     }
@@ -1395,12 +1670,12 @@
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
-    define("fn/defaultAjaxAbortFunction", ["require", "exports", "fn/log"], function (require, exports, log_5) {
+    define("fn/defaultAjaxAbortFunction", ["require", "exports", "fn/log"], function (require, exports, log_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
         const defaultAjaxAbortFunction = function (message, url = '') {
-            (0, log_5.log)(message);
+            (0, log_7.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
@@ -1413,7 +1688,7 @@
         };
         exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
     });
-    define("fn/ajax", ["require", "exports", "fn/isObject", "fn/replaceAll", "fn/getRequestId", "fn/getLoader", "fn/extend", "fn/numProperties", "fn/_deleteLoader", "fn/defaultEndLoadingFunction", "fn/isFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAjaxAbortFunction", "fn/_addLoader", "fn/defaultStartLoadingFunction"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, defaultEndLoadingFunction_1, isFunction_2, defaultAjaxErrorFunction_1, defaultAjaxAbortFunction_1, _addLoader_1, defaultStartLoadingFunction_1) {
+    define("fn/ajax", ["require", "exports", "fn/isObject", "fn/replaceAll", "fn/getRequestId", "fn/getLoader", "fn/extend", "fn/numProperties", "fn/_deleteLoader", "fn/defaultEndLoadingFunction", "fn/isFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAjaxAbortFunction", "fn/_addLoader", "fn/defaultStartLoadingFunction"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, defaultEndLoadingFunction_1, isFunction_3, defaultAjaxErrorFunction_1, defaultAjaxAbortFunction_1, _addLoader_1, defaultStartLoadingFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ajax = void 0;
@@ -1480,7 +1755,7 @@
                     (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, res);
                     switch (res.status) {
                         case 200:
-                            if ((0, isFunction_2.isFunction)(success)) {
+                            if ((0, isFunction_3.isFunction)(success)) {
                                 success(res.data, res.headers);
                             }
                             break;
@@ -1495,7 +1770,7 @@
                     (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, err);
                     if (isAbort) {
                         let ok = 1;
-                        if ((0, isFunction_2.isFunction)(abort)) {
+                        if ((0, isFunction_3.isFunction)(abort)) {
                             ok = abort(err.message, url);
                         }
                         if (ok) {
@@ -1504,7 +1779,7 @@
                     }
                     else {
                         let ok = 1;
-                        if ((0, isFunction_2.isFunction)(failure)) {
+                        if ((0, isFunction_3.isFunction)(failure)) {
                             ok = failure(err.request, err);
                         }
                         if (ok) {
@@ -1698,13 +1973,13 @@
         };
         exports.arrayBuffer2String = arrayBuffer2String;
     });
-    define("fn/arrayFromProp", ["require", "exports", "fn/each", "fn/getProperty"], function (require, exports, each_7, getProperty_3) {
+    define("fn/arrayFromProp", ["require", "exports", "fn/each", "fn/getProperty"], function (require, exports, each_8, getProperty_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayFromProp = void 0;
         const arrayFromProp = function (arr, prop) {
             let r = [];
-            (0, each_7.each)(arr, (a, i) => {
+            (0, each_8.each)(arr, (a, i) => {
                 r.push((0, getProperty_3.getProperty)(a, prop));
             });
             return r;
@@ -1728,12 +2003,12 @@
         };
         exports.autoExtend = autoExtend;
     });
-    define("fn/baseName", ["require", "exports", "fn/isString", "fn/substr"], function (require, exports, isString_4, substr_3) {
+    define("fn/baseName", ["require", "exports", "fn/isString", "fn/substr"], function (require, exports, isString_5, substr_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.baseName = void 0;
         const baseName = function (path, suffix) {
-            if (path && (0, isString_4.isString)(path)) {
+            if (path && (0, isString_5.isString)(path)) {
                 let bits = path.split('/');
                 let res = bits.pop();
                 if (!suffix) {
@@ -1787,14 +2062,14 @@
         };
         exports.date = date;
     });
-    define("fn/fdatetime", ["require", "exports", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, date_1, isDate_3, isString_5) {
+    define("fn/fdatetime", ["require", "exports", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, date_1, isDate_3, isString_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdatetime = void 0;
         const fdatetime = function (d, wrong_result) {
             let r = (0, date_1.date)(d);
             if (!(0, isDate_3.isDate)(r)) {
-                return wrong_result && (0, isString_5.isString)(wrong_result) ? wrong_result : '';
+                return wrong_result && (0, isString_6.isString)(wrong_result) ? wrong_result : '';
             }
             if (undefined !== dayjs) {
                 //return dayjs(r).format('lll');
@@ -1812,7 +2087,7 @@
         };
         exports.fdatetime = fdatetime;
     });
-    define("fn/fdate", ["require", "exports", "fn/fdatetime", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdatetime_1, date_2, isDate_4, isString_6) {
+    define("fn/fdate", ["require", "exports", "fn/fdatetime", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdatetime_1, date_2, isDate_4, isString_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdate = void 0;
@@ -1823,7 +2098,7 @@
             }
             let r = (0, date_2.date)(d);
             if (!(0, isDate_4.isDate)(r)) {
-                return wrong_result && (0, isString_6.isString)(wrong_result) ? wrong_result : '';
+                return wrong_result && (0, isString_7.isString)(wrong_result) ? wrong_result : '';
             }
             if (undefined !== dayjs) {
                 return dayjs(r).format('L');
@@ -1832,7 +2107,7 @@
         };
         exports.fdate = fdate;
     });
-    define("fn/calendar", ["require", "exports", "fn/fdate", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdate_1, date_3, isDate_5, isString_7) {
+    define("fn/calendar", ["require", "exports", "fn/fdate", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdate_1, date_3, isDate_5, isString_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
@@ -1843,7 +2118,7 @@
             }
             let r = (0, date_3.date)(d);
             if (!(0, isDate_5.isDate)(r)) {
-                return wrong_result && (0, isString_7.isString)(wrong_result) ? wrong_result : '';
+                return wrong_result && (0, isString_8.isString)(wrong_result) ? wrong_result : '';
             }
             return dayjs(r).calendar(null, {
                 sameDay: '[' + bbn._('Today') + ']',
@@ -1855,27 +2130,6 @@
             });
         };
         exports.calendar = calendar;
-    });
-    define("fn/error", ["require", "exports", "fn/log"], function (require, exports, log_6) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.error = void 0;
-        const error = function (errorMsg) {
-            if (arguments.length > 1) {
-                const args = [];
-                for (let i = 1; i < arguments.length; i++) {
-                    args.push(arguments[i]);
-                }
-                args.unshift({
-                    _bbn_console_mode: 'error',
-                    _bbn_console_level: 1,
-                    _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
-                });
-                log_6.log.apply(this, args);
-            }
-            throw new Error(errorMsg);
-        };
-        exports.error = error;
     });
     define("fn/defaultLinkFunction", ["require", "exports"], function (require, exports) {
         "use strict";
@@ -1905,7 +2159,7 @@
         };
         exports.defaultAlertFunction = defaultAlertFunction;
     });
-    define("fn/callback", ["require", "exports", "fn/error", "fn/defaultLinkFunction", "fn/isFunction", "fn/log", "fn/defaultPostLinkFunction", "fn/defaultAlertFunction"], function (require, exports, error_1, defaultLinkFunction_1, isFunction_3, log_7, defaultPostLinkFunction_1, defaultAlertFunction_1) {
+    define("fn/callback", ["require", "exports", "fn/error", "fn/defaultLinkFunction", "fn/isFunction", "fn/log", "fn/defaultPostLinkFunction", "fn/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_8, defaultPostLinkFunction_1, defaultAlertFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -1922,7 +2176,7 @@
                         eval(res.prescript);
                     }
                     catch (e) {
-                        (0, error_1.error)(e.message || '');
+                        (0, error_2.error)(e.message || '');
                     }
                 }
                 if (isObj && res.url === undefined) {
@@ -1952,13 +2206,13 @@
                             let r = null;
                             try {
                                 r = eval(res.script);
-                                if ((0, isFunction_3.isFunction)(r)) {
+                                if ((0, isFunction_4.isFunction)(r)) {
                                     r = r(data, ele);
                                 }
                             }
                             catch (e) {
-                                (0, log_7.log)(e, res);
-                                (0, error_1.error)((0, isFunction_3.isFunction)(e.getMessage) ? e.getMessage() : null);
+                                (0, log_8.log)(e, res);
+                                (0, error_2.error)((0, isFunction_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
                         })(res.data ? res.data : {}, ele ? ele : false);
@@ -2055,7 +2309,7 @@
         };
         exports.center = center;
     });
-    define("fn/checkPropsDetails", ["require", "exports", "fn/isArray", "fn/isObject", "fn/each", "fn/substr"], function (require, exports, isArray_6, isObject_9, each_8, substr_5) {
+    define("fn/checkPropsDetails", ["require", "exports", "fn/isArray", "fn/isObject", "fn/each", "fn/substr"], function (require, exports, isArray_7, isObject_9, each_9, substr_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsDetails = void 0;
@@ -2067,7 +2321,7 @@
             if (typeof (props) === 'string') {
                 props = [props];
             }
-            if (!(0, isArray_6.isArray)(props)) {
+            if (!(0, isArray_7.isArray)(props)) {
                 res.error = bbn._('checkProps must receive a string or an array as props argument');
             }
             if (!(0, isObject_9.isObject)(obj)) {
@@ -2075,7 +2329,7 @@
             }
             if (!res.error) {
                 let check;
-                (0, each_8.each)(props, (varName) => {
+                (0, each_9.each)(props, (varName) => {
                     varName = varName.trim().split(':');
                     let type = varName[1] || false;
                     varName = varName[0];
@@ -2127,72 +2381,6 @@
             return true;
         };
         exports.checkPropsOrDie = checkPropsOrDie;
-    });
-    define("fn/correctCase", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.correctCase = void 0;
-        const correctCase = function (str) {
-            return str.replace(/[A-z]{1}/, (c) => c.toUpperCase());
-        };
-        exports.correctCase = correctCase;
-    });
-    define("fn/checkType", ["require", "exports", "fn/isArray", "fn/each", "fn/isFunction", "fn/isString", "fn/correctCase", "fn/error", "fn/log"], function (require, exports, isArray_7, each_9, isFunction_4, isString_8, correctCase_1, error_2, log_8) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.checkType = void 0;
-        const checkType = function (value, type, msg, ...logs) {
-            let ok = false;
-            if (!(0, isArray_7.isArray)(type)) {
-                type = [type];
-            }
-            const typesList = [];
-            (0, each_9.each)(type, (t) => {
-                if (t === String) {
-                    t = 'string';
-                }
-                else if (t === Number) {
-                    t = 'number';
-                }
-                else if (t === Array) {
-                    t = 'array';
-                }
-                else if (t === Boolean) {
-                    t = 'boolean';
-                }
-                else if (t === Object) {
-                    t = 'object';
-                }
-                else if (t === Function) {
-                    t = 'function';
-                }
-                if ((0, isFunction_4.isFunction)(t)) {
-                    typesList.push(t.name || t.constructor?.name || t.toString());
-                    if (value instanceof t) {
-                        ok = true;
-                        return false;
-                    }
-                }
-                else if (!(0, isString_8.isString)(t) || !(0, isFunction_4.isFunction)(bbn.fn['is' + (0, correctCase_1.correctCase)(t)])) {
-                    (0, error_2.error)(`The type ${t} is not recognized`);
-                }
-                else if (bbn.fn['is' + (0, correctCase_1.correctCase)(t)](value)) {
-                    ok = true;
-                    return false;
-                }
-                else {
-                    typesList.push(t);
-                }
-            });
-            if (!ok) {
-                (0, log_8.log)(['Value given', value, 'type', typeof value, 'expected', typesList.join(' or ')]);
-                if (logs.length) {
-                    (0, log_8.log)(logs);
-                }
-                throw new Error((msg ? msg + ' - ' : '') + bbn._('The value should be a %s', typesList.join(' ' + bbn._('or a') + ' ')));
-            }
-        };
-        exports.checkType = checkType;
     });
     define("fn/clone", ["require", "exports", "fn/isArray", "fn/isObject", "fn/extend"], function (require, exports, isArray_8, isObject_10, extend_3) {
         "use strict";
@@ -2445,13 +2633,13 @@
         };
         exports.defaultResizeFunction = defaultResizeFunction;
     });
-    define("fn/deleteProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_1) {
+    define("fn/deleteProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deleteProp = void 0;
         const deleteProp = function (obj, prop) {
-            (0, checkType_1.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
-            (0, checkType_1.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
+            (0, checkType_2.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
+            (0, checkType_2.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
             delete obj[prop];
         };
         exports.deleteProp = deleteProp;
@@ -2920,7 +3108,7 @@
         };
         exports.forir = forir;
     });
-    define("fn/format", ["require", "exports", "fn/checkType"], function (require, exports, checkType_2) {
+    define("fn/format", ["require", "exports", "fn/checkType"], function (require, exports, checkType_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.format = void 0;
@@ -2930,7 +3118,7 @@
                 let i = 0;
                 return str.replace(/\%([d|s])/g, (match, type) => {
                     let tmp = args[i++];
-                    (0, checkType_2.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value doesn't correspond to the format"));
+                    (0, checkType_3.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value doesn't correspond to the format"));
                     return tmp;
                 });
             }
@@ -3424,12 +3612,12 @@
         };
         exports.getField = getField;
     });
-    define("fn/getFieldValues", ["require", "exports", "fn/checkType", "fn/filter", "fn/each"], function (require, exports, checkType_3, filter_3, each_15) {
+    define("fn/getFieldValues", ["require", "exports", "fn/checkType", "fn/filter", "fn/each"], function (require, exports, checkType_4, filter_3, each_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getFieldValues = void 0;
         const getFieldValues = function (arr, field, prop, val, operator) {
-            (0, checkType_3.checkType)(field, 'string');
+            (0, checkType_4.checkType)(field, 'string');
             if (prop) {
                 arr = (0, filter_3.filter)(arr, prop, val, operator);
             }
@@ -3510,13 +3698,13 @@
         };
         exports.getPath = getPath;
     });
-    define("fn/getProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_4) {
+    define("fn/getProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getProp = void 0;
         const getProp = function (obj, prop) {
-            (0, checkType_4.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
-            (0, checkType_4.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
+            (0, checkType_5.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
+            (0, checkType_5.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
             return obj[prop];
         };
         exports.getProp = getProp;
@@ -5818,7 +6006,244 @@
         };
         exports.upload = upload;
     });
-    define("index", ["require", "exports", "fn/_addLoader", "fn/_compareValues", "fn/_deleteLoader", "fn/abort", "fn/abortURL", "fn/addColors", "fn/addInputs", "fn/addStyle", "fn/adjustHeight", "fn/adjustSize", "fn/adjustWidth", "fn/ajax", "fn/analyzeFunction", "fn/animateCss", "fn/arrayBuffer2String", "fn/arrayFromProp", "fn/autoExtend", "fn/baseName", "fn/br2nl", "fn/calendar", "fn/callback", "fn/camelize", "fn/camelToCss", "fn/canvasToImage", "fn/center", "fn/checkProps", "fn/checkPropsDetails", "fn/checkPropsOrDie", "fn/checkType", "fn/circularReplacer", "fn/clone", "fn/colorToHex", "fn/compare", "fn/compareConditions", "fn/copy", "fn/correctCase", "fn/count", "fn/crc32", "fn/createObject", "fn/cssExists", "fn/date", "fn/dateSQL", "fn/daysInMonth", "fn/deepPath", "fn/defaultAjaxAbortFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAlertFunction", "fn/defaultConfirmFunction", "fn/defaultEndLoadingFunction", "fn/defaultErrorFunction", "fn/defaultHistoryFunction", "fn/defaultLinkFunction", "fn/defaultPostLinkFunction", "fn/defaultPreLinkFunction", "fn/defaultResizeFunction", "fn/defaultStartLoadingFunction", "fn/deleteProp", "fn/diffObj", "fn/dirName", "fn/download", "fn/downloadContent", "fn/each", "fn/eraseCookie", "fn/error", "fn/escapeDquotes", "fn/escapeRegExp", "fn/escapeSquotes", "fn/escapeTicks", "fn/escapeUrl", "fn/extend", "fn/extendOut", "fn/fdate", "fn/fdatetime", "fn/fieldValue", "fn/fileExt", "fn/filter", "fn/filterToConditions", "fn/findAll", "fn/fori", "fn/forir", "fn/format", "fn/formatBytes", "fn/formatDate", "fn/formatSize", "fn/formdata", "fn/fromXml", "fn/ftime", "fn/getAllTags", "fn/getAncestors", "fn/getAttributes", "fn/getBrowserName", "fn/getBrowserVersion", "fn/getCookie", "fn/getCssVar", "fn/getDay", "fn/getDeviceType", "fn/getEventData", "fn/getField", "fn/getFieldValues", "fn/getHtml", "fn/getHTMLOfSelection", "fn/getLoader", "fn/getPath", "fn/getProp", "fn/getProperty", "fn/getRequestId", "fn/getRow", "fn/getScrollBarSize", "fn/getText", "fn/getTimeoff", "fn/happy", "fn/hash", "fn/hex2rgb", "fn/history", "fn/html2text", "fn/imageToCanvas", "fn/imgToBase64", "fn/info", "fn/init", "fn/isActiveInterface", "fn/isArray", "fn/isBlob", "fn/isBoolean", "fn/isCanvas", "fn/isColor", "fn/isComment", "fn/isCp", "fn/isDate", "fn/isDesktopDevice", "fn/isDimension", "fn/isDom", "fn/isEmail", "fn/isEmpty", "fn/isEvent", "fn/isFocused", "fn/isFunction", "fn/isHostname", "fn/isInside", "fn/isInt", "fn/isIP", "fn/isIterable", "fn/isMobile", "fn/isMobileDevice", "fn/isNull", "fn/isNumber", "fn/isObject", "fn/isPercent", "fn/isPrimitive", "fn/isPromise", "fn/isPropSize", "fn/isSame", "fn/isSQLDate", "fn/isString", "fn/isSymbol", "fn/isTabletDevice", "fn/isURL", "fn/isValidDimension", "fn/isValidName", "fn/isValue", "fn/isVue", "fn/iterate", "fn/lightenDarkenHex", "fn/link", "fn/log", "fn/makeReactive", "fn/map", "fn/md5", "fn/money", "fn/move", "fn/multiorder", "fn/nl2br", "fn/numProperties", "fn/objectToFormData", "fn/order", "fn/outerHeight", "fn/outerWidth", "fn/percent", "fn/pickValue", "fn/post", "fn/postOut", "fn/printf", "fn/quotes2html", "fn/randomInt", "fn/randomString", "fn/removeAccents", "fn/removeEmpty", "fn/removeExtraSpaces", "fn/removeHtmlComments", "fn/removePrivateProp", "fn/removeTrailingChars", "fn/repeat", "fn/replaceAll", "fn/replaceSelection", "fn/resize", "fn/rgb2hex", "fn/riterate", "fn/roundDecimal", "fn/sanitize", "fn/search", "fn/selectElementText", "fn/selector", "fn/setCookie", "fn/setCssVar", "fn/setNavigationVars", "fn/setProp", "fn/setProperty", "fn/shorten", "fn/shortenObj", "fn/shuffle", "fn/simpleHash", "fn/simpleHash1", "fn/simpleHash2", "fn/chrono", "fn/stat", "fn/string2ArrayBuffer", "fn/submit", "fn/substr", "fn/sum", "fn/timestamp", "fn/toCSV", "fn/toggleFullScreen", "fn/translate", "fn/treatAjaxArguments", "fn/trim", "fn/uniqString", "fn/unique", "fn/upload", "fn/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_5, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_27, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_11, lightenDarkenHex_1, link_2, log_19, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, stat_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/_addLoader", "fn/_compareValues", "fn/_deleteLoader", "fn/abort", "fn/abortURL", "fn/addColors", "fn/addInputs", "fn/addStyle", "fn/adjustHeight", "fn/adjustSize", "fn/adjustWidth", "fn/ajax", "fn/analyzeFunction", "fn/animateCss", "fn/arrayBuffer2String", "fn/arrayFromProp", "fn/autoExtend", "fn/baseName", "fn/br2nl", "fn/calendar", "fn/callback", "fn/camelize", "fn/camelToCss", "fn/canvasToImage", "fn/center", "fn/checkProps", "fn/checkPropsDetails", "fn/checkPropsOrDie", "fn/checkType", "fn/circularReplacer", "fn/clone", "fn/colorToHex", "fn/compare", "fn/compareConditions", "fn/copy", "fn/correctCase", "fn/count", "fn/crc32", "fn/createObject", "fn/cssExists", "fn/date", "fn/dateSQL", "fn/daysInMonth", "fn/deepPath", "fn/defaultAjaxAbortFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAlertFunction", "fn/defaultConfirmFunction", "fn/defaultEndLoadingFunction", "fn/defaultErrorFunction", "fn/defaultHistoryFunction", "fn/defaultLinkFunction", "fn/defaultPostLinkFunction", "fn/defaultPreLinkFunction", "fn/defaultResizeFunction", "fn/defaultStartLoadingFunction", "fn/deleteProp", "fn/diffObj", "fn/dirName", "fn/download", "fn/downloadContent", "fn/each", "fn/eraseCookie", "fn/error", "fn/escapeDquotes", "fn/escapeRegExp", "fn/escapeSquotes", "fn/escapeTicks", "fn/escapeUrl", "fn/extend", "fn/extendOut", "fn/fdate", "fn/fdatetime", "fn/fieldValue", "fn/fileExt", "fn/filter", "fn/filterToConditions", "fn/findAll", "fn/fori", "fn/forir", "fn/format", "fn/formatBytes", "fn/formatDate", "fn/formatSize", "fn/formdata", "fn/fromXml", "fn/ftime", "fn/getAllTags", "fn/getAncestors", "fn/getAttributes", "fn/getBrowserName", "fn/getBrowserVersion", "fn/getCookie", "fn/getCssVar", "fn/getDay", "fn/getDeviceType", "fn/getEventData", "fn/getField", "fn/getFieldValues", "fn/getHtml", "fn/getHTMLOfSelection", "fn/getLoader", "fn/getPath", "fn/getProp", "fn/getProperty", "fn/getRequestId", "fn/getRow", "fn/getScrollBarSize", "fn/getText", "fn/getTimeoff", "fn/happy", "fn/hash", "fn/hex2rgb", "fn/history", "fn/html2text", "fn/imageToCanvas", "fn/imgToBase64", "fn/info", "fn/init", "fn/isActiveInterface", "fn/isArray", "fn/isBlob", "fn/isBoolean", "fn/isCanvas", "fn/isColor", "fn/isComment", "fn/isCp", "fn/isDate", "fn/isDesktopDevice", "fn/isDimension", "fn/isDom", "fn/isEmail", "fn/isEmpty", "fn/isEvent", "fn/isFocused", "fn/isFunction", "fn/isHostname", "fn/isInside", "fn/isInt", "fn/isIP", "fn/isIterable", "fn/isMobile", "fn/isMobileDevice", "fn/isNull", "fn/isNumber", "fn/isObject", "fn/isPercent", "fn/isPrimitive", "fn/isPromise", "fn/isPropSize", "fn/isSame", "fn/isSQLDate", "fn/isString", "fn/isSymbol", "fn/isTabletDevice", "fn/isURL", "fn/isValidDimension", "fn/isValidName", "fn/isValue", "fn/isVue", "fn/iterate", "fn/lightenDarkenHex", "fn/link", "fn/log", "fn/makeReactive", "fn/map", "fn/md5", "fn/money", "fn/move", "fn/multiorder", "fn/nl2br", "fn/numProperties", "fn/objectToFormData", "fn/order", "fn/outerHeight", "fn/outerWidth", "fn/percent", "fn/pickValue", "fn/post", "fn/postOut", "fn/printf", "fn/quotes2html", "fn/randomInt", "fn/randomString", "fn/removeAccents", "fn/removeEmpty", "fn/removeExtraSpaces", "fn/removeHtmlComments", "fn/removePrivateProp", "fn/removeTrailingChars", "fn/repeat", "fn/replaceAll", "fn/replaceSelection", "fn/resize", "fn/rgb2hex", "fn/riterate", "fn/roundDecimal", "fn/sanitize", "fn/search", "fn/selectElementText", "fn/selector", "fn/setCookie", "fn/setCssVar", "fn/setNavigationVars", "fn/setProp", "fn/setProperty", "fn/shorten", "fn/shortenObj", "fn/shuffle", "fn/simpleHash", "fn/simpleHash1", "fn/simpleHash2", "fn/chrono", "fn/stat", "fn/string2ArrayBuffer", "fn/submit", "fn/substr", "fn/sum", "fn/timestamp", "fn/toCSV", "fn/toggleFullScreen", "fn/translate", "fn/treatAjaxArguments", "fn/trim", "fn/uniqString", "fn/unique", "fn/upload", "fn/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_27, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_11, lightenDarkenHex_1, link_2, log_19, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, stat_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.fn = void 0;
+        const fn = {
+            _addLoader: _addLoader_2._addLoader,
+            _compareValues: _compareValues_3._compareValues,
+            _deleteLoader: _deleteLoader_2._deleteLoader,
+            abort: abort_1.abort,
+            abortURL: abortURL_1.abortURL,
+            addColors: addColors_2.addColors,
+            addInputs: addInputs_2.addInputs,
+            addStyle: addStyle_1.addStyle,
+            adjustHeight: adjustHeight_1.adjustHeight,
+            adjustSize: adjustSize_3.adjustSize,
+            adjustWidth: adjustWidth_1.adjustWidth,
+            ajax: ajax_4.ajax,
+            analyzeFunction: analyzeFunction_1.analyzeFunction,
+            animateCss: animateCss_1.animateCss,
+            arrayBuffer2String: arrayBuffer2String_1.arrayBuffer2String,
+            arrayFromProp: arrayFromProp_1.arrayFromProp,
+            autoExtend: autoExtend_1.autoExtend,
+            baseName: baseName_3.baseName,
+            br2nl: br2nl_1.br2nl,
+            calendar: calendar_1.calendar,
+            callback: callback_3.callback,
+            camelize: camelize_1.camelize,
+            camelToCss: camelToCss_1.camelToCss,
+            canvasToImage: canvasToImage_1.canvasToImage,
+            center: center_1.center,
+            checkProps: checkProps_1.checkProps,
+            checkPropsDetails: checkPropsDetails_3.checkPropsDetails,
+            checkPropsOrDie: checkPropsOrDie_1.checkPropsOrDie,
+            checkType: checkType_6.checkType,
+            circularReplacer: circularReplacer_2.circularReplacer,
+            clone: clone_2.clone,
+            colorToHex: colorToHex_1.colorToHex,
+            compare: compare_2.compare,
+            compareConditions: compareConditions_3.compareConditions,
+            copy: copy_1.copy,
+            correctCase: correctCase_2.correctCase,
+            count: count_1.count,
+            crc32: crc32_1.crc32,
+            createObject: createObject_4.createObject,
+            cssExists: cssExists_1.cssExists,
+            date: date_8.date,
+            dateSQL: dateSQL_1.dateSQL,
+            daysInMonth: daysInMonth_1.daysInMonth,
+            deepPath: deepPath_1.deepPath,
+            defaultAjaxAbortFunction: defaultAjaxAbortFunction_2.defaultAjaxAbortFunction,
+            defaultAjaxErrorFunction: defaultAjaxErrorFunction_3.defaultAjaxErrorFunction,
+            defaultAlertFunction: defaultAlertFunction_2.defaultAlertFunction,
+            defaultConfirmFunction: defaultConfirmFunction_1.defaultConfirmFunction,
+            defaultEndLoadingFunction: defaultEndLoadingFunction_2.defaultEndLoadingFunction,
+            defaultErrorFunction: defaultErrorFunction_2.defaultErrorFunction,
+            defaultHistoryFunction: defaultHistoryFunction_2.defaultHistoryFunction,
+            defaultLinkFunction: defaultLinkFunction_2.defaultLinkFunction,
+            defaultPostLinkFunction: defaultPostLinkFunction_2.defaultPostLinkFunction,
+            defaultPreLinkFunction: defaultPreLinkFunction_2.defaultPreLinkFunction,
+            defaultResizeFunction: defaultResizeFunction_2.defaultResizeFunction,
+            defaultStartLoadingFunction: defaultStartLoadingFunction_2.defaultStartLoadingFunction,
+            deleteProp: deleteProp_1.deleteProp,
+            diffObj: diffObj_1.diffObj,
+            dirName: dirName_2.dirName,
+            download: download_1.download,
+            downloadContent: downloadContent_2.downloadContent,
+            each: each_27.each,
+            eraseCookie: eraseCookie_1.eraseCookie,
+            error: error_4.error,
+            escapeDquotes: escapeDquotes_1.escapeDquotes,
+            escapeRegExp: escapeRegExp_3.escapeRegExp,
+            escapeSquotes: escapeSquotes_1.escapeSquotes,
+            escapeTicks: escapeTicks_1.escapeTicks,
+            escapeUrl: escapeUrl_1.escapeUrl,
+            extend: extend_7.extend,
+            extendOut: extendOut_1.extendOut,
+            fdate: fdate_2.fdate,
+            fdatetime: fdatetime_2.fdatetime,
+            fieldValue: fieldValue_2.fieldValue,
+            fileExt: fileExt_2.fileExt,
+            filter: filter_6.filter,
+            filterToConditions: filterToConditions_3.filterToConditions,
+            findAll: findAll_1.findAll,
+            fori: fori_1.fori,
+            forir: forir_1.forir,
+            format: format_1.format,
+            formatBytes: formatBytes_1.formatBytes,
+            formatDate: formatDate_1.formatDate,
+            formatSize: formatSize_1.formatSize,
+            formdata: formdata_2.formdata,
+            fromXml: fromXml_1.fromXml,
+            ftime: ftime_1.ftime,
+            getAllTags: getAllTags_1.getAllTags,
+            getAncestors: getAncestors_2.getAncestors,
+            getAttributes: getAttributes_1.getAttributes,
+            getBrowserName: getBrowserName_1.getBrowserName,
+            getBrowserVersion: getBrowserVersion_1.getBrowserVersion,
+            getCookie: getCookie_1.getCookie,
+            getCssVar: getCssVar_2.getCssVar,
+            getDay: getDay_1.getDay,
+            getDeviceType: getDeviceType_4.getDeviceType,
+            getEventData: getEventData_1.getEventData,
+            getField: getField_1.getField,
+            getFieldValues: getFieldValues_1.getFieldValues,
+            getHtml: getHtml_1.getHtml,
+            getHTMLOfSelection: getHTMLOfSelection_2.getHTMLOfSelection,
+            getLoader: getLoader_4.getLoader,
+            getPath: getPath_1.getPath,
+            getProp: getProp_1.getProp,
+            getProperty: getProperty_4.getProperty,
+            getRequestId: getRequestId_2.getRequestId,
+            getRow: getRow_3.getRow,
+            getScrollBarSize: getScrollBarSize_1.getScrollBarSize,
+            getText: getText_1.getText,
+            getTimeoff: getTimeoff_1.getTimeoff,
+            happy: happy_1.happy,
+            hash: hash_2.hash,
+            hex2rgb: hex2rgb_1.hex2rgb,
+            history: history_1.history,
+            html2text: html2text_2.html2text,
+            imageToCanvas: imageToCanvas_2.imageToCanvas,
+            imgToBase64: imgToBase64_1.imgToBase64,
+            info: info_1.info,
+            init: init_1.init,
+            isActiveInterface: isActiveInterface_1.isActiveInterface,
+            isArray: isArray_19.isArray,
+            isBlob: isBlob_2.isBlob,
+            isBoolean: isBoolean_1.isBoolean,
+            isCanvas: isCanvas_2.isCanvas,
+            isColor: isColor_1.isColor,
+            isComment: isComment_1.isComment,
+            isCp: isCp_3.isCp,
+            isDate: isDate_8.isDate,
+            isDesktopDevice: isDesktopDevice_1.isDesktopDevice,
+            isDimension: isDimension_1.isDimension,
+            isDom: isDom_5.isDom,
+            isEmail: isEmail_1.isEmail,
+            isEmpty: isEmpty_2.isEmpty,
+            isEvent: isEvent_1.isEvent,
+            isFocused: isFocused_1.isFocused,
+            isFunction: isFunction_11.isFunction,
+            isHostname: isHostname_1.isHostname,
+            isInside: isInside_1.isInside,
+            isInt: isInt_2.isInt,
+            isIP: isIP_2.isIP,
+            isIterable: isIterable_5.isIterable,
+            isMobile: isMobile_2.isMobile,
+            isMobileDevice: isMobileDevice_2.isMobileDevice,
+            isNull: isNull_4.isNull,
+            isNumber: isNumber_10.isNumber,
+            isObject: isObject_18.isObject,
+            isPercent: isPercent_1.isPercent,
+            isPrimitive: isPrimitive_1.isPrimitive,
+            isPromise: isPromise_1.isPromise,
+            isPropSize: isPropSize_1.isPropSize,
+            isSame: isSame_3.isSame,
+            isSQLDate: isSQLDate_1.isSQLDate,
+            isString: isString_27.isString,
+            isSymbol: isSymbol_2.isSymbol,
+            isTabletDevice: isTabletDevice_3.isTabletDevice,
+            isURL: isURL_1.isURL,
+            isValidDimension: isValidDimension_2.isValidDimension,
+            isValidName: isValidName_1.isValidName,
+            isValue: isValue_2.isValue,
+            isVue: isVue_1.isVue,
+            iterate: iterate_11.iterate,
+            lightenDarkenHex: lightenDarkenHex_1.lightenDarkenHex,
+            link: link_2.link,
+            log: log_19.log,
+            makeReactive: makeReactive_1.makeReactive,
+            map: map_1.map,
+            md5: md5_4.md5,
+            money: money_1.money,
+            move: move_1.move,
+            multiorder: multiorder_1.multiorder,
+            nl2br: nl2br_1.nl2br,
+            numProperties: numProperties_8.numProperties,
+            objectToFormData: objectToFormData_2.objectToFormData,
+            order: order_1.order,
+            outerHeight: outerHeight_1.outerHeight,
+            outerWidth: outerWidth_1.outerWidth,
+            percent: percent_1.percent,
+            pickValue: pickValue_1.pickValue,
+            post: post_2.post,
+            postOut: postOut_1.postOut,
+            printf: printf_1.printf,
+            quotes2html: quotes2html_1.quotes2html,
+            randomInt: randomInt_2.randomInt,
+            randomString: randomString_1.randomString,
+            removeAccents: removeAccents_4.removeAccents,
+            removeEmpty: removeEmpty_1.removeEmpty,
+            removeExtraSpaces: removeExtraSpaces_1.removeExtraSpaces,
+            removeHtmlComments: removeHtmlComments_2.removeHtmlComments,
+            removePrivateProp: removePrivateProp_2.removePrivateProp,
+            removeTrailingChars: removeTrailingChars_1.removeTrailingChars,
+            repeat: repeat_1.repeat,
+            replaceAll: replaceAll_8.replaceAll,
+            replaceSelection: replaceSelection_1.replaceSelection,
+            resize: resize_3.resize,
+            rgb2hex: rgb2hex_1.rgb2hex,
+            riterate: riterate_1.riterate,
+            roundDecimal: roundDecimal_1.roundDecimal,
+            sanitize: sanitize_1.sanitize,
+            search: search_6.search,
+            selectElementText: selectElementText_1.selectElementText,
+            selector: selector_3.selector,
+            setCookie: setCookie_1.setCookie,
+            setCssVar: setCssVar_1.setCssVar,
+            setNavigationVars: setNavigationVars_2.setNavigationVars,
+            setProp: setProp_1.setProp,
+            setProperty: setProperty_1.setProperty,
+            shorten: shorten_2.shorten,
+            shortenObj: shortenObj_1.shortenObj,
+            shuffle: shuffle_1.shuffle,
+            simpleHash: simpleHash_2.simpleHash,
+            simpleHash1: simpleHash1_2.simpleHash1,
+            simpleHash2: simpleHash2_2.simpleHash2,
+            startChrono: chrono_1.startChrono,
+            stat: stat_1.stat,
+            stopChrono: chrono_1.stopChrono,
+            string2ArrayBuffer: string2ArrayBuffer_1.string2ArrayBuffer,
+            submit: submit_2.submit,
+            substr: substr_16.substr,
+            sum: sum_1.sum,
+            timestamp: timestamp_1.timestamp,
+            toCSV: toCSV_1.toCSV,
+            toggleFullScreen: toggleFullScreen_1.toggleFullScreen,
+            translate: translate_1.translate,
+            treatAjaxArguments: treatAjaxArguments_3.treatAjaxArguments,
+            trim: trim_2.trim,
+            uniqString: uniqString_1.uniqString,
+            unique: unique_2.unique,
+            upload: upload_1.upload,
+            warning: warning_2.warning,
+        };
+        exports.fn = fn;
+    });
+    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "fn"], function (require, exports, _1, _2, lng_1, vars_1, env_1, fn_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.bbn = void 0;
@@ -5827,399 +6252,13 @@
             opt: {
                 _cat: {}
             },
-            /**
-             * Translate an expression using the object bbn.lng
-             *
-             * @param {String} st
-             * @returns {String}
-             */
-            _: (...args) => {
-                let st = args.shift();
-                let res = bbn.lng[st] || st;
-                if (args.length) {
-                    let i = 0;
-                    return res.replace(/\%([d|s])/g, (match, type) => {
-                        let tmp = args[i++];
-                        if (!tmp) {
-                            tmp = type === 'd' ? 0 : '';
-                        }
-                        (0, checkType_5.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value you gave did not correspond, check the loggg"));
-                        return tmp;
-                    });
-                }
-                return res;
-            },
-            $: (selector, context) => {
-                if (context && context.querySelectorAll) {
-                    return context.querySelectorAll(selector);
-                }
-                return document.body.querySelectorAll(selector);
-            },
-            _popups: [],
-            lng: {
-                /* User-defined languages elements */
-                select_unselect_all: "Select/Clear all",
-                select_all: "Select all",
-                search: 'Search',
-                loading: 'Loading...',
-                choose: 'Choose',
-                error: 'Error',
-                server_response: 'Server response',
-                reload: 'Reload',
-                errorText: 'Something went wrong',
-                closeAll: "Close all",
-                closeOthers: "Close others",
-                pin: "Pin",
-                arrange: "Arrange",
-                cancel: "Cancel",
-                unpin: "Unpin",
-                yes: "Yes",
-                no: "No",
-                unknown: "Unknown",
-                untitled: "Untitled",
-                confirmation: "Confirmation",
-                Today: "Today",
-                Tomorrow: "Tomorrow",
-                Yesterday: "Yesterday"
-            },
-            app: {
-                popups: [],
-            },
-            vars: {
-                loggers: {
-                    _num: 0
-                },
-                /* Usable datatypes through Ajax function */
-                datatypes: ['xml', 'html', 'script', 'json', 'jsonp', 'text', 'blob'],
-                /* The default value used by the function shorten */
-                shortenLen: 30,
-                /* Categorizing keyboard map */
-                keys: {
-                    upDown: [33, 34, 35, 36, 38, 40],
-                    leftRight: [36, 35, 37, 39],
-                    dels: [8, 46, 45],
-                    confirm: [13, 9],
-                    alt: [20, 16, 17, 18, 144],
-                    numbers: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105],
-                    numsigns: [109, 110, 189, 190]
-                },
-                comparators: [">=", "<=", ">", "<", "="],
-                operators: ["+", "-", "/", "*"],
-                tags: ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'slot', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr'],
-                colors: {
-                    darkgrey: '#5a6a62',
-                    black: '#000000',
-                    anthracite: '#454545',
-                    grey: '#d3d3d3',
-                    white: '#ffffff',
-                    beige: '#fdfdfd',
-                    lightgrey: '#dcdcdc',
-                    pastelblue: '#ddebf6',
-                    cyan: '#00c8f8',
-                    blue: '#6e9ecf',
-                    indigo: '#3f51b5',
-                    navy: '#354458',
-                    webblue: '#2196f3',
-                    teal: '#009688',
-                    turquoise: '#1fda9a',
-                    pastelgreen: '#e2efda',
-                    palegreen: '#ccffcc',
-                    green: '#00a03e',
-                    olive: '#92b06a',
-                    pastelorange: '#fff2cc',
-                    yellow: '#fdf200',
-                    orange: '#ff9900',
-                    pink: '#eb65a0',
-                    purple: '#a333c8',
-                    red: '#db3340',
-                    brown: '#8c6954'
-                },
-                reserved: ['abstract', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'continue', 'const', 'debugger', 'default', 'delete', 'do', 'double', 'else', 'enum', 'export', 'extends', 'false', 'final', 'finally', 'float', 'for', 'function', 'goto', 'if', 'implements', 'import', 'in', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected', 'public', 'return', 'short', 'static', 'super', 'switch', 'synchronized', 'this', 'throw', 'throws', 'transient', 'true', 'try', 'typeof', 'var', 'void', 'while', 'with'],
-                mockText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                regexp: {
-                    url: new RegExp('^(https?:\\/\\/)?' + // protocol
-                        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-                        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-                        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-                        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-                        '(\\#[-a-z\\d_]*)?$', 'i'),
-                    ip: new RegExp("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"),
-                    hostname: new RegExp("^[a-z\\d]([a-z\\d\\-]{0,61}[a-z\\d])?(\\.[a-z\\d]([a-z\\d\\-]{0,61}[a-z\\d])?)*$", 'i'),
-                }
-            },
-            env: {
-                siteTitle: window.document.title,
-                /* This variable should be set to true in debugging mode only */
-                logging: false,
-                /* Address of the CDN (where this file should be hosted) */
-                cdn: '',
-                /* Default language */
-                lang: 'en',
-                host: window.location.protocol + '//' + window.location.hostname,
-                url: window.location.href,
-                old_path: null,
-                /* True when non asynchronous Ajax loads */
-                loading: false,
-                /* Window width */
-                width: 0,
-                /* Window height */
-                height: 0,
-                /* Element currently focused (Element object) */
-                focused: false,
-                /* Last time user has been active */
-                last_focus: (new Date()).getTime(),
-                /* Sleep mode (tab or window unfocused */
-                sleep: false,
-                /**
-                 *  @var bbn.env.loaders Object where the props are MD5 of data and url while the values are the requests,
-                 *  for preventing the same call to be made at the same time
-                 **/
-                loaders: [],
-                loadersHistory: [],
-                maxLoadersHistory: 20,
-                /* bbn.env.params is an array of each element of the path */
-                resizeTimer: false,
-                hashChanged: 0,
-                params: [],
-                isInit: false,
-                isFocused: false,
-                timeoff: Math.round((new Date()).getTime() / 1000),
-                loggingLevel: 5,
-                ignoreUnload: false,
-                historyDisabled: false,
-                nav: 'ajax'
-            },
-            fn: {
-                _addLoader: _addLoader_2._addLoader,
-                _compareValues: _compareValues_3._compareValues,
-                _deleteLoader: _deleteLoader_2._deleteLoader,
-                abort: abort_1.abort,
-                abortURL: abortURL_1.abortURL,
-                addColors: addColors_2.addColors,
-                addInputs: addInputs_2.addInputs,
-                addStyle: addStyle_1.addStyle,
-                adjustHeight: adjustHeight_1.adjustHeight,
-                adjustSize: adjustSize_3.adjustSize,
-                adjustWidth: adjustWidth_1.adjustWidth,
-                ajax: ajax_4.ajax,
-                analyzeFunction: analyzeFunction_1.analyzeFunction,
-                animateCss: animateCss_1.animateCss,
-                arrayBuffer2String: arrayBuffer2String_1.arrayBuffer2String,
-                arrayFromProp: arrayFromProp_1.arrayFromProp,
-                autoExtend: autoExtend_1.autoExtend,
-                baseName: baseName_3.baseName,
-                br2nl: br2nl_1.br2nl,
-                calendar: calendar_1.calendar,
-                callback: callback_3.callback,
-                camelize: camelize_1.camelize,
-                camelToCss: camelToCss_1.camelToCss,
-                canvasToImage: canvasToImage_1.canvasToImage,
-                center: center_1.center,
-                checkProps: checkProps_1.checkProps,
-                checkPropsDetails: checkPropsDetails_3.checkPropsDetails,
-                checkPropsOrDie: checkPropsOrDie_1.checkPropsOrDie,
-                checkType: checkType_5.checkType,
-                circularReplacer: circularReplacer_2.circularReplacer,
-                clone: clone_2.clone,
-                colorToHex: colorToHex_1.colorToHex,
-                compare: compare_2.compare,
-                compareConditions: compareConditions_3.compareConditions,
-                copy: copy_1.copy,
-                correctCase: correctCase_2.correctCase,
-                count: count_1.count,
-                crc32: crc32_1.crc32,
-                createObject: createObject_4.createObject,
-                cssExists: cssExists_1.cssExists,
-                date: date_8.date,
-                dateSQL: dateSQL_1.dateSQL,
-                daysInMonth: daysInMonth_1.daysInMonth,
-                deepPath: deepPath_1.deepPath,
-                defaultAjaxAbortFunction: defaultAjaxAbortFunction_2.defaultAjaxAbortFunction,
-                defaultAjaxErrorFunction: defaultAjaxErrorFunction_3.defaultAjaxErrorFunction,
-                defaultAlertFunction: defaultAlertFunction_2.defaultAlertFunction,
-                defaultConfirmFunction: defaultConfirmFunction_1.defaultConfirmFunction,
-                defaultEndLoadingFunction: defaultEndLoadingFunction_2.defaultEndLoadingFunction,
-                defaultErrorFunction: defaultErrorFunction_2.defaultErrorFunction,
-                defaultHistoryFunction: defaultHistoryFunction_2.defaultHistoryFunction,
-                defaultLinkFunction: defaultLinkFunction_2.defaultLinkFunction,
-                defaultPostLinkFunction: defaultPostLinkFunction_2.defaultPostLinkFunction,
-                defaultPreLinkFunction: defaultPreLinkFunction_2.defaultPreLinkFunction,
-                defaultResizeFunction: defaultResizeFunction_2.defaultResizeFunction,
-                defaultStartLoadingFunction: defaultStartLoadingFunction_2.defaultStartLoadingFunction,
-                deleteProp: deleteProp_1.deleteProp,
-                diffObj: diffObj_1.diffObj,
-                dirName: dirName_2.dirName,
-                download: download_1.download,
-                downloadContent: downloadContent_2.downloadContent,
-                each: each_27.each,
-                eraseCookie: eraseCookie_1.eraseCookie,
-                error: error_4.error,
-                escapeDquotes: escapeDquotes_1.escapeDquotes,
-                escapeRegExp: escapeRegExp_3.escapeRegExp,
-                escapeSquotes: escapeSquotes_1.escapeSquotes,
-                escapeTicks: escapeTicks_1.escapeTicks,
-                escapeUrl: escapeUrl_1.escapeUrl,
-                extend: extend_7.extend,
-                extendOut: extendOut_1.extendOut,
-                fdate: fdate_2.fdate,
-                fdatetime: fdatetime_2.fdatetime,
-                fieldValue: fieldValue_2.fieldValue,
-                fileExt: fileExt_2.fileExt,
-                filter: filter_6.filter,
-                filterToConditions: filterToConditions_3.filterToConditions,
-                findAll: findAll_1.findAll,
-                fori: fori_1.fori,
-                forir: forir_1.forir,
-                format: format_1.format,
-                formatBytes: formatBytes_1.formatBytes,
-                formatDate: formatDate_1.formatDate,
-                formatSize: formatSize_1.formatSize,
-                formdata: formdata_2.formdata,
-                fromXml: fromXml_1.fromXml,
-                ftime: ftime_1.ftime,
-                getAllTags: getAllTags_1.getAllTags,
-                getAncestors: getAncestors_2.getAncestors,
-                getAttributes: getAttributes_1.getAttributes,
-                getBrowserName: getBrowserName_1.getBrowserName,
-                getBrowserVersion: getBrowserVersion_1.getBrowserVersion,
-                getCookie: getCookie_1.getCookie,
-                getCssVar: getCssVar_2.getCssVar,
-                getDay: getDay_1.getDay,
-                getDeviceType: getDeviceType_4.getDeviceType,
-                getEventData: getEventData_1.getEventData,
-                getField: getField_1.getField,
-                getFieldValues: getFieldValues_1.getFieldValues,
-                getHtml: getHtml_1.getHtml,
-                getHTMLOfSelection: getHTMLOfSelection_2.getHTMLOfSelection,
-                getLoader: getLoader_4.getLoader,
-                getPath: getPath_1.getPath,
-                getProp: getProp_1.getProp,
-                getProperty: getProperty_4.getProperty,
-                getRequestId: getRequestId_2.getRequestId,
-                getRow: getRow_3.getRow,
-                getScrollBarSize: getScrollBarSize_1.getScrollBarSize,
-                getText: getText_1.getText,
-                getTimeoff: getTimeoff_1.getTimeoff,
-                happy: happy_1.happy,
-                hash: hash_2.hash,
-                hex2rgb: hex2rgb_1.hex2rgb,
-                history: history_1.history,
-                html2text: html2text_2.html2text,
-                imageToCanvas: imageToCanvas_2.imageToCanvas,
-                imgToBase64: imgToBase64_1.imgToBase64,
-                info: info_1.info,
-                init: init_1.init,
-                isActiveInterface: isActiveInterface_1.isActiveInterface,
-                isArray: isArray_19.isArray,
-                isBlob: isBlob_2.isBlob,
-                isBoolean: isBoolean_1.isBoolean,
-                isCanvas: isCanvas_2.isCanvas,
-                isColor: isColor_1.isColor,
-                isComment: isComment_1.isComment,
-                isCp: isCp_3.isCp,
-                isDate: isDate_8.isDate,
-                isDesktopDevice: isDesktopDevice_1.isDesktopDevice,
-                isDimension: isDimension_1.isDimension,
-                isDom: isDom_5.isDom,
-                isEmail: isEmail_1.isEmail,
-                isEmpty: isEmpty_2.isEmpty,
-                isEvent: isEvent_1.isEvent,
-                isFocused: isFocused_1.isFocused,
-                isFunction: isFunction_11.isFunction,
-                isHostname: isHostname_1.isHostname,
-                isInside: isInside_1.isInside,
-                isInt: isInt_2.isInt,
-                isIP: isIP_2.isIP,
-                isIterable: isIterable_5.isIterable,
-                isMobile: isMobile_2.isMobile,
-                isMobileDevice: isMobileDevice_2.isMobileDevice,
-                isNull: isNull_4.isNull,
-                isNumber: isNumber_10.isNumber,
-                isObject: isObject_18.isObject,
-                isPercent: isPercent_1.isPercent,
-                isPrimitive: isPrimitive_1.isPrimitive,
-                isPromise: isPromise_1.isPromise,
-                isPropSize: isPropSize_1.isPropSize,
-                isSame: isSame_3.isSame,
-                isSQLDate: isSQLDate_1.isSQLDate,
-                isString: isString_27.isString,
-                isSymbol: isSymbol_2.isSymbol,
-                isTabletDevice: isTabletDevice_3.isTabletDevice,
-                isURL: isURL_1.isURL,
-                isValidDimension: isValidDimension_2.isValidDimension,
-                isValidName: isValidName_1.isValidName,
-                isValue: isValue_2.isValue,
-                isVue: isVue_1.isVue,
-                iterate: iterate_11.iterate,
-                lightenDarkenHex: lightenDarkenHex_1.lightenDarkenHex,
-                link: link_2.link,
-                log: log_19.log,
-                makeReactive: makeReactive_1.makeReactive,
-                map: map_1.map,
-                md5: md5_4.md5,
-                money: money_1.money,
-                move: move_1.move,
-                multiorder: multiorder_1.multiorder,
-                nl2br: nl2br_1.nl2br,
-                numProperties: numProperties_8.numProperties,
-                objectToFormData: objectToFormData_2.objectToFormData,
-                order: order_1.order,
-                outerHeight: outerHeight_1.outerHeight,
-                outerWidth: outerWidth_1.outerWidth,
-                percent: percent_1.percent,
-                pickValue: pickValue_1.pickValue,
-                post: post_2.post,
-                postOut: postOut_1.postOut,
-                printf: printf_1.printf,
-                quotes2html: quotes2html_1.quotes2html,
-                randomInt: randomInt_2.randomInt,
-                randomString: randomString_1.randomString,
-                removeAccents: removeAccents_4.removeAccents,
-                removeEmpty: removeEmpty_1.removeEmpty,
-                removeExtraSpaces: removeExtraSpaces_1.removeExtraSpaces,
-                removeHtmlComments: removeHtmlComments_2.removeHtmlComments,
-                removePrivateProp: removePrivateProp_2.removePrivateProp,
-                removeTrailingChars: removeTrailingChars_1.removeTrailingChars,
-                repeat: repeat_1.repeat,
-                replaceAll: replaceAll_8.replaceAll,
-                replaceSelection: replaceSelection_1.replaceSelection,
-                resize: resize_3.resize,
-                rgb2hex: rgb2hex_1.rgb2hex,
-                riterate: riterate_1.riterate,
-                roundDecimal: roundDecimal_1.roundDecimal,
-                sanitize: sanitize_1.sanitize,
-                search: search_6.search,
-                selectElementText: selectElementText_1.selectElementText,
-                selector: selector_3.selector,
-                setCookie: setCookie_1.setCookie,
-                setCssVar: setCssVar_1.setCssVar,
-                setNavigationVars: setNavigationVars_2.setNavigationVars,
-                setProp: setProp_1.setProp,
-                setProperty: setProperty_1.setProperty,
-                shorten: shorten_2.shorten,
-                shortenObj: shortenObj_1.shortenObj,
-                shuffle: shuffle_1.shuffle,
-                simpleHash: simpleHash_2.simpleHash,
-                simpleHash1: simpleHash1_2.simpleHash1,
-                simpleHash2: simpleHash2_2.simpleHash2,
-                startChrono: chrono_1.startChrono,
-                stat: stat_1.stat,
-                stopChrono: chrono_1.stopChrono,
-                string2ArrayBuffer: string2ArrayBuffer_1.string2ArrayBuffer,
-                submit: submit_2.submit,
-                substr: substr_16.substr,
-                sum: sum_1.sum,
-                timestamp: timestamp_1.timestamp,
-                toCSV: toCSV_1.toCSV,
-                toggleFullScreen: toggleFullScreen_1.toggleFullScreen,
-                translate: translate_1.translate,
-                treatAjaxArguments: treatAjaxArguments_3.treatAjaxArguments,
-                trim: trim_2.trim,
-                uniqString: uniqString_1.uniqString,
-                unique: unique_2.unique,
-                upload: upload_1.upload,
-                warning: warning_2.warning,
-            }
+            app: {},
+            _: _1._,
+            $: _2.$,
+            lng: lng_1.lng,
+            vars: vars_1.vars,
+            env: env_1.env,
+            fn: fn_1.fn
         };
         exports.bbn = bbn;
         window.bbn = bbn;

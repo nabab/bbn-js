@@ -83,7 +83,6 @@ declare global {
     cp?: object;
     _: (st: string, ...args: string[]) => string;
     $: (st: string, p?: HTMLElement) => NodeListOf<HTMLElement>;
-    _popups: any[];
     app?: object;
   }  
 
