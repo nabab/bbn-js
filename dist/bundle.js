@@ -906,7 +906,7 @@
             if (idx > -1) {
                 return bbn.env.loaders[idx];
             }
-            return false;
+            return null;
         };
         exports.getLoader = getLoader;
     });
@@ -1450,7 +1450,7 @@
                 let requestId = (0, getRequestId_1.getRequestId)(url, data, datatype);
                 let loaderObj = (0, getLoader_2.getLoader)(requestId);
                 //log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
-                if (loaderObj && loaderObj.loader) {
+                if (loaderObj?.loader) {
                     return loaderObj.loader;
                 }
                 if (bbn.env.token) {
@@ -1474,7 +1474,7 @@
                 }
                 args.push(options);
                 let loader = axios[args.length === 2 ? 'get' : 'post']
-                    .apply(axios, args)
+                    .apply(axios, ...args)
                     .then((res) => {
                     (0, _deleteLoader_1._deleteLoader)(requestId, res);
                     (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, res);

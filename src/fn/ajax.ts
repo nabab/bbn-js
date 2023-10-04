@@ -72,7 +72,7 @@ const ajax = function (
 		let requestId = getRequestId(url, data, datatype);
 		let loaderObj = getLoader(requestId);
 		//log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
-		if (loaderObj && loaderObj.loader) {
+		if (loaderObj?.loader) {
 			return loaderObj.loader;
 		}
 		if (bbn.env.token) {
@@ -97,7 +97,7 @@ const ajax = function (
 		}
 		args.push(options);
 		let loader = axios[args.length === 2 ? 'get' : 'post']
-			.apply(axios, args)
+			.apply(axios, ...args)
 			.then((res) => {
 				_deleteLoader(requestId, res);
 				defaultEndLoadingFunction(url, tst, data, res);
