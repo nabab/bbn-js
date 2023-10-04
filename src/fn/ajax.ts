@@ -91,14 +91,14 @@ const ajax = function (
 			};
 		}
 
-		let args = [url];
+		let args: any[] = [url];
 		if (isObject(data) && numProperties(data) > 0) {
 			args.push(data);
 		}
 		args.push(options);
-		let loader = axios[args.length === 2 ? 'get' : 'post']
-			.apply(axios, ...args)
-			.then((res) => {
+		const axiosMethod = args.length === 2 ? 'get' : 'post';
+		let loader = axios[axiosMethod].apply(null, args)
+			.then(res => {
 				_deleteLoader(requestId, res);
 				defaultEndLoadingFunction(url, tst, data, res);
 				switch (res.status) {

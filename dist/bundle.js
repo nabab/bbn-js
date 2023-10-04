@@ -1932,9 +1932,9 @@
                     args.push(data);
                 }
                 args.push(options);
-                let loader = axios[args.length === 2 ? 'get' : 'post']
-                    .apply(axios, ...args)
-                    .then((res) => {
+                const axiosMethod = args.length === 2 ? 'get' : 'post';
+                let loader = axios[axiosMethod].apply(null, args)
+                    .then(res => {
                     (0, _deleteLoader_1._deleteLoader)(requestId, res);
                     (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, res);
                     switch (res.status) {
