@@ -645,7 +645,7 @@
             "addColors": {
                 "!type": "fn(colors: Object) -> undefined",
                 "!url": "https:\/\/bbn.io\/bbn-js\/doc\/style\/addColors",
-                "!doc": "Adds the given color to the object bbn.var.colors in order to be able to use"
+                "!doc": "Adds the given color to the object bbn.vars.colors in order to be able to use"
             },
             "colorToHex": {
                 "!type": "fn() -> String",

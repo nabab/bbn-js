@@ -3,7 +3,7 @@
 ## Styling.
 
 <a name="bbn_top"></a>[bbn.fn.__addColors__](#addColors)  
-Adds the given color to the object bbn.var.colors in order to be able to use  
+Adds the given color to the object bbn.vars.colors in order to be able to use  
 [bbn.fn.__center__](#center)  
 Centers the given element by giving it a position absolute.  
 [bbn.fn.__colorToHex__](#colorToHex)  
@@ -29,7 +29,7 @@ bbn.fn.center('<div>Documentation</div>')
 
 ### <a name="addColors"></a>bbn.fn.addColors(colors)
 
-  __Adds the given color to the object bbn.var.colors in order to be able to use.__
+  __Adds the given color to the object bbn.vars.colors in order to be able to use.__
 
   the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
 

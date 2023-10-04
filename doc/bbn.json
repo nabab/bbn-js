@@ -1104,7 +1104,7 @@
             {
                 "file": "style.js",
                 "text": "addColors",
-                "desc": "Adds the given color to the object bbn.var.colors in order to be able to us",
+                "desc": "Adds the given color to the object bbn.vars.colors in order to be able to us",
                 "value": "addColors",
                 "lastmod": 1644155762,
                 "url": "bbn-js\/doc\/style\/addColors"
