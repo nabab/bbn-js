@@ -8,7 +8,7 @@
     "/dist"
   ],
   "scripts": {
-    "bbn": "tsc && tsc-bundle tsconfig.json && git stage ./* && git commit -m \"Latest changes\" && git push && npm version patch && npm publish",
+    "bbn": "tsc && tsc-bundle tsconfig.json && git stage ./src/* && git stage ./*.ts && git stage ./*.json && git stage -f ./dist/bundle.js && git commit -m \"Latest changes\" && git push && npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
