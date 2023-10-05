@@ -923,7 +923,7 @@
         };
         exports.db = db;
     });
-    define("fn/ajax/_addLoader", ["require", "exports", "fn/string/substr"], function (require, exports, substr_2) {
+    define("fn/ajax/_addLoader", ["require", "exports", "fn/string/substr", "fn/browser/log"], function (require, exports, substr_2, log_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._addLoader = void 0;
@@ -942,7 +942,7 @@
          * @returns  {Number}  The timestamp (in ms)
          */
         const _addLoader = function (requestId, prom, source) {
-            console.log('_addLoader', requestId);
+            (0, log_5.log)('_addLoader', requestId);
             /** @var {Number} tst Current timestamp */
             let tst = new Date().getTime();
             /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -1023,7 +1023,7 @@
         };
         exports.getProperty = getProperty;
     });
-    define("fn/string/removeAccents", ["require", "exports", "fn/type/isString", "fn/browser/log"], function (require, exports, isString_3, log_5) {
+    define("fn/string/removeAccents", ["require", "exports", "fn/type/isString", "fn/browser/log"], function (require, exports, isString_3, log_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeAccents = void 0;
@@ -1048,7 +1048,7 @@
                     st = st.toString();
                 }
                 else {
-                    (0, log_5.log)(st);
+                    (0, log_6.log)(st);
                     throw new Error(bbn._("removeAccent expects a string"));
                 }
             }
@@ -1380,7 +1380,7 @@
         };
         exports.isCp = isCp;
     });
-    define("fn/object/circularReplacer", ["require", "exports", "fn/type/isDom", "fn/type/isCp", "fn/browser/log"], function (require, exports, isDom_2, isCp_1, log_6) {
+    define("fn/object/circularReplacer", ["require", "exports", "fn/type/isDom", "fn/type/isCp", "fn/browser/log"], function (require, exports, isDom_2, isCp_1, log_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.circularReplacer = void 0;
@@ -1408,7 +1408,7 @@
                             }
                         }
                         else if ((0, isCp_1.isCp)(value)) {
-                            (0, log_6.log)("IS CP");
+                            (0, log_7.log)("IS CP");
                             value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                         }
                         else {
@@ -1462,7 +1462,7 @@
         };
         exports.simpleHash = simpleHash;
     });
-    define("fn/string/hash", ["require", "exports", "fn/browser/log", "fn/type/isDom", "fn/type/isCp", "fn/object/circularReplacer", "fn/string/simpleHash"], function (require, exports, log_7, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
+    define("fn/string/hash", ["require", "exports", "fn/browser/log", "fn/type/isDom", "fn/type/isCp", "fn/object/circularReplacer", "fn/string/simpleHash"], function (require, exports, log_8, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hash = void 0;
@@ -1487,7 +1487,7 @@
                         }
                     }
                     else if ((0, isCp_2.isCp)(value)) {
-                        (0, log_7.log)("IS CP");
+                        (0, log_8.log)("IS CP");
                         st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                     }
                     else {
@@ -3051,21 +3051,21 @@
         };
         exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
     });
-    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_8) {
+    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxErrorFunction = void 0;
         const defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
-            (0, log_8.log)(textStatus, errorThrown);
+            (0, log_9.log)(textStatus, errorThrown);
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
-    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_9) {
+    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
         const defaultAjaxAbortFunction = function (message, url = '') {
-            (0, log_9.log)(message);
+            (0, log_10.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
@@ -3750,7 +3750,7 @@
         };
         exports.defaultAlertFunction = defaultAlertFunction;
     });
-    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/default/defaultLinkFunction", "fn/type/isFunction", "fn/browser/log", "fn/default/defaultPostLinkFunction", "fn/default/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_10, defaultPostLinkFunction_1, defaultAlertFunction_1) {
+    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/default/defaultLinkFunction", "fn/type/isFunction", "fn/browser/log", "fn/default/defaultPostLinkFunction", "fn/default/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_11, defaultPostLinkFunction_1, defaultAlertFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -3837,7 +3837,7 @@
                                 }
                             }
                             catch (e) {
-                                (0, log_10.log)(e, res);
+                                (0, log_11.log)(e, res);
                                 (0, error_2.error)((0, isFunction_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
@@ -4492,12 +4492,12 @@
         };
         exports.defaultConfirmFunction = defaultConfirmFunction;
     });
-    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_11) {
+    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultErrorFunction = void 0;
         const defaultErrorFunction = function (message) {
-            (0, log_11.log)(message);
+            (0, log_12.log)(message);
         };
         exports.defaultErrorFunction = defaultErrorFunction;
     });
@@ -4892,7 +4892,7 @@
         };
         exports.isCanvas = isCanvas;
     });
-    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_12) {
+    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.downloadContent = void 0;
@@ -4953,7 +4953,7 @@
                     src = content;
                 }
                 catch (e) {
-                    (0, log_12.log)(e);
+                    (0, log_13.log)(e);
                 }
             }
             a.href = window.URL.createObjectURL(src);
@@ -5919,7 +5919,7 @@
         };
         exports.getDeviceType = getDeviceType;
     });
-    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_13) {
+    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHTMLOfSelection = void 0;
@@ -5928,9 +5928,9 @@
             let selection = window.getSelection();
             if (selection.rangeCount > 0) {
                 range = selection.getRangeAt(0);
-                (0, log_13.log)('RANGE', range);
+                (0, log_14.log)('RANGE', range);
                 let clonedSelection = range.cloneContents();
-                (0, log_13.log)('clonedSelection', clonedSelection);
+                (0, log_14.log)('clonedSelection', clonedSelection);
                 let div = document.createElement('div');
                 div.appendChild(clonedSelection);
                 return div.innerHTML;
@@ -6302,7 +6302,7 @@
         };
         exports.getTimeoff = getTimeoff;
     });
-    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_14) {
+    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.happy = void 0;
@@ -6323,7 +6323,7 @@
                 _bbn_console_level: 3,
                 _bbn_console_style: 'color: white; background: green; font-size: 18px;',
             });
-            log_14.log.apply(this, args);
+            log_15.log.apply(this, args);
             return this;
         };
         exports.happy = happy;
@@ -6435,7 +6435,7 @@
         };
         exports.imgToBase64 = imgToBase64;
     });
-    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_15) {
+    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.info = void 0;
@@ -6453,7 +6453,7 @@
                 _bbn_console_level: 4,
                 _bbn_console_style: 'color: #EEE; background: blue; font-size: 12px;',
             });
-            log_15.log.apply(this, args);
+            log_16.log.apply(this, args);
             return this;
         };
         exports.info = info;
@@ -6667,7 +6667,7 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/default/defaultPreLinkFunction", "fn/ajax/ajax", "fn/browser/log", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_16, isObject_15, callback_1, setNavigationVars_1) {
+    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/default/defaultPreLinkFunction", "fn/ajax/ajax", "fn/browser/log", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_17, isObject_15, callback_1, setNavigationVars_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
@@ -6765,12 +6765,12 @@
                     let errSt = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
                     return (0, ajax_2.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
                         if (!res) {
-                            (0, log_16.log)(errSt + bbn._('returned no answer'));
+                            (0, log_17.log)(errSt + bbn._('returned no answer'));
                         }
                         if ((0, isObject_15.isObject)(res)) {
                             // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
                             if (Object.keys(res).length === 0) {
-                                (0, log_16.log)(errSt + bbn._('returned an empty object'));
+                                (0, log_17.log)(errSt + bbn._('returned an empty object'));
                             }
                             if (res.new_url) {
                                 res.old_path = cfg.url;
@@ -6986,7 +6986,7 @@
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/default/defaultHistoryFunction", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_17) {
+    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/default/defaultHistoryFunction", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_18) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
@@ -7153,7 +7153,7 @@
                 bbn.env.isInit = true;
                 document.dispatchEvent(new Event('bbninit'));
                 if (bbn.env.logging) {
-                    (0, log_17.log)('Logging in bbn is enabled');
+                    (0, log_18.log)('Logging in bbn is enabled');
                 }
             }
         };
@@ -7836,7 +7836,7 @@
         };
         exports.lightenDarkenHex = lightenDarkenHex;
     });
-    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_18) {
+    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.warning = void 0;
@@ -7860,11 +7860,11 @@
                 _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
             };
             args.unshift(obj);
-            log_18.log.apply(this, args);
+            log_19.log.apply(this, args);
         };
         exports.warning = warning;
     });
-    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_19, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
+    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_20, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
@@ -7876,7 +7876,7 @@
                     return obj;
                 }
                 if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                    (0, log_19.log)(['MAKING bbn-loadbar', obj]);
+                    (0, log_20.log)(['MAKING bbn-loadbar', obj]);
                 }
                 if (!obj.__bbnWatchers) {
                     Reflect.defineProperty(obj, '__bbnWatchers', {
@@ -7900,7 +7900,7 @@
                             return function (...args) {
                                 let res = realTarget[key](...args);
                                 (0, warning_1.warning)('DOING ARRAY STUFF');
-                                (0, log_19.log)(target.__bbnParent);
+                                (0, log_20.log)(target.__bbnParent);
                                 onSet(target, 'length', parent);
                                 return res;
                             };
@@ -7967,7 +7967,7 @@
                             return Reflect.get(target, key);
                         }
                         if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                            (0, log_19.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
+                            (0, log_20.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
                         }
                         if (!(0, isSame_2.isSame)(realTarget[key], value)) {
                             if (key.indexOf('__bbn_') === 0) {
@@ -7995,7 +7995,7 @@
                                 }
                             }
                             if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                                (0, log_19.log)([
+                                (0, log_20.log)([
                                     'Setting proxy prop in ' +
                                         parent.$options.name +
                                         ' ' +
@@ -9698,7 +9698,7 @@
         };
         exports.uniqString = uniqString;
     });
-    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_1, log_20) {
+    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_1, log_21) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.upload = void 0;
@@ -9739,13 +9739,13 @@
                 return fn()
                     .then((res) => {
                     if (success) {
-                        (0, log_20.log)('SUCCESS', res);
+                        (0, log_21.log)('SUCCESS', res);
                         success(res);
                     }
                 })
                     .catch((err) => {
                     if (failure) {
-                        (0, log_20.log)('ERROR', err);
+                        (0, log_21.log)('ERROR', err);
                         failure(err);
                     }
                 });
@@ -9753,7 +9753,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_21, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -9921,7 +9921,7 @@
             iterate: iterate_12.iterate,
             lightenDarkenHex: lightenDarkenHex_1.lightenDarkenHex,
             link: link_2.link,
-            log: log_21.log,
+            log: log_22.log,
             makeReactive: makeReactive_1.makeReactive,
             map: map_1.map,
             md5: md5_4.md5,
