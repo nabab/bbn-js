@@ -869,7 +869,6 @@
                     const store = tx.objectStore(table);
                 });
             };
-            return this;
         };
         const db = {
             _structures: {},
@@ -902,12 +901,12 @@
                         };
                         conn.onsuccess = () => {
                             db._connections[name] = conn.result;
-                            let obj = dbObject(name);
+                            let obj = new dbObject(name);
                             resolve(obj);
                         };
                         return;
                     }
-                    resolve(dbObject(db._connections[name]));
+                    resolve(new dbObject(db._connections[name]));
                 });
             },
             add(database, name, structure) {

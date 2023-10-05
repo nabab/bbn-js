@@ -146,8 +146,6 @@ const dbObject = function(dbName) {
     
     });
   };
-
-  return this;
 };
 
 interface Db {
@@ -200,13 +198,13 @@ const db: Db = {
         };
         conn.onsuccess = () => {
           db._connections[name] = conn.result;
-          let obj = dbObject(name);
+          let obj = new dbObject(name);
           resolve(obj);
         };
         return;
       }
 
-      resolve(dbObject(db._connections[name]));
+      resolve(new dbObject(db._connections[name]));
     });
   },
   add(database: string, name: string, structure: Structure) {
