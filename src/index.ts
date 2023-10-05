@@ -16,7 +16,7 @@ const bbn: Bbn = {
   _,
   $,
   lng,
-  vars,
+  var: vars,
   env,
   db,
   fn

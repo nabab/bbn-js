@@ -8,7 +8,7 @@ const isHostname = function (...args: any[]): boolean
 		if (!isString(st)) {
 			return false;
 		}
-		if (!isIP(st) && !bbn.vars.regexp.hostname.test(st)) {
+		if (!isIP(st) && !bbn.var.regexp.hostname.test(st)) {
 			return false;
 		}
 	}

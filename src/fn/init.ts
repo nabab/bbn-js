@@ -89,8 +89,8 @@ const init = function (cfg, force) {
 			}
 		});
 
-		if (bbn.vars.colors) {
-			addColors(bbn.vars.colors);
+		if (bbn.var.colors) {
+			addColors(bbn.var.colors);
 		}
 
 		if (bbn.env.lang && undefined !== dayjs) {

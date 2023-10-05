@@ -18,8 +18,8 @@ import { iterate } from "../loop/iterate";
  */
 const addColors = function (colors: object) {
   if (numProperties(colors)) {
-    if (!bbn.vars.colors) {
-      bbn.vars.colors = {};
+    if (!bbn.var.colors) {
+      bbn.var.colors = {};
     }
     let element = document.createElement("style");
     document.head.appendChild(element);
@@ -27,7 +27,7 @@ const addColors = function (colors: object) {
     // Append style element to head
     let i = 0;
     iterate(colors, (v, n) => {
-      bbn.vars.colors[n] = v;
+      bbn.var.colors[n] = v;
       sheet.insertRule(
         ".bbn-" +
           n +

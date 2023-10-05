@@ -74,7 +74,7 @@ declare global {
     version: string;
     opt: object;
     env: BbnEnv;
-    vars: Vars;
+    var: Vars;
     lng: Lng;
     fn: {
       [key: string]: (...args: any[]) => any;

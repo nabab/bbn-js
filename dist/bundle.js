@@ -2395,8 +2395,8 @@
          */
         const addColors = function (colors) {
             if ((0, numProperties_3.numProperties)(colors)) {
-                if (!bbn.vars.colors) {
-                    bbn.vars.colors = {};
+                if (!bbn.var.colors) {
+                    bbn.var.colors = {};
                 }
                 let element = document.createElement("style");
                 document.head.appendChild(element);
@@ -2404,7 +2404,7 @@
                 // Append style element to head
                 let i = 0;
                 (0, iterate_4.iterate)(colors, (v, n) => {
-                    bbn.vars.colors[n] = v;
+                    bbn.var.colors[n] = v;
                     sheet.insertRule(".bbn-" +
                         n +
                         ", .bbn-color-text-" +
@@ -7062,8 +7062,8 @@
                         bbn.env.params.push(v);
                     }
                 });
-                if (bbn.vars.colors) {
-                    (0, addColors_1.addColors)(bbn.vars.colors);
+                if (bbn.var.colors) {
+                    (0, addColors_1.addColors)(bbn.var.colors);
                 }
                 if (bbn.env.lang && undefined !== dayjs) {
                     dayjs.locale(bbn.env.lang);
@@ -7465,7 +7465,7 @@
             if (!args.length)
                 return false;
             for (let st of args) {
-                if (!(0, isString_21.isString)(st) || !bbn.vars.regexp.ip.test(st)) {
+                if (!(0, isString_21.isString)(st) || !bbn.var.regexp.ip.test(st)) {
                     return false;
                 }
             }
@@ -7484,7 +7484,7 @@
                 if (!(0, isString_22.isString)(st)) {
                     return false;
                 }
-                if (!(0, isIP_1.isIP)(st) && !bbn.vars.regexp.hostname.test(st)) {
+                if (!(0, isIP_1.isIP)(st) && !bbn.var.regexp.hostname.test(st)) {
                     return false;
                 }
             }
@@ -7687,7 +7687,7 @@
             if (!args.length)
                 return false;
             for (let str of args) {
-                if (!bbn.vars.regexp.url.test(str)) {
+                if (!bbn.var.regexp.url.test(str)) {
                     return false;
                 }
             }
@@ -9305,7 +9305,7 @@
         const shorten = function (st, len, adj) {
             if (typeof st.toLowerCase() === "string") {
                 if (!len) {
-                    len = bbn.vars.shortenLen;
+                    len = bbn.var.shortenLen;
                 }
                 if (adj === undefined || !(0, isString_25.isString)(adj)) {
                     adj = "...";
@@ -10000,7 +10000,7 @@
             _: _2._,
             $: _3.$,
             lng: lng_1.lng,
-            vars: vars_1.vars,
+            var: vars_1.vars,
             env: env_1.env,
             db: db_1.db,
             fn: fn_1.fn
