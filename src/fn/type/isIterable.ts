@@ -24,17 +24,21 @@
  * @returns  {Boolean}
  */
 const isIterable = function (...args): boolean {
-	if (!args.length) {
-		return false;
-	}
+  if (!args.length) {
+    return false;
+  }
 
-	for (let i = 0; i < args.length; i++) {
-  	if (!args[i] || !(typeof args[i] === "object") || Symbol.iterator in Object(args[i])) {
-			return false;
-		}
-	}
+  for (let a of args) {
+    if (
+      !a ||
+      typeof a !== "object" ||
+      Symbol.iterator in Object(a)
+    ) {
+      return false;
+    }
+  }
 
-	return true;
+  return true;
 };
 
 export { isIterable };

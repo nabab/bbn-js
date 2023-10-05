@@ -105,8 +105,10 @@
             if (!args.length) {
                 return false;
             }
-            for (let i = 0; i < args.length; i++) {
-                if (!args[i] || !(typeof args[i] === "object") || Symbol.iterator in Object(args[i])) {
+            for (let a of args) {
+                if (!a ||
+                    typeof a !== "object" ||
+                    Symbol.iterator in Object(a)) {
                     return false;
                 }
             }
