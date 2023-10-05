@@ -1,8 +1,8 @@
 import { isFunction } from '../type/isFunction';
 
-const defaultPreLinkFunction = function (url: string, force?: boolean, ele?: HTMLElement): string
+const defaultPreLinkFunction = function (url: string, force?: boolean, ele?: HTMLElement): any
 {
-	return url;
+	return 1;
 };
 
 export { defaultPreLinkFunction };

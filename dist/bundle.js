@@ -4513,7 +4513,7 @@
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPreLinkFunction = void 0;
         const defaultPreLinkFunction = function (url, force, ele) {
-            return url;
+            return 1;
         };
         exports.defaultPreLinkFunction = defaultPreLinkFunction;
     });
