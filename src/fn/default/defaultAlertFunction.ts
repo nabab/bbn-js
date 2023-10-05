@@ -1,9 +1,6 @@
-
-
-
-const defaultAlertFunction = function(msg: string, title?: string) {
+const defaultAlertFunction = function (msg: string, title?: string) {
   /** @todo */
   alert(msg);
 };
 
-export {defaultAlertFunction}
+export { defaultAlertFunction };
