@@ -107,8 +107,8 @@
             }
             for (let a of args) {
                 if (!a ||
-                    typeof a !== "object" ||
-                    Symbol.iterator in Object(a)) {
+                    (typeof a !== "object") ||
+                    !(Symbol.iterator in Object(a))) {
                     return false;
                 }
             }
