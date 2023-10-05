@@ -9,10 +9,22 @@
         Object.defineProperty(exports, "__cjsModule", { value: true });
         Object.defineProperty(exports, "default", { value: (name) => resolve(name) });
     });
-    define("fn/isArray", ["require", "exports"], function (require, exports) {
+    define("fn/type/isArray", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isArray = void 0;
+        /**
+         * Returns true if the given argument is array.
+         * @method   isArray
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isArray([5,2,6]);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isArray = function (...args) {
             if (!args.length)
                 return false;
@@ -25,15 +37,34 @@
         };
         exports.isArray = isArray;
     });
-    define("fn/isNumber", ["require", "exports"], function (require, exports) {
+    define("fn/type/isNumber", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isNumber = void 0;
+        /**
+         * Returns true if the given argument is a number
+         * @method   isNumber
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isNumber(5);
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isNumber(0.5);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isNumber = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if (['boolean', 'object', 'symbol'].includes(typeof a) || a === '' || isNaN(a)) {
+                if (["boolean", "object", "symbol"].includes(typeof a) ||
+                    a === "" ||
+                    isNaN(a)) {
                     return false;
                 }
             }
@@ -41,24 +72,69 @@
         };
         exports.isNumber = isNumber;
     });
-    define("fn/isIterable", ["require", "exports"], function (require, exports) {
+    define("fn/type/isIterable", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isIterable = void 0;
-        const isIterable = function (v) {
-            return v && typeof v === 'object' && Symbol.iterator in Object(v);
+        /**
+         * Returns true if the given object can be iterated as an array (numerically).
+         *
+         * It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
+         *
+         * @method   isIterable
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isIterable([1, 2])
+         * // true
+         * bbn.fn.isIterable({a: 1, b: 2})
+         * // false
+         * bbn.fn.isIterable(25)
+         * // false
+         * bbn.fn.isIterable(document.body.querySelectorAll('.container > div'))
+         * // true
+         * ```
+         *
+         * @param    {String} st
+         *
+         * @returns  {Boolean}
+         */
+        const isIterable = function (...args) {
+            if (!args.length) {
+                return false;
+            }
+            for (let i = 0; i < args.length; i++) {
+                if (!args[i] || !(typeof args[i] === "object") || Symbol.iterator in Object(args[i])) {
+                    return false;
+                }
+            }
+            return true;
         };
         exports.isIterable = isIterable;
     });
-    define("fn/isString", ["require", "exports"], function (require, exports) {
+    define("fn/type/isString", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isString = void 0;
+        /**
+         * Returns true if the given argument is a string;
+         * @method   isString
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isString('bbn');
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isString = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object String]') {
+                if ({}.toString.apply(a) !== "[object String]") {
                     return false;
                 }
             }
@@ -66,10 +142,26 @@
         };
         exports.isString = isString;
     });
-    define("fn/isInt", ["require", "exports"], function (require, exports) {
+    define("fn/type/isInt", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isInt = void 0;
+        /**
+         * Returns true if the given argument is an integer
+         * @method   isInt
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isInt(5);
+         * // true
+         * bbn.fn.isInt(0.5);
+         * // false
+         * bbn.fn.isInt("hello");
+         * // false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isInt = function (...args) {
             if (!args.length)
                 return false;
@@ -82,10 +174,24 @@
         };
         exports.isInt = isInt;
     });
-    define("fn/isFunction", ["require", "exports"], function (require, exports) {
+    define("fn/type/isFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isFunction = void 0;
+        /**
+         * Returns true if the given argument is a function.
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isFunction(() => {
+         *  alert('Hello world');
+         * });
+         * //true
+         * ```
+         * @method   isFunction
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isFunction = function (...args) {
             if (!args.length)
                 return false;
@@ -98,10 +204,23 @@
         };
         exports.isFunction = isFunction;
     });
-    define("fn/log", ["require", "exports", "fn/isFunction"], function (require, exports, isFunction_1) {
+    define("fn/browser/log", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.log = void 0;
+        /**
+         * Logs the given arguments in the browser's console.
+         * @method   log
+         * @global
+         * @example
+         * ```javascript
+         * //'hello'
+         * bbn.fn.log('hello');
+         * ```
+         * @memberof bbn.fn
+         * @param    {...any} args
+         * @returns
+         */
         const log = function (...args) {
             if (window.console !== undefined) {
                 let cfg;
@@ -135,14 +254,35 @@
         };
         exports.log = log;
     });
-    define("fn/substr", ["require", "exports", "fn/isString", "fn/isInt", "fn/log"], function (require, exports, isString_1, isInt_1, log_1) {
+    define("fn/string/substr", ["require", "exports", "fn/type/isString", "fn/type/isInt", "fn/browser/log"], function (require, exports, isString_1, isInt_1, log_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.substr = void 0;
+        /**
+         * Basic substring function accepting both positive and negative values.
+         *
+         * @method   substr
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.substr(bbn.fn, 'Hello', -3, -1);
+         * // "ll"
+         * bbn.fn.substr(bbn.fn, 'Hello', -3);
+         * // "llo"
+         * bbn.fn.substr(bbn.fn, 'Hello', 0, 1);
+         * // "H"
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} str
+         * @param    {Number} from
+         * @param    {Number} length
+         * @returns  {String} Result substring
+         */
         const substr = function (str, from, length) {
             if (!(0, isString_1.isString)(str) || !(0, isInt_1.isInt)(from)) {
                 (0, log_1.log)(arguments);
-                throw new Error(bbn._('The substr function should be applied to a string and at least a `from` argument should be given'));
+                throw new Error(bbn._("The substr function should be applied to a string and at least a `from` argument should be given"));
             }
             if (from < 0) {
                 from = str.length + from;
@@ -154,10 +294,32 @@
         };
         exports.substr = substr;
     });
-    define("fn/removePrivateProp", ["require", "exports", "fn/substr"], function (require, exports, substr_1) {
+    define("fn/object/removePrivateProp", ["require", "exports", "fn/string/substr"], function (require, exports, substr_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removePrivateProp = void 0;
+        /**
+          * Returns an object with the original objects' properties starting with an alphanumeric character.
+          *
+          * It is presumed that external libraries, bbn variables use prefixes such as _ or $ for
+          * naming private properties; this returns a new object purged from these properties.
+          *
+          * @method   removePrivateProp
+          * @global
+          * @example
+          * ```javascript
+          * bbn.fn.removePrivateProp({
+          *   _bbn_timestamp: 1587269593987,
+          *   name: "Wonka",
+          *   fname: "Willy"
+          * });
+          * // {name: "Wonka", fname: "Willy"}
+          * ```
+          * @memberof bbn.fn
+          * @param    {Object}  obj  The original object
+          * @param    {Boolean} deep If true the function will be reapplied on object properties
+          * @returns  {Object}  A new object without only the _public_ properties.
+          */
         const removePrivateProp = function (obj, deep = false) {
             let r = null;
             if (typeof obj === 'object') {
@@ -177,12 +339,32 @@
         };
         exports.removePrivateProp = removePrivateProp;
     });
-    define("fn/iterate", ["require", "exports", "fn/removePrivateProp"], function (require, exports, removePrivateProp_1) {
+    define("fn/loop/iterate", ["require", "exports", "fn/object/removePrivateProp"], function (require, exports, removePrivateProp_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.iterate = void 0;
+        /**
+         * Executes the provided function on each property of the given object.
+         *
+         * @method   iterate
+         * @global
+         * @example
+         * ```javascript
+         * //["value1", 2]
+         * let arr = [];
+         * bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
+         *   arr.push(value);
+         * });
+         * ```
+         * @memberof bbn.fn
+         * @param    {(Object|Number)} obj       The object to loop on
+         * @param    {Function}        fn        The function, gets the array's element and the index as arguments
+         * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
+         * @param    {Boolean}         reverse   If set to true the order of the keys will be reversed
+         * @returns  {Object}
+         */
         const iterate = function (obj, fn, noPrivate = false, reverse = false) {
-            if (obj !== null && typeof obj === 'object') {
+            if (obj !== null && typeof obj === "object") {
                 let iter = Object.keys(noPrivate ? (0, removePrivateProp_1.removePrivateProp)(obj) : obj);
                 if (reverse) {
                     iter.reverse();
@@ -197,10 +379,41 @@
         };
         exports.iterate = iterate;
     });
-    define("fn/each", ["require", "exports", "fn/isNumber", "fn/isIterable", "fn/iterate"], function (require, exports, isNumber_1, isIterable_1, iterate_1) {
+    define("fn/loop/each", ["require", "exports", "fn/type/isNumber", "fn/type/isIterable", "fn/loop/iterate"], function (require, exports, isNumber_1, isIterable_1, iterate_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.each = void 0;
+        /**
+         * Executes the provided function on each element of the given array.
+         *
+         * Returning false will stop the loop.
+         *
+         * @method   each
+         * @global
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.each([4, 5, 5, 10, 1, 2], d => {
+         *   res += d;
+         * });
+         * // res = 27
+         * ```
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.each([4, 5, 5, 10, 1, 2], d => {
+         *   if (res >= 20) {
+         *     return false;
+         *   }
+         *   res += d;
+         * });
+         * // res = 24
+         * ```
+         * @memberof bbn.fn
+         * @param    {*}     arr The array to loop on
+         * @param    {Function}  fn  The function, gets the array's element and the index as arguments
+         * @returns  {[Array, Object, void]}
+         */
         const each = function (arr, fn) {
             if ((0, isNumber_1.isNumber)(arr) && arr > 0) {
                 for (let i = 0; i < arr; i++) {
@@ -222,19 +435,47 @@
         };
         exports.each = each;
     });
-    define("fn/correctCase", ["require", "exports"], function (require, exports) {
+    define("fn/string/correctCase", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.correctCase = void 0;
+        /**
+         * Converts the first character of the string to uppercase.
+         *
+         * @method   correctCase
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"This is a test"
+         * bbn.fn.correctCase("this is a test");
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {STring} str
+         * @returns  {String}
+         */
         const correctCase = function (str) {
             return str.replace(/[A-z]{1}/, (c) => c.toUpperCase());
         };
         exports.correctCase = correctCase;
     });
-    define("fn/error", ["require", "exports", "fn/log"], function (require, exports, log_2) {
+    define("fn/browser/error", ["require", "exports", "fn/browser/log"], function (require, exports, log_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.error = void 0;
+        /**
+         * Throws an error.
+         * @method   error
+         * @global
+         * @ignore
+         * ``` javascript
+         * bbn.fn.error('I log this error in console with a red background')
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} errorMsg
+         * @returns
+         */
         const error = function (errorMsg) {
             if (arguments.length > 1) {
                 const args = [];
@@ -252,7 +493,7 @@
         };
         exports.error = error;
     });
-    define("fn/checkType", ["require", "exports", "fn/isArray", "fn/each", "fn/isFunction", "fn/isString", "fn/correctCase", "fn/error", "fn/log"], function (require, exports, isArray_1, each_1, isFunction_2, isString_2, correctCase_1, error_1, log_3) {
+    define("fn/type/checkType", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isFunction", "fn/type/isString", "fn/string/correctCase", "fn/browser/error", "fn/browser/log"], function (require, exports, isArray_1, each_1, isFunction_2, isString_2, correctCase_1, error_1, log_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkType = void 0;
@@ -309,7 +550,7 @@
         };
         exports.checkType = checkType;
     });
-    define("_", ["require", "exports", "fn/checkType"], function (require, exports, checkType_1) {
+    define("_", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._ = void 0;
@@ -497,7 +738,7 @@
         };
         exports.env = env;
     });
-    define("db", ["require", "exports", "_", "fn/each", "fn/iterate", "fn/log"], function (require, exports, _1, each_2, iterate_2, log_4) {
+    define("db", ["require", "exports", "_", "fn/loop/each", "fn/loop/iterate", "fn/browser/log"], function (require, exports, _1, each_2, iterate_2, log_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.db = void 0;
@@ -681,13 +922,27 @@
         };
         exports.db = db;
     });
-    define("fn/_addLoader", ["require", "exports", "fn/substr"], function (require, exports, substr_2) {
+    define("fn/ajax/_addLoader", ["require", "exports", "fn/string/substr"], function (require, exports, substr_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._addLoader = void 0;
+        /**
+         * Creates and adds a "loader" object to the property bbn.env.loaders.
+         *
+         * @method   _addLoader
+         * @global
+         * @ignore
+         * @memberof bbn.fn
+         *
+         * @param    {String}  requestId
+         * @param    {Promise} prom
+         * @param    {Object}  source
+         *
+         * @returns  {Number}  The timestamp (in ms)
+         */
         const _addLoader = function (requestId, prom, source) {
             /** @var {Number} tst Current timestamp */
-            let tst = (new Date()).getTime();
+            let tst = new Date().getTime();
             /** @var {String} url The original URL (part of requestId before : and md5) */
             let url = (0, substr_2.substr)(requestId, 0, requestId.length - 33);
             /** @var {Object} loader The loader object */
@@ -701,7 +956,7 @@
                 abort: false,
                 errorMessage: false,
                 success: false,
-                start: tst
+                start: tst,
             };
             // Adding the loader in bbn.env.loaders
             bbn.env.loaders.push(loader);
@@ -711,7 +966,7 @@
             let idx = bbn.env.loadersHistory.length;
             // Removing elements from the loadersHistory object if their number is higher
             // than bbn.env.maxLoadersHistory
-            while (idx && (bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory)) {
+            while (idx && bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory) {
                 idx--;
                 // Not removing the ones still loading
                 if (!bbn.env.loading) {
@@ -722,10 +977,38 @@
         };
         exports._addLoader = _addLoader;
     });
-    define("fn/getProperty", ["require", "exports"], function (require, exports) {
+    define("fn/object/getProperty", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getProperty = void 0;
+        /**
+         * Returns the value of the given property from the given object.
+         *
+         * Looks for the given property in the given object, accepting dot (.) separator
+         * for deep property access, and returns its value if found and undefined otherwise.
+         *
+         * @method   getProperty
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: 2}, 'b');
+         * // 2
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+         * // 33
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+         * // undefined
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} obj
+         * @param    {String} prop
+         * @returns  {*}      The property's value or undefined
+         */
         const getProperty = function (obj, prop) {
             if (typeof obj === 'object' && typeof prop === 'string') {
                 return prop.split('.').reduce((o, i) => {
@@ -738,10 +1021,25 @@
         };
         exports.getProperty = getProperty;
     });
-    define("fn/removeAccents", ["require", "exports", "fn/isString", "fn/log"], function (require, exports, isString_3, log_5) {
+    define("fn/string/removeAccents", ["require", "exports", "fn/type/isString", "fn/browser/log"], function (require, exports, isString_3, log_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeAccents = void 0;
+        /**
+         * Returns the string passed as an argument without accents.
+         *
+         * @method   removeAccents
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"eeou"
+         * bbn.fn.removeAccents("èéòù");
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns  {String}
+         */
         const removeAccents = function (st) {
             if (!(0, isString_3.isString)(st)) {
                 if (st.toString) {
@@ -749,22 +1047,40 @@
                 }
                 else {
                     (0, log_5.log)(st);
-                    throw new Error(bbn._('removeAccent expects a string'));
+                    throw new Error(bbn._("removeAccent expects a string"));
                 }
             }
-            return st.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            return st.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         };
         exports.removeAccents = removeAccents;
     });
-    define("fn/isDate", ["require", "exports"], function (require, exports) {
+    define("fn/type/isDate", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDate = void 0;
+        /**
+         * Returns true if the given argument is a date object.
+         * @method   isDate
+         * @global
+         * @example
+         * ```javascript
+         * let date = new Date();
+         * bbn.fn.isDate(date);
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isDate('16/04/2020');
+         * //false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isDate = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Date]') {
+                if ({}.toString.apply(a) !== "[object Date]") {
                     return false;
                 }
             }
@@ -772,14 +1088,52 @@
         };
         exports.isDate = isDate;
     });
-    define("fn/_compareValues", ["require", "exports", "fn/getProperty", "fn/isString", "fn/removeAccents", "fn/isDate"], function (require, exports, getProperty_1, isString_4, removeAccents_1, isDate_1) {
+    define("fn/object/_compareValues", ["require", "exports", "fn/object/getProperty", "fn/type/isString", "fn/string/removeAccents", "fn/type/isDate"], function (require, exports, getProperty_1, isString_4, removeAccents_1, isDate_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._compareValues = void 0;
-        const _compareValues = function (a, b, prop, dir = 'asc') {
-            let va = (0, getProperty_1.getProperty)(a, prop), vb = (0, getProperty_1.getProperty)(b, prop), ta = (typeof (va)).toLowerCase(), tb = (typeof (vb)).toLowerCase();
-            if ((dir !== 'asc') && (0, isString_4.isString)(dir) && (dir.toLowerCase() === 'desc')) {
-                dir = 'desc';
+        /**
+          * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
+          *
+          * This is only used as a sorting function by bbn.fn.order and bbn.fn.multiorder.
+          *
+          * @method   _compareValues
+          * @global
+          * @example
+          * ```javascript
+          * // Same value
+          * bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'value');
+          * // 0
+          * ```
+          * @example
+          * ```javascript
+          * // First value smaller than second
+          * bbn.fn._compareValues({year: 2015, value: 2}, {year: 2016, value: 2}, 'year');
+          * // -1
+          * ```
+          * @example
+          * ```javascript
+          * // First value greater than second
+          * bbn.fn._compareValues({year: 2017, value: 2}, {year: 2016, value: 2}, 'year');
+          * // 1
+          * ```
+          * @example
+          * ```javascript
+          * // First value is undefined
+          * bbn.fn._compareValues({year: 2017}, {year: 2016, value: 2}, 'value');
+          * // 1
+          * ```
+          * @memberof bbn.fn
+          * @param    {Object} a    First object for comparison
+          * @param    {Object} b    Second object for comparison
+          * @param    {String} prop Property to compare
+          * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
+          * @returns  {Number} Always either -1, 1, or 0
+          */
+        const _compareValues = function (a, b, prop, dir = "asc") {
+            let va = (0, getProperty_1.getProperty)(a, prop), vb = (0, getProperty_1.getProperty)(b, prop), ta = (typeof va).toLowerCase(), tb = (typeof vb).toLowerCase();
+            if (dir !== "asc" && (0, isString_4.isString)(dir) && dir.toLowerCase() === "desc") {
+                dir = "desc";
             }
             if (ta !== tb) {
                 va = ta;
@@ -787,15 +1141,15 @@
             }
             else {
                 switch (ta) {
-                    case 'string':
+                    case "string":
                         va = (0, removeAccents_1.removeAccents)(va).toLowerCase();
                         vb = (0, removeAccents_1.removeAccents)(vb).toLowerCase();
                         break;
-                    case 'boolean':
+                    case "boolean":
                         va = va ? 1 : 0;
                         vb = vb ? 1 : 0;
                         break;
-                    case 'object':
+                    case "object":
                         if ((0, isDate_1.isDate)(va)) {
                             va = va.getTime();
                             vb = (0, isDate_1.isDate)(vb) ? vb.getTime() : 0;
@@ -804,19 +1158,48 @@
                 }
             }
             if (va < vb) {
-                return dir === 'desc' ? 1 : -1;
+                return dir === "desc" ? 1 : -1;
             }
             if (va > vb) {
-                return dir === 'desc' ? -1 : 1;
+                return dir === "desc" ? -1 : 1;
             }
             return 0;
         };
         exports._compareValues = _compareValues;
     });
-    define("fn/numProperties", ["require", "exports"], function (require, exports) {
+    define("fn/object/numProperties", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.numProperties = void 0;
+        /**
+          * Returns the number of properties contained in the object.
+          *
+          * Only takes into account the own properties - not the inherited ones - and the non _private_ ones.
+          *
+          * @method   numProperties
+          * @global
+          * @example
+          * ```javascript
+          * bbn.fn.numProperties({author: "Chuck Palahniuk", "title": "Fight club"});
+          * // 2
+          * ```
+          * @example
+          * ```javascript
+          * bbn.fn.numProperties({username: "chuck", "password": "soap", _bbn_timestamp: 1587323193751});
+          * // 2
+          * @example
+          * ```javascript
+          * let d = new Date();
+          * bbn.fn.numProperties(d);
+          * // 0
+          * d.myProp = 1;
+          * bbn.fn.numProperties(d);
+          * // 1
+          * ```
+          * @memberof bbn.fn
+          * @param    {Object} obj The object to analyze
+          * @returns  {Number} The number of properties
+          */
         const numProperties = function (obj) {
             if (!obj || typeof obj !== 'object') {
                 return 0;
@@ -825,10 +1208,49 @@
         };
         exports.numProperties = numProperties;
     });
-    define("fn/isEmpty", ["require", "exports", "fn/isArray", "fn/numProperties"], function (require, exports, isArray_2, numProperties_1) {
+    define("fn/type/isEmpty", ["require", "exports", "fn/type/isArray", "fn/object/numProperties"], function (require, exports, isArray_2, numProperties_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEmpty = void 0;
+        /**
+         * Checks if the argument is empty or not.
+         * @method   isEmpty
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty({});
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty({test : 1});
+         * //false
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty([]);
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty(['test']);
+         * //false
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty('');
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isEmpty('test');
+         * //false
+         * ```
+         * @memberof bbn.fn
+         * @param    {*} obj
+         * @returns  {Boolean}
+         */
         const isEmpty = function (obj) {
             if (!obj) {
                 return true;
@@ -836,7 +1258,7 @@
             if ((0, isArray_2.isArray)(obj)) {
                 return obj.length ? false : true;
             }
-            if (typeof obj === 'object') {
+            if (typeof obj === "object") {
                 if ((0, numProperties_1.numProperties)(obj)) {
                     return false;
                 }
@@ -846,15 +1268,27 @@
         };
         exports.isEmpty = isEmpty;
     });
-    define("fn/isNull", ["require", "exports"], function (require, exports) {
+    define("fn/type/isNull", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isNull = void 0;
+        /**
+         * Returns true if the given argument is null;
+         * @method   isNull
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isNull(myData);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isNull = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Null]') {
+                if ({}.toString.apply(a) !== "[object Null]") {
                     return false;
                 }
             }
@@ -862,15 +1296,32 @@
         };
         exports.isNull = isNull;
     });
-    define("fn/isObject", ["require", "exports"], function (require, exports) {
+    define("fn/type/isObject", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isObject = void 0;
+        /**
+         * Returns true if the given argument is an object.
+         * @method   isObject
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isObject({name: 'cami', age: 7});
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isObject([{name: 'cami', age: 7}]);
+         * //false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isObject = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Object]') {
+                if ({}.toString.apply(a) !== "[object Object]") {
                     return false;
                 }
             }
@@ -878,10 +1329,22 @@
         };
         exports.isObject = isObject;
     });
-    define("fn/isDom", ["require", "exports"], function (require, exports) {
+    define("fn/type/isDom", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDom = void 0;
+        /**
+         * Returns true if the given argument is a dom element;
+         * @method   isDom
+         * @example
+         * ```javascript
+         * bbn.fn.isDom(document.body.childNodes[0]);
+         * //true
+         * ```
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isDom = function (...args) {
             if (!args.length)
                 return false;
@@ -894,7 +1357,7 @@
         };
         exports.isDom = isDom;
     });
-    define("fn/isCp", ["require", "exports", "fn/isDom"], function (require, exports, isDom_1) {
+    define("fn/type/isCp", ["require", "exports", "fn/type/isDom"], function (require, exports, isDom_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isCp = void 0;
@@ -915,14 +1378,19 @@
         };
         exports.isCp = isCp;
     });
-    define("fn/circularReplacer", ["require", "exports", "fn/isDom", "fn/isCp", "fn/log"], function (require, exports, isDom_2, isCp_1, log_6) {
+    define("fn/object/circularReplacer", ["require", "exports", "fn/type/isDom", "fn/type/isCp", "fn/browser/log"], function (require, exports, isDom_2, isCp_1, log_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.circularReplacer = void 0;
+        /**
+         * Returns a function to give to JSON.stringify in order to avoid circular values.
+         *
+         * @returns Function
+         */
         const circularReplacer = function () {
             const visited = new WeakSet();
             return (key, value) => {
-                if (typeof value === 'object' && value !== null) {
+                if (typeof value === "object" && value !== null) {
                     if (visited.has(value)) {
                         return;
                     }
@@ -930,15 +1398,16 @@
                     if (![undefined, Object, Array, null].includes(value.constructor)) {
                         if ((0, isDom_2.isDom)(value)) {
                             if (value.bbnId) {
-                                value = '__BBN_DOM__' + value.tagName + '/' + value.bbnId + value.bbnHash;
+                                value =
+                                    "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
                             }
                             else {
-                                value = '__BBN_DOM__' + value.tagName + '/' + value.className;
+                                value = "__BBN_DOM__" + value.tagName + "/" + value.className;
                             }
                         }
                         else if ((0, isCp_1.isCp)(value)) {
-                            (0, log_6.log)('IS CP');
-                            value = '__BBN_CP__' + value.$options.name + '/' + value.$cid;
+                            (0, log_6.log)("IS CP");
+                            value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                         }
                         else {
                             value = value.constructor.toString();
@@ -950,7 +1419,7 @@
         };
         exports.circularReplacer = circularReplacer;
     });
-    define("fn/simpleHash1", ["require", "exports"], function (require, exports) {
+    define("fn/string/simpleHash1", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash1 = void 0;
@@ -965,7 +1434,7 @@
         };
         exports.simpleHash1 = simpleHash1;
     });
-    define("fn/simpleHash2", ["require", "exports"], function (require, exports) {
+    define("fn/string/simpleHash2", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash2 = void 0;
@@ -980,7 +1449,7 @@
         };
         exports.simpleHash2 = simpleHash2;
     });
-    define("fn/simpleHash", ["require", "exports", "fn/simpleHash1", "fn/simpleHash2"], function (require, exports, simpleHash1_1, simpleHash2_1) {
+    define("fn/string/simpleHash", ["require", "exports", "fn/string/simpleHash1", "fn/string/simpleHash2"], function (require, exports, simpleHash1_1, simpleHash2_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash = void 0;
@@ -991,34 +1460,40 @@
         };
         exports.simpleHash = simpleHash;
     });
-    define("fn/hash", ["require", "exports", "fn/log", "fn/isDom", "fn/isCp", "fn/circularReplacer", "fn/simpleHash"], function (require, exports, log_7, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
+    define("fn/string/hash", ["require", "exports", "fn/browser/log", "fn/type/isDom", "fn/type/isCp", "fn/object/circularReplacer", "fn/string/simpleHash"], function (require, exports, log_7, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hash = void 0;
+        /**
+         * Makes a hash out of anything
+         * @param {Object|Array} obj
+         * @returns {String}
+         */
         const hash = function (obj) {
             //log(obj);
-            let st = '__bbn__';
+            let st = "__bbn__";
             for (let i in arguments) {
                 if (arguments[i]) {
                     let value = arguments[i];
                     if ((0, isDom_3.isDom)(value)) {
                         if (value.bbnId) {
-                            st += '__BBN_DOM__' + value.tagName + '/' + value.bbnId + value.bbnHash;
+                            st +=
+                                "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
                         }
                         else {
-                            st += '__BBN_DOM__' + value.tagName + '/' + value.className;
+                            st += "__BBN_DOM__" + value.tagName + "/" + value.className;
                         }
                     }
                     else if ((0, isCp_2.isCp)(value)) {
-                        (0, log_7.log)('IS CP');
-                        st += '__BBN_CP__' + value.$options.name + '/' + value.$cid;
+                        (0, log_7.log)("IS CP");
+                        st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                     }
                     else {
                         try {
                             st += JSON.stringify(arguments[i], (0, circularReplacer_1.circularReplacer)());
                         }
                         catch (e) {
-                            st += '.';
+                            st += ".";
                         }
                     }
                 }
@@ -1027,10 +1502,49 @@
         };
         exports.hash = hash;
     });
-    define("fn/isSame", ["require", "exports", "fn/hash", "fn/each"], function (require, exports, hash_1, each_3) {
+    define("fn/type/isSame", ["require", "exports", "fn/string/hash", "fn/loop/each"], function (require, exports, hash_1, each_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSame = void 0;
+        /**
+          * Checks whether the data contained in the given objects is identical.
+          *
+          * The properties starting with a non alphanumerical character and the
+          * inherited ones are removed for the comparison, then the properties are
+          * compared individually without the order being taken into account.
+          *
+          * @method   isSame
+          * @global
+          * @example
+          * ```javascript
+          * bbn.fn.isSame(
+          *   {name: "Wonka", fname: "Willy"},
+          *   {fname: "Willy", name: "Wonka"}
+          * );
+          * // true
+          * ```
+          * @example
+          * ```javascript
+          * // Doesn't take into account properties starting with non-alphanumeric characters
+          * bbn.fn.isSame(
+          *   {name: "Wonka", fname: "Willy", _bbn_timestamp: 1587269593987},
+          *   {fname: "Willy", name: "Wonka"}
+          * );
+          * // true
+          * ```
+          * @example
+          * ```javascript
+          * bbn.fn.isSame(
+          *   {name: "Wonka", fname: "Willy", real: false},
+          *   {fname: "Willy", name: "Wonka"}
+          * );
+          * // false
+          * ```
+          * @memberof bbn.fn
+          * @param    {Object} obj1
+          * @param    {Object} obj2
+          * @returns  {Boolean}
+          */
         const isSame = function (obj1, obj2, done) {
             if (!done) {
                 done = [];
@@ -1063,10 +1577,61 @@
         };
         exports.isSame = isSame;
     });
-    define("fn/compare", ["require", "exports", "fn/isEmpty", "fn/removeAccents", "fn/isNull", "fn/isObject", "fn/isSame"], function (require, exports, isEmpty_1, removeAccents_2, isNull_1, isObject_1, isSame_1) {
+    define("fn/object/compare", ["require", "exports", "fn/type/isEmpty", "fn/string/removeAccents", "fn/type/isNull", "fn/type/isObject", "fn/type/isSame"], function (require, exports, isEmpty_1, removeAccents_2, isNull_1, isObject_1, isSame_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compare = void 0;
+        /**
+         * Performs a comparison between two values based on the given operator and returns a boolean.
+         *
+         * It is internally used by all the filtering functions; the available operators are:
+         * - _===_, _=_, _equal_, _eq_, _is_, which stand for __===__
+         * - _!==_, _notequal_, _neq_, _isnot_, which stand for __!==__
+         * - _!=_, _different_, which stand for __!=__
+         * - _contains_, _contain_, _icontains_, _icontain_
+         * - _starts_, _start_
+         * - _startswith_, _startsi_, _starti_, _istarts_, _istart_
+         * - _endswith_, _endsi_, _endi_, _iends_, _iend_
+         * - _like_
+         * - _gt_, _>_, which stand for __>__
+         * - _lt_, _<_, which stand for __<__
+         * - _gte_, _>=_, which stand for __>=__
+         * - _lte_, _<=_, which stand for __<=__
+         * - _isnull_, which stands for __=== null__
+         * - _isnotnull_, which stands for __!== null__
+         * - _isempty_, which stands for __=== ''__
+         * - _isnotempty_, which stands for __!== ''__
+         *
+         * The defaut operator (if none is given) is __==__ .
+         *
+         * @method   compare
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.compare('foo', 'bar', 'eq');
+         * // false
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.compare('foo', 'bar', 'neq');
+         * // true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.compare(3, 1, '>');
+         * // true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.compare("JavaScript", "script", 'contain');
+         * // true
+         * ```
+         * @memberof bbn.fn
+         * @param    {String|Number} v1
+         * @param    {String|Number} v2
+         * @param    {String}        operator
+         * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
+         */
         const compare = function (v1, v2, operator) {
             switch (operator) {
                 case '===':
@@ -1162,15 +1727,59 @@
         };
         exports.compare = compare;
     });
-    define("fn/compareConditions", ["require", "exports", "fn/isArray", "fn/each", "fn/compare", "fn/getProperty"], function (require, exports, isArray_3, each_4, compare_1, getProperty_2) {
+    define("fn/object/compareConditions", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/compare", "fn/object/getProperty"], function (require, exports, isArray_3, each_4, compare_1, getProperty_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compareConditions = void 0;
+        /**
+         * Checks whether the given data object complies or not with the given filter.
+         *
+         * The filter format must be full (i.e. with the properties logic and conditions) such as
+         * seen in the function bbn.fn.search and can be generated by the function bbn.fn.filterToConditions.
+         *
+         * @method   compareConditions
+         * @global
+         * @example
+         * ```javascript
+         * let item = {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589};
+         * bbn.fn.compareConditions(item, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *        field: "director",
+         *        value: "Steven Spielberg"
+         *     }
+         *   ]
+         * });
+         * // true
+         * bbn.fn.compareConditions(item, bbn.fn.filterToConditions({director: "Steven Soderberg"}));
+         * // false
+         * bbn.fn.compareConditions(item, bbn.fn.filterToConditions({director: "Steven Spielberg"}));
+         * // true
+         * bbn.fn.compareConditions(item, bbn.fn.filterToConditions({year: 1980}, ">"));
+         * // true
+         * bbn.fn.compareConditions(item, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *        field: "year",
+         *        operator: "<",
+         *        value: 1980
+         *     }
+         *   ]
+         * });
+         * // false
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} data
+         * @param    {Object} filter
+         * @returns  {Boolean}
+         */
         const compareConditions = function (data, filter) {
             if (!filter.conditions || !filter.logic || !(0, isArray_3.isArray)(filter.conditions)) {
-                throw new Error('Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects');
+                throw new Error("Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
             }
-            let ok = filter.logic === 'AND' ? true : false;
+            let ok = filter.logic === "AND" ? true : false;
             (0, each_4.each)(filter.conditions, (a) => {
                 let comparator;
                 if (a.conditions && (0, isArray_3.isArray)(a.conditions)) {
@@ -1179,7 +1788,7 @@
                 else {
                     comparator = (0, compare_1.compare)((0, getProperty_2.getProperty)(data, a.field), a.value, a.operator);
                     if (comparator) {
-                        let bits = a.field.split('.');
+                        let bits = a.field.split(".");
                         let prop = bits.pop();
                         if (bits.length) {
                             (0, each_4.each)(bits, (b) => (data = data[b]));
@@ -1191,12 +1800,12 @@
                     }
                 }
                 if (comparator) {
-                    if (filter.logic === 'OR') {
+                    if (filter.logic === "OR") {
                         ok = true;
                         return false;
                     }
                 }
-                else if (filter.logic === 'AND') {
+                else if (filter.logic === "AND") {
                     ok = false;
                     return false;
                 }
@@ -1205,18 +1814,55 @@
         };
         exports.compareConditions = compareConditions;
     });
-    define("fn/filterToConditions", ["require", "exports", "fn/isObject", "fn/isArray", "fn/iterate"], function (require, exports, isObject_2, isArray_4, iterate_3) {
+    define("fn/object/filterToConditions", ["require", "exports", "fn/type/isObject", "fn/type/isArray", "fn/loop/iterate"], function (require, exports, isObject_2, isArray_4, iterate_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filterToConditions = void 0;
-        const filterToConditions = function (filter, operator = '=') {
+        /**
+         * Converts the given object 'filter' to a valid format of condition.
+         *
+         * The resulting format will comply with bbn.fn.compareConditions and also with
+         * bbn databases functions and complex filters applied to bbn-vue list components.
+         *
+         * @method   filterToConditions
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.filterToConditions({num: 3});
+         * // {
+         * //   logic: "AND",
+         * //   conditions: [{
+         * //     field: "num",
+         * //     operator: "=",
+         * //     value: 3
+         * //   }]
+         * // }
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.filterToConditions({num: 3}, '>');
+         * // {
+         * //   logic: "AND",
+         * //   conditions: [{
+         * //     field: "num",
+         * //     operator: ">",
+         * //     value: 3
+         * //   }]
+         * // }
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} filter
+         * @param    {String} operator
+         * @returns  {Object}
+         */
+        const filterToConditions = function (filter, operator = "=") {
             if (!(0, isObject_2.isObject)(filter)) {
-                throw new Error('Error in filterToCondition: filter must be an object');
+                throw new Error("Error in filterToCondition: filter must be an object");
             }
             if (!filter.conditions || !(0, isArray_4.isArray)(filter.conditions)) {
                 let tmp = [];
                 (0, iterate_3.iterate)(filter, (a, n) => {
-                    if ((0, isObject_2.isObject)(a) && typeof a.conditions === 'object') {
+                    if ((0, isObject_2.isObject)(a) && typeof a.conditions === "object") {
                         tmp.push(filterToConditions(a));
                     }
                     else {
@@ -1232,16 +1878,114 @@
                 };
             }
             if (!filter.logic) {
-                filter.logic = 'AND';
+                filter.logic = "AND";
             }
             return filter;
         };
         exports.filterToConditions = filterToConditions;
     });
-    define("fn/search", ["require", "exports", "fn/isIterable", "fn/compareConditions", "fn/filterToConditions", "fn/isObject", "fn/numProperties", "fn/isNumber"], function (require, exports, isIterable_2, compareConditions_1, filterToConditions_1, isObject_3, numProperties_2, isNumber_2) {
+    define("fn/object/search", ["require", "exports", "fn/type/isIterable", "fn/object/compareConditions", "fn/object/filterToConditions", "fn/type/isObject", "fn/object/numProperties", "fn/type/isNumber"], function (require, exports, isIterable_2, compareConditions_1, filterToConditions_1, isObject_3, numProperties_2, isNumber_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.search = void 0;
+        /**
+         * Retrieves the index of the array's first element corresponding to the given filter.
+         *
+         * Returns -1 if the element is not found. If the second parameter is an object or function
+         * for filtering as defined in bbn.fn.filter, the remaining parameters will be shifted to the
+         * left, i.e. val becomes operator, and operator startFrom. And if operator is a number, its value will
+         * be given to startFrom and operator will be undefined. The filter object can be complex with different
+         * operators (as seen in bbn.fn.compare) and logics (AND/OR), and infinitely nested, of this form:
+         * ```javascript
+         * {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *       field: "prop1",
+         *       operator: "eq",
+         *       value: "value1"
+         *     }, {
+         *       logic: "OR",
+         *       conditions: [
+         *         {
+         *            field: "prop2",
+         *            operator: "eq",
+         *            value: 1
+         *         }. {
+         *            field: "prop2",
+         *            operator: "eq",
+         *            value: 2
+         *         }
+         *       ]
+         *     }
+         *   ]
+         * }
+         * ```
+         * This way of managing the arguments is used in all the filtering functions.
+         *
+         * @method   search
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         *
+         * bbn.fn.search(ar, "id", 256);
+         * // 2
+         *
+         * bbn.fn.search(ar, {director: "Steven Spielberg"});
+         * // 0
+         *
+         * bbn.fn.search(ar, {year: 1975, director: "Steven Spielberg"});
+         * // 3
+         *
+         * bbn.fn.search(ar, {director: "Steven Spielberg"}, 1);
+         * // 3
+         *
+         * // Complex filters
+         * bbn.fn.search(ar, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *       field: "director",
+         *       operator: "eq",
+         *       value: "Steven Spielberg"
+         *     }, {
+         *       logic: "OR",
+         *       conditions: [
+         *         {
+         *            field: "year",
+         *            operator: "eq",
+         *            value: 1974
+         *         }, {
+         *            field: "year",
+         *            operator: "eq",
+         *            value: 1975
+         *         }
+         *       ]
+         *     }
+         *   ]
+         * });
+         * // 3
+         *
+         * Simple array
+         * bbn.fn.search(['a', 'b', 'c'], null, 'b');
+         * // 1
+         *
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @param    {Number}                   startFrom The index from which the search should start
+         * @returns  {Number}                   The index if found, otherwise -1
+         */
         const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
             if (!(0, isIterable_2.isIterable)(arr)) {
                 throw new Error(bbn._('The first argument for a search should be iterable') + ' ' + typeof arr + ' ' + bbn._('given'));
@@ -1316,10 +2060,50 @@
         };
         exports.search = search;
     });
-    define("fn/getRow", ["require", "exports", "fn/search"], function (require, exports, search_1) {
+    define("fn/object/getRow", ["require", "exports", "fn/object/search"], function (require, exports, search_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getRow = void 0;
+        /**
+         * Returns the first object matching the given filter in an array of objects.
+         *
+         * The filtering arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method    getRow
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         * bbn.fn.getRow(ar, {director: "Steven Spielberg"});
+         * // {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         * bbn.fn.getRow(ar, "director", "Steven Spielberg");
+         * // Same result as the previous example
+         * bbn.fn.getRow(ar, {
+         *   logic: "OR",
+         *   conditions: [
+         *     {
+         *        field: "director",
+         *        value: "Richard Donner"
+         *     }, {
+         *        field: "director",
+         *        value: "George Lucas"
+         *     }
+         *   ]
+         * );
+         * // {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Object|Boolean}           The item if found, false otherwise
+         */
         const getRow = function (arr, prop, val = null, operator = '=') {
             var idx = (0, search_1.search)(arr, prop, val, operator);
             if (idx > -1) {
@@ -1329,10 +2113,24 @@
         };
         exports.getRow = getRow;
     });
-    define("fn/_deleteLoader", ["require", "exports", "fn/search", "fn/getRow", "fn/isObject"], function (require, exports, search_2, getRow_1, isObject_4) {
+    define("fn/ajax/_deleteLoader", ["require", "exports", "fn/object/search", "fn/object/getRow", "fn/type/isObject"], function (require, exports, search_2, getRow_1, isObject_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._deleteLoader = void 0;
+        /**
+         * Deletes a loader and changes its history state after the promise is fullfilled.
+         *
+         * @method   _deleteLoader
+         * @global
+         * @ignore
+         * @memberof bbn.fn
+         *
+         * @param    {String}  requestId   The unique ID of the request sent
+         * @param    {*}       res     The result of the request
+         * @param    {Boolean} isAbort True if the deletion comes from abortion
+         *
+         * @returns  {Boolean} True if the loader was found
+         */
         const _deleteLoader = function (requestId, res = null, isAbort = false) {
             let idx = (0, search_2.search)(bbn.env.loaders, { key: requestId });
             if (idx > -1) {
@@ -1356,10 +2154,45 @@
         };
         exports._deleteLoader = _deleteLoader;
     });
-    define("fn/getLoader", ["require", "exports", "fn/search"], function (require, exports, search_3) {
+    define("fn/ajax/getLoader", ["require", "exports", "fn/object/search"], function (require, exports, search_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getLoader = void 0;
+        /**
+         * Finds the loader object corresponding to the given unique ID and returns it if found.
+         *
+         * The loader is an object representing an Ajax request, with the following properties:
+         * * _key_ is the unique ID (_requestId_) of the loader
+         * * _url_ is the URL called by the request
+         * * _loader_ is the Promise from the Axios XHR
+         * * _source_ is the source object for aborting the request
+         * * _start_ is the timestamp of the moment the request was sent
+         *
+         * @method   getLoader
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.post('my/script', {a: 1, b: 2});
+         * let requestId = bbn.fn.getRequestId('my/script', {a: 1, b: 2});
+         * if (requestId) {
+         *   let loader = bbn.fn.getLoader(requestId);
+         *   console.log(loader);
+         *   // {
+         *   //    key: "my/script:af27f0e81533ae2bae3c25dea67359f6",
+         *   //    url: "my/script",
+         *   //    loader: {Promise},
+         *   //    source: {token: {CancelToken}, cancel: {Function}},
+         *   //    start: 1591804716757
+         *   // }
+         * }
+         * ```
+         *
+         * @param    {String} requestId The unique ID of the request as used in bbn.env.loaders
+         *
+         * @returns  {false|Object} The corresponding loader Object if it exists, false otherwise
+         */
         const getLoader = function (requestId) {
             let idx = (0, search_3.search)(bbn.env.loaders, { key: requestId });
             if (idx > -1) {
@@ -1369,10 +2202,32 @@
         };
         exports.getLoader = getLoader;
     });
-    define("fn/abort", ["require", "exports", "fn/getLoader"], function (require, exports, getLoader_1) {
+    define("fn/ajax/abort", ["require", "exports", "fn/ajax/getLoader"], function (require, exports, getLoader_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abort = void 0;
+        /**
+         * Aborts (client side) the XHR corresponding to the given ID if it still exists.
+         *
+         * This will throw an error if the loader can't be found.
+         *
+         * @method   abort
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.post('my/script', {a: 1, b: 2});
+         * let requestId = bbn.fn.getRequestId('my/script', {a: 1, b: 2});
+         * if (requestId) {
+         *   bbn.fn.abort(requestId);
+         * }
+         * ```
+         *
+         * @param    {String} requestId An ID generated by getRequestId
+         *
+         * @returns  {undefined}
+         */
         const abort = function (requestId) {
             let loader = (0, getLoader_1.getLoader)(requestId);
             if (loader && loader.source) {
@@ -1387,10 +2242,57 @@
         };
         exports.abort = abort;
     });
-    define("fn/filter", ["require", "exports", "fn/isArray", "fn/each", "fn/filterToConditions", "fn/compareConditions"], function (require, exports, isArray_5, each_5, filterToConditions_2, compareConditions_2) {
+    define("fn/object/filter", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/filterToConditions", "fn/object/compareConditions"], function (require, exports, isArray_5, each_5, filterToConditions_2, compareConditions_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filter = void 0;
+        /**
+         * Returns a new array with only the data matching the given filter.
+         *
+         * The filtering arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   filter
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         * bbn.fn.filter(ar, {director: "Steven Spielberg"});
+         * // [
+         * //   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         * //   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * // ]
+         * bbn.fn.filter(ar, "director", "Steven Spielberg");
+         * // Same result as the previous example
+         * bbn.fn.filter(ar, {
+         *   logic: "OR",
+         *   conditions: [
+         *     {
+         *        field: "director",
+         *        value: "Richard Donner"
+         *     }, {
+         *        field: "director",
+         *        value: "George Lucas"
+         *     }
+         *   ]
+         * );
+         * // [
+         * //   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         * //   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         * // ]
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Array}                    A new filtered array
+         */
         const filter = function (arr, prop, val = null, operator = '=') {
             if (!(0, isArray_5.isArray)(arr)) {
                 bbn.fn.log("NOT ARRAY", arr);
@@ -1435,10 +2337,30 @@
         };
         exports.filter = filter;
     });
-    define("fn/abortURL", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_6, filter_1) {
+    define("fn/ajax/abortURL", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_6, filter_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abortURL = void 0;
+        /**
+         * Aborts (client side) all the XHR using the given URL if it still exists.
+         *
+         * This will throw an error if the loader can't be found.
+         *
+         * @method   abortURL
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.post('my/script', {a: 1, b: 2});
+         * bbn.fn.post('my/script', {c: 1, d: 2});
+         * bbn.fn.abortURL('my/script');
+         * ```
+         *
+         * @param    {String} requestId An ID generated by getRequestId
+         *
+         * @returns  {undefined}
+         */
         const abortURL = function (url) {
             (0, each_6.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
                 if (a && a.source) {
@@ -1451,54 +2373,130 @@
         };
         exports.abortURL = abortURL;
     });
-    define("fn/addColors", ["require", "exports", "fn/numProperties", "fn/iterate"], function (require, exports, numProperties_3, iterate_4) {
+    define("fn/style/addColors", ["require", "exports", "fn/object/numProperties", "fn/loop/iterate"], function (require, exports, numProperties_3, iterate_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addColors = void 0;
+        /**
+         * Adds the given color to the object bbn.var.colors in order to be able to use
+         * the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
+         *
+         * @method   addColors
+         * @global
+         * @example
+         * ```javascript
+         * //<div class="bbn-bg-maroon">background</div> <span class="bbn-maroon">text color</span>
+         * bbn.fn.addColors({maroon: '#800000'});
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} colors
+         * @returns
+         */
         const addColors = function (colors) {
             if ((0, numProperties_3.numProperties)(colors)) {
                 if (!bbn.vars.colors) {
                     bbn.vars.colors = {};
                 }
-                let element = document.createElement('style');
+                let element = document.createElement("style");
                 document.head.appendChild(element);
                 let sheet = element.sheet;
                 // Append style element to head
                 let i = 0;
                 (0, iterate_4.iterate)(colors, (v, n) => {
                     bbn.vars.colors[n] = v;
-                    sheet.insertRule('.bbn-' + n + ', .bbn-color-text-' + n + ' {color: ' + v + ' !important;}', i);
-                    sheet.insertRule('svg.bbn-' +
+                    sheet.insertRule(".bbn-" +
                         n +
-                        ', .bbn-' +
+                        ", .bbn-color-text-" +
                         n +
-                        ' svg, svg.bbn-color-text-' +
-                        n +
-                        ', .bbn-color-text-' +
-                        n +
-                        ' svg {fill: ' +
+                        " {color: " +
                         v +
-                        ';}', i);
-                    sheet.insertRule('.bbn-bg-' +
+                        " !important;}", i);
+                    sheet.insertRule("svg.bbn-" +
                         n +
-                        ', .bbn-color-bg-' +
+                        ", .bbn-" +
                         n +
-                        ', .bbn-color-background-' +
+                        " svg, svg.bbn-color-text-" +
                         n +
-                        ' {background-color: ' +
+                        ", .bbn-color-text-" +
+                        n +
+                        " svg {fill: " +
                         v +
-                        ' !important;}', i);
-                    sheet.insertRule('.bbn-border-' + n + ', .bbn-color-border-' + n + ' {border-color: ' + v + ' !important;}', i);
-                    sheet.insertRule('.bbn-color-' + n + ' {border-color: ' + v + '; background-color: ' + v + '; color: ' + v + ';}', i);
+                        ";}", i);
+                    sheet.insertRule(".bbn-bg-" +
+                        n +
+                        ", .bbn-color-bg-" +
+                        n +
+                        ", .bbn-color-background-" +
+                        n +
+                        " {background-color: " +
+                        v +
+                        " !important;}", i);
+                    sheet.insertRule(".bbn-border-" +
+                        n +
+                        ", .bbn-color-border-" +
+                        n +
+                        " {border-color: " +
+                        v +
+                        " !important;}", i);
+                    sheet.insertRule(".bbn-color-" +
+                        n +
+                        " {border-color: " +
+                        v +
+                        "; background-color: " +
+                        v +
+                        "; color: " +
+                        v +
+                        ";}", i);
                 });
             }
         };
         exports.addColors = addColors;
     });
-    define("fn/addInputs", ["require", "exports", "fn/iterate"], function (require, exports, iterate_5) {
+    define("fn/form/addInputs", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addInputs = void 0;
+        /**
+         * Adds the given data to the given form by inserting hidden inputs.
+         *
+         * @method   addInputs
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * let o = {name: "Smith", fname: "John"};
+         * bbn.fn.addInputs(document.getElementById('myform'), o, 'bbn');
+         * // Will write at the end of the given form:
+         * // <input type="hidden" name="bbn[name]" value="Smith">
+         * // <input type="hidden" name="bbn[fname]" value="John">
+         *
+         * ```
+         *
+         * @example
+         * ```javascript
+         * let o = {
+         *   People: [
+         *     {name: "Smith", fname: "John"},
+         *     {name: "Smith", fname: "Eileen"}
+         *   ],
+         *   Dates: ['2021-08-25', '2021-09-06']
+         * };
+         * bbn.fn.addInputs(document.getElementById('myform'), o);
+         * // Will write at the end of the given form:
+         * // <input type="hidden" name="People[0][name]" value="Smith">
+         * // <input type="hidden" name="People[0][fname]" value="John">
+         * // <input type="hidden" name="People[1][name]" value="Smith">
+         * // <input type="hidden" name="People[1][fname]" value="Eileen">
+         * // <input type="hidden" name="Dates[0]" value="2021-08-25">
+         * // <input type="hidden" name="Dates[1]" value="2021-09-06">
+         * ```
+         *
+         * @param    {HTMLElement} form   The form to which the inputs should be added
+         * @param    {Object}      params The data which will be added
+         * @param    {String}      prefix The optional object's name of the fields in the form
+         * @returns  {undefined}
+         */
         const addInputs = function (form, params = null, prefix = '') {
             if (form && form.tagName === 'FORM') {
                 let appendToForm = (name, val) => {
@@ -1539,10 +2537,20 @@
         };
         exports.addInputs = addInputs;
     });
-    define("fn/addStyle", ["require", "exports", "fn/isObject", "fn/iterate"], function (require, exports, isObject_5, iterate_6) {
+    define("fn/style/addStyle", ["require", "exports", "fn/type/isObject", "fn/loop/iterate"], function (require, exports, isObject_5, iterate_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addStyle = void 0;
+        /**
+         * @ignore
+         * @method   addStyle
+         * @todo     Add method description for addStyle
+         * @global
+         * @memberof bbn.fn
+         * @param    {HTMLElement} ele
+         * @param    {Object}      o
+         * @returns  {*}
+         */
         const addStyle = function (ele, o) {
             if ((0, isObject_5.isObject)(o)) {
                 (0, iterate_6.iterate)(o, (v, k) => {
@@ -1552,7 +2560,7 @@
         };
         exports.addStyle = addStyle;
     });
-    define("fn/adjustSize", ["require", "exports", "fn/each"], function (require, exports, each_7) {
+    define("fn/html/adjustSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustSize = void 0;
@@ -1577,7 +2585,7 @@
         };
         exports.adjustSize = adjustSize;
     });
-    define("fn/adjustHeight", ["require", "exports", "fn/isIterable", "fn/adjustSize"], function (require, exports, isIterable_3, adjustSize_1) {
+    define("fn/html/adjustHeight", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_3, adjustSize_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustHeight = void 0;
@@ -1590,7 +2598,7 @@
         };
         exports.adjustHeight = adjustHeight;
     });
-    define("fn/adjustWidth", ["require", "exports", "fn/isIterable", "fn/adjustSize"], function (require, exports, isIterable_4, adjustSize_2) {
+    define("fn/html/adjustWidth", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_4, adjustSize_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustWidth = void 0;
@@ -1603,34 +2611,95 @@
         };
         exports.adjustWidth = adjustWidth;
     });
-    define("fn/escapeRegExp", ["require", "exports"], function (require, exports) {
+    define("fn/string/escapeRegExp", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeRegExp = void 0;
+        /**
+         * Returns a string escaped.
+         *
+         * To escape the string by reducing the ambiguity between quotation marks and other characters used.
+         *
+         * @method   escapeRegExp
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"this\/is\/a\/test\/string"
+         * bbn.fn.escapeRegExp("this/is/a/test/string");
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} str
+         * @returns  {String} string with escape
+         */
         const escapeRegExp = function (str) {
-            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
         };
         exports.escapeRegExp = escapeRegExp;
     });
-    define("fn/replaceAll", ["require", "exports", "fn/isObject", "fn/escapeRegExp"], function (require, exports, isObject_6, escapeRegExp_1) {
+    define("fn/string/replaceAll", ["require", "exports", "fn/type/isObject", "fn/string/escapeRegExp"], function (require, exports, isObject_6, escapeRegExp_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.replaceAll = void 0;
-        const replaceAll = function (find, replace, str, flags = '') {
-            return str.toString().replace((0, isObject_6.isObject)(find) ? find : new RegExp((0, escapeRegExp_1.escapeRegExp)(find), 'g' + flags), replace);
+        /**
+         * Looks for and replaces parts of string with what we want.
+         *
+         * With the first argument you define what to replace,
+         * the second argument with what you have to replace instead and the third argument is the string to be replaced.
+         *
+         * @method   replaceAll
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.replaceAll('day', 'night', 'Today is a beautiful day');
+         * //"Tonight is a beautiful night"
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} find
+         * @param    {String} replace
+         * @param    {String|RegExp} str
+         * @param    {String} flags
+         * @returns  {String}
+         */
+        const replaceAll = function (find, replace, str, flags = "") {
+            return str
+                .toString()
+                .replace((0, isObject_6.isObject)(find) ? find : new RegExp((0, escapeRegExp_1.escapeRegExp)(find), "g" + flags), replace);
         };
         exports.replaceAll = replaceAll;
     });
-    define("fn/md5", ["require", "exports"], function (require, exports) {
+    define("fn/string/md5", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.md5 = void 0;
+        /**
+         * Converts and returns the argument passed in a string in md5 format.
+         *
+         * This is a formatted version of popular md5 implementation
+         * Original copyright (c) Paul Johnston & Greg Holt.
+         *
+         *
+         * @method   md5
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"486eb65274adb86441072afa1e2289f3"
+         * bbn.fn.md5("this is a test string");
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Mixed} st
+         * @returns  {String} in md5 format
+         */
         const md5 = function (st) {
-            var hc = '0123456789abcdef';
+            var hc = "0123456789abcdef";
             function rh(n) {
-                var j, s = '';
+                var j, s = "";
                 for (j = 0; j <= 3; j++)
-                    s += hc.charAt((n >> (j * 8 + 4)) & 0x0f) + hc.charAt((n >> (j * 8)) & 0x0f);
+                    s +=
+                        hc.charAt((n >> (j * 8 + 4)) & 0x0f) + hc.charAt((n >> (j * 8)) & 0x0f);
                 return s;
             }
             function ad(x, y) {
@@ -1747,10 +2816,58 @@
         };
         exports.md5 = md5;
     });
-    define("fn/getRequestId", ["require", "exports", "fn/iterate", "fn/md5"], function (require, exports, iterate_7, md5_1) {
+    define("fn/ajax/getRequestId", ["require", "exports", "fn/loop/iterate", "fn/string/md5"], function (require, exports, iterate_7, md5_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getRequestId = void 0;
+        /**
+         * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
+         *
+         * The routing functions don't allow to send the same request at the same moment,
+         * therefore a unique ID is generated to identify them, based on the URL,
+         * the keys of the data sent, and the expected returned data type.
+         *
+         * @method   getRequestId
+         * @global
+         *
+         * @example
+         * ```javascript
+         * // The URL is the first part of the key
+         * bbn.fn.getRequestId('my/location', {a: 1, b: 2});
+         * // my/location:af27f0e81533ae2bae3c25dea67359f6
+         * bbn.fn.getRequestId('my/other/location', {a: 1, b: 2});
+         * // my/other/location:af27f0e81533ae2bae3c25dea67359f6
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // A change of value will not change the requestId
+         * bbn.fn.getRequestId('my/location', {a: 1, b: 3});
+         * // my/location:af27f0e81533ae2bae3c25dea67359f6
+         * // A change of key will
+         * bbn.fn.getRequestId('my/location', {a: 1, c: 3});
+         * // my/location:fde97ca7c6c998c911f4ab481a136d5f
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // Same with nested object
+         * bbn.fn.getRequestId('my/location', {data: {a: 1, b: 3}});
+         * // my/location:a7a58435275054106c4e4c9fb0cea5e5
+         * bbn.fn.getRequestId('my/location', {data: {a: 1, b: 2}});
+         * // my/location:a7a58435275054106c4e4c9fb0cea5e5
+         * bbn.fn.getRequestId('my/location', {data: {a: 1, c: 3}});
+         * // my/location:730da481e30d421afbadf1f1282dabb7
+         * ```
+         *
+         * @memberof bbn.fn
+         *
+         * @param    {String} url      The URL used by the request
+         * @param    {Object} data     The data sent to the URL
+         * @param    {String} datatype The type of data requested (JSON by default)
+         *
+         * @returns  {String} The unique ID
+         */
         const getRequestId = function (url, data, datatype) {
             let d = {};
             if (data) {
@@ -1764,10 +2881,95 @@
         };
         exports.getRequestId = getRequestId;
     });
-    define("fn/extend", ["require", "exports", "fn/iterate", "fn/isArray", "fn/each", "fn/isObject"], function (require, exports, iterate_8, isArray_6, each_8, isObject_7) {
+    define("fn/object/extend", ["require", "exports", "fn/loop/iterate", "fn/type/isArray", "fn/loop/each", "fn/type/isObject"], function (require, exports, iterate_8, isArray_6, each_8, isObject_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extend = void 0;
+        /**
+         * Merges the contents of two or more objects together into the first object.
+         *
+         * A boolean true argument can be done to operate a deep extend. In this case,
+         * the content of properties or subproperties arrays and objects will also be merged.
+         *
+         * @method   extend
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.extend(
+         *   {prop1: 10, prop2: 20},
+         *   {prop1: 11, prop3: 21},
+         *   {prop2: 22, prop4: false},
+         *   {prop5: false, prop3: 45}
+         * );
+         * // {prop1: 11, prop2: 22, prop3: 45, prop4: false, prop5: false}
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.extend(
+         *   {
+         *     prop1: [3, 5, 6],
+         *     prop2: {
+         *       subprop1: 87,
+         *       subprop2: 100
+         *     }
+         *   }, {
+         *     prop1: 11,
+         *     prop3: [8, 12, {aProperty: 1, anotherProperty: true}, 26]
+         *   }, {
+         *     prop2: {
+         *       subprop1: 90,
+         *       subprop3: 25
+         *     },
+         *     prop4: false
+         *   }, {
+         *     prop5: false,
+         *     prop3: [8, 45, {anotherProperty: false, andAnother: true}]
+         *   }
+         * );
+         * // {
+         * //   prop1: 11,
+         * //   prop2: {subprop1: 90, subprop3: 25},
+         * //   prop3: [8, 45, {anotherProperty: false, andAnother: true}],
+         * //   prop4: false,
+         * //   prop5: false
+         * // }
+         * ```
+         * @example
+         * ```javascript
+         * // Deep
+         * bbn.fn.extend(
+         *   true,
+         *   {
+         *     prop1: [3, 5, 6],
+         *     prop2: {
+         *       subprop1: 87,
+         *       subprop2: 100
+         *     }
+         *   }, {
+         *     prop1: 11,
+         *     prop3: [8, 12, {aProperty: 1, anotherProperty: true}, 26]
+         *   }, {
+         *     prop2: {
+         *       subprop1: 90,
+         *       subprop3: 25
+         *     },
+         *     prop4: false
+         *   }, {
+         *     prop5: false,
+         *     prop3: [8, 45, {anotherProperty: false, andAnother: true}]
+         *   }
+         * );
+         * // {
+         * //   prop1: 11,
+         * //   prop2: {subprop1: 90, subprop3: 25},
+         * //   prop3: [8, 45, {aProperty: 1, anotherProperty: false, andAnother: true}, 26],
+         * //   prop4: false,
+         * //   prop5: false
+         * // }
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Object} The first object argument, merged with the other objects given
+         */
         const extend = function (...originalArgs) {
             let deep = false;
             let args = [];
@@ -1778,15 +2980,15 @@
                 else if (!originalArgs[i]) {
                     continue;
                 }
-                else if (typeof originalArgs[i] !== 'object') {
-                    throw new Error(bbn._('Error in extend: all arguments should be object, you have given ') + typeof originalArgs[i]);
+                else if (typeof originalArgs[i] !== "object") {
+                    throw new Error(bbn._("Error in extend: all arguments should be object, you have given ") + typeof originalArgs[i]);
                 }
                 else {
                     args.push(originalArgs[i]);
                 }
             }
             if (!args.length) {
-                throw new Error('No argument given');
+                throw new Error("No argument given");
             }
             let out = args[0];
             for (let i = 1; i < args.length; i++) {
@@ -1795,7 +2997,7 @@
                         if ((0, isArray_6.isArray)(a)) {
                             out[key] = (0, isArray_6.isArray)(out[key]) ? out[key] : [];
                             (0, each_8.each)(a, (b, i) => {
-                                if (b && typeof b === 'object') {
+                                if (b && typeof b === "object") {
                                     let tmp = out[key][i];
                                     if ((0, isArray_6.isArray)(b)) {
                                         if (!(0, isArray_6.isArray)(tmp)) {
@@ -1813,7 +3015,9 @@
                             });
                         }
                         else if ((0, isObject_7.isObject)(a)) {
-                            out[key] = extend(true, out[key] && typeof out[key] === 'object' ? out[key] : Object.create(Object.getPrototypeOf(a)), a);
+                            out[key] = extend(true, out[key] && typeof out[key] === "object"
+                                ? out[key]
+                                : Object.create(Object.getPrototypeOf(a)), a);
                         }
                         else {
                             out[key] = a;
@@ -1824,7 +3028,7 @@
                     }
                 });
                 if (args[i].__bbnNoData) {
-                    Object.defineProperty(out, '__bbnNoData', {
+                    Object.defineProperty(out, "__bbnNoData", {
                         value: true,
                         enumerable: false,
                         configurable: false,
@@ -1836,7 +3040,7 @@
         };
         exports.extend = extend;
     });
-    define("fn/defaultEndLoadingFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultEndLoadingFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultEndLoadingFunction = void 0;
@@ -1845,7 +3049,7 @@
         };
         exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
     });
-    define("fn/defaultAjaxErrorFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultAjaxErrorFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxErrorFunction = void 0;
@@ -1854,7 +3058,7 @@
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
-    define("fn/defaultAjaxAbortFunction", ["require", "exports", "fn/log"], function (require, exports, log_8) {
+    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
@@ -1863,7 +3067,7 @@
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
-    define("fn/defaultStartLoadingFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultStartLoadingFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultStartLoadingFunction = void 0;
@@ -1872,10 +3076,66 @@
         };
         exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
     });
-    define("fn/ajax", ["require", "exports", "fn/isObject", "fn/replaceAll", "fn/getRequestId", "fn/getLoader", "fn/extend", "fn/numProperties", "fn/_deleteLoader", "fn/defaultEndLoadingFunction", "fn/isFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAjaxAbortFunction", "fn/_addLoader", "fn/defaultStartLoadingFunction"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, defaultEndLoadingFunction_1, isFunction_3, defaultAjaxErrorFunction_1, defaultAjaxAbortFunction_1, _addLoader_1, defaultStartLoadingFunction_1) {
+    define("fn/ajax/ajax", ["require", "exports", "fn/type/isObject", "fn/string/replaceAll", "fn/ajax/getRequestId", "fn/ajax/getLoader", "fn/object/extend", "fn/object/numProperties", "fn/ajax/_deleteLoader", "fn/default/defaultEndLoadingFunction", "fn/type/isFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAjaxAbortFunction", "fn/ajax/_addLoader", "fn/default/defaultStartLoadingFunction"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, defaultEndLoadingFunction_1, isFunction_3, defaultAjaxErrorFunction_1, defaultAjaxAbortFunction_1, _addLoader_1, defaultStartLoadingFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ajax = void 0;
+        /**
+         * Creates an XHR object and returns the Promise.
+         *
+         * Checks the URL, makes an ID, creates a loader, sets the general callbacks,
+         * makes a POST if data is given a GET otherwise (GET data should be added
+         * directly in the URL), and returns the Promise.
+         *
+         * @method   ajax
+         * @global
+         * @memberof bbn.fn
+         * @example
+         * ```javascript
+         * // Promise
+         * bbn.fn.ajax(
+         *   'my/location',
+         *   'json',
+         *   {id: 7},
+         *   d => {
+         *     console.log(d);
+         *     alert("Success!");
+         *   },
+         *   err => {
+         *     console.log(err);
+         *     alert("Failure!");
+         *   },
+         *   () => {
+         *     alert("Request aborted!");
+         *   }
+         * )
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // Promise
+         * bbn.fn.ajax('my/location')
+         *   .then(
+         *     d => {
+         *       console.log(d);
+         *       alert("Success!");
+         *     }
+         *   )
+         *   .catch(
+         *     err => {
+         *     }
+         *   )
+         * ```
+         *
+         * @param    {String}   url      The URL to be requested by XHR
+         * @param    {String}   datatype The type of data expected
+         * @param    {Object}   data     The data to send through POST
+         * @param    {Function} success  The function to execute if the request goes well (200)
+         * @param    {Function} failure  The function to execute if the request goes bad
+         * @param    {Function} abort    The function to execute if the request is aborted
+         *
+         * @returns  {Promise}  The Promise created by the generated XHR.
+         */
         const ajax = function (url, datatype, data, success, failure, abort) {
             if (arguments.length === 1 && url && typeof url === 'object' && url.url) {
                 if (url.abort) {
@@ -1978,7 +3238,7 @@
         };
         exports.ajax = ajax;
     });
-    define("fn/analyzeFunction", ["require", "exports", "fn/md5"], function (require, exports, md5_2) {
+    define("fn/misc/analyzeFunction", ["require", "exports", "fn/string/md5"], function (require, exports, md5_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.analyzeFunction = void 0;
@@ -2123,23 +3383,34 @@
         };
         exports.analyzeFunction = analyzeFunction;
     });
-    define("fn/animateCss", ["require", "exports"], function (require, exports) {
+    define("fn/style/animateCss", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.animateCss = void 0;
+        /**
+         * @ignore
+         * @method   animateCss
+         * @todo     Add method description for animateCss
+         * @global
+         * @memberof bbn.fn
+         * @param    {HTMLElement} ele
+         * @param    {String}      animationName
+         * @param    {Function}    callback
+         * @returns  {*}
+         */
         const animateCss = function (ele, animationName, callback) {
-            let animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            let animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
             /*$(ele).addClass('animated ' + animationName).one(animationEnd, function(){
-                if ( typeof callback == 'function' ){ // make sure the callback is a function
-                  callback.call(this); // brings the scope to the callback
-                }
-                $(this).removeClass('animated ' + animationName);
-              })*/
-            ele.classList.add('animated');
+                  if ( typeof callback == 'function' ){ // make sure the callback is a function
+                    callback.call(this); // brings the scope to the callback
+                  }
+                  $(this).removeClass('animated ' + animationName);
+                })*/
+            ele.classList.add("animated");
             ele.classList.add(animationName);
             ele.addEventListener(animationEnd, (e) => {
                 e.target.removeEventListener(e.type, arguments.callee);
-                if (typeof callback == 'function') {
+                if (typeof callback == "function") {
                     // make sure the callback is a function
                     callback.call(this); // brings the scope to the callback
                 }
@@ -2148,7 +3419,7 @@
         };
         exports.animateCss = animateCss;
     });
-    define("fn/arrayBuffer2String", ["require", "exports"], function (require, exports) {
+    define("fn/convert/arrayBuffer2String", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayBuffer2String = void 0;
@@ -2157,10 +3428,41 @@
         };
         exports.arrayBuffer2String = arrayBuffer2String;
     });
-    define("fn/arrayFromProp", ["require", "exports", "fn/each", "fn/getProperty"], function (require, exports, each_9, getProperty_3) {
+    define("fn/object/arrayFromProp", ["require", "exports", "fn/loop/each", "fn/object/getProperty"], function (require, exports, each_9, getProperty_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayFromProp = void 0;
+        /**
+         * Creates and returns a new array made of the given property's values from the given array of objects.
+         *
+         * The returned array will always have the same length of the given array, even if the property is not found.
+         *
+         * @method   arrayFromProp
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.arrayFromProp([
+         *   {movie: "Brazil", year: 1985},
+         *   {movie: "Donnie Darko", year: 2001},
+         *   {movie: "Barry Lindon", year: 1976}
+         * ], "year");
+         * // [1985, 2001, 1976]
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.arrayFromProp([
+         *   {pupil: "Agnes Varda", grade: {year: "B", month: "A"}},
+         *   {pupil: "Jacques Rivette"},
+         *   {pupil: "Luc Besson", grade: {year: "C", month: "D"}},
+         *   {pupil: "Nicole Garcia", grade: {year: "B", month: "B"}}
+         * ], "grade.month");
+         * // ["A", undefined, "D", "B"]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}  arr
+         * @param    {String} prop
+         * @returns  {Array}  The new array
+         */
         const arrayFromProp = function (arr, prop) {
             let r = [];
             (0, each_9.each)(arr, (a, i) => {
@@ -2170,10 +3472,41 @@
         };
         exports.arrayFromProp = arrayFromProp;
     });
-    define("fn/autoExtend", ["require", "exports", "fn/extend"], function (require, exports, extend_2) {
+    define("fn/object/autoExtend", ["require", "exports", "fn/object/extend"], function (require, exports, extend_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.autoExtend = void 0;
+        /**
+         * Extends the bbn object by passing the namespace and the object it will merge with.
+         *
+         * This function is a self-centric shortcut for adding functions or proerties
+         * to the bbn object itself.
+         *
+         * @method   autoExtend
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.autoExtend("fn", {myOwnFunction: () => "Result of my own function"});
+         * bbn.fn.myOwnFunction();
+         * // Result of my own function
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.autoExtend("env", {serverLanguage: "php"});
+         * bbn.env.sercerLanguage
+         * // php
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.autoExtend("myProject", {name: "My Project"});
+         * bbn.myProject.name
+         * // Project
+         * ```
+         * @memberof bbn.fn
+         * @param    {String}    namespace The bbn property, existing or not, in which the object will be merged
+         * @param    {Object}    obj       The object to merge
+         * @returns  {undefined} No return value
+         */
         const autoExtend = function (namespace, obj) {
             if (!bbn[namespace]) {
                 bbn[namespace] = {};
@@ -2187,13 +3520,35 @@
         };
         exports.autoExtend = autoExtend;
     });
-    define("fn/baseName", ["require", "exports", "fn/isString", "fn/substr"], function (require, exports, isString_5, substr_3) {
+    define("fn/string/baseName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_5, substr_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.baseName = void 0;
+        /**
+         * Returns the name of the element indicated by path given to it as an argument.
+         *
+         * @method   baseName
+         * @global
+         *
+         * @example
+         * ```javascript
+         * // "file.png"
+         * bbn.fn.baseName('folder/other_folder/file.png');
+         * ```
+         * @example
+         * ```javascript
+         * // "file"
+         * bbn.fn.baseName('folder/other_folder/file.png', '.png');
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {String} path   The path from which the basename must be extracted
+         * @param    {String} suffix An optional suffix that will be removed from the basename
+         * @returns  {String} The basename of path
+         */
         const baseName = function (path, suffix) {
             if (path && (0, isString_5.isString)(path)) {
-                let bits = path.split('/');
+                let bits = path.split("/");
                 let res = bits.pop();
                 if (!suffix) {
                     return res;
@@ -2203,23 +3558,56 @@
                     return (0, substr_3.substr)(res, 0, res.length - len);
                 }
             }
-            return '';
+            return "";
         };
         exports.baseName = baseName;
     });
-    define("fn/br2nl", ["require", "exports", "fn/replaceAll"], function (require, exports, replaceAll_2) {
+    define("fn/string/br2nl", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.br2nl = void 0;
+        /**
+         * Replaces the html <br> tag with new line characters '\ n' if present in the string.
+         *
+         * @method   br2nl
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"hello
+         * //world!"
+         * bbn.fn.br2nl('hello <br> world!')
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    string st
+         * @returns  {String}
+         */
         const br2nl = function (st) {
-            return (0, replaceAll_2.replaceAll)('<br />', '\n', (0, replaceAll_2.replaceAll)('<br/>', '\n', (0, replaceAll_2.replaceAll)('<br>', '\n', st)));
+            return (0, replaceAll_2.replaceAll)("<br />", "\n", (0, replaceAll_2.replaceAll)("<br/>", "\n", (0, replaceAll_2.replaceAll)("<br>", "\n", st)));
         };
         exports.br2nl = br2nl;
     });
-    define("fn/date", ["require", "exports", "fn/isNumber", "fn/substr", "fn/isDate"], function (require, exports, isNumber_3, substr_4, isDate_2) {
+    define("fn/datetime/date", ["require", "exports", "fn/type/isNumber", "fn/string/substr", "fn/type/isDate"], function (require, exports, isNumber_3, substr_4, isDate_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.date = void 0;
+        /**
+         * Returns a date object from the given argument.
+         *
+         * @method   date
+         * @global
+         *
+         * @example
+         * ``` javascript
+         * //Mon Feb 11 2019 12:00:00 GMT+0100 (Central European Standard Time)
+         * bbn.fn.date('2019/02/11')
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {String|Number} v
+         * @returns  {date}
+         */
         const date = function (v) {
             let d = false, t = typeof v;
             if (v === undefined) {
@@ -2246,10 +3634,17 @@
         };
         exports.date = date;
     });
-    define("fn/fdatetime", ["require", "exports", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, date_1, isDate_3, isString_6) {
+    define("fn/datetime/fdatetime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_1, isDate_3, isString_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdatetime = void 0;
+        /**
+         * @method   fdatetime
+         * @todo     Add method description for fdatetime
+         * @global
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const fdatetime = function (d, wrong_result) {
             let r = (0, date_1.date)(d);
             if (!(0, isDate_3.isDate)(r)) {
@@ -2271,10 +3666,19 @@
         };
         exports.fdatetime = fdatetime;
     });
-    define("fn/fdate", ["require", "exports", "fn/fdatetime", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdatetime_1, date_2, isDate_4, isString_7) {
+    define("fn/datetime/fdate", ["require", "exports", "fn/datetime/fdatetime", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdatetime_1, date_2, isDate_4, isString_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdate = void 0;
+        /**
+         * @method   fdate
+         * @todo     Add method description for fdate
+         * @global
+         * @memberof bbn.fn
+         * @param    {String|Date} d
+         * @param    {String}      wrong_result
+         * @returns
+         */
         const fdate = function (d, wrong_result) {
             // Retro compatibility
             if (wrong_result === true) {
@@ -2291,7 +3695,7 @@
         };
         exports.fdate = fdate;
     });
-    define("fn/calendar", ["require", "exports", "fn/fdate", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, fdate_1, date_3, isDate_5, isString_8) {
+    define("fn/datetime/calendar", ["require", "exports", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdate_1, date_3, isDate_5, isString_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
@@ -2315,7 +3719,7 @@
         };
         exports.calendar = calendar;
     });
-    define("fn/defaultLinkFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultLinkFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultLinkFunction = void 0;
@@ -2324,7 +3728,7 @@
         };
         exports.defaultLinkFunction = defaultLinkFunction;
     });
-    define("fn/defaultPostLinkFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultPostLinkFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPostLinkFunction = void 0;
@@ -2333,7 +3737,7 @@
         };
         exports.defaultPostLinkFunction = defaultPostLinkFunction;
     });
-    define("fn/defaultAlertFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultAlertFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAlertFunction = void 0;
@@ -2343,10 +3747,45 @@
         };
         exports.defaultAlertFunction = defaultAlertFunction;
     });
-    define("fn/callback", ["require", "exports", "fn/error", "fn/defaultLinkFunction", "fn/isFunction", "fn/log", "fn/defaultPostLinkFunction", "fn/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_9, defaultPostLinkFunction_1, defaultAlertFunction_1) {
+    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/default/defaultLinkFunction", "fn/type/isFunction", "fn/browser/log", "fn/default/defaultPostLinkFunction", "fn/default/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_9, defaultPostLinkFunction_1, defaultAlertFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
+        /**
+         * Executes a serie of predefined actions once an Ajax request has been done.
+         *
+         * Used to treat all the requests functions results, it expects at least url and res to be defined;
+         * The following properties from the object res have direct effects:
+         * - __url__ {String}: if not given it will be automatically defined by the url parameter;
+         *   __the given URL will be passed to location.href (without reloading)__
+         * - __prescript__ {String}: if defined it will attempt to evaluate the code contained in the property
+         * - __content__ {String}: if defined and ele is defined too, the string will be inserted as content in the element
+         * - __script__ {String}: if defined it will be evaluated, executed, and its result will be returned
+         * - __data__ {Object}:
+         * - __postscript__ {String}: if defined it will be evaluated and executed
+         * - __error__ {String}: if defined it will be trigger bbn.fn.defaultAlertFunction
+         *
+         * If fn is defined it will be executed after prescript, otherwise it will be bbn.fn.defaultLinkFunction.
+         *
+         * The rest of the function comes executed if either of these results is not empty.
+         *
+         * If fn2 is defined it will be executed after script, otherwise it will be bbn.fn.defaultPostLinkFunction.
+         *
+         * Although not private this function should only be used internally.
+         *
+         * @method   callback
+         * @todo     Add method description for callback
+         * @global
+         * @memberof bbn.fn
+         *
+         * @param    {String}      url The URL that has been called
+         * @param    {Object}      res The object returned by the request
+         * @param    {Function}    fn  A first callback function to execute
+         * @param    {Function}    fn2 A second callback function to execute
+         * @param    {HTMLElement} ele A DOM element where the content will be inserted
+         *
+         * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
+         */
         const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
             let tmp = false;
             if (res) {
@@ -2424,10 +3863,28 @@
         };
         exports.callback = callback;
     });
-    define("fn/camelize", ["require", "exports"], function (require, exports) {
+    define("fn/string/camelize", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.camelize = void 0;
+        /**
+         * Returns the string passed as an argument in camelize mode.
+         *
+         * A string can be separated for example by a underscore, a dash or space;
+         * so the camelize function will automatically convert them to a single string.
+         *
+         * @method   camelize
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"thisIsATest"
+         * bbn.fn.camelize("this_is-a test");
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} str
+         * @returns  {String}
+         */
         const camelize = function (str) {
             return str.replace(/^([A-Z])|[\s-](\w)/g, function (match, p1, p2, offset) {
                 if (p2) {
@@ -2438,25 +3895,55 @@
         };
         exports.camelize = camelize;
     });
-    define("fn/camelToCss", ["require", "exports"], function (require, exports) {
+    define("fn/string/camelToCss", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.camelToCss = void 0;
+        /**
+         * Returns the string passed as an argument in camelize mode for css.
+         *
+         * @method   camelToCss
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"this-is-a-test"
+         * bbn.fn.camelToCss("thisIsATest");
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param   {String} str
+         * @returns {String}
+         */
         const camelToCss = function (str) {
             return str
                 .replace(/([A-Z])/g, function (st) {
-                return '-' + st.toLowerCase();
+                return "-" + st.toLowerCase();
             })
-                .replace('/^./', function (st) {
+                .replace("/^./", function (st) {
                 return st.toLowerCase();
             });
         };
         exports.camelToCss = camelToCss;
     });
-    define("fn/canvasToImage", ["require", "exports"], function (require, exports) {
+    define("fn/convert/canvasToImage", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.canvasToImage = void 0;
+        /**
+         * Returns a canvas in a HTML element img
+         * @method   canvasToImage
+         * @global
+         * ``` javascript
+         * //<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAgCAYAAABO6BuSAAAUzUlEQVRYRz2ZWXBc95Xef/f27Xtv7w000AsaADdwh0iKlETRtrbYpi3ZsZNUJaOZcs2MPQ95SSaVrSqVqrykUqmkKp4lNfMwM/Ikk1lijxyrrLEkW5QtS6LMVQt3guAGEGiggUbv611T54+xu6rJJtG493/O+b7vfOdc7RuxUmhGoxiageYF6B5E0dFCndD30cKAqGXg+z66pWOnEnRHPYpTBV7+1m+hj2X5P//7L+jeqRBrjUj1QoqRNLrvE8XCwyCMRhgRMHJHRAiIYxJDJ4K8Qhz5GWBkEhC3WFlbYVdhGqfeJuVHsQPUdzU0PM3CsyJ4tklogE2A6zpomkY0ZhOJ6nhaSBjRiVombuCqu/zypf3PL/yTMBKJoPsa/sjBH3rgBwQjF9d16TRbGJbBYNij2WsT6iFDd8gLp7/Ar3/zN/GSMVpbLb73R6/QWVylGMQY1hpMmuOMHBcHjT4OHpCIJcjEEliBRtAf4DsOqWSGdr/HyAwZRaA56hOPx0noUZIYxAYhtgemrxNqOkHE+FXAkgVTCwlch1CPqMJEDANfRwVsmFGCwCMMQ/UOggDtR//6P4a6rqP7EDgumgdaCHg+nuOqyvphQK/XoTPsEUvY1DsNTn/5y+w8uAd9PKO+f/uDy7z//TcZrdSwHQ2n45BIp3ElYF8C1ojqEXAc/N6QGBFSsTgjb8Sm28C0UoxPFbDTGY7Mz3Pr8qe0KxtMECPmhBiehh6CF4ngRyO4UR1NA9330AMfLRJVAUuQEqwe3f4ssW0H620H/Np/+E+hwEEPQgIvwAx1LIE4xt9nRyMMfQICvMAlOZaiUq3w+S9+ga1+m5nD++i02+QzBRZ++iFnX38bYwROb0TUjrHV6+GGPm4YbCfS8dAdh1hgYBkRuqMBVirGrkP7OXj0KOUds8QnClx6/U0+fPMM8UFIwgXLEwpohJoEbBAYusJ5OmKhE4D8qQUEoYaPJMBAi0DMToAWCEkVqrXv/5f/HIZBgDdycEceJjp21CSiRQh9D0KNqGmgR3Vanaa6SavT4uXf+HXabp9qr0EymSQVmhST41z78BKfXviUfL5IbWuLmX1zdAd9esOBuu5kKosVQm2pwtLSQ1zdZ+7wQeYOHSBXKJJIJakuV1i+vcjP/t8bUOuRcMB2NSIBBBoEuo6no3ib0AzMiIFhmEQimqq0YUYwTVv9WxKhS24ExbqO9vZ3/vhXAXuOCI1U2EYHfNdTMBTOur5DvVUnYuhKGL74pdMMQ5fYWBJDkrFeRxv6dDebvP3jM3z80RXFpcT4OC4BumEwOZZlZ2GKQnacWKDjuyP2zB8gVyqgm1Fc31fJ21qvkcLi0jvv0bhbwR4FRPoefn/E0BkxkLfr4PshfndEzDAxDEFkgE+oPkej23CWZAiktVBTXNXO/fCvBGiEfoAWaOoLZsRUwY5GI9zhSAmWF3pKZS0rSiwZozhVUhCPxqNAQC41xvK9hwollco6r73+JnrMZBh4dIcDBSdLbt4dYnge+6d3Mj9/iGe++CxO4NF3XFw/JJMZI5fIovVd7l25QT6awRz66AMfdzBkNBhuB+06eJ5HMPQx9CiO49BsNmk3mgyHQ/UzeacSSXwRz6HLyBmgXfjxdxWHJQMiChHNUH8PekP6vY66kG2bZLMZVeXBaEgqlSCejpPPT7CyusRseUrdtFarce4XF1l8+JBWr8+Z994lm5+gVt/Ctm1mSmVioQ6DIY8fOMwLzz9DOpdR7SU7llO867UH7JiaZfHGAr2NJtlIDNuPIJgT9ClYahqBgiuM+h521FKf+/2+SoigU4mVD51Oh2F/QLfVpdtuoV1977VQSi6V6Xe6DPtD1ZaEE9GIQSqVYqu+iWWZmKYhlFZipkU1ds6WWVpcIJtJEYsnGToe12/eYml1lbfefYfKxiaT5RJ3794nk0kxv28fq/cesnuqzKkTT1IuFnj+hc8qfnt+oEROojcjUT4+9zFxw8bWTEbtHk5/SMKyFVRFQwS6k/kCth0nYpjYpqUq22q0MXSdRCwOfkjMklRp+I7PcNRHu3X270LJQrvdVYFKr5Q+GCGiILGy/IioGaFQyBONRhgMBmzUqgShx7HHDnPrysdkUkl27Znj+u0F7j5cYml1hffPn1OGQoLodLt02k12l6fZXF2jPDnJP//m72CbOsXCBPv375Wz0ZF2ZafYXK/x0zM/wx0GtBttVbVBt690NhLRGbkOZsykWCpTmpkhm82qt7TRfqdPzLaZyOSwLIt0LKXi8F1ftVjt5s9fD4Xsnucr3gYBGJquVE4CfLS0jB0zyWTSCtry3WvXr7C4uMDeXTthNGRu107agwEeIWubNWrNOj95910erVbYtXs316/f4qknj7F8/z4bK22+8qXPUMwXmD+wl3w+zdHHDrO50WCr0aGQn+LDDy/w8/fOMhx4tNpdwhDava6CbBhKe/QV2jK5cdK5HIVCgVK+QDKeIJPKMF2aojRZVAFLe5UieW6AaZpo1376WigwsaKWykCvN8AZDIlEosRiMfXlmGUqJTYM6YQBZ8++zwcffMBMKc9sqcBnnz6llDhi2bz2xt9R3rGDv/6b7zI1M836+jr1zRqF/ARWJMLqoxVeeO4ZJsbHmCpOUi7lsE2DtUoVy0pQzM/w6g9+yK3bi3T6DoOhCKON4/r0hj3FX1/6ujdSajzyHdLpNKlkkuJkkaOH5jl04DCTuQlipo1kq9PuEYaa6gDatTOvhYL9AE0Ji23FFeal0mI4JKvZdBLD0BkM+wz7PS5eOs+1K1fZN7ebmVJBZS4/VeLR2hrvnn2fr339H/PK//pzXnjh83zvr/6G9UqFbDrF/n1zrK2s8OJLX1Ktbv7QfvxRF2c0UM46m5nAGYX86I23qTc6rKxv0h6MlH/3xVCEHrGYhR7RGI0GBL67rSeapooUtxMc3n+A/XsPsHNmlumpGZLJFMPeUImY6JH2yVuvho4nBlvfhkDEVBeIx5MqI5IM35VM9+iJyumw/PABN2/eZHwsQ7O+Qahr9EdDDDtGIptmLJtT6BAH9nDxHjeuXuPpkycZz2a4fuMqJ04c560zb/HM506yY7ZILGqQScq1ely9coubN+8ycAPuL6+gW3GMmMXI93B9D9uMoimP6WHo0l1cdC2kudVkNPDJpVMU8nkeP/I4zz/7HIVCCV8cpGkrbdI++ckPQjEFsVgCGSL6/aEKMplIMTGZU9Vr1bfo9Tu4oyF2zKJR2+TcuXOsr1dYfLDIY0eOELUtJosldbBLlz7iX/3L32Xt0Qp/9Ad/yEyxyOPHjnHyySdY31hjbWMND5/sWBJNG5FOxDF1m5WlClc/uclmrcX9BxVagyH56WmVSMd1GTgDQt9lNOyj+yHZVBycIVZEo91s4zkOlljNEOYPPcbXvvaP2Lf3AJZlq/iEutrt998KhbsSWCKVUdXt9Xo4jqcSoIge+IonoszOcMDa2hpn33+P24t32HfoIENnwLPPP8dGrcathZu4jsOTxx9nZnqaP/79P1SW8tf+6T9jc3OTO3cX+fjKp6zXqszuKLN3bppkPIahmYg1a9S7rK3Xef1HP8OwDYrlaWKppDqLJz6g16XbbCirWMiNYRIgtnrU6xONbLenRm2LwmSRF09/ic997lmS6SyJRBIEEa2Fj8J6va4a99hYTl242W4pVRNIi/GIaDqLi4vq8+H5g7TbbS5fvkyvP2R65y4uXrxIt9fkt377G3zw/jtU1h6xd88Ojswf5s9feYW9e+b4F7/7b/n3/+bfMbtjN49Wqzx18hTtTp0zP/4hG9VVchNFDh6Yp9bscOHSp6xX60TtuDrXxMSEsrSa7yF+Y9CRXhsyO1NWVROtkYDFLI1nsmpIEed49OhRXn75ZaamZ2i1WtjxGNryuXfCsYmcqkK1tkm1WlXeM5lMKx4K0UXMpFdvbW2RiKdIZ5IsPXzE5Y8/otntK5v5ve/+Nb434Pf+x3+lUnnID77/f/nqV19irVJhfGyCVrPLu++dpVSeZdfO/cw/doQb16+xvnqXpQf36fT6YJjUWwOqtTrdvoMfhOr+YxKEjKmeg21EwHOI6JCTCtuWapUDCbjbYyKXU/7fGY7Ys2cPzz33HEcfP6aQO5RFQe36xbDT66ov6EZEZUsatTiUTCaj/LRAfnx8XGW71+6RTMZZXl7he99/leT4OOXpaXxvyBs/+iE6Hom4RbddZ3aHwDXBoD/i6vUbvPTSV/nGb36Tsx+c50//7DtSBp55+rhS3Ga7w/0Hy9y5v0RPWpEps7LP5OSkMhW4PsNeC1M2G4amAhZfn8qkt1V6OKLbbpNNZ1TxBv0++Xxe/e6LL75IuVym1++jrV07H969e1cZ71KpxEy5rMYpxWsjquArcJYqT5VLWEZUXURucufuPaqNBoVSnlKxwO3bN3nt1b/lyNFDpONxqtU1njh+gm9/+/dJplN02l1qjSarK5uUZ6Z47tnPsGdmmnKpgGHafPTpVd58+6fcf7iMJ23IC5mZmVHnipkW7WadUa+j5mgruu2lJ/J54smEssH1Wo3A89UAJDoiVJAYTp8+zfHjx4lEDbR7l95TKx5Z50im43aMsbExJf29dkcNDQJzuYD4YbmYwFtdOBGj57ps1mrEbJPp6Wnu3l5QQ0Wv2ebPXvkThRCp0te//nX+8i//guXVClNTU+zYuZOt2gajTpt0Mkk8maa2VefarTtUN2tiY8TpKk3ZvXMXhckc7VaTerWKGY2QTgq/A/KlIrlcjlx2TInpxnpV7eIMPUK5NKViOHDgAE888QTjkxNoGwtXQk32QkGAMxopOMu/pbfJa/H2bXbt2kXm781H3LLpdsUsjEiPj3Hv0RJvvPUmhw/O89RTTymxiOpRxnbv5jv/7b/Tbjf51re+xdbWJucvn+fpp59Sq5dqdZ12s8Wo0+Hm1WvcvfeApnjuXp92t0+7M6DR7qvlXblcpDxVwh0OVEtMJWJM5sYVyrLjY6THsspabmxssHTvvmqrMjzsnN2BFoRKi0TABNZar/IgrG6sq1aUsC2VUTEZooYiGJ7rKOUT87+6+khdIJGMKZNixmx67ohzly4y6A7UiPjFz59GDzVMw+Lq1asc2DtHPBFTM7S4tcraMpc/vry9PgoCwqHL5fMXuHHzNgPHQfYyoSzqvEB1gdFwqDy96Imhge+MKBUmKRWK+IGHZdsqcEGR0G91aXnbR8QTzM7MMOz1VWv9zNOntgMOO5shAulen3pjS01M2WwaSyAjA2UY0tiosrb6iGZ9SyVkYnJcCUOj22R5vcLySkVNKeJXT544ydGjx+g1trePWuirRJVmpjhz5i26gxatVlOZiFwmzfpShWqlqtqGBCzDgidjXSyGYdnq8M1mXe2zbFk+2Ca7ZncwVSoquggOBXGiK0LLzY0Nta4SzZGkeK6rIP8PX/oKs7OzaJWFa2p4ENFynCGtZoODB/eTjMXxA1e5q/PnfsHlyxe5t7igLlooTBI1DLWY002dTm9A3IozMZHHH/k4jsvhvfM888wz6jD9QZeLF89z4+ZVIrIgMba3iBPZMfqNLtlURvXTlco6D5YeokeiqivIcCDDhwQmBxfOCrV2795NPpfbnn9bbeUPpMpCR9EXYaMacTVNBSsLgFMnn+bUqVNoreV7ykvLaChZXVp6oMy5cHVyMkejucUf/N63SaWTLC0tqSoL36dnpkgkk0TjJlHTVmCYKkzR2GoogVtdXlXzqQig3LzRrLG5tYFs4gSiYlEnx3OkrQS+G6hD15tS/ZY6R0ZaESjz8+DBA2qbVfUdz3OIx2IUiwVy2XGVDBFVme7Gx7Mq+XLmfC7P3NxutW4SJ3f8+BPs2zeH5m9WQ1mgjXpdtpoNlpeXGRvLKCsp20rJ8Hf+9E+IJ2zeeecdZmbK3Lt3Tz0xmD96RJmRQqmo1P3Q/oNsVjewTJOl+w+UgdnarGFaUTzfV5WWRb4cTNrS1GSJTr2tYCj8EygLZSRJskaSxMpbLKn8rrTKVquhEimJSCYS6KGMrQYj12cw6BG1bHV90YJWu8Heuf0cO/oYJ0+eojhVRBs8Wg7tdErBpddqKfGaLBbQDIP6ZpWFhQUuXDyvAv/bV1/lyadOKPmXG8vgLT8X6ApfpJUZocbBQwfYqq5z48YN1itrJBIJ8sWCamuyV5bZWlAhra2+scnm+qYaQ0UIZfwTgZKAxATJZwXddoOVlRVVTRE/mX4EqhPjk+rMruuTTCdIpjJq4RiJyh4uzeOPn+Cznz3F3Nw+1X206vVroazw84UCqMCVCiij7fuu2hDeunWLO3fucOHyBSqVilrWabrOtWvXlBLi+8rXyqrm9OefVw5o7dEyn3zyEbG4pR6niOuJRi3WqpusVTdoNdt0O2IionTbHcVBCVgIKNsMgbW8hOtSWYFzo9FQkDflkYoepdtq0+8OGB8bw44l1D5aNy0iZoTdc3t54qkTHD70GHvmdim3d//BXbStGzdCWW6LaDxaWVHiJQ+hDj02T2pyUjq/PMWiX6+r/xfIN1pNVQGB4UeXLnP+Fx8SFTM/O8XXvvJlms2aspr12qY6oHBY1yPUm10ePFzh0fIKw6GHGbVJxIX/rrq/vGQakplbYKr4KvxvbOuG3P+XVlf+P2bF2VnewaFDh1Rvr7eapMayTE2XyU7kGMuNq7FVUCLUk7Nr4dp6iBFRcH7zJz9mZXVVwe/Z5/+BUsr1japyKM1WCytmq6cI3X6PMEAN2mPJNGHgs1Wt8PP3zmBHIZGMYkZ1FhZucG9xUT3uGLoeriPMN6hvdWh3+qpXxmP2r7YW4vSG/b4SNV2TFWtLwVmClTOJAZJ+WyqX2bdvH9NTUxTzZdpbddbW18lMjFM8eAA8l2Gviz0xjtPrYgpyfvkwLRw5If2+quSju3cUV4WjpfIUVizBkSeO8/DhEpP5Io7vsXjvjvK30vdaggZ0XGdE3DawTI3axiq3F67TaddJJhNqfbO2VuXC+YtUN+rkJ8sEga4CTidT8rQI1x2p3ik8llaoVjFhQG1rU/H/+IkTyg/vO3hAmQhJgKCrWlljx8wOxeFPrnxKrVHn6LFj7JjbjS+otUwsO67alax4hDL/H0xJ7BFdZf6MAAAAAElFTkSuQmCC">
+         * let a = '<canvas width="60" height="32"></canvas>';
+         * bbn.fn.canvasToImage(a);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param {canvas} canvas
+         * @returns  {HTMLElement}
+         */
         const canvasToImage = function (canvas) {
             let img = new Image();
             img.src = canvas.toDataURL('image/png');
@@ -2464,10 +3951,24 @@
         };
         exports.canvasToImage = canvasToImage;
     });
-    define("fn/center", ["require", "exports"], function (require, exports) {
+    define("fn/style/center", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.center = void 0;
+        /**
+         * Centers the given element by giving it a position absolute.
+         *
+         * @method   center
+         * @global
+         * @example
+         * ```javascript
+         * //<div style="position: absolute; top: 73px; left: 0px;">Documentation</div>
+         * bbn.fn.center('<div>Documentation</div>')
+         * ```
+         * @memberof bbn.fn
+         * @param    {HTMLElement} ele
+         * @returns  {HTMLElement} The dom element with the new style.
+         */
         const center = function (ele) {
             //ele = $(ele);
             let parent = ele.parentNode, 
@@ -2477,23 +3978,25 @@
             h = parent.clientHeight;
             while (parent && (!w || !h)) {
                 /*parent = parent.parent(),
-                  w = parent.width(),
-                  h = parent.height();*/
+                      w = parent.width(),
+                      h = parent.height();*/
                 parent = ele.parentNode;
                 w = parent.clientWidth;
                 h = parent.clientHeight;
             }
             //ele.css("position","absolute");
-            ele.style.position = 'absolute';
+            ele.style.position = "absolute";
             //ele.css("top", Math.max(0, ((h - ele.outerHeight()) / 2) + parent.scrollTop()) + "px");
-            ele.style.top = Math.max(0, (h - ele.offsetHeight) / 2 + parent.scrollTop) + 'px';
+            ele.style.top =
+                Math.max(0, (h - ele.offsetHeight) / 2 + parent.scrollTop) + "px";
             //ele.css("left", Math.max(0, ((w - ele.outerWidth()) / 2) + parent.scrollLeft()) + "px");
-            ele.style.left = Math.max(0, (h - ele.offsetWidth) / 2 + parent.scrollLeft) + 'px';
+            ele.style.left =
+                Math.max(0, (h - ele.offsetWidth) / 2 + parent.scrollLeft) + "px";
             return ele;
         };
         exports.center = center;
     });
-    define("fn/checkPropsDetails", ["require", "exports", "fn/isArray", "fn/isObject", "fn/each", "fn/substr"], function (require, exports, isArray_7, isObject_9, each_10, substr_5) {
+    define("fn/object/checkPropsDetails", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/loop/each", "fn/string/substr"], function (require, exports, isArray_7, isObject_9, each_10, substr_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsDetails = void 0;
@@ -2502,35 +4005,38 @@
                 error: false,
                 result: true,
             };
-            if (typeof (props) === 'string') {
+            if (typeof props === "string") {
                 props = [props];
             }
             if (!(0, isArray_7.isArray)(props)) {
-                res.error = bbn._('checkProps must receive a string or an array as props argument');
+                res.error = bbn._("checkProps must receive a string or an array as props argument");
             }
             if (!(0, isObject_9.isObject)(obj)) {
-                res.error = bbn._('checkProps must receive an object as obj argument');
+                res.error = bbn._("checkProps must receive an object as obj argument");
             }
             if (!res.error) {
                 let check;
                 (0, each_10.each)(props, (varName) => {
-                    varName = varName.trim().split(':');
+                    varName = varName.trim().split(":");
                     let type = varName[1] || false;
                     varName = varName[0];
                     if (obj[varName] === undefined) {
-                        res.error = varName + ' ' + bbn._('is not defined');
+                        res.error = varName + " " + bbn._("is not defined");
                     }
                     else if (type) {
-                        check = 'is' + (0, substr_5.substr)(type, 0, 1).toUpperCase() + (0, substr_5.substr)(type, 1).toLowerCase();
+                        check =
+                            "is" +
+                                (0, substr_5.substr)(type, 0, 1).toUpperCase() +
+                                (0, substr_5.substr)(type, 1).toLowerCase();
                         if (bbn.fn[check] === undefined) {
-                            res.error = type + ' ' + bbn._('is not a valid type');
+                            res.error = type + " " + bbn._("is not a valid type");
                         }
                         else if (!bbn.fn[check](obj[varName])) {
-                            res.error = varName + ' ' + bbn._('is not a') + ' ' + type;
+                            res.error = varName + " " + bbn._("is not a") + " " + type;
                         }
                     }
                     else if (checkEmpty && !obj[varName]) {
-                        res.error = varName + ' ' + bbn._('is empty');
+                        res.error = varName + " " + bbn._("is empty");
                     }
                     if (res.error) {
                         return false;
@@ -2544,7 +4050,7 @@
         };
         exports.checkPropsDetails = checkPropsDetails;
     });
-    define("fn/checkProps", ["require", "exports", "fn/checkPropsDetails"], function (require, exports, checkPropsDetails_1) {
+    define("fn/object/checkProps", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkProps = void 0;
@@ -2553,7 +4059,7 @@
         };
         exports.checkProps = checkProps;
     });
-    define("fn/checkPropsOrDie", ["require", "exports", "fn/checkPropsDetails"], function (require, exports, checkPropsDetails_2) {
+    define("fn/object/checkPropsOrDie", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsOrDie = void 0;
@@ -2566,14 +4072,31 @@
         };
         exports.checkPropsOrDie = checkPropsOrDie;
     });
-    define("fn/clone", ["require", "exports", "fn/isArray", "fn/isObject", "fn/extend"], function (require, exports, isArray_8, isObject_10, extend_3) {
+    define("fn/object/clone", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/extend"], function (require, exports, isArray_8, isObject_10, extend_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.clone = void 0;
+        /**
+         * Creates and returns a perfect clone - but different - from the given object.
+         *
+         * @method   clone
+         * @global
+         * @example
+         * ```javascript
+         * let obj = {name: "Thomas"};
+         * let objCopy = bbn.fn.clone(obj);
+         * obj.name = "Julie";
+         * // obj:     {name: "Julie"}
+         * // objCopy: {name: "Thomas"}
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} obj The source object
+         * @returns  {Object} A new object
+         */
         const clone = function (obj) {
             if ((0, isArray_8.isArray)(obj)) {
                 return obj.slice().map((a) => {
-                    return typeof a === 'object' ? clone(a) : a;
+                    return typeof a === "object" ? clone(a) : a;
                 });
             }
             if ((0, isObject_10.isObject)(obj)) {
@@ -2584,21 +4107,52 @@
         };
         exports.clone = clone;
     });
-    define("fn/colorToHex", ["require", "exports"], function (require, exports) {
+    define("fn/convert/colorToHex", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.colorToHex = void 0;
+        /**
+         * Returns the hex color of the given rgb or color name.
+         * @method   colorToHex
+         * @global
+         * @example
+         * ```javascript
+         * //"#ff0000"
+         * bbn.fn.colorToHex('red');
+         * ```
+         *
+         * @example
+         * ```javascript
+         * //"#ff0000"
+         * bbn.fn.colorToHex('rgb(255,0,0)');
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String}
+         */
         const colorToHex = function (color) {
-            let canvas = document.createElement('canvas').getContext('2d');
+            let canvas = document.createElement("canvas").getContext("2d");
             canvas.fillStyle = color;
             return canvas.fillStyle;
         };
         exports.colorToHex = colorToHex;
     });
-    define("fn/copy", ["require", "exports", "fn/isObject", "fn/isFunction"], function (require, exports, isObject_11, isFunction_5) {
+    define("fn/browser/copy", ["require", "exports", "fn/type/isObject", "fn/type/isFunction"], function (require, exports, isObject_11, isFunction_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.copy = void 0;
+        /**
+         * Copies to the clipboard the value of the given string.
+         * @method   copy
+         * @global
+         * ``` javascript
+         * let myVal = 'the value you want to copy to clipbord';
+         * bbn.fn.copy(myVal);
+         *
+         * ```
+         * @memberof bbn.fn
+         * @param {String} st The string to copy.
+         * @returns
+         */
         const copy = function (st) {
             return new Promise((resolve) => {
                 if (st) {
@@ -2635,20 +4189,76 @@
         };
         exports.copy = copy;
     });
-    define("fn/count", ["require", "exports", "fn/filter"], function (require, exports, filter_2) {
+    define("fn/object/count", ["require", "exports", "fn/object/filter"], function (require, exports, filter_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.count = void 0;
+        /**
+         * Counts the number of objects matching the given filter in the given array.
+         *
+         * The arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   count
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         * bbn.fn.count(ar, "id", 256);
+         * // 1
+         * bbn.fn.count(ar, {director: "Steven Spielberg"});
+         * // 2
+         * bbn.fn.search(ar, "year", 1975, ">");
+         * // 3
+         * // Complex filters: all the movies from Spielberg between 1974 and 1980
+         * bbn.fn.search(ar, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *       field: "director",
+         *       operator: "eq",
+         *       value: "Steven Spielberg"
+         *     }, {
+         *       logic: "AND",
+         *       conditions: [
+         *         {
+         *            field: "year",
+         *            operator: ">=",
+         *            value: 1974
+         *         }, {
+         *            field: "year",
+         *            operator: "<=",
+         *            value: 1980
+         *         }
+         *       ]
+         *     }
+         *   ]
+         * });
+         * // 1
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Number}                   The number of items
+         */
         const count = function (arr, prop, val = null, operator = '=') {
             return (0, filter_2.filter)(arr, prop, val, operator).length || 0;
         };
         exports.count = count;
     });
-    define("fn/crc32", ["require", "exports"], function (require, exports) {
+    define("fn/string/crc32", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.crc32 = void 0;
-        // this is a test
+        /**
+         * CRC32 implementation.
+         */
         const crc32Table = [];
         for (let i = 0; i < 256; i++) {
             let c = i;
@@ -2667,7 +4277,7 @@
         };
         exports.crc32 = crc32;
     });
-    define("fn/createObject", ["require", "exports", "fn/extend"], function (require, exports, extend_4) {
+    define("fn/object/createObject", ["require", "exports", "fn/object/extend"], function (require, exports, extend_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.createObject = void 0;
@@ -2680,10 +4290,20 @@
         };
         exports.createObject = createObject;
     });
-    define("fn/cssExists", ["require", "exports", "fn/escapeRegExp"], function (require, exports, escapeRegExp_2) {
+    define("fn/style/cssExists", ["require", "exports", "fn/string/escapeRegExp"], function (require, exports, escapeRegExp_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.cssExists = void 0;
+        /**
+         * not used
+         * @ignore
+         * @method   cssExists
+         * @todo     Add method description for cssExists
+         * @global
+         * @memberof bbn.fn
+         * @param    {String} f
+         * @returns
+         */
         const cssExists = function (f) {
             let ok;
             let rules;
@@ -2695,7 +4315,7 @@
                 }
                 catch (e) {
                     ok = false;
-                    if (e.name !== 'SecurityError') {
+                    if (e.name !== "SecurityError") {
                         throw e;
                     }
                 }
@@ -2703,7 +4323,7 @@
                     //log(rules);
                     for (let cx = 0; cx < rules.length; cx++) {
                         //log(rules[cx].selectorText);
-                        if (new RegExp('(^|\\s)' + (0, escapeRegExp_2.escapeRegExp)(f) + '(\\{|\\s)', 'g').test(rules[cx].selectorText)) {
+                        if (new RegExp("(^|\\s)" + (0, escapeRegExp_2.escapeRegExp)(f) + "(\\{|\\s)", "g").test(rules[cx].selectorText)) {
                             return true;
                         }
                     }
@@ -2713,10 +4333,28 @@
         };
         exports.cssExists = cssExists;
     });
-    define("fn/dateSQL", ["require", "exports", "fn/date"], function (require, exports, date_4) {
+    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date"], function (require, exports, date_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dateSQL = void 0;
+        /**
+         * Returns a date with SQL format.
+         *
+         * @method   dateSQL
+         * @global
+         *
+         * @example
+         * ``` javascript
+         * //"2020-04-16 16:15:23"
+         * let date = new Date();
+         * bbn.fn.dateSQL(date,false);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Date|String} v
+         * @param    {Boolean}     dayOnly Whether or not include the time in the date
+         * @returns  {String}
+         */
         const dateSQL = function (v, dayOnly) {
             let value = (0, date_4.date)(v);
             if (value) {
@@ -2725,10 +4363,25 @@
         };
         exports.dateSQL = dateSQL;
     });
-    define("fn/daysInMonth", ["require", "exports", "fn/date"], function (require, exports, date_5) {
+    define("fn/datetime/daysInMonth", ["require", "exports", "fn/datetime/date"], function (require, exports, date_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.daysInMonth = void 0;
+        /**
+         * Returns the number of days of the month given in the date.
+         * @method   daysInMonth
+         * @global
+         *
+         * @example
+         * ``` javascript
+         * //30
+         * bbn.fn.daysInMonth(new Date());
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {String|Date} v
+         * @returns  {Number}
+         */
         const daysInMonth = function (v) {
             let d = (0, date_5.date)(v);
             if (d) {
@@ -2738,10 +4391,65 @@
         };
         exports.daysInMonth = daysInMonth;
     });
-    define("fn/deepPath", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_4, each_11, isArray_9) {
+    define("fn/object/deepPath", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_4, each_11, isArray_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deepPath = void 0;
+        /**
+         * Retrieves all elements of a hierarchical array corresponding to the filter.
+         *
+         * The arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   findAll
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         * bbn.fn.count(ar, "id", 256);
+         * // 1
+         * bbn.fn.count(ar, {director: "Steven Spielberg"});
+         * // 2
+         * bbn.fn.search(ar, "year", 1975, ">");
+         * // 3
+         * // Complex filters: all the movies from Spielberg between 1974 and 1980
+         * bbn.fn.search(ar, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *       field: "director",
+         *       operator: "eq",
+         *       value: "Steven Spielberg"
+         *     }, {
+         *       logic: "AND",
+         *       conditions: [
+         *         {
+         *            field: "year",
+         *            operator: ">=",
+         *            value: 1974
+         *         }, {
+         *            field: "year",
+         *            operator: "<=",
+         *            value: 1980
+         *         }
+         *       ]
+         *     }
+         *   ]
+         * });
+         * // 1
+         * ```
+         * @memberof bbn.fn
+         * @todo Do the doc!
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Number}                   The number of items
+         */
         const deepPath = function (arr, filter, deepProperty, res = []) {
             let idx;
             let start = 0;
@@ -2763,7 +4471,7 @@
         };
         exports.deepPath = deepPath;
     });
-    define("fn/defaultConfirmFunction", ["require", "exports", "fn/isFunction"], function (require, exports, isFunction_6) {
+    define("fn/default/defaultConfirmFunction", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultConfirmFunction = void 0;
@@ -2781,7 +4489,7 @@
         };
         exports.defaultConfirmFunction = defaultConfirmFunction;
     });
-    define("fn/defaultErrorFunction", ["require", "exports", "fn/log"], function (require, exports, log_10) {
+    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultErrorFunction = void 0;
@@ -2790,7 +4498,7 @@
         };
         exports.defaultErrorFunction = defaultErrorFunction;
     });
-    define("fn/defaultHistoryFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultHistoryFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultHistoryFunction = void 0;
@@ -2799,7 +4507,7 @@
         };
         exports.defaultHistoryFunction = defaultHistoryFunction;
     });
-    define("fn/defaultPreLinkFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultPreLinkFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPreLinkFunction = void 0;
@@ -2808,7 +4516,7 @@
         };
         exports.defaultPreLinkFunction = defaultPreLinkFunction;
     });
-    define("fn/defaultResizeFunction", ["require", "exports"], function (require, exports) {
+    define("fn/default/defaultResizeFunction", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultResizeFunction = void 0;
@@ -2817,26 +4525,56 @@
         };
         exports.defaultResizeFunction = defaultResizeFunction;
     });
-    define("fn/deleteProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_2) {
+    define("fn/object/deleteProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deleteProp = void 0;
+        /**
+         * Gets the given property from the given object
+         * @param {Object} obj
+         * @param {String} prop
+         * @returns
+         */
         const deleteProp = function (obj, prop) {
-            (0, checkType_2.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
-            (0, checkType_2.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
+            (0, checkType_2.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
+            (0, checkType_2.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
             delete obj[prop];
         };
         exports.deleteProp = deleteProp;
     });
-    define("fn/isValue", ["require", "exports", "fn/isNull"], function (require, exports, isNull_2) {
+    define("fn/type/isValue", ["require", "exports", "fn/type/isNull"], function (require, exports, isNull_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValue = void 0;
+        /**
+         * Returns true if the given argument is not null or type object or array.
+         * @method   isValue
+         * @deprecated
+         * @see bbn.fn.isPrimitive
+         * @example
+         * ```javascript
+         * bbn.fn.isValue('myString');
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isValue(6);
+         * //true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isValue([80,10,22]);
+         * //false
+         * ```
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isValue = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if (typeof a === 'object' && !(0, isNull_2.isNull)(a)) {
+                if (typeof a === "object" && !(0, isNull_2.isNull)(a)) {
                     return false;
                 }
             }
@@ -2844,11 +4582,88 @@
         };
         exports.isValue = isValue;
     });
-    define("fn/diffObj", ["require", "exports", "fn/isDate", "fn/createObject", "fn/isFunction", "fn/isValue", "fn/isDom", "fn/numProperties"], function (require, exports, isDate_6, createObject_1, isFunction_7, isValue_1, isDom_4, numProperties_5) {
+    define("fn/object/diffObj", ["require", "exports", "fn/type/isDate", "fn/object/createObject", "fn/type/isFunction", "fn/type/isValue", "fn/type/isDom", "fn/object/numProperties"], function (require, exports, isDate_6, createObject_1, isFunction_7, isValue_1, isDom_4, numProperties_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.diffObj = void 0;
         let diffObjProcessed = [];
+        /**
+          * Returns an object describing the differences for transforming the first given object into the second.
+          *
+          * The returned data will use the objects properties as keys. If unchanged is set to true, all the
+          * properties will be returned, otherwise only the different ones. Each of these keys will have the
+          * following properties:
+          * - type: can be _modified_, _created_, _deleted_, and if unchanged is set to true _unchanged_
+          * - data: the first object's property's value, or the second if type is _created_
+          * - newData: the second object's property's value in case of type _updated_
+          *
+          * @method   diffObj
+          * @global
+          * @example
+          * ```javascript
+          * bbn.fn.diffObj(
+          *   {
+          *     name: "Thomas",
+          *     age: 45
+          *   }, {
+          *     name: "Eva",
+          *     sex: "Female",
+          *     retired: false
+          *   }
+          * );
+          * // {
+          * //   name: {
+          * //     type: "updated",
+          * //     data: "Thomas",
+          * //     newData: "Eva"
+          * //   },
+          * //   age: {
+          * //     type: "deleted",
+          * //     data: 45
+          * //   },
+          * //   sex: {
+          * //     type: "created",
+          * //     data: "Female"
+          * //   },
+          * //   retired: {
+          * //     type: "created",
+          * //     data: false
+          * //   }
+          * // }
+          * ```
+          * @example
+          * ```javascript
+          * bbn.fn.diffObj(
+          *   {pupil: "Agnes Varda", grade: {year: "B", month: "A"}},
+          *   {pupil: "Luc Besson", grade: {year: "C", month: "D"}}
+          * );
+          * // {
+          * //   "pupil": {
+          * //     "type": "updated",
+          * //     "data": "Agnes Varda",
+          * //     "newData": "Luc Besson"
+          * //   },
+          * //   "grade": {
+          * //     "year": {
+          * //       "type": "updated",
+          * //       "data": "B",
+          * //       "newData": "C"
+          * //     },
+          * //     "month": {
+          * //       "type": "updated",
+          * //       "data": "A",
+          * //       "newData": "D"
+          * //     }
+          * //   }
+          * // }
+          * ```
+          * @memberof bbn.fn
+          * @param    {Object}  obj1
+          * @param    {Object}  obj2
+          * @param    {String}  unchanged
+          * @param    {Boolean} notRoot
+          * @returns  {Object}
+          */
         const diffObj = function (obj1, obj2, unchanged = false, notRoot = false) {
             if (!notRoot) {
                 diffObjProcessed = [];
@@ -2934,36 +4749,58 @@
         };
         exports.diffObj = diffObj;
     });
-    define("fn/dirName", ["require", "exports", "fn/isString", "fn/substr"], function (require, exports, isString_9, substr_6) {
+    define("fn/string/dirName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_9, substr_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dirName = void 0;
+        /**
+         * Returns the path of the folder containing the last hierarchical element of the path.
+         *
+         * @method   dirName
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"folder/other_folder"
+         * bbn.fn.dirName('folder/other_folder/file');
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} path
+         * @returns  {String} path of the folder
+         */
         const dirName = function (path) {
             if ((0, isString_9.isString)(path) && path) {
-                while ((0, substr_6.substr)(path, path.length - 1) === '/') {
+                while ((0, substr_6.substr)(path, path.length - 1) === "/") {
                     path = (0, substr_6.substr)(path, 0, path.length - 1);
                 }
-                let pos = path.lastIndexOf('/');
+                let pos = path.lastIndexOf("/");
                 if (pos > 0) {
                     return (0, substr_6.substr)(path, 0, pos);
                 }
                 if (pos === 0) {
-                    return '/';
+                    return "/";
                 }
             }
-            return '';
+            return "";
         };
         exports.dirName = dirName;
     });
-    define("fn/isBlob", ["require", "exports"], function (require, exports) {
+    define("fn/type/isBlob", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isBlob = void 0;
+        /**
+         * @method   isBlob
+         * @todo     Add method description for isFunction
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isBlob = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Blob]') {
+                if ({}.toString.apply(a) !== "[object Blob]") {
                     return false;
                 }
             }
@@ -2971,25 +4808,75 @@
         };
         exports.isBlob = isBlob;
     });
-    define("fn/fileExt", ["require", "exports", "fn/isString"], function (require, exports, isString_10) {
+    define("fn/string/fileExt", ["require", "exports", "fn/type/isString"], function (require, exports, isString_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fileExt = void 0;
+        /**
+         * Gets the extension from a file's name.
+         *
+         * The extension is returned in lower case; if the filename has no extension
+         * or is not valid it will return an empty string.
+         *
+         * @method   fileExt
+         * @global
+         *
+         * @example
+         * ```javascript
+         * // "txt"
+         * bbn.fn.fileExt('my_file.txt')
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // "txt"
+         * bbn.fn.fileExt('MY_FILE.TXT')
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // ""
+         * bbn.fn.fileExt('MY_FILE')
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // ""
+         * bbn.fn.fileExt('.MY_FILE')
+         * ```
+         *
+         * @param   {String} filename
+         * @returns {String} The file's extension
+         */
         const fileExt = function (filename) {
             if (filename && (0, isString_10.isString)(filename)) {
-                let bits = filename.split('.');
+                let bits = filename.split(".");
                 if (bits[0] && bits.length > 1) {
                     return bits[bits.length - 1].toLowerCase();
                 }
             }
-            return '';
+            return "";
         };
         exports.fileExt = fileExt;
     });
-    define("fn/isCanvas", ["require", "exports"], function (require, exports) {
+    define("fn/type/isCanvas", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isCanvas = void 0;
+        /**
+         * Returns true if the given argumen is a Canvas.
+         *
+         * @method   isCanvas
+         * @global
+         * @example
+         * ```javascript
+         * let myCanvas = document.createElement('canvas');
+         * bbn.fn.isCanvas(myCanvas);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isCanvas = function (...args) {
             if (!args.length)
                 return false;
@@ -3002,10 +4889,36 @@
         };
         exports.isCanvas = isCanvas;
     });
-    define("fn/downloadContent", ["require", "exports", "fn/isCanvas", "fn/isObject", "fn/isString", "fn/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_11) {
+    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.downloadContent = void 0;
+        /**
+         * Downloads a file with given filename from the given content.
+         *
+         * Creates a link putting in href a URL Object Blob made of the given content,
+         * which can be a canvas, a file or a blob object, or just a string.
+         *
+         * @method   downloadContent
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * // Download from a string
+         * bbn.fn.downloadContent('myTextFile.txt', 'Just a string\nThat we can save directly in a file', 'text/plain');
+         *
+         * // Download from a file
+         * let file = new File(["foo"], "foo.txt", {type: "text/plain"});
+         * bbn.fn.downloadContent('foo.txt', file);
+         * ```
+         *
+         * @param    {String}                        filename The name for the downloaded file
+         * @param    {HTMLCanvasElement|File|String} content  A Canvas, a File object or a String
+         * @param    {String}                        type     The type of file to be made
+         *
+         * @returns  {undefined}
+         */
         const downloadContent = function (filename, content, type) {
             if ((0, isCanvas_1.isCanvas)(content)) {
                 content.toBlob((blob) => {
@@ -3051,20 +4964,48 @@
         };
         exports.downloadContent = downloadContent;
     });
-    define("fn/download", ["require", "exports", "fn/ajax", "fn/substr", "fn/baseName", "fn/isBlob", "fn/fileExt", "fn/downloadContent", "fn/defaultAjaxErrorFunction"], function (require, exports, ajax_1, substr_7, baseName_1, isBlob_1, fileExt_1, downloadContent_1, defaultAjaxErrorFunction_2) {
+    define("fn/ajax/download", ["require", "exports", "fn/ajax/ajax", "fn/string/substr", "fn/string/baseName", "fn/type/isBlob", "fn/string/fileExt", "fn/ajax/downloadContent", "fn/default/defaultAjaxErrorFunction"], function (require, exports, ajax_1, substr_7, baseName_1, isBlob_1, fileExt_1, downloadContent_1, defaultAjaxErrorFunction_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.download = void 0;
+        /**
+         * Downloads a file with given filename from a URL.
+         *
+         * Gets the file's content as Blob through XHR, then sends it to bbn.fn.downloadContent.
+         * __Attention__ The CORS policy applies
+         *
+         * @method   download
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * // Forcing the download of an image
+         * bbn.fn.download('/bbn/js-title-black.png');
+         *
+         * // Forcing the download of a PDF
+         * bbn.fn.download('/files/my-document.pdf');
+         *
+         * // Changing the name as it is downloaded
+         * bbn.fn.download('/files/f4b1092d71aefd96458feaa71d170f69.pdf', 'myDocument_' + bbn.fn.dateSQL() + '.pdf');
+         * ```
+         *
+         * @param    {String} url      The URL from which the file will be requested
+         * @param    {String} filename The name for the downloaded file (otherwise it will take the basename of the url)
+         * @param    {Object} params   A data object to send with the request
+         *
+         * @returns  {undefined}
+         */
         const download = function (url, filename, params) {
             // We can intervert the arguments
             if (filename && (typeof (filename) === 'object')) {
                 params = filename;
-                filename = null;
+                filename = '';
             }
             return (0, ajax_1.ajax)(url, 'blob', params || { _bbn_download: 1 }, (d, headers) => {
                 if (!filename) {
                     let cd = 'attachment; filename=';
-                    if (headers && headers['content-disposition'] && headers['content-disposition'].indexOf(cd) === 0) {
+                    if (headers?.['content-disposition'] && headers['content-disposition'].indexOf(cd) === 0) {
                         filename = (0, substr_7.substr)(headers['content-disposition'], cd.length + 1, headers['content-disposition'].length - cd.length - 2);
                     }
                     else {
@@ -3085,16 +5026,29 @@
         };
         exports.download = download;
     });
-    define("fn/eraseCookie", ["require", "exports"], function (require, exports) {
+    define("fn/browser/eraseCookie", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.eraseCookie = void 0;
+        /**
+         * Erase the cookie corresponding to the given name;
+         *
+         * @method   eraseCookie
+         * @global
+         * @example
+         * ``` javascript
+         * // 'en'
+         * bbn.fn.erase('lang');
+         * ```
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const eraseCookie = function (name) {
             document.cookie = name + '=; Max-Age=-99999999;';
         };
         exports.eraseCookie = eraseCookie;
     });
-    define("fn/escapeDquotes", ["require", "exports", "fn/isString"], function (require, exports, isString_12) {
+    define("fn/string/escapeDquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeDquotes = void 0;
@@ -3106,7 +5060,7 @@
         };
         exports.escapeDquotes = escapeDquotes;
     });
-    define("fn/escapeSquotes", ["require", "exports", "fn/isString"], function (require, exports, isString_13) {
+    define("fn/string/escapeSquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeSquotes = void 0;
@@ -3118,7 +5072,7 @@
         };
         exports.escapeSquotes = escapeSquotes;
     });
-    define("fn/escapeTicks", ["require", "exports", "fn/isString"], function (require, exports, isString_14) {
+    define("fn/string/escapeTicks", ["require", "exports", "fn/type/isString"], function (require, exports, isString_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeTicks = void 0;
@@ -3130,56 +5084,79 @@
         };
         exports.escapeTicks = escapeTicks;
     });
-    define("fn/escapeUrl", ["require", "exports", "fn/each", "fn/dirName", "fn/baseName", "fn/isString"], function (require, exports, each_12, dirName_1, baseName_2, isString_15) {
+    define("fn/string/escapeUrl", ["require", "exports", "fn/loop/each", "fn/string/dirName", "fn/string/baseName", "fn/type/isString"], function (require, exports, each_12, dirName_1, baseName_2, isString_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeUrl = void 0;
+        /**
+         * Escapes a URL or a file path, optionally adding parameters (get type, to append to the URL without the first separator).
+         *
+         * @param {*} url
+         * @param {*} params
+         * @returns
+         */
         const escapeUrl = function (url, params) {
-            let st = '';
-            if (url.match('^(http|https)://')) {
-                st += 'http';
+            let st = "";
+            if (url.match("^(http|https)://")) {
+                st += "http";
                 url = url.substring(4);
-                if (url.substr(0, 1) === 's') {
-                    st += 's';
+                if (url.substr(0, 1) === "s") {
+                    st += "s";
                     url = url.substring(1);
                 }
-                st += '://';
+                st += "://";
                 url = url.substring(3);
             }
-            (0, each_12.each)((0, dirName_1.dirName)(url).split('/'), (a) => {
-                st += encodeURIComponent(a) + '/';
+            (0, each_12.each)((0, dirName_1.dirName)(url).split("/"), (a) => {
+                st += encodeURIComponent(a) + "/";
             });
             let base = (0, baseName_2.baseName)(url);
-            let sep = '?';
-            let existingParams = '';
+            let sep = "?";
+            let existingParams = "";
             if (base.indexOf(sep)) {
-                let tmp = base.split('?');
-                sep = '&';
-                existingParams = '?' + tmp[1];
+                let tmp = base.split("?");
+                sep = "&";
+                existingParams = "?" + tmp[1];
                 base = tmp[0];
             }
             if (params && (0, isString_15.isString)(params)) {
-                if (params.match('^(\\&|\\?)')) {
+                if (params.match("^(\\&|\\?)")) {
                     params = params.substring(1);
                 }
                 params = sep + params;
             }
             else {
-                params = '';
+                params = "";
             }
             return st + encodeURIComponent(base) + existingParams + params;
         };
         exports.escapeUrl = escapeUrl;
     });
-    define("fn/extendOut", ["require", "exports", "fn/isObject"], function (require, exports, isObject_13) {
+    define("fn/object/extendOut", ["require", "exports", "fn/type/isObject"], function (require, exports, isObject_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extendOut = void 0;
+        /**
+         * Returns a new object made of the properties from all the given objects.
+         *
+         * Compared to bbn.fn.extend this still treats the arguments from left to right
+         * but without overwriting existing properties, and returning a new object.
+         *
+         * @method   extendOut
+         * @global
+         * @example
+         * ```javascript
+         * //{field1: 1, field2: 2, field3: 3, items: {item: 0, item1: 1, item2: 2}, field4: 4}
+         * bbn.fn.extendOut({field1: 1, field2: 2, field3: 3, items: {item: 0}}, {field4: 4, items: {item1: 1, item2: 2}});
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Object}
+         */
         const extendOut = function (...args) {
             let r = null;
             for (let a of args) {
                 if (!(0, isObject_13.isObject)(a)) {
-                    throw new Error('Each argument for extendOut must be an object, ' + typeof a + ' given');
+                    throw new Error("Each argument for extendOut must be an object, " + typeof a + " given");
                 }
                 if (r === null) {
                     r = a;
@@ -3199,10 +5176,20 @@
         };
         exports.extendOut = extendOut;
     });
-    define("fn/fieldValue", ["require", "exports"], function (require, exports) {
+    define("fn/form/fieldValue", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fieldValue = void 0;
+        /**
+         * Returns the value of a form's input, differenciating between checkboxes, radio and other inputs.
+         *
+         * @method   fieldValue
+         * @global
+         * @memberof bbn.fn
+         * @param    {HTMLElement} field The input element
+         *
+         * @returns  {Mixed}       The value
+         */
         const fieldValue = function (field) {
             let v;
             if (field.type === 'checkbox') {
@@ -3228,10 +5215,65 @@
         };
         exports.fieldValue = fieldValue;
     });
-    define("fn/findAll", ["require", "exports", "fn/search", "fn/each", "fn/isArray"], function (require, exports, search_5, each_13, isArray_10) {
+    define("fn/object/findAll", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_5, each_13, isArray_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.findAll = void 0;
+        /**
+         * Retrieves all elements of a hierarchical array corresponding to the filter.
+         *
+         * The arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   findAll
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         * ];
+         * bbn.fn.count(ar, "id", 256);
+         * // 1
+         * bbn.fn.count(ar, {director: "Steven Spielberg"});
+         * // 2
+         * bbn.fn.search(ar, "year", 1975, ">");
+         * // 3
+         * // Complex filters: all the movies from Spielberg between 1974 and 1980
+         * bbn.fn.search(ar, {
+         *   logic: "AND",
+         *   conditions: [
+         *     {
+         *       field: "director",
+         *       operator: "eq",
+         *       value: "Steven Spielberg"
+         *     }, {
+         *       logic: "AND",
+         *       conditions: [
+         *         {
+         *            field: "year",
+         *            operator: ">=",
+         *            value: 1974
+         *         }, {
+         *            field: "year",
+         *            operator: "<=",
+         *            value: 1980
+         *         }
+         *       ]
+         *     }
+         *   ]
+         * });
+         * // 1
+         * ```
+         * @memberof bbn.fn
+         * @todo Do the doc!
+         * @param    {Array}                    arr       The subject array
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Number}                   The number of items
+         */
         const findAll = function (arr, filter, deepProperty, res = []) {
             let idx;
             let start = 0;
@@ -3248,17 +5290,51 @@
         };
         exports.findAll = findAll;
     });
-    define("fn/fori", ["require", "exports", "fn/isArray", "fn/isNumber"], function (require, exports, isArray_11, isNumber_4) {
+    define("fn/loop/fori", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_11, isNumber_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fori = void 0;
+        /**
+         * Executes the provided function on each element of the given array.
+         *
+         * A minimum and a maximum value can be provided, within the boundaries of the
+         * array's indexes. Returning false will stop the loop.
+         *
+         * @method   fori
+         * @global
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.fori([4, 5, 5, 10, 1, 2], d => {
+         *   res += d;
+         * }, 3);
+         * // res = 24
+         * ```
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.fori([4, 5, 5, 10, 1, 2], d => {
+         *   if (res >= 20) {
+         *     return false;
+         *   }
+         *   res += d;
+         * }, 4, 1);
+         * // res = 20
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}     arr The array to loop on
+         * @param    {Function}  fn  The function, gets the array's element and the index as arguments
+         * @param    {Number}    max The index to which the loop will stop
+         * @param    {Number}    min The index at which the loop will start
+         * @returns  {undefined}
+         */
         const fori = function (arr, fn, max = arr.length - 1, min = 0) {
             if ((0, isArray_11.isArray)(arr)) {
                 let realMax = arr.length - 1;
-                if (!(0, isNumber_4.isNumber)(max) || !((0 < max) && (max <= realMax))) {
+                if (!(0, isNumber_4.isNumber)(max) || !(0 < max && max <= realMax)) {
                     max = realMax;
                 }
-                if (!(0, isNumber_4.isNumber)(min) || !((0 <= min) && (min < realMax)) || (min > max)) {
+                if (!(0, isNumber_4.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
                     min = 0;
                 }
                 for (let i = min; i <= max; i++) {
@@ -3270,17 +5346,51 @@
         };
         exports.fori = fori;
     });
-    define("fn/forir", ["require", "exports", "fn/isArray", "fn/isNumber"], function (require, exports, isArray_12, isNumber_5) {
+    define("fn/loop/forir", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_12, isNumber_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.forir = void 0;
+        /**
+         * Executes the provided function on each element of the given array, going backward.
+         *
+         * A maximum and a minimum value can be provided, within the boundaries of the
+         * array's indexes. Returning false will stop the loop.
+         *
+         * @method   forir
+         * @global
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.forir([4, 5, 5, 10, 1, 2], d => {
+         *   res += d;
+         * }, 4, 2);
+         * // res = 16
+         * ```
+         * @example
+         * ```javascript
+         * let res = 0;
+         * bbn.fn.forir([4, 5, 5, 10, 1, 2], d => {
+         *   if (res >= 20) {
+         *     return false;
+         *   }
+         *   res += d;
+         * });
+         * // res = 23
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}     arr The array to loop on
+         * @param    {Function}  fn  The function, gets the array's element and the index as arguments
+         * @param    {Number}    max The index to which the loop will stop
+         * @param    {Number}    min The index at which the loop will start
+         * @returns  {undefined}
+         */
         const forir = function (arr, fn, max = arr.length - 1, min = 0) {
             if ((0, isArray_12.isArray)(arr)) {
                 let realMax = arr.length - 1;
-                if (!(0, isNumber_5.isNumber)(max) || !((0 < max) && (max <= realMax))) {
+                if (!(0, isNumber_5.isNumber)(max) || !(0 < max && max <= realMax)) {
                     max = realMax;
                 }
-                if (!(0, isNumber_5.isNumber)(min) || !((0 <= min) && (min < realMax)) || (min > max)) {
+                if (!(0, isNumber_5.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
                     min = 0;
                 }
                 for (let i = max; i >= min; i--) {
@@ -3292,7 +5402,7 @@
         };
         exports.forir = forir;
     });
-    define("fn/format", ["require", "exports", "fn/checkType"], function (require, exports, checkType_3) {
+    define("fn/string/format", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.format = void 0;
@@ -3310,10 +5420,22 @@
         };
         exports.format = format;
     });
-    define("fn/formatBytes", ["require", "exports"], function (require, exports) {
+    define("fn/string/formatBytes", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formatBytes = void 0;
+        /**
+         * Formats the value given in bytes.
+         * @method   formatBytes
+         * @global
+         * @example
+         * //"52.23 MB"
+         * ``` javascript
+         * bbn.fn.formatBytes(54764654);
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String}
+         */
         const formatBytes = function (bytes, decimals = 2) {
             if (!bytes) {
                 return '0 B';
@@ -3323,7 +5445,7 @@
         };
         exports.formatBytes = formatBytes;
     });
-    define("fn/formatDate", ["require", "exports"], function (require, exports) {
+    define("fn/datetime/formatDate", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formatDate = void 0;
@@ -3332,7 +5454,7 @@
         };
         exports.formatDate = formatDate;
     });
-    define("fn/formatSize", ["require", "exports", "fn/isNumber", "fn/isString"], function (require, exports, isNumber_6, isString_16) {
+    define("fn/string/formatSize", ["require", "exports", "fn/type/isNumber", "fn/type/isString"], function (require, exports, isNumber_6, isString_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formatSize = void 0;
@@ -3347,10 +5469,53 @@
         };
         exports.formatSize = formatSize;
     });
-    define("fn/formdata", ["require", "exports", "fn/each", "fn/fieldValue", "fn/replaceAll", "fn/substr"], function (require, exports, each_14, fieldValue_1, replaceAll_3, substr_8) {
+    define("fn/form/formdata", ["require", "exports", "fn/loop/each", "fn/form/fieldValue", "fn/string/replaceAll", "fn/string/substr"], function (require, exports, each_14, fieldValue_1, replaceAll_3, substr_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formdata = void 0;
+        /**
+         * Returns all the data contained in a form as a single object.
+         *
+         * @method   formdata
+         * @global
+         * @memberof bbn.fn
+         * @fires    {*}
+         *
+         * @example
+         * ```javascript
+         * // <form id="myform">
+         * // <input type="hidden" name="bbn[name]" value="Smith">
+         * // <input type="hidden" name="bbn[fname]" value="John">
+         * // </form>
+         * bbn.fn.formdata(document.getElementById('myform'));
+         * // {name: "Smith", fname: "John"};
+         *
+         * ```
+         *
+         * @example
+         * ```javascript
+         * // <form id="myform">
+         * // <input type="hidden" name="People[0][name]" value="Smith">
+         * // <input type="hidden" name="People[0][fname]" value="John">
+         * // <input type="hidden" name="People[1][name]" value="Smith">
+         * // <input type="hidden" name="People[1][fname]" value="Eileen">
+         * // <input type="hidden" name="Dates[0]" value="2021-08-25">
+         * // <input type="hidden" name="Dates[1]" value="2021-09-06">
+         * // </form>
+         * bbn.fn.formdata(document.getElementById('myform'));
+         * // {
+         * //   People: [
+         * //     {name: "Smith", fname: "John"},
+         * //     {name: "Smith", fname: "Eileen"}
+         * //   ],
+         * //   Dates: ['2021-08-25', '2021-09-06']
+         * // }
+         * ```
+         *
+         * @param    {HTMLElementL} form
+         *
+         * @returns  {Object}
+         */
         const formdata = function (form) {
             let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
             let res = {};
@@ -3400,27 +5565,37 @@
         };
         exports.formdata = formdata;
     });
-    define("fn/fromXml", ["require", "exports"], function (require, exports) {
+    define("fn/convert/fromXml", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fromXml = void 0;
+        /**
+         * Parses XML and returns an object.
+         *
+         * Picked from https://stackoverflow.com/questions/4200913/xml-to-javascript-object
+         *
+         * @memberof bbn.fn
+         * @param   {String} xml       The XML to be parsed
+         * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
+         * @returns {Object}
+         */
         const fromXml = function (xml, arrayTags) {
             let dom = null;
             if (window.DOMParser)
-                dom = new DOMParser().parseFromString(xml, 'text/xml');
-            else if (window['ActiveXObject']) {
-                dom = new window['ActiveXObject']('Microsoft.XMLDOM');
+                dom = new DOMParser().parseFromString(xml, "text/xml");
+            else if (window["ActiveXObject"]) {
+                dom = new window["ActiveXObject"]("Microsoft.XMLDOM");
                 dom.async = false;
                 if (!dom.loadXML(xml))
-                    throw dom.parseError.reason + ' ' + dom.parseError.srcText;
+                    throw dom.parseError.reason + " " + dom.parseError.srcText;
             }
             else
-                throw new Error('cannot parse xml string!');
+                throw new Error("cannot parse xml string!");
             function parseNode(xmlNode, result) {
-                if (xmlNode.nodeName == '#text') {
+                if (xmlNode.nodeName == "#text") {
                     let v = xmlNode.nodeValue;
                     if (v.trim())
-                        result['#text'] = v;
+                        result["#text"] = v;
                     return;
                 }
                 let jsonNode = {}, existing = result[xmlNode.nodeName];
@@ -3449,11 +5624,17 @@
         };
         exports.fromXml = fromXml;
     });
-    define("fn/ftime", ["require", "exports", "fn/date", "fn/isDate", "fn/isString"], function (require, exports, date_6, isDate_7, isString_17) {
+    define("fn/datetime/ftime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_6, isDate_7, isString_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ftime = void 0;
-        dayjs.extend(window['dayjs_plugin_calendar']);
+        /**
+         * @method   ftime
+         * @todo     Add method description for ftime
+         * @global
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const ftime = function (d, wrong_result) {
             let r = (0, date_6.date)(d);
             if (!(0, isDate_7.isDate)(r)) {
@@ -3466,7 +5647,23 @@
         };
         exports.ftime = ftime;
     });
-    define("fn/unique", ["require", "exports"], function (require, exports) {
+    /**
+     * Removes duplicate values from an array.
+     *
+     * Takes an input array and returns a new array without duplicate values.
+     *
+     * @method   unique
+     * @global
+     * @example
+     * ```javascript
+     * bbn.fn.unique(["a", "b", "a", "b", "a", "b", "c", "c", "d"]);
+     * // ["a", "b", "c", "d"]
+     * ```
+     * @memberof bbn.fn
+     * @param    {Array} arr
+     * @returns  {Array}
+     */
+    define("fn/object/unique", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.unique = void 0;
@@ -3477,16 +5674,20 @@
         };
         exports.unique = unique;
     });
-    define("fn/getAllTags", ["require", "exports", "fn/unique"], function (require, exports, unique_1) {
+    define("fn/html/getAllTags", ["require", "exports", "fn/object/unique"], function (require, exports, unique_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAllTags = void 0;
+        /**
+         * Gets all the tag names present in the DOM
+         * @returns array
+         */
         const getAllTags = function () {
             return (0, unique_1.unique)(Array.prototype.map.apply(document.all, [(a) => a.tagName.toLowerCase()]));
         };
         exports.getAllTags = getAllTags;
     });
-    define("fn/getAncestors", ["require", "exports"], function (require, exports) {
+    define("fn/html/getAncestors", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAncestors = void 0;
@@ -3516,10 +5717,14 @@
         };
         exports.getAncestors = getAncestors;
     });
-    define("fn/getAttributes", ["require", "exports", "fn/error"], function (require, exports, error_3) {
+    define("fn/html/getAttributes", ["require", "exports", "fn/browser/error"], function (require, exports, error_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAttributes = void 0;
+        /**
+         * Check if the property contain sizing
+         * @return {Boolean}
+         */
         const getAttributes = function (ele) {
             if (!ele.getAttributeNames) {
                 (0, error_3.error)('The element is not a proper HTML Element');
@@ -3532,10 +5737,17 @@
         };
         exports.getAttributes = getAttributes;
     });
-    define("fn/getBrowserName", ["require", "exports"], function (require, exports) {
+    define("fn/browser/getBrowserName", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getBrowserName = void 0;
+        /**
+         * Gets the browser's name
+         * @method getBrowserName
+         * @global
+         * @memberof bbn.fn
+         * @returns {String}
+         */
         const getBrowserName = function () {
             const userAgent = navigator.userAgent.toLowerCase();
             switch (true) {
@@ -3558,10 +5770,17 @@
         };
         exports.getBrowserName = getBrowserName;
     });
-    define("fn/getBrowserVersion", ["require", "exports"], function (require, exports) {
+    define("fn/browser/getBrowserVersion", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getBrowserVersion = void 0;
+        /**
+         * Gets the browser's version
+         * @method getBrowserVersion
+         * @global
+         * @memberof bbn.fn
+         * @returns {String}
+         */
         const getBrowserVersion = function () {
             const userAgent = navigator.userAgent.toLowerCase();
             switch (true) {
@@ -3585,10 +5804,24 @@
         };
         exports.getBrowserVersion = getBrowserVersion;
     });
-    define("fn/getCookie", ["require", "exports"], function (require, exports) {
+    define("fn/browser/getCookie", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getCookie = void 0;
+        /**
+         * If it exsists returns the cookie corresponding to the given name.
+         *
+         * @method   getCookie
+         * @example
+         * ``` javascript
+         * // 'en'
+         * bbn.fn.getCookie('lang');
+         * ```
+         * @global
+         * @memberof bbn.fn
+         * @param    {String} name
+         * @returns
+         */
         const getCookie = function (name) {
             let nameEqual = name + '=';
             let ca = document.cookie.split(';');
@@ -3608,22 +5841,36 @@
         };
         exports.getCookie = getCookie;
     });
-    define("fn/getCssVar", ["require", "exports"], function (require, exports) {
+    define("fn/style/getCssVar", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getCssVar = void 0;
+        /**
+         * Gets a CSS variable value
+         * @param {String*} varname
+         * @returns
+         */
         const getCssVar = function (varname) {
-            if (varname.indexOf('--') !== 0) {
-                varname = '--' + varname;
+            if (varname.indexOf("--") !== 0) {
+                varname = "--" + varname;
             }
             return getComputedStyle(document.documentElement).getPropertyValue(varname);
         };
         exports.getCssVar = getCssVar;
     });
-    define("fn/getDay", ["require", "exports", "fn/date"], function (require, exports, date_7) {
+    define("fn/datetime/getDay", ["require", "exports", "fn/datetime/date"], function (require, exports, date_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getDay = void 0;
+        /**
+         * @method   getDay
+         * @ignore
+         * @todo     Add method description for getDay
+         * @global
+         * @memberof bbn.fn
+         * @param    {String|Date} v
+         * @returns
+         */
         const getDay = function (v) {
             const biss = 1972;
             let d = (0, date_7.date)(v);
@@ -3641,10 +5888,22 @@
         };
         exports.getDay = getDay;
     });
-    define("fn/getDeviceType", ["require", "exports"], function (require, exports) {
+    define("fn/browser/getDeviceType", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getDeviceType = void 0;
+        /**
+         * Returns the current device type.
+         * @method   getDeviceType
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.getDeviceType();
+         * // mobile
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String}
+         */
         const getDeviceType = function () {
             const userAgent = navigator.userAgent.toLowerCase();
             if (/iPhone|Android/i.test(navigator.userAgent)) {
@@ -3657,7 +5916,7 @@
         };
         exports.getDeviceType = getDeviceType;
     });
-    define("fn/getHTMLOfSelection", ["require", "exports", "fn/log"], function (require, exports, log_12) {
+    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHTMLOfSelection = void 0;
@@ -3679,10 +5938,24 @@
         };
         exports.getHTMLOfSelection = getHTMLOfSelection;
     });
-    define("fn/getEventData", ["require", "exports", "fn/getHTMLOfSelection", "fn/each", "fn/defaultErrorFunction"], function (require, exports, getHTMLOfSelection_1, each_15, defaultErrorFunction_1) {
+    define("fn/browser/getEventData", ["require", "exports", "fn/html/getHTMLOfSelection", "fn/loop/each", "fn/default/defaultErrorFunction"], function (require, exports, getHTMLOfSelection_1, each_15, defaultErrorFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getEventData = void 0;
+        /**
+         * Returns a promise having the event's data as argument.
+         * @method   getEventData
+         * @global
+         * @example
+         * ``` javascript
+         * let type = e.type;
+         *   bbn.fn.getEventData(e).then((data) => {
+         *     bbn.fn.log("DATA FROM " + type, data);
+         *   });
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Promise}
+         */
         const getEventData = function (e) {
             let dt = e.dataTransfer || e.clipboardData;
             let t = dt.getData('Text');
@@ -3783,10 +6056,38 @@
         };
         exports.getEventData = getEventData;
     });
-    define("fn/getField", ["require", "exports", "fn/getRow"], function (require, exports, getRow_2) {
+    define("fn/object/getField", ["require", "exports", "fn/object/getRow"], function (require, exports, getRow_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getField = void 0;
+        /**
+          * Returns the value of the given field (property) from the first object matching the given filter in an array of objects.
+          *
+          * The filtering arguments follow the same scheme as bbn.fn.search.
+          *
+          * @method   getField
+          * @global
+          * @example
+          * ```javascript
+          * let ar = [
+          *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+          *   {name: "Goonies", director: "Richard Donner", year: 1985, id: 689},
+          *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+          *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+          * ];
+          * bbn.fn.getField(ar, "name", {id: 256});
+          * // Star wars
+          * bbn.fn.getField(ar, "name", "id", 689);
+          * // Goonies
+          * ```
+          * @memberof bbn.fn
+          * @param    {Array}                    arr       The subject array
+          * @param    {String}                   field     The property from which the value is returned
+          * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+          * @param    {*}                        val       The value with which comparing the given property
+          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+          * @returns  {*}
+          */
         const getField = function (arr, field, prop = '', val = null, operator = '=') {
             let r;
             if (field && (r = (0, getRow_2.getRow)(arr, prop, val, operator))) {
@@ -3796,10 +6097,38 @@
         };
         exports.getField = getField;
     });
-    define("fn/getFieldValues", ["require", "exports", "fn/checkType", "fn/filter", "fn/each"], function (require, exports, checkType_4, filter_3, each_16) {
+    define("fn/object/getFieldValues", ["require", "exports", "fn/type/checkType", "fn/object/filter", "fn/loop/each"], function (require, exports, checkType_4, filter_3, each_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getFieldValues = void 0;
+        /**
+         * Returns all the unique values of the given field (property) from the first object matching the given filter in an array.
+         *
+         * The filtering arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   getFieldValues
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {name: "Raiders of the lost ark", director: "Steven Spielberg", year: 1981, id: 589},
+         *   {name: "Star wars", director: "George Lucas", year: 1977, id: 256},
+         *   {name: "Jaws", director: "Steven Spielberg", year: 1975, id: 423}
+         *   {name: "Barry Lindon", director: "Stanley Kubrick", year: 1975, id: 802}
+         * ];
+         * bbn.fn.getFieldValues(ar, "director");
+         * // ["Steven Spielberg", "George Lucas", "Stanley Kubrick"]
+         * bbn.fn.getFieldValues(ar, "name", {year: 1975});
+         * // ["Jaws", "Barry Lindon"]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}                    arr       The subject array
+         * @param    {String}                   field     The property from which the values are returned
+         * @param    {(String|Object|Function)} prop      A property's name or a filter object or function
+         * @param    {*}                        val       The value with which comparing the given property
+         * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {*}
+         */
         const getFieldValues = function (arr, field, prop, val, operator) {
             (0, checkType_4.checkType)(field, 'string');
             if (prop) {
@@ -3811,7 +6140,7 @@
         };
         exports.getFieldValues = getFieldValues;
     });
-    define("fn/removeHtmlComments", ["require", "exports", "fn/isString"], function (require, exports, isString_18) {
+    define("fn/string/removeHtmlComments", ["require", "exports", "fn/type/isString"], function (require, exports, isString_18) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeHtmlComments = void 0;
@@ -3823,7 +6152,7 @@
         };
         exports.removeHtmlComments = removeHtmlComments;
     });
-    define("fn/getHtml", ["require", "exports", "fn/removeHtmlComments"], function (require, exports, removeHtmlComments_1) {
+    define("fn/html/getHtml", ["require", "exports", "fn/string/removeHtmlComments"], function (require, exports, removeHtmlComments_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHtml = void 0;
@@ -3836,10 +6165,18 @@
         };
         exports.getHtml = getHtml;
     });
-    define("fn/getPath", ["require", "exports", "fn/replaceAll"], function (require, exports, replaceAll_4) {
+    define("fn/html/getPath", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getPath = void 0;
+        /**
+         * @method   getPath
+         * @todo     Add method description for getPath
+         * @global
+         * @ignore
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const getPath = function (element) {
             let path, 
             //node = $(element),
@@ -3882,18 +6219,24 @@
         };
         exports.getPath = getPath;
     });
-    define("fn/getProp", ["require", "exports", "fn/checkType"], function (require, exports, checkType_5) {
+    define("fn/object/getProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getProp = void 0;
+        /**
+         * Gets the given property from the given object
+         * @param {Object} obj
+         * @param {String} prop
+         * @returns
+         */
         const getProp = function (obj, prop) {
-            (0, checkType_5.checkType)(obj, 'object', bbn._('The obj must be an object in setProp'));
-            (0, checkType_5.checkType)(prop, 'string', bbn._('The prop must be a string in setProp'));
+            (0, checkType_5.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
+            (0, checkType_5.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
             return obj[prop];
         };
         exports.getProp = getProp;
     });
-    define("fn/getScrollBarSize", ["require", "exports"], function (require, exports) {
+    define("fn/style/getScrollBarSize", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getScrollBarSize = void 0;
@@ -3923,7 +6266,7 @@
         };
         exports.getScrollBarSize = getScrollBarSize;
     });
-    define("fn/getText", ["require", "exports"], function (require, exports) {
+    define("fn/html/getText", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getText = void 0;
@@ -3932,10 +6275,22 @@
         };
         exports.getText = getText;
     });
-    define("fn/getTimeoff", ["require", "exports"], function (require, exports) {
+    define("fn/misc/getTimeoff", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getTimeoff = void 0;
+        /**
+         * Returns the length of time the window has not been focused in seconds.
+         * @method   getTimeoff
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.getTimeoff();
+         * // 0
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const getTimeoff = function () {
             if (!bbn.env.isFocused) {
                 return Math.round(new Date().getTime() / 1000 - bbn.env.timeoff);
@@ -3944,10 +6299,22 @@
         };
         exports.getTimeoff = getTimeoff;
     });
-    define("fn/happy", ["require", "exports", "fn/log"], function (require, exports, log_13) {
+    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.happy = void 0;
+        /**
+         * Logs the given argument in the browser's console highlighting it with a green background.
+         * @method   happy
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.happy('I want to log the success of my function');
+         * ```
+         * @memberof bbn.fn
+         * @param    {...any} args
+         * @returns
+         */
         const happy = function (...args) {
             args.unshift({
                 _bbn_console_level: 3,
@@ -3958,10 +6325,28 @@
         };
         exports.happy = happy;
     });
-    define("fn/hex2rgb", ["require", "exports"], function (require, exports) {
+    define("fn/convert/hex2rgb", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hex2rgb = void 0;
+        /**
+         * Convert an hexadecimmal string to RGB.
+         *
+         * Converts a string that expresses a color in hexadecimal format into an object with
+         * the properties that define the color and the corresponding value.
+         *
+         * @method   hex2rgb
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //{r:255, g:0, b:0}
+         * bbn.fn.hex2rgb("#FF0000");
+         * ```
+         *
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const hex2rgb = function (hex) {
             var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result
@@ -3974,7 +6359,7 @@
         };
         exports.hex2rgb = hex2rgb;
     });
-    define("fn/history", ["require", "exports"], function (require, exports) {
+    define("fn/browser/history", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.history = void 0;
@@ -3983,22 +6368,50 @@
         };
         exports.history = history;
     });
-    define("fn/html2text", ["require", "exports"], function (require, exports) {
+    define("fn/html/html2text", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.html2text = void 0;
+        /**
+         * Convert text in html format to plain text.
+         *
+         * @method   html2text
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"Hello world!"
+         * bbn.fn.html2text("<div><p>Hello <b>world!</b></p></div>");
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns {String}
+         */
         const html2text = function (st) {
-            let $test = document.createElement('div');
+            let $test = document.createElement("div");
             $test.innerHTML = st;
             st = $test.innerText;
             return st;
         };
         exports.html2text = html2text;
     });
-    define("fn/imageToCanvas", ["require", "exports"], function (require, exports) {
+    define("fn/convert/imageToCanvas", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.imageToCanvas = void 0;
+        /**
+         * Draws the given html image nto a canvas.
+         * @method   imageToCanvas
+         * @example
+         * ``` javascript
+         * //<canvas width="60" height="32"></canvas>
+         * bbn.fn.imageToCanvas('<img src="path/myImage.png">');
+         * ```
+         * @global
+         * @memberof bbn.fn
+         * @param {HTMLElement} img
+         * @returns
+         */
         const imageToCanvas = function (img) {
             let canvas = document.createElement('canvas');
             canvas.width = img.width;
@@ -4008,7 +6421,7 @@
         };
         exports.imageToCanvas = imageToCanvas;
     });
-    define("fn/imgToBase64", ["require", "exports", "fn/imageToCanvas"], function (require, exports, imageToCanvas_1) {
+    define("fn/convert/imgToBase64", ["require", "exports", "fn/convert/imageToCanvas"], function (require, exports, imageToCanvas_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.imgToBase64 = void 0;
@@ -4019,10 +6432,18 @@
         };
         exports.imgToBase64 = imgToBase64;
     });
-    define("fn/info", ["require", "exports", "fn/log"], function (require, exports, log_14) {
+    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.info = void 0;
+        /**
+         * Logs the given argument in the browser's console highlighting it with a blue background.
+         * @method   info
+         * @global
+         * @memberof bbn.fn
+         * @param    {...any} args
+         * @returns  {*}
+         */
         const info = function (...args) {
             args.unshift({
                 //_bbn_console_mode: "info",
@@ -4034,10 +6455,61 @@
         };
         exports.info = info;
     });
-    define("fn/treatAjaxArguments", ["require", "exports", "fn/isObject", "fn/isFunction", "fn/substr", "fn/numProperties"], function (require, exports, isObject_14, isFunction_8, substr_9, numProperties_6) {
+    define("fn/ajax/treatAjaxArguments", ["require", "exports", "fn/type/isObject", "fn/type/isFunction", "fn/string/substr", "fn/object/numProperties"], function (require, exports, isObject_14, isFunction_8, substr_9, numProperties_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.treatAjaxArguments = void 0;
+        /**
+         * Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.
+         *
+         * The final object will have the following arguments: url, obj, datatype, force, successFn,
+         * errorFn, abortFn, e, and ele; The rules are:
+         * * The first string found is the URL
+         * * The second string found is the datatype
+         * * The first function is successFn
+         * * The second function is errorFn
+         * * The third function is abortFn
+         * * A boolean true is force
+         * * An Event is e
+         * * An HTML element is ele
+         *
+         * If no object is given the _bbn property will be added in order to always post something
+         * and let the bbn server scripts know if a whole DOM is requested or a JSON answer
+         *
+         * @method   treatAjaxArguments
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.treatAjaxArguments(['my/script', 'json', {a:1, b:2}, () => bbn.fn.log('Hi'), () => bbn.fn.log('Bye'), () => bbn.fn.log('Argh'), true])
+         * // {
+         * //   "url": "my/script",
+         * //   "datatype": "json",
+         * //   "obj": {
+         * //     "a": 1,
+         * //     "b": 2
+         * //   },
+         * //   "successFn": () => bbn.fn.log('Hi'),
+         * //   "errorFn": () => bbn.fn.log('Bye'),
+         * //   "abortFn": () => bbn.fn.log('Argh'),
+         * //   "force": true
+         * // }
+         *
+         * bbn.fn.treatAjaxArguments(['my/script?id=1'])
+         * // {
+         * //   "url": "my/script?id=1",
+         * //   "obj": {
+         * //     "_bbn": "public"
+         * //   },
+         * //   "datatype": "json"
+         * // }
+         * ```
+         *
+         * @param    {*}      args
+         *
+         * @returns  {Object} The configuration object
+         */
         const treatAjaxArguments = function (args) {
             let cfg = {};
             let t;
@@ -4111,10 +6583,33 @@
         };
         exports.treatAjaxArguments = treatAjaxArguments;
     });
-    define("fn/setNavigationVars", ["require", "exports", "fn/substr", "fn/filter", "fn/extend", "fn/html2text"], function (require, exports, substr_10, filter_4, extend_5, html2text_1) {
+    define("fn/ajax/setNavigationVars", ["require", "exports", "fn/string/substr", "fn/object/filter", "fn/object/extend", "fn/html/html2text"], function (require, exports, substr_10, filter_4, extend_5, html2text_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setNavigationVars = void 0;
+        /**
+         * Changes the URL and the associated variables and updates the history.
+         *
+         * @method   setNavigationVars
+         * @todo     Add method description for setNavigationVars
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * // Changing URL
+         * bbn.fn.setNavigationVars('my/page', 'My page');
+         * // Replacing the previous state
+         * bbn.fn.setNavigationVars('my/page/deeper', 'My deeper page', null, true);
+         * ```
+         *
+         * @param    {String}  url   The URL which will become the location.href
+         * @param    {String}  title The title corresponding to the given URL
+         * @param    {Object}  data  The data if any
+         * @param    {Boolean} repl  If true the history state object will replace the current one, will be added otherwise
+         *
+         * @returns  {undefined}
+         */
         const setNavigationVars = function (url, title, data, repl) {
             // Current path becomes old path
             bbn.env.old_path = bbn.env.path;
@@ -4169,10 +6664,34 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/link", ["require", "exports", "fn/treatAjaxArguments", "fn/getLoader", "fn/defaultPreLinkFunction", "fn/ajax", "fn/log", "fn/isObject", "fn/callback", "fn/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_15, isObject_15, callback_1, setNavigationVars_1) {
+    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/default/defaultPreLinkFunction", "fn/ajax/ajax", "fn/browser/log", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_15, isObject_15, callback_1, setNavigationVars_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
+        /**
+         * Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
+         *
+         * Once bbn has been initiated this function will be triggered every time a link is clicked.
+         * It accepts the same arguments as seen in treatAjaxArguments but will tipically just be called with a URL,
+         * the defaultLinkURL functions being in charge of loading the content
+         *
+         * @method   link
+         * @todo     Manage anchors + returned data unclear
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * // Will open in a new window/tab
+         * bbn.fn.link('https://nytimes.com');
+         * // Will send an Ajax request
+         * bbn.fn.link('my/page');
+         * // Will open your default email program
+         * bbn.fn.link('mailto:postmaster@test.com');
+         * ```
+         *
+         * @returns
+         */
         const link = function (...args) {
             let cfg = (0, treatAjaxArguments_1.treatAjaxArguments)(args);
             let ok = true;
@@ -4271,10 +6790,43 @@
         };
         exports.link = link;
     });
-    define("fn/post", ["require", "exports", "fn/treatAjaxArguments", "fn/ajax", "fn/callback"], function (require, exports, treatAjaxArguments_2, ajax_3, callback_2) {
+    define("fn/ajax/post", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/ajax", "fn/ajax/callback"], function (require, exports, treatAjaxArguments_2, ajax_3, callback_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.post = void 0;
+        /**
+         * Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.
+         *
+         * URL is the only mandatory argument (see treatAjaxArguments for the arguments).
+         *
+         * @method   post
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.post('logout').then(() => {
+         *   document.location.reload();
+         * });
+         * // With data
+         * bbn.fn.post('login', {user: 'tn', pass: 'xxx'}).then((d) => {
+         *  if (d && d.success) {
+         *    alert('Welcome!');
+         *  }
+         * });
+         * // With the callback as argument
+         * bbn.fn.post('login', {user: 'tn', pass: 'xxx'}, (d) => {
+         *  if (d && d.success) {
+         *    alert('Welcome!');
+         *  }
+         * }, (err) => {
+         *   bbn.fn.log(err);
+         *   mySpecialErrorFunction(err);
+         * });
+         * ```
+         *
+         * @returns  {undefined|Promise}
+         */
         const post = function (...args) {
             let cfg = (0, treatAjaxArguments_2.treatAjaxArguments)(args);
             if (cfg.url) {
@@ -4285,10 +6837,28 @@
         };
         exports.post = post;
     });
-    define("fn/submit", ["require", "exports", "fn/formdata", "fn/post"], function (require, exports, formdata_1, post_1) {
+    define("fn/form/submit", ["require", "exports", "fn/form/formdata", "fn/ajax/post"], function (require, exports, formdata_1, post_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.submit = void 0;
+        /**
+         * Submit a form's data through an Ajax request.
+         *
+         * It will also prevent the event if given, and execute the given callback,
+         * or look for one in the data-script attribute.
+         *
+         * @method   submit
+         * @global
+         * @memberof bbn.fn
+         * @fires    {*}
+         * @fires    {*}
+         *
+         * @param    {HTMLElement} form The form to submit
+         * @param    {Event}       e    The optional submit event - which will be prevented
+         * @param    {Function}    fn   An optional callback function
+         *
+         * @returns  {*}
+         */
         const submit = function (form, e, fn) {
             let url = form.getAttribute('action') || bbn.env.path;
             let data;
@@ -4321,7 +6891,7 @@
         };
         exports.submit = submit;
     });
-    define("fn/resize", ["require", "exports", "fn/getCssVar", "fn/each", "fn/defaultResizeFunction"], function (require, exports, getCssVar_1, each_17, defaultResizeFunction_1) {
+    define("fn/style/resize", ["require", "exports", "fn/style/getCssVar", "fn/loop/each", "fn/default/defaultResizeFunction"], function (require, exports, getCssVar_1, each_17, defaultResizeFunction_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.resize = void 0;
@@ -4362,7 +6932,7 @@
         };
         exports.resize = resize;
     });
-    define("fn/isMobileDevice", ["require", "exports", "fn/getDeviceType"], function (require, exports, getDeviceType_1) {
+    define("fn/browser/isMobileDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isMobileDevice = void 0;
@@ -4371,28 +6941,65 @@
         };
         exports.isMobileDevice = isMobileDevice;
     });
-    define("fn/isTabletDevice", ["require", "exports", "fn/getDeviceType"], function (require, exports, getDeviceType_2) {
+    define("fn/browser/isTabletDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isTabletDevice = void 0;
+        /**
+          * Returns true if the current device type is a tablet.
+          * @method   isTabletDevice
+          * @global
+          * @example
+          * ``` javascript
+          * bbn.fn.isTabletDevice();
+          * // false
+          * ```
+          * @memberof bbn.fn
+          * @returns  {Boolean}
+          */
         const isTabletDevice = function () {
             return (0, getDeviceType_2.getDeviceType)() === 'tablet';
         };
         exports.isTabletDevice = isTabletDevice;
     });
-    define("fn/isMobile", ["require", "exports", "fn/isMobileDevice", "fn/isTabletDevice"], function (require, exports, isMobileDevice_1, isTabletDevice_1) {
+    define("fn/browser/isMobile", ["require", "exports", "fn/browser/isMobileDevice", "fn/browser/isTabletDevice"], function (require, exports, isMobileDevice_1, isTabletDevice_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isMobile = void 0;
+        /**
+         * Returns true if the current browser is on a mobile device (smartphone or tablet).
+         * @method   isMobile
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.isMobile();
+         * // false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isMobile = function () {
             return (0, isMobileDevice_1.isMobileDevice)() || (0, isTabletDevice_1.isTabletDevice)();
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/substr", "fn/each", "fn/extend", "fn/addColors", "fn/link", "fn/submit", "fn/resize", "fn/isMobile", "fn/isTabletDevice", "fn/defaultHistoryFunction", "fn/isFunction", "fn/log"], function (require, exports, substr_11, each_18, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_16) {
+    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/default/defaultHistoryFunction", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_6, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
+        /**
+         * Initializes the library bbn basing on the given configuration object.
+         * - Gives to the environment the dimension of the window.innerWidth and window.innerHeight
+         * - Defines the server's path (difference between the host and the current dir)
+         * - Adds the colors contained in bbn.var.colors to define the css classes for background and colors.
+         * - Adds the event listener to the document
+         * - Activates the history
+         * @method   init
+         * @global
+         * @memberof bbn.fn
+         * @param    {Object} cfg
+         * @returns
+         */
         const init = function (cfg, force) {
             let parts;
             if (!bbn.env.isInit || force) {
@@ -4549,10 +7156,22 @@
         };
         exports.init = init;
     });
-    define("fn/isActiveInterface", ["require", "exports"], function (require, exports) {
+    define("fn/browser/isActiveInterface", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isActiveInterface = void 0;
+        /**
+         * Tells if the interface is beeing active for the past x seconds.
+         * @method   isActiveInterface
+         * @global
+         * @example
+         * // true
+         * ``` javascript
+         * bbn.fn.isActiveInterface(54764654);
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isActiveInterface = function (secs = 600) {
             if (!bbn.env.last_focus) {
                 return false;
@@ -4562,10 +7181,24 @@
         };
         exports.isActiveInterface = isActiveInterface;
     });
-    define("fn/isBoolean", ["require", "exports"], function (require, exports) {
+    define("fn/type/isBoolean", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isBoolean = void 0;
+        /**
+         * Returns true if the given argument is a boolean
+         * @method   isBoolean
+         * @global
+         * @example
+         * ```javascript
+         * const sb = true;
+         * bbn.fn.isBoolean(sb); // true
+         * const sb = 1;
+         * bbn.fn.isBoolean(sb); // false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isBoolean = function (...args) {
             if (!args.length)
                 return false;
@@ -4578,14 +7211,43 @@
         };
         exports.isBoolean = isBoolean;
     });
-    define("fn/isColor", ["require", "exports", "fn/isString"], function (require, exports, isString_19) {
+    define("fn/type/isColor", ["require", "exports", "fn/type/isString"], function (require, exports, isString_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isColor = void 0;
+        /**
+         * Intended to check if the argument provided is a color.
+         *
+         * It is possible to pass as argument a string with hexadecimal value in rgb or the name of the color.
+         *
+         * @method   isColor
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isColor("#FF0000")
+         * //true
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isColor("rgb 255, 0, 0");
+         * //true
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isColor("red");
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns  {Boolean}
+         */
         const isColor = function (...args) {
             if (!args.length)
                 return false;
-            var reg = new RegExp('^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|rgba *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$', 'i');
+            var reg = new RegExp("^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|rgba *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$", "i");
             for (let st of args) {
                 if (!(0, isString_19.isString)(st)) {
                     return false;
@@ -4598,10 +7260,22 @@
         };
         exports.isColor = isColor;
     });
-    define("fn/isComment", ["require", "exports"], function (require, exports) {
+    define("fn/type/isComment", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isComment = void 0;
+        /**
+         * Returns true if the given argument is a dom comment;
+         * @method   isComment
+         * @example
+         * ```javascript
+         * bbn.fn.isComment(node.childNodes[0]);
+         * //true
+         * ```
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isComment = function (...args) {
             if (!args.length)
                 return false;
@@ -4614,22 +7288,45 @@
         };
         exports.isComment = isComment;
     });
-    define("fn/isDesktopDevice", ["require", "exports", "fn/getDeviceType"], function (require, exports, getDeviceType_3) {
+    define("fn/browser/isDesktopDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDesktopDevice = void 0;
+        /**
+         * Returns true if the current device type is a desktop.
+         * @method   isDesktopDevice
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.isDesktopDevice();
+         * // true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isDesktopDevice = function () {
             return (0, getDeviceType_3.getDeviceType)() === 'desktop';
         };
         exports.isDesktopDevice = isDesktopDevice;
     });
-    define("fn/isValidDimension", ["require", "exports", "fn/isNumber", "fn/substr"], function (require, exports, isNumber_7, substr_12) {
+    define("fn/type/isValidDimension", ["require", "exports", "fn/type/isNumber", "fn/string/substr"], function (require, exports, isNumber_7, substr_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValidDimension = void 0;
+        /**
+         * Returns true if the given value is a valid CSS dimension string, false otherwise.
+         *
+         * @method   isValidDimension
+         * @global
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns
+         */
         const isValidDimension = function (st) {
-            if (typeof st === 'string' && (st.length > 0) && ((st.indexOf('calc') === 0) || (0, isNumber_7.isNumber)((0, substr_12.substr)(st, 0, 1)))) {
-                let el = document.createElement('div');
+            if (typeof st === "string" &&
+                st.length > 0 &&
+                (st.indexOf("calc") === 0 || (0, isNumber_7.isNumber)((0, substr_12.substr)(st, 0, 1)))) {
+                let el = document.createElement("div");
                 el.style.width = st;
                 let res = !!el.style.width.length;
                 el.remove();
@@ -4639,15 +7336,24 @@
         };
         exports.isValidDimension = isValidDimension;
     });
-    define("fn/isDimension", ["require", "exports", "fn/isValidDimension"], function (require, exports, isValidDimension_1) {
+    define("fn/type/isDimension", ["require", "exports", "fn/type/isValidDimension"], function (require, exports, isValidDimension_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDimension = void 0;
+        /**
+         * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
+         *
+         * @method   isDimension
+         * @global
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns
+         */
         const isDimension = function (...args) {
             if (!args.length)
                 return false;
             for (let st of args) {
-                if ((typeof st !== 'number') || (st < 0)) {
+                if (typeof st !== "number" || st < 0) {
                     return false;
                 }
                 if (!(0, isValidDimension_1.isValidDimension)(st)) {
@@ -4658,10 +7364,31 @@
         };
         exports.isDimension = isDimension;
     });
-    define("fn/isEmail", ["require", "exports", "fn/isString"], function (require, exports, isString_20) {
+    define("fn/type/isEmail", ["require", "exports", "fn/type/isString"], function (require, exports, isString_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEmail = void 0;
+        /**
+         * Intended to check if the argument provided is an e-mail address written correctly
+         *
+         * @method   isEmail
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isEmail('test@testorg');
+         * //false
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isEmail('test@test.org');
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns  {Boolean}
+         */
         const isEmail = function (...args) {
             if (!args.length)
                 return false;
@@ -4678,10 +7405,17 @@
         };
         exports.isEmail = isEmail;
     });
-    define("fn/isEvent", ["require", "exports"], function (require, exports) {
+    define("fn/type/isEvent", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEvent = void 0;
+        /**
+         * Returns true if the given argument is an event.
+         * @method   isEvent
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isEvent = function (...args) {
             if (!args.length)
                 return false;
@@ -4694,16 +7428,35 @@
         };
         exports.isEvent = isEvent;
     });
-    define("fn/isFocused", ["require", "exports"], function (require, exports) {
+    define("fn/browser/isFocused", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isFocused = void 0;
+        /**
+         * Checks whether the given elemet is focused or not.
+         *
+         * @method   isFocused
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.isFocused(document.getElementById('input_name'));
+         * // false
+         * bbn.fn.isFocused(bbn.sel('.container'));
+         * // true
+         * ```
+         * @memberof bbn.fn
+         *
+         * @param {Element} ele     The element to be checked for focus
+         * @param {Boolean} contain If true will check if the focused element is contained in the given element
+         *
+         * @returns  {Boolean} True if focused
+         */
         const isFocused = function (ele, contain) {
             return ele === document.activeElement || (contain && ele.contains && ele.contains(document.activeElement));
         };
         exports.isFocused = isFocused;
     });
-    define("fn/isIP", ["require", "exports", "fn/isString"], function (require, exports, isString_21) {
+    define("fn/type/isIP", ["require", "exports", "fn/type/isString"], function (require, exports, isString_21) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isIP = void 0;
@@ -4719,7 +7472,7 @@
         };
         exports.isIP = isIP;
     });
-    define("fn/isHostname", ["require", "exports", "fn/isString", "fn/isIP"], function (require, exports, isString_22, isIP_1) {
+    define("fn/type/isHostname", ["require", "exports", "fn/type/isString", "fn/type/isIP"], function (require, exports, isString_22, isIP_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isHostname = void 0;
@@ -4738,7 +7491,7 @@
         };
         exports.isHostname = isHostname;
     });
-    define("fn/isInside", ["require", "exports", "fn/getAncestors", "fn/isString", "fn/each"], function (require, exports, getAncestors_1, isString_23, each_19) {
+    define("fn/html/isInside", ["require", "exports", "fn/html/getAncestors", "fn/type/isString", "fn/loop/each"], function (require, exports, getAncestors_1, isString_23, each_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isInside = void 0;
@@ -4763,15 +7516,27 @@
         };
         exports.isInside = isInside;
     });
-    define("fn/isPercent", ["require", "exports"], function (require, exports) {
+    define("fn/type/isPercent", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPercent = void 0;
+        /**
+         * Returns true if the given argument is a percentage.
+         * @method   isPercent
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isPercent('5%');
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isPercent = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if (typeof a !== 'string' || !a.match(/^\d+(?:\.\d+)?%$/)) {
+                if (typeof a !== "string" || !a.match(/^\d+(?:\.\d+)?%$/)) {
                     return false;
                 }
             }
@@ -4779,15 +7544,31 @@
         };
         exports.isPercent = isPercent;
     });
-    define("fn/isPrimitive", ["require", "exports"], function (require, exports) {
+    define("fn/type/isPrimitive", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPrimitive = void 0;
+        /**
+         * Returns true if the given arguments are primitive;
+         * @method   isPrimitive
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isPrimitive('myString', 6, true);
+         * //true
+         * bbn.fn.isPrimitive([80,10,22]);
+         * //false
+         * bbn.fn.isPrimitive({});
+         * //false
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isPrimitive = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if (a !== null && (typeof a == 'object' || typeof a == 'function')) {
+                if (a !== null && (typeof a == "object" || typeof a == "function")) {
                     return false;
                 }
             }
@@ -4795,15 +7576,31 @@
         };
         exports.isPrimitive = isPrimitive;
     });
-    define("fn/isPromise", ["require", "exports"], function (require, exports) {
+    define("fn/type/isPromise", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPromise = void 0;
+        /**
+         * Returns true if the given argument is a promise.
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isPromise(bbn.fn.post('myUrl'));
+         * // true
+         * bbn.fn.isPromise(setTimeout(() => {}))
+         * // false
+         * bbn.fn.isPromise(myVueObject.$nextTick());
+         * // true
+         * ```
+         * @method   isFunction
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isPromise = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Promise]') {
+                if ({}.toString.apply(a) !== "[object Promise]") {
                     return false;
                 }
             }
@@ -4811,7 +7608,7 @@
         };
         exports.isPromise = isPromise;
     });
-    define("fn/isPropSize", ["require", "exports", "fn/each"], function (require, exports, each_20) {
+    define("fn/type/isPropSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPropSize = void 0;
@@ -4827,16 +7624,24 @@
         };
         exports.isPropSize = isPropSize;
     });
-    define("fn/isSQLDate", ["require", "exports"], function (require, exports) {
+    define("fn/type/isSQLDate", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSQLDate = void 0;
+        /**
+         * @ignore
+         * @method   isSQLDate
+         * @todo     Add method description for isSQLDate
+         * @global
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isSQLDate = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if (typeof a !== 'string' ||
-                    !a.match(/^([1-2]\d{3})-((0[0-9])|(1[12]))-(([0-2][0-9])|(3[01]))(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/)) {
+                if (typeof a !== "string" ||
+                    !a.match(/^([1-2]\d{3})-((0\d)|(1[12]))-(([0-2]\d)|(3[01]))(?:( [0-2]\d):([0-5]\d):([0-5]\d))?$/)) {
                     return false;
                 }
             }
@@ -4844,15 +7649,28 @@
         };
         exports.isSQLDate = isSQLDate;
     });
-    define("fn/isSymbol", ["require", "exports"], function (require, exports) {
+    define("fn/type/isSymbol", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSymbol = void 0;
+        /**
+         * Returns true if the given argument is a symbol;
+         * @method   isSymbol
+         * @global
+         * @example
+         * ```javascript
+         * const sb = Symbol();
+         * bbn.fn.isSymbol(sb);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isSymbol = function (...args) {
             if (!args.length)
                 return false;
             for (let a of args) {
-                if ({}.toString.apply(a) !== '[object Symbol]') {
+                if ({}.toString.apply(a) !== "[object Symbol]") {
                     return false;
                 }
             }
@@ -4860,7 +7678,7 @@
         };
         exports.isSymbol = isSymbol;
     });
-    define("fn/isURL", ["require", "exports"], function (require, exports) {
+    define("fn/type/isURL", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isURL = void 0;
@@ -4876,10 +7694,35 @@
         };
         exports.isURL = isURL;
     });
-    define("fn/isValidName", ["require", "exports", "fn/isString"], function (require, exports, isString_24) {
+    define("fn/type/isValidName", ["require", "exports", "fn/type/isString"], function (require, exports, isString_24) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValidName = void 0;
+        /**
+         * Returns true if the given value is a valid name for a function without checking in reserved words, false otherwise
+         * @method   isValidName
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.isValidName('$myFunc_tion')
+         * // true
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.isValidName('7Y')
+         * // false
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.isValidName('function')
+         * // true
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns {Boolean}
+         */
         const isValidName = function (...args) {
             if (!args.length) {
                 return false;
@@ -4893,44 +7736,78 @@
         };
         exports.isValidName = isValidName;
     });
-    define("fn/isVue", ["require", "exports"], function (require, exports) {
+    define("fn/type/isVue", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isVue = void 0;
+        /**
+         * Returns true if the given argumen is a VueJS object.
+         *
+         * @method   isVue
+         * @global
+         * @example
+         * ```javascript
+         * let myObj =  new Vue({});
+         * bbn.fn.isVue(myObj);
+         * //true
+         * ```
+         * @memberof bbn.fn
+         * @returns  {Boolean}
+         */
         const isVue = function (...args) {
             if (!args.length) {
                 return false;
             }
-            if ('vue' in bbn && window['Vue']) {
-                if ('app' in bbn.vue) {
+            if ("vue" in bbn && window["Vue"]) {
+                if ("app" in bbn.vue) {
                     for (let a of args) {
-                        if (!a || typeof a.render !== 'function') {
+                        if (!a || typeof a.render !== "function") {
                             return false;
                         }
                     }
                 }
                 else {
                     for (let a of args) {
-                        if (!(a instanceof window['Vue'])) {
+                        if (!(a instanceof window["Vue"])) {
                             return false;
                         }
                     }
                 }
             }
-            if ('cp' in bbn && 'isComponent' in bbn['cp'] && (typeof bbn['cp'].isComponent === 'function')) {
+            if ("cp" in bbn &&
+                "isComponent" in bbn["cp"] &&
+                typeof bbn["cp"].isComponent === "function") {
                 return bbn.cp.isComponent(...args);
             }
             return true;
         };
         exports.isVue = isVue;
     });
-    define("fn/lightenDarkenHex", ["require", "exports"], function (require, exports) {
+    define("fn/style/lightenDarkenHex", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.lightenDarkenHex = void 0;
+        /**
+         * Takes color in hex format and lightens or darkens it with the given value.
+         * @method   lightenDarkenHex
+         * @global
+         * @example
+         * ```javascript
+         * //"#eccb28"
+         * bbn.fn.lightenDarkenHex('#c4a300', 40);
+         * ```
+         *
+         * @example
+         * ```javascript
+         * //"#9c7b00"
+         * bbn.fn.lightenDarkenHex(#c4a300', -40);
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String}
+         */
         const lightenDarkenHex = function (hex, amt) {
             if (hex && amt) {
-                let ht = hex[0] === '#';
+                let ht = hex[0] === "#";
                 hex = ht ? hex.slice(1) : hex;
                 let num = parseInt(hex, 16), r = (num >> 16) + amt, b = ((num >> 8) & 0x00ff) + amt, g = (num & 0x0000ff) + amt;
                 if (r > 255) {
@@ -4951,15 +7828,27 @@
                 else if (g < 0) {
                     g = 0;
                 }
-                return (ht ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
+                return (ht ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
             }
         };
         exports.lightenDarkenHex = lightenDarkenHex;
     });
-    define("fn/warning", ["require", "exports", "fn/log"], function (require, exports, log_17) {
+    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.warning = void 0;
+        /**
+         * Logs the given argument in the browser's console highlighting it with a yellow background and red color.
+         * @method   warning
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.warning('whatever you want to log as a warning');
+         * ```
+         * @memberof bbn.fn
+         * @param    {...any} args
+         * @returns
+         */
         const warning = function (message) {
             const args = ['BBN: ' + message];
             const obj = {
@@ -4972,7 +7861,7 @@
         };
         exports.warning = warning;
     });
-    define("fn/makeReactive", ["require", "exports", "fn/log", "fn/createObject", "fn/isSymbol", "fn/isNumber", "fn/isArray", "fn/warning", "fn/isFunction", "fn/isSame"], function (require, exports, log_18, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
+    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_18, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
@@ -5154,10 +8043,82 @@
         };
         exports.makeReactive = makeReactive;
     });
-    define("fn/map", ["require", "exports", "fn/isArray"], function (require, exports, isArray_14) {
+    define("fn/object/map", ["require", "exports", "fn/type/isArray"], function (require, exports, isArray_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.map = void 0;
+        /**
+         * Returns a new array generated by the execution of a function for each item of the given array.
+         *
+         * The deepProp argument is the name of property which should contain a nested array on which
+         * the function should also be applied recursively.
+         *
+         * @method   map
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.map([1, 2, 3, 4], a => {
+         *   return a + 1;
+         * });
+         * // [2, 3, 4, 5]
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.map(
+         *   [{
+         *     name: "tools",
+         *     items: [
+         *       {
+         *          name: "hammers"
+         *       }, {
+         *          name: "screwdrivers",
+         *          items: [
+         *            {name: "flat screwdrivers"},
+         *            {name: "slotted screwdrivers"},
+         *            {name: "Hex screwdrivers"},
+         *          ]
+         *       }
+         *     ]
+         *   }, {
+         *     name: "Kitchenware"
+         *   }],
+         *   d => {
+         *     d.warranty = d.name === "Hex screwdrivers" ? "10 years" : "1 year";
+         *     return d;
+         *   },
+         *   "items"
+         * );
+         * // [
+         * //    {
+         * //       name: "tools",
+         * //       warranty: "1 year",
+         * //       items: [
+         * //         {
+         * //            name: "hammers",
+         * //            warranty: "1 year",
+         * //         }, {
+         * //            name: "screwdrivers",
+         * //            warranty: "1 year",
+         * //            items: [
+         * //              {name: "flat screwdrivers", warranty: "1 year"},
+         * //              {name: "slotted screwdrivers", warranty: "1 year"},
+         * //              {name: "Hex screwdrivers", warranty: "10 year"},
+         * //            ]
+         * //         }
+         * //       ]
+         * //    }, {
+         * //       name: "Kitchenware",
+         * //       warranty: "1 year"
+         * //    }
+         * // ]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}    arr
+         * @param    {Function} fn
+         * @param    {Boolean}  deepProp
+         * @param    {Number}   level
+         * @returns  {Array}
+         */
         const map = function (arr, fn, deepProp, level = 0) {
             return arr.map((a, i) => {
                 a = fn(a, i, level);
@@ -5169,10 +8130,31 @@
         };
         exports.map = map;
     });
-    define("fn/money", ["require", "exports", "fn/isNumber"], function (require, exports, isNumber_9) {
+    define("fn/misc/money", ["require", "exports", "fn/type/isNumber"], function (require, exports, isNumber_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.money = void 0;
+        /**
+         * Returns the given value to money format basing on the given configuration.
+         *
+         * @method   money
+         * @global
+         *
+         * @example
+         * ``` javascript
+         * // "5 856.0 $"
+         * bbn.fn.money(5856, false, '$', false, '.' ,false, 1);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param {String|Number} val The value.
+         * @param {Boolean} kilo If the value has to be rendered in kilo.
+         * @param {String} currency The currency.
+         * @param {String} novalue The string to return if no valid value is given.
+         * @param {String} decimal The character to use separate decimals.
+         * @param {String} thousands The character to use to separate thounsands.
+         * @param {Number} precision The number of decimals places.
+         */
         const money = function (val, kilo, currency, novalue, decimal, thousands, precision) {
             /*
             money(val, kilo){
@@ -5274,10 +8256,42 @@
         };
         exports.money = money;
     });
-    define("fn/move", ["require", "exports"], function (require, exports) {
+    define("fn/object/move", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.move = void 0;
+        /**
+         * Moves an element to a different position within the given array.
+         *
+         * The same array is returned, with its elements reordered according to the executed movement.
+         *
+         * @method   move
+         * @global
+         * @todo     Finish doc
+         * @example
+         * ```javascript
+         * bbbn.fn.move([
+         *   {movie: "Brazil", year: 1985},
+         *   {movie: "Donnie Darko", year: 2001},
+         *   {movie: "Out of Africa", year: 1985}
+         * ], 1, 2);
+         * // [
+         * //   {movie: "Brazil", year: 1985},
+         * //   {movie: "Out of Africa", year: 1985},
+         * //   {movie: "Donnie Darko", year: 2001}
+         * // ]
+         * ```
+         *  @example
+         * ```javascript
+         * bbn.fn.move([1, 2, 3, 4], 3, 0);
+         * // [4, 1, 2, 3]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}  arr       The array
+         * @param    {Number} fromIndex The index of the element to move
+         * @param    {Number} toIndex   The future index of the element
+         * @returns  {Array}  The same array, with elements repositionned.
+         */
         const move = function (arr, fromIndex, toIndex) {
             if (toIndex >= arr.length) {
                 let k = toIndex - arr.length;
@@ -5290,10 +8304,48 @@
         };
         exports.move = move;
     });
-    define("fn/multiorder", ["require", "exports", "fn/_compareValues"], function (require, exports, _compareValues_1) {
+    define("fn/object/multiorder", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.multiorder = void 0;
+        /**
+         * Sorts an array of objects based on a set of properties.
+         *
+         * The resulting array is the same object, the order is based on _compareValues function
+         * applied for each given properties in orders argument.
+         *
+         * @method   multiorder
+         * @global
+         * @example
+         * ```javascript
+         * let ar = [
+         *   {movie: "Brazil", year: 1985},
+         *   {movie: "Donnie Darko", year: 2001},
+         *   {movie: "Out of Africa", year: 1985},
+         *   {movie: "Ran", year: 1985},
+         *   {movie: "Back to the future", year: 1985},
+         *   {movie: "Barry Lindon", year: 1976}
+         * ];
+         * bbn.fn.multiorder(ar, [
+         *   {field: "year", dir: "desc"},
+         *   {field: "movie", dir: "asc"}
+         * ]);
+         * // [
+         * //   {movie: "Donnie Darko", year: 2001},
+         * //   {movie: "Back to the future", year: 1985},
+         * //   {movie: "Brazil", year: 1985},
+         * //   {movie: "Out of Africa", year: 1985},
+         * //   {movie: "Ran", year: 1985},
+         * //   {movie: "Barry Lindon", year: 1976}
+         * // ]
+         * bbn.fn.multiorder(ar, {year: "desc", movie: "asc"});
+         * // Same result with object shortcut
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}        arr    The array to order
+         * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
+         * @returns  {Array}        The same array (arr), ordered differently
+         */
         const multiorder = function (arr, orders) {
             let currentOrders;
             if (!Array.isArray(orders) && typeof orders === 'object') {
@@ -5316,19 +8368,44 @@
         };
         exports.multiorder = multiorder;
     });
-    define("fn/nl2br", ["require", "exports", "fn/replaceAll"], function (require, exports, replaceAll_5) {
+    define("fn/string/nl2br", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.nl2br = void 0;
+        /**
+         * Replaces all new line characters '\ n' with html tag '<br>'.
+         *
+         * @method   nl2br
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.nl2br('hello \n world!');
+         * //"hello <br> world!"
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns  {String}
+         */
         const nl2br = function (st, keepNl) {
-            return (0, replaceAll_5.replaceAll)('\n', '<br>' + (keepNl ? '\n' : ''), st);
+            return (0, replaceAll_5.replaceAll)("\n", "<br>" + (keepNl ? "\n" : ""), st);
         };
         exports.nl2br = nl2br;
     });
-    define("fn/objectToFormData", ["require", "exports", "fn/isArray", "fn/each", "fn/isObject", "fn/iterate", "fn/isNull"], function (require, exports, isArray_15, each_21, isObject_16, iterate_9, isNull_3) {
+    define("fn/form/objectToFormData", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isObject", "fn/loop/iterate", "fn/type/isNull"], function (require, exports, isArray_15, each_21, isObject_16, iterate_9, isNull_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.objectToFormData = void 0;
+        /**
+         * @method   objectToFormData
+         * @todo     Add method description for objectToFormData
+         * @global
+         * @memberof bbn.fn
+         * @param    {Object|Array|File} obj
+         * @param    {String}            key
+         * @param    {Array}             ignoreList
+         * @returns
+         */
         const objectToFormData = function (obj, key = '', ignoreList) {
             let formData = new FormData();
             let appendFormData = (data, key = '') => {
@@ -5360,10 +8437,36 @@
         };
         exports.objectToFormData = objectToFormData;
     });
-    define("fn/order", ["require", "exports", "fn/_compareValues"], function (require, exports, _compareValues_2) {
+    define("fn/object/order", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.order = void 0;
+        /**
+         * Sorts an array of objects based on the given property.
+         *
+         * The resulting array is the same object, the order is based on _compareValues function.
+         *
+         * @method   order
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.order([
+         *   {movie: "Brazil", year: 1985},
+         *   {movie: "Donnie Darko", year: 2001},
+         *   {movie: "Barry Lindon", year: 1976}
+         * ], 'year', 'DESC')
+         * // [
+         * //   {movie: "Donnie Darko", year: 2001},
+         * //   {movie: "Brazil", year: 1985},
+         * //   {movie: "Barry Lindon", year: 1976}
+         * // ]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}  arr       The array to order
+         * @param    {String} prop      The property on which the order is based
+         * @param    {String} [dir=asc] The direction of the order (desc or asc by default)
+         * @returns  {Array}
+         */
         const order = function (arr, prop, dir = 'asc') {
             if (arr) {
                 return arr.sort(function (a, b) {
@@ -5374,51 +8477,97 @@
         };
         exports.order = order;
     });
-    define("fn/selector", ["require", "exports"], function (require, exports) {
+    define("fn/html/selector", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.selector = void 0;
+        /**
+         * @ignore
+         * @method   selector
+         * @todo     Add method description for selector
+         * @global
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const selector = function (ele) {
-            return typeof ele === 'string' ? document.querySelector(ele) : ele;
+            return typeof ele === "string" ? document.querySelector(ele) : ele;
         };
         exports.selector = selector;
     });
-    define("fn/outerHeight", ["require", "exports", "fn/selector"], function (require, exports, selector_1) {
+    define("fn/style/outerHeight", ["require", "exports", "fn/html/selector"], function (require, exports, selector_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.outerHeight = void 0;
+        /**
+         *
+         * @ignore
+         * @method   outerHeight
+         * @todo     Add method description for outerHeight
+         * @global
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const outerHeight = function (ele) {
             ele = (0, selector_1.selector)(ele);
-            if (ele && ('offsetHeight' in ele)) {
+            if (ele && "offsetHeight" in ele) {
                 let styles = window.getComputedStyle(ele);
-                let margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom']);
+                let margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
                 return Math.ceil(ele.offsetHeight + margin);
             }
         };
         exports.outerHeight = outerHeight;
     });
-    define("fn/outerWidth", ["require", "exports", "fn/selector"], function (require, exports, selector_2) {
+    define("fn/style/outerWidth", ["require", "exports", "fn/html/selector"], function (require, exports, selector_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.outerWidth = void 0;
+        /**
+         * @ignore
+         * @method   outerWidth
+         * @todo     Add method description for outerWidth
+         * @global
+         * @memberof bbn.fn
+         * @returns  {*}
+         */
         const outerWidth = function (ele) {
             ele = (0, selector_2.selector)(ele);
             let styles = window.getComputedStyle(ele);
-            let margin = parseFloat(styles['marginLeft']) + parseFloat(styles['marginRight']);
+            let margin = parseFloat(styles["marginLeft"]) + parseFloat(styles["marginRight"]);
             return Math.ceil(ele.offsetWidth + margin);
         };
         exports.outerWidth = outerWidth;
     });
-    define("fn/percent", ["require", "exports"], function (require, exports) {
+    define("fn/misc/percent", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.percent = void 0;
+        /**
+         * Returns the value of the proportion giving the percentage and the total from where to be calculated.
+         * @method   percent
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //150
+         * bbn.fn.percent('15',1000);
+         * ```
+         *
+         * @example
+         * ```javascript
+         * //75
+         * bbn.fn.percent(15,500);
+         * ```
+         * @memberof bbn.fn
+         * @param    {Number|String} percent
+         * @param    {Number|String} cent
+         * @returns  {Number}
+         */
         const percent = function (percent, cent) {
             return (cent / 100) * percent;
         };
         exports.percent = percent;
     });
-    define("fn/pickValue", ["require", "exports"], function (require, exports) {
+    define("fn/object/pickValue", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.pickValue = void 0;
@@ -5429,10 +8578,29 @@
         };
         exports.pickValue = pickValue;
     });
-    define("fn/postOut", ["require", "exports", "fn/createObject", "fn/addInputs"], function (require, exports, createObject_3, addInputs_1) {
+    define("fn/ajax/postOut", ["require", "exports", "fn/object/createObject", "fn/form/addInputs"], function (require, exports, createObject_3, addInputs_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.postOut = void 0;
+        /**
+         * Posts a request in a new window.
+         *
+         * @method   postOut
+         * @global
+         * @memberof bbn.fn
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.postOut('https://external-service.com/download/account-2019-06.pdf', {clientId: 547912, token: xxx});
+         * ```
+         *
+         * @param    {String}   url     The url to which the request should be sent
+         * @param    {Object}   data    The data to be sent
+         * @param    {Function} success A function to execute in case of success
+         * @param    {String}   target  The target attribute of the form
+         *
+         * @returns  {undefined}
+         */
         const postOut = function (url, data, success, target) {
             let form = document.body.querySelector('form#bbn-form_out');
             if (!form) {
@@ -5462,62 +8630,144 @@
         };
         exports.postOut = postOut;
     });
-    define("fn/printf", ["require", "exports"], function (require, exports) {
+    define("fn/string/printf", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.printf = void 0;
+        /**
+         * @method   printf
+         * @todo     Add method description for printf
+         * @global
+         * @memberof bbn.fn
+         * @param    String format
+         * @returns  {*}
+         */
         const printf = function (format) {
             var args = Array.prototype.slice.call(arguments, 1);
             return format.replace(/{(\d+)}/g, function (match, number) {
-                return typeof args[number] != 'undefined' ? args[number] : match;
+                return typeof args[number] != "undefined" ? args[number] : match;
             });
         };
         exports.printf = printf;
     });
-    define("fn/quotes2html", ["require", "exports", "fn/replaceAll"], function (require, exports, replaceAll_6) {
+    define("fn/string/quotes2html", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.quotes2html = void 0;
+        /**
+         * Replace quotes in ASCII code
+         *
+         * @method   quotes2html
+         * @global
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.quotes2html("hello 'world'!", 's');
+         * // hello &#39;world&#39;!
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.quotes2html('hello "world\'s"!', 'd');
+         * // hello &quot;world'sd&quot;!
+         * ```
+         *
+         * @example
+         * ```javascript
+         * bbn.fn.quotes2html('hello "world\'s"!');
+         * // hello &quot;world&#39;sd&quot;!
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @returns  {String}
+         */
         const quotes2html = function (st, type) {
-            if (!type || type.toLowerCase().indexOf('s') === 0) {
-                st = (0, replaceAll_6.replaceAll)("'", '&#39;', st);
+            if (!type || type.toLowerCase().indexOf("s") === 0) {
+                st = (0, replaceAll_6.replaceAll)("'", "&#39;", st);
             }
-            if (!type || type.toLowerCase().indexOf('d') === 0) {
-                st = (0, replaceAll_6.replaceAll)('"', '&quot;', st);
+            if (!type || type.toLowerCase().indexOf("d") === 0) {
+                st = (0, replaceAll_6.replaceAll)('"', "&quot;", st);
             }
             return st;
         };
         exports.quotes2html = quotes2html;
     });
-    define("fn/randomInt", ["require", "exports"], function (require, exports) {
+    define("fn/misc/randomInt", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.randomInt = void 0;
+        /**
+         * Returns a random integer.
+         *
+         * Generates and returns a random number in a range of numbers defined
+         * by passed arguments a minimum and a maximum.
+         *
+         * @method   randomInt
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //56
+         * bbn.fn.randomInt(1,100);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Number} min
+         * @param    {Number} max
+         * @returns  {Number}
+         */
         const randomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
         exports.randomInt = randomInt;
     });
-    define("fn/randomString", ["require", "exports", "fn/randomInt"], function (require, exports, randomInt_1) {
+    define("fn/string/randomString", ["require", "exports", "fn/misc/randomInt"], function (require, exports, randomInt_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.randomString = void 0;
+        /**
+         * Returns a random String with random lenght,
+         *
+         * Generates a random string from the length of the random number,
+         * taken from a range of numbers providing either only the minimum or also the maximum as arguments.
+         *
+         * @method   randomString
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"U7xXO0Xb"
+         * bbn.fn.randomString(3,10);
+         * ```
+         *
+         * @example
+         * ```javascript
+         * //"H8F"
+         * bbn.fn.randomString(3);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Number} length
+         * @param    {String} chars
+         * @returns  {String}
+         */
         const randomString = function (min, max, types) {
             let length;
             let type;
             let chars = {
-                n: '0123456789',
-                l: 'abcdefghijklmnopqrstuvwxyz',
-                u: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                n: "0123456789",
+                l: "abcdefghijklmnopqrstuvwxyz",
+                u: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             };
             if (!types) {
-                types = 'nlu';
+                types = "nlu";
             }
             if (!min) {
                 length = (0, randomInt_1.randomInt)(8, 14);
             }
-            if (typeof max === 'string') {
-                types = 'n';
+            if (typeof max === "string") {
+                types = "n";
                 delete chars.l;
                 delete chars.u;
                 chars.n = max;
@@ -5525,18 +8775,18 @@
                     length = min;
                 }
             }
-            else if (typeof max === 'number' && min < max) {
+            else if (typeof max === "number" && min < max) {
                 length = (0, randomInt_1.randomInt)(min, max);
             }
             else if (min) {
                 length = min;
             }
-            let result = '';
+            let result = "";
             for (let i = 0; i < length; i++) {
                 // Not a number for the first char
                 if (i === 0) {
-                    if (types !== 'n') {
-                        type = types.indexOf('u') === -1 ? 'l' : 'u';
+                    if (types !== "n") {
+                        type = types.indexOf("u") === -1 ? "l" : "u";
                     }
                 }
                 else {
@@ -5548,10 +8798,26 @@
         };
         exports.randomString = randomString;
     });
-    define("fn/removeEmpty", ["require", "exports", "fn/isArray", "fn/isObject", "fn/numProperties"], function (require, exports, isArray_16, isObject_17, numProperties_7) {
+    define("fn/object/removeEmpty", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/numProperties"], function (require, exports, isArray_16, isObject_17, numProperties_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeEmpty = void 0;
+        /**
+         * Returns a new array, having removed all elements deemed empty from the given array.
+         *
+         * Removes all the elements which are empty, i.e. false, 0, null, '', NaN, or undefined.
+         *
+         * @method   removeEmpty
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.removeEmpty([{prop1: 10, prop2: 20}, '', {}, null, 1, undefined, 0, false, 25]);
+         * // [{prop1: 10, prop2: 20}, 1, 25]
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array} arr
+         * @returns  {Array}
+         */
         const removeEmpty = function (arr) {
             var tmp = [];
             if ((0, isArray_16.isArray)(arr)) {
@@ -5581,22 +8847,36 @@
         };
         exports.removeEmpty = removeEmpty;
     });
-    define("fn/removeExtraSpaces", ["require", "exports"], function (require, exports) {
+    define("fn/string/removeExtraSpaces", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeExtraSpaces = void 0;
+        /**
+         * Removes all group of spaces by one single space.
+         * @param {String} str
+         * @returns
+         */
         const removeExtraSpaces = function (str) {
-            return str.replace(/\s+/g, ' ').trim();
+            return str.replace(/\s+/g, " ").trim();
         };
         exports.removeExtraSpaces = removeExtraSpaces;
     });
-    define("fn/removeTrailingChars", ["require", "exports", "fn/substr"], function (require, exports, substr_13) {
+    define("fn/string/removeTrailingChars", ["require", "exports", "fn/string/substr"], function (require, exports, substr_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeTrailingChars = void 0;
+        /**
+         * @method   removeTrailingChars
+         * @todo     Add method description for removeTrailingChars
+         * @global
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @param    {String} char
+         * @returns  {*}
+         */
         const removeTrailingChars = function (st, char) {
             if (!char) {
-                char = ' ';
+                char = " ";
             }
             if (char.length) {
                 while ((0, substr_13.substr)(st, -char.length) === char) {
@@ -5610,16 +8890,30 @@
         };
         exports.removeTrailingChars = removeTrailingChars;
     });
-    define("fn/repeat", ["require", "exports"], function (require, exports) {
+    define("fn/string/repeat", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.repeat = void 0;
+        /**
+         * Returns a string which is the repetition of the first argument for the number passed in the second argument.
+         *
+         * @method   repeat
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"HelloHelloHello"
+         * bbn.fn.repeat('Hello', 3);
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String}
+         */
         const repeat = function (st, num) {
             return st.repeat(num);
         };
         exports.repeat = repeat;
     });
-    define("fn/replaceSelection", ["require", "exports"], function (require, exports) {
+    define("fn/browser/replaceSelection", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.replaceSelection = void 0;
@@ -5666,40 +8960,86 @@
         };
         exports.replaceSelection = replaceSelection;
     });
-    define("fn/rgb2hex", ["require", "exports"], function (require, exports) {
+    define("fn/convert/rgb2hex", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.rgb2hex = void 0;
+        /**
+         * Convert an RGB string to hexadecimal.
+         *
+         * Passing a string with the format that defines the rgb value as an argument,
+         * it will return the corresponding string in hexadecimal format.
+         *
+         * @method   rgb2hex
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"#ff0000"
+         * bbn.fn.rgb2hex("rgb(255, 0, 0)");
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} rgb
+         * @returns  {String}
+         */
         const rgb2hex = function (rgb) {
             rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
             return rgb && rgb.length === 4
-                ? '#' +
-                    ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
-                    ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2) +
-                    ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2)
-                : '';
+                ? "#" +
+                    ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+                    ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+                    ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2)
+                : "";
         };
         exports.rgb2hex = rgb2hex;
     });
-    define("fn/riterate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_10) {
+    define("fn/loop/riterate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.riterate = void 0;
+        /**
+         * Executes the provided function on each property of the given object.
+         *
+         * @method   riterate
+         * @global
+         * @example
+         * ```javascript
+         * //["value1", 2]
+         * let arr = [];
+         * bbn.fn.iterate({field1: "value1", field2: 2}, (val, idx) => {
+         *   arr.push(value);
+         * });
+         * ```
+         * @memberof bbn.fn
+         * @param    {(Object|Number)} obj       The object to loop on
+         * @param    {Function}        fn        The function, gets the array's element and the index as arguments
+         * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
+         * @returns  {Object}
+         */
         const riterate = function (obj, fn, noPrivate) {
             return (0, iterate_10.iterate)(obj, fn, noPrivate, true);
         };
         exports.riterate = riterate;
     });
-    define("fn/roundDecimal", ["require", "exports"], function (require, exports) {
+    define("fn/misc/roundDecimal", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.roundDecimal = void 0;
+        /**
+         * @method   roundDecimal
+         * @todo     Add method description for roundDecimal
+         * @global
+         * @memberof bbn.fn
+         * @param    {Number} value
+         * @param    {Number} decimals
+         * @returns  {}
+         */
         const roundDecimal = function (value, decimals) {
             return Math.round(Math.pow(Math.pow(value, decimals), -decimals));
         };
         exports.roundDecimal = roundDecimal;
     });
-    define("fn/trim", ["require", "exports", "fn/substr"], function (require, exports, substr_14) {
+    define("fn/string/trim", ["require", "exports", "fn/string/substr"], function (require, exports, substr_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.trim = void 0;
@@ -5723,21 +9063,36 @@
         };
         exports.trim = trim;
     });
-    define("fn/sanitize", ["require", "exports", "fn/removeAccents", "fn/trim"], function (require, exports, removeAccents_3, trim_1) {
+    define("fn/string/sanitize", ["require", "exports", "fn/string/removeAccents", "fn/string/trim"], function (require, exports, removeAccents_3, trim_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.sanitize = void 0;
-        const sanitize = function (str, separator = '_') {
-            let escaped = ['[', ']', '{', '}', '(', ')', '-', '+', '*', '/'];
-            let exp = '[';
+        /**
+         * Removes all unacceptable characters in a DOM node.
+         *
+         * @method   sanitize
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"this_is_a_test"
+         * bbn.fn.sanitize("this&is_$a^test");
+         * ```
+         *
+         * @memberof bbn.fn
+         * @returns  {String} str
+         */
+        const sanitize = function (str, separator = "_") {
+            let escaped = ["[", "]", "{", "}", "(", ")", "-", "+", "*", "/"];
+            let exp = "[";
             for (let i = 0; i < separator.length; i++) {
                 if (escaped.includes(separator[i])) {
-                    exp += '\\';
+                    exp += "\\";
                 }
                 exp += separator[i];
             }
-            exp += ']+';
-            let re = new RegExp(exp, 'g');
+            exp += "]+";
+            let re = new RegExp(exp, "g");
             let res = (0, removeAccents_3.removeAccents)(str)
                 .replace(/[^a-z0-9]/gi, separator)
                 .replace(re, separator);
@@ -5745,10 +9100,29 @@
         };
         exports.sanitize = sanitize;
     });
-    define("fn/selectElementText", ["require", "exports"], function (require, exports) {
+    define("fn/browser/selectElementText", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.selectElementText = void 0;
+        /**
+         * Selects the content of an element.
+         *
+         * @method   selectElementText
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.selectElementText(document.getElementById('my_input_id'));
+         * // false
+         * bbn.fn.selectElementText(bbn.$('#my_span_id'));
+         * // true
+         * ```
+         * @memberof bbn.fn
+         *
+         * @param {Element} ele The element in which the text should be selected
+         * @param {Boolean} win The window object
+         *
+         * @returns  {Boolean} True if focused
+         */
         const selectElementText = function (ele, win) {
             win = win || window;
             if (ele instanceof HTMLInputElement) {
@@ -5773,10 +9147,24 @@
         };
         exports.selectElementText = selectElementText;
     });
-    define("fn/setCookie", ["require", "exports"], function (require, exports) {
+    define("fn/browser/setCookie", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setCookie = void 0;
+        /**
+         * Creates a cookie and assigns it to document.cookie.
+         * @method   setCookie
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.setCookie('lang', 'en', 2);
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} name  The name of the cookie.
+         * @param    {String} value The value of the cookie.
+         * @param    {Number} days  The days before expiration of the cookie.
+         * @returns
+         */
         const setCookie = function (name, value, days) {
             let expires = '';
             if (days) {
@@ -5789,23 +9177,38 @@
         };
         exports.setCookie = setCookie;
     });
-    define("fn/setCssVar", ["require", "exports"], function (require, exports) {
+    define("fn/style/setCssVar", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setCssVar = void 0;
+        /**
+         * Creates a CSS variable
+         * @param {String*} varname
+         * @param {String*} value
+         * @returns
+         */
         const setCssVar = function (varname, value) {
-            if (varname.indexOf('--') !== 0) {
-                varname = '--' + varname;
+            if (varname.indexOf("--") !== 0) {
+                varname = "--" + varname;
             }
             /** @todo To Fix */
-            //document.documentElement.setProperty(varname, value);
+            document.documentElement.style.setProperty(varname, value);
         };
         exports.setCssVar = setCssVar;
     });
-    define("fn/setProp", ["require", "exports"], function (require, exports) {
+    define("fn/object/setProp", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setProp = void 0;
+        /**
+         * Sets a given property on the given object
+         *
+         * @param {Object} obj
+         * @param {String} prop
+         * @param {*} value
+         * @param {Boolean} writable
+         * @param {Boolean} configurable
+         */
         const setProp = function (obj, prop, value, writable = true, configurable = true) {
             Object.defineProperty(obj, prop, {
                 value: value,
@@ -5815,10 +9218,38 @@
         };
         exports.setProp = setProp;
     });
-    define("fn/setProperty", ["require", "exports", "fn/each"], function (require, exports, each_22) {
+    define("fn/object/setProperty", ["require", "exports", "fn/loop/each"], function (require, exports, each_22) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setProperty = void 0;
+        /**
+         * Returns the value of the given property from the given object.
+         *
+         * Looks for the given property in the given object, accepting dot (.) separator
+         * for deep property access, and returns its value if found and undefined otherwise.
+         *
+         * @method   getProperty
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: 2}, 'b');
+         * // 2
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.o.a');
+         * // 33
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.getProperty({a: 1, b: {o: {a: 33, h: 5}}}, 'b.h.a');
+         * // undefined
+         * ```
+         * @memberof bbn.fn
+         * @param    {Object} obj
+         * @param    {String} prop
+         * @returns  {*}      The property's value or undefined
+         */
         const setProperty = function (obj, prop, value, force) {
             if (typeof obj === 'object' && typeof prop === 'string') {
                 let o = obj;
@@ -5841,17 +9272,42 @@
         };
         exports.setProperty = setProperty;
     });
-    define("fn/shorten", ["require", "exports", "fn/isString", "fn/substr"], function (require, exports, isString_25, substr_15) {
+    define("fn/string/shorten", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_25, substr_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shorten = void 0;
+        /**
+         * Shortens the given string after *len* characters.
+         *
+         * Provides an abbreviation to the string passed as the first argument,
+         * deciding through the second argument the number of characters to keep and the remainder replaced
+         * by what is passed as the third argument and if not given a defalut it is: '...'
+         *
+         * @method   shorten
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"test***"
+         * bbn.fn.shorten('testing', 4, '***');
+         * ```
+         *  @example
+         * ```javascript
+         * //"test..."
+         * bbn.fn.shorten('testing', 4);
+         * ```
+         * @memberof bbn.fn
+         * @param    {String} st
+         * @param    {Number} len
+         * @returns  {String}
+         */
         const shorten = function (st, len, adj) {
-            if (typeof st.toLowerCase() === 'string') {
+            if (typeof st.toLowerCase() === "string") {
                 if (!len) {
                     len = bbn.vars.shortenLen;
                 }
                 if (adj === undefined || !(0, isString_25.isString)(adj)) {
-                    adj = '...';
+                    adj = "...";
                 }
                 if (st.length > len) {
                     st = (0, substr_15.substr)(st, 0, len) + adj;
@@ -5861,17 +9317,40 @@
         };
         exports.shorten = shorten;
     });
-    define("fn/shortenObj", ["require", "exports", "fn/clone", "fn/each", "fn/isString", "fn/shorten"], function (require, exports, clone_1, each_23, isString_26, shorten_1) {
+    define("fn/object/shortenObj", ["require", "exports", "fn/object/clone", "fn/loop/each", "fn/type/isString", "fn/string/shorten"], function (require, exports, clone_1, each_23, isString_26, shorten_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shortenObj = void 0;
+        /**
+         * Shortens all the strings contained in the object properties or element in a array.
+         *
+         * Modifies directly the given object by cuttin all its too long strings, and adding ellipsis (...) in this case.
+         *
+         * @method   shortenObj
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.shortenObj({
+         *   title: "Once upon a time in the west",
+         *   synopsis: "There's a single piece of land around Flagstone with water on it, and rail baron Morton (Gabriele Ferzetti) aims to have it, knowing the new railroad will have to stop there. He sends his henchman Frank (Henry Fonda) to scare the land's owner, McBain (Frank Wolff), but Frank kills him instead and pins it on a known bandit, Cheyenne (Jason Robards). Meanwhile, a mysterious gunslinger with a score to settle (Charles Bronson) and McBain's new wife, Jill (Claudia Cardinale), arrive in town."
+         * }, 50)
+         * // {
+         * //   "title": "Once upon a time in the west",
+         * //   "synopsis": "There's a single piece of land around Flagstone wi..."
+         * // }
+         * ```
+         * @memberof bbn.fn
+         * @param    {(Object|Array)} obj
+         * @param    {Number}         [max=100]
+         * @returns  {(Object|Array)} The same object, modified
+         */
         const shortenObj = function (obj, max = 100) {
             let o = (0, clone_1.clone)(obj);
             (0, each_23.each)(o, (a, n) => {
                 if ((0, isString_26.isString)(a) && a.length > max) {
                     o[n] = (0, shorten_1.shorten)(a, max);
                 }
-                else if (a && typeof a === 'object') {
+                else if (a && typeof a === "object") {
                     o[n] = shortenObj(a);
                 }
             });
@@ -5879,7 +9358,7 @@
         };
         exports.shortenObj = shortenObj;
     });
-    define("fn/shuffle", ["require", "exports"], function (require, exports) {
+    define("fn/object/shuffle", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shuffle = void 0;
@@ -5897,11 +9376,21 @@
         };
         exports.shuffle = shuffle;
     });
-    define("fn/chrono", ["require", "exports", "fn/each"], function (require, exports, each_24) {
+    define("fn/datetime/chrono", ["require", "exports", "fn/loop/each"], function (require, exports, each_24) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.stopChrono = exports.startChrono = void 0;
         const _private = [];
+        /**
+         * Starts a timer and gives it a name.
+         * @method   startChrono
+         * @global
+         * ``` javascript
+         * bbn.fn.startChrono('myChrono');
+         * ```
+         * @memberof bbn.fn
+         * @returns
+         */
         const startChrono = function (name) {
             let now = new Date().getTime();
             let h1 = 3600 * 1000;
@@ -5916,6 +9405,18 @@
             _private[name] = now;
         };
         exports.startChrono = startChrono;
+        /**
+         * @method   stopChrono
+         * @global
+         * @example
+         * ``` javascript
+         * bbn.fn.stopChrono('myChrono');
+         * // 20162
+         * ```
+         * @memberof bbn.fn
+         * @param {String} name
+         * @returns  {Number}
+         */
         const stopChrono = function (name) {
             if (_private[name]) {
                 let now = new Date().getTime();
@@ -5925,61 +9426,7 @@
         };
         exports.stopChrono = stopChrono;
     });
-    define("fn/stat", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.stat = void 0;
-        const stat = function (returnStat) {
-            return;
-            /*
-            if (bbn.env.logging) {
-                var logs = bbn.vars.loggers;
-                for (var i = 0; i < arguments.length; i++) {
-                    var a = arguments[i],
-                        type = typeof a;
-                    if (type === 'boolean' || type === 'undefined') {
-                        break;
-                    } else {
-                        if (type === 'object') {
-                            a = getPath(a);
-                        } else {
-                            a = a.toString();
-                        }
-                        if (!logs[a]) {
-                            logs[a] = {
-                                _num: 0,
-                            };
-                        }
-                        logs[a]._num++;
-                        logs = logs[a];
-                    }
-                }
-                if (arguments[arguments.length - 1] === true) {
-                    var treat = function (obj) {
-                        var v = {};
-                        for (var n in obj) {
-                            if (n.indexOf('_') !== 0) {
-                                v[n + '(' + obj[n]._num + ')'] = treat(obj[n]);
-                            }
-                        }
-                        return v;
-                    };
-                    return treat(logs);
-                }
-                if (arguments[arguments.length - 1] === false) {
-                    for (var n in logs) {
-                        delete logs[n];
-                    }
-                    logs._num = 0;
-                    return;
-                }
-                return returnStat;
-            }
-            */
-        };
-        exports.stat = stat;
-    });
-    define("fn/string2ArrayBuffer", ["require", "exports"], function (require, exports) {
+    define("fn/convert/string2ArrayBuffer", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.string2ArrayBuffer = void 0;
@@ -5993,10 +9440,54 @@
         };
         exports.string2ArrayBuffer = string2ArrayBuffer;
     });
-    define("fn/sum", ["require", "exports", "fn/each", "fn/filter"], function (require, exports, each_25, filter_5) {
+    define("fn/object/sum", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_25, filter_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.sum = void 0;
+        /**
+         * Returns the sum of the given property or function for the array's elements matching the filter.
+         *
+         * The filtering arguments follow the same scheme as bbn.fn.search.
+         *
+         * @method   sum
+         * @global
+         * @example
+         * ```javascript
+         * let invited = [
+         *   {name: "Robert De Niro", attendees: 2, confirmed: true},
+         *   {name: "Al Pacino", attendees: 1, confirmed: false},
+         *   {name: "James Caan", attendees: 4, confirmed: false},
+         *   {name: "Harvey Keitel", attendees: 5, confirmed: true}
+         * ];
+         * // No filter
+         * bbn.fn.sum(invited, "attendees");
+         * // 12
+         * // Filter
+         * bbn.fn.sum(invited, "attendees", {confirmed: true});
+         * // 7
+         * ```
+         * @example
+         * ```javascript
+         * let cart = [
+         *    {article: "Toothpaste", price: 2.50, quantity: 1},
+         *    {article: "Toothbrush", price: 6, quantity: 2},
+         *    {article: "Banana", price: 0.50, quantity: 3},
+         *    {article: "T-shirt", price: 14, quantity: 3}
+         * ];
+         * bbn.fn.sum(cart, a => a.price * a.quantity);
+         * // 58
+         * // Only the items with a quantity equal to 3
+         * bbn.fn.sum(cart, a => a.price * a.quantity, {quantity: 3});
+         * // 43.5
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}                    arr        The subject array
+         * @param    {(String|Function)}        numberProp The property's name for which the value should be added to the sum, or a function returning the number.
+         * @param    {(String|Object|Function)} prop       A property's name or a filter object or function
+         * @param    {*}                        val        The value with which comparing the given property
+         * @param    {String}                   operator   The operator to use for comparison with the value as used in bbn.fn.compare
+         * @returns  {Number}                   The sum
+         */
         const sum = function (arr, numberProp, prop, val, operator) {
             let r = 0;
             (0, each_25.each)((0, filter_5.filter)(arr, prop, val, operator), (a) => {
@@ -6009,38 +9500,75 @@
         };
         exports.sum = sum;
     });
-    define("fn/timestamp", ["require", "exports"], function (require, exports) {
+    define("fn/datetime/timestamp", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.timestamp = void 0;
+        /**
+         * Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().
+         * @method   timestamp
+         * @global
+         * @example
+         * ```javascript
+         * //1587031047918
+         * bbn.fn.timestamp();
+         * ```
+         * @memberof bbn.fn
+         * @param    {Number} seconds
+         * @returns  {Boolean}
+         */
         const timestamp = function (seconds) {
-            var r = new Date().getTime();
+            let r = new Date().getTime();
             return seconds ? Math.round(r / 1000) : r;
         };
         exports.timestamp = timestamp;
     });
-    define("fn/toCSV", ["require", "exports", "fn/each", "fn/isArray", "fn/replaceAll"], function (require, exports, each_26, isArray_17, replaceAll_7) {
+    define("fn/convert/toCSV", ["require", "exports", "fn/loop/each", "fn/type/isArray", "fn/string/replaceAll"], function (require, exports, each_26, isArray_17, replaceAll_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.toCSV = void 0;
-        const toCSV = function (arr, valSep = ',', rowSep = '', valEsc = '"') {
+        /**
+         * Returns a CSV string from the given array of arrays or objects.
+         *
+         * @method   toCSV
+         * @global
+         * @example
+         * ```javascript
+         * bbn.fn.toCSV([['a', 'b', 'c'], ['d', 'e', 'f']]);
+         * // "a","b","c";
+         * // "d","e","f"
+         * ```
+         * @example
+         * ```javascript
+         * bbn.fn.toCSV([{name: "Capuche", fname: "Marc-Antoine"}, {name: "Orfin", fname: "Louis"}]);
+         * // "Capuche","Marc-Antoine";
+         * // "Orfin","Louis"
+         * ```
+         * @memberof bbn.fn
+         * @param    {Array}  arr        The array to convert
+         * @param    {String} [valSep=,] The value separator character
+         * @param    {String} [rowSep=;] The row separator character
+         * @param    {String} [valEsc="] The string escaper character
+         * @returns  {String} A CSV string
+         */
+        const toCSV = function (arr, valSep = ",", rowSep = "", valEsc = '"') {
             if (!valSep) {
-                valSep = ',';
+                valSep = ",";
             }
             if (!valEsc) {
                 valEsc = '"';
             }
-            let csvContent = '';
+            let csvContent = "";
             let total = arr.length;
             (0, each_26.each)(arr, (a, i) => {
                 let num = (0, isArray_17.isArray)(a) ? a.length : Object.values(a).length;
                 let j = 0;
                 (0, each_26.each)(a, (b) => {
-                    if (typeof b === 'string') {
-                        csvContent += valEsc + (0, replaceAll_7.replaceAll)(valEsc, '\\' + valEsc, b) + valEsc;
+                    if (typeof b === "string") {
+                        csvContent += valEsc + (0, replaceAll_7.replaceAll)(valEsc, "\\" + valEsc, b) + valEsc;
                     }
                     else if (b === 0) {
-                        csvContent += '0';
+                        csvContent += "0";
                     }
                     else if (!b) {
                         csvContent += valEsc + valEsc;
@@ -6054,14 +9582,14 @@
                     }
                 });
                 if (i < total - 1) {
-                    csvContent += rowSep + '\n';
+                    csvContent += rowSep + "\n";
                 }
             });
             return csvContent;
         };
         exports.toCSV = toCSV;
     });
-    define("fn/toggleFullScreen", ["require", "exports", "fn/resize"], function (require, exports, resize_2) {
+    define("fn/browser/toggleFullScreen", ["require", "exports", "fn/style/resize"], function (require, exports, resize_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.toggleFullScreen = void 0;
@@ -6104,7 +9632,7 @@
         };
         exports.toggleFullScreen = toggleFullScreen;
     });
-    define("fn/translate", ["require", "exports", "fn/iterate"], function (require, exports, iterate_11) {
+    define("fn/misc/translate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.translate = void 0;
@@ -6116,17 +9644,33 @@
         };
         exports.translate = translate;
     });
-    define("fn/uniqString", ["require", "exports", "fn/isArray", "fn/each", "fn/md5"], function (require, exports, isArray_18, each_27, md5_3) {
+    define("fn/string/uniqString", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/string/md5"], function (require, exports, isArray_18, each_27, md5_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.uniqString = void 0;
+        /**
+         * Create a unique string in md5 format.
+         *
+         * Converts and return all the arguments inserted in a unique string in md5 format.
+         *
+         * @method   uniqString
+         * @global
+         *
+         * @example
+         * ```javascript
+         * //"6cb083da4d4987af9b4fa4ad8ca23bb1"
+         * bbn.fn.uniqString('test',['test'],{id:1, test:2},4);
+         * ```
+         * @memberof bbn.fn
+         * @returns  {String} The unique string in md5 format
+         */
         const uniqString = function (...args) {
-            var st = '';
+            var st = "";
             for (var i = 0; i < args.length; i++) {
                 if (!args[i]) {
-                    st += '__bbn_empty__';
+                    st += "__bbn_empty__";
                 }
-                else if (typeof args[i] === 'object') {
+                else if (typeof args[i] === "object") {
                     if ((0, isArray_18.isArray)(args[i])) {
                         st += JSON.stringify(args[i]);
                     }
@@ -6140,7 +9684,7 @@
                         st += JSON.stringify(tmp);
                     }
                 }
-                else if (typeof args[i] !== 'string') {
+                else if (typeof args[i] !== "string") {
                     st += args[i].toString();
                 }
                 else {
@@ -6151,10 +9695,26 @@
         };
         exports.uniqString = uniqString;
     });
-    define("fn/upload", ["require", "exports", "fn/objectToFormData", "fn/log"], function (require, exports, objectToFormData_1, log_19) {
+    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_1, log_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.upload = void 0;
+        /**
+         * Uploads a file synchronously through an XHR indicating progress.
+         *
+         * @method   upload
+         * @todo examples
+         * @global
+         * @memberof bbn.fn
+         *
+         * @param {String}   url      The URL to which the file should be uploaded
+         * @param {File}     file     A File object or an array of data
+         * @param {Function} success  A function to execute after success
+         * @param {Function} failure  A function to execute after failure
+         * @param {Function} progress A function to execute during progress
+         *
+         * @returns  {Promise}
+         */
         const upload = function (url, file, success, failure, progress) {
             let fn = () => {
                 return axios.post(url || bbn.env.path, (0, objectToFormData_1.objectToFormData)(file), {
@@ -6190,7 +9750,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/_addLoader", "fn/_compareValues", "fn/_deleteLoader", "fn/abort", "fn/abortURL", "fn/addColors", "fn/addInputs", "fn/addStyle", "fn/adjustHeight", "fn/adjustSize", "fn/adjustWidth", "fn/ajax", "fn/analyzeFunction", "fn/animateCss", "fn/arrayBuffer2String", "fn/arrayFromProp", "fn/autoExtend", "fn/baseName", "fn/br2nl", "fn/calendar", "fn/callback", "fn/camelize", "fn/camelToCss", "fn/canvasToImage", "fn/center", "fn/checkProps", "fn/checkPropsDetails", "fn/checkPropsOrDie", "fn/checkType", "fn/circularReplacer", "fn/clone", "fn/colorToHex", "fn/compare", "fn/compareConditions", "fn/copy", "fn/correctCase", "fn/count", "fn/crc32", "fn/createObject", "fn/cssExists", "fn/date", "fn/dateSQL", "fn/daysInMonth", "fn/deepPath", "fn/defaultAjaxAbortFunction", "fn/defaultAjaxErrorFunction", "fn/defaultAlertFunction", "fn/defaultConfirmFunction", "fn/defaultEndLoadingFunction", "fn/defaultErrorFunction", "fn/defaultHistoryFunction", "fn/defaultLinkFunction", "fn/defaultPostLinkFunction", "fn/defaultPreLinkFunction", "fn/defaultResizeFunction", "fn/defaultStartLoadingFunction", "fn/deleteProp", "fn/diffObj", "fn/dirName", "fn/download", "fn/downloadContent", "fn/each", "fn/eraseCookie", "fn/error", "fn/escapeDquotes", "fn/escapeRegExp", "fn/escapeSquotes", "fn/escapeTicks", "fn/escapeUrl", "fn/extend", "fn/extendOut", "fn/fdate", "fn/fdatetime", "fn/fieldValue", "fn/fileExt", "fn/filter", "fn/filterToConditions", "fn/findAll", "fn/fori", "fn/forir", "fn/format", "fn/formatBytes", "fn/formatDate", "fn/formatSize", "fn/formdata", "fn/fromXml", "fn/ftime", "fn/getAllTags", "fn/getAncestors", "fn/getAttributes", "fn/getBrowserName", "fn/getBrowserVersion", "fn/getCookie", "fn/getCssVar", "fn/getDay", "fn/getDeviceType", "fn/getEventData", "fn/getField", "fn/getFieldValues", "fn/getHtml", "fn/getHTMLOfSelection", "fn/getLoader", "fn/getPath", "fn/getProp", "fn/getProperty", "fn/getRequestId", "fn/getRow", "fn/getScrollBarSize", "fn/getText", "fn/getTimeoff", "fn/happy", "fn/hash", "fn/hex2rgb", "fn/history", "fn/html2text", "fn/imageToCanvas", "fn/imgToBase64", "fn/info", "fn/init", "fn/isActiveInterface", "fn/isArray", "fn/isBlob", "fn/isBoolean", "fn/isCanvas", "fn/isColor", "fn/isComment", "fn/isCp", "fn/isDate", "fn/isDesktopDevice", "fn/isDimension", "fn/isDom", "fn/isEmail", "fn/isEmpty", "fn/isEvent", "fn/isFocused", "fn/isFunction", "fn/isHostname", "fn/isInside", "fn/isInt", "fn/isIP", "fn/isIterable", "fn/isMobile", "fn/isMobileDevice", "fn/isNull", "fn/isNumber", "fn/isObject", "fn/isPercent", "fn/isPrimitive", "fn/isPromise", "fn/isPropSize", "fn/isSame", "fn/isSQLDate", "fn/isString", "fn/isSymbol", "fn/isTabletDevice", "fn/isURL", "fn/isValidDimension", "fn/isValidName", "fn/isValue", "fn/isVue", "fn/iterate", "fn/lightenDarkenHex", "fn/link", "fn/log", "fn/makeReactive", "fn/map", "fn/md5", "fn/money", "fn/move", "fn/multiorder", "fn/nl2br", "fn/numProperties", "fn/objectToFormData", "fn/order", "fn/outerHeight", "fn/outerWidth", "fn/percent", "fn/pickValue", "fn/post", "fn/postOut", "fn/printf", "fn/quotes2html", "fn/randomInt", "fn/randomString", "fn/removeAccents", "fn/removeEmpty", "fn/removeExtraSpaces", "fn/removeHtmlComments", "fn/removePrivateProp", "fn/removeTrailingChars", "fn/repeat", "fn/replaceAll", "fn/replaceSelection", "fn/resize", "fn/rgb2hex", "fn/riterate", "fn/roundDecimal", "fn/sanitize", "fn/search", "fn/selectElementText", "fn/selector", "fn/setCookie", "fn/setCssVar", "fn/setNavigationVars", "fn/setProp", "fn/setProperty", "fn/shorten", "fn/shortenObj", "fn/shuffle", "fn/simpleHash", "fn/simpleHash1", "fn/simpleHash2", "fn/chrono", "fn/stat", "fn/string2ArrayBuffer", "fn/submit", "fn/substr", "fn/sum", "fn/timestamp", "fn/toCSV", "fn/toggleFullScreen", "fn/translate", "fn/treatAjaxArguments", "fn/trim", "fn/uniqString", "fn/unique", "fn/upload", "fn/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_20, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, stat_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_7, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_20, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -6408,7 +9968,6 @@
             simpleHash1: simpleHash1_2.simpleHash1,
             simpleHash2: simpleHash2_2.simpleHash2,
             startChrono: chrono_1.startChrono,
-            stat: stat_1.stat,
             stopChrono: chrono_1.stopChrono,
             string2ArrayBuffer: string2ArrayBuffer_1.string2ArrayBuffer,
             submit: submit_2.submit,

@@ -1,4 +1,4 @@
-import {checkType} from './fn/checkType'
+import {checkType} from './fn/type/checkType'
 /**
  * Translate an expression using the object bbn.lng
  * 

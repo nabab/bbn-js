@@ -1,7 +1,7 @@
 import {_} from './_';
-import {each} from './fn/each';
-import {iterate} from './fn/iterate';
-import {log} from './fn/log';
+import {each} from './fn/loop/each';
+import {iterate} from './fn/loop/iterate';
+import {log} from './fn/browser/log';
 
 const idb      = indexedDB || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
 
