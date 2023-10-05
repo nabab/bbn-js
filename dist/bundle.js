@@ -942,6 +942,7 @@
          * @returns  {Number}  The timestamp (in ms)
          */
         const _addLoader = function (requestId, prom, source) {
+            console.log('_addLoader', requestId);
             /** @var {Number} tst Current timestamp */
             let tst = new Date().getTime();
             /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -3138,7 +3139,7 @@
          * @returns  {Promise}  The Promise created by the generated XHR.
          */
         const ajax = function (url, datatype, data, success, failure, abort) {
-            if (arguments.length === 1 && url && typeof url === 'object' && url.url) {
+            if (arguments.length === 1 && url && typeof url === "object" && url.url) {
                 if (url.abort) {
                     abort = url.abort;
                 }
@@ -3159,13 +3160,13 @@
             if (!url) {
                 return;
             }
-            if (url && typeof url === 'string') {
-                if (url.indexOf('://') === -1) {
+            if (url && typeof url === "string") {
+                if (url.indexOf("://") === -1) {
                     // Prevent protocol mismatch by Axios
-                    url = (0, replaceAll_1.replaceAll)('//', '/', url);
+                    url = (0, replaceAll_1.replaceAll)("//", "/", url);
                 }
                 if (!datatype) {
-                    datatype = 'json';
+                    datatype = "json";
                 }
                 let requestId = (0, getRequestId_1.getRequestId)(url, data, datatype);
                 let loaderObj = (0, getLoader_2.getLoader)(requestId);
@@ -3182,10 +3183,10 @@
                     responseType: datatype,
                     cancelToken: source.token,
                 };
-                if (datatype === 'text') {
+                if (datatype === "text") {
                     options.headers = {
-                        accept: 'text/javascript',
-                        'Content-Type': 'text/javascript',
+                        accept: "text/javascript",
+                        "Content-Type": "text/javascript",
                     };
                 }
                 let args = [url];
@@ -3193,9 +3194,10 @@
                     args.push(data);
                 }
                 args.push(options);
-                const axiosMethod = args.length === 2 ? 'get' : 'post';
-                let loader = axios[axiosMethod].apply(null, args)
-                    .then(res => {
+                const axiosMethod = args.length === 2 ? "get" : "post";
+                let loader = axios[axiosMethod]
+                    .apply(null, args)
+                    .then((res) => {
                     (0, _deleteLoader_1._deleteLoader)(requestId, res);
                     (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, res);
                     switch (res.status) {
@@ -3228,7 +3230,7 @@
                             ok = failure(err.request, err);
                         }
                         if (ok) {
-                            (0, defaultAjaxErrorFunction_1.defaultAjaxErrorFunction)(err.request, err.response ? err.response.data : '', err.response ? err.response.status : err);
+                            (0, defaultAjaxErrorFunction_1.defaultAjaxErrorFunction)(err.request, err.response ? err.response.data : "", err.response ? err.response.status : err);
                         }
                     }
                 });

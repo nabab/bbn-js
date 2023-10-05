@@ -16,6 +16,7 @@ import { substr } from "../string/substr";
  */
 
 const _addLoader = function (requestId, prom, source) {
+  console.log('_addLoader', requestId)
   /** @var {Number} tst Current timestamp */
   let tst = new Date().getTime();
   /** @var {String} url The original URL (part of requestId before : and md5) */
