@@ -29,15 +29,17 @@ const log = function (...args) {
 			args.shift();
 		}
 
+		const exec = window.console[fn];
 		if (bbn.env.loggingLevel >= level) {
 			let i = 0;
 			while (i < args.length) {
 				let t = typeof args[i];
+				let consoleArguments = [args[i]];
 				if (t === 'string' || t === 'number') {
-					window.console[fn]('%c %s ', cfg, args[i]);
-				} else {
-					window.console[fn](args[i]);
+					consoleArguments.unshift('%c %s ', cfg);
 				}
+
+				exec.apply(window.console, consoleArguments);
 				i++;
 			}
 		}
