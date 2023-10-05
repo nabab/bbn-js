@@ -1369,7 +1369,7 @@
             if ('cp' in bbn && 'isComponent' in bbn['cp'] && (typeof bbn['cp'].isComponent === 'function')) {
                 for (let a of args) {
                     let res = bbn.cp.isComponent(a);
-                    if (!res || (0, isDom_1.isDom)(res) || !res.$el) {
+                    if (!res || (0, isDom_1.isDom)(res) || !res.$el?.bbnCid) {
                         return false;
                     }
                 }
