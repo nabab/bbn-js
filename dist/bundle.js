@@ -3695,6 +3695,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
+        dayjs_min_js_1.default.extend(window['dayjs_plugin_calendar']);
         const calendar = function (d, wrong_result = false) {
             if (undefined === dayjs_min_js_1.default) {
                 return (0, fdate_js_1.fdate)(d, wrong_result);
