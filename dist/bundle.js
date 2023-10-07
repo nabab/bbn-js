@@ -3695,16 +3695,16 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
-        dayjs_min_js_1.dayjs.extend(window['dayjs_plugin_calendar']);
+        dayjs_min_js_1.default.extend(window['dayjs_plugin_calendar']);
         const calendar = function (d, wrong_result = false) {
-            if (undefined === dayjs_min_js_1.dayjs) {
+            if (undefined === dayjs_min_js_1.default) {
                 return (0, fdate_js_1.fdate)(d, wrong_result);
             }
             let r = (0, date_js_3.date)(d);
             if (!(0, isDate_js_5.isDate)(r)) {
                 return wrong_result && (0, isString_js_8.isString)(wrong_result) ? wrong_result : '';
             }
-            return (0, dayjs_min_js_1.dayjs)(r).calendar(null, {
+            return (0, dayjs_min_js_1.default)(r).calendar(null, {
                 sameDay: '[' + bbn._('Today') + ']',
                 nextDay: '[' + bbn._('Tomorrow') + ']',
                 nextWeek: 'ddd D',
