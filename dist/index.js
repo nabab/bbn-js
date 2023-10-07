@@ -3312,7 +3312,7 @@
         };
         exports.ajax = ajax;
     });
-    define("fn/misc/analyzeFunction", ["require", "exports", "fn/string/md5"], function (require, exports, md5_js_2) {
+    define("fn/misc/analyzeFunction", ["require", "exports", "fn/string/md5", "fn/browser/log"], function (require, exports, md5_js_2, log_js_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.analyzeFunction = void 0;
@@ -3329,6 +3329,7 @@
             if (typeof all !== 'string') {
                 throw Error('Unexpected type ' + typeof fn + ' while parsing function');
             }
+            (0, log_js_8.log)("INSIDE ANALYZE FUNCTION", all);
             var exp = '';
             var isArrow = false;
             var isAsync = false;
@@ -3843,7 +3844,7 @@
         };
         exports.calendar = calendar;
     });
-    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/type/isFunction", "fn/browser/log"], function (require, exports, error_js_2, isFunction_js_4, log_js_8) {
+    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/type/isFunction", "fn/browser/log"], function (require, exports, error_js_2, isFunction_js_4, log_js_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -3934,7 +3935,7 @@
                                 }
                             }
                             catch (e) {
-                                (0, log_js_8.log)(e, res);
+                                (0, log_js_9.log)(e, res);
                                 (0, error_js_2.error)((0, isFunction_js_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
@@ -4583,24 +4584,24 @@
         };
         exports.deepPath = deepPath;
     });
-    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_9) {
+    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
         var defaultAjaxAbortFunction = function (message, url) {
             if (url === void 0) { url = ""; }
-            (0, log_js_9.log)(message);
+            (0, log_js_10.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
-    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_10) {
+    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxErrorFunction = void 0;
         var defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
             if (textStatus === void 0) { textStatus = null; }
             if (errorThrown === void 0) { errorThrown = null; }
-            (0, log_js_10.log)(textStatus, errorThrown);
+            (0, log_js_11.log)(textStatus, errorThrown);
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
@@ -4645,12 +4646,12 @@
         };
         exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
     });
-    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_11) {
+    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultErrorFunction = void 0;
         var defaultErrorFunction = function (message) {
-            (0, log_js_11.log)(message);
+            (0, log_js_12.log)(message);
         };
         exports.defaultErrorFunction = defaultErrorFunction;
     });
@@ -4682,14 +4683,14 @@
         };
         exports.defaultPostLinkFunction = defaultPostLinkFunction;
     });
-    define("fn/default/defaultPreLinkFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_12) {
+    define("fn/default/defaultPreLinkFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPreLinkFunction = void 0;
         var defaultPreLinkFunction = function (url, force, ele) {
             if (force === void 0) { force = false; }
             if (ele === void 0) { ele = null; }
-            (0, log_js_12.log)("defaultPreLinkFunction", url, force, ele);
+            (0, log_js_13.log)("defaultPreLinkFunction", url, force, ele);
             return true;
         };
         exports.defaultPreLinkFunction = defaultPreLinkFunction;
@@ -5095,7 +5096,7 @@
         };
         exports.isCanvas = isCanvas;
     });
-    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_js_1, isObject_js_12, isString_js_11, log_js_13) {
+    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_js_1, isObject_js_12, isString_js_11, log_js_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.downloadContent = void 0;
@@ -5157,7 +5158,7 @@
                     src = content;
                 }
                 catch (e) {
-                    (0, log_js_13.log)(e);
+                    (0, log_js_14.log)(e);
                 }
             }
             a.href = window.URL.createObjectURL(src);
@@ -6146,7 +6147,7 @@
         };
         exports.getDeviceType = getDeviceType;
     });
-    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_14) {
+    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHTMLOfSelection = void 0;
@@ -6155,9 +6156,9 @@
             var selection = window.getSelection();
             if (selection.rangeCount > 0) {
                 range = selection.getRangeAt(0);
-                (0, log_js_14.log)('RANGE', range);
+                (0, log_js_15.log)('RANGE', range);
                 var clonedSelection = range.cloneContents();
-                (0, log_js_14.log)('clonedSelection', clonedSelection);
+                (0, log_js_15.log)('clonedSelection', clonedSelection);
                 var div = document.createElement('div');
                 div.appendChild(clonedSelection);
                 return div.innerHTML;
@@ -6540,7 +6541,7 @@
         };
         exports.getTimeoff = getTimeoff;
     });
-    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_15) {
+    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.happy = void 0;
@@ -6565,7 +6566,7 @@
                 _bbn_console_level: 3,
                 _bbn_console_style: 'color: white; background: green; font-size: 18px;',
             });
-            log_js_15.log.apply(this, args);
+            log_js_16.log.apply(this, args);
             return this;
         };
         exports.happy = happy;
@@ -6677,7 +6678,7 @@
         };
         exports.imgToBase64 = imgToBase64;
     });
-    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_16) {
+    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.info = void 0;
@@ -6699,7 +6700,7 @@
                 _bbn_console_level: 4,
                 _bbn_console_style: 'color: #EEE; background: blue; font-size: 12px;',
             });
-            log_js_16.log.apply(this, args);
+            log_js_17.log.apply(this, args);
             return this;
         };
         exports.info = info;
@@ -6916,7 +6917,7 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_js_1, getLoader_js_3, ajax_js_2, log_js_17, extend_js_6, isObject_js_15, callback_js_1, setNavigationVars_js_1) {
+    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_js_1, getLoader_js_3, ajax_js_2, log_js_18, extend_js_6, isObject_js_15, callback_js_1, setNavigationVars_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
@@ -7016,12 +7017,12 @@
                     var errSt_1 = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
                     return (0, ajax_js_2.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
                         if (!res) {
-                            (0, log_js_17.log)(errSt_1 + bbn._('returned no answer'));
+                            (0, log_js_18.log)(errSt_1 + bbn._('returned no answer'));
                         }
                         if ((0, isObject_js_15.isObject)(res)) {
                             // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
                             if (Object.keys(res).length === 0) {
-                                (0, log_js_17.log)(errSt_1 + bbn._('returned an empty object'));
+                                (0, log_js_18.log)(errSt_1 + bbn._('returned an empty object'));
                             }
                             if (res.new_url) {
                                 res.old_path = cfg.url;
@@ -7241,7 +7242,7 @@
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_js_11, each_js_18, extend_js_7, addColors_js_1, link_js_1, submit_js_1, resize_js_1, isMobile_js_1, isTabletDevice_js_2, isFunction_js_9, log_js_18) {
+    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_js_11, each_js_18, extend_js_7, addColors_js_1, link_js_1, submit_js_1, resize_js_1, isMobile_js_1, isTabletDevice_js_2, isFunction_js_9, log_js_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
@@ -7413,7 +7414,7 @@
                 bbn.env.isInit = true;
                 document.dispatchEvent(new Event("bbninit"));
                 if (bbn.env.logging) {
-                    (0, log_js_18.log)("Logging in bbn is enabled");
+                    (0, log_js_19.log)("Logging in bbn is enabled");
                 }
             }
         };
@@ -8180,7 +8181,7 @@
         };
         exports.lightenDarkenHex = lightenDarkenHex;
     });
-    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_19) {
+    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.warning = void 0;
@@ -8204,11 +8205,11 @@
                 _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
             };
             args.unshift(obj);
-            log_js_19.log.apply(this, args);
+            log_js_20.log.apply(this, args);
         };
         exports.warning = warning;
     });
-    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_js_20, createObject_js_2, isSymbol_js_1, isNumber_js_8, isArray_js_13, warning_js_1, isFunction_js_10, isSame_js_2) {
+    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_js_21, createObject_js_2, isSymbol_js_1, isNumber_js_8, isArray_js_13, warning_js_1, isFunction_js_10, isSame_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
@@ -8220,7 +8221,7 @@
                     return obj;
                 }
                 if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                    (0, log_js_20.log)(['MAKING bbn-loadbar', obj]);
+                    (0, log_js_21.log)(['MAKING bbn-loadbar', obj]);
                 }
                 if (!obj.__bbnWatchers) {
                     Reflect.defineProperty(obj, '__bbnWatchers', {
@@ -8248,7 +8249,7 @@
                                 }
                                 var res = realTarget[key].apply(realTarget, args);
                                 (0, warning_js_1.warning)('DOING ARRAY STUFF');
-                                (0, log_js_20.log)(target.__bbnParent);
+                                (0, log_js_21.log)(target.__bbnParent);
                                 onSet(target, 'length', parent);
                                 return res;
                             };
@@ -8315,7 +8316,7 @@
                             return Reflect.get(target, key);
                         }
                         if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                            (0, log_js_20.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
+                            (0, log_js_21.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
                         }
                         if (!(0, isSame_js_2.isSame)(realTarget[key], value)) {
                             if (key.indexOf('__bbn_') === 0) {
@@ -8343,7 +8344,7 @@
                                 }
                             }
                             if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                                (0, log_js_20.log)([
+                                (0, log_js_21.log)([
                                     'Setting proxy prop in ' +
                                         parent.$options.name +
                                         ' ' +
@@ -10084,7 +10085,7 @@
         };
         exports.uniqString = uniqString;
     });
-    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_js_1, log_js_21) {
+    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_js_1, log_js_22) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.upload = void 0;
@@ -10128,13 +10129,13 @@
                 return fn()
                     .then(function (res) {
                     if (success) {
-                        (0, log_js_21.log)('SUCCESS', res);
+                        (0, log_js_22.log)('SUCCESS', res);
                         success(res);
                     }
                 })
                     .catch(function (err) {
                     if (failure) {
-                        (0, log_js_21.log)('ERROR', err);
+                        (0, log_js_22.log)('ERROR', err);
                         failure(err);
                     }
                 });
@@ -10142,7 +10143,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_js_2, _compareValues_js_3, _deleteLoader_js_2, abort_js_1, abortURL_js_1, addColors_js_2, addInputs_js_2, addStyle_js_1, adjustHeight_js_1, adjustSize_js_3, adjustWidth_js_1, ajax_js_4, analyzeFunction_js_1, animateCss_js_1, arrayBuffer2String_js_1, arrayFromProp_js_1, autoExtend_js_1, baseName_js_3, br2nl_js_1, calendar_js_2, callback_js_3, camelize_js_1, camelToCss_js_1, canvasToImage_js_1, center_js_1, checkProps_js_1, checkPropsDetails_js_3, checkPropsOrDie_js_1, checkType_js_6, circularReplacer_js_2, clone_js_2, colorToHex_js_1, compare_js_2, compareConditions_js_3, copy_js_1, correctCase_js_2, count_js_1, crc32_js_1, createObject_js_4, cssExists_js_1, date_js_8, dateSQL_js_1, daysInMonth_js_1, deepPath_js_1, defaultAjaxAbortFunction_js_1, defaultAjaxErrorFunction_js_1, defaultAlertFunction_js_1, defaultConfirmFunction_js_1, defaultEndLoadingFunction_js_1, defaultErrorFunction_js_1, defaultHistoryFunction_js_1, defaultLinkFunction_js_1, defaultPostLinkFunction_js_1, defaultPreLinkFunction_js_1, defaultResizeFunction_js_1, defaultStartLoadingFunction_js_1, deleteProp_js_1, diffObj_js_1, dirName_js_2, download_js_1, downloadContent_js_2, each_js_28, eraseCookie_js_1, error_js_4, escapeDquotes_js_1, escapeRegExp_js_3, escapeSquotes_js_1, escapeTicks_js_1, escapeUrl_js_1, extend_js_8, extendOut_js_1, fdate_js_2, fdatetime_js_2, fieldValue_js_2, fileExt_js_2, filter_js_6, filterToConditions_js_3, findAll_js_1, fori_js_1, forir_js_1, format_js_1, formatBytes_js_1, formatDate_js_1, formatSize_js_1, formdata_js_2, fromXml_js_1, ftime_js_1, getAllTags_js_1, getAncestors_js_2, getAttributes_js_1, getBrowserName_js_1, getBrowserVersion_js_1, getCookie_js_1, getCssVar_js_2, getDay_js_1, getDeviceType_js_4, getEventData_js_1, getField_js_1, getFieldValues_js_1, getHtml_js_1, getHTMLOfSelection_js_2, getLoader_js_4, getPath_js_1, getProp_js_1, getProperty_js_4, getRequestId_js_2, getRow_js_3, getScrollBarSize_js_1, getText_js_1, getTimeoff_js_1, happy_js_1, hash_js_2, hex2rgb_js_1, history_js_1, html2text_js_2, imageToCanvas_js_2, imgToBase64_js_1, info_js_1, init_js_1, isActiveInterface_js_1, isArray_js_19, isBlob_js_2, isBoolean_js_1, isCanvas_js_2, isColor_js_1, isComment_js_1, isCp_js_3, isDate_js_8, isDesktopDevice_js_1, isDimension_js_1, isDom_js_5, isEmail_js_1, isEmpty_js_2, isEvent_js_1, isFocused_js_1, isFunction_js_11, isHostname_js_1, isInside_js_1, isInt_js_2, isIP_js_2, isIterable_js_5, isMobile_js_2, isMobileDevice_js_2, isNull_js_4, isNumber_js_10, isObject_js_18, isPercent_js_1, isPrimitive_js_1, isPromise_js_1, isPropSize_js_1, isSame_js_3, isSQLDate_js_1, isString_js_27, isSymbol_js_2, isTabletDevice_js_3, isURL_js_1, isValidDimension_js_2, isValidName_js_1, isValue_js_2, isVue_js_1, iterate_js_12, lightenDarkenHex_js_1, link_js_2, log_js_22, makeReactive_js_1, map_js_1, md5_js_4, money_js_1, move_js_1, multiorder_js_1, nl2br_js_1, numProperties_js_8, objectToFormData_js_2, order_js_1, outerHeight_js_1, outerWidth_js_1, percent_js_1, pickValue_js_1, post_js_2, postOut_js_1, printf_js_1, quotes2html_js_1, randomInt_js_2, randomString_js_1, removeAccents_js_4, removeEmpty_js_1, removeExtraSpaces_js_1, removeHtmlComments_js_2, removePrivateProp_js_2, removeTrailingChars_js_1, repeat_js_1, replaceAll_js_8, replaceSelection_js_1, resize_js_3, rgb2hex_js_1, riterate_js_1, roundDecimal_js_1, sanitize_js_1, search_js_6, selectElementText_js_1, selector_js_3, setCookie_js_1, setCssVar_js_1, setNavigationVars_js_2, setProp_js_1, setProperty_js_2, shorten_js_2, shortenObj_js_1, shuffle_js_1, simpleHash_js_2, simpleHash1_js_2, simpleHash2_js_2, chrono_js_1, string2ArrayBuffer_js_1, submit_js_2, substr_js_16, sum_js_1, timestamp_js_1, toCSV_js_1, toggleFullScreen_js_1, translate_js_1, treatAjaxArguments_js_3, trim_js_2, uniqString_js_1, unique_js_2, upload_js_1, warning_js_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_js_2, _compareValues_js_3, _deleteLoader_js_2, abort_js_1, abortURL_js_1, addColors_js_2, addInputs_js_2, addStyle_js_1, adjustHeight_js_1, adjustSize_js_3, adjustWidth_js_1, ajax_js_4, analyzeFunction_js_1, animateCss_js_1, arrayBuffer2String_js_1, arrayFromProp_js_1, autoExtend_js_1, baseName_js_3, br2nl_js_1, calendar_js_2, callback_js_3, camelize_js_1, camelToCss_js_1, canvasToImage_js_1, center_js_1, checkProps_js_1, checkPropsDetails_js_3, checkPropsOrDie_js_1, checkType_js_6, circularReplacer_js_2, clone_js_2, colorToHex_js_1, compare_js_2, compareConditions_js_3, copy_js_1, correctCase_js_2, count_js_1, crc32_js_1, createObject_js_4, cssExists_js_1, date_js_8, dateSQL_js_1, daysInMonth_js_1, deepPath_js_1, defaultAjaxAbortFunction_js_1, defaultAjaxErrorFunction_js_1, defaultAlertFunction_js_1, defaultConfirmFunction_js_1, defaultEndLoadingFunction_js_1, defaultErrorFunction_js_1, defaultHistoryFunction_js_1, defaultLinkFunction_js_1, defaultPostLinkFunction_js_1, defaultPreLinkFunction_js_1, defaultResizeFunction_js_1, defaultStartLoadingFunction_js_1, deleteProp_js_1, diffObj_js_1, dirName_js_2, download_js_1, downloadContent_js_2, each_js_28, eraseCookie_js_1, error_js_4, escapeDquotes_js_1, escapeRegExp_js_3, escapeSquotes_js_1, escapeTicks_js_1, escapeUrl_js_1, extend_js_8, extendOut_js_1, fdate_js_2, fdatetime_js_2, fieldValue_js_2, fileExt_js_2, filter_js_6, filterToConditions_js_3, findAll_js_1, fori_js_1, forir_js_1, format_js_1, formatBytes_js_1, formatDate_js_1, formatSize_js_1, formdata_js_2, fromXml_js_1, ftime_js_1, getAllTags_js_1, getAncestors_js_2, getAttributes_js_1, getBrowserName_js_1, getBrowserVersion_js_1, getCookie_js_1, getCssVar_js_2, getDay_js_1, getDeviceType_js_4, getEventData_js_1, getField_js_1, getFieldValues_js_1, getHtml_js_1, getHTMLOfSelection_js_2, getLoader_js_4, getPath_js_1, getProp_js_1, getProperty_js_4, getRequestId_js_2, getRow_js_3, getScrollBarSize_js_1, getText_js_1, getTimeoff_js_1, happy_js_1, hash_js_2, hex2rgb_js_1, history_js_1, html2text_js_2, imageToCanvas_js_2, imgToBase64_js_1, info_js_1, init_js_1, isActiveInterface_js_1, isArray_js_19, isBlob_js_2, isBoolean_js_1, isCanvas_js_2, isColor_js_1, isComment_js_1, isCp_js_3, isDate_js_8, isDesktopDevice_js_1, isDimension_js_1, isDom_js_5, isEmail_js_1, isEmpty_js_2, isEvent_js_1, isFocused_js_1, isFunction_js_11, isHostname_js_1, isInside_js_1, isInt_js_2, isIP_js_2, isIterable_js_5, isMobile_js_2, isMobileDevice_js_2, isNull_js_4, isNumber_js_10, isObject_js_18, isPercent_js_1, isPrimitive_js_1, isPromise_js_1, isPropSize_js_1, isSame_js_3, isSQLDate_js_1, isString_js_27, isSymbol_js_2, isTabletDevice_js_3, isURL_js_1, isValidDimension_js_2, isValidName_js_1, isValue_js_2, isVue_js_1, iterate_js_12, lightenDarkenHex_js_1, link_js_2, log_js_23, makeReactive_js_1, map_js_1, md5_js_4, money_js_1, move_js_1, multiorder_js_1, nl2br_js_1, numProperties_js_8, objectToFormData_js_2, order_js_1, outerHeight_js_1, outerWidth_js_1, percent_js_1, pickValue_js_1, post_js_2, postOut_js_1, printf_js_1, quotes2html_js_1, randomInt_js_2, randomString_js_1, removeAccents_js_4, removeEmpty_js_1, removeExtraSpaces_js_1, removeHtmlComments_js_2, removePrivateProp_js_2, removeTrailingChars_js_1, repeat_js_1, replaceAll_js_8, replaceSelection_js_1, resize_js_3, rgb2hex_js_1, riterate_js_1, roundDecimal_js_1, sanitize_js_1, search_js_6, selectElementText_js_1, selector_js_3, setCookie_js_1, setCssVar_js_1, setNavigationVars_js_2, setProp_js_1, setProperty_js_2, shorten_js_2, shortenObj_js_1, shuffle_js_1, simpleHash_js_2, simpleHash1_js_2, simpleHash2_js_2, chrono_js_1, string2ArrayBuffer_js_1, submit_js_2, substr_js_16, sum_js_1, timestamp_js_1, toCSV_js_1, toggleFullScreen_js_1, translate_js_1, treatAjaxArguments_js_3, trim_js_2, uniqString_js_1, unique_js_2, upload_js_1, warning_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -10310,7 +10311,7 @@
             iterate: iterate_js_12.iterate,
             lightenDarkenHex: lightenDarkenHex_js_1.lightenDarkenHex,
             link: link_js_2.link,
-            log: log_js_22.log,
+            log: log_js_23.log,
             makeReactive: makeReactive_js_1.makeReactive,
             map: map_js_1.map,
             md5: md5_js_4.md5,
