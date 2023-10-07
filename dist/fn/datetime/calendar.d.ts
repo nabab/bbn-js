@@ -1,7 +1,7 @@
 /**
- * Returns a date with SQL format.
+ * Returns a date relative to the current day.
  *
- * @method   dateSQL
+ * @method   calendar
  * @global
  *
  * @example
@@ -13,7 +13,7 @@
  *
  * @memberof bbn.fn
  * @param    {Date|String} d
- * @param    {String | false} wrong_result Whether or not include the time in the date
+ * @param    {String | Boolean} wrong_result Whether or not include the time in the date
  * @returns  {String}
  */
 declare const calendar: (d: any, wrong_result?: boolean) => any;

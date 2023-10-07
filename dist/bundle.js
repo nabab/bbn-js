@@ -3695,10 +3695,11 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
+        //dayjs.extend(window['dayjs_plugin_calendar']);
         /**
-         * Returns a date with SQL format.
+         * Returns a date relative to the current day.
          *
-         * @method   dateSQL
+         * @method   calendar
          * @global
          *
          * @example
@@ -3710,7 +3711,7 @@
          *
          * @memberof bbn.fn
          * @param    {Date|String} d
-         * @param    {String | false} wrong_result Whether or not include the time in the date
+         * @param    {String | Boolean} wrong_result Whether or not include the time in the date
          * @returns  {String}
          */
         const calendar = function (d, wrong_result = false) {
@@ -3721,7 +3722,14 @@
             if (!(0, isDate_js_5.isDate)(r)) {
                 return wrong_result && (0, isString_js_8.isString)(wrong_result) ? wrong_result : '';
             }
-            return '';
+            return (0, dayjs_min_js_1.default)(r).calendar(null, {
+                sameDay: '[' + bbn._('Today') + ']',
+                nextDay: '[' + bbn._('Tomorrow') + ']',
+                nextWeek: 'ddd D',
+                lastDay: '[' + bbn._('Yesterday') + ']',
+                lastWeek: 'ddd D',
+                sameElse: 'L',
+            });
         };
         exports.calendar = calendar;
     });

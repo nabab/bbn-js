@@ -1793,9 +1793,9 @@ declare module "fn/datetime/fdate" {
 }
 declare module "fn/datetime/calendar" {
     /**
-     * Returns a date with SQL format.
+     * Returns a date relative to the current day.
      *
-     * @method   dateSQL
+     * @method   calendar
      * @global
      *
      * @example
@@ -1807,7 +1807,7 @@ declare module "fn/datetime/calendar" {
      *
      * @memberof bbn.fn
      * @param    {Date|String} d
-     * @param    {String | false} wrong_result Whether or not include the time in the date
+     * @param    {String | Boolean} wrong_result Whether or not include the time in the date
      * @returns  {String}
      */
     const calendar: (d: any, wrong_result?: boolean) => any;

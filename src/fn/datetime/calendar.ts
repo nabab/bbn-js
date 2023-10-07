@@ -5,10 +5,12 @@ import { isDate } from "../type/isDate.js";
 import { isString } from "../type/isString.js";
 import {}  from '../../../node_modules/dayjs/plugin/calendar.js';
 
+//dayjs.extend(window['dayjs_plugin_calendar']);
+
 /**
- * Returns a date with SQL format.
+ * Returns a date relative to the current day.
  *
- * @method   dateSQL
+ * @method   calendar
  * @global
  *
  * @example
@@ -20,7 +22,7 @@ import {}  from '../../../node_modules/dayjs/plugin/calendar.js';
  *
  * @memberof bbn.fn
  * @param    {Date|String} d
- * @param    {String | false} wrong_result Whether or not include the time in the date
+ * @param    {String | Boolean} wrong_result Whether or not include the time in the date
  * @returns  {String}
  */
 const calendar = function (d, wrong_result = false) {
@@ -32,7 +34,14 @@ const calendar = function (d, wrong_result = false) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
 	}
 
-	return '';
+	return dayjs(r).calendar(null, {
+		sameDay: '[' + bbn._('Today') + ']',
+		nextDay: '[' + bbn._('Tomorrow') + ']',
+		nextWeek: 'ddd D',
+		lastDay: '[' + bbn._('Yesterday') + ']',
+		lastWeek: 'ddd D',
+		sameElse: 'L',
+	});
 };
 
 export { calendar };
