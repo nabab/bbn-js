@@ -38,8 +38,8 @@ import { _compareValues } from './_compareValues';
  * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
  * @returns  {Array}        The same array (arr), ordered differently
  */
-const multiorder = function (arr: object[], orders: object|BbnOrderItem[]) {
-  let currentOrders: BbnOrderItem[];
+const multiorder = function (arr: object[], orders) {
+  let currentOrders;
 	if (!Array.isArray(orders) && typeof orders === 'object') {
     currentOrders = [];
 		for (var n in orders) {
