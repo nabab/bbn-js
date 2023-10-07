@@ -3793,7 +3793,7 @@
          *
          * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
          */
-        const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
+        const callback = function (url, res, fn = null, fn2 = null, ele = null) {
             let tmp = false;
             if (res) {
                 tmp = true;

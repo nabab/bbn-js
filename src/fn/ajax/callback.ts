@@ -41,8 +41,8 @@ import { defaultAlertFunction } from '../default/defaultAlertFunction';
  * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
  */
 const callback = function (
-	url: string,
-	res: any = null,
+	url,
+	res,
 	fn = null,
 	fn2 = null,
 	ele = null
