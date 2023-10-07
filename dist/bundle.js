@@ -10036,7 +10036,7 @@
         };
         exports.fn = fn;
     });
-    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "db", "fn"], function (require, exports, _2, _3, lng_1, vars_1, env_1, db_1, fn_1) {
+    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "db", "fn"], function (require, exports, __js_1, __js_2, lng_js_1, vars_js_1, env_js_1, db_js_1, fn_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.bbn = void 0;
@@ -10046,13 +10046,13 @@
                 _cat: {}
             },
             app: {},
-            _: _2._,
-            $: _3.$,
-            lng: lng_1.lng,
-            var: vars_1.vars,
-            env: env_1.env,
-            db: db_1.db,
-            fn: fn_1.fn
+            _: __js_1._,
+            $: __js_2.$,
+            lng: lng_js_1.lng,
+            var: vars_js_1.vars,
+            env: env_js_1.env,
+            db: db_js_1.db,
+            fn: fn_js_1.fn
         };
         exports.bbn = bbn;
         window.bbn = bbn;
