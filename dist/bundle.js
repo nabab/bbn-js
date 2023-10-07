@@ -5003,7 +5003,7 @@
          *
          * @returns  {undefined}
          */
-        const download = function (url, filename, params) {
+        const download = function (url, filename = '', params = null) {
             // We can intervert the arguments
             if (filename && typeof filename === "object") {
                 params = filename;

@@ -34,9 +34,9 @@ import { downloadContent } from "./downloadContent";
  * @returns  {undefined}
  */
 const download = function (
-  url: string,
-  filename?: string | object,
-  params?: object
+  url,
+  filename = '',
+  params = null
 ) {
   // We can intervert the arguments
   if (filename && typeof filename === "object") {
