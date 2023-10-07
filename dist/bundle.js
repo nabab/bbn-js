@@ -3695,10 +3695,11 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
+        const { dayjs_plugin_calendar } = calendar_js_1.default;
         const bbn = {
             _: st => st
         };
-        dayjs_min_js_1.default.extend(calendar_js_1.dayjs_plugin_calendar);
+        dayjs_min_js_1.default.extend(dayjs_plugin_calendar);
         /**
          * Returns a date relative to the current day.
          *
