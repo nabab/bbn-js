@@ -2131,7 +2131,7 @@
          * @memberof bbn.fn
          *
          * @param    {String}  requestId   The unique ID of the request sent
-         * @param    {*}       res     The result of the request
+         * @param    {String|Object}       res     The result of the request
          * @param    {Boolean} isAbort True if the deletion comes from abortion
          *
          * @returns  {Boolean} True if the loader was found
@@ -2196,7 +2196,7 @@
          *
          * @param    {String} requestId The unique ID of the request as used in bbn.env.loaders
          *
-         * @returns  {false|Object} The corresponding loader Object if it exists, false otherwise
+         * @returns  {null|Object} The corresponding loader Object if it exists, false otherwise
          */
         const getLoader = function (requestId) {
             let idx = (0, search_3.search)(bbn.env.loaders, { key: requestId });
@@ -3105,7 +3105,7 @@
          *
          * @returns  {Promise}  The Promise created by the generated XHR.
          */
-        const ajax = function (url, datatype, data, success, failure, abort) {
+        const ajax = function (url, datatype = null, data = null, success = null, failure = null, abort = null) {
             if (arguments.length === 1 && url && typeof url === "object" && url.url) {
                 if (url.abort) {
                     abort = url.abort;
@@ -3151,7 +3151,7 @@
                     cancelToken: source.token,
                 };
                 if (datatype === "text") {
-                    options.headers = {
+                    options['headers'] = {
                         accept: "text/javascript",
                         "Content-Type": "text/javascript",
                     };
@@ -3728,7 +3728,7 @@
          *
          * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
          */
-        const callback = function (url, res, fn = null, fn2 = null, ele = null) {
+        const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
             let tmp = false;
             if (res) {
                 tmp = true;
@@ -4926,7 +4926,7 @@
          *
          * @returns  {undefined}
          */
-        const downloadContent = function (filename, content, type) {
+        const downloadContent = function (filename, content, type = null) {
             if ((0, isCanvas_1.isCanvas)(content)) {
                 content.toBlob((blob) => {
                     // blob ready, download it
@@ -6704,7 +6704,7 @@
          */
         const link = function (...args) {
             let cfg = (0, treatAjaxArguments_1.treatAjaxArguments)(args);
-            let ok = true;
+            let ok = 1;
             /* If we can't find a correct link we load the current URL */
             if (!cfg) {
                 return link(window.location.href);
@@ -6756,9 +6756,9 @@
                     ok = cfg.successFn(cfg.url);
                 }
                 else if (bbn.fn.defaultPreLinkFunction) {
-                    ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
-                    if (ok.data !== undefined) {
-                        (0, extend_6.extend)(cfg.obj, ok.data);
+                    let tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
+                    if (tmp.data !== undefined) {
+                        (0, extend_6.extend)(cfg.obj, tmp.data);
                         ok = 1;
                     }
                 }

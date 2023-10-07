@@ -39,7 +39,7 @@ import { log } from '../browser/log';
  */
 const callback = function (
 	url,
-	res,
+	res = null,
 	fn = null,
 	fn2 = null,
 	ele = null

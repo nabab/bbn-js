@@ -29,7 +29,7 @@ import { log } from '../browser/log';
  * 
  * @returns  {undefined}
  */
-const downloadContent = function (filename: string, content: any, type?: string) {
+const downloadContent = function (filename, content, type = null) {
 	if (isCanvas(content)) {
 		content.toBlob((blob) => {
 			// blob ready, download it

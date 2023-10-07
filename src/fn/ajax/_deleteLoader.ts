@@ -11,12 +11,12 @@ import { isObject } from '../type/isObject';
  * @memberof bbn.fn
  * 
  * @param    {String}  requestId   The unique ID of the request sent
- * @param    {*}       res     The result of the request
+ * @param    {String|Object}       res     The result of the request
  * @param    {Boolean} isAbort True if the deletion comes from abortion
  * 
  * @returns  {Boolean} True if the loader was found
  */
-const _deleteLoader = function (requestId: string, res: any = null, isAbort: boolean = false) {
+const _deleteLoader = function (requestId, res = null, isAbort = false) {
 	let idx = search(bbn.env.loaders, { key: requestId });
 	if (idx > -1) {
 		let loader: BbnLoader = bbn.env.loaders.splice(idx, 1)[0];

@@ -41,7 +41,7 @@ interface Res {
  */
 const link = function (...args) {
 	let cfg = treatAjaxArguments(args);
-	let ok: any = true;
+	let ok = 1;
 	/* If we can't find a correct link we load the current URL */
 	if (!cfg) {
 		return link(window.location.href);
@@ -92,9 +92,9 @@ const link = function (...args) {
 		if (cfg.successFn) {
 			ok = cfg.successFn(cfg.url);
 		} else if (bbn.fn.defaultPreLinkFunction) {
-			ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
-			if (ok.data !== undefined) {
-				extend(cfg.obj, ok.data);
+			let tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
+			if (tmp.data !== undefined) {
+				extend(cfg.obj, tmp.data);
 				ok = 1;
 			}
 		}
@@ -109,7 +109,7 @@ const link = function (...args) {
 				cfg.url,
 				cfg.datatype,
 				cfg.obj,
-				function (res: Res) {
+				function (res) {
 					if (!res) {
 						log(errSt + bbn._('returned no answer'));
 					}

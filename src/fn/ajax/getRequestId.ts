@@ -49,7 +49,7 @@ import { md5 } from '../string/md5';
  * 
  * @returns  {String} The unique ID
  */
-const getRequestId = function (url, data, datatype): string
+const getRequestId = function (url, data, datatype)
 {
 	let d = {};
 	if (data) {

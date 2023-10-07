@@ -33,9 +33,9 @@ import { search } from '../object/search';
  * 
  * @param    {String} requestId The unique ID of the request as used in bbn.env.loaders
  * 
- * @returns  {false|Object} The corresponding loader Object if it exists, false otherwise
+ * @returns  {null|Object} The corresponding loader Object if it exists, false otherwise
  */
-const getLoader = function (requestId: string): BbnLoader | null
+const getLoader = function (requestId)
 {
 	let idx = search(bbn.env.loaders, {key: requestId});
 	if (idx > -1) {

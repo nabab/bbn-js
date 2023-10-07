@@ -9,21 +9,6 @@ import { _deleteLoader } from "./_deleteLoader";
 import { isFunction } from "../type/isFunction";
 import { _addLoader } from "./_addLoader";
 
-interface Ajax {
-  url: string;
-  datatype?: string;
-  data?: object;
-  success?: (data, headers) => any;
-  failure?: (url: string, o?: object) => any;
-  abort?: (message: string, url: string) => any;
-}
-
-interface Options {
-  responseType: string;
-  cancelToken: string;
-  headers?: object;
-}
-
 /**
  * Creates an XHR object and returns the Promise.
  *
@@ -81,12 +66,12 @@ interface Options {
  * @returns  {Promise}  The Promise created by the generated XHR.
  */
 const ajax = function (
-  url: any,
-  datatype: string,
-  data,
-  success?: (data: object, headers?: object) => any,
-  failure?: (url: string, o?: object) => any,
-  abort?: (message: string, url: string) => any
+  url,
+  datatype = null,
+  data = null,
+  success = null,
+  failure = null,
+  abort = null
 ) {
   if (arguments.length === 1 && url && typeof url === "object" && url.url) {
     if (url.abort) {
@@ -132,12 +117,12 @@ const ajax = function (
     }
     let cancelToken = axios.CancelToken;
     let source = cancelToken.source();
-    let options: Options = {
+    let options = {
       responseType: datatype,
       cancelToken: source.token,
     };
     if (datatype === "text") {
-      options.headers = {
+      options['headers'] = {
         accept: "text/javascript",
         "Content-Type": "text/javascript",
       };
@@ -165,7 +150,7 @@ const ajax = function (
         }
         return res;
       })
-      .catch((err: bbnXHR) => {
+      .catch((err) => {
         let isAbort = axios.isCancel(err);
         _deleteLoader(requestId, err.message || err.response.data, isAbort);
         bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
