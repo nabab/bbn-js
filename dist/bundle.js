@@ -3691,7 +3691,7 @@
         };
         exports.fdate = fdate;
     });
-    define("fn/datetime/calendar", ["require", "exports", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString", "../../../node_modules/dayjs/dayjs.min.js"], function (require, exports, fdate_js_1, date_js_3, isDate_js_5, isString_js_8, dayjs_min_js_1) {
+    define("fn/datetime/calendar", ["require", "exports", "../../../node_modules/dayjs/dayjs.min.js", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, dayjs_min_js_1, fdate_js_1, date_js_3, isDate_js_5, isString_js_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
