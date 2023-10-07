@@ -1,6 +1,8 @@
 import {expect} from 'chai';
 import {} from 'jsdom-global';
-import {} from '../dist/index.js';
+import {} from '../dist/fn/type/isEmail.js';
+import {} from '../dist/fn/type/isColor.js';
+import {} from '../dist/fn/type/isDom.js';
 
 describe(`Type Functions`, () => {
   describe(`isEmail`, () => {
