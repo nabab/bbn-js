@@ -4326,7 +4326,7 @@
         const dateSQL = function (v, dayOnly) {
             let value = (0, date_js_4.date)(v);
             if (value) {
-                return (0, dayjs_min_js_1.dayjs)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
+                return (0, dayjs_min_js_1.default)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
             }
         };
         exports.dateSQL = dateSQL;
