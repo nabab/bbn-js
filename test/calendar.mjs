@@ -9,7 +9,7 @@ describe('calendar', function() {
         const result = calendar(testDate);
 
         // Making a basic assertion, you can make more assertions based on your requirements
-        expect(result).to.equal('today');
+        expect(result).to.equal('Today');
         // ... more assertions based on other properties of the expected result
     });
 
