@@ -3699,7 +3699,7 @@
         const bbn = {
             _: st => st
         };
-        dayjs_min_js_1.default.extend(dayjs_plugin_calendar);
+        dayjs_min_js_1.default.extend(calendar_js_1.default);
         /**
          * Returns a date relative to the current day.
          *

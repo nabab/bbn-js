@@ -8,7 +8,7 @@ const { dayjs_plugin_calendar } = pkg;
 const bbn = {
     _: st => st
 };
-dayjs.extend(dayjs_plugin_calendar);
+dayjs.extend(pkg);
 /**
  * Returns a date relative to the current day.
  *
