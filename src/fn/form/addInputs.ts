@@ -41,7 +41,7 @@ import { iterate } from '../loop/iterate';
  * @param    {String}      prefix The optional object's name of the fields in the form
  * @returns  {undefined}
  */
-const addInputs = function (form: HTMLFormElement, params: object = null, prefix: string = '') {
+const addInputs = function (form, params = null, prefix = '') {
 	if (form && form.tagName === 'FORM') {
 		let appendToForm = (name, val) => {
 			let input = document.createElement('input');

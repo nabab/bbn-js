@@ -36,10 +36,10 @@ import { isNumber } from "../type/isNumber";
  * @returns  {undefined}
  */
 const fori = function (
-  arr: any[],
-  fn: (a: any, i: number) => any,
-  max: number = arr.length - 1,
-  min: number = 0
+  arr,
+  fn,
+  max = arr.length - 1,
+  min = 0
 ) {
   if (isArray(arr)) {
     let realMax = arr.length - 1;

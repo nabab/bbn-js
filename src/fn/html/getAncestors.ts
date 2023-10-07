@@ -1,6 +1,6 @@
 import { isString } from '../type/isString';
 
-const getAncestors = function (ele: Element|String, selector?: true|string): Element[]
+const getAncestors = function (ele, selector = null)
 {
 	let r = [];
 	if (typeof ele === 'string') {

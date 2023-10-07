@@ -1,4 +1,4 @@
-const getText = function (ele): string
+const getText = function (ele)
 {
 	return ele.innerText().trim();
 };

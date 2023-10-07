@@ -4,9 +4,9 @@
  * @todo     Add method description for selector
  * @global
  * @memberof bbn.fn
- * @returns  {*}
+ * @returns  {HTMLElement | undefined}
  */
-const selector = function (ele: string | HTMLElement): HTMLElement | undefined {
+const selector = function (ele) {
   return typeof ele === "string" ? document.querySelector(ele) : ele;
 };
 

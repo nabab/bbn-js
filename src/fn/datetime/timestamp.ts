@@ -11,7 +11,7 @@
  * @param    {Number} seconds
  * @returns  {Boolean}            
  */
-const timestamp = function (seconds?: boolean): number
+const timestamp = function (seconds = false)
 {
 	let r = new Date().getTime();
 	return seconds ? Math.round(r / 1000) : r;

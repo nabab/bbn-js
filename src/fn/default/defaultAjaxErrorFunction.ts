@@ -1,6 +1,6 @@
 import { log } from '../browser/log';
 
-const defaultAjaxErrorFunction = function (jqXHR: any, textStatus?: string, errorThrown?: object) {
+const defaultAjaxErrorFunction = function (jqXHR, textStatus = null, errorThrown = null) {
 	log(textStatus, errorThrown);
 };
 

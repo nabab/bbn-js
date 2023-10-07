@@ -3615,7 +3615,7 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const fdatetime = function (d, wrong_result) {
+        const fdatetime = function (d, wrong_result = false) {
             let r = (0, date_1.date)(d);
             if (!(0, isDate_3.isDate)(r)) {
                 return wrong_result && (0, isString_6.isString)(wrong_result) ? wrong_result : '';
@@ -3649,7 +3649,7 @@
          * @param    {String}      wrong_result
          * @returns
          */
-        const fdate = function (d, wrong_result) {
+        const fdate = function (d, wrong_result = false) {
             // Retro compatibility
             if (wrong_result === true) {
                 return (0, fdatetime_1.fdatetime)(d);
@@ -3670,7 +3670,7 @@
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
         dayjs.extend(window['dayjs_plugin_calendar']);
-        const calendar = function (d, wrong_result) {
+        const calendar = function (d, wrong_result = false) {
             if (undefined === dayjs) {
                 return (0, fdate_1.fdate)(d, wrong_result);
             }
@@ -4426,7 +4426,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxErrorFunction = void 0;
-        const defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
+        const defaultAjaxErrorFunction = function (jqXHR, textStatus = null, errorThrown = null) {
             (0, log_10.log)(textStatus, errorThrown);
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
@@ -4435,7 +4435,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAlertFunction = void 0;
-        const defaultAlertFunction = function (msg, title) {
+        const defaultAlertFunction = function (msg, title = null) {
             /** @todo */
             alert(msg);
         };
@@ -4445,7 +4445,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultConfirmFunction = void 0;
-        const defaultConfirmFunction = function (text, yesFn, noFn) {
+        const defaultConfirmFunction = function (text, yesFn, noFn = null) {
             let ok = 0;
             if (confirm(text)) {
                 if ((0, isFunction_6.isFunction)(yesFn)) {
@@ -4463,7 +4463,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultEndLoadingFunction = void 0;
-        const defaultEndLoadingFunction = function (url, timestamp, data, res) {
+        const defaultEndLoadingFunction = function (url, timestamp, data = null, res = null) {
             return true;
         };
         exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
@@ -4499,7 +4499,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPostLinkFunction = void 0;
-        const defaultPostLinkFunction = function (r, ele) {
+        const defaultPostLinkFunction = function (r, ele = null) {
             return true;
         };
         exports.defaultPostLinkFunction = defaultPostLinkFunction;
@@ -4508,7 +4508,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPreLinkFunction = void 0;
-        const defaultPreLinkFunction = function (url, force, ele) {
+        const defaultPreLinkFunction = function (url, force = false, ele = null) {
             (0, log_12.log)("defaultPreLinkFunction", url, force, ele);
             return true;
         };
@@ -4527,7 +4527,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultStartLoadingFunction = void 0;
-        const defaultStartLoadingFunction = function (url, tst, data, requestId = null) {
+        const defaultStartLoadingFunction = function (url, tst, data = null, requestId = null) {
             return true;
         };
         exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
@@ -5701,7 +5701,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAncestors = void 0;
-        const getAncestors = function (ele, selector) {
+        const getAncestors = function (ele, selector = null) {
             let r = [];
             if (typeof ele === 'string') {
                 ele = document.querySelector(ele);
@@ -8423,7 +8423,7 @@
          * @param    {Array}             ignoreList
          * @returns
          */
-        const objectToFormData = function (obj, key = '', ignoreList) {
+        const objectToFormData = function (obj, key = '', ignoreList = null) {
             let formData = new FormData();
             let appendFormData = (data, key = '') => {
                 if (!ignoreList || ((0, isArray_15.isArray)(ignoreList) && !ignoreList.includes(key))) {
@@ -8504,7 +8504,7 @@
          * @todo     Add method description for selector
          * @global
          * @memberof bbn.fn
-         * @returns  {*}
+         * @returns  {HTMLElement | undefined}
          */
         const selector = function (ele) {
             return typeof ele === "string" ? document.querySelector(ele) : ele;
@@ -9089,7 +9089,7 @@
          * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
          * @returns  {Object}
          */
-        const riterate = function (obj, fn, noPrivate) {
+        const riterate = function (obj, fn, noPrivate = false) {
             return (0, iterate_10.iterate)(obj, fn, noPrivate, true);
         };
         exports.riterate = riterate;
@@ -9536,7 +9536,7 @@
          * @param    {Number} seconds
          * @returns  {Boolean}
          */
-        const timestamp = function (seconds) {
+        const timestamp = function (seconds = false) {
             let r = new Date().getTime();
             return seconds ? Math.round(r / 1000) : r;
         };

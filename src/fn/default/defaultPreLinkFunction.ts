@@ -1,6 +1,6 @@
 import { log } from '../browser/log';
 
-const defaultPreLinkFunction = function (url: string, force?: boolean, ele?: HTMLElement): any
+const defaultPreLinkFunction = function (url, force = false, ele = null)
 {
 	log("defaultPreLinkFunction", url, force, ele);
 	return true;

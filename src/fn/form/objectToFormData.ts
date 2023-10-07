@@ -14,7 +14,7 @@ import { isNull } from '../type/isNull';
  * @param    {Array}             ignoreList 
  * @returns                      
  */
-const objectToFormData = function (obj: object, key: string = '', ignoreList?: string[]) {
+const objectToFormData = function (obj, key = '', ignoreList = null) {
 	let formData = new FormData();
 	let appendFormData = (data, key = '') => {
 		if (!ignoreList || (isArray(ignoreList) && !ignoreList.includes(key))) {

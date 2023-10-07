@@ -20,9 +20,9 @@ import { iterate } from "./iterate";
  * @returns  {Object}
  */
 const riterate = function (
-  obj: object,
-  fn: (a: any, b: string) => any,
-  noPrivate?: boolean
+  obj,
+  fn,
+  noPrivate = false
 ) {
   return iterate(obj, fn, noPrivate, true);
 };

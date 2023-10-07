@@ -12,7 +12,7 @@ import { isString } from '../type/isString';
  * @param    {String}      wrong_result
  * @returns                
  */
-const fdate = function (d: Date|number|string, wrong_result?: boolean|string) {
+const fdate = function (d, wrong_result = false) {
 	// Retro compatibility
 	if (wrong_result === true) {
 		return fdatetime(d);

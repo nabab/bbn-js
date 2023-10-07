@@ -1,4 +1,4 @@
-const defaultEndLoadingFunction = function (url: string, timestamp: number, data?: object, res?: object) {
+const defaultEndLoadingFunction = function (url, timestamp, data = null, res = null) {
 	return true;
 };
 

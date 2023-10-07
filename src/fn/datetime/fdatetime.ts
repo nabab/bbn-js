@@ -9,7 +9,7 @@ import { isString } from '../type/isString';
  * @memberof bbn.fn
  * @returns  {*} 
  */
-const fdatetime = function (d?: Date | number | string, wrong_result?: boolean | string) {
+const fdatetime = function (d, wrong_result = false) {
 	let r = date(d);
 	if (!isDate(r)) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';

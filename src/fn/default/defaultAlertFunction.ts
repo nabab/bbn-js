@@ -1,4 +1,4 @@
-const defaultAlertFunction = function (msg: string, title?: string) {
+const defaultAlertFunction = function (msg, title = null) {
   /** @todo */
   alert(msg);
 };

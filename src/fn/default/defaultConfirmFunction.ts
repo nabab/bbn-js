@@ -1,9 +1,9 @@
 import { isFunction } from "../type/isFunction";
 
 const defaultConfirmFunction = function (
-  text: string,
-  yesFn: () => any,
-  noFn: () => any
+  text,
+  yesFn,
+  noFn = null
 ) {
   let ok = 0;
   if (confirm(text)) {

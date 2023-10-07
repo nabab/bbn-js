@@ -21,10 +21,10 @@ import { removePrivateProp } from "../object/removePrivateProp";
  * @returns  {Object}
  */
 const iterate = function (
-  obj: object,
-  fn: (a: any, b: string) => any,
-  noPrivate: boolean = false,
-  reverse: boolean = false
+  obj,
+  fn,
+  noPrivate = false,
+  reverse = false
 ) {
   if (obj !== null && typeof obj === "object") {
     let iter = Object.keys(noPrivate ? removePrivateProp(obj) : obj);

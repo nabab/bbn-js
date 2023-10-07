@@ -8,7 +8,7 @@ import { replaceAll } from '../string/replaceAll';
  * @memberof bbn.fn
  * @returns  {*} 
  */
-const getPath = function (element): string {
+const getPath = function (element) {
 	let path,
 		//node = $(element),
 		node = element,

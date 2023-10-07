@@ -46,7 +46,7 @@ import { substr } from '../string/substr';
  * 
  * @returns  {Object}
  */
-const formdata = function (form: HTMLFormElement) {
+const formdata = function (form) {
 	let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
 	let res = {};
 	let n;

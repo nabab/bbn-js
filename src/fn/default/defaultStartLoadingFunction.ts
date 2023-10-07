@@ -1,5 +1,5 @@
 
-const defaultStartLoadingFunction = function(url: string, tst: number, data?: object, requestId: string = null) {
+const defaultStartLoadingFunction = function(url, tst, data = null, requestId = null) {
   return true;
 };
 

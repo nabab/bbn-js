@@ -1,4 +1,4 @@
-const defaultPostLinkFunction = function (r: object, ele?: HTMLElement) {
+const defaultPostLinkFunction = function (r, ele = null) {
 	return true;
 };
 

@@ -5,7 +5,7 @@ import { isString } from '../type/isString';
 
 dayjs.extend(window['dayjs_plugin_calendar']);
 
-const calendar = function (d?: Date|number|string, wrong_result?: string) {
+const calendar = function (d, wrong_result = false) {
 	if (undefined === dayjs) {
 		return fdate(d, wrong_result);
 	}
