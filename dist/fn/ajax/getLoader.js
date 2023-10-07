@@ -1,4 +1,4 @@
-import { search } from '../object/search';
+import { search } from '../object/search.js';
 /**
  * Finds the loader object corresponding to the given unique ID and returns it if found.
  *
@@ -34,8 +34,8 @@ import { search } from '../object/search';
  *
  * @returns  {null|Object} The corresponding loader Object if it exists, false otherwise
  */
-const getLoader = function (requestId) {
-    let idx = search(bbn.env.loaders, { key: requestId });
+var getLoader = function (requestId) {
+    var idx = search(bbn.env.loaders, { key: requestId });
     if (idx > -1) {
         return bbn.env.loaders[idx];
     }

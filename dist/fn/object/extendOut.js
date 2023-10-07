@@ -1,4 +1,4 @@
-import { isObject } from '../type/isObject';
+import { isObject } from '../type/isObject.js';
 /**
  * Returns a new object made of the properties from all the given objects.
  *
@@ -15,9 +15,14 @@ import { isObject } from '../type/isObject';
  * @memberof bbn.fn
  * @returns  {Object}
  */
-const extendOut = function (...args) {
-    let r = null;
-    for (let a of args) {
+var extendOut = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var r = null;
+    for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+        var a = args_1[_a];
         if (!isObject(a)) {
             throw new Error("Each argument for extendOut must be an object, " + typeof a + " given");
         }
@@ -25,7 +30,7 @@ const extendOut = function (...args) {
             r = a;
         }
         else {
-            for (let n in a) {
+            for (var n in a) {
                 if (isObject(r[n], a[n])) {
                     extendOut(r[n], a[n]);
                 }

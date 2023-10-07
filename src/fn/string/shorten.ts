@@ -1,5 +1,5 @@
-import { isString } from '../type/isString' ;
-import { substr } from './substr' ;
+import { isString } from '../type/isString.js'  ;
+import { substr } from './substr.js'  ;
 
 /**
  * Shortens the given string after *len* characters.

@@ -1,6 +1,6 @@
-import { date } from './date';
-import { isDate } from '../type/isDate';
-import { isString } from '../type/isString';
+import { date } from './date.js';
+import { isDate } from '../type/isDate.js';
+import { isString } from '../type/isString.js';
 /**
  * @method   fdatetime
  * @todo     Add method description for fdatetime
@@ -8,8 +8,9 @@ import { isString } from '../type/isString';
  * @memberof bbn.fn
  * @returns  {*}
  */
-const fdatetime = function (d, wrong_result = false) {
-    let r = date(d);
+var fdatetime = function (d, wrong_result) {
+    if (wrong_result === void 0) { wrong_result = false; }
+    var r = date(d);
     if (!isDate(r)) {
         return wrong_result && isString(wrong_result) ? wrong_result : '';
     }

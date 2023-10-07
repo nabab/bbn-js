@@ -1,4 +1,4 @@
-import { isString } from './isString' ;
+import { isString } from './isString.js'  ;
 
 /**
  * Intended to check if the argument provided is an e-mail address written correctly

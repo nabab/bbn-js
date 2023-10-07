@@ -1,4 +1,4 @@
-import { randomInt } from '../misc/randomInt';
+import { randomInt } from '../misc/randomInt.js';
 /**
  * Returns a random String with random lenght,
  *
@@ -25,10 +25,10 @@ import { randomInt } from '../misc/randomInt';
  * @param    {String} chars
  * @returns  {String}
  */
-const randomString = function (min, max, types) {
-    let length;
-    let type;
-    let chars = {
+var randomString = function (min, max, types) {
+    var length;
+    var type;
+    var chars = {
         n: "0123456789",
         l: "abcdefghijklmnopqrstuvwxyz",
         u: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -54,8 +54,8 @@ const randomString = function (min, max, types) {
     else if (min) {
         length = min;
     }
-    let result = "";
-    for (let i = 0; i < length; i++) {
+    var result = "";
+    for (var i = 0; i < length; i++) {
         // Not a number for the first char
         if (i === 0) {
             if (types !== "n") {

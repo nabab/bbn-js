@@ -1,4 +1,4 @@
-import { each } from '../loop/each';
+import { each } from '../loop/each.js';
 /**
  * Returns the value of the given property from the given object.
  *
@@ -27,22 +27,22 @@ import { each } from '../loop/each';
  * @param    {String} prop
  * @returns  {*}      The property's value or undefined
  */
-const setProperty = function (obj, prop, value, force) {
+var setProperty = function (obj, prop, value, force) {
     if (typeof obj === 'object' && typeof prop === 'string') {
-        let o = obj;
-        const bits = prop.split('.');
-        each(bits, (v, i) => {
-            if (!o) {
+        var o_1 = obj;
+        var bits_1 = prop.split('.');
+        each(bits_1, function (v, i) {
+            if (!o_1) {
                 if (!force) {
                     throw new Error(bbn._('The object is invalid'));
                 }
-                o = {};
+                o_1 = {};
             }
-            if (bits.length - 1 === i) {
-                o[v] = value;
+            if (bits_1.length - 1 === i) {
+                o_1[v] = value;
             }
             else {
-                o = o[v];
+                o_1 = o_1[v];
             }
         });
     }

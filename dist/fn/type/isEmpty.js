@@ -1,5 +1,5 @@
-import { isArray } from './isArray';
-import { numProperties } from '../object/numProperties';
+import { isArray } from './isArray.js';
+import { numProperties } from '../object/numProperties.js';
 /**
  * Checks if the argument is empty or not.
  * @method   isEmpty
@@ -39,7 +39,7 @@ import { numProperties } from '../object/numProperties';
  * @param    {*} obj
  * @returns  {Boolean}
  */
-const isEmpty = function (obj) {
+var isEmpty = function (obj) {
     if (!obj) {
         return true;
     }

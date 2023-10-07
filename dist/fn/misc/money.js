@@ -1,4 +1,4 @@
-import { isNumber } from '../type/isNumber';
+import { isNumber } from '../type/isNumber.js';
 /**
  * Returns the given value to money format basing on the given configuration.
  *
@@ -20,7 +20,7 @@ import { isNumber } from '../type/isNumber';
  * @param {String} thousands The character to use to separate thounsands.
  * @param {Number} precision The number of decimals places.
  */
-const money = function (val, kilo, currency, novalue, decimal, thousands, precision) {
+var money = function (val, kilo, currency, novalue, decimal, thousands, precision) {
     /*
     money(val, kilo){
       let decimal = ',',
@@ -82,7 +82,7 @@ const money = function (val, kilo, currency, novalue, decimal, thousands, precis
         precision = kilo ? 3 : 0;
     }
     if ((val === 0) && (typeof precision === 'number') && (precision > 0)) {
-        let res = val.toFixed(precision).replace('.', decimal);
+        var res = val.toFixed(precision).replace('.', decimal);
         if (currency) {
             res += ' ' + (kilo ? 'K' + currency : currency);
         }
@@ -100,9 +100,9 @@ const money = function (val, kilo, currency, novalue, decimal, thousands, precis
             currency = 'K' + currency;
         }
     }
-    let v = val.toFixed(precision);
-    let decimalPosition = 0;
-    let decimalIdx = 10000;
+    var v = val.toFixed(precision);
+    var decimalPosition = 0;
+    var decimalIdx = 10000;
     if (v) {
         decimalIdx = v.indexOf('.');
         if (decimalIdx <= 0) {

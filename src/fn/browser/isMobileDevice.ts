@@ -1,4 +1,4 @@
-import { getDeviceType } from '../browser/getDeviceType' ;
+import { getDeviceType } from '../browser/getDeviceType.js'  ;
 
 const isMobileDevice = function ()
 {

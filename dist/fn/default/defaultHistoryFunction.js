@@ -1,4 +1,4 @@
-const defaultHistoryFunction = function (obj) {
+var defaultHistoryFunction = function (obj) {
     return true;
 };
 export { defaultHistoryFunction };

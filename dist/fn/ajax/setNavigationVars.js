@@ -1,7 +1,7 @@
-import { substr } from '../string/substr';
-import { filter } from '../object/filter';
-import { extend } from '../object/extend';
-import { html2text } from '../html/html2text';
+import { substr } from '../string/substr.js';
+import { filter } from '../object/filter.js';
+import { extend } from '../object/extend.js';
+import { html2text } from '../html/html2text.js';
 /**
  * Changes the URL and the associated variables and updates the history.
  *
@@ -25,7 +25,9 @@ import { html2text } from '../html/html2text';
  *
  * @returns  {void}
  */
-const setNavigationVars = function (url, title, data = null, repl = false) {
+var setNavigationVars = function (url, title, data, repl) {
+    if (data === void 0) { data = null; }
+    if (repl === void 0) { repl = false; }
     // Current path becomes old path
     bbn.env.old_path = bbn.env.path;
     // URL includes the domain
@@ -33,16 +35,16 @@ const setNavigationVars = function (url, title, data = null, repl = false) {
     // Path does not
     bbn.env.path = substr(bbn.env.url, bbn.env.root.length);
     // Params will include each part of the URL
-    bbn.env.params = filter(bbn.env.path.split('/'), (v) => {
+    bbn.env.params = filter(bbn.env.path.split('/'), function (v) {
         return v !== '';
     });
     // Managing history
-    let h = window.history;
+    var h = window.history;
     if (h) {
         // Current state
-        let state = h.state;
+        var state = h.state;
         // Future state
-        let obj = {
+        var obj = {
             url: bbn.env.path,
             old_path: bbn.env.old_path || null,
             data: data || {},

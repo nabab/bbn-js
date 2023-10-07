@@ -1,6 +1,6 @@
-import { checkType } from '../type/checkType';
-import { filter } from './filter';
-import { each } from '../loop/each';
+import { checkType } from '../type/checkType.js';
+import { filter } from './filter.js';
+import { each } from '../loop/each.js';
 /**
  * Returns all the unique values of the given field (property) from the first object matching the given filter in an array.
  *
@@ -29,13 +29,13 @@ import { each } from '../loop/each';
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {*}
  */
-const getFieldValues = function (arr, field, prop, val, operator) {
+var getFieldValues = function (arr, field, prop, val, operator) {
     checkType(field, 'string');
     if (prop) {
         arr = filter(arr, prop, val, operator);
     }
-    let res = [];
-    each(arr, (a) => (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null));
+    var res = [];
+    each(arr, function (a) { return (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null); });
     return res;
 };
 export { getFieldValues };

@@ -1,6 +1,6 @@
-import { isNumber } from '../type/isNumber';
-import { isIterable } from '../type/isIterable';
-import { iterate } from './iterate';
+import { isNumber } from '../type/isNumber.js';
+import { isIterable } from '../type/isIterable.js';
+import { iterate } from './iterate.js';
 /**
  * Executes the provided function on each element of the given array.
  *
@@ -32,9 +32,9 @@ import { iterate } from './iterate';
  * @param    {Function}  fn  The function, gets the array's element and the index as arguments
  * @returns  {[Array, Object, void]}
  */
-const each = function (arr, fn) {
+var each = function (arr, fn) {
     if (isNumber(arr) && arr > 0) {
-        for (let i = 0; i < arr; i++) {
+        for (var i = 0; i < arr; i++) {
             if (fn(i, i) === false) {
                 return;
             }
@@ -42,7 +42,7 @@ const each = function (arr, fn) {
         return;
     }
     if (isIterable(arr)) {
-        for (let i = 0; i < arr.length; i++) {
+        for (var i = 0; i < arr.length; i++) {
             if (fn(arr[i], i) === false) {
                 return;
             }

@@ -1,5 +1,5 @@
-import { isObject } from '../type/isObject';
-import { escapeRegExp } from './escapeRegExp';
+import { isObject } from '../type/isObject.js';
+import { escapeRegExp } from './escapeRegExp.js';
 /**
  * Looks for and replaces parts of string with what we want.
  *
@@ -21,7 +21,8 @@ import { escapeRegExp } from './escapeRegExp';
  * @param    {String} flags
  * @returns  {String}
  */
-const replaceAll = function (find, replace, str, flags = "") {
+var replaceAll = function (find, replace, str, flags) {
+    if (flags === void 0) { flags = ""; }
     return str
         .toString()
         .replace(isObject(find) ? find : new RegExp(escapeRegExp(find), "g" + flags), replace);

@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-const repeat = function (st, num) {
+var repeat = function (st, num) {
     return st.repeat(num);
 };
 export { repeat };

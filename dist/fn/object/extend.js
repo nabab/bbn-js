@@ -1,7 +1,7 @@
-import { iterate } from '../loop/iterate';
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { isObject } from '../type/isObject';
+import { iterate } from '../loop/iterate.js';
+import { isArray } from '../type/isArray.js';
+import { each } from '../loop/each.js';
+import { isObject } from '../type/isObject.js';
 /**
  * Merges the contents of two or more objects together into the first object.
  *
@@ -87,10 +87,14 @@ import { isObject } from '../type/isObject';
  * @memberof bbn.fn
  * @returns  {Object} The first object argument, merged with the other objects given
  */
-const extend = function (...originalArgs) {
-    let deep = false;
-    let args = [];
-    for (let i = 0; i < originalArgs.length; i++) {
+var extend = function () {
+    var originalArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        originalArgs[_i] = arguments[_i];
+    }
+    var deep = false;
+    var args = [];
+    for (var i = 0; i < originalArgs.length; i++) {
         if (originalArgs[i] === true) {
             deep = true;
         }
@@ -107,15 +111,15 @@ const extend = function (...originalArgs) {
     if (!args.length) {
         throw new Error("No argument given");
     }
-    let out = args[0];
-    for (let i = 1; i < args.length; i++) {
-        iterate(args[i], (a, key) => {
+    var out = args[0];
+    for (var i = 1; i < args.length; i++) {
+        iterate(args[i], function (a, key) {
             if (deep) {
                 if (isArray(a)) {
                     out[key] = isArray(out[key]) ? out[key] : [];
-                    each(a, (b, i) => {
+                    each(a, function (b, i) {
                         if (b && typeof b === "object") {
-                            let tmp = out[key][i];
+                            var tmp = out[key][i];
                             if (isArray(b)) {
                                 if (!isArray(tmp)) {
                                     tmp = [];

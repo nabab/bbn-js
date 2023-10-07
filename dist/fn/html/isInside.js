@@ -1,18 +1,18 @@
-import { getAncestors } from './getAncestors';
-import { isString } from '../type/isString';
-import { each } from '../loop/each';
-const isInside = function (ele, ancestor) {
-    let ancestors = getAncestors(ele);
+import { getAncestors } from './getAncestors.js';
+import { isString } from '../type/isString.js';
+import { each } from '../loop/each.js';
+var isInside = function (ele, ancestor) {
+    var ancestors = getAncestors(ele);
     if (ancestors.length) {
         if (isString(ancestor)) {
-            let ok = false;
-            each(ancestors, (a) => {
+            var ok_1 = false;
+            each(ancestors, function (a) {
                 if (a.matches && a.matches(ancestor)) {
-                    ok = true;
+                    ok_1 = true;
                     return false;
                 }
             });
-            return ok;
+            return ok_1;
         }
         if (ancestor instanceof HTMLElement) {
             return ancestors.indexOf(ancestor) > -1;

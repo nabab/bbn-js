@@ -1,4 +1,4 @@
-const vars = {
+var vars = {
     loggers: {
         _num: 0
     },

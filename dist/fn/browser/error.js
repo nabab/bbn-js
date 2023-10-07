@@ -1,4 +1,4 @@
-import { log } from './log';
+import { log } from './log.js';
 /**
  * Throws an error.
  * @method   error
@@ -11,10 +11,10 @@ import { log } from './log';
  * @param    {String} errorMsg
  * @returns
  */
-const error = function (errorMsg) {
+var error = function (errorMsg) {
     if (arguments.length > 1) {
-        const args = [];
-        for (let i = 1; i < arguments.length; i++) {
+        var args = [];
+        for (var i = 1; i < arguments.length; i++) {
             args.push(arguments[i]);
         }
         args.unshift({

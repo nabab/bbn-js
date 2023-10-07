@@ -15,7 +15,7 @@
  * @param    {String} str
  * @returns  {String} string with escape
  */
-const escapeRegExp = function (str) {
+var escapeRegExp = function (str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 };
 export { escapeRegExp };

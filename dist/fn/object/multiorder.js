@@ -1,4 +1,4 @@
-import { _compareValues } from './_compareValues';
+import { _compareValues } from './_compareValues.js';
 /**
  * Sorts an array of objects based on a set of properties.
  *
@@ -37,11 +37,11 @@ import { _compareValues } from './_compareValues';
  * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
  * @returns  {Array}        The same array (arr), ordered differently
  */
-const multiorder = function (arr, orders) {
+var multiorder = function (arr, orders) {
     if (!orders) {
         return arr;
     }
-    let currentOrders;
+    var currentOrders;
     if (!Array.isArray(orders) && typeof orders === 'object') {
         currentOrders = [];
         for (var n in orders) {
@@ -54,10 +54,11 @@ const multiorder = function (arr, orders) {
     if (!Array.isArray(currentOrders)) {
         throw new Error('The orders argument must be an array');
     }
-    let r = arr.slice();
-    return r.sort((a, b) => {
-        let res;
-        for (let order of currentOrders) {
+    var r = arr.slice();
+    return r.sort(function (a, b) {
+        var res;
+        for (var _i = 0, currentOrders_1 = currentOrders; _i < currentOrders_1.length; _i++) {
+            var order = currentOrders_1[_i];
             res = _compareValues(a, b, order.field, order.dir);
             if (res !== 0) {
                 return res;

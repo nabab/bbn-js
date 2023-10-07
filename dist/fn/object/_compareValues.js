@@ -1,7 +1,7 @@
-import { getProperty } from './getProperty';
-import { isString } from '../type/isString';
-import { removeAccents } from '../string/removeAccents';
-import { isDate } from '../type/isDate';
+import { getProperty } from './getProperty.js';
+import { isString } from '../type/isString.js';
+import { removeAccents } from '../string/removeAccents.js';
+import { isDate } from '../type/isDate.js';
 /**
   * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
   *
@@ -40,8 +40,9 @@ import { isDate } from '../type/isDate';
   * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
   * @returns  {Number} Always either -1, 1, or 0
   */
-const _compareValues = function (a, b, prop, dir = "asc") {
-    let va = getProperty(a, prop), vb = getProperty(b, prop), ta = (typeof va).toLowerCase(), tb = (typeof vb).toLowerCase();
+var _compareValues = function (a, b, prop, dir) {
+    if (dir === void 0) { dir = "asc"; }
+    var va = getProperty(a, prop), vb = getProperty(b, prop), ta = (typeof va).toLowerCase(), tb = (typeof vb).toLowerCase();
     if (dir !== "asc" && isString(dir) && dir.toLowerCase() === "desc") {
         dir = "desc";
     }

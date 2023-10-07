@@ -4,8 +4,9 @@
       "dom",
       "es2019"
     ],
-    "module": "ESNext",
-    "target": "ES6",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "target": "ES5",
     "declaration": true,
     "outDir": "./dist",
     "allowUmdGlobalAccess": true

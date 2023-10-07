@@ -11,8 +11,8 @@
  * @param {HTMLElement} img
  * @returns {HTMLCanvasElement}
  */
-const imageToCanvas = function (img) {
-    let canvas = document.createElement('canvas');
+var imageToCanvas = function (img) {
+    var canvas = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
     canvas.getContext('2d').drawImage(img, 0, 0);

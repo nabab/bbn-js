@@ -20,8 +20,8 @@ const animateCss = function (ele, animationName, callback) {
       })*/
   ele.classList.add("animated");
   ele.classList.add(animationName);
-  ele.addEventListener(animationEnd, (e) => {
-    e.target.removeEventListener(e.type, arguments.callee);
+  ele.addEventListener(animationEnd, function animationEndHandler(e) {
+    e.target.removeEventListener(e.type, animationEndHandler);
     if (typeof callback == "function") {
       // make sure the callback is a function
       callback.call(this); // brings the scope to the callback

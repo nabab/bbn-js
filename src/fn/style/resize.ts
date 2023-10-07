@@ -1,5 +1,5 @@
-import { getCssVar } from './getCssVar' ;
-import { each } from '../loop/each' ;
+import { getCssVar } from './getCssVar.js'  ;
+import { each } from '../loop/each.js'  ;
 
 const resize = function ()
 {

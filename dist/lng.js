@@ -1,4 +1,4 @@
-const lng = {
+var lng = {
     /* User-defined languages elements */
     select_unselect_all: "Select/Clear all",
     select_all: "Select all",

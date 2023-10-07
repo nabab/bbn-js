@@ -1,7 +1,7 @@
-import { each } from '../loop/each';
-import { fieldValue } from './fieldValue';
-import { replaceAll } from '../string/replaceAll';
-import { substr } from '../string/substr';
+import { each } from '../loop/each.js';
+import { fieldValue } from './fieldValue.js';
+import { replaceAll } from '../string/replaceAll.js';
+import { substr } from '../string/substr.js';
 /**
  * Returns all the data contained in a form as a single object.
  *
@@ -45,47 +45,47 @@ import { substr } from '../string/substr';
  *
  * @returns  {Object}
  */
-const formdata = function (form) {
-    let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
-    let res = {};
-    let n;
-    let v;
-    each($inputs, (input, i) => {
+var formdata = function (form) {
+    var $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
+    var res = {};
+    var n;
+    var v;
+    each($inputs, function (input, i) {
         v = fieldValue(input);
         if (v !== undefined && !input.disabled) {
-            let name = input.name;
-            if (name.indexOf('[]') === -1 &&
-                name.indexOf('[') > -1 &&
-                name.indexOf(']') > -1 &&
-                name.lastIndexOf(']') === name.length - 1) {
-                name = replaceAll('][', '.', name);
-                name = replaceAll('[', '.', name);
-                name = replaceAll(']', '', name);
+            var name_1 = input.name;
+            if (name_1.indexOf('[]') === -1 &&
+                name_1.indexOf('[') > -1 &&
+                name_1.indexOf(']') > -1 &&
+                name_1.lastIndexOf(']') === name_1.length - 1) {
+                name_1 = replaceAll('][', '.', name_1);
+                name_1 = replaceAll('[', '.', name_1);
+                name_1 = replaceAll(']', '', name_1);
             }
-            if (name.length > 2 && name.indexOf('[]') === name.length - 2) {
-                n = substr(name, 0, name.length - 2);
+            if (name_1.length > 2 && name_1.indexOf('[]') === name_1.length - 2) {
+                n = substr(name_1, 0, name_1.length - 2);
                 if (res[n] === undefined) {
                     res[n] = [];
                 }
                 res[n].push(v);
             }
-            else if (name.indexOf('.') > -1) {
-                let tmp, parts = name.split('.');
+            else if (name_1.indexOf('.') > -1) {
+                var tmp = void 0, parts = name_1.split('.');
                 tmp = res;
-                for (let i = 0; i < parts.length; i++) {
-                    if (res[parts[i]] === undefined) {
-                        if (i < parts.length - 1) {
-                            tmp[parts[i]] = {};
+                for (var i_1 = 0; i_1 < parts.length; i_1++) {
+                    if (res[parts[i_1]] === undefined) {
+                        if (i_1 < parts.length - 1) {
+                            tmp[parts[i_1]] = {};
                         }
                         else {
-                            tmp[parts[i]] = v;
+                            tmp[parts[i_1]] = v;
                         }
                     }
-                    tmp = tmp[parts[i]];
+                    tmp = tmp[parts[i_1]];
                 }
             }
             else {
-                res[name] = v;
+                res[name_1] = v;
             }
         }
     });

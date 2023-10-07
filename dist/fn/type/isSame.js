@@ -1,5 +1,5 @@
-import { hash } from '../string/hash';
-import { each } from '../loop/each';
+import { hash } from '../string/hash.js';
+import { each } from '../loop/each.js';
 /**
   * Checks whether the data contained in the given objects is identical.
   *
@@ -39,7 +39,7 @@ import { each } from '../loop/each';
   * @param    {Object} obj2
   * @returns  {Boolean}
   */
-const isSame = function (obj1, obj2, done) {
+var isSame = function (obj1, obj2, done) {
     if (!done) {
         done = [];
     }
@@ -47,25 +47,25 @@ const isSame = function (obj1, obj2, done) {
         return true;
     }
     if (obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object') {
-        let tmp1 = Object.keys(obj1).sort(), tmp2 = Object.keys(obj2).sort();
+        var tmp1 = Object.keys(obj1).sort(), tmp2 = Object.keys(obj2).sort();
         // Case where the keys are different
         if (hash(tmp1) !== hash(tmp2)) {
             return false;
         }
-        let ok = true;
+        var ok_1 = true;
         if (obj1 && typeof obj1 === 'object') {
             if (done.includes(obj1)) {
-                return ok;
+                return ok_1;
             }
             done.push(obj1);
         }
-        each(tmp1, (a) => {
+        each(tmp1, function (a) {
             if (!isSame(obj1[a], obj2[a])) {
-                ok = false;
+                ok_1 = false;
                 return false;
             }
         });
-        return ok;
+        return ok_1;
     }
     return false;
 };

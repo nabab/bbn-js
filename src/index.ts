@@ -1,10 +1,10 @@
-import {_} from "./_";
-import {$} from "./$";
-import {lng} from "./lng";
-import {vars} from './vars' ;
-import {env} from './env' ;
-import {db} from './db' ;
-import {fn} from './fn' ;
+import { _ } from './_.js';
+import { $ } from './$.js';
+import { lng } from './lng.js';
+import { vars } from './vars.js';
+import { env } from './env.js';
+import { db } from './db.js';
+import { fn } from './fn.js';
 
 const bbn: Bbn = {
   version: "1.0.1",

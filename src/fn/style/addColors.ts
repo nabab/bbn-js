@@ -1,5 +1,5 @@
-import { numProperties } from '../object/numProperties' ;
-import { iterate } from '../loop/iterate' ;
+import { numProperties } from '../object/numProperties.js'  ;
+import { iterate } from '../loop/iterate.js'  ;
 
 /**
  * Adds the given color to the object bbn.var.colors in order to be able to use

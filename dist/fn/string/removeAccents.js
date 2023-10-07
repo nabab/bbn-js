@@ -1,5 +1,5 @@
-import { isString } from '../type/isString';
-import { log } from '../browser/log';
+import { isString } from '../type/isString.js';
+import { log } from '../browser/log.js';
 /**
  * Returns the string passed as an argument without accents.
  *
@@ -15,7 +15,7 @@ import { log } from '../browser/log';
  * @param    {String} st
  * @returns  {String}
  */
-const removeAccents = function (st) {
+var removeAccents = function (st) {
     if (!isString(st)) {
         if (st.toString) {
             st = st.toString();

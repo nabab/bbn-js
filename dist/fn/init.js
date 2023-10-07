@@ -1,14 +1,14 @@
-import { substr } from './string/substr';
-import { each } from './loop/each';
-import { extend } from './object/extend';
-import { addColors } from './style/addColors';
-import { link } from './ajax/link';
-import { submit } from './form/submit';
-import { resize } from './style/resize';
-import { isMobile } from './browser/isMobile';
-import { isTabletDevice } from './browser/isTabletDevice';
-import { isFunction } from './type/isFunction';
-import { log } from './browser/log';
+import { substr } from './string/substr.js';
+import { each } from './loop/each.js';
+import { extend } from './object/extend.js';
+import { addColors } from './style/addColors.js';
+import { link } from './ajax/link.js';
+import { submit } from './form/submit.js';
+import { resize } from './style/resize.js';
+import { isMobile } from './browser/isMobile.js';
+import { isTabletDevice } from './browser/isTabletDevice.js';
+import { isFunction } from './type/isFunction.js';
+import { log } from './browser/log.js';
 /**
  * Initializes the library bbn basing on the given configuration object.
  * - Gives to the environment the dimension of the window.innerWidth and window.innerHeight
@@ -22,8 +22,8 @@ import { log } from './browser/log';
  * @param    {Object} cfg
  * @returns
  */
-const init = function (cfg, force) {
-    let parts;
+var init = function (cfg, force) {
+    var parts;
     if (!bbn.env.isInit || force) {
         bbn.env.root =
             document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
@@ -65,7 +65,7 @@ const init = function (cfg, force) {
                 "weekOfYear",
                 "weekYear",
                 "weekday",
-            ], (plugin) => {
+            ], function (plugin) {
                 if (window["dayjs_plugin_" + plugin]) {
                     dayjs.extend(window["dayjs_plugin_" + plugin]);
                 }
@@ -78,7 +78,7 @@ const init = function (cfg, force) {
         bbn.env.path = substr(bbn.env.url, bbn.env.root.length);
         parts = bbn.env.path.split("/");
         //$.each(parts, function(i, v){
-        each(parts, (v, i) => {
+        each(parts, function (v, i) {
             v = decodeURI(v.trim());
             if (v !== "") {
                 bbn.env.params.push(v);
@@ -90,28 +90,28 @@ const init = function (cfg, force) {
         if (bbn.env.lang && undefined !== dayjs) {
             dayjs.locale(bbn.env.lang);
         }
-        window.onfocus = () => {
+        window.onfocus = function () {
             bbn.env.isFocused = true;
         };
-        window.onblur = () => {
+        window.onblur = function () {
             bbn.env.isFocused = false;
             bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
         };
-        document.addEventListener("focusin", (e) => {
+        document.addEventListener("focusin", function (e) {
             if (e.target instanceof HTMLElement &&
                 !e.target.classList.contains("bbn-no")) {
                 bbn.env.focused = e.target;
             }
             bbn.env.last_focus = new Date().getTime();
         });
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", function (e) {
             bbn.env.last_focus = new Date().getTime();
             if (bbn.env.nav !== "ajax") {
                 return;
             }
-            let target = e.target;
+            var target = e.target;
             if (target instanceof HTMLElement && target.tagName !== "A") {
-                let p = target;
+                var p = target;
                 while (p && p.tagName !== "A") {
                     if (p.tagName === "BODY") {
                         break;
@@ -135,18 +135,18 @@ const init = function (cfg, force) {
                 return false;
             }
         });
-        each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
-            ele.addEventListener("submit", (e) => {
+        each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), function (ele) {
+            ele.addEventListener("submit", function (e) {
                 submit(ele, e);
             });
         });
-        window.addEventListener("hashchange", () => {
+        window.addEventListener("hashchange", function () {
             bbn.env.hashChanged = new Date().getTime();
         }, false);
-        window.addEventListener("resize", () => {
+        window.addEventListener("resize", function () {
             resize();
         });
-        window.addEventListener("orientationchange", () => {
+        window.addEventListener("orientationchange", function () {
             resize();
         });
         resize();
@@ -158,11 +158,11 @@ const init = function (cfg, force) {
         }
         if (window.history) {
             window.onpopstate = function (e) {
-                let h = window.history;
+                var h = window.history;
                 if (!bbn.env.historyDisabled && h) {
                     //e.preventDefault();
                     if (bbn.fn.defaultHistoryFunction(h.state)) {
-                        let state = h.state;
+                        var state = h.state;
                         if (state) {
                             //link(substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
                             link(state.url, extend({ title: state.title || bbn.env.siteTitle }, state.data || {}));

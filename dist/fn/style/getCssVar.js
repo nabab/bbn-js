@@ -3,7 +3,7 @@
  * @param {String*} varname
  * @returns
  */
-const getCssVar = function (varname) {
+var getCssVar = function (varname) {
     if (varname.indexOf("--") !== 0) {
         varname = "--" + varname;
     }

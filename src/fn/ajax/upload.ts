@@ -1,5 +1,5 @@
-import { objectToFormData } from '../form/objectToFormData' ;
-import { log } from '../browser/log' ;
+import { objectToFormData } from '../form/objectToFormData.js'  ;
+import { log } from '../browser/log.js'  ;
 
 /**
  * Uploads a file synchronously through an XHR indicating progress.

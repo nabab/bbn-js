@@ -1,5 +1,5 @@
-import { isArray } from '../type/isArray';
-import { isNumber } from '../type/isNumber';
+import { isArray } from '../type/isArray.js';
+import { isNumber } from '../type/isNumber.js';
 /**
  * Executes the provided function on each element of the given array.
  *
@@ -34,16 +34,18 @@ import { isNumber } from '../type/isNumber';
  * @param    {Number}    min The index at which the loop will start
  * @returns  {undefined}
  */
-const fori = function (arr, fn, max = arr.length - 1, min = 0) {
+var fori = function (arr, fn, max, min) {
+    if (max === void 0) { max = arr.length - 1; }
+    if (min === void 0) { min = 0; }
     if (isArray(arr)) {
-        let realMax = arr.length - 1;
+        var realMax = arr.length - 1;
         if (!isNumber(max) || !(0 < max && max <= realMax)) {
             max = realMax;
         }
         if (!isNumber(min) || !(0 <= min && min < realMax) || min > max) {
             min = 0;
         }
-        for (let i = min; i <= max; i++) {
+        for (var i = min; i <= max; i++) {
             if (fn(arr[i], i) === false) {
                 return;
             }

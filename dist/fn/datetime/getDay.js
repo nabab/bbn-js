@@ -1,4 +1,4 @@
-import { date } from './date';
+import { date } from './date.js';
 /**
  * @method   getDay
  * @ignore
@@ -8,11 +8,11 @@ import { date } from './date';
  * @param    {String|Date} v
  * @returns
  */
-const getDay = function (v) {
-    const biss = 1972;
-    let d = date(v);
+var getDay = function (v) {
+    var biss = 1972;
+    var d = date(v);
     if (d) {
-        let t = d.getTime(), y = d.getYear(), m = d.getMonth(), days = (y - 1970) * 365;
+        var t = d.getTime(), y = d.getYear(), m = d.getMonth(), days = (y - 1970) * 365;
         if (m < 2) {
             y--;
         }

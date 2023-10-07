@@ -1,4 +1,4 @@
-import { log } from '../browser/log' ;
+import { log } from '../browser/log.js'  ;
 
 const defaultAjaxAbortFunction = function (message, url = "") {
   log(message);

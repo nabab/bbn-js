@@ -1,6 +1,7 @@
-import { removeHtmlComments } from '../string/removeHtmlComments';
-const getHtml = function (ele, stripComments = false) {
-    let st = ele.innerHTML();
+import { removeHtmlComments } from '../string/removeHtmlComments.js';
+var getHtml = function (ele, stripComments) {
+    if (stripComments === void 0) { stripComments = false; }
+    var st = ele.innerHTML();
     if (stripComments) {
         st = removeHtmlComments(st);
     }

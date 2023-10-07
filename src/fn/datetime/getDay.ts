@@ -1,4 +1,4 @@
-import { date } from './date' ;
+import { date } from './date.js'  ;
 
 /**
  * @method   getDay

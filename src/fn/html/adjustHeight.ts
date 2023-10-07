@@ -1,5 +1,5 @@
-import { isIterable } from '../type/isIterable' ;
-import { adjustSize } from './adjustSize' ;
+import { isIterable } from '../type/isIterable.js'  ;
+import { adjustSize } from './adjustSize.js'  ;
 
 const adjustHeight = function () {
 	let args = arguments;

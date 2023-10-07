@@ -1,4 +1,4 @@
-const env = {
+var env = {
     siteTitle: window.document.title,
     /* This variable should be set to true in debugging mode only */
     logging: false,

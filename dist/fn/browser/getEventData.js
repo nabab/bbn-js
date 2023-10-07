@@ -1,5 +1,5 @@
-import { getHTMLOfSelection } from '../html/getHTMLOfSelection';
-import { each } from '../loop/each';
+import { getHTMLOfSelection } from '../html/getHTMLOfSelection.js';
+import { each } from '../loop/each.js';
 /**
  * Returns a promise having the event's data as argument.
  * @method   getEventData
@@ -14,16 +14,16 @@ import { each } from '../loop/each';
  * @memberof bbn.fn
  * @returns  {Promise}
  */
-const getEventData = function (e) {
-    let dt = e.dataTransfer || e.clipboardData;
-    let t = dt.getData('Text');
-    let res = { raw: t, files: [], str: [] };
-    let p = new Promise((ok, err) => {
-        let done = !(dt instanceof DataTransfer);
+var getEventData = function (e) {
+    var dt = e.dataTransfer || e.clipboardData;
+    var t = dt.getData('Text');
+    var res = { raw: t, files: [], str: [] };
+    var p = new Promise(function (ok, err) {
+        var done = !(dt instanceof DataTransfer);
         if (!t && e.type === 'copy') {
-            let sel = window.getSelection();
+            var sel = window.getSelection();
             res.raw = sel.toString();
-            let html = getHTMLOfSelection();
+            var html = getHTMLOfSelection();
             res.str.push({
                 type: 'text/plain',
                 data: res.raw,
@@ -46,57 +46,57 @@ const getEventData = function (e) {
             ok(res);
         }
         if (!done) {
-            let strings = [];
-            let num = dt.items.length;
-            each(dt.items, (item, idx) => {
-                let kind = item.kind;
-                let type = item.type;
+            var strings_1 = [];
+            var num_1 = dt.items.length;
+            each(dt.items, function (item, idx) {
+                var kind = item.kind;
+                var type = item.type;
                 if (kind === 'file') {
-                    let cp = dt.files[idx];
+                    var cp = dt.files[idx];
                     if (!type && cp.name) {
-                        let bits = cp.name.split('.');
+                        var bits = cp.name.split('.');
                         type = bits[bits.length - 1];
                     }
-                    let name = cp ? cp.name : bbn._('untitled');
-                    let size = cp ? cp.size : null;
-                    let lastModified = cp ? cp.lastModified : null;
-                    let blob = item.getAsFile();
+                    var name_1 = cp ? cp.name : bbn._('untitled');
+                    var size = cp ? cp.size : null;
+                    var lastModified = cp ? cp.lastModified : null;
+                    var blob = item.getAsFile();
                     if (blob) {
                         done = true;
-                        num--;
+                        num_1--;
                         res.files.push({
                             type: type,
                             data: blob,
-                            name: name,
+                            name: name_1,
                             size: size,
                             mdate: lastModified,
                         });
-                        strings.push(name);
-                        if (!num) {
+                        strings_1.push(name_1);
+                        if (!num_1) {
                             if (!res.raw) {
-                                res.raw = strings.join(', ');
+                                res.raw = strings_1.join(', ');
                             }
                             ok(res);
                         }
                     }
                     else {
-                        bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name);
+                        bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name_1);
                     }
                 }
                 else {
                     done = true;
-                    item.getAsString((data) => {
-                        num--;
+                    item.getAsString(function (data) {
+                        num_1--;
                         res.str.push({
                             type: type,
                             data: data,
                         });
                         if (type === 'text/plain') {
-                            strings.push(name);
+                            strings_1.push(name);
                         }
-                        if (!num) {
+                        if (!num_1) {
                             if (!res.raw) {
-                                res.raw = strings.join(', ');
+                                res.raw = strings_1.join(', ');
                             }
                             ok(res);
                         }
@@ -105,7 +105,7 @@ const getEventData = function (e) {
             });
         }
         if (!done) {
-            setTimeout(() => {
+            setTimeout(function () {
                 ok(res);
             });
         }

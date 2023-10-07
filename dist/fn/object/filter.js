@@ -1,7 +1,7 @@
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { filterToConditions } from './filterToConditions';
-import { compareConditions } from './compareConditions';
+import { isArray } from '../type/isArray.js';
+import { each } from '../loop/each.js';
+import { filterToConditions } from './filterToConditions.js';
+import { compareConditions } from './compareConditions.js';
 /**
  * Returns a new array with only the data matching the given filter.
  *
@@ -49,14 +49,16 @@ import { compareConditions } from './compareConditions';
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Array}                    A new filtered array
  */
-const filter = function (arr, prop, val = null, operator = '=') {
+var filter = function (arr, prop, val, operator) {
+    if (val === void 0) { val = null; }
+    if (operator === void 0) { operator = '='; }
     if (!isArray(arr)) {
         bbn.fn.log("NOT ARRAY", arr);
         throw new Error('Error in filter: The first argument must be an array');
     }
-    let cfg = {};
-    const res = [];
-    const isFn = typeof (prop) === 'function';
+    var cfg = {};
+    var res = [];
+    var isFn = typeof (prop) === 'function';
     if (!prop || !arr.length) {
         return arr;
     }
@@ -72,7 +74,7 @@ const filter = function (arr, prop, val = null, operator = '=') {
             throw new Error('Search function error: The prop argument should be a string or an object');
         }
         if (typeof (prop) === 'function') {
-            each(arr, (a, i) => {
+            each(arr, function (a, i) {
                 if (prop(a, i)) {
                     res.push(a);
                 }
@@ -81,7 +83,7 @@ const filter = function (arr, prop, val = null, operator = '=') {
         else {
             cfg = filterToConditions(cfg, operator);
             if (cfg.conditions && cfg.logic) {
-                each(arr, (a) => {
+                each(arr, function (a) {
                     if (compareConditions(a, cfg)) {
                         res.push(a);
                     }

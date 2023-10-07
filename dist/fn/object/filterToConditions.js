@@ -1,6 +1,6 @@
-import { isObject } from '../type/isObject';
-import { isArray } from '../type/isArray';
-import { iterate } from '../loop/iterate';
+import { isObject } from '../type/isObject.js';
+import { isArray } from '../type/isArray.js';
+import { iterate } from '../loop/iterate.js';
 /**
  * Converts the given object 'filter' to a valid format of condition.
  *
@@ -38,18 +38,19 @@ import { iterate } from '../loop/iterate';
  * @param    {String} operator
  * @returns  {Object}
  */
-const filterToConditions = function (filter, operator = "=") {
+var filterToConditions = function (filter, operator) {
+    if (operator === void 0) { operator = "="; }
     if (!isObject(filter)) {
         throw new Error("Error in filterToCondition: filter must be an object");
     }
     if (!filter.conditions || !isArray(filter.conditions)) {
-        let tmp = [];
-        iterate(filter, (a, n) => {
+        var tmp_1 = [];
+        iterate(filter, function (a, n) {
             if (isObject(a) && typeof a.conditions === "object") {
-                tmp.push(filterToConditions(a));
+                tmp_1.push(filterToConditions(a));
             }
             else {
-                tmp.push({
+                tmp_1.push({
                     field: n,
                     operator: operator,
                     value: a,
@@ -57,7 +58,7 @@ const filterToConditions = function (filter, operator = "=") {
             }
         });
         filter = {
-            conditions: tmp,
+            conditions: tmp_1,
         };
     }
     if (!filter.logic) {

@@ -1,4 +1,4 @@
-import { log } from './log';
+import { log } from './log.js';
 /**
  * Logs the given argument in the browser's console highlighting it with a blue background.
  * @method   info
@@ -7,7 +7,11 @@ import { log } from './log';
  * @param    {...any} args
  * @returns  {*}
  */
-const info = function (...args) {
+var info = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     args.unshift({
         //_bbn_console_mode: "info",
         _bbn_console_level: 4,

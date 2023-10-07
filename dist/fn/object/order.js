@@ -1,4 +1,4 @@
-import { _compareValues } from './_compareValues';
+import { _compareValues } from './_compareValues.js';
 /**
  * Sorts an array of objects based on the given property.
  *
@@ -25,7 +25,8 @@ import { _compareValues } from './_compareValues';
  * @param    {String} [dir=asc] The direction of the order (desc or asc by default)
  * @returns  {Array}
  */
-const order = function (arr, prop, dir = 'asc') {
+var order = function (arr, prop, dir) {
+    if (dir === void 0) { dir = 'asc'; }
     if (arr) {
         return arr.sort(function (a, b) {
             return _compareValues(a, b, prop, dir);

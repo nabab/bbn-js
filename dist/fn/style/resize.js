@@ -1,8 +1,8 @@
-import { getCssVar } from './getCssVar';
-import { each } from '../loop/each';
-const resize = function () {
-    let diffW = bbn.env.width !== window.innerWidth;
-    let diffH = bbn.env.height !== window.innerHeight;
+import { getCssVar } from './getCssVar.js';
+import { each } from '../loop/each.js';
+var resize = function () {
+    var diffW = bbn.env.width !== window.innerWidth;
+    var diffH = bbn.env.height !== window.innerHeight;
     if (diffW || diffH) {
         if (diffW) {
             bbn.env.width =
@@ -14,25 +14,25 @@ const resize = function () {
                 window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
             document.documentElement.style.setProperty('--vh', bbn.env.height * 0.01 + 'px');
         }
-        let smallWidth = parseInt(getCssVar('mobile-limit')) || 650;
-        let newCls = 'bbn-screen-' + (bbn.env.width < smallWidth ? 'small' : 'regular');
-        let classes = (document.body.className || '').split(' ');
-        let done = false;
-        each(classes, (cls, idx) => {
-            let bits = cls.split('-');
+        var smallWidth = parseInt(getCssVar('mobile-limit')) || 650;
+        var newCls_1 = 'bbn-screen-' + (bbn.env.width < smallWidth ? 'small' : 'regular');
+        var classes_1 = (document.body.className || '').split(' ');
+        var done_1 = false;
+        each(classes_1, function (cls, idx) {
+            var bits = cls.split('-');
             if (bits.length === 3 && cls.indexOf('bbn-screen-') === 0) {
-                done = true;
-                if (cls !== newCls) {
-                    classes.splice(idx, 1, newCls);
+                done_1 = true;
+                if (cls !== newCls_1) {
+                    classes_1.splice(idx, 1, newCls_1);
                 }
                 return false;
             }
         });
-        if (!done) {
-            classes.push(newCls);
+        if (!done_1) {
+            classes_1.push(newCls_1);
         }
         bbn.fn.defaultResizeFunction();
-        document.body.className = classes.join(' ');
+        document.body.className = classes_1.join(' ');
     }
 };
 export { resize };

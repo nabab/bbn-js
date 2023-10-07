@@ -1,108 +1,109 @@
-import { _ } from './_';
-import { each } from './fn/loop/each';
-import { iterate } from './fn/loop/iterate';
-import { log } from './fn/browser/log';
-const idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
-const dbObject = function (dbName) {
-    const conn = db._connections[dbName];
-    const structure = db._structures[dbName];
-    this.insert = (table, data) => {
+import { _ } from './_.js';
+import { each } from './fn/loop/each.js';
+import { iterate } from './fn/loop/iterate.js';
+import { log } from './fn/browser/log.js';
+var idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
+var dbObject = function (dbName) {
+    var _this = this;
+    var conn = db._connections[dbName];
+    var structure = db._structures[dbName];
+    this.insert = function (table, data) {
         if (!Array.isArray(data)) {
             data = [data];
         }
-        return new Promise(resolve => {
-            const tx = conn.transaction(table, "readwrite");
-            const store = tx.objectStore(table);
-            let res = data.length;
-            each(data, a => {
-                const request = store.put(a);
-                request.onerror = () => {
+        return new Promise(function (resolve) {
+            var tx = conn.transaction(table, "readwrite");
+            var store = tx.objectStore(table);
+            var res = data.length;
+            each(data, function (a) {
+                var request = store.put(a);
+                request.onerror = function () {
                     log(request.error);
                     res--;
                 };
             });
-            tx.onabort = () => {
+            tx.onabort = function () {
                 throw new Error(tx.error);
             };
-            tx.oncomplete = () => {
+            tx.oncomplete = function () {
                 resolve(res);
             };
         });
     };
-    this.update = (table, data, where) => {
-        return new Promise(resolve => {
-            const tx = conn.transaction(table, "readwrite");
-            const store = tx.objectStore(table);
-            const arch = structure[table];
-            const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+    this.update = function (table, data, where) {
+        return new Promise(function (resolve) {
+            var tx = conn.transaction(table, "readwrite");
+            var store = tx.objectStore(table);
+            var arch = structure[table];
+            var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
             if (!where[primary]) {
                 throw new Error(_("No "));
             }
-            let res = 1;
-            const request = store.put(data, where[primary]);
-            request.onerror = () => {
+            var res = 1;
+            var request = store.put(data, where[primary]);
+            request.onerror = function () {
                 log(request.error);
                 res--;
             };
-            tx.onabort = () => {
+            tx.onabort = function () {
                 throw new Error(tx.error);
             };
-            tx.oncomplete = () => {
+            tx.oncomplete = function () {
                 resolve(res);
             };
         });
     };
-    this.delete = (table, where) => {
-        return new Promise(resolve => {
-            const tx = conn.transaction(table, "readwrite");
-            const store = tx.objectStore(table);
-            const arch = structure[table];
-            const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+    this.delete = function (table, where) {
+        return new Promise(function (resolve) {
+            var tx = conn.transaction(table, "readwrite");
+            var store = tx.objectStore(table);
+            var arch = structure[table];
+            var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
             if (!where[primary]) {
                 throw new Error(_("No "));
             }
-            let res = 1;
-            const request = store.delete(where[primary]);
-            request.onerror = () => {
+            var res = 1;
+            var request = store.delete(where[primary]);
+            request.onerror = function () {
                 log(request.error);
                 res--;
             };
-            tx.onabort = () => {
+            tx.onabort = function () {
                 throw new Error(tx.error);
             };
-            tx.oncomplete = () => {
+            tx.oncomplete = function () {
                 resolve(res);
             };
         });
     };
-    this.selectOne = (table, field, where, order, start, limit) => {
-        return new Promise(resolve => {
-            this.select(table, [field], where, order, start, limit).then(d => {
+    this.selectOne = function (table, field, where, order, start, limit) {
+        return new Promise(function (resolve) {
+            _this.select(table, [field], where, order, start, limit).then(function (d) {
                 var _a;
                 resolve((_a = d[field]) !== null && _a !== void 0 ? _a : undefined);
             });
         });
     };
-    this.select = (table, fields, where, order, start, limit) => {
-        const tx = conn.transaction(table, "readonly");
-        const store = tx.objectStore(table);
-        const arch = structure[table];
-        const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+    this.select = function (table, fields, where, order, start, limit) {
+        var tx = conn.transaction(table, "readonly");
+        var store = tx.objectStore(table);
+        var arch = structure[table];
+        var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
         if (!where[primary]) {
             throw new Error(_("No "));
         }
-        return new Promise(resolve => {
-            const req = store.get(where[primary]);
-            req.onsuccess = () => {
-                let obj = req.result;
+        return new Promise(function (resolve) {
+            var req = store.get(where[primary]);
+            req.onsuccess = function () {
+                var obj = req.result;
                 if (fields.length) {
-                    let res = {};
-                    iterate(obj, (v, n) => {
+                    var res_1 = {};
+                    iterate(obj, function (v, n) {
                         if (fields.indexOf(n) > -1) {
-                            res[n] = v;
+                            res_1[n] = v;
                         }
                     });
-                    return resolve(res);
+                    return resolve(res_1);
                 }
                 else {
                     resolve(obj);
@@ -110,46 +111,46 @@ const dbObject = function (dbName) {
             };
         });
     };
-    this.selectAll = (table, fields, where, order, start, limit) => {
-        const tx = conn.transaction(table, "read");
-        const store = tx.objectStore(table);
-        const arch = structure[table];
-        const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+    this.selectAll = function (table, fields, where, order, start, limit) {
+        var tx = conn.transaction(table, "read");
+        var store = tx.objectStore(table);
+        var arch = structure[table];
+        var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
         if (!where[primary]) {
             throw new Error(_("No "));
         }
-        return new Promise(resolve => {
-            const req = store.get(structure.keys.PRIMARY);
+        return new Promise(function (resolve) {
+            var req = store.get(structure.keys.PRIMARY);
         });
     };
-    this.getColumnValues = (table, field, where, order, start, limit) => {
-        return new Promise(resolve => {
-            const tx = conn.transaction(table, "read");
-            const store = tx.objectStore(table);
+    this.getColumnValues = function (table, field, where, order, start, limit) {
+        return new Promise(function (resolve) {
+            var tx = conn.transaction(table, "read");
+            var store = tx.objectStore(table);
         });
     };
 };
-const db = {
+var db = {
     _structures: {},
     /* This variable should be set to true in debugging mode only */
     _connections: {},
     /* Address of the CDN (where this file should be hosted) */
     _stores: {},
     ok: idb !== undefined,
-    open(name) {
-        return new Promise((resolve) => {
+    open: function (name) {
+        return new Promise(function (resolve) {
             if (!db._connections[name]) {
                 if (!db._structures[name]) {
                     throw new Error(_("Impossible to find a structure for the database %s", name));
                 }
-                const conn = idb.open(name);
-                conn.onupgradeneeded = () => {
+                var conn_1 = idb.open(name);
+                conn_1.onupgradeneeded = function () {
                     log("UPGRADE NEEDED");
-                    const res = conn.result;
-                    iterate(db._structures[name], (structure, storeName) => {
-                        const primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
-                        const store = res.createObjectStore(storeName, { keyPath: primary });
-                        iterate(structure.keys, (a, n) => {
+                    var res = conn_1.result;
+                    iterate(db._structures[name], function (structure, storeName) {
+                        var primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
+                        var store = res.createObjectStore(storeName, { keyPath: primary });
+                        iterate(structure.keys, function (a, n) {
                             if (n !== 'PRIMARY') {
                                 store.createIndex(n, a.columns.length > 1 ? a.columns : a.columns[0], {
                                     unique: !!a.unique
@@ -158,9 +159,9 @@ const db = {
                         });
                     });
                 };
-                conn.onsuccess = () => {
-                    db._connections[name] = conn.result;
-                    let obj = new dbObject(name);
+                conn_1.onsuccess = function () {
+                    db._connections[name] = conn_1.result;
+                    var obj = new dbObject(name);
                     resolve(obj);
                 };
                 return;
@@ -168,7 +169,7 @@ const db = {
             resolve(new dbObject(db._connections[name]));
         });
     },
-    add(database, name, structure) {
+    add: function (database, name, structure) {
         var _a;
         if (((_a = structure === null || structure === void 0 ? void 0 : structure.keys) === null || _a === void 0 ? void 0 : _a.PRIMARY) && (structure === null || structure === void 0 ? void 0 : structure.fields)) {
             if (!db._structures[database]) {

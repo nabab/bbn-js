@@ -1,12 +1,12 @@
-import { isObject } from '../type/isObject';
-import { replaceAll } from '../string/replaceAll';
-import { getRequestId } from './getRequestId';
-import { getLoader } from './getLoader';
-import { extend } from '../object/extend';
-import { numProperties } from '../object/numProperties';
-import { _deleteLoader } from './_deleteLoader';
-import { isFunction } from '../type/isFunction';
-import { _addLoader } from './_addLoader';
+import { isObject } from '../type/isObject.js';
+import { replaceAll } from '../string/replaceAll.js';
+import { getRequestId } from './getRequestId.js';
+import { getLoader } from './getLoader.js';
+import { extend } from '../object/extend.js';
+import { numProperties } from '../object/numProperties.js';
+import { _deleteLoader } from './_deleteLoader.js';
+import { isFunction } from '../type/isFunction.js';
+import { _addLoader } from './_addLoader.js';
 /**
  * Creates an XHR object and returns the Promise.
  *
@@ -63,7 +63,12 @@ import { _addLoader } from './_addLoader';
  *
  * @returns  {Promise}  The Promise created by the generated XHR.
  */
-const ajax = function (url, datatype = null, data = null, success = null, failure = null, abort = null) {
+var ajax = function (url, datatype, data, success, failure, abort) {
+    if (datatype === void 0) { datatype = null; }
+    if (data === void 0) { data = null; }
+    if (success === void 0) { success = null; }
+    if (failure === void 0) { failure = null; }
+    if (abort === void 0) { abort = null; }
     if (arguments.length === 1 && url && typeof url === "object" && url.url) {
         if (url.abort) {
             abort = url.abort;
@@ -93,8 +98,8 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
         if (!datatype) {
             datatype = "json";
         }
-        let requestId = getRequestId(url, data, datatype);
-        let loaderObj = getLoader(requestId);
+        var requestId_1 = getRequestId(url, data, datatype);
+        var loaderObj = getLoader(requestId_1);
         //log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
         if (loaderObj === null || loaderObj === void 0 ? void 0 : loaderObj.loader) {
             return loaderObj.loader;
@@ -102,9 +107,9 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
         if (bbn.env.token) {
             extend(data || {}, { _bbn_token: bbn.env.token });
         }
-        let cancelToken = axios.CancelToken;
-        let source = cancelToken.source();
-        let options = {
+        var cancelToken = axios.CancelToken;
+        var source = cancelToken.source();
+        var options = {
             responseType: datatype,
             cancelToken: source.token,
         };
@@ -114,17 +119,17 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
                 "Content-Type": "text/javascript",
             };
         }
-        let args = [url];
+        var args = [url];
         if (isObject(data) && numProperties(data) > 0) {
             args.push(data);
         }
         args.push(options);
-        const axiosMethod = args.length === 2 ? "get" : "post";
-        let loader = axios[axiosMethod]
+        var axiosMethod = args.length === 2 ? "get" : "post";
+        var loader_1 = axios[axiosMethod]
             .apply(null, args)
-            .then((res) => {
-            _deleteLoader(requestId, res);
-            bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
+            .then(function (res) {
+            _deleteLoader(requestId_1, res);
+            bbn.fn.defaultEndLoadingFunction(url, tst_1, data, res);
             switch (res.status) {
                 case 200:
                     if (isFunction(success)) {
@@ -132,16 +137,16 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
                     }
                     break;
                 default:
-                    bbn.fn.defaultAjaxErrorFunction(loader, res);
+                    bbn.fn.defaultAjaxErrorFunction(loader_1, res);
             }
             return res;
         })
-            .catch((err) => {
-            let isAbort = axios.isCancel(err);
-            _deleteLoader(requestId, err.message || err.response.data, isAbort);
-            bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
+            .catch(function (err) {
+            var isAbort = axios.isCancel(err);
+            _deleteLoader(requestId_1, err.message || err.response.data, isAbort);
+            bbn.fn.defaultEndLoadingFunction(url, tst_1, data, err);
             if (isAbort) {
-                let ok = 1;
+                var ok = 1;
                 if (isFunction(abort)) {
                     ok = abort(err.message, url);
                 }
@@ -150,7 +155,7 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
                 }
             }
             else {
-                let ok = 1;
+                var ok = 1;
                 if (isFunction(failure)) {
                     ok = failure(err.request, err);
                 }
@@ -159,9 +164,9 @@ const ajax = function (url, datatype = null, data = null, success = null, failur
                 }
             }
         });
-        let tst = _addLoader(requestId, loader, source);
-        bbn.fn.defaultStartLoadingFunction(url, tst, data, requestId);
-        return loader;
+        var tst_1 = _addLoader(requestId_1, loader_1, source);
+        bbn.fn.defaultStartLoadingFunction(url, tst_1, data, requestId_1);
+        return loader_1;
     }
 };
 export { ajax };

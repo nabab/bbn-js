@@ -1,5 +1,6 @@
-import { substr } from './substr';
-const trim = function (str, hair = ' ') {
+import { substr } from './substr.js';
+var trim = function (str, hair) {
+    if (hair === void 0) { hair = ' '; }
     if (hair === ' ') {
         return str.trim();
     }

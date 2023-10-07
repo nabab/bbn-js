@@ -13,8 +13,8 @@
  * @param    {String} st
  * @returns {String}
  */
-const html2text = function (st) {
-    let $test = document.createElement("div");
+var html2text = function (st) {
+    var $test = document.createElement("div");
     $test.innerHTML = st;
     st = $test.innerText;
     return st;

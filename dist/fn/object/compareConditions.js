@@ -1,7 +1,7 @@
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { compare } from './compare';
-import { getProperty } from './getProperty';
+import { isArray } from '../type/isArray.js';
+import { each } from '../loop/each.js';
+import { compare } from './compare.js';
+import { getProperty } from './getProperty.js';
 /**
  * Checks whether the given data object complies or not with the given filter.
  *
@@ -46,23 +46,23 @@ import { getProperty } from './getProperty';
  * @param    {Object} filter
  * @returns  {Boolean}
  */
-const compareConditions = function (data, filter) {
+var compareConditions = function (data, filter) {
     if (!filter.conditions || !filter.logic || !isArray(filter.conditions)) {
         throw new Error("Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
     }
-    let ok = filter.logic === "AND" ? true : false;
-    each(filter.conditions, (a) => {
-        let comparator;
+    var ok = filter.logic === "AND" ? true : false;
+    each(filter.conditions, function (a) {
+        var comparator;
         if (a.conditions && isArray(a.conditions)) {
             comparator = compareConditions(data, a);
         }
         else {
             comparator = compare(getProperty(data, a.field), a.value, a.operator);
             if (comparator) {
-                let bits = a.field.split(".");
-                let prop = bits.pop();
+                var bits = a.field.split(".");
+                var prop = bits.pop();
                 if (bits.length) {
-                    each(bits, (b) => (data = data[b]));
+                    each(bits, function (b) { return (data = data[b]); });
                 }
                 // Case where both are undefined: value and prop which doesn't exist; they are not the same!
                 if (getProperty(data, prop) === undefined && a.value !== undefined) {

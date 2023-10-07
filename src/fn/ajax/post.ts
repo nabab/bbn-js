@@ -1,6 +1,6 @@
-import { treatAjaxArguments } from './treatAjaxArguments' ;
-import { ajax } from './ajax' ;
-import { callback } from './callback' ;
+import { treatAjaxArguments } from './treatAjaxArguments.js'  ;
+import { ajax } from './ajax.js'  ;
+import { callback } from './callback.js'  ;
 
 /**
  * Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.

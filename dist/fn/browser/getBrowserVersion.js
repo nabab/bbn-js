@@ -5,8 +5,8 @@
  * @memberof bbn.fn
  * @returns {String}
  */
-const getBrowserVersion = function () {
-    const userAgent = navigator.userAgent.toLowerCase();
+var getBrowserVersion = function () {
+    var userAgent = navigator.userAgent.toLowerCase();
     switch (true) {
         case userAgent.includes('edge/'):
             return userAgent.split('edge/')[1].split(' ')[0];

@@ -1,5 +1,5 @@
-import { isString } from '../type/isString';
-import { substr } from './substr';
+import { isString } from '../type/isString.js';
+import { substr } from './substr.js';
 /**
  * Returns the path of the folder containing the last hierarchical element of the path.
  *
@@ -15,12 +15,12 @@ import { substr } from './substr';
  * @param    {String} path
  * @returns  {String} path of the folder
  */
-const dirName = function (path) {
+var dirName = function (path) {
     if (isString(path) && path) {
         while (substr(path, path.length - 1) === "/") {
             path = substr(path, 0, path.length - 1);
         }
-        let pos = path.lastIndexOf("/");
+        var pos = path.lastIndexOf("/");
         if (pos > 0) {
             return substr(path, 0, pos);
         }

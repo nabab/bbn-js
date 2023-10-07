@@ -8,8 +8,8 @@
  *
  * @returns  {Mixed}       The value
  */
-const fieldValue = function (field) {
-    let v;
+var fieldValue = function (field) {
+    var v;
     if (field.type === 'checkbox') {
         if (field.checked) {
             v = field.value;

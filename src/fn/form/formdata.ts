@@ -1,7 +1,7 @@
-import { each } from '../loop/each' ;
-import { fieldValue } from './fieldValue' ;
-import { replaceAll } from '../string/replaceAll' ;
-import { substr } from '../string/substr' ;
+import { each } from '../loop/each.js'  ;
+import { fieldValue } from './fieldValue.js'  ;
+import { replaceAll } from '../string/replaceAll.js'  ;
+import { substr } from '../string/substr.js'  ;
 
 /**
  * Returns all the data contained in a form as a single object.

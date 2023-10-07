@@ -1,4 +1,4 @@
-import { isString } from './isString';
+import { isString } from './isString.js';
 /**
  * Intended to check if the argument provided is an e-mail address written correctly
  *
@@ -20,11 +20,16 @@ import { isString } from './isString';
  * @param    {String} st
  * @returns  {Boolean}
  */
-const isEmail = function (...args) {
+var isEmail = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     if (!args.length)
         return false;
-    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    for (let st of args) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+        var st = args_1[_a];
         if (!isString(st)) {
             return false;
         }

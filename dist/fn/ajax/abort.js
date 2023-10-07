@@ -1,4 +1,4 @@
-import { getLoader } from './getLoader';
+import { getLoader } from './getLoader.js';
 /**
  * Aborts (client side) the XHR corresponding to the given ID if it still exists.
  *
@@ -21,8 +21,8 @@ import { getLoader } from './getLoader';
  *
  * @returns  {undefined}
  */
-const abort = function (requestId) {
-    let loader = getLoader(requestId);
+var abort = function (requestId) {
+    var loader = getLoader(requestId);
     if (loader && loader.source) {
         //_deleteLoader(requestId);
         loader.source.cancel('Operation canceled by the user.');

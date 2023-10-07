@@ -5,8 +5,8 @@
  * @memberof bbn.fn
  * @returns {String}
  */
-const getBrowserName = function () {
-    const userAgent = navigator.userAgent.toLowerCase();
+var getBrowserName = function () {
+    var userAgent = navigator.userAgent.toLowerCase();
     switch (true) {
         case userAgent.includes('edge'):
         case userAgent.includes('edg/'):

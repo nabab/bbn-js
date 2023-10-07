@@ -1,5 +1,5 @@
-const replaceSelection = function (html, selectInserted) {
-    let sel, range, fragment;
+var replaceSelection = function (html, selectInserted) {
+    var sel, range, fragment;
     sel = window.getSelection();
     // Test that the Selection object contains at least one Range
     if (sel.getRangeAt && sel.rangeCount) {
@@ -14,16 +14,16 @@ const replaceSelection = function (html, selectInserted) {
         }
         else {
             // In IE 9 we need to use innerHTML of a temporary element
-            const div = document.createElement('div');
-            let child;
+            var div = document.createElement('div');
+            var child = void 0;
             div.innerHTML = html;
             fragment = document.createDocumentFragment();
             while ((child = div.firstChild)) {
                 fragment.appendChild(child);
             }
         }
-        const firstInsertedNode = fragment.firstChild;
-        const lastInsertedNode = fragment.lastChild;
+        var firstInsertedNode = fragment.firstChild;
+        var lastInsertedNode = fragment.lastChild;
         range.insertNode(fragment);
         sel.removeAllRanges();
         if (selectInserted) {

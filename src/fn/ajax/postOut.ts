@@ -1,6 +1,6 @@
-import { createObject } from '../object/createObject' ;
-import { addInputs } from '../form/addInputs' ;
-import { setProperty } from '../object/setProperty' ;
+import { createObject } from '../object/createObject.js'  ;
+import { addInputs } from '../form/addInputs.js'  ;
+import { setProperty } from '../object/setProperty.js'  ;
 
 /**
  * Posts a request in a new window.

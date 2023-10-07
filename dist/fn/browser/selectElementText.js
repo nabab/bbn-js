@@ -17,15 +17,16 @@
  *
  * @returns  {Boolean} True if focused
  */
-const selectElementText = function (ele, win = null) {
+var selectElementText = function (ele, win) {
+    if (win === void 0) { win = null; }
     win = win || window;
     if (ele instanceof HTMLInputElement) {
         ele.select();
         return;
     }
-    let doc = win.document;
-    let sel;
-    let range;
+    var doc = win.document;
+    var sel;
+    var range;
     if (win.getSelection && doc.createRange) {
         sel = win.getSelection();
         range = doc.createRange();

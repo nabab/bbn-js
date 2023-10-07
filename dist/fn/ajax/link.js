@@ -1,11 +1,11 @@
-import { treatAjaxArguments } from './treatAjaxArguments';
-import { getLoader } from './getLoader';
-import { ajax } from './ajax';
-import { log } from '../browser/log';
-import { extend } from '../object/extend';
-import { isObject } from '../type/isObject';
-import { callback } from './callback';
-import { setNavigationVars } from './setNavigationVars';
+import { treatAjaxArguments } from './treatAjaxArguments.js';
+import { getLoader } from './getLoader.js';
+import { ajax } from './ajax.js';
+import { log } from '../browser/log.js';
+import { extend } from '../object/extend.js';
+import { isObject } from '../type/isObject.js';
+import { callback } from './callback.js';
+import { setNavigationVars } from './setNavigationVars.js';
 /**
  * Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
  *
@@ -30,9 +30,13 @@ import { setNavigationVars } from './setNavigationVars';
  *
  * @returns
  */
-const link = function (...args) {
-    let cfg = treatAjaxArguments(args);
-    let ok = 1;
+var link = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var cfg = treatAjaxArguments(args);
+    var ok = 1;
     /* If we can't find a correct link we load the current URL */
     if (!cfg) {
         return link(window.location.href);
@@ -60,7 +64,7 @@ const link = function (...args) {
         /* Mail link */
         bbn.env.ignoreUnload = true;
         window.location.href = cfg.url;
-        setTimeout(() => {
+        setTimeout(function () {
             bbn.env.ignoreUnload = false;
         }, 0);
         return false;
@@ -84,7 +88,7 @@ const link = function (...args) {
             ok = cfg.successFn(cfg.url);
         }
         else if (bbn.fn.defaultPreLinkFunction) {
-            let tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
+            var tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
             if (tmp.data !== undefined) {
                 extend(cfg.obj, tmp.data);
                 ok = 1;
@@ -95,15 +99,15 @@ const link = function (...args) {
                 cfg.url = ok;
             }
             /** todo Do we keep obj in the unique string or do we make that only one concurrent connection to the same address can occur at the same time? */
-            let errSt = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
+            var errSt_1 = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
             return ajax(cfg.url, cfg.datatype, cfg.obj, function (res) {
                 if (!res) {
-                    log(errSt + bbn._('returned no answer'));
+                    log(errSt_1 + bbn._('returned no answer'));
                 }
                 if (isObject(res)) {
                     // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
                     if (Object.keys(res).length === 0) {
-                        log(errSt + bbn._('returned an empty object'));
+                        log(errSt_1 + bbn._('returned an empty object'));
                     }
                     if (res.new_url) {
                         res.old_path = cfg.url;

@@ -1,6 +1,6 @@
-import { error } from '../browser/error' ;
-import { isFunction } from '../type/isFunction' ;
-import { log } from '../browser/log' ;
+import { error } from '../browser/error.js'  ;
+import { isFunction } from '../type/isFunction.js'  ;
+import { log } from '../browser/log.js'  ;
 
 /**
  * Executes a serie of predefined actions once an Ajax request has been done.

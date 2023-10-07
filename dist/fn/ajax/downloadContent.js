@@ -1,7 +1,7 @@
-import { isCanvas } from '../type/isCanvas';
-import { isObject } from '../type/isObject';
-import { isString } from '../type/isString';
-import { log } from '../browser/log';
+import { isCanvas } from '../type/isCanvas.js';
+import { isObject } from '../type/isObject.js';
+import { isString } from '../type/isString.js';
+import { log } from '../browser/log.js';
 /**
  * Downloads a file with given filename from the given content.
  *
@@ -28,11 +28,12 @@ import { log } from '../browser/log';
  *
  * @returns  {undefined}
  */
-const downloadContent = function (filename, content, type = null) {
+var downloadContent = function (filename, content, type) {
+    if (type === void 0) { type = null; }
     if (isCanvas(content)) {
-        content.toBlob((blob) => {
+        content.toBlob(function (blob) {
             // blob ready, download it
-            let a = document.createElement('a');
+            var a = document.createElement('a');
             a.download = filename;
             a.href = window.URL.createObjectURL(blob);
             a.className = 'bbn-no';
@@ -48,9 +49,9 @@ const downloadContent = function (filename, content, type = null) {
     else if (type.indexOf('/') === -1) {
         type = 'text/' + type;
     }
-    let a = window.document.createElement('a');
+    var a = window.document.createElement('a');
     a.className = 'bbn-no';
-    let src = null;
+    var src = null;
     if (isString(content)) {
         src = new Blob([content], { type: type });
     }

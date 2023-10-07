@@ -1,6 +1,6 @@
-import { isArray } from '../type/isArray';
-import { isObject } from '../type/isObject';
-import { extend } from './extend';
+import { isArray } from '../type/isArray.js';
+import { isObject } from '../type/isObject.js';
+import { extend } from './extend.js';
 /**
  * Creates and returns a perfect clone - but different - from the given object.
  *
@@ -18,14 +18,14 @@ import { extend } from './extend';
  * @param    {Object} obj The source object
  * @returns  {Object} A new object
  */
-const clone = function (obj) {
+var clone = function (obj) {
     if (isArray(obj)) {
-        return obj.slice().map((a) => {
+        return obj.slice().map(function (a) {
             return typeof a === "object" ? clone(a) : a;
         });
     }
     if (isObject(obj)) {
-        const o = Object.create(Object.getPrototypeOf(obj));
+        var o = Object.create(Object.getPrototypeOf(obj));
         return extend(true, o, obj);
     }
     return obj;

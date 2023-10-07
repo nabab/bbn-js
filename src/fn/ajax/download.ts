@@ -1,9 +1,9 @@
-import { ajax } from './ajax' ;
-import { substr } from '../string/substr' ;
-import { baseName } from '../string/baseName' ;
-import { isBlob } from '../type/isBlob' ;
-import { fileExt } from '../string/fileExt' ;
-import { downloadContent } from './downloadContent' ;
+import { ajax } from './ajax.js'  ;
+import { substr } from '../string/substr.js'  ;
+import { baseName } from '../string/baseName.js'  ;
+import { isBlob } from '../type/isBlob.js'  ;
+import { fileExt } from '../string/fileExt.js'  ;
+import { downloadContent } from './downloadContent.js'  ;
 
 /**
  * Downloads a file with given filename from a URL.

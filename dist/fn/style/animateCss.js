@@ -9,8 +9,8 @@
  * @param    {Function}    callback
  * @returns  {*}
  */
-const animateCss = function (ele, animationName, callback) {
-    let animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+var animateCss = function (ele, animationName, callback) {
+    var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
     /*$(ele).addClass('animated ' + animationName).one(animationEnd, function(){
           if ( typeof callback == 'function' ){ // make sure the callback is a function
             callback.call(this); // brings the scope to the callback
@@ -19,8 +19,8 @@ const animateCss = function (ele, animationName, callback) {
         })*/
     ele.classList.add("animated");
     ele.classList.add(animationName);
-    ele.addEventListener(animationEnd, (e) => {
-        e.target.removeEventListener(e.type, arguments.callee);
+    ele.addEventListener(animationEnd, function animationEndHandler(e) {
+        e.target.removeEventListener(e.type, animationEndHandler);
         if (typeof callback == "function") {
             // make sure the callback is a function
             callback.call(this); // brings the scope to the callback

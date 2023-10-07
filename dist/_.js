@@ -1,17 +1,21 @@
-import { checkType } from './fn/type/checkType';
+import { checkType } from './fn/type/checkType.js';
 /**
  * Translate an expression using the object bbn.lng
  *
  * @param {String} st
  * @returns {String}
  */
-const _ = (...args) => {
-    let st = args.shift();
-    let res = bbn.lng[st] || st;
+var _ = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var st = args.shift();
+    var res = bbn.lng[st] || st;
     if (args.length) {
-        let i = 0;
-        return res.replace(/\%([d|s])/g, (match, type) => {
-            let tmp = args[i++];
+        var i_1 = 0;
+        return res.replace(/\%([d|s])/g, function (match, type) {
+            var tmp = args[i_1++];
             if (!tmp) {
                 tmp = type === 'd' ? 0 : '';
             }

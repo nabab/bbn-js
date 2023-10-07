@@ -1,6 +1,6 @@
-import { isNumber } from '../type/isNumber';
-import { substr } from '../string/substr';
-import { isDate } from '../type/isDate';
+import { isNumber } from '../type/isNumber.js';
+import { substr } from '../string/substr.js';
+import { isDate } from '../type/isDate.js';
 /**
  * Returns a date object from the given argument.
  *
@@ -17,8 +17,8 @@ import { isDate } from '../type/isDate';
  * @param    {String|Number} v
  * @returns  {date}
  */
-const date = function (v) {
-    let d = false, t = typeof v;
+var date = function (v) {
+    var d = false, t = typeof v;
     if (v === undefined) {
         return new Date();
     }

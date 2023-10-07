@@ -1,4 +1,4 @@
-import { substr } from '../string/substr';
+import { substr } from '../string/substr.js';
 /**
   * Returns an object with the original objects' properties starting with an alphanumeric character.
   *
@@ -21,8 +21,9 @@ import { substr } from '../string/substr';
   * @param    {Boolean} deep If true the function will be reapplied on object properties
   * @returns  {Object}  A new object without only the _public_ properties.
   */
-const removePrivateProp = function (obj, deep = false) {
-    let r = null;
+var removePrivateProp = function (obj, deep) {
+    if (deep === void 0) { deep = false; }
+    var r = null;
     if (typeof obj === 'object') {
         r = {};
         for (var n in obj) {

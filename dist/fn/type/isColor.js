@@ -1,4 +1,4 @@
-import { isString } from './isString';
+import { isString } from './isString.js';
 /**
  * Intended to check if the argument provided is a color.
  *
@@ -28,11 +28,16 @@ import { isString } from './isString';
  * @param    {String} st
  * @returns  {Boolean}
  */
-const isColor = function (...args) {
+var isColor = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     if (!args.length)
         return false;
     var reg = new RegExp("^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|rgba *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$", "i");
-    for (let st of args) {
+    for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+        var st = args_1[_a];
         if (!isString(st)) {
             return false;
         }

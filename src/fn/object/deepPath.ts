@@ -1,6 +1,6 @@
-import { search } from './search' ;
-import { each } from '../loop/each' ;
-import { isArray } from '../type/isArray' ;
+import { search } from './search.js'  ;
+import { each } from '../loop/each.js'  ;
+import { isArray } from '../type/isArray.js'  ;
 
 /**
  * Retrieves all elements of a hierarchical array corresponding to the filter.

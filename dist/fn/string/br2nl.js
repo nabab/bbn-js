@@ -1,4 +1,4 @@
-import { replaceAll } from './replaceAll';
+import { replaceAll } from './replaceAll.js';
 /**
  * Replaces the html <br> tag with new line characters '\ n' if present in the string.
  *
@@ -16,7 +16,7 @@ import { replaceAll } from './replaceAll';
  * @param    string st
  * @returns  {String}
  */
-const br2nl = function (st) {
+var br2nl = function (st) {
     return replaceAll("<br />", "\n", replaceAll("<br/>", "\n", replaceAll("<br>", "\n", st)));
 };
 export { br2nl };

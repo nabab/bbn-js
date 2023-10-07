@@ -1,4 +1,4 @@
-import { iterate } from '../loop/iterate';
+import { iterate } from '../loop/iterate.js';
 /**
  * Adds the given data to the given form by inserting hidden inputs.
  *
@@ -40,10 +40,12 @@ import { iterate } from '../loop/iterate';
  * @param    {String}      prefix The optional object's name of the fields in the form
  * @returns  {undefined}
  */
-const addInputs = function (form, params = null, prefix = '') {
+var addInputs = function (form, params, prefix) {
+    if (params === void 0) { params = null; }
+    if (prefix === void 0) { prefix = ''; }
     if (form && form.tagName === 'FORM') {
-        let appendToForm = (name, val) => {
-            let input = document.createElement('input');
+        var appendToForm_1 = function (name, val) {
+            var input = document.createElement('input');
             input.setAttribute('type', 'hidden');
             input.setAttribute('name', name);
             input.setAttribute('value', val);
@@ -52,19 +54,19 @@ const addInputs = function (form, params = null, prefix = '') {
         params = JSON.parse(JSON.stringify(params || {}));
         prefix = prefix || '';
         if (params) {
-            iterate(params, (param, key) => {
-                let name = prefix ? `${prefix}[${key}]` : key;
+            iterate(params, function (param, key) {
+                var name = prefix ? "".concat(prefix, "[").concat(key, "]") : key;
                 if (param instanceof Date) {
-                    appendToForm(name, param.toISOString());
+                    appendToForm_1(name, param.toISOString());
                 }
                 else if (param instanceof Array) {
-                    param.forEach((e, i) => {
-                        const tempName = `${name}[${i}]`;
+                    param.forEach(function (e, i) {
+                        var tempName = "".concat(name, "[").concat(i, "]");
                         if (typeof e === 'object') {
                             addInputs(form, e, tempName);
                         }
                         else {
-                            appendToForm(tempName, e.toString());
+                            appendToForm_1(tempName, e.toString());
                         }
                     });
                 }
@@ -72,7 +74,7 @@ const addInputs = function (form, params = null, prefix = '') {
                     addInputs(form, param, name);
                 }
                 else {
-                    appendToForm(name, param.toString());
+                    appendToForm_1(name, param.toString());
                 }
             });
         }

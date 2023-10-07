@@ -1,9 +1,10 @@
-const dayjs = require('dayjs');
-const dayjs_plugin_calendar = require('dayjs/plugin/calendar');
-import { fdate } from './fdate' ;
-import { date } from './date' ;
-import { isDate } from '../type/isDate' ;
-import { isString } from '../type/isString' ;
+import dayjs from 'dayjs';
+import dayjs_plugin_calendar from 'dayjs/plugin/calendar.js';
+
+import { fdate } from './fdate.js'  ;
+import { date } from './date.js'  ;
+import { isDate } from '../type/isDate.js'  ;
+import { isString } from '../type/isString.js'  ;
 
 const bbn = {
 	_: st => st

@@ -1,9 +1,10 @@
-import { isArray } from '../type/isArray';
-import { isObject } from '../type/isObject';
-import { each } from '../loop/each';
-import { substr } from '../string/substr';
-const checkPropsDetails = function (obj, props, checkEmpty = false) {
-    let res = {
+import { isArray } from '../type/isArray.js';
+import { isObject } from '../type/isObject.js';
+import { each } from '../loop/each.js';
+import { substr } from '../string/substr.js';
+var checkPropsDetails = function (obj, props, checkEmpty) {
+    if (checkEmpty === void 0) { checkEmpty = false; }
+    var res = {
         error: false,
         result: true,
     };
@@ -17,23 +18,23 @@ const checkPropsDetails = function (obj, props, checkEmpty = false) {
         res.error = bbn._("checkProps must receive an object as obj argument");
     }
     if (!res.error) {
-        let check;
-        each(props, (varName) => {
+        var check_1;
+        each(props, function (varName) {
             varName = varName.trim().split(":");
-            let type = varName[1] || false;
+            var type = varName[1] || false;
             varName = varName[0];
             if (obj[varName] === undefined) {
                 res.error = varName + " " + bbn._("is not defined");
             }
             else if (type) {
-                check =
+                check_1 =
                     "is" +
                         substr(type, 0, 1).toUpperCase() +
                         substr(type, 1).toLowerCase();
-                if (bbn.fn[check] === undefined) {
+                if (bbn.fn[check_1] === undefined) {
                     res.error = type + " " + bbn._("is not a valid type");
                 }
-                else if (!bbn.fn[check](obj[varName])) {
+                else if (!bbn.fn[check_1](obj[varName])) {
                     res.error = varName + " " + bbn._("is not a") + " " + type;
                 }
             }

@@ -2101,7 +2101,7 @@ declare module "fn/datetime/dateSQL" {
      * @param    {Boolean}     dayOnly Whether or not include the time in the date
      * @returns  {String}
      */
-    const dateSQL: (v: any, dayOnly: any) => any;
+    const dateSQL: (v: any, dayOnly: any) => string;
     export { dateSQL };
 }
 declare module "fn/datetime/daysInMonth" {
@@ -4722,7 +4722,7 @@ declare module "fn" {
         createObject: (...args: any[]) => any;
         cssExists: (f: any) => boolean;
         date: (v: any) => any;
-        dateSQL: (v: any, dayOnly: any) => any;
+        dateSQL: (v: any, dayOnly: any) => string;
         daysInMonth: (v: any) => number | false;
         deepPath: (arr: any[], filter: object, deepProperty: string, res?: any[]) => false | any[];
         defaultAjaxAbortFunction: (message: any, url?: string) => void;
@@ -4756,8 +4756,8 @@ declare module "fn" {
         fdatetime: (d: any, wrong_result?: boolean) => any;
         fieldValue: (field: any) => any;
         fileExt: (filename: any) => any;
-        filter: (arr: any[], prop: string | object | import("fn/object/filterToConditions").Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string) => any[];
-        filterToConditions: (filter: any, operator?: string) => import("fn/object/filterToConditions").Filter;
+        filter: (arr: any[], prop: string | object | import("fn/object/filterToConditions.js").Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string) => any[];
+        filterToConditions: (filter: any, operator?: string) => import("fn/object/filterToConditions.js").Filter;
         findAll: (arr: any, filter: any, deepProperty: any, res?: any[]) => any[];
         fori: (arr: any, fn: any, max?: number, min?: number) => void;
         forir: (arr: any, fn: any, max?: number, min?: number) => void;
@@ -4883,7 +4883,7 @@ declare module "fn" {
         riterate: (obj: any, fn: any, noPrivate?: boolean) => any;
         roundDecimal: (value: number, decimals: number) => number;
         sanitize: (str: any, separator?: string) => any;
-        search: (arr: any[], prop: string | object | import("fn/object/filterToConditions").Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string | number, startFrom?: number) => number;
+        search: (arr: any[], prop: string | object | import("fn/object/filterToConditions.js").Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string | number, startFrom?: number) => number;
         selectElementText: (ele: any, win?: any) => void;
         selector: (ele: any) => any;
         setCookie: (name: any, value: any, days: any) => void;

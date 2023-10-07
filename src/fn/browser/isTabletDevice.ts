@@ -1,4 +1,4 @@
-import { getDeviceType } from '../browser/getDeviceType' ;
+import { getDeviceType } from '../browser/getDeviceType.js'  ;
 
 /**
   * Returns true if the current device type is a tablet.

@@ -1,17 +1,21 @@
-import { isArray } from './isArray';
-import { each } from '../loop/each';
-import { isFunction } from './isFunction';
-import { isString } from './isString';
-import { correctCase } from '../string/correctCase';
-import { error } from '../browser/error';
-import { log } from '../browser/log';
-const checkType = function (value, type, msg, ...logs) {
-    let ok = false;
+import { isArray } from './isArray.js';
+import { each } from '../loop/each.js';
+import { isFunction } from './isFunction.js';
+import { isString } from './isString.js';
+import { correctCase } from '../string/correctCase.js';
+import { error } from '../browser/error.js';
+import { log } from '../browser/log.js';
+var checkType = function (value, type, msg) {
+    var logs = [];
+    for (var _i = 3; _i < arguments.length; _i++) {
+        logs[_i - 3] = arguments[_i];
+    }
+    var ok = false;
     if (!isArray(type)) {
         type = [type];
     }
-    const typesList = [];
-    each(type, (t) => {
+    var typesList = [];
+    each(type, function (t) {
         var _a;
         if (t === String) {
             t = 'string';
@@ -39,7 +43,7 @@ const checkType = function (value, type, msg, ...logs) {
             }
         }
         else if (!isString(t) || !isFunction(bbn.fn['is' + correctCase(t)])) {
-            error(`The type ${t} is not recognized`);
+            error("The type ".concat(t, " is not recognized"));
         }
         else if (bbn.fn['is' + correctCase(t)](value)) {
             ok = true;

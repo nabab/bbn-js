@@ -16,11 +16,11 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-const lightenDarkenHex = function (hex, amt) {
+var lightenDarkenHex = function (hex, amt) {
     if (hex && amt) {
-        let ht = hex[0] === "#";
+        var ht = hex[0] === "#";
         hex = ht ? hex.slice(1) : hex;
-        let num = parseInt(hex, 16), r = (num >> 16) + amt, b = ((num >> 8) & 0x00ff) + amt, g = (num & 0x0000ff) + amt;
+        var num = parseInt(hex, 16), r = (num >> 16) + amt, b = ((num >> 8) & 0x00ff) + amt, g = (num & 0x0000ff) + amt;
         if (r > 255) {
             r = 255;
         }

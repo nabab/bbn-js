@@ -1,4 +1,4 @@
-import { selector } from '../html/selector';
+import { selector } from '../html/selector.js';
 /**
  * @ignore
  * @method   outerWidth
@@ -7,10 +7,10 @@ import { selector } from '../html/selector';
  * @memberof bbn.fn
  * @returns  {*}
  */
-const outerWidth = function (ele) {
+var outerWidth = function (ele) {
     ele = selector(ele);
-    let styles = window.getComputedStyle(ele);
-    let margin = parseFloat(styles["marginLeft"]) + parseFloat(styles["marginRight"]);
+    var styles = window.getComputedStyle(ele);
+    var margin = parseFloat(styles["marginLeft"]) + parseFloat(styles["marginRight"]);
     return Math.ceil(ele.offsetWidth + margin);
 };
 export { outerWidth };

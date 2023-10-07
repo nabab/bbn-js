@@ -1,6 +1,6 @@
-import { error } from '../browser/error';
-import { isFunction } from '../type/isFunction';
-import { log } from '../browser/log';
+import { error } from '../browser/error.js';
+import { isFunction } from '../type/isFunction.js';
+import { log } from '../browser/log.js';
 /**
  * Executes a serie of predefined actions once an Ajax request has been done.
  *
@@ -36,13 +36,17 @@ import { log } from '../browser/log';
  *
  * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
  */
-const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
-    let tmp = false;
+var callback = function (url, res, fn, fn2, ele) {
+    if (res === void 0) { res = null; }
+    if (fn === void 0) { fn = null; }
+    if (fn2 === void 0) { fn2 = null; }
+    if (ele === void 0) { ele = null; }
+    var tmp = false;
     if (res) {
         tmp = true;
-        let t = typeof res;
-        let isObj = t.toLowerCase() === 'object';
-        let errTitle;
+        var t = typeof res;
+        var isObj = t.toLowerCase() === 'object';
+        var errTitle = void 0;
         if (isObj && res.prescript) {
             /* var ok can be changed to false in prescript execution */
             try {
@@ -75,8 +79,8 @@ const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
                 tmp = res.script(res.data ? res.data : {}, ele || null);
             }
             else {
-                tmp = ((data, ele) => {
-                    let r = null;
+                tmp = (function (data, ele) {
+                    var r = null;
                     try {
                         r = eval(res.script);
                         if (isFunction(r)) {

@@ -4,7 +4,7 @@
  * @param {String*} value
  * @returns
  */
-const setCssVar = function (varname, value) {
+var setCssVar = function (varname, value) {
     if (varname.indexOf("--") !== 0) {
         varname = "--" + varname;
     }

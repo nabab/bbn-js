@@ -1,4 +1,4 @@
-import { removeHtmlComments } from '../string/removeHtmlComments' ;
+import { removeHtmlComments } from '../string/removeHtmlComments.js'  ;
 
 const getHtml = function (ele, stripComments = false) {
 	let st = ele.innerHTML();

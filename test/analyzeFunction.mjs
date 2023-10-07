@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import {analyzeFunction} from '../dist/fn/misc/analyzeFunction.js';
 
+
 describe('analyzeFunction', function() {
 
     it('Should analyze a nested function correctly', function() {

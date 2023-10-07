@@ -8,8 +8,8 @@
  * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
  * @returns {Object}
  */
-const fromXml = function (xml, arrayTags) {
-    let dom = null;
+var fromXml = function (xml, arrayTags) {
+    var dom = null;
     if (window.DOMParser)
         dom = new DOMParser().parseFromString(xml, "text/xml");
     else if (window["ActiveXObject"]) {
@@ -22,12 +22,12 @@ const fromXml = function (xml, arrayTags) {
         throw new Error("cannot parse xml string!");
     function parseNode(xmlNode, result) {
         if (xmlNode.nodeName == "#text") {
-            let v = xmlNode.nodeValue;
+            var v = xmlNode.nodeValue;
             if (v.trim())
                 result["#text"] = v;
             return;
         }
-        let jsonNode = {}, existing = result[xmlNode.nodeName];
+        var jsonNode = {}, existing = result[xmlNode.nodeName];
         if (existing) {
             if (!Array.isArray(existing))
                 result[xmlNode.nodeName] = [existing, jsonNode];
@@ -41,14 +41,20 @@ const fromXml = function (xml, arrayTags) {
                 result[xmlNode.nodeName] = jsonNode;
         }
         if (xmlNode.attributes)
-            for (let attribute of xmlNode.attributes)
+            for (var _i = 0, _a = xmlNode.attributes; _i < _a.length; _i++) {
+                var attribute = _a[_i];
                 jsonNode[attribute.nodeName] = attribute.nodeValue;
-        for (let node of xmlNode.childNodes)
+            }
+        for (var _b = 0, _c = xmlNode.childNodes; _b < _c.length; _b++) {
+            var node = _c[_b];
             parseNode(node, jsonNode);
+        }
     }
-    let result = {};
-    for (let node of dom.childNodes)
+    var result = {};
+    for (var _i = 0, _a = dom.childNodes; _i < _a.length; _i++) {
+        var node = _a[_i];
         parseNode(node, result);
+    }
     return result;
 };
 export { fromXml };

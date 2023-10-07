@@ -1,8 +1,8 @@
-import { isString } from '../type/isString' ;
-import { isArray } from '../type/isArray' ;
-import { isObject } from '../type/isObject' ;
-import { each } from '../loop/each' ;
-import { substr } from '../string/substr' ;
+import { isString } from '../type/isString.js'  ;
+import { isArray } from '../type/isArray.js'  ;
+import { isObject } from '../type/isObject.js'  ;
+import { each } from '../loop/each.js'  ;
+import { substr } from '../string/substr.js'  ;
 
 const checkPropsDetails = function (
   obj: object,

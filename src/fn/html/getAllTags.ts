@@ -1,4 +1,4 @@
-import { unique } from '../object/unique' ;
+import { unique } from '../object/unique.js'  ;
 
 /**
  * Gets all the tag names present in the DOM

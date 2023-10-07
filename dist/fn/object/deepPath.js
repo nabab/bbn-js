@@ -1,6 +1,6 @@
-import { search } from './search';
-import { each } from '../loop/each';
-import { isArray } from '../type/isArray';
+import { search } from './search.js';
+import { each } from '../loop/each.js';
+import { isArray } from '../type/isArray.js';
 /**
  * Retrieves all elements of a hierarchical array corresponding to the filter.
  *
@@ -56,18 +56,19 @@ import { isArray } from '../type/isArray';
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The number of items
  */
-const deepPath = function (arr, filter, deepProperty, res = []) {
-    let idx;
-    let start = 0;
+var deepPath = function (arr, filter, deepProperty, res) {
+    if (res === void 0) { res = []; }
+    var idx;
+    var start = 0;
     if ((idx = search(arr, filter, start)) > -1) {
         res.push(idx);
         return res;
     }
-    each(arr, (it, i) => {
+    each(arr, function (it, i) {
         if (isArray(it[deepProperty])) {
-            let r = res.slice();
+            var r = res.slice();
             r.push(i);
-            let tmp = deepPath(it[deepProperty], filter, deepProperty, r);
+            var tmp = deepPath(it[deepProperty], filter, deepProperty, r);
             if (tmp !== false) {
                 return tmp;
             }

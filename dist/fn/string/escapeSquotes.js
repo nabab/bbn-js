@@ -1,5 +1,5 @@
-import { isString } from '../type/isString';
-const escapeSquotes = function (str) {
+import { isString } from '../type/isString.js';
+var escapeSquotes = function (str) {
     if (!isString(str)) {
         return str;
     }

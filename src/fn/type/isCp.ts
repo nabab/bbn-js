@@ -1,4 +1,4 @@
-import { isDom } from './isDom' ;
+import { isDom } from './isDom.js'  ;
 
 const isCp = function (...args: any[]): boolean
 {

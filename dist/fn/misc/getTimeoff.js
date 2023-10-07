@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const getTimeoff = function () {
+var getTimeoff = function () {
     if (!bbn.env.isFocused) {
         return Math.round(new Date().getTime() / 1000 - bbn.env.timeoff);
     }

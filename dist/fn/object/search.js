@@ -1,9 +1,9 @@
-import { isIterable } from '../type/isIterable';
-import { compareConditions } from './compareConditions';
-import { filterToConditions } from './filterToConditions';
-import { isObject } from '../type/isObject';
-import { numProperties } from './numProperties';
-import { isNumber } from '../type/isNumber';
+import { isIterable } from '../type/isIterable.js';
+import { compareConditions } from './compareConditions.js';
+import { filterToConditions } from './filterToConditions.js';
+import { isObject } from '../type/isObject.js';
+import { numProperties } from './numProperties.js';
+import { isNumber } from '../type/isNumber.js';
 /**
  * Retrieves the index of the array's first element corresponding to the given filter.
  *
@@ -102,15 +102,18 @@ import { isNumber } from '../type/isNumber';
  * @param    {Number}                   startFrom The index from which the search should start
  * @returns  {Number}                   The index if found, otherwise -1
  */
-const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
+var search = function (arr, prop, val, operator, startFrom) {
+    if (val === void 0) { val = null; }
+    if (operator === void 0) { operator = '='; }
+    if (startFrom === void 0) { startFrom = 0; }
     if (!isIterable(arr)) {
         throw new Error(bbn._('The first argument for a search should be iterable') + ' ' + typeof arr + ' ' + bbn._('given'));
     }
     if (!arr.length) {
         return -1;
     }
-    let filter;
-    let isFn = false;
+    var filter;
+    var isFn = false;
     if (typeof prop === 'string') {
         filter = {
             conditions: [
@@ -124,7 +127,7 @@ const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
     }
     else if (!prop) {
         isFn = true;
-        filter = a => {
+        filter = function (a) {
             return compareConditions({ value: a }, filterToConditions({
                 logic: 'AND',
                 conditions: [
@@ -157,7 +160,7 @@ const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
             startFrom = 0;
         }
         if (typeof filter === 'function') {
-            for (let i = startFrom; i < arr.length; i++) {
+            for (var i = startFrom; i < arr.length; i++) {
                 if (filter(arr[i])) {
                     return i;
                 }
@@ -165,7 +168,7 @@ const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
         }
         else {
             filter = filterToConditions(filter);
-            for (let i = startFrom; i < arr.length; i++) {
+            for (var i = startFrom; i < arr.length; i++) {
                 if (compareConditions(arr[i], filter)) {
                     return i;
                 }

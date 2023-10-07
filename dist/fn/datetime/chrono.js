@@ -1,5 +1,5 @@
-import { each } from '../loop/each';
-const _private = [];
+import { each } from '../loop/each.js';
+var _private = [];
 /**
  * Starts a timer and gives it a name.
  * @method   startChrono
@@ -10,11 +10,11 @@ const _private = [];
  * @memberof bbn.fn
  * @returns
  */
-const startChrono = function (name) {
-    let now = new Date().getTime();
-    let h1 = 3600 * 1000;
+var startChrono = function (name) {
+    var now = new Date().getTime();
+    var h1 = 3600 * 1000;
     if (_private.length) {
-        each(_private, (t, n) => {
+        each(_private, function (t, n) {
             if (now - t > h1) {
                 delete _private[n];
             }
@@ -35,10 +35,10 @@ const startChrono = function (name) {
  * @param {String} name
  * @returns  {Number}
  */
-const stopChrono = function (name) {
+var stopChrono = function (name) {
     if (_private[name]) {
-        let now = new Date().getTime();
-        let diff = now - _private[name];
+        var now = new Date().getTime();
+        var diff = now - _private[name];
         return diff;
     }
 };

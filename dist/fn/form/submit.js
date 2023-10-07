@@ -1,5 +1,5 @@
-import { formdata } from './formdata';
-import { post } from '../ajax/post';
+import { formdata } from './formdata.js';
+import { post } from '../ajax/post.js';
 /**
  * Submit a form's data through an Ajax request.
  *
@@ -18,9 +18,9 @@ import { post } from '../ajax/post';
  *
  * @returns  {*}
  */
-const submit = function (form, e, fn) {
-    let url = form.getAttribute('action') || bbn.env.path;
-    let data;
+var submit = function (form, e, fn) {
+    var url = form.getAttribute('action') || bbn.env.path;
+    var data;
     if (url === '') {
         url = '.';
     }

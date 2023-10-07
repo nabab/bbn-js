@@ -7,7 +7,9 @@
  * @param {Boolean} writable
  * @param {Boolean} configurable
  */
-const setProp = function (obj, prop, value, writable = true, configurable = true) {
+var setProp = function (obj, prop, value, writable, configurable) {
+    if (writable === void 0) { writable = true; }
+    if (configurable === void 0) { configurable = true; }
     Object.defineProperty(obj, prop, {
         value: value,
         writable: writable,

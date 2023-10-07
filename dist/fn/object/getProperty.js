@@ -26,9 +26,9 @@
  * @param    {String} prop
  * @returns  {*}      The property's value or undefined
  */
-const getProperty = function (obj, prop) {
+var getProperty = function (obj, prop) {
     if (typeof obj === 'object' && typeof prop === 'string') {
-        return prop.split('.').reduce((o, i) => {
+        return prop.split('.').reduce(function (o, i) {
             if (o) {
                 return o[i];
             }

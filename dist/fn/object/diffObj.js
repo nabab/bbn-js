@@ -1,10 +1,10 @@
-import { isDate } from '../type/isDate';
-import { createObject } from './createObject';
-import { isFunction } from '../type/isFunction';
-import { isValue } from '../type/isValue';
-import { isDom } from '../type/isDom';
-import { numProperties } from './numProperties';
-let diffObjProcessed = [];
+import { isDate } from '../type/isDate.js';
+import { createObject } from './createObject.js';
+import { isFunction } from '../type/isFunction.js';
+import { isValue } from '../type/isValue.js';
+import { isDom } from '../type/isDom.js';
+import { numProperties } from './numProperties.js';
+var diffObjProcessed = [];
 /**
   * Returns an object describing the differences for transforming the first given object into the second.
   *
@@ -82,11 +82,13 @@ let diffObjProcessed = [];
   * @param    {Boolean} notRoot
   * @returns  {Object}
   */
-const diffObj = function (obj1, obj2, unchanged = false, notRoot = false) {
+var diffObj = function (obj1, obj2, unchanged, notRoot) {
+    if (unchanged === void 0) { unchanged = false; }
+    if (notRoot === void 0) { notRoot = false; }
     if (!notRoot) {
         diffObjProcessed = [];
     }
-    let VALUE_CREATED = 'created', VALUE_UPDATED = 'updated', VALUE_DELETED = 'deleted', VALUE_UNCHANGED = 'unchanged', _compareValues = function (value1, value2) {
+    var VALUE_CREATED = 'created', VALUE_UPDATED = 'updated', VALUE_DELETED = 'deleted', VALUE_UNCHANGED = 'unchanged', _compareValues = function (value1, value2) {
         if (value1 === value2) {
             return VALUE_UNCHANGED;
         }
@@ -104,12 +106,12 @@ const diffObj = function (obj1, obj2, unchanged = false, notRoot = false) {
     if (notRoot === undefined) {
         notRoot = false;
     }
-    let diff = createObject();
+    var diff = createObject();
     if (!isFunction(obj1) && !isFunction(obj2)) {
         if (isValue(obj1) || isValue(obj2)) {
-            let res = _compareValues(obj1, obj2);
+            var res = _compareValues(obj1, obj2);
             if (unchanged || res !== VALUE_UNCHANGED) {
-                let ret = createObject();
+                var ret = createObject();
                 Object.defineProperty(ret, 'type', {
                     value: res,
                     enumerable: false,
@@ -140,24 +142,24 @@ const diffObj = function (obj1, obj2, unchanged = false, notRoot = false) {
             return false;
         }
         diffObjProcessed.push(obj1, obj2);
-        for (let key in obj1) {
+        for (var key in obj1) {
             if (isFunction(obj1[key])) {
                 continue;
             }
-            let value2 = undefined;
+            var value2 = undefined;
             if ('undefined' != typeof obj2[key]) {
                 value2 = obj2[key];
             }
-            let res = diffObj(obj1[key], value2, unchanged, true);
+            var res = diffObj(obj1[key], value2, unchanged, true);
             if (res) {
                 diff[key] = res;
             }
         }
-        for (let key in obj2) {
+        for (var key in obj2) {
             if (isFunction(obj2[key]) || 'undefined' != typeof obj1[key]) {
                 continue;
             }
-            let res = diffObj(undefined, obj2[key], unchanged, true);
+            var res = diffObj(undefined, obj2[key], unchanged, true);
             if (res) {
                 diff[key] = res;
             }

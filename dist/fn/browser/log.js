@@ -1,4 +1,4 @@
-import { isFunction } from '../type/isFunction';
+import { isFunction } from '../type/isFunction.js';
 /**
  * Logs the given arguments in the browser's console.
  * @method   log
@@ -12,11 +12,15 @@ import { isFunction } from '../type/isFunction';
  * @param    {...any} args
  * @returns
  */
-const log = function (...args) {
+var log = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     if (window.console !== undefined) {
-        let cfg;
-        let level = 5;
-        let fn = 'log';
+        var cfg = void 0;
+        var level = 5;
+        var fn = 'log';
         if (args[0] && typeof args[0] === 'object' && args[0]._bbn_console_style) {
             if (args[0]._bbn_console_mode && isFunction(console[args[0]._bbn_console_mode])) {
                 fn = args[0]._bbn_console_mode;
@@ -27,12 +31,12 @@ const log = function (...args) {
             }
             args.shift();
         }
-        const exec = window.console[fn];
+        var exec = window.console[fn];
         if (bbn.env.loggingLevel >= level) {
-            let i = 0;
+            var i = 0;
             while (i < args.length) {
-                let t = typeof args[i];
-                let consoleArguments = [args[i]];
+                var t = typeof args[i];
+                var consoleArguments = [args[i]];
                 if (t === 'string' || t === 'number') {
                     consoleArguments.unshift('%c %s ', cfg);
                 }

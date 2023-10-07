@@ -1,6 +1,6 @@
-import { each } from '../loop/each';
-import { isArray } from '../type/isArray';
-import { replaceAll } from '../string/replaceAll';
+import { each } from '../loop/each.js';
+import { isArray } from '../type/isArray.js';
+import { replaceAll } from '../string/replaceAll.js';
 /**
  * Returns a CSV string from the given array of arrays or objects.
  *
@@ -25,19 +25,22 @@ import { replaceAll } from '../string/replaceAll';
  * @param    {String} [valEsc="] The string escaper character
  * @returns  {String} A CSV string
  */
-const toCSV = function (arr, valSep = ",", rowSep = "", valEsc = '"') {
+var toCSV = function (arr, valSep, rowSep, valEsc) {
+    if (valSep === void 0) { valSep = ","; }
+    if (rowSep === void 0) { rowSep = ""; }
+    if (valEsc === void 0) { valEsc = '"'; }
     if (!valSep) {
         valSep = ",";
     }
     if (!valEsc) {
         valEsc = '"';
     }
-    let csvContent = "";
-    let total = arr.length;
-    each(arr, (a, i) => {
-        let num = isArray(a) ? a.length : Object.values(a).length;
-        let j = 0;
-        each(a, (b) => {
+    var csvContent = "";
+    var total = arr.length;
+    each(arr, function (a, i) {
+        var num = isArray(a) ? a.length : Object.values(a).length;
+        var j = 0;
+        each(a, function (b) {
             if (typeof b === "string") {
                 csvContent += valEsc + replaceAll(valEsc, "\\" + valEsc, b) + valEsc;
             }

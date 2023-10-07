@@ -1,5 +1,6 @@
-const getAncestors = function (ele, selector = null) {
-    let r = [];
+var getAncestors = function (ele, selector) {
+    if (selector === void 0) { selector = null; }
+    var r = [];
     if (typeof ele === 'string') {
         ele = document.querySelector(ele);
     }

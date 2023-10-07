@@ -1,13 +1,13 @@
-import { log } from '../browser/log';
-const getHTMLOfSelection = function () {
-    let range;
-    let selection = window.getSelection();
+import { log } from '../browser/log.js';
+var getHTMLOfSelection = function () {
+    var range;
+    var selection = window.getSelection();
     if (selection.rangeCount > 0) {
         range = selection.getRangeAt(0);
         log('RANGE', range);
-        let clonedSelection = range.cloneContents();
+        var clonedSelection = range.cloneContents();
         log('clonedSelection', clonedSelection);
-        let div = document.createElement('div');
+        var div = document.createElement('div');
         div.appendChild(clonedSelection);
         return div.innerHTML;
     }

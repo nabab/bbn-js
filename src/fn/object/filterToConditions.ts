@@ -1,6 +1,6 @@
-import { isObject } from '../type/isObject' ;
-import { isArray } from '../type/isArray' ;
-import { iterate } from '../loop/iterate' ;
+import { isObject } from '../type/isObject.js'  ;
+import { isArray } from '../type/isArray.js'  ;
+import { iterate } from '../loop/iterate.js'  ;
 
 interface Condition {
   field: string;

@@ -1,14 +1,14 @@
-import { log } from '../browser/log';
-import { createObject } from '../object/createObject';
-import { isSymbol } from '../type/isSymbol';
-import { isNumber } from '../type/isNumber';
-import { isArray } from '../type/isArray';
-import { warning } from '../browser/warning';
-import { isFunction } from '../type/isFunction';
-import { isSame } from '../type/isSame';
-const makeReactive = function (obj, onSet, parent, parentProp) {
-    const parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
-    const prefix = '__bbn_' + (parentString ? parentString + '_' : '');
+import { log } from '../browser/log.js';
+import { createObject } from '../object/createObject.js';
+import { isSymbol } from '../type/isSymbol.js';
+import { isNumber } from '../type/isNumber.js';
+import { isArray } from '../type/isArray.js';
+import { warning } from '../browser/warning.js';
+import { isFunction } from '../type/isFunction.js';
+import { isSame } from '../type/isSame.js';
+var makeReactive = function (obj, onSet, parent, parentProp) {
+    var parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
+    var prefix = '__bbn_' + (parentString ? parentString + '_' : '');
     if (obj && typeof obj === 'object' && [undefined, Object, Array].includes(obj.constructor)) {
         if (obj.__bbnIsProxy && obj.__bbnParent === parent) {
             return obj;
@@ -24,19 +24,23 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                 enumerable: false,
             });
         }
-        const handler = {
-            get(target, key) {
-                const realValue = Reflect.get(target, key);
-                const realTarget = target.__bbnRoot || target;
+        var handler = {
+            get: function (target, key) {
+                var realValue = Reflect.get(target, key);
+                var realTarget = target.__bbnRoot || target;
                 if (isSymbol(key)) {
                     return Reflect.get(realTarget, key);
                 }
-                const propName = parentProp ? parentProp + '.' + key : key;
-                const hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
+                var propName = parentProp ? parentProp + '.' + key : key;
+                var hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
                 if (['fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'].includes(key) &&
                     isArray(target)) {
-                    return function (...args) {
-                        let res = realTarget[key](...args);
+                    return function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        var res = realTarget[key].apply(realTarget, args);
                         warning('DOING ARRAY STUFF');
                         log(target.__bbnParent);
                         onSet(target, 'length', parent);
@@ -47,7 +51,7 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                     return realValue;
                 }
                 if (key === '__bbnRoot') {
-                    let root = obj;
+                    var root = obj;
                     while (root && (root === null || root === void 0 ? void 0 : root.__bbnTarget)) {
                         root = root.__bbnTarget;
                     }
@@ -95,12 +99,12 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                 }
                 return realValue;
             },
-            set(target, key, value) {
+            set: function (target, key, value) {
                 if (isSymbol(key)) {
                     return Reflect.get(target, key, value);
                 }
-                const realTarget = target.__bbnRoot || target;
-                const propName = parentProp ? parentProp + '.' + key : key;
+                var realTarget = target.__bbnRoot || target;
+                var propName = parentProp ? parentProp + '.' + key : key;
                 if (isSymbol(key)) {
                     return Reflect.get(target, key);
                 }
@@ -120,7 +124,7 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                         if (value &&
                             typeof value === 'object' &&
                             [undefined, Object, Array].includes(value.constructor)) {
-                            const hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
+                            var hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
                             Reflect.defineProperty(realTarget, hiddenKey, {
                                 value: makeReactive(value, onSet, parent, propName),
                                 writable: true,
@@ -147,14 +151,14 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                 }
                 return true;
             },
-            defineProperty(target, key, description) {
-                const realTarget = target;
-                const propName = parentProp ? parentProp + '.' + key : key;
+            defineProperty: function (target, key, description) {
+                var realTarget = target;
+                var propName = parentProp ? parentProp + '.' + key : key;
                 if (key === '__bbnWatchers' || isSymbol(key) || key.indexOf('__bbn_') === 0) {
                     Reflect.defineProperty(realTarget, key, description);
                 }
                 else {
-                    const hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
+                    var hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
                     Reflect.defineProperty(realTarget, hiddenKey, {
                         value: makeReactive(description.value, onSet, parent, propName),
                         writable: true,
@@ -165,13 +169,13 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
                 onSet(target, key, parent);
                 return true;
             },
-            deleteProperty(target, key) {
-                const realTarget = target;
+            deleteProperty: function (target, key) {
+                var realTarget = target;
                 if (key.indexOf('__bbn_') === 0) {
                     Reflect.deleteProperty(realTarget, key);
                 }
                 else {
-                    const hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
+                    var hiddenKey = prefix + (isNumber(key) ? key.toString() : key);
                     Reflect.deleteProperty(realTarget, hiddenKey);
                     Reflect.deleteProperty(target, key);
                 }

@@ -1,7 +1,7 @@
-import { isObject } from '../type/isObject';
-import { isFunction } from '../type/isFunction';
-import { substr } from '../string/substr';
-import { numProperties } from '../object/numProperties';
+import { isObject } from '../type/isObject.js';
+import { isFunction } from '../type/isFunction.js';
+import { substr } from '../string/substr.js';
+import { numProperties } from '../object/numProperties.js';
 /**
  * Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.
  *
@@ -53,10 +53,10 @@ import { numProperties } from '../object/numProperties';
  *
  * @returns  {Object} The configuration object
  */
-const treatAjaxArguments = function (args) {
-    let cfg = {};
-    let t;
-    let i;
+var treatAjaxArguments = function (args) {
+    var cfg = {};
+    var t;
+    var i;
     if (isObject(args[0]) && args.length === 1) {
         return args[0];
     }

@@ -1,5 +1,5 @@
-import { iterate } from '../loop/iterate';
-import { md5 } from '../string/md5';
+import { iterate } from '../loop/iterate.js';
+import { md5 } from '../string/md5.js';
 /**
  * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
  *
@@ -48,10 +48,10 @@ import { md5 } from '../string/md5';
  *
  * @returns  {String} The unique ID
  */
-const getRequestId = function (url, data, datatype) {
-    let d = {};
+var getRequestId = function (url, data, datatype) {
+    var d = {};
     if (data) {
-        iterate(data, (a, n) => {
+        iterate(data, function (a, n) {
             if (n.indexOf('_bbn') === -1) {
                 d[n] = a;
             }

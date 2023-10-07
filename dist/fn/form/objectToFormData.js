@@ -1,8 +1,8 @@
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { isObject } from '../type/isObject';
-import { iterate } from '../loop/iterate';
-import { isNull } from '../type/isNull';
+import { isArray } from '../type/isArray.js';
+import { each } from '../loop/each.js';
+import { isObject } from '../type/isObject.js';
+import { iterate } from '../loop/iterate.js';
+import { isNull } from '../type/isNull.js';
 /**
  * @method   objectToFormData
  * @todo     Add method description for objectToFormData
@@ -13,20 +13,23 @@ import { isNull } from '../type/isNull';
  * @param    {Array}             ignoreList
  * @returns
  */
-const objectToFormData = function (obj, key = '', ignoreList = null) {
-    let formData = new FormData();
-    let appendFormData = (data, key = '') => {
+var objectToFormData = function (obj, key, ignoreList) {
+    if (key === void 0) { key = ''; }
+    if (ignoreList === void 0) { ignoreList = null; }
+    var formData = new FormData();
+    var appendFormData = function (data, key) {
+        if (key === void 0) { key = ''; }
         if (!ignoreList || (isArray(ignoreList) && !ignoreList.includes(key))) {
             if (data instanceof File) {
                 formData.append(key, data);
             }
             else if (isArray(data)) {
-                each(data, (v, i) => {
+                each(data, function (v, i) {
                     appendFormData(v, key + '[' + i + ']');
                 });
             }
             else if (isObject(data) && Object.keys(data).length) {
-                iterate(data, (v, i) => {
+                iterate(data, function (v, i) {
                     if (i in data) {
                         appendFormData(v, !key ? i : key + '[' + i + ']');
                     }

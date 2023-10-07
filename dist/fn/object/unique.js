@@ -14,7 +14,7 @@
  * @param    {Array} arr
  * @returns  {Array}
  */
-const unique = function (arr) {
+var unique = function (arr) {
     return arr.filter(function (el, index, ar) {
         return index === ar.indexOf(el);
     });

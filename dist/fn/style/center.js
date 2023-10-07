@@ -12,9 +12,9 @@
  * @param    {HTMLElement} ele
  * @returns  {HTMLElement} The dom element with the new style.
  */
-const center = function (ele) {
+var center = function (ele) {
     //ele = $(ele);
-    let parent = ele.parentNode, 
+    var parent = ele.parentNode, 
     //w = parent.width(),
     w = parent.clientWidth, 
     //h = parent.height();

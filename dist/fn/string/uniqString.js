@@ -1,6 +1,6 @@
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { md5 } from './md5';
+import { isArray } from '../type/isArray.js';
+import { each } from '../loop/each.js';
+import { md5 } from './md5.js';
 /**
  * Create a unique string in md5 format.
  *
@@ -17,9 +17,13 @@ import { md5 } from './md5';
  * @memberof bbn.fn
  * @returns  {String} The unique string in md5 format
  */
-const uniqString = function (...args) {
+var uniqString = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     var st = "";
-    for (var i = 0; i < args.length; i++) {
+    var _loop_1 = function () {
         if (!args[i]) {
             st += "__bbn_empty__";
         }
@@ -29,12 +33,12 @@ const uniqString = function (...args) {
             }
             else {
                 // An object with the same properties, even in different order, should produce the same answer
-                let tmp = {};
-                let ks = Object.keys(args[i]).sort();
-                each(ks, (k) => {
-                    tmp[k] = args[i][k];
+                var tmp_1 = {};
+                var ks = Object.keys(args[i]).sort();
+                each(ks, function (k) {
+                    tmp_1[k] = args[i][k];
                 });
-                st += JSON.stringify(tmp);
+                st += JSON.stringify(tmp_1);
             }
         }
         else if (typeof args[i] !== "string") {
@@ -43,6 +47,9 @@ const uniqString = function (...args) {
         else {
             st += args[i];
         }
+    };
+    for (var i = 0; i < args.length; i++) {
+        _loop_1();
     }
     return md5(st);
 };

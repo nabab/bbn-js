@@ -1,6 +1,6 @@
-import { search } from '../object/search';
-import { getRow } from '../object/getRow';
-import { isObject } from '../type/isObject';
+import { search } from '../object/search.js';
+import { getRow } from '../object/getRow.js';
+import { isObject } from '../type/isObject.js';
 /**
  * Deletes a loader and changes its history state after the promise is fullfilled.
  *
@@ -15,21 +15,23 @@ import { isObject } from '../type/isObject';
  *
  * @returns  {Boolean} True if the loader was found
  */
-const _deleteLoader = function (requestId, res = null, isAbort = false) {
-    let idx = search(bbn.env.loaders, { key: requestId });
+var _deleteLoader = function (requestId, res, isAbort) {
+    if (res === void 0) { res = null; }
+    if (isAbort === void 0) { isAbort = false; }
+    var idx = search(bbn.env.loaders, { key: requestId });
     if (idx > -1) {
-        let loader = bbn.env.loaders.splice(idx, 1)[0];
-        let history = getRow(bbn.env.loadersHistory, { key: requestId, start: loader.start });
-        if (history) {
-            history.loading = false;
-            history.duration = new Date().getTime() - loader.start;
+        var loader = bbn.env.loaders.splice(idx, 1)[0];
+        var history_1 = getRow(bbn.env.loadersHistory, { key: requestId, start: loader.start });
+        if (history_1) {
+            history_1.loading = false;
+            history_1.duration = new Date().getTime() - loader.start;
             if (typeof res === 'string') {
-                history.errorMessage = res;
-                history.error = !isAbort;
-                history.abort = isAbort;
+                history_1.errorMessage = res;
+                history_1.error = !isAbort;
+                history_1.abort = isAbort;
             }
             else if (isObject(res)) {
-                history.success = true;
+                history_1.success = true;
             }
         }
         return true;

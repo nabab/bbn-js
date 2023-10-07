@@ -1,5 +1,5 @@
-import { isObject } from '../type/isObject';
-import { isFunction } from '../type/isFunction';
+import { isObject } from '../type/isObject.js';
+import { isFunction } from '../type/isFunction.js';
 /**
  * Copies to the clipboard the value of the given string.
  * @method   copy
@@ -13,18 +13,20 @@ import { isFunction } from '../type/isFunction';
  * @param {String} st The string to copy.
  * @returns
  */
-const copy = function (st) {
-    return new Promise((resolve) => {
+var copy = function (st) {
+    return new Promise(function (resolve) {
+        var _a;
         if (st) {
             if (navigator && navigator.clipboard) {
                 if (st instanceof Blob) {
-                    navigator.clipboard.write([new ClipboardItem({ [st.type.toString()]: st })]).then(() => {
+                    navigator.clipboard.write([new ClipboardItem((_a = {}, _a[st.type.toString()] = st, _a))]).then(function () {
                         resolve(true);
                     });
                 }
                 else if (isObject(st) && isFunction(st.toBlob)) {
-                    st.toBlob((blob) => {
-                        navigator.clipboard.write([new ClipboardItem({ [blob.type.toString()]: blob })]).then(() => {
+                    st.toBlob(function (blob) {
+                        var _a;
+                        navigator.clipboard.write([new ClipboardItem((_a = {}, _a[blob.type.toString()] = blob, _a))]).then(function () {
                             resolve(true);
                         });
                     });
@@ -35,7 +37,7 @@ const copy = function (st) {
                 }
                 return;
             }
-            let input = document.createElement('textarea');
+            var input = document.createElement('textarea');
             input.style.opacity = '0';
             input.value = st;
             document.body.appendChild(input);

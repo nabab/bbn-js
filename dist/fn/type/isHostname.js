@@ -1,9 +1,14 @@
-import { isString } from './isString';
-import { isIP } from './isIP';
-const isHostname = function (...args) {
+import { isString } from './isString.js';
+import { isIP } from './isIP.js';
+var isHostname = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     if (!args.length)
         return false;
-    for (let st of args) {
+    for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+        var st = args_1[_a];
         if (!isString(st)) {
             return false;
         }

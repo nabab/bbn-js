@@ -1,5 +1,5 @@
-import { simpleHash1 } from './simpleHash1' ;
-import { simpleHash2 } from './simpleHash2' ;
+import { simpleHash1 } from './simpleHash1.js'  ;
+import { simpleHash2 } from './simpleHash2.js'  ;
 
 const simpleHash = function (str) {
 	const part1 = simpleHash1(str).toString(16).padStart(8, '0');

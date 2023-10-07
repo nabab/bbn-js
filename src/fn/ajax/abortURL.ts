@@ -1,5 +1,5 @@
-import { each } from '../loop/each' ;
-import { filter } from '../object/filter' ;
+import { each } from '../loop/each.js'  ;
+import { filter } from '../object/filter.js'  ;
 
 /**
  * Aborts (client side) all the XHR using the given URL if it still exists.

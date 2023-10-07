@@ -1,4 +1,4 @@
-import { substr } from '../string/substr';
+import { substr } from '../string/substr.js';
 /**
  * Creates and adds a "loader" object to the property bbn.env.loaders.
  *
@@ -13,13 +13,13 @@ import { substr } from '../string/substr';
  *
  * @returns  {Number}  The timestamp (in ms)
  */
-const _addLoader = function (requestId, prom, source) {
+var _addLoader = function (requestId, prom, source) {
     /** @var {Number} tst Current timestamp */
-    let tst = new Date().getTime();
+    var tst = new Date().getTime();
     /** @var {String} url The original URL (part of requestId before : and md5) */
-    let url = substr(requestId, 0, requestId.length - 33);
+    var url = substr(requestId, 0, requestId.length - 33);
     /** @var {Object} loader The loader object */
-    let loader = {
+    var loader = {
         key: requestId,
         url: url,
         loader: prom,
@@ -36,7 +36,7 @@ const _addLoader = function (requestId, prom, source) {
     // Adding an object with this loader info in bbn.env.loadersHistory
     bbn.env.loadersHistory.unshift(loader);
     /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
-    let idx = bbn.env.loadersHistory.length;
+    var idx = bbn.env.loadersHistory.length;
     // Removing elements from the loadersHistory object if their number is higher
     // than bbn.env.maxLoadersHistory
     while (idx && bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory) {

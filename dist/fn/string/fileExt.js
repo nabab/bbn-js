@@ -1,4 +1,4 @@
-import { isString } from '../type/isString';
+import { isString } from '../type/isString.js';
 /**
  * Gets the extension from a file's name.
  *
@@ -35,9 +35,9 @@ import { isString } from '../type/isString';
  * @param   {String} filename
  * @returns {String} The file's extension
  */
-const fileExt = function (filename) {
+var fileExt = function (filename) {
     if (filename && isString(filename)) {
-        let bits = filename.split(".");
+        var bits = filename.split(".");
         if (bits[0] && bits.length > 1) {
             return bits[bits.length - 1].toLowerCase();
         }

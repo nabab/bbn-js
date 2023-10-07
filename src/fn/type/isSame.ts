@@ -1,5 +1,5 @@
-import { hash } from '../string/hash' ;
-import { each } from '../loop/each' ;
+import { hash } from '../string/hash.js'  ;
+import { each } from '../loop/each.js'  ;
 
 /**
   * Checks whether the data contained in the given objects is identical.

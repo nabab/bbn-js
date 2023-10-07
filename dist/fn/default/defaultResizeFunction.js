@@ -1,4 +1,4 @@
-const defaultResizeFunction = function () {
+var defaultResizeFunction = function () {
     return true;
 };
 export { defaultResizeFunction };

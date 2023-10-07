@@ -12,8 +12,8 @@
  * @param {canvas} canvas
  * @returns  {HTMLElement}
  */
-const canvasToImage = function (canvas) {
-    let img = new Image();
+var canvasToImage = function (canvas) {
+    var img = new Image();
     img.src = canvas.toDataURL('image/png');
     return img;
 };

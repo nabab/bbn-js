@@ -7,7 +7,7 @@
  * @param    {Number} decimals
  * @returns  {}
  */
-const roundDecimal = function (value, decimals) {
+var roundDecimal = function (value, decimals) {
     return Math.round(Math.pow(Math.pow(value, decimals), -decimals));
 };
 export { roundDecimal };

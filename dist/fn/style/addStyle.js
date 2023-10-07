@@ -1,5 +1,5 @@
-import { isObject } from '../type/isObject';
-import { iterate } from '../loop/iterate';
+import { isObject } from '../type/isObject.js';
+import { iterate } from '../loop/iterate.js';
 /**
  * @ignore
  * @method   addStyle
@@ -10,9 +10,9 @@ import { iterate } from '../loop/iterate';
  * @param    {Object}      o
  * @returns  {*}
  */
-const addStyle = function (ele, o) {
+var addStyle = function (ele, o) {
     if (isObject(o)) {
-        iterate(o, (v, k) => {
+        iterate(o, function (v, k) {
             ele.style[k] = v;
         });
     }

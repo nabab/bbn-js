@@ -1,9 +1,9 @@
-import { ajax } from './ajax';
-import { substr } from '../string/substr';
-import { baseName } from '../string/baseName';
-import { isBlob } from '../type/isBlob';
-import { fileExt } from '../string/fileExt';
-import { downloadContent } from './downloadContent';
+import { ajax } from './ajax.js';
+import { substr } from '../string/substr.js';
+import { baseName } from '../string/baseName.js';
+import { isBlob } from '../type/isBlob.js';
+import { fileExt } from '../string/fileExt.js';
+import { downloadContent } from './downloadContent.js';
 /**
  * Downloads a file with given filename from a URL.
  *
@@ -32,16 +32,18 @@ import { downloadContent } from './downloadContent';
  *
  * @returns  {undefined}
  */
-const download = function (url, filename = '', params = null) {
+var download = function (url, filename, params) {
+    if (filename === void 0) { filename = ''; }
+    if (params === void 0) { params = null; }
     // We can intervert the arguments
     if (filename && typeof filename === "object") {
         params = filename;
         filename = "";
     }
-    return ajax(url, "blob", params || { _bbn_download: 1 }, (d, headers) => {
+    return ajax(url, "blob", params || { _bbn_download: 1 }, function (d, headers) {
         if (!filename) {
-            let prop = "content-disposition";
-            let cd = "attachment; filename=";
+            var prop = "content-disposition";
+            var cd = "attachment; filename=";
             if ((headers === null || headers === void 0 ? void 0 : headers[prop]) && headers[prop].indexOf(cd) === 0) {
                 filename = substr(headers[prop], cd.length + 1, headers[prop].length - cd.length - 2);
             }
@@ -50,8 +52,8 @@ const download = function (url, filename = '', params = null) {
             }
         }
         if (isBlob(d)) {
-            let extension = fileExt(filename);
-            let htmlExtensions = ["php", "html"];
+            var extension = fileExt(filename);
+            var htmlExtensions = ["php", "html"];
             if (typeof filename === "string" &&
                 (("type" in d && d.type !== "text/html") ||
                     htmlExtensions.includes(extension))) {
@@ -59,7 +61,7 @@ const download = function (url, filename = '', params = null) {
                 return;
             }
         }
-    }, (e) => {
+    }, function (e) {
         bbn.fn.defaultAjaxErrorFunction(e);
     });
 };

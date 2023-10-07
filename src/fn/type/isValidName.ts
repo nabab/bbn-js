@@ -1,4 +1,4 @@
-import { isString } from './isString' ;
+import { isString } from './isString.js'  ;
 
 /**
  * Returns true if the given value is a valid name for a function without checking in reserved words, false otherwise

@@ -1,5 +1,5 @@
-import { objectToFormData } from '../form/objectToFormData';
-import { log } from '../browser/log';
+import { objectToFormData } from '../form/objectToFormData.js';
+import { log } from '../browser/log.js';
 /**
  * Uploads a file synchronously through an XHR indicating progress.
  *
@@ -16,15 +16,18 @@ import { log } from '../browser/log';
  *
  * @returns  {Promise}
  */
-const upload = function (url, file, success = null, failure = null, progress = null) {
-    let fn = () => {
+var upload = function (url, file, success, failure, progress) {
+    if (success === void 0) { success = null; }
+    if (failure === void 0) { failure = null; }
+    if (progress === void 0) { progress = null; }
+    var fn = function () {
         return axios.post(url || bbn.env.path, objectToFormData(file), {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-            onUploadProgress(progressEvent) {
+            onUploadProgress: function (progressEvent) {
                 if (progress) {
-                    let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     progress(percentCompleted, progressEvent.loaded, progressEvent.total);
                 }
             },
@@ -35,13 +38,13 @@ const upload = function (url, file, success = null, failure = null, progress = n
     }
     else {
         return fn()
-            .then((res) => {
+            .then(function (res) {
             if (success) {
                 log('SUCCESS', res);
                 success(res);
             }
         })
-            .catch((err) => {
+            .catch(function (err) {
             if (failure) {
                 log('ERROR', err);
                 failure(err);

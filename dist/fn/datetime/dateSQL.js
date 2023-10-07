@@ -1,5 +1,5 @@
-import { date } from './date';
-const dayjs = require('dayjs');
+import { date } from './date.js';
+import dayjs from 'dayjs';
 /**
  * Returns a date with SQL format.
  *
@@ -18,8 +18,8 @@ const dayjs = require('dayjs');
  * @param    {Boolean}     dayOnly Whether or not include the time in the date
  * @returns  {String}
  */
-const dateSQL = function (v, dayOnly) {
-    let value = date(v);
+var dateSQL = function (v, dayOnly) {
+    var value = date(v);
     if (value) {
         return dayjs(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
     }

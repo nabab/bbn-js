@@ -1,5 +1,5 @@
-//import { log } from './log' ;
-import { escapeRegExp } from '../string/escapeRegExp';
+//import { log } from './log.js'  ;
+import { escapeRegExp } from '../string/escapeRegExp.js';
 /**
  * not used
  * @ignore
@@ -10,11 +10,11 @@ import { escapeRegExp } from '../string/escapeRegExp';
  * @param    {String} f
  * @returns
  */
-const cssExists = function (f) {
-    let ok;
-    let rules;
-    let css = document.styleSheets;
-    for (let sx = 0; sx < css.length; sx++) {
+var cssExists = function (f) {
+    var ok;
+    var rules;
+    var css = document.styleSheets;
+    for (var sx = 0; sx < css.length; sx++) {
         ok = 1;
         try {
             rules = css[sx].rules || css[sx].cssRules;
@@ -27,7 +27,7 @@ const cssExists = function (f) {
         }
         if (ok) {
             //log(rules);
-            for (let cx = 0; cx < rules.length; cx++) {
+            for (var cx = 0; cx < rules.length; cx++) {
                 //log(rules[cx].selectorText);
                 if (new RegExp("(^|\\s)" + escapeRegExp(f) + "(\\{|\\s)", "g").test(rules[cx].selectorText)) {
                     return true;

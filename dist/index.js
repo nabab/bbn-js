@@ -1,14 +1,23 @@
-(() => {
-    const defines = {};
-    const entry = [null];
+(function () {
+    var defines = {};
+    var entry = [null];
     function define(name, dependencies, factory) {
-        defines[name] = { dependencies, factory };
+        defines[name] = { dependencies: dependencies, factory: factory };
         entry[0] = name;
     }
-    define("require", ["exports"], (exports) => {
+    define("require", ["exports"], function (exports) {
         Object.defineProperty(exports, "__cjsModule", { value: true });
-        Object.defineProperty(exports, "default", { value: (name) => resolve(name) });
+        Object.defineProperty(exports, "default", { value: function (name) { return resolve(name); } });
     });
+    var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+            if (ar || !(i in from)) {
+                if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+                ar[i] = from[i];
+            }
+        }
+        return to.concat(ar || Array.prototype.slice.call(from));
+    };
     define("fn/type/isArray", ["require", "exports"], function (require, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -25,10 +34,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isArray = function (...args) {
+        var isArray = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+                var a = args_1[_a];
                 if (!Array.isArray(a)) {
                     return false;
                 }
@@ -58,10 +72,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isNumber = function (...args) {
+        var isNumber = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_2 = args; _a < args_2.length; _a++) {
+                var a = args_2[_a];
                 if (["boolean", "object", "symbol"].includes(typeof a) ||
                     a === "" ||
                     isNaN(a)) {
@@ -101,11 +120,16 @@
          *
          * @returns  {Boolean}
          */
-        const isIterable = function (...args) {
+        var isIterable = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length) {
                 return false;
             }
-            for (let a of args) {
+            for (var _a = 0, args_3 = args; _a < args_3.length; _a++) {
+                var a = args_3[_a];
                 if (!a ||
                     (typeof a !== "object") ||
                     !(Symbol.iterator in Object(a))) {
@@ -132,10 +156,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isString = function (...args) {
+        var isString = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_4 = args; _a < args_4.length; _a++) {
+                var a = args_4[_a];
                 if ({}.toString.apply(a) !== "[object String]") {
                     return false;
                 }
@@ -164,10 +193,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isInt = function (...args) {
+        var isInt = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_5 = args; _a < args_5.length; _a++) {
+                var a = args_5[_a];
                 if (!Number.isInteger(a)) {
                     return false;
                 }
@@ -194,10 +228,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isFunction = function (...args) {
+        var isFunction = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let obj of args) {
+            for (var _a = 0, args_6 = args; _a < args_6.length; _a++) {
+                var obj = args_6[_a];
                 if (!(obj && obj.constructor && obj.call && obj.apply)) {
                     return false;
                 }
@@ -206,7 +245,7 @@
         };
         exports.isFunction = isFunction;
     });
-    define("fn/browser/log", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_1) {
+    define("fn/browser/log", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.log = void 0;
@@ -223,13 +262,17 @@
          * @param    {...any} args
          * @returns
          */
-        const log = function (...args) {
+        var log = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (window.console !== undefined) {
-                let cfg;
-                let level = 5;
-                let fn = 'log';
+                var cfg = void 0;
+                var level = 5;
+                var fn = 'log';
                 if (args[0] && typeof args[0] === 'object' && args[0]._bbn_console_style) {
-                    if (args[0]._bbn_console_mode && (0, isFunction_1.isFunction)(console[args[0]._bbn_console_mode])) {
+                    if (args[0]._bbn_console_mode && (0, isFunction_js_1.isFunction)(console[args[0]._bbn_console_mode])) {
                         fn = args[0]._bbn_console_mode;
                     }
                     else {
@@ -238,12 +281,12 @@
                     }
                     args.shift();
                 }
-                const exec = window.console[fn];
+                var exec = window.console[fn];
                 if (bbn.env.loggingLevel >= level) {
-                    let i = 0;
+                    var i = 0;
                     while (i < args.length) {
-                        let t = typeof args[i];
-                        let consoleArguments = [args[i]];
+                        var t = typeof args[i];
+                        var consoleArguments = [args[i]];
                         if (t === 'string' || t === 'number') {
                             consoleArguments.unshift('%c %s ', cfg);
                         }
@@ -256,7 +299,7 @@
         };
         exports.log = log;
     });
-    define("fn/string/substr", ["require", "exports", "fn/type/isString", "fn/type/isInt", "fn/browser/log"], function (require, exports, isString_1, isInt_1, log_1) {
+    define("fn/string/substr", ["require", "exports", "fn/type/isString", "fn/type/isInt", "fn/browser/log"], function (require, exports, isString_js_1, isInt_js_1, log_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.substr = void 0;
@@ -281,22 +324,22 @@
          * @param    {Number} length
          * @returns  {String} Result substring
          */
-        const substr = function (str, from, length) {
-            if (!(0, isString_1.isString)(str) || !(0, isInt_1.isInt)(from)) {
-                (0, log_1.log)(arguments);
+        var substr = function (str, from, length) {
+            if (!(0, isString_js_1.isString)(str) || !(0, isInt_js_1.isInt)(from)) {
+                (0, log_js_1.log)(arguments);
                 throw new Error(bbn._("The substr function should be applied to a string and at least a `from` argument should be given"));
             }
             if (from < 0) {
                 from = str.length + from;
             }
-            if (!(0, isInt_1.isInt)(length)) {
+            if (!(0, isInt_js_1.isInt)(length)) {
                 return str.substring(from);
             }
             return str.substring(from, (length < 0 ? str.length : from) + length);
         };
         exports.substr = substr;
     });
-    define("fn/object/removePrivateProp", ["require", "exports", "fn/string/substr"], function (require, exports, substr_1) {
+    define("fn/object/removePrivateProp", ["require", "exports", "fn/string/substr"], function (require, exports, substr_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removePrivateProp = void 0;
@@ -322,12 +365,13 @@
           * @param    {Boolean} deep If true the function will be reapplied on object properties
           * @returns  {Object}  A new object without only the _public_ properties.
           */
-        const removePrivateProp = function (obj, deep = false) {
-            let r = null;
+        var removePrivateProp = function (obj, deep) {
+            if (deep === void 0) { deep = false; }
+            var r = null;
             if (typeof obj === 'object') {
                 r = {};
                 for (var n in obj) {
-                    if ((0, substr_1.substr)(n, 0, 1).match(/^[A-z0-9]$/) && (n in obj)) {
+                    if ((0, substr_js_1.substr)(n, 0, 1).match(/^[A-z0-9]$/) && (n in obj)) {
                         if (deep && typeof obj[n] === 'object') {
                             r[n] = removePrivateProp(obj[n], true);
                         }
@@ -341,7 +385,7 @@
         };
         exports.removePrivateProp = removePrivateProp;
     });
-    define("fn/loop/iterate", ["require", "exports", "fn/object/removePrivateProp"], function (require, exports, removePrivateProp_1) {
+    define("fn/loop/iterate", ["require", "exports", "fn/object/removePrivateProp"], function (require, exports, removePrivateProp_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.iterate = void 0;
@@ -365,13 +409,16 @@
          * @param    {Boolean}         reverse   If set to true the order of the keys will be reversed
          * @returns  {Object}
          */
-        const iterate = function (obj, fn, noPrivate = false, reverse = false) {
+        var iterate = function (obj, fn, noPrivate, reverse) {
+            if (noPrivate === void 0) { noPrivate = false; }
+            if (reverse === void 0) { reverse = false; }
             if (obj !== null && typeof obj === "object") {
-                let iter = Object.keys(noPrivate ? (0, removePrivateProp_1.removePrivateProp)(obj) : obj);
+                var iter = Object.keys(noPrivate ? (0, removePrivateProp_js_1.removePrivateProp)(obj) : obj);
                 if (reverse) {
                     iter.reverse();
                 }
-                for (let prop of iter) {
+                for (var _i = 0, iter_1 = iter; _i < iter_1.length; _i++) {
+                    var prop = iter_1[_i];
                     if (fn(obj[prop], prop) === false) {
                         break;
                     }
@@ -381,7 +428,7 @@
         };
         exports.iterate = iterate;
     });
-    define("fn/loop/each", ["require", "exports", "fn/type/isNumber", "fn/type/isIterable", "fn/loop/iterate"], function (require, exports, isNumber_1, isIterable_1, iterate_1) {
+    define("fn/loop/each", ["require", "exports", "fn/type/isNumber", "fn/type/isIterable", "fn/loop/iterate"], function (require, exports, isNumber_js_1, isIterable_js_1, iterate_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.each = void 0;
@@ -416,24 +463,24 @@
          * @param    {Function}  fn  The function, gets the array's element and the index as arguments
          * @returns  {[Array, Object, void]}
          */
-        const each = function (arr, fn) {
-            if ((0, isNumber_1.isNumber)(arr) && arr > 0) {
-                for (let i = 0; i < arr; i++) {
+        var each = function (arr, fn) {
+            if ((0, isNumber_js_1.isNumber)(arr) && arr > 0) {
+                for (var i = 0; i < arr; i++) {
                     if (fn(i, i) === false) {
                         return;
                     }
                 }
                 return;
             }
-            if ((0, isIterable_1.isIterable)(arr)) {
-                for (let i = 0; i < arr.length; i++) {
+            if ((0, isIterable_js_1.isIterable)(arr)) {
+                for (var i = 0; i < arr.length; i++) {
                     if (fn(arr[i], i) === false) {
                         return;
                     }
                 }
                 return arr;
             }
-            return (0, iterate_1.iterate)(arr, fn);
+            return (0, iterate_js_1.iterate)(arr, fn);
         };
         exports.each = each;
     });
@@ -457,12 +504,12 @@
          * @param    {STring} str
          * @returns  {String}
          */
-        const correctCase = function (str) {
-            return str.replace(/[A-z]{1}/, (c) => c.toUpperCase());
+        var correctCase = function (str) {
+            return str.replace(/[A-z]{1}/, function (c) { return c.toUpperCase(); });
         };
         exports.correctCase = correctCase;
     });
-    define("fn/browser/error", ["require", "exports", "fn/browser/log"], function (require, exports, log_2) {
+    define("fn/browser/error", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.error = void 0;
@@ -478,10 +525,10 @@
          * @param    {String} errorMsg
          * @returns
          */
-        const error = function (errorMsg) {
+        var error = function (errorMsg) {
             if (arguments.length > 1) {
-                const args = [];
-                for (let i = 1; i < arguments.length; i++) {
+                var args = [];
+                for (var i = 1; i < arguments.length; i++) {
                     args.push(arguments[i]);
                 }
                 args.unshift({
@@ -489,23 +536,27 @@
                     _bbn_console_level: 1,
                     _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
                 });
-                log_2.log.apply(this, args);
+                log_js_2.log.apply(this, args);
             }
             throw new Error(errorMsg);
         };
         exports.error = error;
     });
-    define("fn/type/checkType", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isFunction", "fn/type/isString", "fn/string/correctCase", "fn/browser/error", "fn/browser/log"], function (require, exports, isArray_1, each_1, isFunction_2, isString_2, correctCase_1, error_1, log_3) {
+    define("fn/type/checkType", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isFunction", "fn/type/isString", "fn/string/correctCase", "fn/browser/error", "fn/browser/log"], function (require, exports, isArray_js_1, each_js_1, isFunction_js_2, isString_js_2, correctCase_js_1, error_js_1, log_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkType = void 0;
-        const checkType = function (value, type, msg, ...logs) {
-            let ok = false;
-            if (!(0, isArray_1.isArray)(type)) {
+        var checkType = function (value, type, msg) {
+            var logs = [];
+            for (var _i = 3; _i < arguments.length; _i++) {
+                logs[_i - 3] = arguments[_i];
+            }
+            var ok = false;
+            if (!(0, isArray_js_1.isArray)(type)) {
                 type = [type];
             }
-            const typesList = [];
-            (0, each_1.each)(type, (t) => {
+            var typesList = [];
+            (0, each_js_1.each)(type, function (t) {
                 var _a;
                 if (t === String) {
                     t = 'string';
@@ -525,17 +576,17 @@
                 else if (t === Function) {
                     t = 'function';
                 }
-                if ((0, isFunction_2.isFunction)(t)) {
+                if ((0, isFunction_js_2.isFunction)(t)) {
                     typesList.push(t.name || ((_a = t.constructor) === null || _a === void 0 ? void 0 : _a.name) || t.toString());
                     if (value instanceof t) {
                         ok = true;
                         return false;
                     }
                 }
-                else if (!(0, isString_2.isString)(t) || !(0, isFunction_2.isFunction)(bbn.fn['is' + (0, correctCase_1.correctCase)(t)])) {
-                    (0, error_1.error)(`The type ${t} is not recognized`);
+                else if (!(0, isString_js_2.isString)(t) || !(0, isFunction_js_2.isFunction)(bbn.fn['is' + (0, correctCase_js_1.correctCase)(t)])) {
+                    (0, error_js_1.error)("The type ".concat(t, " is not recognized"));
                 }
-                else if (bbn.fn['is' + (0, correctCase_1.correctCase)(t)](value)) {
+                else if (bbn.fn['is' + (0, correctCase_js_1.correctCase)(t)](value)) {
                     ok = true;
                     return false;
                 }
@@ -544,16 +595,16 @@
                 }
             });
             if (!ok) {
-                (0, log_3.log)(['Value given', value, 'type', typeof value, 'expected', typesList.join(' or ')]);
+                (0, log_js_3.log)(['Value given', value, 'type', typeof value, 'expected', typesList.join(' or ')]);
                 if (logs.length) {
-                    (0, log_3.log)(logs);
+                    (0, log_js_3.log)(logs);
                 }
                 throw new Error((msg ? msg + ' - ' : '') + bbn._('The value should be a %s', typesList.join(' ' + bbn._('or a') + ' ')));
             }
         };
         exports.checkType = checkType;
     });
-    define("_", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_1) {
+    define("_", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._ = void 0;
@@ -563,17 +614,21 @@
          * @param {String} st
          * @returns {String}
          */
-        const _ = (...args) => {
-            let st = args.shift();
-            let res = bbn.lng[st] || st;
+        var _ = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var st = args.shift();
+            var res = bbn.lng[st] || st;
             if (args.length) {
-                let i = 0;
-                return res.replace(/\%([d|s])/g, (match, type) => {
-                    let tmp = args[i++];
+                var i_1 = 0;
+                return res.replace(/\%([d|s])/g, function (match, type) {
+                    var tmp = args[i_1++];
                     if (!tmp) {
                         tmp = type === 'd' ? 0 : '';
                     }
-                    (0, checkType_1.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value you gave did not correspond, check the loggg"));
+                    (0, checkType_js_1.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value you gave did not correspond, check the loggg"));
                     return tmp;
                 });
             }
@@ -585,7 +640,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.$ = void 0;
-        const $ = (selector, context) => {
+        var $ = function (selector, context) {
             if (context === null || context === void 0 ? void 0 : context.querySelectorAll) {
                 return context.querySelectorAll(selector);
             }
@@ -597,7 +652,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.lng = void 0;
-        const lng = {
+        var lng = {
             /* User-defined languages elements */
             select_unselect_all: "Select/Clear all",
             select_all: "Select all",
@@ -629,7 +684,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.vars = void 0;
-        const vars = {
+        var vars = {
             loggers: {
                 _num: 0
             },
@@ -697,7 +752,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.env = void 0;
-        const env = {
+        var env = {
             siteTitle: window.document.title,
             /* This variable should be set to true in debugging mode only */
             logging: false,
@@ -741,111 +796,112 @@
         };
         exports.env = env;
     });
-    define("db", ["require", "exports", "_", "fn/loop/each", "fn/loop/iterate", "fn/browser/log"], function (require, exports, _1, each_2, iterate_2, log_4) {
+    define("db", ["require", "exports", "_", "fn/loop/each", "fn/loop/iterate", "fn/browser/log"], function (require, exports, __js_1, each_js_2, iterate_js_2, log_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.db = void 0;
-        const idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
-        const dbObject = function (dbName) {
-            const conn = db._connections[dbName];
-            const structure = db._structures[dbName];
-            this.insert = (table, data) => {
+        var idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
+        var dbObject = function (dbName) {
+            var _this = this;
+            var conn = db._connections[dbName];
+            var structure = db._structures[dbName];
+            this.insert = function (table, data) {
                 if (!Array.isArray(data)) {
                     data = [data];
                 }
-                return new Promise(resolve => {
-                    const tx = conn.transaction(table, "readwrite");
-                    const store = tx.objectStore(table);
-                    let res = data.length;
-                    (0, each_2.each)(data, a => {
-                        const request = store.put(a);
-                        request.onerror = () => {
-                            (0, log_4.log)(request.error);
+                return new Promise(function (resolve) {
+                    var tx = conn.transaction(table, "readwrite");
+                    var store = tx.objectStore(table);
+                    var res = data.length;
+                    (0, each_js_2.each)(data, function (a) {
+                        var request = store.put(a);
+                        request.onerror = function () {
+                            (0, log_js_4.log)(request.error);
                             res--;
                         };
                     });
-                    tx.onabort = () => {
+                    tx.onabort = function () {
                         throw new Error(tx.error);
                     };
-                    tx.oncomplete = () => {
+                    tx.oncomplete = function () {
                         resolve(res);
                     };
                 });
             };
-            this.update = (table, data, where) => {
-                return new Promise(resolve => {
-                    const tx = conn.transaction(table, "readwrite");
-                    const store = tx.objectStore(table);
-                    const arch = structure[table];
-                    const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+            this.update = function (table, data, where) {
+                return new Promise(function (resolve) {
+                    var tx = conn.transaction(table, "readwrite");
+                    var store = tx.objectStore(table);
+                    var arch = structure[table];
+                    var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
                     if (!where[primary]) {
-                        throw new Error((0, _1._)("No "));
+                        throw new Error((0, __js_1._)("No "));
                     }
-                    let res = 1;
-                    const request = store.put(data, where[primary]);
-                    request.onerror = () => {
-                        (0, log_4.log)(request.error);
+                    var res = 1;
+                    var request = store.put(data, where[primary]);
+                    request.onerror = function () {
+                        (0, log_js_4.log)(request.error);
                         res--;
                     };
-                    tx.onabort = () => {
+                    tx.onabort = function () {
                         throw new Error(tx.error);
                     };
-                    tx.oncomplete = () => {
+                    tx.oncomplete = function () {
                         resolve(res);
                     };
                 });
             };
-            this.delete = (table, where) => {
-                return new Promise(resolve => {
-                    const tx = conn.transaction(table, "readwrite");
-                    const store = tx.objectStore(table);
-                    const arch = structure[table];
-                    const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+            this.delete = function (table, where) {
+                return new Promise(function (resolve) {
+                    var tx = conn.transaction(table, "readwrite");
+                    var store = tx.objectStore(table);
+                    var arch = structure[table];
+                    var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
                     if (!where[primary]) {
-                        throw new Error((0, _1._)("No "));
+                        throw new Error((0, __js_1._)("No "));
                     }
-                    let res = 1;
-                    const request = store.delete(where[primary]);
-                    request.onerror = () => {
-                        (0, log_4.log)(request.error);
+                    var res = 1;
+                    var request = store.delete(where[primary]);
+                    request.onerror = function () {
+                        (0, log_js_4.log)(request.error);
                         res--;
                     };
-                    tx.onabort = () => {
+                    tx.onabort = function () {
                         throw new Error(tx.error);
                     };
-                    tx.oncomplete = () => {
+                    tx.oncomplete = function () {
                         resolve(res);
                     };
                 });
             };
-            this.selectOne = (table, field, where, order, start, limit) => {
-                return new Promise(resolve => {
-                    this.select(table, [field], where, order, start, limit).then(d => {
+            this.selectOne = function (table, field, where, order, start, limit) {
+                return new Promise(function (resolve) {
+                    _this.select(table, [field], where, order, start, limit).then(function (d) {
                         var _a;
                         resolve((_a = d[field]) !== null && _a !== void 0 ? _a : undefined);
                     });
                 });
             };
-            this.select = (table, fields, where, order, start, limit) => {
-                const tx = conn.transaction(table, "readonly");
-                const store = tx.objectStore(table);
-                const arch = structure[table];
-                const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+            this.select = function (table, fields, where, order, start, limit) {
+                var tx = conn.transaction(table, "readonly");
+                var store = tx.objectStore(table);
+                var arch = structure[table];
+                var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
                 if (!where[primary]) {
-                    throw new Error((0, _1._)("No "));
+                    throw new Error((0, __js_1._)("No "));
                 }
-                return new Promise(resolve => {
-                    const req = store.get(where[primary]);
-                    req.onsuccess = () => {
-                        let obj = req.result;
+                return new Promise(function (resolve) {
+                    var req = store.get(where[primary]);
+                    req.onsuccess = function () {
+                        var obj = req.result;
                         if (fields.length) {
-                            let res = {};
-                            (0, iterate_2.iterate)(obj, (v, n) => {
+                            var res_1 = {};
+                            (0, iterate_js_2.iterate)(obj, function (v, n) {
                                 if (fields.indexOf(n) > -1) {
-                                    res[n] = v;
+                                    res_1[n] = v;
                                 }
                             });
-                            return resolve(res);
+                            return resolve(res_1);
                         }
                         else {
                             resolve(obj);
@@ -853,46 +909,46 @@
                     };
                 });
             };
-            this.selectAll = (table, fields, where, order, start, limit) => {
-                const tx = conn.transaction(table, "read");
-                const store = tx.objectStore(table);
-                const arch = structure[table];
-                const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
+            this.selectAll = function (table, fields, where, order, start, limit) {
+                var tx = conn.transaction(table, "read");
+                var store = tx.objectStore(table);
+                var arch = structure[table];
+                var primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
                 if (!where[primary]) {
-                    throw new Error((0, _1._)("No "));
+                    throw new Error((0, __js_1._)("No "));
                 }
-                return new Promise(resolve => {
-                    const req = store.get(structure.keys.PRIMARY);
+                return new Promise(function (resolve) {
+                    var req = store.get(structure.keys.PRIMARY);
                 });
             };
-            this.getColumnValues = (table, field, where, order, start, limit) => {
-                return new Promise(resolve => {
-                    const tx = conn.transaction(table, "read");
-                    const store = tx.objectStore(table);
+            this.getColumnValues = function (table, field, where, order, start, limit) {
+                return new Promise(function (resolve) {
+                    var tx = conn.transaction(table, "read");
+                    var store = tx.objectStore(table);
                 });
             };
         };
-        const db = {
+        var db = {
             _structures: {},
             /* This variable should be set to true in debugging mode only */
             _connections: {},
             /* Address of the CDN (where this file should be hosted) */
             _stores: {},
             ok: idb !== undefined,
-            open(name) {
-                return new Promise((resolve) => {
+            open: function (name) {
+                return new Promise(function (resolve) {
                     if (!db._connections[name]) {
                         if (!db._structures[name]) {
-                            throw new Error((0, _1._)("Impossible to find a structure for the database %s", name));
+                            throw new Error((0, __js_1._)("Impossible to find a structure for the database %s", name));
                         }
-                        const conn = idb.open(name);
-                        conn.onupgradeneeded = () => {
-                            (0, log_4.log)("UPGRADE NEEDED");
-                            const res = conn.result;
-                            (0, iterate_2.iterate)(db._structures[name], (structure, storeName) => {
-                                const primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
-                                const store = res.createObjectStore(storeName, { keyPath: primary });
-                                (0, iterate_2.iterate)(structure.keys, (a, n) => {
+                        var conn_1 = idb.open(name);
+                        conn_1.onupgradeneeded = function () {
+                            (0, log_js_4.log)("UPGRADE NEEDED");
+                            var res = conn_1.result;
+                            (0, iterate_js_2.iterate)(db._structures[name], function (structure, storeName) {
+                                var primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
+                                var store = res.createObjectStore(storeName, { keyPath: primary });
+                                (0, iterate_js_2.iterate)(structure.keys, function (a, n) {
                                     if (n !== 'PRIMARY') {
                                         store.createIndex(n, a.columns.length > 1 ? a.columns : a.columns[0], {
                                             unique: !!a.unique
@@ -901,9 +957,9 @@
                                 });
                             });
                         };
-                        conn.onsuccess = () => {
-                            db._connections[name] = conn.result;
-                            let obj = new dbObject(name);
+                        conn_1.onsuccess = function () {
+                            db._connections[name] = conn_1.result;
+                            var obj = new dbObject(name);
                             resolve(obj);
                         };
                         return;
@@ -911,7 +967,7 @@
                     resolve(new dbObject(db._connections[name]));
                 });
             },
-            add(database, name, structure) {
+            add: function (database, name, structure) {
                 var _a;
                 if (((_a = structure === null || structure === void 0 ? void 0 : structure.keys) === null || _a === void 0 ? void 0 : _a.PRIMARY) && (structure === null || structure === void 0 ? void 0 : structure.fields)) {
                     if (!db._structures[database]) {
@@ -920,13 +976,13 @@
                     db._structures[database][name] = structure;
                 }
                 else {
-                    throw new Error((0, _1._)("The database structure for %s is not valid (are there keys and field? Is there a primary?", name));
+                    throw new Error((0, __js_1._)("The database structure for %s is not valid (are there keys and field? Is there a primary?", name));
                 }
             }
         };
         exports.db = db;
     });
-    define("fn/ajax/_addLoader", ["require", "exports", "fn/string/substr"], function (require, exports, substr_2) {
+    define("fn/ajax/_addLoader", ["require", "exports", "fn/string/substr"], function (require, exports, substr_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._addLoader = void 0;
@@ -944,13 +1000,13 @@
          *
          * @returns  {Number}  The timestamp (in ms)
          */
-        const _addLoader = function (requestId, prom, source) {
+        var _addLoader = function (requestId, prom, source) {
             /** @var {Number} tst Current timestamp */
-            let tst = new Date().getTime();
+            var tst = new Date().getTime();
             /** @var {String} url The original URL (part of requestId before : and md5) */
-            let url = (0, substr_2.substr)(requestId, 0, requestId.length - 33);
+            var url = (0, substr_js_2.substr)(requestId, 0, requestId.length - 33);
             /** @var {Object} loader The loader object */
-            let loader = {
+            var loader = {
                 key: requestId,
                 url: url,
                 loader: prom,
@@ -967,7 +1023,7 @@
             // Adding an object with this loader info in bbn.env.loadersHistory
             bbn.env.loadersHistory.unshift(loader);
             /** @var {Number} idx A pointer starting at the end of  array loadersHistory */
-            let idx = bbn.env.loadersHistory.length;
+            var idx = bbn.env.loadersHistory.length;
             // Removing elements from the loadersHistory object if their number is higher
             // than bbn.env.maxLoadersHistory
             while (idx && bbn.env.loadersHistory.length > bbn.env.maxLoadersHistory) {
@@ -1013,9 +1069,9 @@
          * @param    {String} prop
          * @returns  {*}      The property's value or undefined
          */
-        const getProperty = function (obj, prop) {
+        var getProperty = function (obj, prop) {
             if (typeof obj === 'object' && typeof prop === 'string') {
-                return prop.split('.').reduce((o, i) => {
+                return prop.split('.').reduce(function (o, i) {
                     if (o) {
                         return o[i];
                     }
@@ -1025,7 +1081,7 @@
         };
         exports.getProperty = getProperty;
     });
-    define("fn/string/removeAccents", ["require", "exports", "fn/type/isString", "fn/browser/log"], function (require, exports, isString_3, log_5) {
+    define("fn/string/removeAccents", ["require", "exports", "fn/type/isString", "fn/browser/log"], function (require, exports, isString_js_3, log_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeAccents = void 0;
@@ -1044,13 +1100,13 @@
          * @param    {String} st
          * @returns  {String}
          */
-        const removeAccents = function (st) {
-            if (!(0, isString_3.isString)(st)) {
+        var removeAccents = function (st) {
+            if (!(0, isString_js_3.isString)(st)) {
                 if (st.toString) {
                     st = st.toString();
                 }
                 else {
-                    (0, log_5.log)(st);
+                    (0, log_js_5.log)(st);
                     throw new Error(bbn._("removeAccent expects a string"));
                 }
             }
@@ -1080,10 +1136,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isDate = function (...args) {
+        var isDate = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_7 = args; _a < args_7.length; _a++) {
+                var a = args_7[_a];
                 if ({}.toString.apply(a) !== "[object Date]") {
                     return false;
                 }
@@ -1092,7 +1153,7 @@
         };
         exports.isDate = isDate;
     });
-    define("fn/object/_compareValues", ["require", "exports", "fn/object/getProperty", "fn/type/isString", "fn/string/removeAccents", "fn/type/isDate"], function (require, exports, getProperty_1, isString_4, removeAccents_1, isDate_1) {
+    define("fn/object/_compareValues", ["require", "exports", "fn/object/getProperty", "fn/type/isString", "fn/string/removeAccents", "fn/type/isDate"], function (require, exports, getProperty_js_1, isString_js_4, removeAccents_js_1, isDate_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._compareValues = void 0;
@@ -1134,9 +1195,10 @@
           * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
           * @returns  {Number} Always either -1, 1, or 0
           */
-        const _compareValues = function (a, b, prop, dir = "asc") {
-            let va = (0, getProperty_1.getProperty)(a, prop), vb = (0, getProperty_1.getProperty)(b, prop), ta = (typeof va).toLowerCase(), tb = (typeof vb).toLowerCase();
-            if (dir !== "asc" && (0, isString_4.isString)(dir) && dir.toLowerCase() === "desc") {
+        var _compareValues = function (a, b, prop, dir) {
+            if (dir === void 0) { dir = "asc"; }
+            var va = (0, getProperty_js_1.getProperty)(a, prop), vb = (0, getProperty_js_1.getProperty)(b, prop), ta = (typeof va).toLowerCase(), tb = (typeof vb).toLowerCase();
+            if (dir !== "asc" && (0, isString_js_4.isString)(dir) && dir.toLowerCase() === "desc") {
                 dir = "desc";
             }
             if (ta !== tb) {
@@ -1146,17 +1208,17 @@
             else {
                 switch (ta) {
                     case "string":
-                        va = (0, removeAccents_1.removeAccents)(va).toLowerCase();
-                        vb = (0, removeAccents_1.removeAccents)(vb).toLowerCase();
+                        va = (0, removeAccents_js_1.removeAccents)(va).toLowerCase();
+                        vb = (0, removeAccents_js_1.removeAccents)(vb).toLowerCase();
                         break;
                     case "boolean":
                         va = va ? 1 : 0;
                         vb = vb ? 1 : 0;
                         break;
                     case "object":
-                        if ((0, isDate_1.isDate)(va)) {
+                        if ((0, isDate_js_1.isDate)(va)) {
                             va = va.getTime();
-                            vb = (0, isDate_1.isDate)(vb) ? vb.getTime() : 0;
+                            vb = (0, isDate_js_1.isDate)(vb) ? vb.getTime() : 0;
                         }
                         break;
                 }
@@ -1204,7 +1266,7 @@
           * @param    {Object} obj The object to analyze
           * @returns  {Number} The number of properties
           */
-        const numProperties = function (obj) {
+        var numProperties = function (obj) {
             if (!obj || typeof obj !== 'object') {
                 return 0;
             }
@@ -1212,7 +1274,7 @@
         };
         exports.numProperties = numProperties;
     });
-    define("fn/type/isEmpty", ["require", "exports", "fn/type/isArray", "fn/object/numProperties"], function (require, exports, isArray_2, numProperties_1) {
+    define("fn/type/isEmpty", ["require", "exports", "fn/type/isArray", "fn/object/numProperties"], function (require, exports, isArray_js_2, numProperties_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEmpty = void 0;
@@ -1255,15 +1317,15 @@
          * @param    {*} obj
          * @returns  {Boolean}
          */
-        const isEmpty = function (obj) {
+        var isEmpty = function (obj) {
             if (!obj) {
                 return true;
             }
-            if ((0, isArray_2.isArray)(obj)) {
+            if ((0, isArray_js_2.isArray)(obj)) {
                 return obj.length ? false : true;
             }
             if (typeof obj === "object") {
-                if ((0, numProperties_1.numProperties)(obj)) {
+                if ((0, numProperties_js_1.numProperties)(obj)) {
                     return false;
                 }
                 return true;
@@ -1288,10 +1350,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isNull = function (...args) {
+        var isNull = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_8 = args; _a < args_8.length; _a++) {
+                var a = args_8[_a];
                 if ({}.toString.apply(a) !== "[object Null]") {
                     return false;
                 }
@@ -1321,10 +1388,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isObject = function (...args) {
+        var isObject = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_9 = args; _a < args_9.length; _a++) {
+                var a = args_9[_a];
                 if ({}.toString.apply(a) !== "[object Object]") {
                     return false;
                 }
@@ -1349,10 +1421,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isDom = function (...args) {
+        var isDom = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_10 = args; _a < args_10.length; _a++) {
+                var a = args_10[_a];
                 if (!(a instanceof HTMLElement)) {
                     return false;
                 }
@@ -1361,21 +1438,26 @@
         };
         exports.isDom = isDom;
     });
-    define("fn/type/isCp", ["require", "exports", "fn/type/isDom"], function (require, exports, isDom_1) {
+    define("fn/type/isCp", ["require", "exports", "fn/type/isDom"], function (require, exports, isDom_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isCp = void 0;
-        const isCp = function (...args) {
+        var isCp = function () {
             var _a;
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length) {
                 return false;
             }
             if (!('cp' in bbn) || !('isComponent' in bbn['cp']) || !(typeof bbn['cp'].isComponent === 'function')) {
                 return false;
             }
-            for (let a of args) {
-                let res = bbn.cp.isComponent(a);
-                if (!res || (0, isDom_1.isDom)(a) || !((_a = a.$el) === null || _a === void 0 ? void 0 : _a.bbnCid)) {
+            for (var _b = 0, args_11 = args; _b < args_11.length; _b++) {
+                var a = args_11[_b];
+                var res = bbn.cp.isComponent(a);
+                if (!res || (0, isDom_js_1.isDom)(a) || !((_a = a.$el) === null || _a === void 0 ? void 0 : _a.bbnCid)) {
                     return false;
                 }
             }
@@ -1383,7 +1465,7 @@
         };
         exports.isCp = isCp;
     });
-    define("fn/object/circularReplacer", ["require", "exports", "fn/type/isDom", "fn/type/isCp", "fn/browser/log"], function (require, exports, isDom_2, isCp_1, log_6) {
+    define("fn/object/circularReplacer", ["require", "exports", "fn/type/isDom", "fn/type/isCp", "fn/browser/log"], function (require, exports, isDom_js_2, isCp_js_1, log_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.circularReplacer = void 0;
@@ -1392,16 +1474,16 @@
          *
          * @returns Function
          */
-        const circularReplacer = function () {
-            const visited = new WeakSet();
-            return (key, value) => {
+        var circularReplacer = function () {
+            var visited = new WeakSet();
+            return function (key, value) {
                 if (typeof value === "object" && value !== null) {
                     if (visited.has(value)) {
                         return;
                     }
                     visited.add(value);
                     if (![undefined, Object, Array, null].includes(value.constructor)) {
-                        if ((0, isDom_2.isDom)(value)) {
+                        if ((0, isDom_js_2.isDom)(value)) {
                             if (value.bbnId) {
                                 value =
                                     "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
@@ -1410,8 +1492,8 @@
                                 value = "__BBN_DOM__" + value.tagName + "/" + value.className;
                             }
                         }
-                        else if ((0, isCp_1.isCp)(value)) {
-                            (0, log_6.log)("IS CP");
+                        else if ((0, isCp_js_1.isCp)(value)) {
+                            (0, log_js_6.log)("IS CP");
                             value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                         }
                         else {
@@ -1428,10 +1510,10 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash1 = void 0;
-        const simpleHash1 = function (str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
+        var simpleHash1 = function (str) {
+            var hash = 0;
+            for (var i = 0; i < str.length; i++) {
+                var char = str.charCodeAt(i);
                 hash = (hash << 5) - hash + char;
                 hash |= 0; // Convert to 32-bit integer
             }
@@ -1443,10 +1525,10 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash2 = void 0;
-        const simpleHash2 = function (str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
+        var simpleHash2 = function (str) {
+            var hash = 0;
+            for (var i = 0; i < str.length; i++) {
+                var char = str.charCodeAt(i);
                 hash = char + (hash << 6) + (hash << 16) - hash;
                 hash |= 0; // Convert to 32-bit integer
             }
@@ -1454,18 +1536,18 @@
         };
         exports.simpleHash2 = simpleHash2;
     });
-    define("fn/string/simpleHash", ["require", "exports", "fn/string/simpleHash1", "fn/string/simpleHash2"], function (require, exports, simpleHash1_1, simpleHash2_1) {
+    define("fn/string/simpleHash", ["require", "exports", "fn/string/simpleHash1", "fn/string/simpleHash2"], function (require, exports, simpleHash1_js_1, simpleHash2_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.simpleHash = void 0;
-        const simpleHash = function (str) {
-            const part1 = (0, simpleHash1_1.simpleHash1)(str).toString(16).padStart(8, '0');
-            const part2 = (0, simpleHash2_1.simpleHash2)(str).toString(16).padStart(8, '0');
+        var simpleHash = function (str) {
+            var part1 = (0, simpleHash1_js_1.simpleHash1)(str).toString(16).padStart(8, '0');
+            var part2 = (0, simpleHash2_js_1.simpleHash2)(str).toString(16).padStart(8, '0');
             return part1 + part2;
         };
         exports.simpleHash = simpleHash;
     });
-    define("fn/string/hash", ["require", "exports", "fn/browser/log", "fn/type/isDom", "fn/type/isCp", "fn/object/circularReplacer", "fn/string/simpleHash"], function (require, exports, log_7, isDom_3, isCp_2, circularReplacer_1, simpleHash_1) {
+    define("fn/string/hash", ["require", "exports", "fn/browser/log", "fn/type/isDom", "fn/type/isCp", "fn/object/circularReplacer", "fn/string/simpleHash"], function (require, exports, log_js_7, isDom_js_3, isCp_js_2, circularReplacer_js_1, simpleHash_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.hash = void 0;
@@ -1474,13 +1556,13 @@
          * @param {Object|Array} obj
          * @returns {String}
          */
-        const hash = function (obj) {
+        var hash = function (obj) {
             //log(obj);
-            let st = "__bbn__";
-            for (let i in arguments) {
+            var st = "__bbn__";
+            for (var i in arguments) {
                 if (arguments[i]) {
-                    let value = arguments[i];
-                    if ((0, isDom_3.isDom)(value)) {
+                    var value = arguments[i];
+                    if ((0, isDom_js_3.isDom)(value)) {
                         if (value.bbnId) {
                             st +=
                                 "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
@@ -1489,13 +1571,13 @@
                             st += "__BBN_DOM__" + value.tagName + "/" + value.className;
                         }
                     }
-                    else if ((0, isCp_2.isCp)(value)) {
-                        (0, log_7.log)("IS CP");
+                    else if ((0, isCp_js_2.isCp)(value)) {
+                        (0, log_js_7.log)("IS CP");
                         st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                     }
                     else {
                         try {
-                            st += JSON.stringify(arguments[i], (0, circularReplacer_1.circularReplacer)());
+                            st += JSON.stringify(arguments[i], (0, circularReplacer_js_1.circularReplacer)());
                         }
                         catch (e) {
                             st += ".";
@@ -1503,11 +1585,11 @@
                     }
                 }
             }
-            return (0, simpleHash_1.simpleHash)(st);
+            return (0, simpleHash_js_1.simpleHash)(st);
         };
         exports.hash = hash;
     });
-    define("fn/type/isSame", ["require", "exports", "fn/string/hash", "fn/loop/each"], function (require, exports, hash_1, each_3) {
+    define("fn/type/isSame", ["require", "exports", "fn/string/hash", "fn/loop/each"], function (require, exports, hash_js_1, each_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isSame = void 0;
@@ -1550,7 +1632,7 @@
           * @param    {Object} obj2
           * @returns  {Boolean}
           */
-        const isSame = function (obj1, obj2, done) {
+        var isSame = function (obj1, obj2, done) {
             if (!done) {
                 done = [];
             }
@@ -1558,31 +1640,31 @@
                 return true;
             }
             if (obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object') {
-                let tmp1 = Object.keys(obj1).sort(), tmp2 = Object.keys(obj2).sort();
+                var tmp1 = Object.keys(obj1).sort(), tmp2 = Object.keys(obj2).sort();
                 // Case where the keys are different
-                if ((0, hash_1.hash)(tmp1) !== (0, hash_1.hash)(tmp2)) {
+                if ((0, hash_js_1.hash)(tmp1) !== (0, hash_js_1.hash)(tmp2)) {
                     return false;
                 }
-                let ok = true;
+                var ok_1 = true;
                 if (obj1 && typeof obj1 === 'object') {
                     if (done.includes(obj1)) {
-                        return ok;
+                        return ok_1;
                     }
                     done.push(obj1);
                 }
-                (0, each_3.each)(tmp1, (a) => {
+                (0, each_js_3.each)(tmp1, function (a) {
                     if (!isSame(obj1[a], obj2[a])) {
-                        ok = false;
+                        ok_1 = false;
                         return false;
                     }
                 });
-                return ok;
+                return ok_1;
             }
             return false;
         };
         exports.isSame = isSame;
     });
-    define("fn/object/compare", ["require", "exports", "fn/type/isEmpty", "fn/string/removeAccents", "fn/type/isNull", "fn/type/isObject", "fn/type/isSame"], function (require, exports, isEmpty_1, removeAccents_2, isNull_1, isObject_1, isSame_1) {
+    define("fn/object/compare", ["require", "exports", "fn/type/isEmpty", "fn/string/removeAccents", "fn/type/isNull", "fn/type/isObject", "fn/type/isSame"], function (require, exports, isEmpty_js_1, removeAccents_js_2, isNull_js_1, isObject_js_1, isSame_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compare = void 0;
@@ -1637,7 +1719,7 @@
          * @param    {String}        operator
          * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
          */
-        const compare = function (v1, v2, operator) {
+        var compare = function (v1, v2, operator) {
             switch (operator) {
                 case '===':
                 case '=':
@@ -1657,19 +1739,19 @@
                 case 'contain':
                 case 'icontains':
                 case 'icontain':
-                    if ((0, isEmpty_1.isEmpty)(v1) || (0, isEmpty_1.isEmpty)(v2)) {
+                    if ((0, isEmpty_js_1.isEmpty)(v1) || (0, isEmpty_js_1.isEmpty)(v2)) {
                         return false;
                     }
-                    return (0, removeAccents_2.removeAccents)(v1).toLowerCase().indexOf((0, removeAccents_2.removeAccents)(v2).toLowerCase()) !== -1;
+                    return (0, removeAccents_js_2.removeAccents)(v1).toLowerCase().indexOf((0, removeAccents_js_2.removeAccents)(v2).toLowerCase()) !== -1;
                 case 'doesnotcontain':
                 case 'donotcontain':
-                    if ((0, isNull_1.isNull)(v1) || (0, isNull_1.isNull)(v2)) {
+                    if ((0, isNull_js_1.isNull)(v1) || (0, isNull_js_1.isNull)(v2)) {
                         return true;
                     }
-                    return (0, removeAccents_2.removeAccents)(v1.toLowerCase()).indexOf((0, removeAccents_2.removeAccents)(v2.toLowerCase())) === -1;
+                    return (0, removeAccents_js_2.removeAccents)(v1.toLowerCase()).indexOf((0, removeAccents_js_2.removeAccents)(v2.toLowerCase())) === -1;
                 case 'starts':
                 case 'start':
-                    if ((0, isNull_1.isNull)(v1) || (0, isNull_1.isNull)(v2)) {
+                    if ((0, isNull_js_1.isNull)(v1) || (0, isNull_js_1.isNull)(v2)) {
                         return false;
                     }
                     if (typeof v1 !== 'string') {
@@ -1684,24 +1766,24 @@
                 case 'starti':
                 case 'istarts':
                 case 'istart':
-                    if ((0, isNull_1.isNull)(v1) || (0, isNull_1.isNull)(v2)) {
+                    if ((0, isNull_js_1.isNull)(v1) || (0, isNull_js_1.isNull)(v2)) {
                         return false;
                     }
-                    return (0, removeAccents_2.removeAccents)(v1).toLowerCase().indexOf((0, removeAccents_2.removeAccents)(v2).toLowerCase()) === 0;
+                    return (0, removeAccents_js_2.removeAccents)(v1).toLowerCase().indexOf((0, removeAccents_js_2.removeAccents)(v2).toLowerCase()) === 0;
                 case 'endswith':
                 case 'endsi':
                 case 'endi':
                 case 'iends':
                 case 'iend':
-                    if ((0, isNull_1.isNull)(v1) || (0, isNull_1.isNull)(v2)) {
+                    if ((0, isNull_js_1.isNull)(v1) || (0, isNull_js_1.isNull)(v2)) {
                         return false;
                     }
                     return v1.lastIndexOf(v2) === v1.length - v2.length;
                 case 'like':
-                    if ((0, isNull_1.isNull)(v1) || (0, isNull_1.isNull)(v2)) {
+                    if ((0, isNull_js_1.isNull)(v1) || (0, isNull_js_1.isNull)(v2)) {
                         return false;
                     }
-                    return (0, removeAccents_2.removeAccents)(v1).toLowerCase() === (0, removeAccents_2.removeAccents)(v2).toLowerCase();
+                    return (0, removeAccents_js_2.removeAccents)(v1).toLowerCase() === (0, removeAccents_js_2.removeAccents)(v2).toLowerCase();
                 case 'gt':
                 case '>':
                     return v1 > v2;
@@ -1723,8 +1805,8 @@
                 case 'isnotempty':
                     return v1 !== '';
                 case '==':
-                    if ((0, isObject_1.isObject)(v1, v2)) {
-                        return (0, isSame_1.isSame)(v1, v2);
+                    if ((0, isObject_js_1.isObject)(v1, v2)) {
+                        return (0, isSame_js_1.isSame)(v1, v2);
                     }
                 default:
                     return v1 == v2;
@@ -1732,7 +1814,7 @@
         };
         exports.compare = compare;
     });
-    define("fn/object/compareConditions", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/compare", "fn/object/getProperty"], function (require, exports, isArray_3, each_4, compare_1, getProperty_2) {
+    define("fn/object/compareConditions", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/compare", "fn/object/getProperty"], function (require, exports, isArray_js_3, each_js_4, compare_js_1, getProperty_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.compareConditions = void 0;
@@ -1780,26 +1862,26 @@
          * @param    {Object} filter
          * @returns  {Boolean}
          */
-        const compareConditions = function (data, filter) {
-            if (!filter.conditions || !filter.logic || !(0, isArray_3.isArray)(filter.conditions)) {
+        var compareConditions = function (data, filter) {
+            if (!filter.conditions || !filter.logic || !(0, isArray_js_3.isArray)(filter.conditions)) {
                 throw new Error("Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
             }
-            let ok = filter.logic === "AND" ? true : false;
-            (0, each_4.each)(filter.conditions, (a) => {
-                let comparator;
-                if (a.conditions && (0, isArray_3.isArray)(a.conditions)) {
+            var ok = filter.logic === "AND" ? true : false;
+            (0, each_js_4.each)(filter.conditions, function (a) {
+                var comparator;
+                if (a.conditions && (0, isArray_js_3.isArray)(a.conditions)) {
                     comparator = compareConditions(data, a);
                 }
                 else {
-                    comparator = (0, compare_1.compare)((0, getProperty_2.getProperty)(data, a.field), a.value, a.operator);
+                    comparator = (0, compare_js_1.compare)((0, getProperty_js_2.getProperty)(data, a.field), a.value, a.operator);
                     if (comparator) {
-                        let bits = a.field.split(".");
-                        let prop = bits.pop();
+                        var bits = a.field.split(".");
+                        var prop = bits.pop();
                         if (bits.length) {
-                            (0, each_4.each)(bits, (b) => (data = data[b]));
+                            (0, each_js_4.each)(bits, function (b) { return (data = data[b]); });
                         }
                         // Case where both are undefined: value and prop which doesn't exist; they are not the same!
-                        if ((0, getProperty_2.getProperty)(data, prop) === undefined && a.value !== undefined) {
+                        if ((0, getProperty_js_2.getProperty)(data, prop) === undefined && a.value !== undefined) {
                             comparator = false;
                         }
                     }
@@ -1819,7 +1901,7 @@
         };
         exports.compareConditions = compareConditions;
     });
-    define("fn/object/filterToConditions", ["require", "exports", "fn/type/isObject", "fn/type/isArray", "fn/loop/iterate"], function (require, exports, isObject_2, isArray_4, iterate_3) {
+    define("fn/object/filterToConditions", ["require", "exports", "fn/type/isObject", "fn/type/isArray", "fn/loop/iterate"], function (require, exports, isObject_js_2, isArray_js_4, iterate_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filterToConditions = void 0;
@@ -1860,18 +1942,19 @@
          * @param    {String} operator
          * @returns  {Object}
          */
-        const filterToConditions = function (filter, operator = "=") {
-            if (!(0, isObject_2.isObject)(filter)) {
+        var filterToConditions = function (filter, operator) {
+            if (operator === void 0) { operator = "="; }
+            if (!(0, isObject_js_2.isObject)(filter)) {
                 throw new Error("Error in filterToCondition: filter must be an object");
             }
-            if (!filter.conditions || !(0, isArray_4.isArray)(filter.conditions)) {
-                let tmp = [];
-                (0, iterate_3.iterate)(filter, (a, n) => {
-                    if ((0, isObject_2.isObject)(a) && typeof a.conditions === "object") {
-                        tmp.push(filterToConditions(a));
+            if (!filter.conditions || !(0, isArray_js_4.isArray)(filter.conditions)) {
+                var tmp_1 = [];
+                (0, iterate_js_3.iterate)(filter, function (a, n) {
+                    if ((0, isObject_js_2.isObject)(a) && typeof a.conditions === "object") {
+                        tmp_1.push(filterToConditions(a));
                     }
                     else {
-                        tmp.push({
+                        tmp_1.push({
                             field: n,
                             operator: operator,
                             value: a,
@@ -1879,7 +1962,7 @@
                     }
                 });
                 filter = {
-                    conditions: tmp,
+                    conditions: tmp_1,
                 };
             }
             if (!filter.logic) {
@@ -1889,7 +1972,7 @@
         };
         exports.filterToConditions = filterToConditions;
     });
-    define("fn/object/search", ["require", "exports", "fn/type/isIterable", "fn/object/compareConditions", "fn/object/filterToConditions", "fn/type/isObject", "fn/object/numProperties", "fn/type/isNumber"], function (require, exports, isIterable_2, compareConditions_1, filterToConditions_1, isObject_3, numProperties_2, isNumber_2) {
+    define("fn/object/search", ["require", "exports", "fn/type/isIterable", "fn/object/compareConditions", "fn/object/filterToConditions", "fn/type/isObject", "fn/object/numProperties", "fn/type/isNumber"], function (require, exports, isIterable_js_2, compareConditions_js_1, filterToConditions_js_1, isObject_js_3, numProperties_js_2, isNumber_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.search = void 0;
@@ -1991,15 +2074,18 @@
          * @param    {Number}                   startFrom The index from which the search should start
          * @returns  {Number}                   The index if found, otherwise -1
          */
-        const search = function (arr, prop, val = null, operator = '=', startFrom = 0) {
-            if (!(0, isIterable_2.isIterable)(arr)) {
+        var search = function (arr, prop, val, operator, startFrom) {
+            if (val === void 0) { val = null; }
+            if (operator === void 0) { operator = '='; }
+            if (startFrom === void 0) { startFrom = 0; }
+            if (!(0, isIterable_js_2.isIterable)(arr)) {
                 throw new Error(bbn._('The first argument for a search should be iterable') + ' ' + typeof arr + ' ' + bbn._('given'));
             }
             if (!arr.length) {
                 return -1;
             }
-            let filter;
-            let isFn = false;
+            var filter;
+            var isFn = false;
             if (typeof prop === 'string') {
                 filter = {
                     conditions: [
@@ -2013,8 +2099,8 @@
             }
             else if (!prop) {
                 isFn = true;
-                filter = a => {
-                    return (0, compareConditions_1.compareConditions)({ value: a }, (0, filterToConditions_1.filterToConditions)({
+                filter = function (a) {
+                    return (0, compareConditions_js_1.compareConditions)({ value: a }, (0, filterToConditions_js_1.filterToConditions)({
                         logic: 'AND',
                         conditions: [
                             {
@@ -2029,7 +2115,7 @@
             else {
                 startFrom = typeof (operator) === 'number' ? operator : 0;
                 operator = val;
-                if ((0, isObject_3.isObject)(prop)) {
+                if ((0, isObject_js_3.isObject)(prop)) {
                     filter = prop;
                 }
                 else if (typeof (prop) === 'function') {
@@ -2037,25 +2123,25 @@
                     filter = prop;
                 }
             }
-            if (isFn || ((0, isObject_3.isObject)(filter) && (0, numProperties_2.numProperties)(filter))) {
-                if ((0, isNumber_2.isNumber)(operator)) {
+            if (isFn || ((0, isObject_js_3.isObject)(filter) && (0, numProperties_js_2.numProperties)(filter))) {
+                if ((0, isNumber_js_2.isNumber)(operator)) {
                     startFrom = typeof (operator) === 'number' ? operator : 0;
                     operator = undefined;
                 }
-                if (!(0, isNumber_2.isNumber)(startFrom)) {
+                if (!(0, isNumber_js_2.isNumber)(startFrom)) {
                     startFrom = 0;
                 }
                 if (typeof filter === 'function') {
-                    for (let i = startFrom; i < arr.length; i++) {
+                    for (var i = startFrom; i < arr.length; i++) {
                         if (filter(arr[i])) {
                             return i;
                         }
                     }
                 }
                 else {
-                    filter = (0, filterToConditions_1.filterToConditions)(filter);
-                    for (let i = startFrom; i < arr.length; i++) {
-                        if ((0, compareConditions_1.compareConditions)(arr[i], filter)) {
+                    filter = (0, filterToConditions_js_1.filterToConditions)(filter);
+                    for (var i = startFrom; i < arr.length; i++) {
+                        if ((0, compareConditions_js_1.compareConditions)(arr[i], filter)) {
                             return i;
                         }
                     }
@@ -2065,7 +2151,7 @@
         };
         exports.search = search;
     });
-    define("fn/object/getRow", ["require", "exports", "fn/object/search"], function (require, exports, search_1) {
+    define("fn/object/getRow", ["require", "exports", "fn/object/search"], function (require, exports, search_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getRow = void 0;
@@ -2109,8 +2195,10 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Object|Boolean}           The item if found, false otherwise
          */
-        const getRow = function (arr, prop, val = null, operator = '=') {
-            var idx = (0, search_1.search)(arr, prop, val, operator);
+        var getRow = function (arr, prop, val, operator) {
+            if (val === void 0) { val = null; }
+            if (operator === void 0) { operator = '='; }
+            var idx = (0, search_js_1.search)(arr, prop, val, operator);
             if (idx > -1) {
                 return arr[idx];
             }
@@ -2118,7 +2206,7 @@
         };
         exports.getRow = getRow;
     });
-    define("fn/ajax/_deleteLoader", ["require", "exports", "fn/object/search", "fn/object/getRow", "fn/type/isObject"], function (require, exports, search_2, getRow_1, isObject_4) {
+    define("fn/ajax/_deleteLoader", ["require", "exports", "fn/object/search", "fn/object/getRow", "fn/type/isObject"], function (require, exports, search_js_2, getRow_js_1, isObject_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports._deleteLoader = void 0;
@@ -2136,21 +2224,23 @@
          *
          * @returns  {Boolean} True if the loader was found
          */
-        const _deleteLoader = function (requestId, res = null, isAbort = false) {
-            let idx = (0, search_2.search)(bbn.env.loaders, { key: requestId });
+        var _deleteLoader = function (requestId, res, isAbort) {
+            if (res === void 0) { res = null; }
+            if (isAbort === void 0) { isAbort = false; }
+            var idx = (0, search_js_2.search)(bbn.env.loaders, { key: requestId });
             if (idx > -1) {
-                let loader = bbn.env.loaders.splice(idx, 1)[0];
-                let history = (0, getRow_1.getRow)(bbn.env.loadersHistory, { key: requestId, start: loader.start });
-                if (history) {
-                    history.loading = false;
-                    history.duration = new Date().getTime() - loader.start;
+                var loader = bbn.env.loaders.splice(idx, 1)[0];
+                var history_1 = (0, getRow_js_1.getRow)(bbn.env.loadersHistory, { key: requestId, start: loader.start });
+                if (history_1) {
+                    history_1.loading = false;
+                    history_1.duration = new Date().getTime() - loader.start;
                     if (typeof res === 'string') {
-                        history.errorMessage = res;
-                        history.error = !isAbort;
-                        history.abort = isAbort;
+                        history_1.errorMessage = res;
+                        history_1.error = !isAbort;
+                        history_1.abort = isAbort;
                     }
-                    else if ((0, isObject_4.isObject)(res)) {
-                        history.success = true;
+                    else if ((0, isObject_js_4.isObject)(res)) {
+                        history_1.success = true;
                     }
                 }
                 return true;
@@ -2159,7 +2249,7 @@
         };
         exports._deleteLoader = _deleteLoader;
     });
-    define("fn/ajax/getLoader", ["require", "exports", "fn/object/search"], function (require, exports, search_3) {
+    define("fn/ajax/getLoader", ["require", "exports", "fn/object/search"], function (require, exports, search_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getLoader = void 0;
@@ -2198,8 +2288,8 @@
          *
          * @returns  {null|Object} The corresponding loader Object if it exists, false otherwise
          */
-        const getLoader = function (requestId) {
-            let idx = (0, search_3.search)(bbn.env.loaders, { key: requestId });
+        var getLoader = function (requestId) {
+            var idx = (0, search_js_3.search)(bbn.env.loaders, { key: requestId });
             if (idx > -1) {
                 return bbn.env.loaders[idx];
             }
@@ -2207,7 +2297,7 @@
         };
         exports.getLoader = getLoader;
     });
-    define("fn/ajax/abort", ["require", "exports", "fn/ajax/getLoader"], function (require, exports, getLoader_1) {
+    define("fn/ajax/abort", ["require", "exports", "fn/ajax/getLoader"], function (require, exports, getLoader_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abort = void 0;
@@ -2233,8 +2323,8 @@
          *
          * @returns  {undefined}
          */
-        const abort = function (requestId) {
-            let loader = (0, getLoader_1.getLoader)(requestId);
+        var abort = function (requestId) {
+            var loader = (0, getLoader_js_1.getLoader)(requestId);
             if (loader && loader.source) {
                 //_deleteLoader(requestId);
                 loader.source.cancel('Operation canceled by the user.');
@@ -2247,7 +2337,7 @@
         };
         exports.abort = abort;
     });
-    define("fn/object/filter", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/filterToConditions", "fn/object/compareConditions"], function (require, exports, isArray_5, each_5, filterToConditions_2, compareConditions_2) {
+    define("fn/object/filter", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/object/filterToConditions", "fn/object/compareConditions"], function (require, exports, isArray_js_5, each_js_5, filterToConditions_js_2, compareConditions_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.filter = void 0;
@@ -2298,14 +2388,16 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Array}                    A new filtered array
          */
-        const filter = function (arr, prop, val = null, operator = '=') {
-            if (!(0, isArray_5.isArray)(arr)) {
+        var filter = function (arr, prop, val, operator) {
+            if (val === void 0) { val = null; }
+            if (operator === void 0) { operator = '='; }
+            if (!(0, isArray_js_5.isArray)(arr)) {
                 bbn.fn.log("NOT ARRAY", arr);
                 throw new Error('Error in filter: The first argument must be an array');
             }
-            let cfg = {};
-            const res = [];
-            const isFn = typeof (prop) === 'function';
+            var cfg = {};
+            var res = [];
+            var isFn = typeof (prop) === 'function';
             if (!prop || !arr.length) {
                 return arr;
             }
@@ -2321,17 +2413,17 @@
                     throw new Error('Search function error: The prop argument should be a string or an object');
                 }
                 if (typeof (prop) === 'function') {
-                    (0, each_5.each)(arr, (a, i) => {
+                    (0, each_js_5.each)(arr, function (a, i) {
                         if (prop(a, i)) {
                             res.push(a);
                         }
                     });
                 }
                 else {
-                    cfg = (0, filterToConditions_2.filterToConditions)(cfg, operator);
+                    cfg = (0, filterToConditions_js_2.filterToConditions)(cfg, operator);
                     if (cfg.conditions && cfg.logic) {
-                        (0, each_5.each)(arr, (a) => {
-                            if ((0, compareConditions_2.compareConditions)(a, cfg)) {
+                        (0, each_js_5.each)(arr, function (a) {
+                            if ((0, compareConditions_js_2.compareConditions)(a, cfg)) {
                                 res.push(a);
                             }
                         });
@@ -2342,7 +2434,7 @@
         };
         exports.filter = filter;
     });
-    define("fn/ajax/abortURL", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_6, filter_1) {
+    define("fn/ajax/abortURL", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_js_6, filter_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.abortURL = void 0;
@@ -2366,8 +2458,8 @@
          *
          * @returns  {undefined}
          */
-        const abortURL = function (url) {
-            (0, each_6.each)((0, filter_1.filter)(bbn.env.loaders, { url: url }), (a) => {
+        var abortURL = function (url) {
+            (0, each_js_6.each)((0, filter_js_1.filter)(bbn.env.loaders, { url: url }), function (a) {
                 if (a && a.source) {
                     a.source.cancel('Operation canceled by the user.');
                 }
@@ -2378,7 +2470,7 @@
         };
         exports.abortURL = abortURL;
     });
-    define("fn/style/addColors", ["require", "exports", "fn/object/numProperties", "fn/loop/iterate"], function (require, exports, numProperties_3, iterate_4) {
+    define("fn/style/addColors", ["require", "exports", "fn/object/numProperties", "fn/loop/iterate"], function (require, exports, numProperties_js_3, iterate_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addColors = void 0;
@@ -2397,26 +2489,26 @@
          * @param    {Object} colors
          * @returns
          */
-        const addColors = function (colors) {
-            if ((0, numProperties_3.numProperties)(colors)) {
+        var addColors = function (colors) {
+            if ((0, numProperties_js_3.numProperties)(colors)) {
                 if (!bbn.var.colors) {
                     bbn.var.colors = {};
                 }
-                let element = document.createElement("style");
+                var element = document.createElement("style");
                 document.head.appendChild(element);
-                let sheet = element.sheet;
+                var sheet_1 = element.sheet;
                 // Append style element to head
-                let i = 0;
-                (0, iterate_4.iterate)(colors, (v, n) => {
+                var i_2 = 0;
+                (0, iterate_js_4.iterate)(colors, function (v, n) {
                     bbn.var.colors[n] = v;
-                    sheet.insertRule(".bbn-" +
+                    sheet_1.insertRule(".bbn-" +
                         n +
                         ", .bbn-color-text-" +
                         n +
                         " {color: " +
                         v +
-                        " !important;}", i);
-                    sheet.insertRule("svg.bbn-" +
+                        " !important;}", i_2);
+                    sheet_1.insertRule("svg.bbn-" +
                         n +
                         ", .bbn-" +
                         n +
@@ -2426,8 +2518,8 @@
                         n +
                         " svg {fill: " +
                         v +
-                        ";}", i);
-                    sheet.insertRule(".bbn-bg-" +
+                        ";}", i_2);
+                    sheet_1.insertRule(".bbn-bg-" +
                         n +
                         ", .bbn-color-bg-" +
                         n +
@@ -2435,15 +2527,15 @@
                         n +
                         " {background-color: " +
                         v +
-                        " !important;}", i);
-                    sheet.insertRule(".bbn-border-" +
+                        " !important;}", i_2);
+                    sheet_1.insertRule(".bbn-border-" +
                         n +
                         ", .bbn-color-border-" +
                         n +
                         " {border-color: " +
                         v +
-                        " !important;}", i);
-                    sheet.insertRule(".bbn-color-" +
+                        " !important;}", i_2);
+                    sheet_1.insertRule(".bbn-color-" +
                         n +
                         " {border-color: " +
                         v +
@@ -2451,13 +2543,13 @@
                         v +
                         "; color: " +
                         v +
-                        ";}", i);
+                        ";}", i_2);
                 });
             }
         };
         exports.addColors = addColors;
     });
-    define("fn/form/addInputs", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_5) {
+    define("fn/form/addInputs", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addInputs = void 0;
@@ -2502,10 +2594,12 @@
          * @param    {String}      prefix The optional object's name of the fields in the form
          * @returns  {undefined}
          */
-        const addInputs = function (form, params = null, prefix = '') {
+        var addInputs = function (form, params, prefix) {
+            if (params === void 0) { params = null; }
+            if (prefix === void 0) { prefix = ''; }
             if (form && form.tagName === 'FORM') {
-                let appendToForm = (name, val) => {
-                    let input = document.createElement('input');
+                var appendToForm_1 = function (name, val) {
+                    var input = document.createElement('input');
                     input.setAttribute('type', 'hidden');
                     input.setAttribute('name', name);
                     input.setAttribute('value', val);
@@ -2514,19 +2608,19 @@
                 params = JSON.parse(JSON.stringify(params || {}));
                 prefix = prefix || '';
                 if (params) {
-                    (0, iterate_5.iterate)(params, (param, key) => {
-                        let name = prefix ? `${prefix}[${key}]` : key;
+                    (0, iterate_js_5.iterate)(params, function (param, key) {
+                        var name = prefix ? "".concat(prefix, "[").concat(key, "]") : key;
                         if (param instanceof Date) {
-                            appendToForm(name, param.toISOString());
+                            appendToForm_1(name, param.toISOString());
                         }
                         else if (param instanceof Array) {
-                            param.forEach((e, i) => {
-                                const tempName = `${name}[${i}]`;
+                            param.forEach(function (e, i) {
+                                var tempName = "".concat(name, "[").concat(i, "]");
                                 if (typeof e === 'object') {
                                     addInputs(form, e, tempName);
                                 }
                                 else {
-                                    appendToForm(tempName, e.toString());
+                                    appendToForm_1(tempName, e.toString());
                                 }
                             });
                         }
@@ -2534,7 +2628,7 @@
                             addInputs(form, param, name);
                         }
                         else {
-                            appendToForm(name, param.toString());
+                            appendToForm_1(name, param.toString());
                         }
                     });
                 }
@@ -2542,7 +2636,7 @@
         };
         exports.addInputs = addInputs;
     });
-    define("fn/style/addStyle", ["require", "exports", "fn/type/isObject", "fn/loop/iterate"], function (require, exports, isObject_5, iterate_6) {
+    define("fn/style/addStyle", ["require", "exports", "fn/type/isObject", "fn/loop/iterate"], function (require, exports, isObject_js_5, iterate_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.addStyle = void 0;
@@ -2556,33 +2650,33 @@
          * @param    {Object}      o
          * @returns  {*}
          */
-        const addStyle = function (ele, o) {
-            if ((0, isObject_5.isObject)(o)) {
-                (0, iterate_6.iterate)(o, (v, k) => {
+        var addStyle = function (ele, o) {
+            if ((0, isObject_js_5.isObject)(o)) {
+                (0, iterate_js_6.iterate)(o, function (v, k) {
                     ele.style[k] = v;
                 });
             }
         };
         exports.addStyle = addStyle;
     });
-    define("fn/html/adjustSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_7) {
+    define("fn/html/adjustSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustSize = void 0;
-        const adjustSize = function (type, eles) {
-            let max = 0, idx;
-            (0, each_7.each)(eles, (el) => {
+        var adjustSize = function (type, eles) {
+            var max = 0, idx;
+            (0, each_js_7.each)(eles, function (el) {
                 el.style[type] = 'auto';
             });
-            (0, each_7.each)(eles, (el, i) => {
-                let rect = el.getBoundingClientRect(), s = rect[type] % 1 ? rect[type] - (rect[type] % 1) + 1 : rect[type];
+            (0, each_js_7.each)(eles, function (el, i) {
+                var rect = el.getBoundingClientRect(), s = rect[type] % 1 ? rect[type] - (rect[type] % 1) + 1 : rect[type];
                 //s = rect[type];
                 if (s > max) {
                     max = s;
                     idx = i;
                 }
             });
-            (0, each_7.each)(eles, (el, i) => {
+            (0, each_js_7.each)(eles, function (el, i) {
                 if (max) {
                     el.style[type] = max + 'px';
                 }
@@ -2590,29 +2684,29 @@
         };
         exports.adjustSize = adjustSize;
     });
-    define("fn/html/adjustHeight", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_3, adjustSize_1) {
+    define("fn/html/adjustHeight", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_js_3, adjustSize_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustHeight = void 0;
-        const adjustHeight = function () {
-            let args = arguments;
-            if (args.length === 1 && (0, isIterable_3.isIterable)(args[0])) {
+        var adjustHeight = function () {
+            var args = arguments;
+            if (args.length === 1 && (0, isIterable_js_3.isIterable)(args[0])) {
                 args = args[0];
             }
-            return (0, adjustSize_1.adjustSize)('height', args);
+            return (0, adjustSize_js_1.adjustSize)('height', args);
         };
         exports.adjustHeight = adjustHeight;
     });
-    define("fn/html/adjustWidth", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_4, adjustSize_2) {
+    define("fn/html/adjustWidth", ["require", "exports", "fn/type/isIterable", "fn/html/adjustSize"], function (require, exports, isIterable_js_4, adjustSize_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.adjustWidth = void 0;
-        const adjustWidth = function () {
-            let args = arguments;
-            if (args.length === 1 && (0, isIterable_4.isIterable)(args[0])) {
+        var adjustWidth = function () {
+            var args = arguments;
+            if (args.length === 1 && (0, isIterable_js_4.isIterable)(args[0])) {
                 args = args[0];
             }
-            return (0, adjustSize_2.adjustSize)('width', args);
+            return (0, adjustSize_js_2.adjustSize)('width', args);
         };
         exports.adjustWidth = adjustWidth;
     });
@@ -2637,12 +2731,12 @@
          * @param    {String} str
          * @returns  {String} string with escape
          */
-        const escapeRegExp = function (str) {
+        var escapeRegExp = function (str) {
             return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
         };
         exports.escapeRegExp = escapeRegExp;
     });
-    define("fn/string/replaceAll", ["require", "exports", "fn/type/isObject", "fn/string/escapeRegExp"], function (require, exports, isObject_6, escapeRegExp_1) {
+    define("fn/string/replaceAll", ["require", "exports", "fn/type/isObject", "fn/string/escapeRegExp"], function (require, exports, isObject_js_6, escapeRegExp_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.replaceAll = void 0;
@@ -2667,10 +2761,11 @@
          * @param    {String} flags
          * @returns  {String}
          */
-        const replaceAll = function (find, replace, str, flags = "") {
+        var replaceAll = function (find, replace, str, flags) {
+            if (flags === void 0) { flags = ""; }
             return str
                 .toString()
-                .replace((0, isObject_6.isObject)(find) ? find : new RegExp((0, escapeRegExp_1.escapeRegExp)(find), "g" + flags), replace);
+                .replace((0, isObject_js_6.isObject)(find) ? find : new RegExp((0, escapeRegExp_js_1.escapeRegExp)(find), "g" + flags), replace);
         };
         exports.replaceAll = replaceAll;
     });
@@ -2698,7 +2793,7 @@
          * @param    {Mixed} st
          * @returns  {String} in md5 format
          */
-        const md5 = function (st) {
+        var md5 = function (st) {
             var hc = "0123456789abcdef";
             function rh(n) {
                 var j, s = "";
@@ -2821,7 +2916,7 @@
         };
         exports.md5 = md5;
     });
-    define("fn/ajax/getRequestId", ["require", "exports", "fn/loop/iterate", "fn/string/md5"], function (require, exports, iterate_7, md5_1) {
+    define("fn/ajax/getRequestId", ["require", "exports", "fn/loop/iterate", "fn/string/md5"], function (require, exports, iterate_js_7, md5_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getRequestId = void 0;
@@ -2873,20 +2968,20 @@
          *
          * @returns  {String} The unique ID
          */
-        const getRequestId = function (url, data, datatype) {
-            let d = {};
+        var getRequestId = function (url, data, datatype) {
+            var d = {};
             if (data) {
-                (0, iterate_7.iterate)(data, (a, n) => {
+                (0, iterate_js_7.iterate)(data, function (a, n) {
                     if (n.indexOf('_bbn') === -1) {
                         d[n] = a;
                     }
                 });
             }
-            return url + ':' + (0, md5_1.md5)((datatype || 'json') + JSON.stringify(d));
+            return url + ':' + (0, md5_js_1.md5)((datatype || 'json') + JSON.stringify(d));
         };
         exports.getRequestId = getRequestId;
     });
-    define("fn/object/extend", ["require", "exports", "fn/loop/iterate", "fn/type/isArray", "fn/loop/each", "fn/type/isObject"], function (require, exports, iterate_8, isArray_6, each_8, isObject_7) {
+    define("fn/object/extend", ["require", "exports", "fn/loop/iterate", "fn/type/isArray", "fn/loop/each", "fn/type/isObject"], function (require, exports, iterate_js_8, isArray_js_6, each_js_8, isObject_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extend = void 0;
@@ -2975,10 +3070,14 @@
          * @memberof bbn.fn
          * @returns  {Object} The first object argument, merged with the other objects given
          */
-        const extend = function (...originalArgs) {
-            let deep = false;
-            let args = [];
-            for (let i = 0; i < originalArgs.length; i++) {
+        var extend = function () {
+            var originalArgs = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                originalArgs[_i] = arguments[_i];
+            }
+            var deep = false;
+            var args = [];
+            for (var i = 0; i < originalArgs.length; i++) {
                 if (originalArgs[i] === true) {
                     deep = true;
                 }
@@ -2995,21 +3094,21 @@
             if (!args.length) {
                 throw new Error("No argument given");
             }
-            let out = args[0];
-            for (let i = 1; i < args.length; i++) {
-                (0, iterate_8.iterate)(args[i], (a, key) => {
+            var out = args[0];
+            for (var i = 1; i < args.length; i++) {
+                (0, iterate_js_8.iterate)(args[i], function (a, key) {
                     if (deep) {
-                        if ((0, isArray_6.isArray)(a)) {
-                            out[key] = (0, isArray_6.isArray)(out[key]) ? out[key] : [];
-                            (0, each_8.each)(a, (b, i) => {
+                        if ((0, isArray_js_6.isArray)(a)) {
+                            out[key] = (0, isArray_js_6.isArray)(out[key]) ? out[key] : [];
+                            (0, each_js_8.each)(a, function (b, i) {
                                 if (b && typeof b === "object") {
-                                    let tmp = out[key][i];
-                                    if ((0, isArray_6.isArray)(b)) {
-                                        if (!(0, isArray_6.isArray)(tmp)) {
+                                    var tmp = out[key][i];
+                                    if ((0, isArray_js_6.isArray)(b)) {
+                                        if (!(0, isArray_js_6.isArray)(tmp)) {
                                             tmp = [];
                                         }
                                     }
-                                    else if (!(0, isObject_7.isObject)(tmp)) {
+                                    else if (!(0, isObject_js_7.isObject)(tmp)) {
                                         tmp = {};
                                     }
                                     out[key][i] = extend(true, tmp, b);
@@ -3019,7 +3118,7 @@
                                 }
                             });
                         }
-                        else if ((0, isObject_7.isObject)(a)) {
+                        else if ((0, isObject_js_7.isObject)(a)) {
                             out[key] = extend(true, out[key] && typeof out[key] === "object"
                                 ? out[key]
                                 : Object.create(Object.getPrototypeOf(a)), a);
@@ -3045,7 +3144,7 @@
         };
         exports.extend = extend;
     });
-    define("fn/ajax/ajax", ["require", "exports", "fn/type/isObject", "fn/string/replaceAll", "fn/ajax/getRequestId", "fn/ajax/getLoader", "fn/object/extend", "fn/object/numProperties", "fn/ajax/_deleteLoader", "fn/type/isFunction", "fn/ajax/_addLoader"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, isFunction_3, _addLoader_1) {
+    define("fn/ajax/ajax", ["require", "exports", "fn/type/isObject", "fn/string/replaceAll", "fn/ajax/getRequestId", "fn/ajax/getLoader", "fn/object/extend", "fn/object/numProperties", "fn/ajax/_deleteLoader", "fn/type/isFunction", "fn/ajax/_addLoader"], function (require, exports, isObject_js_8, replaceAll_js_1, getRequestId_js_1, getLoader_js_2, extend_js_1, numProperties_js_4, _deleteLoader_js_1, isFunction_js_3, _addLoader_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ajax = void 0;
@@ -3105,7 +3204,12 @@
          *
          * @returns  {Promise}  The Promise created by the generated XHR.
          */
-        const ajax = function (url, datatype = null, data = null, success = null, failure = null, abort = null) {
+        var ajax = function (url, datatype, data, success, failure, abort) {
+            if (datatype === void 0) { datatype = null; }
+            if (data === void 0) { data = null; }
+            if (success === void 0) { success = null; }
+            if (failure === void 0) { failure = null; }
+            if (abort === void 0) { abort = null; }
             if (arguments.length === 1 && url && typeof url === "object" && url.url) {
                 if (url.abort) {
                     abort = url.abort;
@@ -3130,23 +3234,23 @@
             if (url && typeof url === "string") {
                 if (url.indexOf("://") === -1) {
                     // Prevent protocol mismatch by Axios
-                    url = (0, replaceAll_1.replaceAll)("//", "/", url);
+                    url = (0, replaceAll_js_1.replaceAll)("//", "/", url);
                 }
                 if (!datatype) {
                     datatype = "json";
                 }
-                let requestId = (0, getRequestId_1.getRequestId)(url, data, datatype);
-                let loaderObj = (0, getLoader_2.getLoader)(requestId);
+                var requestId_1 = (0, getRequestId_js_1.getRequestId)(url, data, datatype);
+                var loaderObj = (0, getLoader_js_2.getLoader)(requestId_1);
                 //log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
                 if (loaderObj === null || loaderObj === void 0 ? void 0 : loaderObj.loader) {
                     return loaderObj.loader;
                 }
                 if (bbn.env.token) {
-                    (0, extend_1.extend)(data || {}, { _bbn_token: bbn.env.token });
+                    (0, extend_js_1.extend)(data || {}, { _bbn_token: bbn.env.token });
                 }
-                let cancelToken = axios.CancelToken;
-                let source = cancelToken.source();
-                let options = {
+                var cancelToken = axios.CancelToken;
+                var source = cancelToken.source();
+                var options = {
                     responseType: datatype,
                     cancelToken: source.token,
                 };
@@ -3156,35 +3260,35 @@
                         "Content-Type": "text/javascript",
                     };
                 }
-                let args = [url];
-                if ((0, isObject_8.isObject)(data) && (0, numProperties_4.numProperties)(data) > 0) {
+                var args = [url];
+                if ((0, isObject_js_8.isObject)(data) && (0, numProperties_js_4.numProperties)(data) > 0) {
                     args.push(data);
                 }
                 args.push(options);
-                const axiosMethod = args.length === 2 ? "get" : "post";
-                let loader = axios[axiosMethod]
+                var axiosMethod = args.length === 2 ? "get" : "post";
+                var loader_1 = axios[axiosMethod]
                     .apply(null, args)
-                    .then((res) => {
-                    (0, _deleteLoader_1._deleteLoader)(requestId, res);
-                    bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
+                    .then(function (res) {
+                    (0, _deleteLoader_js_1._deleteLoader)(requestId_1, res);
+                    bbn.fn.defaultEndLoadingFunction(url, tst_1, data, res);
                     switch (res.status) {
                         case 200:
-                            if ((0, isFunction_3.isFunction)(success)) {
+                            if ((0, isFunction_js_3.isFunction)(success)) {
                                 success(res.data, res.headers);
                             }
                             break;
                         default:
-                            bbn.fn.defaultAjaxErrorFunction(loader, res);
+                            bbn.fn.defaultAjaxErrorFunction(loader_1, res);
                     }
                     return res;
                 })
-                    .catch((err) => {
-                    let isAbort = axios.isCancel(err);
-                    (0, _deleteLoader_1._deleteLoader)(requestId, err.message || err.response.data, isAbort);
-                    bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
+                    .catch(function (err) {
+                    var isAbort = axios.isCancel(err);
+                    (0, _deleteLoader_js_1._deleteLoader)(requestId_1, err.message || err.response.data, isAbort);
+                    bbn.fn.defaultEndLoadingFunction(url, tst_1, data, err);
                     if (isAbort) {
-                        let ok = 1;
-                        if ((0, isFunction_3.isFunction)(abort)) {
+                        var ok = 1;
+                        if ((0, isFunction_js_3.isFunction)(abort)) {
                             ok = abort(err.message, url);
                         }
                         if (ok) {
@@ -3192,8 +3296,8 @@
                         }
                     }
                     else {
-                        let ok = 1;
-                        if ((0, isFunction_3.isFunction)(failure)) {
+                        var ok = 1;
+                        if ((0, isFunction_js_3.isFunction)(failure)) {
                             ok = failure(err.request, err);
                         }
                         if (ok) {
@@ -3201,14 +3305,14 @@
                         }
                     }
                 });
-                let tst = (0, _addLoader_1._addLoader)(requestId, loader, source);
-                bbn.fn.defaultStartLoadingFunction(url, tst, data, requestId);
-                return loader;
+                var tst_1 = (0, _addLoader_js_1._addLoader)(requestId_1, loader_1, source);
+                bbn.fn.defaultStartLoadingFunction(url, tst_1, data, requestId_1);
+                return loader_1;
             }
         };
         exports.ajax = ajax;
     });
-    define("fn/misc/analyzeFunction", ["require", "exports", "fn/string/md5"], function (require, exports, md5_2) {
+    define("fn/misc/analyzeFunction", ["require", "exports", "fn/string/md5"], function (require, exports, md5_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.analyzeFunction = void 0;
@@ -3220,28 +3324,28 @@
          * @returns {Object} An object containing details about the function.
          * @throws {Error} When unexpected syntax is encountered while parsing.
          */
-        const analyzeFunction = function (fn) {
-            const all = typeof fn === 'function' ? fn.toString() : fn;
+        var analyzeFunction = function (fn) {
+            var all = typeof fn === 'function' ? fn.toString() : fn;
             if (typeof all !== 'string') {
                 throw Error('Unexpected type ' + typeof fn + ' while parsing function');
             }
-            let exp = '';
-            let isArrow = false;
-            let isAsync = false;
-            let hasFunction = false;
-            let name = null;
-            let parOpened = 0;
-            let parClosed = 0;
-            let args = [];
-            let currentArg = {};
-            let body;
-            let currentQuote = '';
-            let escapable = ['"', "'", '`'];
-            let isEscaped = false;
-            let settingDefault = false;
-            let isComment = false;
-            let isCommentLine = false;
-            for (let i = 0; i < all.length; i++) {
+            var exp = '';
+            var isArrow = false;
+            var isAsync = false;
+            var hasFunction = false;
+            var name = null;
+            var parOpened = 0;
+            var parClosed = 0;
+            var args = [];
+            var currentArg = {};
+            var body;
+            var currentQuote = '';
+            var escapable = ['"', "'", '`'];
+            var isEscaped = false;
+            var settingDefault = false;
+            var isComment = false;
+            var isCommentLine = false;
+            for (var i = 0; i < all.length; i++) {
                 // Handle string literals
                 if (!isComment && all[i] === '/' && all[i + 1] === '*') {
                     isComment = true;
@@ -3364,17 +3468,17 @@
                     throw Error('Unexpected end of function while parsing function');
                 }
             }
-            const argString = args.map((arg) => arg.name + (arg.default ? ' = ' + arg.default : '')).join(', ');
-            const hash = (0, md5_2.md5)(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
+            var argString = args.map(function (arg) { return arg.name + (arg.default ? ' = ' + arg.default : ''); }).join(', ');
+            var hash = (0, md5_js_2.md5)(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
             return {
-                body,
-                args,
-                argString,
-                isArrow,
-                hasFunction,
-                name,
-                isAsync,
-                hash,
+                body: body,
+                args: args,
+                argString: argString,
+                isArrow: isArrow,
+                hasFunction: hasFunction,
+                name: name,
+                isAsync: isAsync,
+                hash: hash,
             };
         };
         exports.analyzeFunction = analyzeFunction;
@@ -3394,8 +3498,8 @@
          * @param    {Function}    callback
          * @returns  {*}
          */
-        const animateCss = function (ele, animationName, callback) {
-            let animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+        var animateCss = function (ele, animationName, callback) {
+            var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
             /*$(ele).addClass('animated ' + animationName).one(animationEnd, function(){
                   if ( typeof callback == 'function' ){ // make sure the callback is a function
                     callback.call(this); // brings the scope to the callback
@@ -3404,8 +3508,8 @@
                 })*/
             ele.classList.add("animated");
             ele.classList.add(animationName);
-            ele.addEventListener(animationEnd, (e) => {
-                e.target.removeEventListener(e.type, arguments.callee);
+            ele.addEventListener(animationEnd, function animationEndHandler(e) {
+                e.target.removeEventListener(e.type, animationEndHandler);
                 if (typeof callback == "function") {
                     // make sure the callback is a function
                     callback.call(this); // brings the scope to the callback
@@ -3419,12 +3523,12 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayBuffer2String = void 0;
-        const arrayBuffer2String = function (buf) {
+        var arrayBuffer2String = function (buf) {
             return String.fromCharCode.apply(null, new Uint16Array(buf));
         };
         exports.arrayBuffer2String = arrayBuffer2String;
     });
-    define("fn/object/arrayFromProp", ["require", "exports", "fn/loop/each", "fn/object/getProperty"], function (require, exports, each_9, getProperty_3) {
+    define("fn/object/arrayFromProp", ["require", "exports", "fn/loop/each", "fn/object/getProperty"], function (require, exports, each_js_9, getProperty_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.arrayFromProp = void 0;
@@ -3459,16 +3563,16 @@
          * @param    {String} prop
          * @returns  {Array}  The new array
          */
-        const arrayFromProp = function (arr, prop) {
-            let r = [];
-            (0, each_9.each)(arr, (a, i) => {
-                r.push((0, getProperty_3.getProperty)(a, prop));
+        var arrayFromProp = function (arr, prop) {
+            var r = [];
+            (0, each_js_9.each)(arr, function (a, i) {
+                r.push((0, getProperty_js_3.getProperty)(a, prop));
             });
             return r;
         };
         exports.arrayFromProp = arrayFromProp;
     });
-    define("fn/object/autoExtend", ["require", "exports", "fn/object/extend"], function (require, exports, extend_2) {
+    define("fn/object/autoExtend", ["require", "exports", "fn/object/extend"], function (require, exports, extend_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.autoExtend = void 0;
@@ -3503,20 +3607,20 @@
          * @param    {Object}    obj       The object to merge
          * @returns  {undefined} No return value
          */
-        const autoExtend = function (namespace, obj) {
+        var autoExtend = function (namespace, obj) {
             if (!bbn[namespace]) {
                 bbn[namespace] = {};
                 //$.extend(true, bbn[namespace], obj);
-                (0, extend_2.extend)(bbn[namespace], obj);
+                (0, extend_js_2.extend)(bbn[namespace], obj);
             }
             else {
                 // $.extend(true, bbn[namespace], obj);
-                (0, extend_2.extend)(bbn[namespace], obj);
+                (0, extend_js_2.extend)(bbn[namespace], obj);
             }
         };
         exports.autoExtend = autoExtend;
     });
-    define("fn/string/baseName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_5, substr_3) {
+    define("fn/string/baseName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_js_5, substr_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.baseName = void 0;
@@ -3542,23 +3646,23 @@
          * @param    {String} suffix An optional suffix that will be removed from the basename
          * @returns  {String} The basename of path
          */
-        const baseName = function (path, suffix) {
-            if (path && (0, isString_5.isString)(path)) {
-                let bits = path.split("/");
-                let res = bits.pop();
+        var baseName = function (path, suffix) {
+            if (path && (0, isString_js_5.isString)(path)) {
+                var bits = path.split("/");
+                var res = bits.pop();
                 if (!suffix) {
                     return res;
                 }
-                let len = suffix.length;
-                if (res && (0, substr_3.substr)(res, -len) === suffix) {
-                    return (0, substr_3.substr)(res, 0, res.length - len);
+                var len = suffix.length;
+                if (res && (0, substr_js_3.substr)(res, -len) === suffix) {
+                    return (0, substr_js_3.substr)(res, 0, res.length - len);
                 }
             }
             return "";
         };
         exports.baseName = baseName;
     });
-    define("fn/string/br2nl", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_2) {
+    define("fn/string/br2nl", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.br2nl = void 0;
@@ -3579,12 +3683,12 @@
          * @param    string st
          * @returns  {String}
          */
-        const br2nl = function (st) {
-            return (0, replaceAll_2.replaceAll)("<br />", "\n", (0, replaceAll_2.replaceAll)("<br/>", "\n", (0, replaceAll_2.replaceAll)("<br>", "\n", st)));
+        var br2nl = function (st) {
+            return (0, replaceAll_js_2.replaceAll)("<br />", "\n", (0, replaceAll_js_2.replaceAll)("<br/>", "\n", (0, replaceAll_js_2.replaceAll)("<br>", "\n", st)));
         };
         exports.br2nl = br2nl;
     });
-    define("fn/datetime/date", ["require", "exports", "fn/type/isNumber", "fn/string/substr", "fn/type/isDate"], function (require, exports, isNumber_3, substr_4, isDate_2) {
+    define("fn/datetime/date", ["require", "exports", "fn/type/isNumber", "fn/string/substr", "fn/type/isDate"], function (require, exports, isNumber_js_3, substr_js_4, isDate_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.date = void 0;
@@ -3604,12 +3708,12 @@
          * @param    {String|Number} v
          * @returns  {date}
          */
-        const date = function (v) {
-            let d = false, t = typeof v;
+        var date = function (v) {
+            var d = false, t = typeof v;
             if (v === undefined) {
                 return new Date();
             }
-            if (t === 'number' || ((0, isNumber_3.isNumber)(v) && v !== '')) {
+            if (t === 'number' || ((0, isNumber_js_3.isNumber)(v) && v !== '')) {
                 if (v < 10000000000) {
                     v = v * 1000;
                 }
@@ -3617,20 +3721,20 @@
             }
             if (t === 'string') {
                 if (v.length === 10) {
-                    return new Date(parseInt((0, substr_4.substr)(v, 0, 4)), parseInt((0, substr_4.substr)(v, 5, 2)) - 1, parseInt((0, substr_4.substr)(v, 8, 2)), 12);
+                    return new Date(parseInt((0, substr_js_4.substr)(v, 0, 4)), parseInt((0, substr_js_4.substr)(v, 5, 2)) - 1, parseInt((0, substr_js_4.substr)(v, 8, 2)), 12);
                 }
                 else if (v.length === 19) {
-                    return new Date(parseInt((0, substr_4.substr)(v, 0, 4)), parseInt((0, substr_4.substr)(v, 5, 2)) - 1, parseInt((0, substr_4.substr)(v, 8, 2)), parseInt((0, substr_4.substr)(v, 11, 2)), parseInt((0, substr_4.substr)(v, 14, 2)), parseInt((0, substr_4.substr)(v, 17, 2)));
+                    return new Date(parseInt((0, substr_js_4.substr)(v, 0, 4)), parseInt((0, substr_js_4.substr)(v, 5, 2)) - 1, parseInt((0, substr_js_4.substr)(v, 8, 2)), parseInt((0, substr_js_4.substr)(v, 11, 2)), parseInt((0, substr_js_4.substr)(v, 14, 2)), parseInt((0, substr_js_4.substr)(v, 17, 2)));
                 }
             }
-            else if ((0, isDate_2.isDate)(v)) {
+            else if ((0, isDate_js_2.isDate)(v)) {
                 return v;
             }
             return d;
         };
         exports.date = date;
     });
-    define("fn/datetime/fdatetime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_1, isDate_3, isString_6) {
+    define("fn/datetime/fdatetime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_js_1, isDate_js_3, isString_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdatetime = void 0;
@@ -3641,10 +3745,11 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const fdatetime = function (d, wrong_result = false) {
-            let r = (0, date_1.date)(d);
-            if (!(0, isDate_3.isDate)(r)) {
-                return wrong_result && (0, isString_6.isString)(wrong_result) ? wrong_result : '';
+        var fdatetime = function (d, wrong_result) {
+            if (wrong_result === void 0) { wrong_result = false; }
+            var r = (0, date_js_1.date)(d);
+            if (!(0, isDate_js_3.isDate)(r)) {
+                return wrong_result && (0, isString_js_6.isString)(wrong_result) ? wrong_result : '';
             }
             if (undefined !== dayjs) {
                 //return dayjs(r).format('lll');
@@ -3662,7 +3767,7 @@
         };
         exports.fdatetime = fdatetime;
     });
-    define("fn/datetime/fdate", ["require", "exports", "fn/datetime/fdatetime", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdatetime_1, date_2, isDate_4, isString_7) {
+    define("fn/datetime/fdate", ["require", "exports", "fn/datetime/fdatetime", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdatetime_js_1, date_js_2, isDate_js_4, isString_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fdate = void 0;
@@ -3675,14 +3780,15 @@
          * @param    {String}      wrong_result
          * @returns
          */
-        const fdate = function (d, wrong_result = false) {
+        var fdate = function (d, wrong_result) {
+            if (wrong_result === void 0) { wrong_result = false; }
             // Retro compatibility
             if (wrong_result === true) {
-                return (0, fdatetime_1.fdatetime)(d);
+                return (0, fdatetime_js_1.fdatetime)(d);
             }
-            let r = (0, date_2.date)(d);
-            if (!(0, isDate_4.isDate)(r)) {
-                return wrong_result && (0, isString_7.isString)(wrong_result) ? wrong_result : '';
+            var r = (0, date_js_2.date)(d);
+            if (!(0, isDate_js_4.isDate)(r)) {
+                return wrong_result && (0, isString_js_7.isString)(wrong_result) ? wrong_result : '';
             }
             if (undefined !== dayjs) {
                 return dayjs(r).format('L');
@@ -3691,16 +3797,14 @@
         };
         exports.fdate = fdate;
     });
-    define("fn/datetime/calendar", ["require", "exports", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdate_1, date_3, isDate_5, isString_8) {
+    define("fn/datetime/calendar", ["require", "exports", "dayjs", "dayjs/plugin/calendar.js", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, dayjs_1, calendar_js_1, fdate_js_1, date_js_3, isDate_js_5, isString_js_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
-        const dayjs = require('dayjs');
-        const dayjs_plugin_calendar = require('dayjs/plugin/calendar');
-        const bbn = {
-            _: st => st
+        var bbn = {
+            _: function (st) { return st; }
         };
-        dayjs.extend(dayjs_plugin_calendar);
+        dayjs_1.default.extend(calendar_js_1.default);
         /**
          * Returns a date relative to the current day.
          *
@@ -3719,15 +3823,16 @@
          * @param    {String | Boolean} wrong_result Whether or not include the time in the date
          * @returns  {String}
          */
-        const calendar = function (d, wrong_result = false) {
-            if (undefined === dayjs) {
-                return (0, fdate_1.fdate)(d, wrong_result);
+        var calendar = function (d, wrong_result) {
+            if (wrong_result === void 0) { wrong_result = false; }
+            if (undefined === dayjs_1.default) {
+                return (0, fdate_js_1.fdate)(d, wrong_result);
             }
-            let r = (0, date_3.date)(d);
-            if (!(0, isDate_5.isDate)(r)) {
-                return wrong_result && (0, isString_8.isString)(wrong_result) ? wrong_result : '';
+            var r = (0, date_js_3.date)(d);
+            if (!(0, isDate_js_5.isDate)(r)) {
+                return wrong_result && (0, isString_js_8.isString)(wrong_result) ? wrong_result : '';
             }
-            return dayjs(r).calendar(null, {
+            return (0, dayjs_1.default)(r).calendar(null, {
                 sameDay: '[' + bbn._('Today') + ']',
                 nextDay: '[' + bbn._('Tomorrow') + ']',
                 nextWeek: 'ddd D',
@@ -3738,7 +3843,7 @@
         };
         exports.calendar = calendar;
     });
-    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/type/isFunction", "fn/browser/log"], function (require, exports, error_2, isFunction_4, log_8) {
+    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/type/isFunction", "fn/browser/log"], function (require, exports, error_js_2, isFunction_js_4, log_js_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -3777,27 +3882,31 @@
          *
          * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
          */
-        const callback = function (url, res = null, fn = null, fn2 = null, ele = null) {
-            let tmp = false;
+        var callback = function (url, res, fn, fn2, ele) {
+            if (res === void 0) { res = null; }
+            if (fn === void 0) { fn = null; }
+            if (fn2 === void 0) { fn2 = null; }
+            if (ele === void 0) { ele = null; }
+            var tmp = false;
             if (res) {
                 tmp = true;
-                let t = typeof res;
-                let isObj = t.toLowerCase() === 'object';
-                let errTitle;
+                var t = typeof res;
+                var isObj = t.toLowerCase() === 'object';
+                var errTitle = void 0;
                 if (isObj && res.prescript) {
                     /* var ok can be changed to false in prescript execution */
                     try {
                         eval(res.prescript);
                     }
                     catch (e) {
-                        (0, error_2.error)(e.message || '');
+                        (0, error_js_2.error)(e.message || '');
                     }
                 }
                 if (isObj && res.url === undefined) {
                     res.url = url;
                 }
                 /* Case where a callback is defined */
-                if (fn && (0, isFunction_4.isFunction)(fn)) {
+                if (fn && (0, isFunction_js_4.isFunction)(fn)) {
                     tmp = fn(res, ele);
                 }
                 else {
@@ -3816,24 +3925,24 @@
                         tmp = res.script(res.data ? res.data : {}, ele || null);
                     }
                     else {
-                        tmp = ((data, ele) => {
-                            let r = null;
+                        tmp = (function (data, ele) {
+                            var r = null;
                             try {
                                 r = eval(res.script);
-                                if ((0, isFunction_4.isFunction)(r)) {
+                                if ((0, isFunction_js_4.isFunction)(r)) {
                                     r = r(data, ele);
                                 }
                             }
                             catch (e) {
-                                (0, log_8.log)(e, res);
-                                (0, error_2.error)((0, isFunction_4.isFunction)(e.getMessage) ? e.getMessage() : null);
+                                (0, log_js_8.log)(e, res);
+                                (0, error_js_2.error)((0, isFunction_js_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
                         })(res.data ? res.data : {}, ele ? ele : false);
                     }
                 }
                 /* Case where a callback is defined */
-                if (tmp && fn2 && (0, isFunction_4.isFunction)(fn2)) {
+                if (tmp && fn2 && (0, isFunction_js_4.isFunction)(fn2)) {
                     fn2(res);
                 }
                 else if (isObj && bbn.fn.defaultPostLinkFunction) {
@@ -3876,7 +3985,7 @@
          * @param    {String} str
          * @returns  {String}
          */
-        const camelize = function (str) {
+        var camelize = function (str) {
             return str.replace(/^([A-Z])|[\s-](\w)/g, function (match, p1, p2, offset) {
                 if (p2) {
                     return p2.toUpperCase();
@@ -3906,7 +4015,7 @@
          * @param   {String} str
          * @returns {String}
          */
-        const camelToCss = function (str) {
+        var camelToCss = function (str) {
             return str
                 .replace(/([A-Z])/g, function (st) {
                 return "-" + st.toLowerCase();
@@ -3935,8 +4044,8 @@
          * @param {canvas} canvas
          * @returns  {HTMLElement}
          */
-        const canvasToImage = function (canvas) {
-            let img = new Image();
+        var canvasToImage = function (canvas) {
+            var img = new Image();
             img.src = canvas.toDataURL('image/png');
             return img;
         };
@@ -3960,9 +4069,9 @@
          * @param    {HTMLElement} ele
          * @returns  {HTMLElement} The dom element with the new style.
          */
-        const center = function (ele) {
+        var center = function (ele) {
             //ele = $(ele);
-            let parent = ele.parentNode, 
+            var parent = ele.parentNode, 
             //w = parent.width(),
             w = parent.clientWidth, 
             //h = parent.height();
@@ -3987,42 +4096,43 @@
         };
         exports.center = center;
     });
-    define("fn/object/checkPropsDetails", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/loop/each", "fn/string/substr"], function (require, exports, isArray_7, isObject_9, each_10, substr_5) {
+    define("fn/object/checkPropsDetails", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/loop/each", "fn/string/substr"], function (require, exports, isArray_js_7, isObject_js_9, each_js_10, substr_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsDetails = void 0;
-        const checkPropsDetails = function (obj, props, checkEmpty = false) {
-            let res = {
+        var checkPropsDetails = function (obj, props, checkEmpty) {
+            if (checkEmpty === void 0) { checkEmpty = false; }
+            var res = {
                 error: false,
                 result: true,
             };
             if (typeof props === "string") {
                 props = [props];
             }
-            if (!(0, isArray_7.isArray)(props)) {
+            if (!(0, isArray_js_7.isArray)(props)) {
                 res.error = bbn._("checkProps must receive a string or an array as props argument");
             }
-            if (!(0, isObject_9.isObject)(obj)) {
+            if (!(0, isObject_js_9.isObject)(obj)) {
                 res.error = bbn._("checkProps must receive an object as obj argument");
             }
             if (!res.error) {
-                let check;
-                (0, each_10.each)(props, (varName) => {
+                var check_1;
+                (0, each_js_10.each)(props, function (varName) {
                     varName = varName.trim().split(":");
-                    let type = varName[1] || false;
+                    var type = varName[1] || false;
                     varName = varName[0];
                     if (obj[varName] === undefined) {
                         res.error = varName + " " + bbn._("is not defined");
                     }
                     else if (type) {
-                        check =
+                        check_1 =
                             "is" +
-                                (0, substr_5.substr)(type, 0, 1).toUpperCase() +
-                                (0, substr_5.substr)(type, 1).toLowerCase();
-                        if (bbn.fn[check] === undefined) {
+                                (0, substr_js_5.substr)(type, 0, 1).toUpperCase() +
+                                (0, substr_js_5.substr)(type, 1).toLowerCase();
+                        if (bbn.fn[check_1] === undefined) {
                             res.error = type + " " + bbn._("is not a valid type");
                         }
-                        else if (!bbn.fn[check](obj[varName])) {
+                        else if (!bbn.fn[check_1](obj[varName])) {
                             res.error = varName + " " + bbn._("is not a") + " " + type;
                         }
                     }
@@ -4041,21 +4151,23 @@
         };
         exports.checkPropsDetails = checkPropsDetails;
     });
-    define("fn/object/checkProps", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_1) {
+    define("fn/object/checkProps", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkProps = void 0;
-        const checkProps = function (obj, props, checkEmpty = false) {
-            return (0, checkPropsDetails_1.checkPropsDetails)(obj, props, checkEmpty).result;
+        var checkProps = function (obj, props, checkEmpty) {
+            if (checkEmpty === void 0) { checkEmpty = false; }
+            return (0, checkPropsDetails_js_1.checkPropsDetails)(obj, props, checkEmpty).result;
         };
         exports.checkProps = checkProps;
     });
-    define("fn/object/checkPropsOrDie", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_2) {
+    define("fn/object/checkPropsOrDie", ["require", "exports", "fn/object/checkPropsDetails"], function (require, exports, checkPropsDetails_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.checkPropsOrDie = void 0;
-        const checkPropsOrDie = function (obj, props, checkEmpty = false) {
-            let res = (0, checkPropsDetails_2.checkPropsDetails)(obj, props, checkEmpty);
+        var checkPropsOrDie = function (obj, props, checkEmpty) {
+            if (checkEmpty === void 0) { checkEmpty = false; }
+            var res = (0, checkPropsDetails_js_2.checkPropsDetails)(obj, props, checkEmpty);
             if (res.error) {
                 throw new Error(res.error);
             }
@@ -4063,7 +4175,7 @@
         };
         exports.checkPropsOrDie = checkPropsOrDie;
     });
-    define("fn/object/clone", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/extend"], function (require, exports, isArray_8, isObject_10, extend_3) {
+    define("fn/object/clone", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/extend"], function (require, exports, isArray_js_8, isObject_js_10, extend_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.clone = void 0;
@@ -4084,15 +4196,15 @@
          * @param    {Object} obj The source object
          * @returns  {Object} A new object
          */
-        const clone = function (obj) {
-            if ((0, isArray_8.isArray)(obj)) {
-                return obj.slice().map((a) => {
+        var clone = function (obj) {
+            if ((0, isArray_js_8.isArray)(obj)) {
+                return obj.slice().map(function (a) {
                     return typeof a === "object" ? clone(a) : a;
                 });
             }
-            if ((0, isObject_10.isObject)(obj)) {
-                const o = Object.create(Object.getPrototypeOf(obj));
-                return (0, extend_3.extend)(true, o, obj);
+            if ((0, isObject_js_10.isObject)(obj)) {
+                var o = Object.create(Object.getPrototypeOf(obj));
+                return (0, extend_js_3.extend)(true, o, obj);
             }
             return obj;
         };
@@ -4120,14 +4232,14 @@
          * @memberof bbn.fn
          * @returns  {String}
          */
-        const colorToHex = function (color) {
-            let canvas = document.createElement("canvas").getContext("2d");
+        var colorToHex = function (color) {
+            var canvas = document.createElement("canvas").getContext("2d");
             canvas.fillStyle = color;
             return canvas.fillStyle;
         };
         exports.colorToHex = colorToHex;
     });
-    define("fn/browser/copy", ["require", "exports", "fn/type/isObject", "fn/type/isFunction"], function (require, exports, isObject_11, isFunction_5) {
+    define("fn/browser/copy", ["require", "exports", "fn/type/isObject", "fn/type/isFunction"], function (require, exports, isObject_js_11, isFunction_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.copy = void 0;
@@ -4144,18 +4256,20 @@
          * @param {String} st The string to copy.
          * @returns
          */
-        const copy = function (st) {
-            return new Promise((resolve) => {
+        var copy = function (st) {
+            return new Promise(function (resolve) {
+                var _a;
                 if (st) {
                     if (navigator && navigator.clipboard) {
                         if (st instanceof Blob) {
-                            navigator.clipboard.write([new ClipboardItem({ [st.type.toString()]: st })]).then(() => {
+                            navigator.clipboard.write([new ClipboardItem((_a = {}, _a[st.type.toString()] = st, _a))]).then(function () {
                                 resolve(true);
                             });
                         }
-                        else if ((0, isObject_11.isObject)(st) && (0, isFunction_5.isFunction)(st.toBlob)) {
-                            st.toBlob((blob) => {
-                                navigator.clipboard.write([new ClipboardItem({ [blob.type.toString()]: blob })]).then(() => {
+                        else if ((0, isObject_js_11.isObject)(st) && (0, isFunction_js_5.isFunction)(st.toBlob)) {
+                            st.toBlob(function (blob) {
+                                var _a;
+                                navigator.clipboard.write([new ClipboardItem((_a = {}, _a[blob.type.toString()] = blob, _a))]).then(function () {
                                     resolve(true);
                                 });
                             });
@@ -4166,7 +4280,7 @@
                         }
                         return;
                     }
-                    let input = document.createElement('textarea');
+                    var input = document.createElement('textarea');
                     input.style.opacity = '0';
                     input.value = st;
                     document.body.appendChild(input);
@@ -4180,7 +4294,7 @@
         };
         exports.copy = copy;
     });
-    define("fn/object/count", ["require", "exports", "fn/object/filter"], function (require, exports, filter_2) {
+    define("fn/object/count", ["require", "exports", "fn/object/filter"], function (require, exports, filter_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.count = void 0;
@@ -4238,8 +4352,10 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Number}                   The number of items
          */
-        const count = function (arr, prop, val = null, operator = '=') {
-            return (0, filter_2.filter)(arr, prop, val, operator).length || 0;
+        var count = function (arr, prop, val, operator) {
+            if (val === void 0) { val = null; }
+            if (operator === void 0) { operator = '='; }
+            return (0, filter_js_2.filter)(arr, prop, val, operator).length || 0;
         };
         exports.count = count;
     });
@@ -4250,38 +4366,42 @@
         /**
          * CRC32 implementation.
          */
-        const crc32Table = [];
-        for (let i = 0; i < 256; i++) {
-            let c = i;
-            for (let j = 0; j < 8; j++) {
+        var crc32Table = [];
+        for (var i = 0; i < 256; i++) {
+            var c = i;
+            for (var j = 0; j < 8; j++) {
                 c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
             }
             crc32Table.push(c);
         }
-        const crc32 = function (str) {
-            let crc = 0 ^ -1;
-            for (let i = 0; i < str.length; i++) {
-                const charCode = str.charCodeAt(i);
+        var crc32 = function (str) {
+            var crc = 0 ^ -1;
+            for (var i = 0; i < str.length; i++) {
+                var charCode = str.charCodeAt(i);
                 crc = (crc >>> 8) ^ crc32Table[(crc ^ charCode) & 0xff];
             }
             return (crc ^ -1) >>> 0; // Make sure the result is a 32-bit positive integer
         };
         exports.crc32 = crc32;
     });
-    define("fn/object/createObject", ["require", "exports", "fn/object/extend"], function (require, exports, extend_4) {
+    define("fn/object/createObject", ["require", "exports", "fn/object/extend"], function (require, exports, extend_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.createObject = void 0;
-        const createObject = function (...args) {
-            const obj = Object.create(null);
+        var createObject = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var obj = Object.create(null);
             if (args.length) {
-                (0, extend_4.extend)(obj, ...args);
+                extend_js_4.extend.apply(void 0, __spreadArray([obj], args, false));
             }
             return obj;
         };
         exports.createObject = createObject;
     });
-    define("fn/style/cssExists", ["require", "exports", "fn/string/escapeRegExp"], function (require, exports, escapeRegExp_2) {
+    define("fn/style/cssExists", ["require", "exports", "fn/string/escapeRegExp"], function (require, exports, escapeRegExp_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.cssExists = void 0;
@@ -4295,11 +4415,11 @@
          * @param    {String} f
          * @returns
          */
-        const cssExists = function (f) {
-            let ok;
-            let rules;
-            let css = document.styleSheets;
-            for (let sx = 0; sx < css.length; sx++) {
+        var cssExists = function (f) {
+            var ok;
+            var rules;
+            var css = document.styleSheets;
+            for (var sx = 0; sx < css.length; sx++) {
                 ok = 1;
                 try {
                     rules = css[sx].rules || css[sx].cssRules;
@@ -4312,9 +4432,9 @@
                 }
                 if (ok) {
                     //log(rules);
-                    for (let cx = 0; cx < rules.length; cx++) {
+                    for (var cx = 0; cx < rules.length; cx++) {
                         //log(rules[cx].selectorText);
-                        if (new RegExp("(^|\\s)" + (0, escapeRegExp_2.escapeRegExp)(f) + "(\\{|\\s)", "g").test(rules[cx].selectorText)) {
+                        if (new RegExp("(^|\\s)" + (0, escapeRegExp_js_2.escapeRegExp)(f) + "(\\{|\\s)", "g").test(rules[cx].selectorText)) {
                             return true;
                         }
                     }
@@ -4324,11 +4444,10 @@
         };
         exports.cssExists = cssExists;
     });
-    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date"], function (require, exports, date_4) {
+    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date", "dayjs"], function (require, exports, date_js_4, dayjs_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dateSQL = void 0;
-        const dayjs = require('dayjs');
         /**
          * Returns a date with SQL format.
          *
@@ -4347,15 +4466,15 @@
          * @param    {Boolean}     dayOnly Whether or not include the time in the date
          * @returns  {String}
          */
-        const dateSQL = function (v, dayOnly) {
-            let value = (0, date_4.date)(v);
+        var dateSQL = function (v, dayOnly) {
+            var value = (0, date_js_4.date)(v);
             if (value) {
-                return dayjs(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
+                return (0, dayjs_2.default)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
             }
         };
         exports.dateSQL = dateSQL;
     });
-    define("fn/datetime/daysInMonth", ["require", "exports", "fn/datetime/date"], function (require, exports, date_5) {
+    define("fn/datetime/daysInMonth", ["require", "exports", "fn/datetime/date"], function (require, exports, date_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.daysInMonth = void 0;
@@ -4374,8 +4493,8 @@
          * @param    {String|Date} v
          * @returns  {Number}
          */
-        const daysInMonth = function (v) {
-            let d = (0, date_5.date)(v);
+        var daysInMonth = function (v) {
+            var d = (0, date_js_5.date)(v);
             if (d) {
                 return dayjs(d).daysInMonth();
             }
@@ -4383,7 +4502,7 @@
         };
         exports.daysInMonth = daysInMonth;
     });
-    define("fn/object/deepPath", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_4, each_11, isArray_9) {
+    define("fn/object/deepPath", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_js_4, each_js_11, isArray_js_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deepPath = void 0;
@@ -4442,18 +4561,19 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Number}                   The number of items
          */
-        const deepPath = function (arr, filter, deepProperty, res = []) {
-            let idx;
-            let start = 0;
-            if ((idx = (0, search_4.search)(arr, filter, start)) > -1) {
+        var deepPath = function (arr, filter, deepProperty, res) {
+            if (res === void 0) { res = []; }
+            var idx;
+            var start = 0;
+            if ((idx = (0, search_js_4.search)(arr, filter, start)) > -1) {
                 res.push(idx);
                 return res;
             }
-            (0, each_11.each)(arr, (it, i) => {
-                if ((0, isArray_9.isArray)(it[deepProperty])) {
-                    let r = res.slice();
+            (0, each_js_11.each)(arr, function (it, i) {
+                if ((0, isArray_js_9.isArray)(it[deepProperty])) {
+                    var r = res.slice();
                     r.push(i);
-                    let tmp = deepPath(it[deepProperty], filter, deepProperty, r);
+                    var tmp = deepPath(it[deepProperty], filter, deepProperty, r);
                     if (tmp !== false) {
                         return tmp;
                     }
@@ -4463,21 +4583,24 @@
         };
         exports.deepPath = deepPath;
     });
-    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_9) {
+    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
-        const defaultAjaxAbortFunction = function (message, url = "") {
-            (0, log_9.log)(message);
+        var defaultAjaxAbortFunction = function (message, url) {
+            if (url === void 0) { url = ""; }
+            (0, log_js_9.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
     });
-    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_10) {
+    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxErrorFunction = void 0;
-        const defaultAjaxErrorFunction = function (jqXHR, textStatus = null, errorThrown = null) {
-            (0, log_10.log)(textStatus, errorThrown);
+        var defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
+            if (textStatus === void 0) { textStatus = null; }
+            if (errorThrown === void 0) { errorThrown = null; }
+            (0, log_js_10.log)(textStatus, errorThrown);
         };
         exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
     });
@@ -4485,25 +4608,27 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAlertFunction = void 0;
-        const defaultAlertFunction = function (msg, title = null) {
+        var defaultAlertFunction = function (msg, title) {
+            if (title === void 0) { title = null; }
             /** @todo */
             alert(msg);
         };
         exports.defaultAlertFunction = defaultAlertFunction;
     });
-    define("fn/default/defaultConfirmFunction", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_6) {
+    define("fn/default/defaultConfirmFunction", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultConfirmFunction = void 0;
-        const defaultConfirmFunction = function (text, yesFn, noFn = null) {
-            let ok = 0;
+        var defaultConfirmFunction = function (text, yesFn, noFn) {
+            if (noFn === void 0) { noFn = null; }
+            var ok = 0;
             if (confirm(text)) {
-                if ((0, isFunction_6.isFunction)(yesFn)) {
+                if ((0, isFunction_js_6.isFunction)(yesFn)) {
                     yesFn();
                     ok = 1;
                 }
             }
-            if (!ok && (0, isFunction_6.isFunction)(noFn)) {
+            if (!ok && (0, isFunction_js_6.isFunction)(noFn)) {
                 noFn();
             }
         };
@@ -4513,17 +4638,19 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultEndLoadingFunction = void 0;
-        const defaultEndLoadingFunction = function (url, timestamp, data = null, res = null) {
+        var defaultEndLoadingFunction = function (url, timestamp, data, res) {
+            if (data === void 0) { data = null; }
+            if (res === void 0) { res = null; }
             return true;
         };
         exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
     });
-    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_11) {
+    define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultErrorFunction = void 0;
-        const defaultErrorFunction = function (message) {
-            (0, log_11.log)(message);
+        var defaultErrorFunction = function (message) {
+            (0, log_js_11.log)(message);
         };
         exports.defaultErrorFunction = defaultErrorFunction;
     });
@@ -4531,7 +4658,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultHistoryFunction = void 0;
-        const defaultHistoryFunction = function (obj) {
+        var defaultHistoryFunction = function (obj) {
             return true;
         };
         exports.defaultHistoryFunction = defaultHistoryFunction;
@@ -4540,7 +4667,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultLinkFunction = void 0;
-        const defaultLinkFunction = function (responseObj, ele) {
+        var defaultLinkFunction = function (responseObj, ele) {
             return true;
         };
         exports.defaultLinkFunction = defaultLinkFunction;
@@ -4549,17 +4676,20 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPostLinkFunction = void 0;
-        const defaultPostLinkFunction = function (r, ele = null) {
+        var defaultPostLinkFunction = function (r, ele) {
+            if (ele === void 0) { ele = null; }
             return true;
         };
         exports.defaultPostLinkFunction = defaultPostLinkFunction;
     });
-    define("fn/default/defaultPreLinkFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_12) {
+    define("fn/default/defaultPreLinkFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultPreLinkFunction = void 0;
-        const defaultPreLinkFunction = function (url, force = false, ele = null) {
-            (0, log_12.log)("defaultPreLinkFunction", url, force, ele);
+        var defaultPreLinkFunction = function (url, force, ele) {
+            if (force === void 0) { force = false; }
+            if (ele === void 0) { ele = null; }
+            (0, log_js_12.log)("defaultPreLinkFunction", url, force, ele);
             return true;
         };
         exports.defaultPreLinkFunction = defaultPreLinkFunction;
@@ -4568,7 +4698,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultResizeFunction = void 0;
-        const defaultResizeFunction = function () {
+        var defaultResizeFunction = function () {
             return true;
         };
         exports.defaultResizeFunction = defaultResizeFunction;
@@ -4577,12 +4707,14 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultStartLoadingFunction = void 0;
-        const defaultStartLoadingFunction = function (url, tst, data = null, requestId = null) {
+        var defaultStartLoadingFunction = function (url, tst, data, requestId) {
+            if (data === void 0) { data = null; }
+            if (requestId === void 0) { requestId = null; }
             return true;
         };
         exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
     });
-    define("fn/object/deleteProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_2) {
+    define("fn/object/deleteProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.deleteProp = void 0;
@@ -4592,14 +4724,14 @@
          * @param {String} prop
          * @returns
          */
-        const deleteProp = function (obj, prop) {
-            (0, checkType_2.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
-            (0, checkType_2.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
+        var deleteProp = function (obj, prop) {
+            (0, checkType_js_2.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
+            (0, checkType_js_2.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
             delete obj[prop];
         };
         exports.deleteProp = deleteProp;
     });
-    define("fn/type/isValue", ["require", "exports", "fn/type/isNull"], function (require, exports, isNull_2) {
+    define("fn/type/isValue", ["require", "exports", "fn/type/isNull"], function (require, exports, isNull_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValue = void 0;
@@ -4627,11 +4759,16 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isValue = function (...args) {
+        var isValue = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
-                if (typeof a === "object" && !(0, isNull_2.isNull)(a)) {
+            for (var _a = 0, args_12 = args; _a < args_12.length; _a++) {
+                var a = args_12[_a];
+                if (typeof a === "object" && !(0, isNull_js_2.isNull)(a)) {
                     return false;
                 }
             }
@@ -4639,11 +4776,11 @@
         };
         exports.isValue = isValue;
     });
-    define("fn/object/diffObj", ["require", "exports", "fn/type/isDate", "fn/object/createObject", "fn/type/isFunction", "fn/type/isValue", "fn/type/isDom", "fn/object/numProperties"], function (require, exports, isDate_6, createObject_1, isFunction_7, isValue_1, isDom_4, numProperties_5) {
+    define("fn/object/diffObj", ["require", "exports", "fn/type/isDate", "fn/object/createObject", "fn/type/isFunction", "fn/type/isValue", "fn/type/isDom", "fn/object/numProperties"], function (require, exports, isDate_js_6, createObject_js_1, isFunction_js_7, isValue_js_1, isDom_js_4, numProperties_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.diffObj = void 0;
-        let diffObjProcessed = [];
+        var diffObjProcessed = [];
         /**
           * Returns an object describing the differences for transforming the first given object into the second.
           *
@@ -4721,15 +4858,17 @@
           * @param    {Boolean} notRoot
           * @returns  {Object}
           */
-        const diffObj = function (obj1, obj2, unchanged = false, notRoot = false) {
+        var diffObj = function (obj1, obj2, unchanged, notRoot) {
+            if (unchanged === void 0) { unchanged = false; }
+            if (notRoot === void 0) { notRoot = false; }
             if (!notRoot) {
                 diffObjProcessed = [];
             }
-            let VALUE_CREATED = 'created', VALUE_UPDATED = 'updated', VALUE_DELETED = 'deleted', VALUE_UNCHANGED = 'unchanged', _compareValues = function (value1, value2) {
+            var VALUE_CREATED = 'created', VALUE_UPDATED = 'updated', VALUE_DELETED = 'deleted', VALUE_UNCHANGED = 'unchanged', _compareValues = function (value1, value2) {
                 if (value1 === value2) {
                     return VALUE_UNCHANGED;
                 }
-                if ((0, isDate_6.isDate)(value1) && (0, isDate_6.isDate)(value2) && value1.getTime() === value2.getTime()) {
+                if ((0, isDate_js_6.isDate)(value1) && (0, isDate_js_6.isDate)(value2) && value1.getTime() === value2.getTime()) {
                     return VALUE_UNCHANGED;
                 }
                 if ('undefined' == typeof value1) {
@@ -4743,12 +4882,12 @@
             if (notRoot === undefined) {
                 notRoot = false;
             }
-            let diff = (0, createObject_1.createObject)();
-            if (!(0, isFunction_7.isFunction)(obj1) && !(0, isFunction_7.isFunction)(obj2)) {
-                if ((0, isValue_1.isValue)(obj1) || (0, isValue_1.isValue)(obj2)) {
-                    let res = _compareValues(obj1, obj2);
+            var diff = (0, createObject_js_1.createObject)();
+            if (!(0, isFunction_js_7.isFunction)(obj1) && !(0, isFunction_js_7.isFunction)(obj2)) {
+                if ((0, isValue_js_1.isValue)(obj1) || (0, isValue_js_1.isValue)(obj2)) {
+                    var res = _compareValues(obj1, obj2);
                     if (unchanged || res !== VALUE_UNCHANGED) {
-                        let ret = (0, createObject_1.createObject)();
+                        var ret = (0, createObject_js_1.createObject)();
                         Object.defineProperty(ret, 'type', {
                             value: res,
                             enumerable: false,
@@ -4771,7 +4910,7 @@
                     }
                     return false;
                 }
-                if ((0, isDom_4.isDom)(obj1) || (0, isDom_4.isDom)(obj2)) {
+                if ((0, isDom_js_4.isDom)(obj1) || (0, isDom_js_4.isDom)(obj2)) {
                     return false;
                 }
                 if (diffObjProcessed.includes(obj1) || diffObjProcessed.includes(obj2)) {
@@ -4779,34 +4918,34 @@
                     return false;
                 }
                 diffObjProcessed.push(obj1, obj2);
-                for (let key in obj1) {
-                    if ((0, isFunction_7.isFunction)(obj1[key])) {
+                for (var key in obj1) {
+                    if ((0, isFunction_js_7.isFunction)(obj1[key])) {
                         continue;
                     }
-                    let value2 = undefined;
+                    var value2 = undefined;
                     if ('undefined' != typeof obj2[key]) {
                         value2 = obj2[key];
                     }
-                    let res = diffObj(obj1[key], value2, unchanged, true);
+                    var res = diffObj(obj1[key], value2, unchanged, true);
                     if (res) {
                         diff[key] = res;
                     }
                 }
-                for (let key in obj2) {
-                    if ((0, isFunction_7.isFunction)(obj2[key]) || 'undefined' != typeof obj1[key]) {
+                for (var key in obj2) {
+                    if ((0, isFunction_js_7.isFunction)(obj2[key]) || 'undefined' != typeof obj1[key]) {
                         continue;
                     }
-                    let res = diffObj(undefined, obj2[key], unchanged, true);
+                    var res = diffObj(undefined, obj2[key], unchanged, true);
                     if (res) {
                         diff[key] = res;
                     }
                 }
             }
-            return !notRoot || unchanged || (0, numProperties_5.numProperties)(diff) ? diff : false;
+            return !notRoot || unchanged || (0, numProperties_js_5.numProperties)(diff) ? diff : false;
         };
         exports.diffObj = diffObj;
     });
-    define("fn/string/dirName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_9, substr_6) {
+    define("fn/string/dirName", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_js_9, substr_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dirName = void 0;
@@ -4825,14 +4964,14 @@
          * @param    {String} path
          * @returns  {String} path of the folder
          */
-        const dirName = function (path) {
-            if ((0, isString_9.isString)(path) && path) {
-                while ((0, substr_6.substr)(path, path.length - 1) === "/") {
-                    path = (0, substr_6.substr)(path, 0, path.length - 1);
+        var dirName = function (path) {
+            if ((0, isString_js_9.isString)(path) && path) {
+                while ((0, substr_js_6.substr)(path, path.length - 1) === "/") {
+                    path = (0, substr_js_6.substr)(path, 0, path.length - 1);
                 }
-                let pos = path.lastIndexOf("/");
+                var pos = path.lastIndexOf("/");
                 if (pos > 0) {
-                    return (0, substr_6.substr)(path, 0, pos);
+                    return (0, substr_js_6.substr)(path, 0, pos);
                 }
                 if (pos === 0) {
                     return "/";
@@ -4853,10 +4992,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isBlob = function (...args) {
+        var isBlob = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_13 = args; _a < args_13.length; _a++) {
+                var a = args_13[_a];
                 if ({}.toString.apply(a) !== "[object Blob]") {
                     return false;
                 }
@@ -4865,7 +5009,7 @@
         };
         exports.isBlob = isBlob;
     });
-    define("fn/string/fileExt", ["require", "exports", "fn/type/isString"], function (require, exports, isString_10) {
+    define("fn/string/fileExt", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fileExt = void 0;
@@ -4905,9 +5049,9 @@
          * @param   {String} filename
          * @returns {String} The file's extension
          */
-        const fileExt = function (filename) {
-            if (filename && (0, isString_10.isString)(filename)) {
-                let bits = filename.split(".");
+        var fileExt = function (filename) {
+            if (filename && (0, isString_js_10.isString)(filename)) {
+                var bits = filename.split(".");
                 if (bits[0] && bits.length > 1) {
                     return bits[bits.length - 1].toLowerCase();
                 }
@@ -4934,10 +5078,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isCanvas = function (...args) {
+        var isCanvas = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_14 = args; _a < args_14.length; _a++) {
+                var a = args_14[_a];
                 if (!(a instanceof HTMLCanvasElement)) {
                     return false;
                 }
@@ -4946,7 +5095,7 @@
         };
         exports.isCanvas = isCanvas;
     });
-    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_1, isObject_12, isString_11, log_13) {
+    define("fn/ajax/downloadContent", ["require", "exports", "fn/type/isCanvas", "fn/type/isObject", "fn/type/isString", "fn/browser/log"], function (require, exports, isCanvas_js_1, isObject_js_12, isString_js_11, log_js_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.downloadContent = void 0;
@@ -4976,11 +5125,12 @@
          *
          * @returns  {undefined}
          */
-        const downloadContent = function (filename, content, type = null) {
-            if ((0, isCanvas_1.isCanvas)(content)) {
-                content.toBlob((blob) => {
+        var downloadContent = function (filename, content, type) {
+            if (type === void 0) { type = null; }
+            if ((0, isCanvas_js_1.isCanvas)(content)) {
+                content.toBlob(function (blob) {
                     // blob ready, download it
-                    let a = document.createElement('a');
+                    var a = document.createElement('a');
                     a.download = filename;
                     a.href = window.URL.createObjectURL(blob);
                     a.className = 'bbn-no';
@@ -4991,15 +5141,15 @@
                 return;
             }
             if (!type) {
-                type = (0, isObject_12.isObject)(content) && content.type ? content.type : 'octet/stream';
+                type = (0, isObject_js_12.isObject)(content) && content.type ? content.type : 'octet/stream';
             }
             else if (type.indexOf('/') === -1) {
                 type = 'text/' + type;
             }
-            let a = window.document.createElement('a');
+            var a = window.document.createElement('a');
             a.className = 'bbn-no';
-            let src = null;
-            if ((0, isString_11.isString)(content)) {
+            var src = null;
+            if ((0, isString_js_11.isString)(content)) {
                 src = new Blob([content], { type: type });
             }
             else {
@@ -5007,7 +5157,7 @@
                     src = content;
                 }
                 catch (e) {
-                    (0, log_13.log)(e);
+                    (0, log_js_13.log)(e);
                 }
             }
             a.href = window.URL.createObjectURL(src);
@@ -5021,7 +5171,7 @@
         };
         exports.downloadContent = downloadContent;
     });
-    define("fn/ajax/download", ["require", "exports", "fn/ajax/ajax", "fn/string/substr", "fn/string/baseName", "fn/type/isBlob", "fn/string/fileExt", "fn/ajax/downloadContent"], function (require, exports, ajax_1, substr_7, baseName_1, isBlob_1, fileExt_1, downloadContent_1) {
+    define("fn/ajax/download", ["require", "exports", "fn/ajax/ajax", "fn/string/substr", "fn/string/baseName", "fn/type/isBlob", "fn/string/fileExt", "fn/ajax/downloadContent"], function (require, exports, ajax_js_1, substr_js_7, baseName_js_1, isBlob_js_1, fileExt_js_1, downloadContent_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.download = void 0;
@@ -5053,34 +5203,36 @@
          *
          * @returns  {undefined}
          */
-        const download = function (url, filename = '', params = null) {
+        var download = function (url, filename, params) {
+            if (filename === void 0) { filename = ''; }
+            if (params === void 0) { params = null; }
             // We can intervert the arguments
             if (filename && typeof filename === "object") {
                 params = filename;
                 filename = "";
             }
-            return (0, ajax_1.ajax)(url, "blob", params || { _bbn_download: 1 }, (d, headers) => {
+            return (0, ajax_js_1.ajax)(url, "blob", params || { _bbn_download: 1 }, function (d, headers) {
                 if (!filename) {
-                    let prop = "content-disposition";
-                    let cd = "attachment; filename=";
+                    var prop = "content-disposition";
+                    var cd = "attachment; filename=";
                     if ((headers === null || headers === void 0 ? void 0 : headers[prop]) && headers[prop].indexOf(cd) === 0) {
-                        filename = (0, substr_7.substr)(headers[prop], cd.length + 1, headers[prop].length - cd.length - 2);
+                        filename = (0, substr_js_7.substr)(headers[prop], cd.length + 1, headers[prop].length - cd.length - 2);
                     }
                     else {
-                        filename = (0, baseName_1.baseName)(url);
+                        filename = (0, baseName_js_1.baseName)(url);
                     }
                 }
-                if ((0, isBlob_1.isBlob)(d)) {
-                    let extension = (0, fileExt_1.fileExt)(filename);
-                    let htmlExtensions = ["php", "html"];
+                if ((0, isBlob_js_1.isBlob)(d)) {
+                    var extension = (0, fileExt_js_1.fileExt)(filename);
+                    var htmlExtensions = ["php", "html"];
                     if (typeof filename === "string" &&
                         (("type" in d && d.type !== "text/html") ||
                             htmlExtensions.includes(extension))) {
-                        (0, downloadContent_1.downloadContent)(filename, d);
+                        (0, downloadContent_js_1.downloadContent)(filename, d);
                         return;
                     }
                 }
-            }, (e) => {
+            }, function (e) {
                 bbn.fn.defaultAjaxErrorFunction(e);
             });
         };
@@ -5103,48 +5255,48 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const eraseCookie = function (name) {
+        var eraseCookie = function (name) {
             document.cookie = name + '=; Max-Age=-99999999;';
         };
         exports.eraseCookie = eraseCookie;
     });
-    define("fn/string/escapeDquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_12) {
+    define("fn/string/escapeDquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeDquotes = void 0;
-        const escapeDquotes = function (str) {
-            if (!(0, isString_12.isString)(str)) {
+        var escapeDquotes = function (str) {
+            if (!(0, isString_js_12.isString)(str)) {
                 return str;
             }
             return str.replace(/"/g, '\\"');
         };
         exports.escapeDquotes = escapeDquotes;
     });
-    define("fn/string/escapeSquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_13) {
+    define("fn/string/escapeSquotes", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeSquotes = void 0;
-        const escapeSquotes = function (str) {
-            if (!(0, isString_13.isString)(str)) {
+        var escapeSquotes = function (str) {
+            if (!(0, isString_js_13.isString)(str)) {
                 return str;
             }
             return str.replace(/'/g, "\\'");
         };
         exports.escapeSquotes = escapeSquotes;
     });
-    define("fn/string/escapeTicks", ["require", "exports", "fn/type/isString"], function (require, exports, isString_14) {
+    define("fn/string/escapeTicks", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeTicks = void 0;
-        const escapeTicks = function (str) {
-            if (!(0, isString_14.isString)(str)) {
+        var escapeTicks = function (str) {
+            if (!(0, isString_js_14.isString)(str)) {
                 return str;
             }
             return str.replace(/`/g, '\\`');
         };
         exports.escapeTicks = escapeTicks;
     });
-    define("fn/string/escapeUrl", ["require", "exports", "fn/loop/each", "fn/string/dirName", "fn/string/baseName", "fn/type/isString"], function (require, exports, each_12, dirName_1, baseName_2, isString_15) {
+    define("fn/string/escapeUrl", ["require", "exports", "fn/loop/each", "fn/string/dirName", "fn/string/baseName", "fn/type/isString"], function (require, exports, each_js_12, dirName_js_1, baseName_js_2, isString_js_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.escapeUrl = void 0;
@@ -5155,8 +5307,8 @@
          * @param {*} params
          * @returns
          */
-        const escapeUrl = function (url, params) {
-            let st = "";
+        var escapeUrl = function (url, params) {
+            var st = "";
             if (url.match("^(http|https)://")) {
                 st += "http";
                 url = url.substring(4);
@@ -5167,19 +5319,19 @@
                 st += "://";
                 url = url.substring(3);
             }
-            (0, each_12.each)((0, dirName_1.dirName)(url).split("/"), (a) => {
+            (0, each_js_12.each)((0, dirName_js_1.dirName)(url).split("/"), function (a) {
                 st += encodeURIComponent(a) + "/";
             });
-            let base = (0, baseName_2.baseName)(url);
-            let sep = "?";
-            let existingParams = "";
+            var base = (0, baseName_js_2.baseName)(url);
+            var sep = "?";
+            var existingParams = "";
             if (base.indexOf(sep)) {
-                let tmp = base.split("?");
+                var tmp = base.split("?");
                 sep = "&";
                 existingParams = "?" + tmp[1];
                 base = tmp[0];
             }
-            if (params && (0, isString_15.isString)(params)) {
+            if (params && (0, isString_js_15.isString)(params)) {
                 if (params.match("^(\\&|\\?)")) {
                     params = params.substring(1);
                 }
@@ -5192,7 +5344,7 @@
         };
         exports.escapeUrl = escapeUrl;
     });
-    define("fn/object/extendOut", ["require", "exports", "fn/type/isObject"], function (require, exports, isObject_13) {
+    define("fn/object/extendOut", ["require", "exports", "fn/type/isObject"], function (require, exports, isObject_js_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.extendOut = void 0;
@@ -5212,18 +5364,23 @@
          * @memberof bbn.fn
          * @returns  {Object}
          */
-        const extendOut = function (...args) {
-            let r = null;
-            for (let a of args) {
-                if (!(0, isObject_13.isObject)(a)) {
+        var extendOut = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var r = null;
+            for (var _a = 0, args_15 = args; _a < args_15.length; _a++) {
+                var a = args_15[_a];
+                if (!(0, isObject_js_13.isObject)(a)) {
                     throw new Error("Each argument for extendOut must be an object, " + typeof a + " given");
                 }
                 if (r === null) {
                     r = a;
                 }
                 else {
-                    for (let n in a) {
-                        if ((0, isObject_13.isObject)(r[n], a[n])) {
+                    for (var n in a) {
+                        if ((0, isObject_js_13.isObject)(r[n], a[n])) {
                             extendOut(r[n], a[n]);
                         }
                         else if (r[n] === undefined) {
@@ -5250,8 +5407,8 @@
          *
          * @returns  {Mixed}       The value
          */
-        const fieldValue = function (field) {
-            let v;
+        var fieldValue = function (field) {
+            var v;
             if (field.type === 'checkbox') {
                 if (field.checked) {
                     v = field.value;
@@ -5275,7 +5432,7 @@
         };
         exports.fieldValue = fieldValue;
     });
-    define("fn/object/findAll", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_5, each_13, isArray_10) {
+    define("fn/object/findAll", ["require", "exports", "fn/object/search", "fn/loop/each", "fn/type/isArray"], function (require, exports, search_js_5, each_js_13, isArray_js_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.findAll = void 0;
@@ -5334,15 +5491,16 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Number}                   The number of items
          */
-        const findAll = function (arr, filter, deepProperty, res = []) {
-            let idx;
-            let start = 0;
-            while ((idx = (0, search_5.search)(arr, filter, start)) > -1) {
+        var findAll = function (arr, filter, deepProperty, res) {
+            if (res === void 0) { res = []; }
+            var idx;
+            var start = 0;
+            while ((idx = (0, search_js_5.search)(arr, filter, start)) > -1) {
                 res.push(arr[idx]);
                 start = idx + 1;
             }
-            (0, each_13.each)(arr, (it) => {
-                if ((0, isArray_10.isArray)(it[deepProperty])) {
+            (0, each_js_13.each)(arr, function (it) {
+                if ((0, isArray_js_10.isArray)(it[deepProperty])) {
                     findAll(it[deepProperty], filter, deepProperty, res);
                 }
             });
@@ -5350,7 +5508,7 @@
         };
         exports.findAll = findAll;
     });
-    define("fn/loop/fori", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_11, isNumber_4) {
+    define("fn/loop/fori", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_js_11, isNumber_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fori = void 0;
@@ -5388,16 +5546,18 @@
          * @param    {Number}    min The index at which the loop will start
          * @returns  {undefined}
          */
-        const fori = function (arr, fn, max = arr.length - 1, min = 0) {
-            if ((0, isArray_11.isArray)(arr)) {
-                let realMax = arr.length - 1;
-                if (!(0, isNumber_4.isNumber)(max) || !(0 < max && max <= realMax)) {
+        var fori = function (arr, fn, max, min) {
+            if (max === void 0) { max = arr.length - 1; }
+            if (min === void 0) { min = 0; }
+            if ((0, isArray_js_11.isArray)(arr)) {
+                var realMax = arr.length - 1;
+                if (!(0, isNumber_js_4.isNumber)(max) || !(0 < max && max <= realMax)) {
                     max = realMax;
                 }
-                if (!(0, isNumber_4.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
+                if (!(0, isNumber_js_4.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
                     min = 0;
                 }
-                for (let i = min; i <= max; i++) {
+                for (var i = min; i <= max; i++) {
                     if (fn(arr[i], i) === false) {
                         return;
                     }
@@ -5406,7 +5566,7 @@
         };
         exports.fori = fori;
     });
-    define("fn/loop/forir", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_12, isNumber_5) {
+    define("fn/loop/forir", ["require", "exports", "fn/type/isArray", "fn/type/isNumber"], function (require, exports, isArray_js_12, isNumber_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.forir = void 0;
@@ -5444,16 +5604,18 @@
          * @param    {Number}    min The index at which the loop will start
          * @returns  {undefined}
          */
-        const forir = function (arr, fn, max = arr.length - 1, min = 0) {
-            if ((0, isArray_12.isArray)(arr)) {
-                let realMax = arr.length - 1;
-                if (!(0, isNumber_5.isNumber)(max) || !(0 < max && max <= realMax)) {
+        var forir = function (arr, fn, max, min) {
+            if (max === void 0) { max = arr.length - 1; }
+            if (min === void 0) { min = 0; }
+            if ((0, isArray_js_12.isArray)(arr)) {
+                var realMax = arr.length - 1;
+                if (!(0, isNumber_js_5.isNumber)(max) || !(0 < max && max <= realMax)) {
                     max = realMax;
                 }
-                if (!(0, isNumber_5.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
+                if (!(0, isNumber_js_5.isNumber)(min) || !(0 <= min && min < realMax) || min > max) {
                     min = 0;
                 }
-                for (let i = max; i >= min; i--) {
+                for (var i = max; i >= min; i--) {
                     if (fn(arr[i], i) === false) {
                         return;
                     }
@@ -5462,17 +5624,17 @@
         };
         exports.forir = forir;
     });
-    define("fn/string/format", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_3) {
+    define("fn/string/format", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.format = void 0;
-        const format = function (str) {
-            let args = Array.prototype.slice.call(arguments, 1);
+        var format = function (str) {
+            var args = Array.prototype.slice.call(arguments, 1);
             if (args.length) {
-                let i = 0;
-                return str.replace(/\%([d|s])/g, (match, type) => {
-                    let tmp = args[i++];
-                    (0, checkType_3.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value doesn't correspond to the format"));
+                var i_3 = 0;
+                return str.replace(/\%([d|s])/g, function (match, type) {
+                    var tmp = args[i_3++];
+                    (0, checkType_js_3.checkType)(tmp, type === 'd' ? 'number' : 'string', bbn._("The value doesn't correspond to the format"));
                     return tmp;
                 });
             }
@@ -5496,11 +5658,12 @@
          * @memberof bbn.fn
          * @returns  {String}
          */
-        const formatBytes = function (bytes, decimals = 2) {
+        var formatBytes = function (bytes, decimals) {
+            if (decimals === void 0) { decimals = 2; }
             if (!bytes) {
                 return '0 B';
             }
-            const k = 1024, s = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], i = Math.floor(Math.log(bytes) / Math.log(k));
+            var k = 1024, s = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals < 0 ? 0 : decimals)) + ' ' + s[i];
         };
         exports.formatBytes = formatBytes;
@@ -5509,27 +5672,27 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formatDate = void 0;
-        const formatDate = function (date, format) {
+        var formatDate = function (date, format) {
             return dayjs(date).format(format);
         };
         exports.formatDate = formatDate;
     });
-    define("fn/string/formatSize", ["require", "exports", "fn/type/isNumber", "fn/type/isString"], function (require, exports, isNumber_6, isString_16) {
+    define("fn/string/formatSize", ["require", "exports", "fn/type/isNumber", "fn/type/isString"], function (require, exports, isNumber_js_6, isString_js_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formatSize = void 0;
-        const formatSize = function (st, noValid) {
-            if ((0, isNumber_6.isNumber)(st)) {
+        var formatSize = function (st, noValid) {
+            if ((0, isNumber_js_6.isNumber)(st)) {
                 return st + 'px';
             }
-            if ((0, isString_16.isString)(st)) {
+            if ((0, isString_js_16.isString)(st)) {
                 return st;
             }
             return noValid ? false : 'auto';
         };
         exports.formatSize = formatSize;
     });
-    define("fn/form/formdata", ["require", "exports", "fn/loop/each", "fn/form/fieldValue", "fn/string/replaceAll", "fn/string/substr"], function (require, exports, each_14, fieldValue_1, replaceAll_3, substr_8) {
+    define("fn/form/formdata", ["require", "exports", "fn/loop/each", "fn/form/fieldValue", "fn/string/replaceAll", "fn/string/substr"], function (require, exports, each_js_14, fieldValue_js_1, replaceAll_js_3, substr_js_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.formdata = void 0;
@@ -5576,47 +5739,47 @@
          *
          * @returns  {Object}
          */
-        const formdata = function (form) {
-            let $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
-            let res = {};
-            let n;
-            let v;
-            (0, each_14.each)($inputs, (input, i) => {
-                v = (0, fieldValue_1.fieldValue)(input);
+        var formdata = function (form) {
+            var $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
+            var res = {};
+            var n;
+            var v;
+            (0, each_js_14.each)($inputs, function (input, i) {
+                v = (0, fieldValue_js_1.fieldValue)(input);
                 if (v !== undefined && !input.disabled) {
-                    let name = input.name;
-                    if (name.indexOf('[]') === -1 &&
-                        name.indexOf('[') > -1 &&
-                        name.indexOf(']') > -1 &&
-                        name.lastIndexOf(']') === name.length - 1) {
-                        name = (0, replaceAll_3.replaceAll)('][', '.', name);
-                        name = (0, replaceAll_3.replaceAll)('[', '.', name);
-                        name = (0, replaceAll_3.replaceAll)(']', '', name);
+                    var name_1 = input.name;
+                    if (name_1.indexOf('[]') === -1 &&
+                        name_1.indexOf('[') > -1 &&
+                        name_1.indexOf(']') > -1 &&
+                        name_1.lastIndexOf(']') === name_1.length - 1) {
+                        name_1 = (0, replaceAll_js_3.replaceAll)('][', '.', name_1);
+                        name_1 = (0, replaceAll_js_3.replaceAll)('[', '.', name_1);
+                        name_1 = (0, replaceAll_js_3.replaceAll)(']', '', name_1);
                     }
-                    if (name.length > 2 && name.indexOf('[]') === name.length - 2) {
-                        n = (0, substr_8.substr)(name, 0, name.length - 2);
+                    if (name_1.length > 2 && name_1.indexOf('[]') === name_1.length - 2) {
+                        n = (0, substr_js_8.substr)(name_1, 0, name_1.length - 2);
                         if (res[n] === undefined) {
                             res[n] = [];
                         }
                         res[n].push(v);
                     }
-                    else if (name.indexOf('.') > -1) {
-                        let tmp, parts = name.split('.');
+                    else if (name_1.indexOf('.') > -1) {
+                        var tmp = void 0, parts = name_1.split('.');
                         tmp = res;
-                        for (let i = 0; i < parts.length; i++) {
-                            if (res[parts[i]] === undefined) {
-                                if (i < parts.length - 1) {
-                                    tmp[parts[i]] = {};
+                        for (var i_4 = 0; i_4 < parts.length; i_4++) {
+                            if (res[parts[i_4]] === undefined) {
+                                if (i_4 < parts.length - 1) {
+                                    tmp[parts[i_4]] = {};
                                 }
                                 else {
-                                    tmp[parts[i]] = v;
+                                    tmp[parts[i_4]] = v;
                                 }
                             }
-                            tmp = tmp[parts[i]];
+                            tmp = tmp[parts[i_4]];
                         }
                     }
                     else {
-                        res[name] = v;
+                        res[name_1] = v;
                     }
                 }
             });
@@ -5639,8 +5802,8 @@
          * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
          * @returns {Object}
          */
-        const fromXml = function (xml, arrayTags) {
-            let dom = null;
+        var fromXml = function (xml, arrayTags) {
+            var dom = null;
             if (window.DOMParser)
                 dom = new DOMParser().parseFromString(xml, "text/xml");
             else if (window["ActiveXObject"]) {
@@ -5653,12 +5816,12 @@
                 throw new Error("cannot parse xml string!");
             function parseNode(xmlNode, result) {
                 if (xmlNode.nodeName == "#text") {
-                    let v = xmlNode.nodeValue;
+                    var v = xmlNode.nodeValue;
                     if (v.trim())
                         result["#text"] = v;
                     return;
                 }
-                let jsonNode = {}, existing = result[xmlNode.nodeName];
+                var jsonNode = {}, existing = result[xmlNode.nodeName];
                 if (existing) {
                     if (!Array.isArray(existing))
                         result[xmlNode.nodeName] = [existing, jsonNode];
@@ -5672,19 +5835,25 @@
                         result[xmlNode.nodeName] = jsonNode;
                 }
                 if (xmlNode.attributes)
-                    for (let attribute of xmlNode.attributes)
+                    for (var _i = 0, _a = xmlNode.attributes; _i < _a.length; _i++) {
+                        var attribute = _a[_i];
                         jsonNode[attribute.nodeName] = attribute.nodeValue;
-                for (let node of xmlNode.childNodes)
+                    }
+                for (var _b = 0, _c = xmlNode.childNodes; _b < _c.length; _b++) {
+                    var node = _c[_b];
                     parseNode(node, jsonNode);
+                }
             }
-            let result = {};
-            for (let node of dom.childNodes)
+            var result = {};
+            for (var _i = 0, _a = dom.childNodes; _i < _a.length; _i++) {
+                var node = _a[_i];
                 parseNode(node, result);
+            }
             return result;
         };
         exports.fromXml = fromXml;
     });
-    define("fn/datetime/ftime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_6, isDate_7, isString_17) {
+    define("fn/datetime/ftime", ["require", "exports", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, date_js_6, isDate_js_7, isString_js_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ftime = void 0;
@@ -5695,10 +5864,10 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const ftime = function (d, wrong_result) {
-            let r = (0, date_6.date)(d);
-            if (!(0, isDate_7.isDate)(r)) {
-                return wrong_result && (0, isString_17.isString)(wrong_result) ? wrong_result : '';
+        var ftime = function (d, wrong_result) {
+            var r = (0, date_js_6.date)(d);
+            if (!(0, isDate_js_7.isDate)(r)) {
+                return wrong_result && (0, isString_js_17.isString)(wrong_result) ? wrong_result : '';
             }
             if (undefined !== dayjs) {
                 return dayjs(r).calendar();
@@ -5727,14 +5896,14 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.unique = void 0;
-        const unique = function (arr) {
+        var unique = function (arr) {
             return arr.filter(function (el, index, ar) {
                 return index === ar.indexOf(el);
             });
         };
         exports.unique = unique;
     });
-    define("fn/html/getAllTags", ["require", "exports", "fn/object/unique"], function (require, exports, unique_1) {
+    define("fn/html/getAllTags", ["require", "exports", "fn/object/unique"], function (require, exports, unique_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAllTags = void 0;
@@ -5742,8 +5911,8 @@
          * Gets all the tag names present in the DOM
          * @returns array
          */
-        const getAllTags = function () {
-            return (0, unique_1.unique)(Array.prototype.map.apply(document.all, [(a) => a.tagName.toLowerCase()]));
+        var getAllTags = function () {
+            return (0, unique_js_1.unique)(Array.prototype.map.apply(document.all, [function (a) { return a.tagName.toLowerCase(); }]));
         };
         exports.getAllTags = getAllTags;
     });
@@ -5751,8 +5920,9 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAncestors = void 0;
-        const getAncestors = function (ele, selector = null) {
-            let r = [];
+        var getAncestors = function (ele, selector) {
+            if (selector === void 0) { selector = null; }
+            var r = [];
             if (typeof ele === 'string') {
                 ele = document.querySelector(ele);
             }
@@ -5777,7 +5947,7 @@
         };
         exports.getAncestors = getAncestors;
     });
-    define("fn/html/getAttributes", ["require", "exports", "fn/browser/error"], function (require, exports, error_3) {
+    define("fn/html/getAttributes", ["require", "exports", "fn/browser/error"], function (require, exports, error_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getAttributes = void 0;
@@ -5785,12 +5955,12 @@
          * Check if the property contain sizing
          * @return {Boolean}
          */
-        const getAttributes = function (ele) {
+        var getAttributes = function (ele) {
             if (!ele.getAttributeNames) {
-                (0, error_3.error)('The element is not a proper HTML Element');
+                (0, error_js_3.error)('The element is not a proper HTML Element');
             }
-            let res = Object.create(null);
-            ele.getAttributeNames().forEach((name) => {
+            var res = Object.create(null);
+            ele.getAttributeNames().forEach(function (name) {
                 res[name] = ele.getAttribute(name);
             });
             return res;
@@ -5808,8 +5978,8 @@
          * @memberof bbn.fn
          * @returns {String}
          */
-        const getBrowserName = function () {
-            const userAgent = navigator.userAgent.toLowerCase();
+        var getBrowserName = function () {
+            var userAgent = navigator.userAgent.toLowerCase();
             switch (true) {
                 case userAgent.includes('edge'):
                 case userAgent.includes('edg/'):
@@ -5841,8 +6011,8 @@
          * @memberof bbn.fn
          * @returns {String}
          */
-        const getBrowserVersion = function () {
-            const userAgent = navigator.userAgent.toLowerCase();
+        var getBrowserVersion = function () {
+            var userAgent = navigator.userAgent.toLowerCase();
             switch (true) {
                 case userAgent.includes('edge/'):
                     return userAgent.split('edge/')[1].split(' ')[0];
@@ -5882,16 +6052,16 @@
          * @param    {String} name
          * @returns
          */
-        const getCookie = function (name) {
-            let nameEqual = name + '=';
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
+        var getCookie = function (name) {
+            var nameEqual = name + '=';
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(nameEqual) == 0) {
-                    let st = c.substring(nameEqual.length, c.length);
+                    var st = c.substring(nameEqual.length, c.length);
                     if (st) {
                         return JSON.parse(unescape(st)).value;
                     }
@@ -5910,7 +6080,7 @@
          * @param {String*} varname
          * @returns
          */
-        const getCssVar = function (varname) {
+        var getCssVar = function (varname) {
             if (varname.indexOf("--") !== 0) {
                 varname = "--" + varname;
             }
@@ -5918,7 +6088,7 @@
         };
         exports.getCssVar = getCssVar;
     });
-    define("fn/datetime/getDay", ["require", "exports", "fn/datetime/date"], function (require, exports, date_7) {
+    define("fn/datetime/getDay", ["require", "exports", "fn/datetime/date"], function (require, exports, date_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getDay = void 0;
@@ -5931,11 +6101,11 @@
          * @param    {String|Date} v
          * @returns
          */
-        const getDay = function (v) {
-            const biss = 1972;
-            let d = (0, date_7.date)(v);
+        var getDay = function (v) {
+            var biss = 1972;
+            var d = (0, date_js_7.date)(v);
             if (d) {
-                let t = d.getTime(), y = d.getYear(), m = d.getMonth(), days = (y - 1970) * 365;
+                var t = d.getTime(), y = d.getYear(), m = d.getMonth(), days = (y - 1970) * 365;
                 if (m < 2) {
                     y--;
                 }
@@ -5964,8 +6134,8 @@
          * @memberof bbn.fn
          * @returns  {String}
          */
-        const getDeviceType = function () {
-            const userAgent = navigator.userAgent.toLowerCase();
+        var getDeviceType = function () {
+            var userAgent = navigator.userAgent.toLowerCase();
             if (/iPhone|Android/i.test(navigator.userAgent)) {
                 return 'mobile';
             }
@@ -5976,19 +6146,19 @@
         };
         exports.getDeviceType = getDeviceType;
     });
-    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_14) {
+    define("fn/html/getHTMLOfSelection", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHTMLOfSelection = void 0;
-        const getHTMLOfSelection = function () {
-            let range;
-            let selection = window.getSelection();
+        var getHTMLOfSelection = function () {
+            var range;
+            var selection = window.getSelection();
             if (selection.rangeCount > 0) {
                 range = selection.getRangeAt(0);
-                (0, log_14.log)('RANGE', range);
-                let clonedSelection = range.cloneContents();
-                (0, log_14.log)('clonedSelection', clonedSelection);
-                let div = document.createElement('div');
+                (0, log_js_14.log)('RANGE', range);
+                var clonedSelection = range.cloneContents();
+                (0, log_js_14.log)('clonedSelection', clonedSelection);
+                var div = document.createElement('div');
                 div.appendChild(clonedSelection);
                 return div.innerHTML;
             }
@@ -5998,7 +6168,7 @@
         };
         exports.getHTMLOfSelection = getHTMLOfSelection;
     });
-    define("fn/browser/getEventData", ["require", "exports", "fn/html/getHTMLOfSelection", "fn/loop/each"], function (require, exports, getHTMLOfSelection_1, each_15) {
+    define("fn/browser/getEventData", ["require", "exports", "fn/html/getHTMLOfSelection", "fn/loop/each"], function (require, exports, getHTMLOfSelection_js_1, each_js_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getEventData = void 0;
@@ -6016,16 +6186,16 @@
          * @memberof bbn.fn
          * @returns  {Promise}
          */
-        const getEventData = function (e) {
-            let dt = e.dataTransfer || e.clipboardData;
-            let t = dt.getData('Text');
-            let res = { raw: t, files: [], str: [] };
-            let p = new Promise((ok, err) => {
-                let done = !(dt instanceof DataTransfer);
+        var getEventData = function (e) {
+            var dt = e.dataTransfer || e.clipboardData;
+            var t = dt.getData('Text');
+            var res = { raw: t, files: [], str: [] };
+            var p = new Promise(function (ok, err) {
+                var done = !(dt instanceof DataTransfer);
                 if (!t && e.type === 'copy') {
-                    let sel = window.getSelection();
+                    var sel = window.getSelection();
                     res.raw = sel.toString();
-                    let html = (0, getHTMLOfSelection_1.getHTMLOfSelection)();
+                    var html = (0, getHTMLOfSelection_js_1.getHTMLOfSelection)();
                     res.str.push({
                         type: 'text/plain',
                         data: res.raw,
@@ -6048,57 +6218,57 @@
                     ok(res);
                 }
                 if (!done) {
-                    let strings = [];
-                    let num = dt.items.length;
-                    (0, each_15.each)(dt.items, (item, idx) => {
-                        let kind = item.kind;
-                        let type = item.type;
+                    var strings_1 = [];
+                    var num_1 = dt.items.length;
+                    (0, each_js_15.each)(dt.items, function (item, idx) {
+                        var kind = item.kind;
+                        var type = item.type;
                         if (kind === 'file') {
-                            let cp = dt.files[idx];
+                            var cp = dt.files[idx];
                             if (!type && cp.name) {
-                                let bits = cp.name.split('.');
+                                var bits = cp.name.split('.');
                                 type = bits[bits.length - 1];
                             }
-                            let name = cp ? cp.name : bbn._('untitled');
-                            let size = cp ? cp.size : null;
-                            let lastModified = cp ? cp.lastModified : null;
-                            let blob = item.getAsFile();
+                            var name_2 = cp ? cp.name : bbn._('untitled');
+                            var size = cp ? cp.size : null;
+                            var lastModified = cp ? cp.lastModified : null;
+                            var blob = item.getAsFile();
                             if (blob) {
                                 done = true;
-                                num--;
+                                num_1--;
                                 res.files.push({
                                     type: type,
                                     data: blob,
-                                    name: name,
+                                    name: name_2,
                                     size: size,
                                     mdate: lastModified,
                                 });
-                                strings.push(name);
-                                if (!num) {
+                                strings_1.push(name_2);
+                                if (!num_1) {
                                     if (!res.raw) {
-                                        res.raw = strings.join(', ');
+                                        res.raw = strings_1.join(', ');
                                     }
                                     ok(res);
                                 }
                             }
                             else {
-                                bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name);
+                                bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name_2);
                             }
                         }
                         else {
                             done = true;
-                            item.getAsString((data) => {
-                                num--;
+                            item.getAsString(function (data) {
+                                num_1--;
                                 res.str.push({
                                     type: type,
                                     data: data,
                                 });
                                 if (type === 'text/plain') {
-                                    strings.push(name);
+                                    strings_1.push(name);
                                 }
-                                if (!num) {
+                                if (!num_1) {
                                     if (!res.raw) {
-                                        res.raw = strings.join(', ');
+                                        res.raw = strings_1.join(', ');
                                     }
                                     ok(res);
                                 }
@@ -6107,7 +6277,7 @@
                     });
                 }
                 if (!done) {
-                    setTimeout(() => {
+                    setTimeout(function () {
                         ok(res);
                     });
                 }
@@ -6116,7 +6286,7 @@
         };
         exports.getEventData = getEventData;
     });
-    define("fn/object/getField", ["require", "exports", "fn/object/getRow"], function (require, exports, getRow_2) {
+    define("fn/object/getField", ["require", "exports", "fn/object/getRow"], function (require, exports, getRow_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getField = void 0;
@@ -6148,16 +6318,19 @@
           * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
           * @returns  {*}
           */
-        const getField = function (arr, field, prop = '', val = null, operator = '=') {
-            let r;
-            if (field && (r = (0, getRow_2.getRow)(arr, prop, val, operator))) {
+        var getField = function (arr, field, prop, val, operator) {
+            if (prop === void 0) { prop = ''; }
+            if (val === void 0) { val = null; }
+            if (operator === void 0) { operator = '='; }
+            var r;
+            if (field && (r = (0, getRow_js_2.getRow)(arr, prop, val, operator))) {
                 return r[field];
             }
             return undefined;
         };
         exports.getField = getField;
     });
-    define("fn/object/getFieldValues", ["require", "exports", "fn/type/checkType", "fn/object/filter", "fn/loop/each"], function (require, exports, checkType_4, filter_3, each_16) {
+    define("fn/object/getFieldValues", ["require", "exports", "fn/type/checkType", "fn/object/filter", "fn/loop/each"], function (require, exports, checkType_js_4, filter_js_3, each_js_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getFieldValues = void 0;
@@ -6189,43 +6362,44 @@
          * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {*}
          */
-        const getFieldValues = function (arr, field, prop, val, operator) {
-            (0, checkType_4.checkType)(field, 'string');
+        var getFieldValues = function (arr, field, prop, val, operator) {
+            (0, checkType_js_4.checkType)(field, 'string');
             if (prop) {
-                arr = (0, filter_3.filter)(arr, prop, val, operator);
+                arr = (0, filter_js_3.filter)(arr, prop, val, operator);
             }
-            let res = [];
-            (0, each_16.each)(arr, (a) => (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null));
+            var res = [];
+            (0, each_js_16.each)(arr, function (a) { return (res.indexOf(a[field]) === -1 ? res.push(a[field]) : null); });
             return res;
         };
         exports.getFieldValues = getFieldValues;
     });
-    define("fn/string/removeHtmlComments", ["require", "exports", "fn/type/isString"], function (require, exports, isString_18) {
+    define("fn/string/removeHtmlComments", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_18) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeHtmlComments = void 0;
-        const removeHtmlComments = function (str) {
-            if (!(0, isString_18.isString)(str)) {
+        var removeHtmlComments = function (str) {
+            if (!(0, isString_js_18.isString)(str)) {
                 return str;
             }
             return str.replace(/<!--[\s\S]*?-->/g, '');
         };
         exports.removeHtmlComments = removeHtmlComments;
     });
-    define("fn/html/getHtml", ["require", "exports", "fn/string/removeHtmlComments"], function (require, exports, removeHtmlComments_1) {
+    define("fn/html/getHtml", ["require", "exports", "fn/string/removeHtmlComments"], function (require, exports, removeHtmlComments_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getHtml = void 0;
-        const getHtml = function (ele, stripComments = false) {
-            let st = ele.innerHTML();
+        var getHtml = function (ele, stripComments) {
+            if (stripComments === void 0) { stripComments = false; }
+            var st = ele.innerHTML();
             if (stripComments) {
-                st = (0, removeHtmlComments_1.removeHtmlComments)(st);
+                st = (0, removeHtmlComments_js_1.removeHtmlComments)(st);
             }
             return st.trim();
         };
         exports.getHtml = getHtml;
     });
-    define("fn/html/getPath", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_4) {
+    define("fn/html/getPath", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_js_4) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getPath = void 0;
@@ -6237,49 +6411,56 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const getPath = function (element) {
-            let path, 
+        var getPath = function (element) {
+            var path, 
             //node = $(element),
             node = element, done = 0;
-            while (node.length) {
+            var _loop_1 = function () {
                 //let realNode = node[0],
-                let realNode = node, name = realNode.localName;
-                if (!name)
-                    break;
+                var realNode = node, name_3 = realNode.localName;
+                if (!name_3)
+                    return "break";
                 if (realNode === document.body)
-                    break;
+                    return "break";
                 if (realNode.id) {
-                    return '#' + realNode.id;
+                    return { value: '#' + realNode.id };
                 }
                 if (!done) {
                     if (realNode.className && realNode.className !== ' ') {
-                        name += '.' + (0, replaceAll_4.replaceAll)(' ', '.', (0, replaceAll_4.replaceAll)('  ', ' ', realNode.className));
+                        name_3 += '.' + (0, replaceAll_js_4.replaceAll)(' ', '.', (0, replaceAll_js_4.replaceAll)('  ', ' ', realNode.className));
                     }
                     done = 1;
                 }
                 //var parent = node.parent(),
-                let parent = node.parentNode, 
+                var parent_1 = node.parentNode, 
                 //sameTagSiblings = parent.children(name);
-                sameTagSiblings = parent.children.filter((val) => {
-                    return val.tagName === name;
+                sameTagSiblings = parent_1.children.filter(function (val) {
+                    return val.tagName === name_3;
                 });
                 if (sameTagSiblings.length > 1) {
                     //var allSiblings = parent.children(),
-                    let allSiblings = parent.children, 
+                    var allSiblings = parent_1.children, 
                     //index = allSiblings.index(realNode) + 1;
                     index = allSiblings.indexOf(realNode) + 1;
                     if (index > 1) {
-                        name += ':nth-child(' + index + ')';
+                        name_3 += ':nth-child(' + index + ')';
                     }
                 }
-                path = name + (path ? '>' + path : '');
-                node = parent;
+                path = name_3 + (path ? '>' + path : '');
+                node = parent_1;
+            };
+            while (node.length) {
+                var state_1 = _loop_1();
+                if (typeof state_1 === "object")
+                    return state_1.value;
+                if (state_1 === "break")
+                    break;
             }
             return path;
         };
         exports.getPath = getPath;
     });
-    define("fn/object/getProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_5) {
+    define("fn/object/getProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getProp = void 0;
@@ -6289,9 +6470,9 @@
          * @param {String} prop
          * @returns
          */
-        const getProp = function (obj, prop) {
-            (0, checkType_5.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
-            (0, checkType_5.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
+        var getProp = function (obj, prop) {
+            (0, checkType_js_5.checkType)(obj, "object", bbn._("The obj must be an object in setProp"));
+            (0, checkType_js_5.checkType)(prop, "string", bbn._("The prop must be a string in setProp"));
             return obj[prop];
         };
         exports.getProp = getProp;
@@ -6300,26 +6481,26 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getScrollBarSize = void 0;
-        const getScrollBarSize = function () {
+        var getScrollBarSize = function () {
             if (bbn.env.scrollBarSize === undefined) {
-                let outer = document.createElement('div');
+                var outer = document.createElement('div');
                 outer.style.visibility = 'hidden';
                 outer.style.width = '100px';
                 if ('msOverflowStyle' in outer.style) {
                     outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
                 }
                 document.body.appendChild(outer);
-                let widthNoScroll = outer.offsetWidth;
+                var widthNoScroll = outer.offsetWidth;
                 // force scrollbars
                 outer.style.overflow = 'scroll';
                 // add innerdiv
-                let inner = document.createElement('div');
+                var inner = document.createElement('div');
                 inner.style.width = '100%';
                 outer.appendChild(inner);
-                let widthWithScroll = inner.offsetWidth;
+                var widthWithScroll = inner.offsetWidth;
                 // remove divs
                 outer.parentNode.removeChild(outer);
-                let sz = widthNoScroll - widthWithScroll;
+                var sz = widthNoScroll - widthWithScroll;
                 bbn.env.scrollBarSize = sz ? sz + 1 : 0;
             }
             return bbn.env.scrollBarSize;
@@ -6330,7 +6511,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getText = void 0;
-        const getText = function (ele) {
+        var getText = function (ele) {
             return ele.innerText().trim();
         };
         exports.getText = getText;
@@ -6351,7 +6532,7 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const getTimeoff = function () {
+        var getTimeoff = function () {
             if (!bbn.env.isFocused) {
                 return Math.round(new Date().getTime() / 1000 - bbn.env.timeoff);
             }
@@ -6359,7 +6540,7 @@
         };
         exports.getTimeoff = getTimeoff;
     });
-    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_15) {
+    define("fn/browser/happy", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.happy = void 0;
@@ -6375,12 +6556,16 @@
          * @param    {...any} args
          * @returns
          */
-        const happy = function (...args) {
+        var happy = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             args.unshift({
                 _bbn_console_level: 3,
                 _bbn_console_style: 'color: white; background: green; font-size: 18px;',
             });
-            log_15.log.apply(this, args);
+            log_js_15.log.apply(this, args);
             return this;
         };
         exports.happy = happy;
@@ -6407,7 +6592,7 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const hex2rgb = function (hex) {
+        var hex2rgb = function (hex) {
             var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result
                 ? {
@@ -6423,7 +6608,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.history = void 0;
-        const history = function () {
+        var history = function () {
             return window.history || false;
         };
         exports.history = history;
@@ -6447,8 +6632,8 @@
          * @param    {String} st
          * @returns {String}
          */
-        const html2text = function (st) {
-            let $test = document.createElement("div");
+        var html2text = function (st) {
+            var $test = document.createElement("div");
             $test.innerHTML = st;
             st = $test.innerText;
             return st;
@@ -6472,8 +6657,8 @@
          * @param {HTMLElement} img
          * @returns {HTMLCanvasElement}
          */
-        const imageToCanvas = function (img) {
-            let canvas = document.createElement('canvas');
+        var imageToCanvas = function (img) {
+            var canvas = document.createElement('canvas');
             canvas.width = img.width;
             canvas.height = img.height;
             canvas.getContext('2d').drawImage(img, 0, 0);
@@ -6481,17 +6666,18 @@
         };
         exports.imageToCanvas = imageToCanvas;
     });
-    define("fn/convert/imgToBase64", ["require", "exports", "fn/convert/imageToCanvas"], function (require, exports, imageToCanvas_1) {
+    define("fn/convert/imgToBase64", ["require", "exports", "fn/convert/imageToCanvas"], function (require, exports, imageToCanvas_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.imgToBase64 = void 0;
-        const imgToBase64 = function (img, type = 'image/png') {
-            let canvas = (0, imageToCanvas_1.imageToCanvas)(img);
+        var imgToBase64 = function (img, type) {
+            if (type === void 0) { type = 'image/png'; }
+            var canvas = (0, imageToCanvas_js_1.imageToCanvas)(img);
             return canvas.toDataURL(type);
         };
         exports.imgToBase64 = imgToBase64;
     });
-    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_16) {
+    define("fn/browser/info", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_16) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.info = void 0;
@@ -6503,18 +6689,22 @@
          * @param    {...any} args
          * @returns  {*}
          */
-        const info = function (...args) {
+        var info = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             args.unshift({
                 //_bbn_console_mode: "info",
                 _bbn_console_level: 4,
                 _bbn_console_style: 'color: #EEE; background: blue; font-size: 12px;',
             });
-            log_16.log.apply(this, args);
+            log_js_16.log.apply(this, args);
             return this;
         };
         exports.info = info;
     });
-    define("fn/ajax/treatAjaxArguments", ["require", "exports", "fn/type/isObject", "fn/type/isFunction", "fn/string/substr", "fn/object/numProperties"], function (require, exports, isObject_14, isFunction_8, substr_9, numProperties_6) {
+    define("fn/ajax/treatAjaxArguments", ["require", "exports", "fn/type/isObject", "fn/type/isFunction", "fn/string/substr", "fn/object/numProperties"], function (require, exports, isObject_js_14, isFunction_js_8, substr_js_9, numProperties_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.treatAjaxArguments = void 0;
@@ -6569,18 +6759,18 @@
          *
          * @returns  {Object} The configuration object
          */
-        const treatAjaxArguments = function (args) {
-            let cfg = {};
-            let t;
-            let i;
-            if ((0, isObject_14.isObject)(args[0]) && args.length === 1) {
+        var treatAjaxArguments = function (args) {
+            var cfg = {};
+            var t;
+            var i;
+            if ((0, isObject_js_14.isObject)(args[0]) && args.length === 1) {
                 return args[0];
             }
             for (i = 0; i < args.length; i++) {
                 t = typeof args[i];
                 t = t.toLowerCase();
                 /* Callbacks */
-                if ((0, isFunction_8.isFunction)(args[i])) {
+                if ((0, isFunction_js_8.isFunction)(args[i])) {
                     if (cfg["errorFn"] && !cfg["abortFn"]) {
                         cfg["abortFn"] = args[i];
                     }
@@ -6600,13 +6790,13 @@
                         /* Hash */
                         if (args[i].indexOf("#") === 0 ||
                             args[i].indexOf(bbn.env.root + "#") === 0) {
-                            cfg["url"] = (0, substr_9.substr)(args[i], bbn.env.root.length);
+                            cfg["url"] = (0, substr_js_9.substr)(args[i], bbn.env.root.length);
                         }
                         else {
                             /* Link */
                             cfg["url"] = args[i];
                             if (cfg["url"].indexOf(bbn.env.root) === 0) {
-                                cfg["url"] = (0, substr_9.substr)(cfg["url"], bbn.env.root.length);
+                                cfg["url"] = (0, substr_js_9.substr)(cfg["url"], bbn.env.root.length);
                             }
                         }
                     }
@@ -6630,7 +6820,7 @@
                     }
                 }
             }
-            if (!cfg["url"] && (0, numProperties_6.numProperties)(cfg)) {
+            if (!cfg["url"] && (0, numProperties_js_6.numProperties)(cfg)) {
                 cfg["url"] = bbn.env.path;
             }
             if (cfg["obj"] === undefined) {
@@ -6643,7 +6833,7 @@
         };
         exports.treatAjaxArguments = treatAjaxArguments;
     });
-    define("fn/ajax/setNavigationVars", ["require", "exports", "fn/string/substr", "fn/object/filter", "fn/object/extend", "fn/html/html2text"], function (require, exports, substr_10, filter_4, extend_5, html2text_1) {
+    define("fn/ajax/setNavigationVars", ["require", "exports", "fn/string/substr", "fn/object/filter", "fn/object/extend", "fn/html/html2text"], function (require, exports, substr_js_10, filter_js_4, extend_js_5, html2text_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setNavigationVars = void 0;
@@ -6670,24 +6860,26 @@
          *
          * @returns  {void}
          */
-        const setNavigationVars = function (url, title, data = null, repl = false) {
+        var setNavigationVars = function (url, title, data, repl) {
+            if (data === void 0) { data = null; }
+            if (repl === void 0) { repl = false; }
             // Current path becomes old path
             bbn.env.old_path = bbn.env.path;
             // URL includes the domain
-            bbn.env.url = ['https:/', 'http://'].includes((0, substr_10.substr)(url, 0, 7)) ? url : bbn.env.root + url;
+            bbn.env.url = ['https:/', 'http://'].includes((0, substr_js_10.substr)(url, 0, 7)) ? url : bbn.env.root + url;
             // Path does not
-            bbn.env.path = (0, substr_10.substr)(bbn.env.url, bbn.env.root.length);
+            bbn.env.path = (0, substr_js_10.substr)(bbn.env.url, bbn.env.root.length);
             // Params will include each part of the URL
-            bbn.env.params = (0, filter_4.filter)(bbn.env.path.split('/'), (v) => {
+            bbn.env.params = (0, filter_js_4.filter)(bbn.env.path.split('/'), function (v) {
                 return v !== '';
             });
             // Managing history
-            let h = window.history;
+            var h = window.history;
             if (h) {
                 // Current state
-                let state = h.state;
+                var state = h.state;
                 // Future state
-                let obj = {
+                var obj = {
                     url: bbn.env.path,
                     old_path: bbn.env.old_path || null,
                     data: data || {},
@@ -6696,7 +6888,7 @@
                 // If same URL we replace
                 if (state && state.url === bbn.env.path) {
                     if (state.data) {
-                        (0, extend_5.extend)(obj.data, state.data);
+                        (0, extend_js_5.extend)(obj.data, state.data);
                     }
                     if (state.title && !title) {
                         title = state.title;
@@ -6709,7 +6901,7 @@
                 }
                 // Otherwise we add the global title at the end
                 else {
-                    title = (0, html2text_1.html2text)(title);
+                    title = (0, html2text_js_1.html2text)(title);
                 }
                 // Replacing state
                 if (repl) {
@@ -6724,7 +6916,7 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, ajax_2, log_17, extend_6, isObject_15, callback_1, setNavigationVars_1) {
+    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_js_1, getLoader_js_3, ajax_js_2, log_js_17, extend_js_6, isObject_js_15, callback_js_1, setNavigationVars_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
@@ -6752,9 +6944,13 @@
          *
          * @returns
          */
-        const link = function (...args) {
-            let cfg = (0, treatAjaxArguments_1.treatAjaxArguments)(args);
-            let ok = 1;
+        var link = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var cfg = (0, treatAjaxArguments_js_1.treatAjaxArguments)(args);
+            var ok = 1;
             /* If we can't find a correct link we load the current URL */
             if (!cfg) {
                 return link(window.location.href);
@@ -6782,12 +6978,12 @@
                 /* Mail link */
                 bbn.env.ignoreUnload = true;
                 window.location.href = cfg.url;
-                setTimeout(() => {
+                setTimeout(function () {
                     bbn.env.ignoreUnload = false;
                 }, 0);
                 return false;
             }
-            if ((0, getLoader_3.getLoader)(cfg.url)) {
+            if ((0, getLoader_js_3.getLoader)(cfg.url)) {
                 return false;
             }
             /* Opens an external page in a new window */
@@ -6806,9 +7002,9 @@
                     ok = cfg.successFn(cfg.url);
                 }
                 else if (bbn.fn.defaultPreLinkFunction) {
-                    let tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
+                    var tmp = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
                     if (tmp.data !== undefined) {
-                        (0, extend_6.extend)(cfg.obj, tmp.data);
+                        (0, extend_js_6.extend)(cfg.obj, tmp.data);
                         ok = 1;
                     }
                 }
@@ -6817,15 +7013,15 @@
                         cfg.url = ok;
                     }
                     /** todo Do we keep obj in the unique string or do we make that only one concurrent connection to the same address can occur at the same time? */
-                    let errSt = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
-                    return (0, ajax_2.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
+                    var errSt_1 = bbn._('The Ajax call to') + ' ' + cfg.url + ' ';
+                    return (0, ajax_js_2.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
                         if (!res) {
-                            (0, log_17.log)(errSt + bbn._('returned no answer'));
+                            (0, log_js_17.log)(errSt_1 + bbn._('returned no answer'));
                         }
-                        if ((0, isObject_15.isObject)(res)) {
+                        if ((0, isObject_js_15.isObject)(res)) {
                             // If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
                             if (Object.keys(res).length === 0) {
-                                (0, log_17.log)(errSt + bbn._('returned an empty object'));
+                                (0, log_js_17.log)(errSt_1 + bbn._('returned an empty object'));
                             }
                             if (res.new_url) {
                                 res.old_path = cfg.url;
@@ -6835,10 +7031,10 @@
                                 res.old_path = cfg.url;
                             }
                         }
-                        if ((0, callback_1.callback)(cfg.url, res, cfg.successFn, null, cfg.ele) && res.noNav === undefined) {
+                        if ((0, callback_js_1.callback)(cfg.url, res, cfg.successFn, null, cfg.ele) && res.noNav === undefined) {
                             // This solution is not very clean (we can't shorten a URL)
                             if (bbn.env.path.indexOf(cfg.url) !== 0) {
-                                (0, setNavigationVars_1.setNavigationVars)(cfg.url, (res.title ? res.title + ' - ' : '') + bbn.env.siteTitle);
+                                (0, setNavigationVars_js_1.setNavigationVars)(cfg.url, (res.title ? res.title + ' - ' : '') + bbn.env.siteTitle);
                             }
                         }
                     }, cfg.errorFn || null);
@@ -6848,7 +7044,7 @@
         };
         exports.link = link;
     });
-    define("fn/ajax/post", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/ajax", "fn/ajax/callback"], function (require, exports, treatAjaxArguments_2, ajax_3, callback_2) {
+    define("fn/ajax/post", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/ajax", "fn/ajax/callback"], function (require, exports, treatAjaxArguments_js_2, ajax_js_3, callback_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.post = void 0;
@@ -6885,17 +7081,21 @@
          *
          * @returns  {undefined|Promise}
          */
-        const post = function (...args) {
-            let cfg = (0, treatAjaxArguments_2.treatAjaxArguments)(args);
+        var post = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var cfg = (0, treatAjaxArguments_js_2.treatAjaxArguments)(args);
             if (cfg.url) {
-                return (0, ajax_3.ajax)(cfg.url, cfg.datatype, cfg.obj, (res) => {
-                    (0, callback_2.callback)(cfg.url, res, cfg.successFn, null, cfg.ele);
+                return (0, ajax_js_3.ajax)(cfg.url, cfg.datatype, cfg.obj, function (res) {
+                    (0, callback_js_2.callback)(cfg.url, res, cfg.successFn, null, cfg.ele);
                 }, cfg.errorFn, cfg.abortFn);
             }
         };
         exports.post = post;
     });
-    define("fn/form/submit", ["require", "exports", "fn/form/formdata", "fn/ajax/post"], function (require, exports, formdata_1, post_1) {
+    define("fn/form/submit", ["require", "exports", "fn/form/formdata", "fn/ajax/post"], function (require, exports, formdata_js_1, post_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.submit = void 0;
@@ -6917,9 +7117,9 @@
          *
          * @returns  {*}
          */
-        const submit = function (form, e, fn) {
-            let url = form.getAttribute('action') || bbn.env.path;
-            let data;
+        var submit = function (form, e, fn) {
+            var url = form.getAttribute('action') || bbn.env.path;
+            var data;
             if (url === '') {
                 url = '.';
             }
@@ -6930,7 +7130,7 @@
                 if (e) {
                     e.preventDefault();
                 }
-                data = (0, formdata_1.formdata)(form);
+                data = (0, formdata_js_1.formdata)(form);
                 if (data) {
                     //$form.attr("action", null);
                     form.setAttribute('action', null);
@@ -6939,23 +7139,23 @@
                         fn = form.getAttribute('data-script') ? eval(form.getAttribute('data-script')) : null;
                     }
                     if (fn) {
-                        (0, post_1.post)(url, data, fn);
+                        (0, post_js_1.post)(url, data, fn);
                     }
                     else {
-                        (0, post_1.post)(url, data);
+                        (0, post_js_1.post)(url, data);
                     }
                 }
             }
         };
         exports.submit = submit;
     });
-    define("fn/style/resize", ["require", "exports", "fn/style/getCssVar", "fn/loop/each"], function (require, exports, getCssVar_1, each_17) {
+    define("fn/style/resize", ["require", "exports", "fn/style/getCssVar", "fn/loop/each"], function (require, exports, getCssVar_js_1, each_js_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.resize = void 0;
-        const resize = function () {
-            let diffW = bbn.env.width !== window.innerWidth;
-            let diffH = bbn.env.height !== window.innerHeight;
+        var resize = function () {
+            var diffW = bbn.env.width !== window.innerWidth;
+            var diffH = bbn.env.height !== window.innerHeight;
             if (diffW || diffH) {
                 if (diffW) {
                     bbn.env.width =
@@ -6967,39 +7167,39 @@
                         window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
                     document.documentElement.style.setProperty('--vh', bbn.env.height * 0.01 + 'px');
                 }
-                let smallWidth = parseInt((0, getCssVar_1.getCssVar)('mobile-limit')) || 650;
-                let newCls = 'bbn-screen-' + (bbn.env.width < smallWidth ? 'small' : 'regular');
-                let classes = (document.body.className || '').split(' ');
-                let done = false;
-                (0, each_17.each)(classes, (cls, idx) => {
-                    let bits = cls.split('-');
+                var smallWidth = parseInt((0, getCssVar_js_1.getCssVar)('mobile-limit')) || 650;
+                var newCls_1 = 'bbn-screen-' + (bbn.env.width < smallWidth ? 'small' : 'regular');
+                var classes_1 = (document.body.className || '').split(' ');
+                var done_1 = false;
+                (0, each_js_17.each)(classes_1, function (cls, idx) {
+                    var bits = cls.split('-');
                     if (bits.length === 3 && cls.indexOf('bbn-screen-') === 0) {
-                        done = true;
-                        if (cls !== newCls) {
-                            classes.splice(idx, 1, newCls);
+                        done_1 = true;
+                        if (cls !== newCls_1) {
+                            classes_1.splice(idx, 1, newCls_1);
                         }
                         return false;
                     }
                 });
-                if (!done) {
-                    classes.push(newCls);
+                if (!done_1) {
+                    classes_1.push(newCls_1);
                 }
                 bbn.fn.defaultResizeFunction();
-                document.body.className = classes.join(' ');
+                document.body.className = classes_1.join(' ');
             }
         };
         exports.resize = resize;
     });
-    define("fn/browser/isMobileDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_1) {
+    define("fn/browser/isMobileDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isMobileDevice = void 0;
-        const isMobileDevice = function () {
-            return (0, getDeviceType_1.getDeviceType)() === 'mobile';
+        var isMobileDevice = function () {
+            return (0, getDeviceType_js_1.getDeviceType)() === 'mobile';
         };
         exports.isMobileDevice = isMobileDevice;
     });
-    define("fn/browser/isTabletDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_2) {
+    define("fn/browser/isTabletDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isTabletDevice = void 0;
@@ -7015,12 +7215,12 @@
           * @memberof bbn.fn
           * @returns  {Boolean}
           */
-        const isTabletDevice = function () {
-            return (0, getDeviceType_2.getDeviceType)() === 'tablet';
+        var isTabletDevice = function () {
+            return (0, getDeviceType_js_2.getDeviceType)() === 'tablet';
         };
         exports.isTabletDevice = isTabletDevice;
     });
-    define("fn/browser/isMobile", ["require", "exports", "fn/browser/isMobileDevice", "fn/browser/isTabletDevice"], function (require, exports, isMobileDevice_1, isTabletDevice_1) {
+    define("fn/browser/isMobile", ["require", "exports", "fn/browser/isMobileDevice", "fn/browser/isTabletDevice"], function (require, exports, isMobileDevice_js_1, isTabletDevice_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isMobile = void 0;
@@ -7036,12 +7236,12 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isMobile = function () {
-            return (0, isMobileDevice_1.isMobileDevice)() || (0, isTabletDevice_1.isTabletDevice)();
+        var isMobile = function () {
+            return (0, isMobileDevice_js_1.isMobileDevice)() || (0, isTabletDevice_js_1.isTabletDevice)();
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_7, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, isFunction_9, log_18) {
+    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_js_11, each_js_18, extend_js_7, addColors_js_1, link_js_1, submit_js_1, resize_js_1, isMobile_js_1, isTabletDevice_js_2, isFunction_js_9, log_js_18) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
@@ -7058,16 +7258,16 @@
          * @param    {Object} cfg
          * @returns
          */
-        const init = function (cfg, force) {
-            let parts;
+        var init = function (cfg, force) {
+            var parts;
             if (!bbn.env.isInit || force) {
                 bbn.env.root =
                     document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
-                if (bbn.env.root.length && (0, substr_11.substr)(bbn.env.root, -1) !== "/") {
+                if (bbn.env.root.length && (0, substr_js_11.substr)(bbn.env.root, -1) !== "/") {
                     bbn.env.root += "/";
                 }
                 if (!bbn.env.isInit && typeof dayjs !== "undefined") {
-                    (0, each_18.each)([
+                    (0, each_js_18.each)([
                         "advancedFormat",
                         "arraySupport",
                         "badMutable",
@@ -7101,7 +7301,7 @@
                         "weekOfYear",
                         "weekYear",
                         "weekday",
-                    ], (plugin) => {
+                    ], function (plugin) {
                         if (window["dayjs_plugin_" + plugin]) {
                             dayjs.extend(window["dayjs_plugin_" + plugin]);
                         }
@@ -7109,45 +7309,45 @@
                 }
                 /* The server's path (difference between the host and the current dir */
                 if (typeof cfg === "object") {
-                    (0, extend_7.extend)(true, bbn, cfg);
+                    (0, extend_js_7.extend)(true, bbn, cfg);
                 }
-                bbn.env.path = (0, substr_11.substr)(bbn.env.url, bbn.env.root.length);
+                bbn.env.path = (0, substr_js_11.substr)(bbn.env.url, bbn.env.root.length);
                 parts = bbn.env.path.split("/");
                 //$.each(parts, function(i, v){
-                (0, each_18.each)(parts, (v, i) => {
+                (0, each_js_18.each)(parts, function (v, i) {
                     v = decodeURI(v.trim());
                     if (v !== "") {
                         bbn.env.params.push(v);
                     }
                 });
                 if (bbn.var.colors) {
-                    (0, addColors_1.addColors)(bbn.var.colors);
+                    (0, addColors_js_1.addColors)(bbn.var.colors);
                 }
                 if (bbn.env.lang && undefined !== dayjs) {
                     dayjs.locale(bbn.env.lang);
                 }
-                window.onfocus = () => {
+                window.onfocus = function () {
                     bbn.env.isFocused = true;
                 };
-                window.onblur = () => {
+                window.onblur = function () {
                     bbn.env.isFocused = false;
                     bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
                 };
-                document.addEventListener("focusin", (e) => {
+                document.addEventListener("focusin", function (e) {
                     if (e.target instanceof HTMLElement &&
                         !e.target.classList.contains("bbn-no")) {
                         bbn.env.focused = e.target;
                     }
                     bbn.env.last_focus = new Date().getTime();
                 });
-                document.addEventListener("click", (e) => {
+                document.addEventListener("click", function (e) {
                     bbn.env.last_focus = new Date().getTime();
                     if (bbn.env.nav !== "ajax") {
                         return;
                     }
-                    let target = e.target;
+                    var target = e.target;
                     if (target instanceof HTMLElement && target.tagName !== "A") {
-                        let p = target;
+                        var p = target;
                         while (p && p.tagName !== "A") {
                             if (p.tagName === "BODY") {
                                 break;
@@ -7167,43 +7367,43 @@
                         !target.classList.contains("bbn-no")) {
                         e.preventDefault();
                         e.stopPropagation();
-                        (0, link_1.link)(target.getAttribute("href"));
+                        (0, link_js_1.link)(target.getAttribute("href"));
                         return false;
                     }
                 });
-                (0, each_18.each)(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
-                    ele.addEventListener("submit", (e) => {
-                        (0, submit_1.submit)(ele, e);
+                (0, each_js_18.each)(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), function (ele) {
+                    ele.addEventListener("submit", function (e) {
+                        (0, submit_js_1.submit)(ele, e);
                     });
                 });
-                window.addEventListener("hashchange", () => {
+                window.addEventListener("hashchange", function () {
                     bbn.env.hashChanged = new Date().getTime();
                 }, false);
-                window.addEventListener("resize", () => {
-                    (0, resize_1.resize)();
+                window.addEventListener("resize", function () {
+                    (0, resize_js_1.resize)();
                 });
-                window.addEventListener("orientationchange", () => {
-                    (0, resize_1.resize)();
+                window.addEventListener("orientationchange", function () {
+                    (0, resize_js_1.resize)();
                 });
-                (0, resize_1.resize)();
-                if ((0, isMobile_1.isMobile)()) {
+                (0, resize_js_1.resize)();
+                if ((0, isMobile_js_1.isMobile)()) {
                     document.body.classList.add("bbn-mobile");
-                    if ((0, isTabletDevice_2.isTabletDevice)()) {
+                    if ((0, isTabletDevice_js_2.isTabletDevice)()) {
                         document.body.classList.add("bbn-tablet");
                     }
                 }
                 if (window.history) {
                     window.onpopstate = function (e) {
-                        let h = window.history;
+                        var h = window.history;
                         if (!bbn.env.historyDisabled && h) {
                             //e.preventDefault();
                             if (bbn.fn.defaultHistoryFunction(h.state)) {
-                                let state = h.state;
+                                var state = h.state;
                                 if (state) {
                                     //link(substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
-                                    (0, link_1.link)(state.url, (0, extend_7.extend)({ title: state.title || bbn.env.siteTitle }, state.data || {}));
+                                    (0, link_js_1.link)(state.url, (0, extend_js_7.extend)({ title: state.title || bbn.env.siteTitle }, state.data || {}));
                                 }
-                                else if (state && state.data && (0, isFunction_9.isFunction)(state.data.script)) {
+                                else if (state && state.data && (0, isFunction_js_9.isFunction)(state.data.script)) {
                                     state.data.script();
                                 }
                             }
@@ -7213,7 +7413,7 @@
                 bbn.env.isInit = true;
                 document.dispatchEvent(new Event("bbninit"));
                 if (bbn.env.logging) {
-                    (0, log_18.log)("Logging in bbn is enabled");
+                    (0, log_js_18.log)("Logging in bbn is enabled");
                 }
             }
         };
@@ -7235,11 +7435,12 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isActiveInterface = function (secs = 600) {
+        var isActiveInterface = function (secs) {
+            if (secs === void 0) { secs = 600; }
             if (!bbn.env.last_focus) {
                 return false;
             }
-            let t = new Date().getTime();
+            var t = new Date().getTime();
             return t - bbn.env.last_focus < secs * 1000;
         };
         exports.isActiveInterface = isActiveInterface;
@@ -7262,10 +7463,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isBoolean = function (...args) {
+        var isBoolean = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_16 = args; _a < args_16.length; _a++) {
+                var a = args_16[_a];
                 if (![true, false].includes(a)) {
                     return false;
                 }
@@ -7274,7 +7480,7 @@
         };
         exports.isBoolean = isBoolean;
     });
-    define("fn/type/isColor", ["require", "exports", "fn/type/isString"], function (require, exports, isString_19) {
+    define("fn/type/isColor", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isColor = void 0;
@@ -7307,12 +7513,17 @@
          * @param    {String} st
          * @returns  {Boolean}
          */
-        const isColor = function (...args) {
+        var isColor = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
             var reg = new RegExp("^(#[a-f0-9]{6}|#[a-f0-9]{3}|rgb *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|rgba *( *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *, *[0-9]{1,3}%? *)|black|green|silver|gray|olive|white|yellow|maroon|navy|red|blue|purple|teal|fuchsia|aqua)$", "i");
-            for (let st of args) {
-                if (!(0, isString_19.isString)(st)) {
+            for (var _a = 0, args_17 = args; _a < args_17.length; _a++) {
+                var st = args_17[_a];
+                if (!(0, isString_js_19.isString)(st)) {
                     return false;
                 }
                 if (!reg.test(st)) {
@@ -7339,10 +7550,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isComment = function (...args) {
+        var isComment = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_18 = args; _a < args_18.length; _a++) {
+                var a = args_18[_a];
                 if (!(a instanceof Comment)) {
                     return false;
                 }
@@ -7351,7 +7567,7 @@
         };
         exports.isComment = isComment;
     });
-    define("fn/browser/isDesktopDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_3) {
+    define("fn/browser/isDesktopDevice", ["require", "exports", "fn/browser/getDeviceType"], function (require, exports, getDeviceType_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDesktopDevice = void 0;
@@ -7367,12 +7583,12 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isDesktopDevice = function () {
-            return (0, getDeviceType_3.getDeviceType)() === 'desktop';
+        var isDesktopDevice = function () {
+            return (0, getDeviceType_js_3.getDeviceType)() === 'desktop';
         };
         exports.isDesktopDevice = isDesktopDevice;
     });
-    define("fn/type/isValidDimension", ["require", "exports", "fn/type/isNumber", "fn/string/substr"], function (require, exports, isNumber_7, substr_12) {
+    define("fn/type/isValidDimension", ["require", "exports", "fn/type/isNumber", "fn/string/substr"], function (require, exports, isNumber_js_7, substr_js_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValidDimension = void 0;
@@ -7385,13 +7601,13 @@
          * @param    {String} st
          * @returns
          */
-        const isValidDimension = function (st) {
+        var isValidDimension = function (st) {
             if (typeof st === "string" &&
                 st.length > 0 &&
-                (st.indexOf("calc") === 0 || (0, isNumber_7.isNumber)((0, substr_12.substr)(st, 0, 1)))) {
-                let el = document.createElement("div");
+                (st.indexOf("calc") === 0 || (0, isNumber_js_7.isNumber)((0, substr_js_12.substr)(st, 0, 1)))) {
+                var el = document.createElement("div");
                 el.style.width = st;
-                let res = !!el.style.width.length;
+                var res = !!el.style.width.length;
                 el.remove();
                 return res;
             }
@@ -7399,7 +7615,7 @@
         };
         exports.isValidDimension = isValidDimension;
     });
-    define("fn/type/isDimension", ["require", "exports", "fn/type/isValidDimension"], function (require, exports, isValidDimension_1) {
+    define("fn/type/isDimension", ["require", "exports", "fn/type/isValidDimension"], function (require, exports, isValidDimension_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isDimension = void 0;
@@ -7412,14 +7628,19 @@
          * @param    {String} st
          * @returns
          */
-        const isDimension = function (...args) {
+        var isDimension = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let st of args) {
+            for (var _a = 0, args_19 = args; _a < args_19.length; _a++) {
+                var st = args_19[_a];
                 if (typeof st !== "number" || st < 0) {
                     return false;
                 }
-                if (!(0, isValidDimension_1.isValidDimension)(st)) {
+                if (!(0, isValidDimension_js_1.isValidDimension)(st)) {
                     return false;
                 }
             }
@@ -7427,7 +7648,7 @@
         };
         exports.isDimension = isDimension;
     });
-    define("fn/type/isEmail", ["require", "exports", "fn/type/isString"], function (require, exports, isString_20) {
+    define("fn/type/isEmail", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isEmail = void 0;
@@ -7452,12 +7673,17 @@
          * @param    {String} st
          * @returns  {Boolean}
          */
-        const isEmail = function (...args) {
+        var isEmail = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            for (let st of args) {
-                if (!(0, isString_20.isString)(st)) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            for (var _a = 0, args_20 = args; _a < args_20.length; _a++) {
+                var st = args_20[_a];
+                if (!(0, isString_js_20.isString)(st)) {
                     return false;
                 }
                 if (!regex.test(st)) {
@@ -7479,10 +7705,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isEvent = function (...args) {
+        var isEvent = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_21 = args; _a < args_21.length; _a++) {
+                var a = args_21[_a];
                 if (!(a instanceof Event)) {
                     return false;
                 }
@@ -7514,20 +7745,26 @@
          *
          * @returns  {Boolean} True if focused
          */
-        const isFocused = function (ele, contain = false) {
+        var isFocused = function (ele, contain) {
+            if (contain === void 0) { contain = false; }
             return ele === document.activeElement || (contain && ele.contains && ele.contains(document.activeElement));
         };
         exports.isFocused = isFocused;
     });
-    define("fn/type/isIP", ["require", "exports", "fn/type/isString"], function (require, exports, isString_21) {
+    define("fn/type/isIP", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_21) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isIP = void 0;
-        const isIP = function (...args) {
+        var isIP = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let st of args) {
-                if (!(0, isString_21.isString)(st) || !bbn.var.regexp.ip.test(st)) {
+            for (var _a = 0, args_22 = args; _a < args_22.length; _a++) {
+                var st = args_22[_a];
+                if (!(0, isString_js_21.isString)(st) || !bbn.var.regexp.ip.test(st)) {
                     return false;
                 }
             }
@@ -7535,18 +7772,23 @@
         };
         exports.isIP = isIP;
     });
-    define("fn/type/isHostname", ["require", "exports", "fn/type/isString", "fn/type/isIP"], function (require, exports, isString_22, isIP_1) {
+    define("fn/type/isHostname", ["require", "exports", "fn/type/isString", "fn/type/isIP"], function (require, exports, isString_js_22, isIP_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isHostname = void 0;
-        const isHostname = function (...args) {
+        var isHostname = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let st of args) {
-                if (!(0, isString_22.isString)(st)) {
+            for (var _a = 0, args_23 = args; _a < args_23.length; _a++) {
+                var st = args_23[_a];
+                if (!(0, isString_js_22.isString)(st)) {
                     return false;
                 }
-                if (!(0, isIP_1.isIP)(st) && !bbn.var.regexp.hostname.test(st)) {
+                if (!(0, isIP_js_1.isIP)(st) && !bbn.var.regexp.hostname.test(st)) {
                     return false;
                 }
             }
@@ -7554,22 +7796,22 @@
         };
         exports.isHostname = isHostname;
     });
-    define("fn/html/isInside", ["require", "exports", "fn/html/getAncestors", "fn/type/isString", "fn/loop/each"], function (require, exports, getAncestors_1, isString_23, each_19) {
+    define("fn/html/isInside", ["require", "exports", "fn/html/getAncestors", "fn/type/isString", "fn/loop/each"], function (require, exports, getAncestors_js_1, isString_js_23, each_js_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isInside = void 0;
-        const isInside = function (ele, ancestor) {
-            let ancestors = (0, getAncestors_1.getAncestors)(ele);
+        var isInside = function (ele, ancestor) {
+            var ancestors = (0, getAncestors_js_1.getAncestors)(ele);
             if (ancestors.length) {
-                if ((0, isString_23.isString)(ancestor)) {
-                    let ok = false;
-                    (0, each_19.each)(ancestors, (a) => {
+                if ((0, isString_js_23.isString)(ancestor)) {
+                    var ok_2 = false;
+                    (0, each_js_19.each)(ancestors, function (a) {
                         if (a.matches && a.matches(ancestor)) {
-                            ok = true;
+                            ok_2 = true;
                             return false;
                         }
                     });
-                    return ok;
+                    return ok_2;
                 }
                 if (ancestor instanceof HTMLElement) {
                     return ancestors.indexOf(ancestor) > -1;
@@ -7595,10 +7837,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isPercent = function (...args) {
+        var isPercent = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_24 = args; _a < args_24.length; _a++) {
+                var a = args_24[_a];
                 if (typeof a !== "string" || !a.match(/^\d+(?:\.\d+)?%$/)) {
                     return false;
                 }
@@ -7627,10 +7874,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isPrimitive = function (...args) {
+        var isPrimitive = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_25 = args; _a < args_25.length; _a++) {
+                var a = args_25[_a];
                 if (a !== null && (typeof a == "object" || typeof a == "function")) {
                     return false;
                 }
@@ -7659,10 +7911,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isPromise = function (...args) {
+        var isPromise = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_26 = args; _a < args_26.length; _a++) {
+                var a = args_26[_a];
                 if ({}.toString.apply(a) !== "[object Promise]") {
                     return false;
                 }
@@ -7671,13 +7928,13 @@
         };
         exports.isPromise = isPromise;
     });
-    define("fn/type/isPropSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_20) {
+    define("fn/type/isPropSize", ["require", "exports", "fn/loop/each"], function (require, exports, each_js_20) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isPropSize = void 0;
-        const isPropSize = function (name) {
-            let isTrue = false;
-            (0, each_20.each)(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], (a) => {
+        var isPropSize = function (name) {
+            var isTrue = false;
+            (0, each_js_20.each)(['width', 'height', 'gap', 'margin', 'padding', 'top', 'left', 'right', 'bottom'], function (a) {
                 if (name.indexOf(a) !== -1) {
                     isTrue = true;
                     return false;
@@ -7699,10 +7956,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isSQLDate = function (...args) {
+        var isSQLDate = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_27 = args; _a < args_27.length; _a++) {
+                var a = args_27[_a];
                 if (typeof a !== "string" ||
                     !a.match(/^([1-2]\d{3})-((0\d)|(1[12]))-(([0-2]\d)|(3[01]))(?:( [0-2]\d):([0-5]\d):([0-5]\d))?$/)) {
                     return false;
@@ -7729,10 +7991,15 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isSymbol = function (...args) {
+        var isSymbol = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let a of args) {
+            for (var _a = 0, args_28 = args; _a < args_28.length; _a++) {
+                var a = args_28[_a];
                 if ({}.toString.apply(a) !== "[object Symbol]") {
                     return false;
                 }
@@ -7745,10 +8012,15 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isURL = void 0;
-        const isURL = function (...args) {
+        var isURL = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length)
                 return false;
-            for (let str of args) {
+            for (var _a = 0, args_29 = args; _a < args_29.length; _a++) {
+                var str = args_29[_a];
                 if (!bbn.var.regexp.url.test(str)) {
                     return false;
                 }
@@ -7757,7 +8029,7 @@
         };
         exports.isURL = isURL;
     });
-    define("fn/type/isValidName", ["require", "exports", "fn/type/isString"], function (require, exports, isString_24) {
+    define("fn/type/isValidName", ["require", "exports", "fn/type/isString"], function (require, exports, isString_js_24) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isValidName = void 0;
@@ -7786,12 +8058,17 @@
          * @param    {String} st
          * @returns {Boolean}
          */
-        const isValidName = function (...args) {
+        var isValidName = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length) {
                 return false;
             }
-            for (let arg of args) {
-                if (!(0, isString_24.isString)(arg) || !/^[$A-Z_][0-9A-Z_$]*$/i.test(arg)) {
+            for (var _a = 0, args_30 = args; _a < args_30.length; _a++) {
+                var arg = args_30[_a];
+                if (!(0, isString_js_24.isString)(arg) || !/^[$A-Z_][0-9A-Z_$]*$/i.test(arg)) {
                     return false;
                 }
             }
@@ -7817,20 +8094,27 @@
          * @memberof bbn.fn
          * @returns  {Boolean}
          */
-        const isVue = function (...args) {
+        var isVue = function () {
+            var _a;
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             if (!args.length) {
                 return false;
             }
             if ("vue" in bbn && window["Vue"]) {
                 if ("app" in bbn.vue) {
-                    for (let a of args) {
+                    for (var _b = 0, args_31 = args; _b < args_31.length; _b++) {
+                        var a = args_31[_b];
                         if (!a || typeof a.render !== "function") {
                             return false;
                         }
                     }
                 }
                 else {
-                    for (let a of args) {
+                    for (var _c = 0, args_32 = args; _c < args_32.length; _c++) {
+                        var a = args_32[_c];
                         if (!(a instanceof window["Vue"])) {
                             return false;
                         }
@@ -7840,7 +8124,7 @@
             if ("cp" in bbn &&
                 "isComponent" in bbn["cp"] &&
                 typeof bbn["cp"].isComponent === "function") {
-                return bbn.cp.isComponent(...args);
+                return (_a = bbn.cp).isComponent.apply(_a, args);
             }
             return true;
         };
@@ -7868,11 +8152,11 @@
          * @memberof bbn.fn
          * @returns  {String}
          */
-        const lightenDarkenHex = function (hex, amt) {
+        var lightenDarkenHex = function (hex, amt) {
             if (hex && amt) {
-                let ht = hex[0] === "#";
+                var ht = hex[0] === "#";
                 hex = ht ? hex.slice(1) : hex;
-                let num = parseInt(hex, 16), r = (num >> 16) + amt, b = ((num >> 8) & 0x00ff) + amt, g = (num & 0x0000ff) + amt;
+                var num = parseInt(hex, 16), r = (num >> 16) + amt, b = ((num >> 8) & 0x00ff) + amt, g = (num & 0x0000ff) + amt;
                 if (r > 255) {
                     r = 255;
                 }
@@ -7896,7 +8180,7 @@
         };
         exports.lightenDarkenHex = lightenDarkenHex;
     });
-    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_19) {
+    define("fn/browser/warning", ["require", "exports", "fn/browser/log"], function (require, exports, log_js_19) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.warning = void 0;
@@ -7912,64 +8196,68 @@
          * @param    {...any} args
          * @returns
          */
-        const warning = function (message) {
-            const args = ['BBN: ' + message];
-            const obj = {
+        var warning = function (message) {
+            var args = ['BBN: ' + message];
+            var obj = {
                 _bbn_console_mode: 'warn',
                 _bbn_console_level: 2,
                 _bbn_console_style: 'color: #E64141; background: #F7E195; font-size: 14px',
             };
             args.unshift(obj);
-            log_19.log.apply(this, args);
+            log_js_19.log.apply(this, args);
         };
         exports.warning = warning;
     });
-    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_20, createObject_2, isSymbol_1, isNumber_8, isArray_13, warning_1, isFunction_10, isSame_2) {
+    define("fn/html/makeReactive", ["require", "exports", "fn/browser/log", "fn/object/createObject", "fn/type/isSymbol", "fn/type/isNumber", "fn/type/isArray", "fn/browser/warning", "fn/type/isFunction", "fn/type/isSame"], function (require, exports, log_js_20, createObject_js_2, isSymbol_js_1, isNumber_js_8, isArray_js_13, warning_js_1, isFunction_js_10, isSame_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
-        const makeReactive = function (obj, onSet, parent, parentProp) {
-            const parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
-            const prefix = '__bbn_' + (parentString ? parentString + '_' : '');
+        var makeReactive = function (obj, onSet, parent, parentProp) {
+            var parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
+            var prefix = '__bbn_' + (parentString ? parentString + '_' : '');
             if (obj && typeof obj === 'object' && [undefined, Object, Array].includes(obj.constructor)) {
                 if (obj.__bbnIsProxy && obj.__bbnParent === parent) {
                     return obj;
                 }
                 if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                    (0, log_20.log)(['MAKING bbn-loadbar', obj]);
+                    (0, log_js_20.log)(['MAKING bbn-loadbar', obj]);
                 }
                 if (!obj.__bbnWatchers) {
                     Reflect.defineProperty(obj, '__bbnWatchers', {
-                        value: (0, createObject_2.createObject)(),
+                        value: (0, createObject_js_2.createObject)(),
                         writable: true,
                         configurable: true,
                         enumerable: false,
                     });
                 }
-                const handler = {
-                    get(target, key) {
-                        const realValue = Reflect.get(target, key);
-                        const realTarget = target.__bbnRoot || target;
-                        if ((0, isSymbol_1.isSymbol)(key)) {
+                var handler = {
+                    get: function (target, key) {
+                        var realValue = Reflect.get(target, key);
+                        var realTarget = target.__bbnRoot || target;
+                        if ((0, isSymbol_js_1.isSymbol)(key)) {
                             return Reflect.get(realTarget, key);
                         }
-                        const propName = parentProp ? parentProp + '.' + key : key;
-                        const hiddenKey = prefix + ((0, isNumber_8.isNumber)(key) ? key.toString() : key);
+                        var propName = parentProp ? parentProp + '.' + key : key;
+                        var hiddenKey = prefix + ((0, isNumber_js_8.isNumber)(key) ? key.toString() : key);
                         if (['fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'].includes(key) &&
-                            (0, isArray_13.isArray)(target)) {
-                            return function (...args) {
-                                let res = realTarget[key](...args);
-                                (0, warning_1.warning)('DOING ARRAY STUFF');
-                                (0, log_20.log)(target.__bbnParent);
+                            (0, isArray_js_13.isArray)(target)) {
+                            return function () {
+                                var args = [];
+                                for (var _i = 0; _i < arguments.length; _i++) {
+                                    args[_i] = arguments[_i];
+                                }
+                                var res = realTarget[key].apply(realTarget, args);
+                                (0, warning_js_1.warning)('DOING ARRAY STUFF');
+                                (0, log_js_20.log)(target.__bbnParent);
                                 onSet(target, 'length', parent);
                                 return res;
                             };
                         }
-                        if ((0, isFunction_10.isFunction)(realValue)) {
+                        if ((0, isFunction_js_10.isFunction)(realValue)) {
                             return realValue;
                         }
                         if (key === '__bbnRoot') {
-                            let root = obj;
+                            var root = obj;
                             while (root && (root === null || root === void 0 ? void 0 : root.__bbnTarget)) {
                                 root = root.__bbnTarget;
                             }
@@ -7990,7 +8278,7 @@
                         if (key.indexOf('__bbn_') === 0) {
                             return Reflect.get(target, key);
                         }
-                        if (key === 'length' && (0, isArray_13.isArray)(target.__bbnRoot || target)) {
+                        if (key === 'length' && (0, isArray_js_13.isArray)(target.__bbnRoot || target)) {
                             return realTarget.length;
                         }
                         if (!(key in target)) {
@@ -8017,19 +8305,19 @@
                         }
                         return realValue;
                     },
-                    set(target, key, value) {
-                        if ((0, isSymbol_1.isSymbol)(key)) {
+                    set: function (target, key, value) {
+                        if ((0, isSymbol_js_1.isSymbol)(key)) {
                             return Reflect.get(target, key, value);
                         }
-                        const realTarget = target.__bbnRoot || target;
-                        const propName = parentProp ? parentProp + '.' + key : key;
-                        if ((0, isSymbol_1.isSymbol)(key)) {
+                        var realTarget = target.__bbnRoot || target;
+                        var propName = parentProp ? parentProp + '.' + key : key;
+                        if ((0, isSymbol_js_1.isSymbol)(key)) {
                             return Reflect.get(target, key);
                         }
                         if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                            (0, log_20.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
+                            (0, log_js_20.log)(['Setting proxy prop in ' + parent.$options.name, target, key, value]);
                         }
-                        if (!(0, isSame_2.isSame)(realTarget[key], value)) {
+                        if (!(0, isSame_js_2.isSame)(realTarget[key], value)) {
                             if (key.indexOf('__bbn_') === 0) {
                                 Reflect.defineProperty(realTarget, key, {
                                     value: makeReactive(value, onSet, parent, propName),
@@ -8042,7 +8330,7 @@
                                 if (value &&
                                     typeof value === 'object' &&
                                     [undefined, Object, Array].includes(value.constructor)) {
-                                    const hiddenKey = prefix + ((0, isNumber_8.isNumber)(key) ? key.toString() : key);
+                                    var hiddenKey = prefix + ((0, isNumber_js_8.isNumber)(key) ? key.toString() : key);
                                     Reflect.defineProperty(realTarget, hiddenKey, {
                                         value: makeReactive(value, onSet, parent, propName),
                                         writable: true,
@@ -8055,11 +8343,11 @@
                                 }
                             }
                             if (parent && parent.$options && parent.$options.name === 'bbn-loadbar') {
-                                (0, log_20.log)([
+                                (0, log_js_20.log)([
                                     'Setting proxy prop in ' +
                                         parent.$options.name +
                                         ' ' +
-                                        ((0, isNumber_8.isNumber)(key) ? key.toString() : key),
+                                        ((0, isNumber_js_8.isNumber)(key) ? key.toString() : key),
                                     value,
                                     target,
                                 ]);
@@ -8069,14 +8357,14 @@
                         }
                         return true;
                     },
-                    defineProperty(target, key, description) {
-                        const realTarget = target;
-                        const propName = parentProp ? parentProp + '.' + key : key;
-                        if (key === '__bbnWatchers' || (0, isSymbol_1.isSymbol)(key) || key.indexOf('__bbn_') === 0) {
+                    defineProperty: function (target, key, description) {
+                        var realTarget = target;
+                        var propName = parentProp ? parentProp + '.' + key : key;
+                        if (key === '__bbnWatchers' || (0, isSymbol_js_1.isSymbol)(key) || key.indexOf('__bbn_') === 0) {
                             Reflect.defineProperty(realTarget, key, description);
                         }
                         else {
-                            const hiddenKey = prefix + ((0, isNumber_8.isNumber)(key) ? key.toString() : key);
+                            var hiddenKey = prefix + ((0, isNumber_js_8.isNumber)(key) ? key.toString() : key);
                             Reflect.defineProperty(realTarget, hiddenKey, {
                                 value: makeReactive(description.value, onSet, parent, propName),
                                 writable: true,
@@ -8087,13 +8375,13 @@
                         onSet(target, key, parent);
                         return true;
                     },
-                    deleteProperty(target, key) {
-                        const realTarget = target;
+                    deleteProperty: function (target, key) {
+                        var realTarget = target;
                         if (key.indexOf('__bbn_') === 0) {
                             Reflect.deleteProperty(realTarget, key);
                         }
                         else {
-                            const hiddenKey = prefix + ((0, isNumber_8.isNumber)(key) ? key.toString() : key);
+                            var hiddenKey = prefix + ((0, isNumber_js_8.isNumber)(key) ? key.toString() : key);
                             Reflect.deleteProperty(realTarget, hiddenKey);
                             Reflect.deleteProperty(target, key);
                         }
@@ -8106,7 +8394,7 @@
         };
         exports.makeReactive = makeReactive;
     });
-    define("fn/object/map", ["require", "exports", "fn/type/isArray"], function (require, exports, isArray_14) {
+    define("fn/object/map", ["require", "exports", "fn/type/isArray"], function (require, exports, isArray_js_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.map = void 0;
@@ -8182,10 +8470,11 @@
          * @param    {Number}   level
          * @returns  {Array}
          */
-        const map = function (arr, fn, deepProp, level = 0) {
-            return arr.map((a, i) => {
+        var map = function (arr, fn, deepProp, level) {
+            if (level === void 0) { level = 0; }
+            return arr.map(function (a, i) {
                 a = fn(a, i, level);
-                if (deepProp && a[deepProp] && (0, isArray_14.isArray)(a[deepProp])) {
+                if (deepProp && a[deepProp] && (0, isArray_js_14.isArray)(a[deepProp])) {
                     a[deepProp] = map(a[deepProp], fn, deepProp, level + 1);
                 }
                 return a;
@@ -8193,7 +8482,7 @@
         };
         exports.map = map;
     });
-    define("fn/misc/money", ["require", "exports", "fn/type/isNumber"], function (require, exports, isNumber_9) {
+    define("fn/misc/money", ["require", "exports", "fn/type/isNumber"], function (require, exports, isNumber_js_9) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.money = void 0;
@@ -8218,7 +8507,7 @@
          * @param {String} thousands The character to use to separate thounsands.
          * @param {Number} precision The number of decimals places.
          */
-        const money = function (val, kilo, currency, novalue, decimal, thousands, precision) {
+        var money = function (val, kilo, currency, novalue, decimal, thousands, precision) {
             /*
             money(val, kilo){
               let decimal = ',',
@@ -8276,11 +8565,11 @@
                         ? bbn.env.money.novalue
                         : false;
             }
-            if (!(0, isNumber_9.isNumber)(precision)) {
+            if (!(0, isNumber_js_9.isNumber)(precision)) {
                 precision = kilo ? 3 : 0;
             }
             if ((val === 0) && (typeof precision === 'number') && (precision > 0)) {
-                let res = val.toFixed(precision).replace('.', decimal);
+                var res = val.toFixed(precision).replace('.', decimal);
                 if (currency) {
                     res += ' ' + (kilo ? 'K' + currency : currency);
                 }
@@ -8298,9 +8587,9 @@
                     currency = 'K' + currency;
                 }
             }
-            let v = val.toFixed(precision);
-            let decimalPosition = 0;
-            let decimalIdx = 10000;
+            var v = val.toFixed(precision);
+            var decimalPosition = 0;
+            var decimalIdx = 10000;
             if (v) {
                 decimalIdx = v.indexOf('.');
                 if (decimalIdx <= 0) {
@@ -8355,9 +8644,9 @@
          * @param    {Number} toIndex   The future index of the element
          * @returns  {Array}  The same array, with elements repositionned.
          */
-        const move = function (arr, fromIndex, toIndex) {
+        var move = function (arr, fromIndex, toIndex) {
             if (toIndex >= arr.length) {
-                let k = toIndex - arr.length;
+                var k = toIndex - arr.length;
                 while (k-- + 1) {
                     arr.push(undefined);
                 }
@@ -8367,7 +8656,7 @@
         };
         exports.move = move;
     });
-    define("fn/object/multiorder", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_1) {
+    define("fn/object/multiorder", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.multiorder = void 0;
@@ -8409,11 +8698,11 @@
          * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
          * @returns  {Array}        The same array (arr), ordered differently
          */
-        const multiorder = function (arr, orders) {
+        var multiorder = function (arr, orders) {
             if (!orders) {
                 return arr;
             }
-            let currentOrders;
+            var currentOrders;
             if (!Array.isArray(orders) && typeof orders === 'object') {
                 currentOrders = [];
                 for (var n in orders) {
@@ -8426,11 +8715,12 @@
             if (!Array.isArray(currentOrders)) {
                 throw new Error('The orders argument must be an array');
             }
-            let r = arr.slice();
-            return r.sort((a, b) => {
-                let res;
-                for (let order of currentOrders) {
-                    res = (0, _compareValues_1._compareValues)(a, b, order.field, order.dir);
+            var r = arr.slice();
+            return r.sort(function (a, b) {
+                var res;
+                for (var _i = 0, currentOrders_1 = currentOrders; _i < currentOrders_1.length; _i++) {
+                    var order = currentOrders_1[_i];
+                    res = (0, _compareValues_js_1._compareValues)(a, b, order.field, order.dir);
                     if (res !== 0) {
                         return res;
                     }
@@ -8440,7 +8730,7 @@
         };
         exports.multiorder = multiorder;
     });
-    define("fn/string/nl2br", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_5) {
+    define("fn/string/nl2br", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.nl2br = void 0;
@@ -8459,12 +8749,12 @@
          * @param    {String} st
          * @returns  {String}
          */
-        const nl2br = function (st, keepNl) {
-            return (0, replaceAll_5.replaceAll)("\n", "<br>" + (keepNl ? "\n" : ""), st);
+        var nl2br = function (st, keepNl) {
+            return (0, replaceAll_js_5.replaceAll)("\n", "<br>" + (keepNl ? "\n" : ""), st);
         };
         exports.nl2br = nl2br;
     });
-    define("fn/form/objectToFormData", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isObject", "fn/loop/iterate", "fn/type/isNull"], function (require, exports, isArray_15, each_21, isObject_16, iterate_9, isNull_3) {
+    define("fn/form/objectToFormData", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/type/isObject", "fn/loop/iterate", "fn/type/isNull"], function (require, exports, isArray_js_15, each_js_21, isObject_js_16, iterate_js_9, isNull_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.objectToFormData = void 0;
@@ -8478,27 +8768,30 @@
          * @param    {Array}             ignoreList
          * @returns
          */
-        const objectToFormData = function (obj, key = '', ignoreList = null) {
-            let formData = new FormData();
-            let appendFormData = (data, key = '') => {
-                if (!ignoreList || ((0, isArray_15.isArray)(ignoreList) && !ignoreList.includes(key))) {
+        var objectToFormData = function (obj, key, ignoreList) {
+            if (key === void 0) { key = ''; }
+            if (ignoreList === void 0) { ignoreList = null; }
+            var formData = new FormData();
+            var appendFormData = function (data, key) {
+                if (key === void 0) { key = ''; }
+                if (!ignoreList || ((0, isArray_js_15.isArray)(ignoreList) && !ignoreList.includes(key))) {
                     if (data instanceof File) {
                         formData.append(key, data);
                     }
-                    else if ((0, isArray_15.isArray)(data)) {
-                        (0, each_21.each)(data, (v, i) => {
+                    else if ((0, isArray_js_15.isArray)(data)) {
+                        (0, each_js_21.each)(data, function (v, i) {
                             appendFormData(v, key + '[' + i + ']');
                         });
                     }
-                    else if ((0, isObject_16.isObject)(data) && Object.keys(data).length) {
-                        (0, iterate_9.iterate)(data, (v, i) => {
+                    else if ((0, isObject_js_16.isObject)(data) && Object.keys(data).length) {
+                        (0, iterate_js_9.iterate)(data, function (v, i) {
                             if (i in data) {
                                 appendFormData(v, !key ? i : key + '[' + i + ']');
                             }
                         });
                     }
                     else {
-                        if (!(0, isNull_3.isNull)(data) && data !== undefined) {
+                        if (!(0, isNull_js_3.isNull)(data) && data !== undefined) {
                             formData.append(key, data);
                         }
                     }
@@ -8509,7 +8802,7 @@
         };
         exports.objectToFormData = objectToFormData;
     });
-    define("fn/object/order", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_2) {
+    define("fn/object/order", ["require", "exports", "fn/object/_compareValues"], function (require, exports, _compareValues_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.order = void 0;
@@ -8539,10 +8832,11 @@
          * @param    {String} [dir=asc] The direction of the order (desc or asc by default)
          * @returns  {Array}
          */
-        const order = function (arr, prop, dir = 'asc') {
+        var order = function (arr, prop, dir) {
+            if (dir === void 0) { dir = 'asc'; }
             if (arr) {
                 return arr.sort(function (a, b) {
-                    return (0, _compareValues_2._compareValues)(a, b, prop, dir);
+                    return (0, _compareValues_js_2._compareValues)(a, b, prop, dir);
                 });
             }
             return arr;
@@ -8561,12 +8855,12 @@
          * @memberof bbn.fn
          * @returns  {HTMLElement | undefined}
          */
-        const selector = function (ele) {
+        var selector = function (ele) {
             return typeof ele === "string" ? document.querySelector(ele) : ele;
         };
         exports.selector = selector;
     });
-    define("fn/style/outerHeight", ["require", "exports", "fn/html/selector"], function (require, exports, selector_1) {
+    define("fn/style/outerHeight", ["require", "exports", "fn/html/selector"], function (require, exports, selector_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.outerHeight = void 0;
@@ -8579,17 +8873,17 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const outerHeight = function (ele) {
-            ele = (0, selector_1.selector)(ele);
+        var outerHeight = function (ele) {
+            ele = (0, selector_js_1.selector)(ele);
             if (ele && "offsetHeight" in ele) {
-                let styles = window.getComputedStyle(ele);
-                let margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
+                var styles = window.getComputedStyle(ele);
+                var margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
                 return Math.ceil(ele.offsetHeight + margin);
             }
         };
         exports.outerHeight = outerHeight;
     });
-    define("fn/style/outerWidth", ["require", "exports", "fn/html/selector"], function (require, exports, selector_2) {
+    define("fn/style/outerWidth", ["require", "exports", "fn/html/selector"], function (require, exports, selector_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.outerWidth = void 0;
@@ -8601,10 +8895,10 @@
          * @memberof bbn.fn
          * @returns  {*}
          */
-        const outerWidth = function (ele) {
-            ele = (0, selector_2.selector)(ele);
-            let styles = window.getComputedStyle(ele);
-            let margin = parseFloat(styles["marginLeft"]) + parseFloat(styles["marginRight"]);
+        var outerWidth = function (ele) {
+            ele = (0, selector_js_2.selector)(ele);
+            var styles = window.getComputedStyle(ele);
+            var margin = parseFloat(styles["marginLeft"]) + parseFloat(styles["marginRight"]);
             return Math.ceil(ele.offsetWidth + margin);
         };
         exports.outerWidth = outerWidth;
@@ -8634,7 +8928,7 @@
          * @param    {Number|String} cent
          * @returns  {Number}
          */
-        const percent = function (percent, cent) {
+        var percent = function (percent, cent) {
             return (cent / 100) * percent;
         };
         exports.percent = percent;
@@ -8643,14 +8937,14 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.pickValue = void 0;
-        const pickValue = function (arr) {
+        var pickValue = function (arr) {
             if (Array.isArray(arr) && arr.length) {
                 return arr[Math.floor(Math.random() * arr.length)];
             }
         };
         exports.pickValue = pickValue;
     });
-    define("fn/object/setProperty", ["require", "exports", "fn/loop/each"], function (require, exports, each_22) {
+    define("fn/object/setProperty", ["require", "exports", "fn/loop/each"], function (require, exports, each_js_22) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.setProperty = void 0;
@@ -8682,29 +8976,29 @@
          * @param    {String} prop
          * @returns  {*}      The property's value or undefined
          */
-        const setProperty = function (obj, prop, value, force) {
+        var setProperty = function (obj, prop, value, force) {
             if (typeof obj === 'object' && typeof prop === 'string') {
-                let o = obj;
-                const bits = prop.split('.');
-                (0, each_22.each)(bits, (v, i) => {
-                    if (!o) {
+                var o_1 = obj;
+                var bits_1 = prop.split('.');
+                (0, each_js_22.each)(bits_1, function (v, i) {
+                    if (!o_1) {
                         if (!force) {
                             throw new Error(bbn._('The object is invalid'));
                         }
-                        o = {};
+                        o_1 = {};
                     }
-                    if (bits.length - 1 === i) {
-                        o[v] = value;
+                    if (bits_1.length - 1 === i) {
+                        o_1[v] = value;
                     }
                     else {
-                        o = o[v];
+                        o_1 = o_1[v];
                     }
                 });
             }
         };
         exports.setProperty = setProperty;
     });
-    define("fn/ajax/postOut", ["require", "exports", "fn/object/createObject", "fn/form/addInputs", "fn/object/setProperty"], function (require, exports, createObject_3, addInputs_1, setProperty_1) {
+    define("fn/ajax/postOut", ["require", "exports", "fn/object/createObject", "fn/form/addInputs", "fn/object/setProperty"], function (require, exports, createObject_js_3, addInputs_js_1, setProperty_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.postOut = void 0;
@@ -8727,15 +9021,17 @@
          *
          * @returns  {void}
          */
-        const postOut = function (url, data, success = null, target = "") {
-            let form = document.body.querySelector("form#bbn-form_out");
+        var postOut = function (url, data, success, target) {
+            if (success === void 0) { success = null; }
+            if (target === void 0) { target = ""; }
+            var form = document.body.querySelector("form#bbn-form_out");
             if (!form) {
                 form = document.createElement("form");
                 form.classList.add("bbn-no");
                 form.setAttribute("id", "bbn-form_out");
                 form.setAttribute("method", "post");
                 form.setAttribute("enctype", "multipart/form-data-encoded");
-                (0, setProperty_1.setProperty)(form, "style.display", "none");
+                (0, setProperty_js_1.setProperty)(form, "style.display", "none");
                 document.body.appendChild(form);
             }
             if (form instanceof HTMLFormElement) {
@@ -8745,11 +9041,11 @@
                 if (!data) {
                     data = {};
                 }
-                data = (0, createObject_3.createObject)(data);
+                data = (0, createObject_js_3.createObject)(data);
                 if (!data.bbn) {
                     data.bbn = "public";
                 }
-                (0, addInputs_1.addInputs)(form, data);
+                (0, addInputs_js_1.addInputs)(form, data);
                 form.submit();
                 if (success) {
                     success();
@@ -8770,7 +9066,7 @@
          * @param    String format
          * @returns  {*}
          */
-        const printf = function (format) {
+        var printf = function (format) {
             var args = Array.prototype.slice.call(arguments, 1);
             return format.replace(/{(\d+)}/g, function (match, number) {
                 return typeof args[number] != "undefined" ? args[number] : match;
@@ -8778,7 +9074,7 @@
         };
         exports.printf = printf;
     });
-    define("fn/string/quotes2html", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_6) {
+    define("fn/string/quotes2html", ["require", "exports", "fn/string/replaceAll"], function (require, exports, replaceAll_js_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.quotes2html = void 0;
@@ -8810,12 +9106,12 @@
          * @param    {String} st
          * @returns  {String}
          */
-        const quotes2html = function (st, type) {
+        var quotes2html = function (st, type) {
             if (!type || type.toLowerCase().indexOf("s") === 0) {
-                st = (0, replaceAll_6.replaceAll)("'", "&#39;", st);
+                st = (0, replaceAll_js_6.replaceAll)("'", "&#39;", st);
             }
             if (!type || type.toLowerCase().indexOf("d") === 0) {
-                st = (0, replaceAll_6.replaceAll)('"', "&quot;", st);
+                st = (0, replaceAll_js_6.replaceAll)('"', "&quot;", st);
             }
             return st;
         };
@@ -8845,12 +9141,12 @@
          * @param    {Number} max
          * @returns  {Number}
          */
-        const randomInt = function (min, max) {
+        var randomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
         exports.randomInt = randomInt;
     });
-    define("fn/string/randomString", ["require", "exports", "fn/misc/randomInt"], function (require, exports, randomInt_1) {
+    define("fn/string/randomString", ["require", "exports", "fn/misc/randomInt"], function (require, exports, randomInt_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.randomString = void 0;
@@ -8880,10 +9176,10 @@
          * @param    {String} chars
          * @returns  {String}
          */
-        const randomString = function (min, max, types) {
-            let length;
-            let type;
-            let chars = {
+        var randomString = function (min, max, types) {
+            var length;
+            var type;
+            var chars = {
                 n: "0123456789",
                 l: "abcdefghijklmnopqrstuvwxyz",
                 u: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -8892,7 +9188,7 @@
                 types = "nlu";
             }
             if (!min) {
-                length = (0, randomInt_1.randomInt)(8, 14);
+                length = (0, randomInt_js_1.randomInt)(8, 14);
             }
             if (typeof max === "string") {
                 types = "n";
@@ -8904,13 +9200,13 @@
                 }
             }
             else if (typeof max === "number" && min < max) {
-                length = (0, randomInt_1.randomInt)(min, max);
+                length = (0, randomInt_js_1.randomInt)(min, max);
             }
             else if (min) {
                 length = min;
             }
-            let result = "";
-            for (let i = 0; i < length; i++) {
+            var result = "";
+            for (var i = 0; i < length; i++) {
                 // Not a number for the first char
                 if (i === 0) {
                     if (types !== "n") {
@@ -8926,7 +9222,7 @@
         };
         exports.randomString = randomString;
     });
-    define("fn/object/removeEmpty", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/numProperties"], function (require, exports, isArray_16, isObject_17, numProperties_7) {
+    define("fn/object/removeEmpty", ["require", "exports", "fn/type/isArray", "fn/type/isObject", "fn/object/numProperties"], function (require, exports, isArray_js_16, isObject_js_17, numProperties_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeEmpty = void 0;
@@ -8946,19 +9242,19 @@
          * @param    {Array} arr
          * @returns  {Array}
          */
-        const removeEmpty = function (arr) {
+        var removeEmpty = function (arr) {
             var tmp = [];
-            if ((0, isArray_16.isArray)(arr)) {
-                for (let i = 0; i < arr.length; i++) {
-                    let ok = false;
+            if ((0, isArray_js_16.isArray)(arr)) {
+                for (var i = 0; i < arr.length; i++) {
+                    var ok = false;
                     if (arr[i]) {
-                        if ((0, isArray_16.isArray)(arr[i])) {
+                        if ((0, isArray_js_16.isArray)(arr[i])) {
                             if (arr[i].length) {
                                 ok = true;
                             }
                         }
-                        else if ((0, isObject_17.isObject)(arr[i])) {
-                            if ((0, numProperties_7.numProperties)(arr[i])) {
+                        else if ((0, isObject_js_17.isObject)(arr[i])) {
+                            if ((0, numProperties_js_7.numProperties)(arr[i])) {
                                 ok = true;
                             }
                         }
@@ -8984,12 +9280,12 @@
          * @param {String} str
          * @returns
          */
-        const removeExtraSpaces = function (str) {
+        var removeExtraSpaces = function (str) {
             return str.replace(/\s+/g, " ").trim();
         };
         exports.removeExtraSpaces = removeExtraSpaces;
     });
-    define("fn/string/removeTrailingChars", ["require", "exports", "fn/string/substr"], function (require, exports, substr_13) {
+    define("fn/string/removeTrailingChars", ["require", "exports", "fn/string/substr"], function (require, exports, substr_js_13) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.removeTrailingChars = void 0;
@@ -9002,16 +9298,16 @@
          * @param    {String} char
          * @returns  {*}
          */
-        const removeTrailingChars = function (st, char) {
+        var removeTrailingChars = function (st, char) {
             if (!char) {
                 char = " ";
             }
             if (char.length) {
-                while ((0, substr_13.substr)(st, -char.length) === char) {
-                    st = (0, substr_13.substr)(st, 0, st.length - char.length);
+                while ((0, substr_js_13.substr)(st, -char.length) === char) {
+                    st = (0, substr_js_13.substr)(st, 0, st.length - char.length);
                 }
-                while ((0, substr_13.substr)(st, 0, char.length) === char) {
-                    st = (0, substr_13.substr)(st, char.length);
+                while ((0, substr_js_13.substr)(st, 0, char.length) === char) {
+                    st = (0, substr_js_13.substr)(st, char.length);
                 }
             }
             return st;
@@ -9036,7 +9332,7 @@
          * @memberof bbn.fn
          * @returns  {String}
          */
-        const repeat = function (st, num) {
+        var repeat = function (st, num) {
             return st.repeat(num);
         };
         exports.repeat = repeat;
@@ -9045,8 +9341,8 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.replaceSelection = void 0;
-        const replaceSelection = function (html, selectInserted) {
-            let sel, range, fragment;
+        var replaceSelection = function (html, selectInserted) {
+            var sel, range, fragment;
             sel = window.getSelection();
             // Test that the Selection object contains at least one Range
             if (sel.getRangeAt && sel.rangeCount) {
@@ -9061,16 +9357,16 @@
                 }
                 else {
                     // In IE 9 we need to use innerHTML of a temporary element
-                    const div = document.createElement('div');
-                    let child;
+                    var div = document.createElement('div');
+                    var child = void 0;
                     div.innerHTML = html;
                     fragment = document.createDocumentFragment();
                     while ((child = div.firstChild)) {
                         fragment.appendChild(child);
                     }
                 }
-                const firstInsertedNode = fragment.firstChild;
-                const lastInsertedNode = fragment.lastChild;
+                var firstInsertedNode = fragment.firstChild;
+                var lastInsertedNode = fragment.lastChild;
                 range.insertNode(fragment);
                 sel.removeAllRanges();
                 if (selectInserted) {
@@ -9110,7 +9406,7 @@
          * @param    {String} rgb
          * @returns  {String}
          */
-        const rgb2hex = function (rgb) {
+        var rgb2hex = function (rgb) {
             rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
             return rgb && rgb.length === 4
                 ? "#" +
@@ -9121,7 +9417,7 @@
         };
         exports.rgb2hex = rgb2hex;
     });
-    define("fn/loop/riterate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_10) {
+    define("fn/loop/riterate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_js_10) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.riterate = void 0;
@@ -9144,8 +9440,9 @@
          * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
          * @returns  {Object}
          */
-        const riterate = function (obj, fn, noPrivate = false) {
-            return (0, iterate_10.iterate)(obj, fn, noPrivate, true);
+        var riterate = function (obj, fn, noPrivate) {
+            if (noPrivate === void 0) { noPrivate = false; }
+            return (0, iterate_js_10.iterate)(obj, fn, noPrivate, true);
         };
         exports.riterate = riterate;
     });
@@ -9162,16 +9459,17 @@
          * @param    {Number} decimals
          * @returns  {}
          */
-        const roundDecimal = function (value, decimals) {
+        var roundDecimal = function (value, decimals) {
             return Math.round(Math.pow(Math.pow(value, decimals), -decimals));
         };
         exports.roundDecimal = roundDecimal;
     });
-    define("fn/string/trim", ["require", "exports", "fn/string/substr"], function (require, exports, substr_14) {
+    define("fn/string/trim", ["require", "exports", "fn/string/substr"], function (require, exports, substr_js_14) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.trim = void 0;
-        const trim = function (str, hair = ' ') {
+        var trim = function (str, hair) {
+            if (hair === void 0) { hair = ' '; }
             if (hair === ' ') {
                 return str.trim();
             }
@@ -9182,16 +9480,16 @@
                 return '';
             }
             while (str.indexOf(hair) === 0) {
-                str = (0, substr_14.substr)(str, hair.length);
+                str = (0, substr_js_14.substr)(str, hair.length);
             }
             while (str.lastIndexOf(hair) === str.length - hair.length) {
-                str = (0, substr_14.substr)(str, 0, str.length - hair.length);
+                str = (0, substr_js_14.substr)(str, 0, str.length - hair.length);
             }
             return str;
         };
         exports.trim = trim;
     });
-    define("fn/string/sanitize", ["require", "exports", "fn/string/removeAccents", "fn/string/trim"], function (require, exports, removeAccents_3, trim_1) {
+    define("fn/string/sanitize", ["require", "exports", "fn/string/removeAccents", "fn/string/trim"], function (require, exports, removeAccents_js_3, trim_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.sanitize = void 0;
@@ -9210,21 +9508,22 @@
          * @memberof bbn.fn
          * @returns  {String} str
          */
-        const sanitize = function (str, separator = "_") {
-            let escaped = ["[", "]", "{", "}", "(", ")", "-", "+", "*", "/"];
-            let exp = "[";
-            for (let i = 0; i < separator.length; i++) {
+        var sanitize = function (str, separator) {
+            if (separator === void 0) { separator = "_"; }
+            var escaped = ["[", "]", "{", "}", "(", ")", "-", "+", "*", "/"];
+            var exp = "[";
+            for (var i = 0; i < separator.length; i++) {
                 if (escaped.includes(separator[i])) {
                     exp += "\\";
                 }
                 exp += separator[i];
             }
             exp += "]+";
-            let re = new RegExp(exp, "g");
-            let res = (0, removeAccents_3.removeAccents)(str)
+            var re = new RegExp(exp, "g");
+            var res = (0, removeAccents_js_3.removeAccents)(str)
                 .replace(/[^a-z0-9]/gi, separator)
                 .replace(re, separator);
-            return (0, trim_1.trim)(res, separator);
+            return (0, trim_js_1.trim)(res, separator);
         };
         exports.sanitize = sanitize;
     });
@@ -9251,15 +9550,16 @@
          *
          * @returns  {Boolean} True if focused
          */
-        const selectElementText = function (ele, win = null) {
+        var selectElementText = function (ele, win) {
+            if (win === void 0) { win = null; }
             win = win || window;
             if (ele instanceof HTMLInputElement) {
                 ele.select();
                 return;
             }
-            let doc = win.document;
-            let sel;
-            let range;
+            var doc = win.document;
+            var sel;
+            var range;
             if (win.getSelection && doc.createRange) {
                 sel = win.getSelection();
                 range = doc.createRange();
@@ -9293,14 +9593,14 @@
          * @param    {Number} days  The days before expiration of the cookie.
          * @returns
          */
-        const setCookie = function (name, value, days) {
-            let expires = '';
+        var setCookie = function (name, value, days) {
+            var expires = '';
             if (days) {
-                let date = new Date();
+                var date = new Date();
                 date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
                 expires = '; expires=' + date.toUTCString();
             }
-            let st = escape(JSON.stringify({ value: value }));
+            var st = escape(JSON.stringify({ value: value }));
             document.cookie = name + '=' + st + expires + '; path=/';
         };
         exports.setCookie = setCookie;
@@ -9315,7 +9615,7 @@
          * @param {String*} value
          * @returns
          */
-        const setCssVar = function (varname, value) {
+        var setCssVar = function (varname, value) {
             if (varname.indexOf("--") !== 0) {
                 varname = "--" + varname;
             }
@@ -9337,7 +9637,9 @@
          * @param {Boolean} writable
          * @param {Boolean} configurable
          */
-        const setProp = function (obj, prop, value, writable = true, configurable = true) {
+        var setProp = function (obj, prop, value, writable, configurable) {
+            if (writable === void 0) { writable = true; }
+            if (configurable === void 0) { configurable = true; }
             Object.defineProperty(obj, prop, {
                 value: value,
                 writable: writable,
@@ -9346,7 +9648,7 @@
         };
         exports.setProp = setProp;
     });
-    define("fn/string/shorten", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_25, substr_15) {
+    define("fn/string/shorten", ["require", "exports", "fn/type/isString", "fn/string/substr"], function (require, exports, isString_js_25, substr_js_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shorten = void 0;
@@ -9375,23 +9677,23 @@
          * @param    {Number} len
          * @returns  {String}
          */
-        const shorten = function (st, len, adj) {
+        var shorten = function (st, len, adj) {
             if (typeof st.toLowerCase() === "string") {
                 if (!len) {
                     len = bbn.var.shortenLen;
                 }
-                if (adj === undefined || !(0, isString_25.isString)(adj)) {
+                if (adj === undefined || !(0, isString_js_25.isString)(adj)) {
                     adj = "...";
                 }
                 if (st.length > len) {
-                    st = (0, substr_15.substr)(st, 0, len) + adj;
+                    st = (0, substr_js_15.substr)(st, 0, len) + adj;
                 }
             }
             return st;
         };
         exports.shorten = shorten;
     });
-    define("fn/object/shortenObj", ["require", "exports", "fn/object/clone", "fn/loop/each", "fn/type/isString", "fn/string/shorten"], function (require, exports, clone_1, each_23, isString_26, shorten_1) {
+    define("fn/object/shortenObj", ["require", "exports", "fn/object/clone", "fn/loop/each", "fn/type/isString", "fn/string/shorten"], function (require, exports, clone_js_1, each_js_23, isString_js_26, shorten_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shortenObj = void 0;
@@ -9418,11 +9720,12 @@
          * @param    {Number}         [max=100]
          * @returns  {(Object|Array)} The same object, modified
          */
-        const shortenObj = function (obj, max = 100) {
-            let o = (0, clone_1.clone)(obj);
-            (0, each_23.each)(o, (a, n) => {
-                if ((0, isString_26.isString)(a) && a.length > max) {
-                    o[n] = (0, shorten_1.shorten)(a, max);
+        var shortenObj = function (obj, max) {
+            if (max === void 0) { max = 100; }
+            var o = (0, clone_js_1.clone)(obj);
+            (0, each_js_23.each)(o, function (a, n) {
+                if ((0, isString_js_26.isString)(a) && a.length > max) {
+                    o[n] = (0, shorten_js_1.shorten)(a, max);
                 }
                 else if (a && typeof a === "object") {
                     o[n] = shortenObj(a);
@@ -9436,25 +9739,26 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.shuffle = void 0;
-        const shuffle = function (array) {
-            let currentIndex = array.length, randomIndex;
+        var shuffle = function (array) {
+            var _a;
+            var currentIndex = array.length, randomIndex;
             // While there remain elements to shuffle.
             while (currentIndex != 0) {
                 // Pick a remaining element.
                 randomIndex = Math.floor(Math.random() * currentIndex);
                 currentIndex--;
                 // And swap it with the current element.
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+                _a = [array[randomIndex], array[currentIndex]], array[currentIndex] = _a[0], array[randomIndex] = _a[1];
             }
             return array;
         };
         exports.shuffle = shuffle;
     });
-    define("fn/datetime/chrono", ["require", "exports", "fn/loop/each"], function (require, exports, each_24) {
+    define("fn/datetime/chrono", ["require", "exports", "fn/loop/each"], function (require, exports, each_js_24) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.stopChrono = exports.startChrono = void 0;
-        const _private = [];
+        var _private = [];
         /**
          * Starts a timer and gives it a name.
          * @method   startChrono
@@ -9465,11 +9769,11 @@
          * @memberof bbn.fn
          * @returns
          */
-        const startChrono = function (name) {
-            let now = new Date().getTime();
-            let h1 = 3600 * 1000;
+        var startChrono = function (name) {
+            var now = new Date().getTime();
+            var h1 = 3600 * 1000;
             if (_private.length) {
-                (0, each_24.each)(_private, (t, n) => {
+                (0, each_js_24.each)(_private, function (t, n) {
                     if (now - t > h1) {
                         delete _private[n];
                     }
@@ -9491,10 +9795,10 @@
          * @param {String} name
          * @returns  {Number}
          */
-        const stopChrono = function (name) {
+        var stopChrono = function (name) {
             if (_private[name]) {
-                let now = new Date().getTime();
-                let diff = now - _private[name];
+                var now = new Date().getTime();
+                var diff = now - _private[name];
                 return diff;
             }
         };
@@ -9504,7 +9808,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.string2ArrayBuffer = void 0;
-        const string2ArrayBuffer = function (str) {
+        var string2ArrayBuffer = function (str) {
             var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
             var bufView = new Uint16Array(buf);
             for (var i = 0, strLen = str.length; i < strLen; i++) {
@@ -9514,7 +9818,7 @@
         };
         exports.string2ArrayBuffer = string2ArrayBuffer;
     });
-    define("fn/object/sum", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_25, filter_5) {
+    define("fn/object/sum", ["require", "exports", "fn/loop/each", "fn/object/filter"], function (require, exports, each_js_25, filter_js_5) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.sum = void 0;
@@ -9562,10 +9866,10 @@
          * @param    {String}                   operator   The operator to use for comparison with the value as used in bbn.fn.compare
          * @returns  {Number}                   The sum
          */
-        const sum = function (arr, numberProp, prop, val, operator) {
-            let r = 0;
-            (0, each_25.each)((0, filter_5.filter)(arr, prop, val, operator), (a) => {
-                let tmp = typeof numberProp === 'function' ? numberProp(a) : a[numberProp];
+        var sum = function (arr, numberProp, prop, val, operator) {
+            var r = 0;
+            (0, each_js_25.each)((0, filter_js_5.filter)(arr, prop, val, operator), function (a) {
+                var tmp = typeof numberProp === 'function' ? numberProp(a) : a[numberProp];
                 if (tmp) {
                     r += parseFloat(tmp) || 0;
                 }
@@ -9591,13 +9895,14 @@
          * @param    {Number} seconds
          * @returns  {Boolean}
          */
-        const timestamp = function (seconds = false) {
-            let r = new Date().getTime();
+        var timestamp = function (seconds) {
+            if (seconds === void 0) { seconds = false; }
+            var r = new Date().getTime();
             return seconds ? Math.round(r / 1000) : r;
         };
         exports.timestamp = timestamp;
     });
-    define("fn/convert/toCSV", ["require", "exports", "fn/loop/each", "fn/type/isArray", "fn/string/replaceAll"], function (require, exports, each_26, isArray_17, replaceAll_7) {
+    define("fn/convert/toCSV", ["require", "exports", "fn/loop/each", "fn/type/isArray", "fn/string/replaceAll"], function (require, exports, each_js_26, isArray_js_17, replaceAll_js_7) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.toCSV = void 0;
@@ -9625,21 +9930,24 @@
          * @param    {String} [valEsc="] The string escaper character
          * @returns  {String} A CSV string
          */
-        const toCSV = function (arr, valSep = ",", rowSep = "", valEsc = '"') {
+        var toCSV = function (arr, valSep, rowSep, valEsc) {
+            if (valSep === void 0) { valSep = ","; }
+            if (rowSep === void 0) { rowSep = ""; }
+            if (valEsc === void 0) { valEsc = '"'; }
             if (!valSep) {
                 valSep = ",";
             }
             if (!valEsc) {
                 valEsc = '"';
             }
-            let csvContent = "";
-            let total = arr.length;
-            (0, each_26.each)(arr, (a, i) => {
-                let num = (0, isArray_17.isArray)(a) ? a.length : Object.values(a).length;
-                let j = 0;
-                (0, each_26.each)(a, (b) => {
+            var csvContent = "";
+            var total = arr.length;
+            (0, each_js_26.each)(arr, function (a, i) {
+                var num = (0, isArray_js_17.isArray)(a) ? a.length : Object.values(a).length;
+                var j = 0;
+                (0, each_js_26.each)(a, function (b) {
                     if (typeof b === "string") {
-                        csvContent += valEsc + (0, replaceAll_7.replaceAll)(valEsc, "\\" + valEsc, b) + valEsc;
+                        csvContent += valEsc + (0, replaceAll_js_7.replaceAll)(valEsc, "\\" + valEsc, b) + valEsc;
                     }
                     else if (b === 0) {
                         csvContent += "0";
@@ -9663,11 +9971,11 @@
         };
         exports.toCSV = toCSV;
     });
-    define("fn/browser/toggleFullScreen", ["require", "exports", "fn/style/resize"], function (require, exports, resize_2) {
+    define("fn/browser/toggleFullScreen", ["require", "exports", "fn/style/resize"], function (require, exports, resize_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.toggleFullScreen = void 0;
-        const toggleFullScreen = function () {
+        var toggleFullScreen = function () {
             if ('mozRequestFullScreen' in window.document.documentElement) {
                 if (window.document['mozFullScreen']) {
                     window.document['mozCancelFullScreen']();
@@ -9701,24 +10009,24 @@
                 }
             }
             setTimeout(function () {
-                (0, resize_2.resize)();
+                (0, resize_js_2.resize)();
             }, 0);
         };
         exports.toggleFullScreen = toggleFullScreen;
     });
-    define("fn/misc/translate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_11) {
+    define("fn/misc/translate", ["require", "exports", "fn/loop/iterate"], function (require, exports, iterate_js_11) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.translate = void 0;
-        const translate = function (o, namespace) {
-            let lng = namespace ? bbn.lng[namespace.indexOf('_') === 0 ? namespace : '_' + namespace] : bbn.lng;
-            (0, iterate_11.iterate)(o, (v, k) => {
+        var translate = function (o, namespace) {
+            var lng = namespace ? bbn.lng[namespace.indexOf('_') === 0 ? namespace : '_' + namespace] : bbn.lng;
+            (0, iterate_js_11.iterate)(o, function (v, k) {
                 lng[k] = v;
             });
         };
         exports.translate = translate;
     });
-    define("fn/string/uniqString", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/string/md5"], function (require, exports, isArray_18, each_27, md5_3) {
+    define("fn/string/uniqString", ["require", "exports", "fn/type/isArray", "fn/loop/each", "fn/string/md5"], function (require, exports, isArray_js_18, each_js_27, md5_js_3) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.uniqString = void 0;
@@ -9738,24 +10046,28 @@
          * @memberof bbn.fn
          * @returns  {String} The unique string in md5 format
          */
-        const uniqString = function (...args) {
+        var uniqString = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             var st = "";
-            for (var i = 0; i < args.length; i++) {
+            var _loop_2 = function () {
                 if (!args[i]) {
                     st += "__bbn_empty__";
                 }
                 else if (typeof args[i] === "object") {
-                    if ((0, isArray_18.isArray)(args[i])) {
+                    if ((0, isArray_js_18.isArray)(args[i])) {
                         st += JSON.stringify(args[i]);
                     }
                     else {
                         // An object with the same properties, even in different order, should produce the same answer
-                        let tmp = {};
-                        let ks = Object.keys(args[i]).sort();
-                        (0, each_27.each)(ks, (k) => {
-                            tmp[k] = args[i][k];
+                        var tmp_2 = {};
+                        var ks = Object.keys(args[i]).sort();
+                        (0, each_js_27.each)(ks, function (k) {
+                            tmp_2[k] = args[i][k];
                         });
-                        st += JSON.stringify(tmp);
+                        st += JSON.stringify(tmp_2);
                     }
                 }
                 else if (typeof args[i] !== "string") {
@@ -9764,12 +10076,15 @@
                 else {
                     st += args[i];
                 }
+            };
+            for (var i = 0; i < args.length; i++) {
+                _loop_2();
             }
-            return (0, md5_3.md5)(st);
+            return (0, md5_js_3.md5)(st);
         };
         exports.uniqString = uniqString;
     });
-    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_1, log_21) {
+    define("fn/ajax/upload", ["require", "exports", "fn/form/objectToFormData", "fn/browser/log"], function (require, exports, objectToFormData_js_1, log_js_21) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.upload = void 0;
@@ -9789,15 +10104,18 @@
          *
          * @returns  {Promise}
          */
-        const upload = function (url, file, success = null, failure = null, progress = null) {
-            let fn = () => {
-                return axios.post(url || bbn.env.path, (0, objectToFormData_1.objectToFormData)(file), {
+        var upload = function (url, file, success, failure, progress) {
+            if (success === void 0) { success = null; }
+            if (failure === void 0) { failure = null; }
+            if (progress === void 0) { progress = null; }
+            var fn = function () {
+                return axios.post(url || bbn.env.path, (0, objectToFormData_js_1.objectToFormData)(file), {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
-                    onUploadProgress(progressEvent) {
+                    onUploadProgress: function (progressEvent) {
                         if (progress) {
-                            let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                            var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                             progress(percentCompleted, progressEvent.loaded, progressEvent.total);
                         }
                     },
@@ -9808,15 +10126,15 @@
             }
             else {
                 return fn()
-                    .then((res) => {
+                    .then(function (res) {
                     if (success) {
-                        (0, log_21.log)('SUCCESS', res);
+                        (0, log_js_21.log)('SUCCESS', res);
                         success(res);
                     }
                 })
-                    .catch((err) => {
+                    .catch(function (err) {
                     if (failure) {
-                        (0, log_21.log)('ERROR', err);
+                        (0, log_js_21.log)('ERROR', err);
                         failure(err);
                     }
                 });
@@ -9824,259 +10142,259 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_1, defaultAjaxErrorFunction_1, defaultAlertFunction_1, defaultConfirmFunction_1, defaultEndLoadingFunction_1, defaultErrorFunction_1, defaultHistoryFunction_1, defaultLinkFunction_1, defaultPostLinkFunction_1, defaultPreLinkFunction_1, defaultResizeFunction_1, defaultStartLoadingFunction_1, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_8, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_2, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_js_2, _compareValues_js_3, _deleteLoader_js_2, abort_js_1, abortURL_js_1, addColors_js_2, addInputs_js_2, addStyle_js_1, adjustHeight_js_1, adjustSize_js_3, adjustWidth_js_1, ajax_js_4, analyzeFunction_js_1, animateCss_js_1, arrayBuffer2String_js_1, arrayFromProp_js_1, autoExtend_js_1, baseName_js_3, br2nl_js_1, calendar_js_2, callback_js_3, camelize_js_1, camelToCss_js_1, canvasToImage_js_1, center_js_1, checkProps_js_1, checkPropsDetails_js_3, checkPropsOrDie_js_1, checkType_js_6, circularReplacer_js_2, clone_js_2, colorToHex_js_1, compare_js_2, compareConditions_js_3, copy_js_1, correctCase_js_2, count_js_1, crc32_js_1, createObject_js_4, cssExists_js_1, date_js_8, dateSQL_js_1, daysInMonth_js_1, deepPath_js_1, defaultAjaxAbortFunction_js_1, defaultAjaxErrorFunction_js_1, defaultAlertFunction_js_1, defaultConfirmFunction_js_1, defaultEndLoadingFunction_js_1, defaultErrorFunction_js_1, defaultHistoryFunction_js_1, defaultLinkFunction_js_1, defaultPostLinkFunction_js_1, defaultPreLinkFunction_js_1, defaultResizeFunction_js_1, defaultStartLoadingFunction_js_1, deleteProp_js_1, diffObj_js_1, dirName_js_2, download_js_1, downloadContent_js_2, each_js_28, eraseCookie_js_1, error_js_4, escapeDquotes_js_1, escapeRegExp_js_3, escapeSquotes_js_1, escapeTicks_js_1, escapeUrl_js_1, extend_js_8, extendOut_js_1, fdate_js_2, fdatetime_js_2, fieldValue_js_2, fileExt_js_2, filter_js_6, filterToConditions_js_3, findAll_js_1, fori_js_1, forir_js_1, format_js_1, formatBytes_js_1, formatDate_js_1, formatSize_js_1, formdata_js_2, fromXml_js_1, ftime_js_1, getAllTags_js_1, getAncestors_js_2, getAttributes_js_1, getBrowserName_js_1, getBrowserVersion_js_1, getCookie_js_1, getCssVar_js_2, getDay_js_1, getDeviceType_js_4, getEventData_js_1, getField_js_1, getFieldValues_js_1, getHtml_js_1, getHTMLOfSelection_js_2, getLoader_js_4, getPath_js_1, getProp_js_1, getProperty_js_4, getRequestId_js_2, getRow_js_3, getScrollBarSize_js_1, getText_js_1, getTimeoff_js_1, happy_js_1, hash_js_2, hex2rgb_js_1, history_js_1, html2text_js_2, imageToCanvas_js_2, imgToBase64_js_1, info_js_1, init_js_1, isActiveInterface_js_1, isArray_js_19, isBlob_js_2, isBoolean_js_1, isCanvas_js_2, isColor_js_1, isComment_js_1, isCp_js_3, isDate_js_8, isDesktopDevice_js_1, isDimension_js_1, isDom_js_5, isEmail_js_1, isEmpty_js_2, isEvent_js_1, isFocused_js_1, isFunction_js_11, isHostname_js_1, isInside_js_1, isInt_js_2, isIP_js_2, isIterable_js_5, isMobile_js_2, isMobileDevice_js_2, isNull_js_4, isNumber_js_10, isObject_js_18, isPercent_js_1, isPrimitive_js_1, isPromise_js_1, isPropSize_js_1, isSame_js_3, isSQLDate_js_1, isString_js_27, isSymbol_js_2, isTabletDevice_js_3, isURL_js_1, isValidDimension_js_2, isValidName_js_1, isValue_js_2, isVue_js_1, iterate_js_12, lightenDarkenHex_js_1, link_js_2, log_js_22, makeReactive_js_1, map_js_1, md5_js_4, money_js_1, move_js_1, multiorder_js_1, nl2br_js_1, numProperties_js_8, objectToFormData_js_2, order_js_1, outerHeight_js_1, outerWidth_js_1, percent_js_1, pickValue_js_1, post_js_2, postOut_js_1, printf_js_1, quotes2html_js_1, randomInt_js_2, randomString_js_1, removeAccents_js_4, removeEmpty_js_1, removeExtraSpaces_js_1, removeHtmlComments_js_2, removePrivateProp_js_2, removeTrailingChars_js_1, repeat_js_1, replaceAll_js_8, replaceSelection_js_1, resize_js_3, rgb2hex_js_1, riterate_js_1, roundDecimal_js_1, sanitize_js_1, search_js_6, selectElementText_js_1, selector_js_3, setCookie_js_1, setCssVar_js_1, setNavigationVars_js_2, setProp_js_1, setProperty_js_2, shorten_js_2, shortenObj_js_1, shuffle_js_1, simpleHash_js_2, simpleHash1_js_2, simpleHash2_js_2, chrono_js_1, string2ArrayBuffer_js_1, submit_js_2, substr_js_16, sum_js_1, timestamp_js_1, toCSV_js_1, toggleFullScreen_js_1, translate_js_1, treatAjaxArguments_js_3, trim_js_2, uniqString_js_1, unique_js_2, upload_js_1, warning_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
-        const fn = {
-            _addLoader: _addLoader_2._addLoader,
-            _compareValues: _compareValues_3._compareValues,
-            _deleteLoader: _deleteLoader_2._deleteLoader,
-            abort: abort_1.abort,
-            abortURL: abortURL_1.abortURL,
-            addColors: addColors_2.addColors,
-            addInputs: addInputs_2.addInputs,
-            addStyle: addStyle_1.addStyle,
-            adjustHeight: adjustHeight_1.adjustHeight,
-            adjustSize: adjustSize_3.adjustSize,
-            adjustWidth: adjustWidth_1.adjustWidth,
-            ajax: ajax_4.ajax,
-            analyzeFunction: analyzeFunction_1.analyzeFunction,
-            animateCss: animateCss_1.animateCss,
-            arrayBuffer2String: arrayBuffer2String_1.arrayBuffer2String,
-            arrayFromProp: arrayFromProp_1.arrayFromProp,
-            autoExtend: autoExtend_1.autoExtend,
-            baseName: baseName_3.baseName,
-            br2nl: br2nl_1.br2nl,
-            calendar: calendar_1.calendar,
-            callback: callback_3.callback,
-            camelize: camelize_1.camelize,
-            camelToCss: camelToCss_1.camelToCss,
-            canvasToImage: canvasToImage_1.canvasToImage,
-            center: center_1.center,
-            checkProps: checkProps_1.checkProps,
-            checkPropsDetails: checkPropsDetails_3.checkPropsDetails,
-            checkPropsOrDie: checkPropsOrDie_1.checkPropsOrDie,
-            checkType: checkType_6.checkType,
-            circularReplacer: circularReplacer_2.circularReplacer,
-            clone: clone_2.clone,
-            colorToHex: colorToHex_1.colorToHex,
-            compare: compare_2.compare,
-            compareConditions: compareConditions_3.compareConditions,
-            copy: copy_1.copy,
-            correctCase: correctCase_2.correctCase,
-            count: count_1.count,
-            crc32: crc32_1.crc32,
-            createObject: createObject_4.createObject,
-            cssExists: cssExists_1.cssExists,
-            date: date_8.date,
-            dateSQL: dateSQL_1.dateSQL,
-            daysInMonth: daysInMonth_1.daysInMonth,
-            deepPath: deepPath_1.deepPath,
-            defaultAjaxAbortFunction: defaultAjaxAbortFunction_1.defaultAjaxAbortFunction,
-            defaultAjaxErrorFunction: defaultAjaxErrorFunction_1.defaultAjaxErrorFunction,
-            defaultAlertFunction: defaultAlertFunction_1.defaultAlertFunction,
-            defaultConfirmFunction: defaultConfirmFunction_1.defaultConfirmFunction,
-            defaultEndLoadingFunction: defaultEndLoadingFunction_1.defaultEndLoadingFunction,
-            defaultErrorFunction: defaultErrorFunction_1.defaultErrorFunction,
-            defaultHistoryFunction: defaultHistoryFunction_1.defaultHistoryFunction,
-            defaultLinkFunction: defaultLinkFunction_1.defaultLinkFunction,
-            defaultPostLinkFunction: defaultPostLinkFunction_1.defaultPostLinkFunction,
-            defaultPreLinkFunction: defaultPreLinkFunction_1.defaultPreLinkFunction,
-            defaultResizeFunction: defaultResizeFunction_1.defaultResizeFunction,
-            defaultStartLoadingFunction: defaultStartLoadingFunction_1.defaultStartLoadingFunction,
-            deleteProp: deleteProp_1.deleteProp,
-            diffObj: diffObj_1.diffObj,
-            dirName: dirName_2.dirName,
-            download: download_1.download,
-            downloadContent: downloadContent_2.downloadContent,
-            each: each_28.each,
-            eraseCookie: eraseCookie_1.eraseCookie,
-            error: error_4.error,
-            escapeDquotes: escapeDquotes_1.escapeDquotes,
-            escapeRegExp: escapeRegExp_3.escapeRegExp,
-            escapeSquotes: escapeSquotes_1.escapeSquotes,
-            escapeTicks: escapeTicks_1.escapeTicks,
-            escapeUrl: escapeUrl_1.escapeUrl,
-            extend: extend_8.extend,
-            extendOut: extendOut_1.extendOut,
-            fdate: fdate_2.fdate,
-            fdatetime: fdatetime_2.fdatetime,
-            fieldValue: fieldValue_2.fieldValue,
-            fileExt: fileExt_2.fileExt,
-            filter: filter_6.filter,
-            filterToConditions: filterToConditions_3.filterToConditions,
-            findAll: findAll_1.findAll,
-            fori: fori_1.fori,
-            forir: forir_1.forir,
-            format: format_1.format,
-            formatBytes: formatBytes_1.formatBytes,
-            formatDate: formatDate_1.formatDate,
-            formatSize: formatSize_1.formatSize,
-            formdata: formdata_2.formdata,
-            fromXml: fromXml_1.fromXml,
-            ftime: ftime_1.ftime,
-            getAllTags: getAllTags_1.getAllTags,
-            getAncestors: getAncestors_2.getAncestors,
-            getAttributes: getAttributes_1.getAttributes,
-            getBrowserName: getBrowserName_1.getBrowserName,
-            getBrowserVersion: getBrowserVersion_1.getBrowserVersion,
-            getCookie: getCookie_1.getCookie,
-            getCssVar: getCssVar_2.getCssVar,
-            getDay: getDay_1.getDay,
-            getDeviceType: getDeviceType_4.getDeviceType,
-            getEventData: getEventData_1.getEventData,
-            getField: getField_1.getField,
-            getFieldValues: getFieldValues_1.getFieldValues,
-            getHtml: getHtml_1.getHtml,
-            getHTMLOfSelection: getHTMLOfSelection_2.getHTMLOfSelection,
-            getLoader: getLoader_4.getLoader,
-            getPath: getPath_1.getPath,
-            getProp: getProp_1.getProp,
-            getProperty: getProperty_4.getProperty,
-            getRequestId: getRequestId_2.getRequestId,
-            getRow: getRow_3.getRow,
-            getScrollBarSize: getScrollBarSize_1.getScrollBarSize,
-            getText: getText_1.getText,
-            getTimeoff: getTimeoff_1.getTimeoff,
-            happy: happy_1.happy,
-            hash: hash_2.hash,
-            hex2rgb: hex2rgb_1.hex2rgb,
-            history: history_1.history,
-            html2text: html2text_2.html2text,
-            imageToCanvas: imageToCanvas_2.imageToCanvas,
-            imgToBase64: imgToBase64_1.imgToBase64,
-            info: info_1.info,
-            init: init_1.init,
-            isActiveInterface: isActiveInterface_1.isActiveInterface,
-            isArray: isArray_19.isArray,
-            isBlob: isBlob_2.isBlob,
-            isBoolean: isBoolean_1.isBoolean,
-            isCanvas: isCanvas_2.isCanvas,
-            isColor: isColor_1.isColor,
-            isComment: isComment_1.isComment,
-            isCp: isCp_3.isCp,
-            isDate: isDate_8.isDate,
-            isDesktopDevice: isDesktopDevice_1.isDesktopDevice,
-            isDimension: isDimension_1.isDimension,
-            isDom: isDom_5.isDom,
-            isEmail: isEmail_1.isEmail,
-            isEmpty: isEmpty_2.isEmpty,
-            isEvent: isEvent_1.isEvent,
-            isFocused: isFocused_1.isFocused,
-            isFunction: isFunction_11.isFunction,
-            isHostname: isHostname_1.isHostname,
-            isInside: isInside_1.isInside,
-            isInt: isInt_2.isInt,
-            isIP: isIP_2.isIP,
-            isIterable: isIterable_5.isIterable,
-            isMobile: isMobile_2.isMobile,
-            isMobileDevice: isMobileDevice_2.isMobileDevice,
-            isNull: isNull_4.isNull,
-            isNumber: isNumber_10.isNumber,
-            isObject: isObject_18.isObject,
-            isPercent: isPercent_1.isPercent,
-            isPrimitive: isPrimitive_1.isPrimitive,
-            isPromise: isPromise_1.isPromise,
-            isPropSize: isPropSize_1.isPropSize,
-            isSame: isSame_3.isSame,
-            isSQLDate: isSQLDate_1.isSQLDate,
-            isString: isString_27.isString,
-            isSymbol: isSymbol_2.isSymbol,
-            isTabletDevice: isTabletDevice_3.isTabletDevice,
-            isURL: isURL_1.isURL,
-            isValidDimension: isValidDimension_2.isValidDimension,
-            isValidName: isValidName_1.isValidName,
-            isValue: isValue_2.isValue,
-            isVue: isVue_1.isVue,
-            iterate: iterate_12.iterate,
-            lightenDarkenHex: lightenDarkenHex_1.lightenDarkenHex,
-            link: link_2.link,
-            log: log_22.log,
-            makeReactive: makeReactive_1.makeReactive,
-            map: map_1.map,
-            md5: md5_4.md5,
-            money: money_1.money,
-            move: move_1.move,
-            multiorder: multiorder_1.multiorder,
-            nl2br: nl2br_1.nl2br,
-            numProperties: numProperties_8.numProperties,
-            objectToFormData: objectToFormData_2.objectToFormData,
-            order: order_1.order,
-            outerHeight: outerHeight_1.outerHeight,
-            outerWidth: outerWidth_1.outerWidth,
-            percent: percent_1.percent,
-            pickValue: pickValue_1.pickValue,
-            post: post_2.post,
-            postOut: postOut_1.postOut,
-            printf: printf_1.printf,
-            quotes2html: quotes2html_1.quotes2html,
-            randomInt: randomInt_2.randomInt,
-            randomString: randomString_1.randomString,
-            removeAccents: removeAccents_4.removeAccents,
-            removeEmpty: removeEmpty_1.removeEmpty,
-            removeExtraSpaces: removeExtraSpaces_1.removeExtraSpaces,
-            removeHtmlComments: removeHtmlComments_2.removeHtmlComments,
-            removePrivateProp: removePrivateProp_2.removePrivateProp,
-            removeTrailingChars: removeTrailingChars_1.removeTrailingChars,
-            repeat: repeat_1.repeat,
-            replaceAll: replaceAll_8.replaceAll,
-            replaceSelection: replaceSelection_1.replaceSelection,
-            resize: resize_3.resize,
-            rgb2hex: rgb2hex_1.rgb2hex,
-            riterate: riterate_1.riterate,
-            roundDecimal: roundDecimal_1.roundDecimal,
-            sanitize: sanitize_1.sanitize,
-            search: search_6.search,
-            selectElementText: selectElementText_1.selectElementText,
-            selector: selector_3.selector,
-            setCookie: setCookie_1.setCookie,
-            setCssVar: setCssVar_1.setCssVar,
-            setNavigationVars: setNavigationVars_2.setNavigationVars,
-            setProp: setProp_1.setProp,
-            setProperty: setProperty_2.setProperty,
-            shorten: shorten_2.shorten,
-            shortenObj: shortenObj_1.shortenObj,
-            shuffle: shuffle_1.shuffle,
-            simpleHash: simpleHash_2.simpleHash,
-            simpleHash1: simpleHash1_2.simpleHash1,
-            simpleHash2: simpleHash2_2.simpleHash2,
-            startChrono: chrono_1.startChrono,
-            stopChrono: chrono_1.stopChrono,
-            string2ArrayBuffer: string2ArrayBuffer_1.string2ArrayBuffer,
-            submit: submit_2.submit,
-            substr: substr_16.substr,
-            sum: sum_1.sum,
-            timestamp: timestamp_1.timestamp,
-            toCSV: toCSV_1.toCSV,
-            toggleFullScreen: toggleFullScreen_1.toggleFullScreen,
-            translate: translate_1.translate,
-            treatAjaxArguments: treatAjaxArguments_3.treatAjaxArguments,
-            trim: trim_2.trim,
-            uniqString: uniqString_1.uniqString,
-            unique: unique_2.unique,
-            upload: upload_1.upload,
-            warning: warning_2.warning,
+        var fn = {
+            _addLoader: _addLoader_js_2._addLoader,
+            _compareValues: _compareValues_js_3._compareValues,
+            _deleteLoader: _deleteLoader_js_2._deleteLoader,
+            abort: abort_js_1.abort,
+            abortURL: abortURL_js_1.abortURL,
+            addColors: addColors_js_2.addColors,
+            addInputs: addInputs_js_2.addInputs,
+            addStyle: addStyle_js_1.addStyle,
+            adjustHeight: adjustHeight_js_1.adjustHeight,
+            adjustSize: adjustSize_js_3.adjustSize,
+            adjustWidth: adjustWidth_js_1.adjustWidth,
+            ajax: ajax_js_4.ajax,
+            analyzeFunction: analyzeFunction_js_1.analyzeFunction,
+            animateCss: animateCss_js_1.animateCss,
+            arrayBuffer2String: arrayBuffer2String_js_1.arrayBuffer2String,
+            arrayFromProp: arrayFromProp_js_1.arrayFromProp,
+            autoExtend: autoExtend_js_1.autoExtend,
+            baseName: baseName_js_3.baseName,
+            br2nl: br2nl_js_1.br2nl,
+            calendar: calendar_js_2.calendar,
+            callback: callback_js_3.callback,
+            camelize: camelize_js_1.camelize,
+            camelToCss: camelToCss_js_1.camelToCss,
+            canvasToImage: canvasToImage_js_1.canvasToImage,
+            center: center_js_1.center,
+            checkProps: checkProps_js_1.checkProps,
+            checkPropsDetails: checkPropsDetails_js_3.checkPropsDetails,
+            checkPropsOrDie: checkPropsOrDie_js_1.checkPropsOrDie,
+            checkType: checkType_js_6.checkType,
+            circularReplacer: circularReplacer_js_2.circularReplacer,
+            clone: clone_js_2.clone,
+            colorToHex: colorToHex_js_1.colorToHex,
+            compare: compare_js_2.compare,
+            compareConditions: compareConditions_js_3.compareConditions,
+            copy: copy_js_1.copy,
+            correctCase: correctCase_js_2.correctCase,
+            count: count_js_1.count,
+            crc32: crc32_js_1.crc32,
+            createObject: createObject_js_4.createObject,
+            cssExists: cssExists_js_1.cssExists,
+            date: date_js_8.date,
+            dateSQL: dateSQL_js_1.dateSQL,
+            daysInMonth: daysInMonth_js_1.daysInMonth,
+            deepPath: deepPath_js_1.deepPath,
+            defaultAjaxAbortFunction: defaultAjaxAbortFunction_js_1.defaultAjaxAbortFunction,
+            defaultAjaxErrorFunction: defaultAjaxErrorFunction_js_1.defaultAjaxErrorFunction,
+            defaultAlertFunction: defaultAlertFunction_js_1.defaultAlertFunction,
+            defaultConfirmFunction: defaultConfirmFunction_js_1.defaultConfirmFunction,
+            defaultEndLoadingFunction: defaultEndLoadingFunction_js_1.defaultEndLoadingFunction,
+            defaultErrorFunction: defaultErrorFunction_js_1.defaultErrorFunction,
+            defaultHistoryFunction: defaultHistoryFunction_js_1.defaultHistoryFunction,
+            defaultLinkFunction: defaultLinkFunction_js_1.defaultLinkFunction,
+            defaultPostLinkFunction: defaultPostLinkFunction_js_1.defaultPostLinkFunction,
+            defaultPreLinkFunction: defaultPreLinkFunction_js_1.defaultPreLinkFunction,
+            defaultResizeFunction: defaultResizeFunction_js_1.defaultResizeFunction,
+            defaultStartLoadingFunction: defaultStartLoadingFunction_js_1.defaultStartLoadingFunction,
+            deleteProp: deleteProp_js_1.deleteProp,
+            diffObj: diffObj_js_1.diffObj,
+            dirName: dirName_js_2.dirName,
+            download: download_js_1.download,
+            downloadContent: downloadContent_js_2.downloadContent,
+            each: each_js_28.each,
+            eraseCookie: eraseCookie_js_1.eraseCookie,
+            error: error_js_4.error,
+            escapeDquotes: escapeDquotes_js_1.escapeDquotes,
+            escapeRegExp: escapeRegExp_js_3.escapeRegExp,
+            escapeSquotes: escapeSquotes_js_1.escapeSquotes,
+            escapeTicks: escapeTicks_js_1.escapeTicks,
+            escapeUrl: escapeUrl_js_1.escapeUrl,
+            extend: extend_js_8.extend,
+            extendOut: extendOut_js_1.extendOut,
+            fdate: fdate_js_2.fdate,
+            fdatetime: fdatetime_js_2.fdatetime,
+            fieldValue: fieldValue_js_2.fieldValue,
+            fileExt: fileExt_js_2.fileExt,
+            filter: filter_js_6.filter,
+            filterToConditions: filterToConditions_js_3.filterToConditions,
+            findAll: findAll_js_1.findAll,
+            fori: fori_js_1.fori,
+            forir: forir_js_1.forir,
+            format: format_js_1.format,
+            formatBytes: formatBytes_js_1.formatBytes,
+            formatDate: formatDate_js_1.formatDate,
+            formatSize: formatSize_js_1.formatSize,
+            formdata: formdata_js_2.formdata,
+            fromXml: fromXml_js_1.fromXml,
+            ftime: ftime_js_1.ftime,
+            getAllTags: getAllTags_js_1.getAllTags,
+            getAncestors: getAncestors_js_2.getAncestors,
+            getAttributes: getAttributes_js_1.getAttributes,
+            getBrowserName: getBrowserName_js_1.getBrowserName,
+            getBrowserVersion: getBrowserVersion_js_1.getBrowserVersion,
+            getCookie: getCookie_js_1.getCookie,
+            getCssVar: getCssVar_js_2.getCssVar,
+            getDay: getDay_js_1.getDay,
+            getDeviceType: getDeviceType_js_4.getDeviceType,
+            getEventData: getEventData_js_1.getEventData,
+            getField: getField_js_1.getField,
+            getFieldValues: getFieldValues_js_1.getFieldValues,
+            getHtml: getHtml_js_1.getHtml,
+            getHTMLOfSelection: getHTMLOfSelection_js_2.getHTMLOfSelection,
+            getLoader: getLoader_js_4.getLoader,
+            getPath: getPath_js_1.getPath,
+            getProp: getProp_js_1.getProp,
+            getProperty: getProperty_js_4.getProperty,
+            getRequestId: getRequestId_js_2.getRequestId,
+            getRow: getRow_js_3.getRow,
+            getScrollBarSize: getScrollBarSize_js_1.getScrollBarSize,
+            getText: getText_js_1.getText,
+            getTimeoff: getTimeoff_js_1.getTimeoff,
+            happy: happy_js_1.happy,
+            hash: hash_js_2.hash,
+            hex2rgb: hex2rgb_js_1.hex2rgb,
+            history: history_js_1.history,
+            html2text: html2text_js_2.html2text,
+            imageToCanvas: imageToCanvas_js_2.imageToCanvas,
+            imgToBase64: imgToBase64_js_1.imgToBase64,
+            info: info_js_1.info,
+            init: init_js_1.init,
+            isActiveInterface: isActiveInterface_js_1.isActiveInterface,
+            isArray: isArray_js_19.isArray,
+            isBlob: isBlob_js_2.isBlob,
+            isBoolean: isBoolean_js_1.isBoolean,
+            isCanvas: isCanvas_js_2.isCanvas,
+            isColor: isColor_js_1.isColor,
+            isComment: isComment_js_1.isComment,
+            isCp: isCp_js_3.isCp,
+            isDate: isDate_js_8.isDate,
+            isDesktopDevice: isDesktopDevice_js_1.isDesktopDevice,
+            isDimension: isDimension_js_1.isDimension,
+            isDom: isDom_js_5.isDom,
+            isEmail: isEmail_js_1.isEmail,
+            isEmpty: isEmpty_js_2.isEmpty,
+            isEvent: isEvent_js_1.isEvent,
+            isFocused: isFocused_js_1.isFocused,
+            isFunction: isFunction_js_11.isFunction,
+            isHostname: isHostname_js_1.isHostname,
+            isInside: isInside_js_1.isInside,
+            isInt: isInt_js_2.isInt,
+            isIP: isIP_js_2.isIP,
+            isIterable: isIterable_js_5.isIterable,
+            isMobile: isMobile_js_2.isMobile,
+            isMobileDevice: isMobileDevice_js_2.isMobileDevice,
+            isNull: isNull_js_4.isNull,
+            isNumber: isNumber_js_10.isNumber,
+            isObject: isObject_js_18.isObject,
+            isPercent: isPercent_js_1.isPercent,
+            isPrimitive: isPrimitive_js_1.isPrimitive,
+            isPromise: isPromise_js_1.isPromise,
+            isPropSize: isPropSize_js_1.isPropSize,
+            isSame: isSame_js_3.isSame,
+            isSQLDate: isSQLDate_js_1.isSQLDate,
+            isString: isString_js_27.isString,
+            isSymbol: isSymbol_js_2.isSymbol,
+            isTabletDevice: isTabletDevice_js_3.isTabletDevice,
+            isURL: isURL_js_1.isURL,
+            isValidDimension: isValidDimension_js_2.isValidDimension,
+            isValidName: isValidName_js_1.isValidName,
+            isValue: isValue_js_2.isValue,
+            isVue: isVue_js_1.isVue,
+            iterate: iterate_js_12.iterate,
+            lightenDarkenHex: lightenDarkenHex_js_1.lightenDarkenHex,
+            link: link_js_2.link,
+            log: log_js_22.log,
+            makeReactive: makeReactive_js_1.makeReactive,
+            map: map_js_1.map,
+            md5: md5_js_4.md5,
+            money: money_js_1.money,
+            move: move_js_1.move,
+            multiorder: multiorder_js_1.multiorder,
+            nl2br: nl2br_js_1.nl2br,
+            numProperties: numProperties_js_8.numProperties,
+            objectToFormData: objectToFormData_js_2.objectToFormData,
+            order: order_js_1.order,
+            outerHeight: outerHeight_js_1.outerHeight,
+            outerWidth: outerWidth_js_1.outerWidth,
+            percent: percent_js_1.percent,
+            pickValue: pickValue_js_1.pickValue,
+            post: post_js_2.post,
+            postOut: postOut_js_1.postOut,
+            printf: printf_js_1.printf,
+            quotes2html: quotes2html_js_1.quotes2html,
+            randomInt: randomInt_js_2.randomInt,
+            randomString: randomString_js_1.randomString,
+            removeAccents: removeAccents_js_4.removeAccents,
+            removeEmpty: removeEmpty_js_1.removeEmpty,
+            removeExtraSpaces: removeExtraSpaces_js_1.removeExtraSpaces,
+            removeHtmlComments: removeHtmlComments_js_2.removeHtmlComments,
+            removePrivateProp: removePrivateProp_js_2.removePrivateProp,
+            removeTrailingChars: removeTrailingChars_js_1.removeTrailingChars,
+            repeat: repeat_js_1.repeat,
+            replaceAll: replaceAll_js_8.replaceAll,
+            replaceSelection: replaceSelection_js_1.replaceSelection,
+            resize: resize_js_3.resize,
+            rgb2hex: rgb2hex_js_1.rgb2hex,
+            riterate: riterate_js_1.riterate,
+            roundDecimal: roundDecimal_js_1.roundDecimal,
+            sanitize: sanitize_js_1.sanitize,
+            search: search_js_6.search,
+            selectElementText: selectElementText_js_1.selectElementText,
+            selector: selector_js_3.selector,
+            setCookie: setCookie_js_1.setCookie,
+            setCssVar: setCssVar_js_1.setCssVar,
+            setNavigationVars: setNavigationVars_js_2.setNavigationVars,
+            setProp: setProp_js_1.setProp,
+            setProperty: setProperty_js_2.setProperty,
+            shorten: shorten_js_2.shorten,
+            shortenObj: shortenObj_js_1.shortenObj,
+            shuffle: shuffle_js_1.shuffle,
+            simpleHash: simpleHash_js_2.simpleHash,
+            simpleHash1: simpleHash1_js_2.simpleHash1,
+            simpleHash2: simpleHash2_js_2.simpleHash2,
+            startChrono: chrono_js_1.startChrono,
+            stopChrono: chrono_js_1.stopChrono,
+            string2ArrayBuffer: string2ArrayBuffer_js_1.string2ArrayBuffer,
+            submit: submit_js_2.submit,
+            substr: substr_js_16.substr,
+            sum: sum_js_1.sum,
+            timestamp: timestamp_js_1.timestamp,
+            toCSV: toCSV_js_1.toCSV,
+            toggleFullScreen: toggleFullScreen_js_1.toggleFullScreen,
+            translate: translate_js_1.translate,
+            treatAjaxArguments: treatAjaxArguments_js_3.treatAjaxArguments,
+            trim: trim_js_2.trim,
+            uniqString: uniqString_js_1.uniqString,
+            unique: unique_js_2.unique,
+            upload: upload_js_1.upload,
+            warning: warning_js_2.warning,
         };
         exports.fn = fn;
     });
-    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "db", "fn"], function (require, exports, _2, _3, lng_1, vars_1, env_1, db_1, fn_1) {
+    define("index", ["require", "exports", "_", "$", "lng", "vars", "env", "db", "fn"], function (require, exports, __js_2, __js_3, lng_js_1, vars_js_1, env_js_1, db_js_1, fn_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.bbn = void 0;
-        const bbn = {
+        var bbn = {
             version: "1.0.1",
             opt: {
                 _cat: {}
             },
             app: {},
-            _: _2._,
-            $: _3.$,
-            lng: lng_1.lng,
-            var: vars_1.vars,
-            env: env_1.env,
-            db: db_1.db,
-            fn: fn_1.fn
+            _: __js_2._,
+            $: __js_3.$,
+            lng: lng_js_1.lng,
+            var: vars_js_1.vars,
+            env: env_js_1.env,
+            db: db_js_1.db,
+            fn: fn_js_1.fn
         };
         exports.bbn = bbn;
         window.bbn = bbn;
@@ -10092,8 +10410,8 @@
             return defines[name + '/index'];
         }
         else {
-            const dependencies = ['exports'];
-            const factory = (exports) => {
+            var dependencies = ['exports'];
+            var factory = function (exports) {
                 try {
                     Object.defineProperty(exports, "__cjsModule", { value: true });
                     Object.defineProperty(exports, "default", { value: require(name) });
@@ -10102,10 +10420,10 @@
                     throw Error(['module "', name, '" not found.'].join(''));
                 }
             };
-            return { dependencies, factory };
+            return { dependencies: dependencies, factory: factory };
         }
     }
-    const instances = {};
+    var instances = {};
     function resolve(name) {
         if (instances[name]) {
             return instances[name];
@@ -10113,14 +10431,14 @@
         if (name === 'exports') {
             return {};
         }
-        const define = get_define(name);
+        var define = get_define(name);
         if (typeof define.factory !== 'function') {
             return define.factory;
         }
         instances[name] = {};
-        const dependencies = define.dependencies.map(name => resolve(name));
-        define.factory(...dependencies);
-        const exports = dependencies[define.dependencies.indexOf('exports')];
+        var dependencies = define.dependencies.map(function (name) { return resolve(name); });
+        define.factory.apply(define, dependencies);
+        var exports = dependencies[define.dependencies.indexOf('exports')];
         instances[name] = (exports['__cjsModule']) ? exports.default : exports;
         return instances[name];
     }

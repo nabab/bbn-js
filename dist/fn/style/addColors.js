@@ -1,5 +1,5 @@
-import { numProperties } from '../object/numProperties';
-import { iterate } from '../loop/iterate';
+import { numProperties } from '../object/numProperties.js';
+import { iterate } from '../loop/iterate.js';
 /**
  * Adds the given color to the object bbn.var.colors in order to be able to use
  * the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
@@ -15,26 +15,26 @@ import { iterate } from '../loop/iterate';
  * @param    {Object} colors
  * @returns
  */
-const addColors = function (colors) {
+var addColors = function (colors) {
     if (numProperties(colors)) {
         if (!bbn.var.colors) {
             bbn.var.colors = {};
         }
-        let element = document.createElement("style");
+        var element = document.createElement("style");
         document.head.appendChild(element);
-        let sheet = element.sheet;
+        var sheet_1 = element.sheet;
         // Append style element to head
-        let i = 0;
-        iterate(colors, (v, n) => {
+        var i_1 = 0;
+        iterate(colors, function (v, n) {
             bbn.var.colors[n] = v;
-            sheet.insertRule(".bbn-" +
+            sheet_1.insertRule(".bbn-" +
                 n +
                 ", .bbn-color-text-" +
                 n +
                 " {color: " +
                 v +
-                " !important;}", i);
-            sheet.insertRule("svg.bbn-" +
+                " !important;}", i_1);
+            sheet_1.insertRule("svg.bbn-" +
                 n +
                 ", .bbn-" +
                 n +
@@ -44,8 +44,8 @@ const addColors = function (colors) {
                 n +
                 " svg {fill: " +
                 v +
-                ";}", i);
-            sheet.insertRule(".bbn-bg-" +
+                ";}", i_1);
+            sheet_1.insertRule(".bbn-bg-" +
                 n +
                 ", .bbn-color-bg-" +
                 n +
@@ -53,15 +53,15 @@ const addColors = function (colors) {
                 n +
                 " {background-color: " +
                 v +
-                " !important;}", i);
-            sheet.insertRule(".bbn-border-" +
+                " !important;}", i_1);
+            sheet_1.insertRule(".bbn-border-" +
                 n +
                 ", .bbn-color-border-" +
                 n +
                 " {border-color: " +
                 v +
-                " !important;}", i);
-            sheet.insertRule(".bbn-color-" +
+                " !important;}", i_1);
+            sheet_1.insertRule(".bbn-color-" +
                 n +
                 " {border-color: " +
                 v +
@@ -69,7 +69,7 @@ const addColors = function (colors) {
                 v +
                 "; color: " +
                 v +
-                ";}", i);
+                ";}", i_1);
         });
     }
 };

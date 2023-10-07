@@ -1,6 +1,7 @@
-import { checkPropsDetails } from './checkPropsDetails';
-const checkPropsOrDie = function (obj, props, checkEmpty = false) {
-    let res = checkPropsDetails(obj, props, checkEmpty);
+import { checkPropsDetails } from './checkPropsDetails.js';
+var checkPropsOrDie = function (obj, props, checkEmpty) {
+    if (checkEmpty === void 0) { checkEmpty = false; }
+    var res = checkPropsDetails(obj, props, checkEmpty);
     if (res.error) {
         throw new Error(res.error);
     }

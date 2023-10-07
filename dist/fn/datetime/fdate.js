@@ -1,7 +1,7 @@
-import { fdatetime } from './fdatetime';
-import { date } from './date';
-import { isDate } from '../type/isDate';
-import { isString } from '../type/isString';
+import { fdatetime } from './fdatetime.js';
+import { date } from './date.js';
+import { isDate } from '../type/isDate.js';
+import { isString } from '../type/isString.js';
 /**
  * @method   fdate
  * @todo     Add method description for fdate
@@ -11,12 +11,13 @@ import { isString } from '../type/isString';
  * @param    {String}      wrong_result
  * @returns
  */
-const fdate = function (d, wrong_result = false) {
+var fdate = function (d, wrong_result) {
+    if (wrong_result === void 0) { wrong_result = false; }
     // Retro compatibility
     if (wrong_result === true) {
         return fdatetime(d);
     }
-    let r = date(d);
+    var r = date(d);
     if (!isDate(r)) {
         return wrong_result && isString(wrong_result) ? wrong_result : '';
     }

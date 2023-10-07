@@ -1,4 +1,4 @@
-import { isNull } from './isNull' ;
+import { isNull } from './isNull.js'  ;
 
 /**
  * Returns true if the given argument is not null or type object or array.

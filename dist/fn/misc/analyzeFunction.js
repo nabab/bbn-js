@@ -1,4 +1,4 @@
-import { md5 } from '../string/md5';
+import { md5 } from '../string/md5.js';
 /**
  * Analyzes the given function and extracts details about its structure.
  *
@@ -7,28 +7,28 @@ import { md5 } from '../string/md5';
  * @returns {Object} An object containing details about the function.
  * @throws {Error} When unexpected syntax is encountered while parsing.
  */
-const analyzeFunction = function (fn) {
-    const all = typeof fn === 'function' ? fn.toString() : fn;
+var analyzeFunction = function (fn) {
+    var all = typeof fn === 'function' ? fn.toString() : fn;
     if (typeof all !== 'string') {
         throw Error('Unexpected type ' + typeof fn + ' while parsing function');
     }
-    let exp = '';
-    let isArrow = false;
-    let isAsync = false;
-    let hasFunction = false;
-    let name = null;
-    let parOpened = 0;
-    let parClosed = 0;
-    let args = [];
-    let currentArg = {};
-    let body;
-    let currentQuote = '';
-    let escapable = ['"', "'", '`'];
-    let isEscaped = false;
-    let settingDefault = false;
-    let isComment = false;
-    let isCommentLine = false;
-    for (let i = 0; i < all.length; i++) {
+    var exp = '';
+    var isArrow = false;
+    var isAsync = false;
+    var hasFunction = false;
+    var name = null;
+    var parOpened = 0;
+    var parClosed = 0;
+    var args = [];
+    var currentArg = {};
+    var body;
+    var currentQuote = '';
+    var escapable = ['"', "'", '`'];
+    var isEscaped = false;
+    var settingDefault = false;
+    var isComment = false;
+    var isCommentLine = false;
+    for (var i = 0; i < all.length; i++) {
         // Handle string literals
         if (!isComment && all[i] === '/' && all[i + 1] === '*') {
             isComment = true;
@@ -151,17 +151,17 @@ const analyzeFunction = function (fn) {
             throw Error('Unexpected end of function while parsing function');
         }
     }
-    const argString = args.map((arg) => arg.name + (arg.default ? ' = ' + arg.default : '')).join(', ');
-    const hash = md5(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
+    var argString = args.map(function (arg) { return arg.name + (arg.default ? ' = ' + arg.default : ''); }).join(', ');
+    var hash = md5(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
     return {
-        body,
-        args,
-        argString,
-        isArrow,
-        hasFunction,
-        name,
-        isAsync,
-        hash,
+        body: body,
+        args: args,
+        argString: argString,
+        isArrow: isArrow,
+        hasFunction: hasFunction,
+        name: name,
+        isAsync: isAsync,
+        hash: hash,
     };
 };
 export { analyzeFunction };

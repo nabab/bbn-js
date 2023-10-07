@@ -1,5 +1,5 @@
-import { each } from '../loop/each';
-import { filter } from '../object/filter';
+import { each } from '../loop/each.js';
+import { filter } from '../object/filter.js';
 /**
  * Aborts (client side) all the XHR using the given URL if it still exists.
  *
@@ -20,8 +20,8 @@ import { filter } from '../object/filter';
  *
  * @returns  {undefined}
  */
-const abortURL = function (url) {
-    each(filter(bbn.env.loaders, { url: url }), (a) => {
+var abortURL = function (url) {
+    each(filter(bbn.env.loaders, { url: url }), function (a) {
         if (a && a.source) {
             a.source.cancel('Operation canceled by the user.');
         }

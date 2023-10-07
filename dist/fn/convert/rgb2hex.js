@@ -16,7 +16,7 @@
  * @param    {String} rgb
  * @returns  {String}
  */
-const rgb2hex = function (rgb) {
+var rgb2hex = function (rgb) {
     rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
     return rgb && rgb.length === 4
         ? "#" +

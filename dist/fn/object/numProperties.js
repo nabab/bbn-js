@@ -27,7 +27,7 @@
   * @param    {Object} obj The object to analyze
   * @returns  {Number} The number of properties
   */
-const numProperties = function (obj) {
+var numProperties = function (obj) {
     if (!obj || typeof obj !== 'object') {
         return 0;
     }

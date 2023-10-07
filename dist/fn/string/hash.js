@@ -1,19 +1,19 @@
-import { log } from '../browser/log';
-import { isDom } from '../type/isDom';
-import { isCp } from '../type/isCp';
-import { circularReplacer } from '../object/circularReplacer';
-import { simpleHash } from './simpleHash';
+import { log } from '../browser/log.js';
+import { isDom } from '../type/isDom.js';
+import { isCp } from '../type/isCp.js';
+import { circularReplacer } from '../object/circularReplacer.js';
+import { simpleHash } from './simpleHash.js';
 /**
  * Makes a hash out of anything
  * @param {Object|Array} obj
  * @returns {String}
  */
-const hash = function (obj) {
+var hash = function (obj) {
     //log(obj);
-    let st = "__bbn__";
-    for (let i in arguments) {
+    var st = "__bbn__";
+    for (var i in arguments) {
         if (arguments[i]) {
-            let value = arguments[i];
+            var value = arguments[i];
             if (isDom(value)) {
                 if (value.bbnId) {
                     st +=

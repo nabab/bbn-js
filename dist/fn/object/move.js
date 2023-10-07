@@ -30,9 +30,9 @@
  * @param    {Number} toIndex   The future index of the element
  * @returns  {Array}  The same array, with elements repositionned.
  */
-const move = function (arr, fromIndex, toIndex) {
+var move = function (arr, fromIndex, toIndex) {
     if (toIndex >= arr.length) {
-        let k = toIndex - arr.length;
+        var k = toIndex - arr.length;
         while (k-- + 1) {
             arr.push(undefined);
         }
