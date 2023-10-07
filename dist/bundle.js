@@ -4301,7 +4301,7 @@
         };
         exports.cssExists = cssExists;
     });
-    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date"], function (require, exports, date_js_4) {
+    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date", "../../../node_modules/dayjs/dayjs.min.js"], function (require, exports, date_js_4, dayjs_min_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dateSQL = void 0;
@@ -4326,7 +4326,7 @@
         const dateSQL = function (v, dayOnly) {
             let value = (0, date_js_4.date)(v);
             if (value) {
-                return dayjs(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
+                return (0, dayjs_min_js_1.dayjs)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
             }
         };
         exports.dateSQL = dateSQL;
