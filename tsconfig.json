@@ -5,10 +5,11 @@
       "es2019"
     ],
     "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "moduleResolution": "NodeNext",
     "target": "ES5",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowUmdGlobalAccess": true
   },
   "files": [
     "src/types/index.d.ts",

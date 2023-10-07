@@ -9,6 +9,7 @@
   ],
   "type": "module",
   "scripts": {
+    "build": "./node_modules/.bin/webpack --config webpack.config.js",
     "bbn": "./node_modules/.bin/tsc && ./node_modules/.bin/tsc-bundle tsconfig.json && git stage ./src/* && git stage ./*.ts && git stage ./*.json && git stage -f ./dist/* && git stage ./test/* && git commit -m \"Latest changes\" && git push && npm version patch && npm publish",
     "test": "IS_TESTING=true ./node_modules/.bin/mocha -r jsdom-global/register",
     "wtf": "echo \"Error: no test specified\" && exit 1"
