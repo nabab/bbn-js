@@ -12,7 +12,7 @@ import { log } from './log';
  * @param    {...any} args 
  * @returns  
  */
-const warning = function (message: string): void
+const warning = function (message)
 {
 	const args: any[] = ['BBN: ' + message];
   const obj: object = {

@@ -19,7 +19,7 @@ import { isObject } from '../type/isObject';
 const _deleteLoader = function (requestId, res = null, isAbort = false) {
 	let idx = search(bbn.env.loaders, { key: requestId });
 	if (idx > -1) {
-		let loader: BbnLoader = bbn.env.loaders.splice(idx, 1)[0];
+		let loader = bbn.env.loaders.splice(idx, 1)[0];
 		let history = getRow(bbn.env.loadersHistory, { key: requestId, start: loader.start });
 		if (history) {
 			history.loading = false;

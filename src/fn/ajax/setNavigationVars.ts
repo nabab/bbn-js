@@ -24,9 +24,9 @@ import { html2text } from '../html/html2text';
  * @param    {Object}  data  The data if any
  * @param    {Boolean} repl  If true the history state object will replace the current one, will be added otherwise
  * 
- * @returns  {undefined}
+ * @returns  {void}
  */
-const setNavigationVars = function (url, title, data?: object, repl?: boolean): void
+const setNavigationVars = function (url, title, data = null, repl = false)
 {
 	// Current path becomes old path
 	bbn.env.old_path = bbn.env.path;

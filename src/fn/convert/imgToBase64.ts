@@ -1,10 +1,9 @@
 import { imageToCanvas } from './imageToCanvas';
-import { canvasToImage } from './canvasToImage';
 
-const imgToBase64 = function (img, type:string = 'image/png'): string
+const imgToBase64 = function (img, type = 'image/png')
 {
 	let canvas = imageToCanvas(img);
-	//return canvasToImage(canvas);
+
 	return canvas.toDataURL(type);
 };
 

@@ -9,9 +9,9 @@
  * @global   
  * @memberof bbn.fn
  * @param {HTMLElement} img
- * @returns  
+ * @returns {HTMLCanvasElement}
  */
-const imageToCanvas = function (img): HTMLCanvasElement
+const imageToCanvas = function (img)
 {
 	let canvas = document.createElement('canvas');
 	canvas.width = img.width;

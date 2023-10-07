@@ -17,7 +17,7 @@ import { log } from '../browser/log';
  * 
  * @returns  {Promise}
  */
-const upload = function (url: string, file: any, success?: (d) => any, failure?: (d) => any, progress?: (d, l, t) => any) {
+const upload = function (url, file, success = null, failure = null, progress = null) {
 	let fn = () => {
 		return axios.post(url || bbn.env.path, objectToFormData(file), {
 			headers: {

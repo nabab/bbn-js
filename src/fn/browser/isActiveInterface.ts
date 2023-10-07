@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean} 
  */
-const isActiveInterface = function (secs: number = 600): boolean
+const isActiveInterface = function (secs = 600)
 {
 	if (!bbn.env.last_focus) {
 		return false;

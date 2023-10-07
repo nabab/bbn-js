@@ -27,11 +27,11 @@ import { replaceAll } from "../string/replaceAll";
  * @returns  {String} A CSV string
  */
 const toCSV = function (
-  arr: any[],
-  valSep: string = ",",
-  rowSep: string = "",
-  valEsc: string = '"'
-): string {
+  arr,
+  valSep = ",",
+  rowSep = "",
+  valEsc = '"'
+) {
   if (!valSep) {
     valSep = ",";
   }

@@ -17,7 +17,7 @@
  * 
  * @returns  {Boolean} True if focused
  */
-const isFocused = function (ele: HTMLElement, contain?: boolean): boolean
+const isFocused = function (ele, contain = false): boolean
 {
 	return ele === document.activeElement || (contain && ele.contains && ele.contains(document.activeElement));
 };

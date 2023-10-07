@@ -17,7 +17,7 @@
  * 
  * @returns  {Boolean} True if focused
  */
-const selectElementText = function (ele: HTMLElement, win?: Window): void
+const selectElementText = function (ele, win = null): void
 {
 	win = win || window;
 	if (ele instanceof HTMLInputElement) {
