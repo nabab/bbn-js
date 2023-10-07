@@ -1,6 +1,6 @@
 import { isArray } from "../type/isArray.js";
 import { each } from "../loop/each.js";
-import { Filter, filterToConditions } from './filterToConditions';
+import { Filter, filterToConditions } from "./filterToConditions.js";
 import { compareConditions } from "./compareConditions.js";
 
 /**

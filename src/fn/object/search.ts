@@ -1,6 +1,6 @@
 import { isIterable } from "../type/isIterable.js";
 import { compareConditions } from "./compareConditions.js";
-import { Filter, filterToConditions } from './filterToConditions';
+import { Filter, filterToConditions } from "./filterToConditions.js";
 import { isObject } from "../type/isObject.js";
 import { numProperties } from "./numProperties.js";
 import { isNumber } from "../type/isNumber.js";

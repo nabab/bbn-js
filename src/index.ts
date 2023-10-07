@@ -1,5 +1,5 @@
 import {_} from "./_.js";
-import {$} from './$.js';
+import {$} from "./$.js";
 import {lng} from "./lng.js";
 import {vars} from "./vars.js";
 import {env} from "./env.js";
