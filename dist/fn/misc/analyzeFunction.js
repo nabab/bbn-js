@@ -16,7 +16,7 @@ var analyzeFunction = function (fn) {
     var isArrow = false;
     var isAsync = false;
     var hasFunction = false;
-    var name = null;
+    var name = '';
     var parOpened = 0;
     var parClosed = 0;
     var args = [];
@@ -135,8 +135,8 @@ var analyzeFunction = function (fn) {
             if (exp.trim() !== '') {
                 if (exp.trim() === 'async') {
                     isAsync = true;
-                    exp = '';
                 }
+                exp = '';
             }
         }
         else {

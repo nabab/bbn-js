@@ -12,7 +12,7 @@ declare const analyzeFunction: (fn: any) => {
     argString: string;
     isArrow: boolean;
     hasFunction: boolean;
-    name: any;
+    name: string;
     isAsync: boolean;
     hash: string;
 };

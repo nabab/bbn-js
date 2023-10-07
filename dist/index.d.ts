@@ -1605,7 +1605,7 @@ declare module "fn/misc/analyzeFunction" {
         argString: string;
         isArrow: boolean;
         hasFunction: boolean;
-        name: any;
+        name: string;
         isAsync: boolean;
         hash: string;
     };
@@ -4690,7 +4690,7 @@ declare module "fn" {
             argString: string;
             isArrow: boolean;
             hasFunction: boolean;
-            name: any;
+            name: string;
             isAsync: boolean;
             hash: string;
         };

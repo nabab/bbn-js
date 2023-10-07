@@ -18,7 +18,7 @@ const analyzeFunction = function (fn) {
 	let isArrow = false;
 	let isAsync = false;
 	let hasFunction = false;
-	let name = null;
+	let name = '';
 	let parOpened = 0;
 	let parClosed = 0;
 	let args = [];
@@ -120,8 +120,9 @@ const analyzeFunction = function (fn) {
 			if (exp.trim() !== '') {
 				if (exp.trim() === 'async') {
 					isAsync = true;
-					exp = '';
 				}
+
+				exp = '';
 			}
 		} else {
 			exp += all[i];

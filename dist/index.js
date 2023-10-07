@@ -3333,7 +3333,7 @@
             var isArrow = false;
             var isAsync = false;
             var hasFunction = false;
-            var name = null;
+            var name = '';
             var parOpened = 0;
             var parClosed = 0;
             var args = [];
@@ -3452,8 +3452,8 @@
                     if (exp.trim() !== '') {
                         if (exp.trim() === 'async') {
                             isAsync = true;
-                            exp = '';
                         }
+                        exp = '';
                     }
                 }
                 else {

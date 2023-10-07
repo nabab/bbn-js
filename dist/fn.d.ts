@@ -17,7 +17,7 @@ declare const fn: {
         argString: string;
         isArrow: boolean;
         hasFunction: boolean;
-        name: any;
+        name: string;
         isAsync: boolean;
         hash: string;
     };
