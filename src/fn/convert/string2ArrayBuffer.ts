@@ -1,4 +1,5 @@
-const string2ArrayBuffer = function (str: string): ArrayBuffer
+
+const string2ArrayBuffer = function (str: string)
 {
 	var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
 	var bufView = new Uint16Array(buf);
