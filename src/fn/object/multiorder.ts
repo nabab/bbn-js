@@ -39,12 +39,23 @@ import { _compareValues } from './_compareValues';
  * @returns  {Array}        The same array (arr), ordered differently
  */
 const multiorder = function (arr: object[], orders) {
+	if (!orders) {
+		return arr;
+	}
+
   let currentOrders;
 	if (!Array.isArray(orders) && typeof orders === 'object') {
     currentOrders = [];
 		for (var n in orders) {
 			currentOrders.push({ field: n, dir: orders[n] });
 		}
+	}
+	else {
+		currentOrders = orders;
+	}
+
+	if (!Array.isArray(currentOrders)) {
+		throw new Error('The orders argument must be an array');
 	}
 
   let r = arr.slice();
