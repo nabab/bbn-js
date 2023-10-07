@@ -3212,9 +3212,19 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.analyzeFunction = void 0;
+        /**
+         * Analyzes the given function and extracts details about its structure.
+         *
+         * @function analyzeFunction
+         * @param {Function} fn - The function to analyze.
+         * @returns {Object} An object containing details about the function.
+         * @throws {Error} When unexpected syntax is encountered while parsing.
+         */
         const analyzeFunction = function (fn) {
-            const functionString = fn.toString();
-            let all = functionString.split('');
+            const all = typeof fn === 'function' ? fn.toString() : fn;
+            if (typeof all !== 'string') {
+                throw Error('Unexpected type ' + typeof fn + ' while parsing function');
+            }
             let exp = '';
             let isArrow = false;
             let isAsync = false;
@@ -3229,12 +3239,33 @@
             let escapable = ['"', "'", '`'];
             let isEscaped = false;
             let settingDefault = false;
+            let isComment = false;
+            let isCommentLine = false;
             for (let i = 0; i < all.length; i++) {
-                if (all[i] === currentQuote && !isEscaped && currentQuote) {
+                // Handle string literals
+                if (!isComment && all[i] === '/' && all[i + 1] === '*') {
+                    isComment = true;
+                    exp = '';
+                }
+                else if (all[i] === '*' && all[i + 1] === '/') {
+                    isComment = false;
+                }
+                else if (!isCommentLine && all[i] === '/' && all[i + 1] === '/') {
+                    isCommentLine = true;
+                    exp = '';
+                }
+                else if (all[i] === '\n') {
+                    isCommentLine = false;
+                }
+                else if (isComment || isCommentLine) {
+                    continue;
+                }
+                else if (all[i] === currentQuote && !isEscaped && currentQuote) {
                     currentQuote = '';
                     exp += all[i];
                 }
                 else if (currentQuote) {
+                    isEscaped = all[i] === '\\' && !isEscaped;
                     exp += all[i];
                 }
                 else if (escapable.includes(all[i]) && !isEscaped) {
@@ -3256,13 +3287,13 @@
                 else if (all[i] === ')') {
                     if (parOpened === parClosed + 1) {
                         if (settingDefault) {
-                            currentArg.default = exp.trim();
+                            currentArg['default'] = exp.trim();
                             settingDefault = false;
                         }
                         else if (exp) {
-                            currentArg.name = exp.trim();
+                            currentArg['name'] = exp.trim();
                         }
-                        if (currentArg.name || currentArg.default) {
+                        if (currentArg['name'] || currentArg['default']) {
                             args.push(currentArg);
                             currentArg = {};
                         }
@@ -3270,37 +3301,32 @@
                     }
                     parClosed++;
                 }
-                else if (all[i] === '=') {
-                    if (functionString.substr(i, 2) === '=>') {
-                        if (exp.trim() !== '' && parOpened === parClosed) {
-                            currentArg.name = exp.trim();
-                            args.push(currentArg);
-                            currentArg = {};
-                            exp = '';
-                        }
-                        isArrow = true;
-                        i++;
-                        continue;
-                    }
-                    else if (parOpened > parClosed && !settingDefault) {
-                        currentArg.name = exp.trim();
+                else if (all[i] === '=' && all[i + 1] === '>') {
+                    if (exp.trim() !== '' && parOpened === parClosed) {
+                        currentArg['name'] = exp.trim();
+                        args.push(currentArg);
+                        currentArg = {};
                         exp = '';
-                        settingDefault = true;
                     }
-                    else {
-                        exp += all[i];
-                    }
+                    isArrow = true;
+                    i++;
+                    continue;
+                }
+                else if (all[i] === '=' && parOpened > parClosed && !settingDefault) {
+                    currentArg['name'] = exp.trim();
+                    exp = '';
+                    settingDefault = true;
                 }
                 else if (all[i] === ',') {
                     if (parOpened > parClosed) {
                         if (settingDefault) {
-                            currentArg.default = exp.trim();
+                            currentArg['default'] = exp.trim();
                             settingDefault = false;
                         }
                         else if (exp) {
-                            currentArg.name = exp.trim();
+                            currentArg['name'] = exp.trim();
                         }
-                        if (currentArg.name || currentArg.default) {
+                        if (currentArg['name'] || currentArg['default']) {
                             args.push(currentArg);
                             currentArg = {};
                         }
@@ -3311,11 +3337,11 @@
                     }
                 }
                 else if (all[i] === '{' || all[i] === '}') {
-                    body = functionString.substring(i).trim();
+                    body = all.substring(i).trim();
                     break;
                 }
                 else if (isArrow) {
-                    body = functionString.substring(functionString.indexOf('=>') + 2).trim();
+                    body = all.substring(all.indexOf('=>') + 2).trim();
                     break;
                 }
                 else if (all[i] === ' ') {

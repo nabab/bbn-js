@@ -29,7 +29,7 @@ import { isString } from "./isString";
  * @param    {String} st
  * @returns  {Boolean}
  */
-const isColor = function (...args: any[]): boolean {
+const isColor = function (...args: any[]) {
   if (!args.length) return false;
 
   var reg = new RegExp(

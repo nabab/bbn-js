@@ -21,7 +21,7 @@ import { isString } from "./isString";
  * @param    {String} st
  * @returns  {Boolean}
  */
-const isEmail = function (...args: any[]): boolean {
+const isEmail = function (...args: any[]) {
   if (!args.length) return false;
 
   let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
