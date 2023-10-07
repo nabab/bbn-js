@@ -8,10 +8,7 @@
     "moduleResolution": "nodenext",
     "target": "ES5",
     "declaration": true,
-    "outDir": "./dist",
-    "allowUmdGlobalAccess": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "outDir": "./dist"
   },
   "files": [
     "src/types/index.d.ts",
