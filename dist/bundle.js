@@ -5005,15 +5005,16 @@
          */
         const download = function (url, filename, params) {
             // We can intervert the arguments
-            if (filename && (typeof (filename) === 'object')) {
+            if (filename && typeof filename === "object") {
                 params = filename;
-                filename = '';
+                filename = "";
             }
-            return (0, ajax_1.ajax)(url, 'blob', params || { _bbn_download: 1 }, (d, headers) => {
+            return (0, ajax_1.ajax)(url, "blob", params || { _bbn_download: 1 }, (d, headers) => {
                 if (!filename) {
-                    let cd = 'attachment; filename=';
-                    if ((headers === null || headers === void 0 ? void 0 : headers['content-disposition']) && headers['content-disposition'].indexOf(cd) === 0) {
-                        filename = (0, substr_7.substr)(headers['content-disposition'], cd.length + 1, headers['content-disposition'].length - cd.length - 2);
+                    let prop = "content-disposition";
+                    let cd = "attachment; filename=";
+                    if ((headers === null || headers === void 0 ? void 0 : headers[prop]) && headers[prop].indexOf(cd) === 0) {
+                        filename = (0, substr_7.substr)(headers[prop], cd.length + 1, headers[prop].length - cd.length - 2);
                     }
                     else {
                         filename = (0, baseName_1.baseName)(url);
@@ -5021,13 +5022,15 @@
                 }
                 if ((0, isBlob_1.isBlob)(d)) {
                     let extension = (0, fileExt_1.fileExt)(filename);
-                    let htmlExtensions = ['php', 'html'];
-                    if ((typeof filename === 'string') && ((('type' in d) && (d.type !== 'text/html')) || htmlExtensions.includes(extension))) {
+                    let htmlExtensions = ["php", "html"];
+                    if (typeof filename === "string" &&
+                        (("type" in d && d.type !== "text/html") ||
+                            htmlExtensions.includes(extension))) {
                         (0, downloadContent_1.downloadContent)(filename, d);
                         return;
                     }
                 }
-            }, e => {
+            }, (e) => {
                 bbn.fn.defaultAjaxErrorFunction(e);
             });
         };
