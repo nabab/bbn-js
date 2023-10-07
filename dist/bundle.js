@@ -5948,7 +5948,7 @@
         };
         exports.getHTMLOfSelection = getHTMLOfSelection;
     });
-    define("fn/browser/getEventData", ["require", "exports", "fn/html/getHTMLOfSelection", "fn/loop/each", "fn/default/defaultErrorFunction"], function (require, exports, getHTMLOfSelection_1, each_15, defaultErrorFunction_1) {
+    define("fn/browser/getEventData", ["require", "exports", "fn/html/getHTMLOfSelection", "fn/loop/each"], function (require, exports, getHTMLOfSelection_1, each_15) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.getEventData = void 0;
@@ -6032,7 +6032,7 @@
                                 }
                             }
                             else {
-                                (0, defaultErrorFunction_1.defaultErrorFunction)(bbn._('Impossible to read the file') + ' ' + name);
+                                bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name);
                             }
                         }
                         else {
@@ -6899,7 +6899,7 @@
         };
         exports.submit = submit;
     });
-    define("fn/style/resize", ["require", "exports", "fn/style/getCssVar", "fn/loop/each", "fn/default/defaultResizeFunction"], function (require, exports, getCssVar_1, each_17, defaultResizeFunction_1) {
+    define("fn/style/resize", ["require", "exports", "fn/style/getCssVar", "fn/loop/each"], function (require, exports, getCssVar_1, each_17) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.resize = void 0;
@@ -6934,8 +6934,8 @@
                 if (!done) {
                     classes.push(newCls);
                 }
+                bbn.fn.defaultResizeFunction();
                 document.body.className = classes.join(' ');
-                (0, defaultResizeFunction_1.defaultResizeFunction)();
             }
         };
         exports.resize = resize;
@@ -6991,7 +6991,7 @@
         };
         exports.isMobile = isMobile;
     });
-    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/default/defaultHistoryFunction", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_7, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, defaultHistoryFunction_1, isFunction_9, log_18) {
+    define("fn/init", ["require", "exports", "fn/string/substr", "fn/loop/each", "fn/object/extend", "fn/style/addColors", "fn/ajax/link", "fn/form/submit", "fn/style/resize", "fn/browser/isMobile", "fn/browser/isTabletDevice", "fn/type/isFunction", "fn/browser/log"], function (require, exports, substr_11, each_18, extend_7, addColors_1, link_1, submit_1, resize_1, isMobile_1, isTabletDevice_2, isFunction_9, log_18) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.init = void 0;
@@ -7011,61 +7011,62 @@
         const init = function (cfg, force) {
             let parts;
             if (!bbn.env.isInit || force) {
-                bbn.env.root = document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
-                if (bbn.env.root.length && (0, substr_11.substr)(bbn.env.root, -1) !== '/') {
-                    bbn.env.root += '/';
+                bbn.env.root =
+                    document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
+                if (bbn.env.root.length && (0, substr_11.substr)(bbn.env.root, -1) !== "/") {
+                    bbn.env.root += "/";
                 }
-                if (!bbn.env.isInit && typeof dayjs !== 'undefined') {
+                if (!bbn.env.isInit && typeof dayjs !== "undefined") {
                     (0, each_18.each)([
-                        'advancedFormat',
-                        'arraySupport',
-                        'badMutable',
-                        'buddhistEra',
-                        'calendar',
-                        'customParseFormat',
-                        'dayOfYear',
-                        'devHelper',
-                        'duration',
-                        'isBetween',
-                        'isLeapYear',
-                        'isSameOrAfter',
-                        'isSameOrBefore',
-                        'isToday',
-                        'isTomorrow',
-                        'isYesterday',
-                        'isoWeek',
-                        'isoWeeksInYear',
-                        'localeData',
-                        'localizedFormat',
-                        'minMax',
-                        'objectSupport',
-                        'pluralGetSet',
-                        'quarterOfYear',
-                        'relativeTime',
-                        'timezone',
-                        'toArray',
-                        'toObject',
-                        'updateLocale',
-                        'utc',
-                        'weekOfYear',
-                        'weekYear',
-                        'weekday',
+                        "advancedFormat",
+                        "arraySupport",
+                        "badMutable",
+                        "buddhistEra",
+                        "calendar",
+                        "customParseFormat",
+                        "dayOfYear",
+                        "devHelper",
+                        "duration",
+                        "isBetween",
+                        "isLeapYear",
+                        "isSameOrAfter",
+                        "isSameOrBefore",
+                        "isToday",
+                        "isTomorrow",
+                        "isYesterday",
+                        "isoWeek",
+                        "isoWeeksInYear",
+                        "localeData",
+                        "localizedFormat",
+                        "minMax",
+                        "objectSupport",
+                        "pluralGetSet",
+                        "quarterOfYear",
+                        "relativeTime",
+                        "timezone",
+                        "toArray",
+                        "toObject",
+                        "updateLocale",
+                        "utc",
+                        "weekOfYear",
+                        "weekYear",
+                        "weekday",
                     ], (plugin) => {
-                        if (window['dayjs_plugin_' + plugin]) {
-                            dayjs.extend(window['dayjs_plugin_' + plugin]);
+                        if (window["dayjs_plugin_" + plugin]) {
+                            dayjs.extend(window["dayjs_plugin_" + plugin]);
                         }
                     });
                 }
                 /* The server's path (difference between the host and the current dir */
-                if (typeof cfg === 'object') {
+                if (typeof cfg === "object") {
                     (0, extend_7.extend)(true, bbn, cfg);
                 }
                 bbn.env.path = (0, substr_11.substr)(bbn.env.url, bbn.env.root.length);
-                parts = bbn.env.path.split('/');
+                parts = bbn.env.path.split("/");
                 //$.each(parts, function(i, v){
                 (0, each_18.each)(parts, (v, i) => {
                     v = decodeURI(v.trim());
-                    if (v !== '') {
+                    if (v !== "") {
                         bbn.env.params.push(v);
                     }
                 });
@@ -7082,59 +7083,63 @@
                     bbn.env.isFocused = false;
                     bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
                 };
-                document.addEventListener('focusin', (e) => {
-                    if (e.target instanceof HTMLElement && !e.target.classList.contains('bbn-no')) {
+                document.addEventListener("focusin", (e) => {
+                    if (e.target instanceof HTMLElement &&
+                        !e.target.classList.contains("bbn-no")) {
                         bbn.env.focused = e.target;
                     }
                     bbn.env.last_focus = new Date().getTime();
                 });
-                document.addEventListener('click', (e) => {
+                document.addEventListener("click", (e) => {
                     bbn.env.last_focus = new Date().getTime();
-                    if (bbn.env.nav !== 'ajax') {
+                    if (bbn.env.nav !== "ajax") {
                         return;
                     }
                     let target = e.target;
-                    if (target instanceof HTMLElement && (target.tagName !== 'A')) {
+                    if (target instanceof HTMLElement && target.tagName !== "A") {
                         let p = target;
-                        while (p && p.tagName !== 'A') {
-                            if (p.tagName === 'BODY') {
+                        while (p && p.tagName !== "A") {
+                            if (p.tagName === "BODY") {
                                 break;
                             }
                             p = p.parentElement;
                         }
-                        if (p && p.tagName === 'A') {
+                        if (p && p.tagName === "A") {
                             target = p;
                         }
                         else {
                             target = null;
                         }
                     }
-                    if (target instanceof HTMLElement && target.hasAttribute('href') && !target.hasAttribute('target') && !target.classList.contains('bbn-no')) {
+                    if (target instanceof HTMLElement &&
+                        target.hasAttribute("href") &&
+                        !target.hasAttribute("target") &&
+                        !target.classList.contains("bbn-no")) {
                         e.preventDefault();
                         e.stopPropagation();
-                        (0, link_1.link)(target.getAttribute('href'));
+                        (0, link_1.link)(target.getAttribute("href"));
                         return false;
                     }
                 });
-                (0, each_18.each)(document.querySelectorAll('form:not(.bbn-no), form:not(.bbn-form)'), (ele) => {
-                    ele.addEventListener('submit', (e) => {
+                (0, each_18.each)(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
+                    ele.addEventListener("submit", (e) => {
                         (0, submit_1.submit)(ele, e);
                     });
                 });
-                window.addEventListener('hashchange', () => {
+                window.addEventListener("hashchange", () => {
                     bbn.env.hashChanged = new Date().getTime();
                 }, false);
-                window.addEventListener('resize', () => {
+                window.addEventListener("resize", () => {
                     (0, resize_1.resize)();
                 });
-                window.addEventListener('orientationchange', () => {
+                window.addEventListener("orientationchange", () => {
                     (0, resize_1.resize)();
                 });
                 (0, resize_1.resize)();
                 if ((0, isMobile_1.isMobile)()) {
-                    document.body.classList.add('bbn-mobile');
+                    document.body.classList.add("bbn-mobile");
                     if ((0, isTabletDevice_2.isTabletDevice)()) {
-                        document.body.classList.add('bbn-tablet');
+                        document.body.classList.add("bbn-tablet");
                     }
                 }
                 if (window.history) {
@@ -7142,9 +7147,9 @@
                         let h = window.history;
                         if (!bbn.env.historyDisabled && h) {
                             //e.preventDefault();
-                            let state = h.state;
-                            if (state) {
-                                if ((0, defaultHistoryFunction_1.defaultHistoryFunction)(state)) {
+                            if (bbn.fn.defaultHistoryFunction(h.state)) {
+                                let state = h.state;
+                                if (state) {
                                     //link(substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
                                     (0, link_1.link)(state.url, (0, extend_7.extend)({ title: state.title || bbn.env.siteTitle }, state.data || {}));
                                 }
@@ -7156,9 +7161,9 @@
                     };
                 }
                 bbn.env.isInit = true;
-                document.dispatchEvent(new Event('bbninit'));
+                document.dispatchEvent(new Event("bbninit"));
                 if (bbn.env.logging) {
-                    (0, log_18.log)('Logging in bbn is enabled');
+                    (0, log_18.log)("Logging in bbn is enabled");
                 }
             }
         };
@@ -9769,7 +9774,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_1, defaultAjaxErrorFunction_1, defaultAlertFunction_1, defaultConfirmFunction_1, defaultEndLoadingFunction_1, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_1, defaultPostLinkFunction_1, defaultPreLinkFunction_1, defaultResizeFunction_2, defaultStartLoadingFunction_1, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_8, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_2, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_1, defaultAjaxErrorFunction_1, defaultAlertFunction_1, defaultConfirmFunction_1, defaultEndLoadingFunction_1, defaultErrorFunction_1, defaultHistoryFunction_1, defaultLinkFunction_1, defaultPostLinkFunction_1, defaultPreLinkFunction_1, defaultResizeFunction_1, defaultStartLoadingFunction_1, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_8, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_2, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -9823,12 +9828,12 @@
             defaultAlertFunction: defaultAlertFunction_1.defaultAlertFunction,
             defaultConfirmFunction: defaultConfirmFunction_1.defaultConfirmFunction,
             defaultEndLoadingFunction: defaultEndLoadingFunction_1.defaultEndLoadingFunction,
-            defaultErrorFunction: defaultErrorFunction_2.defaultErrorFunction,
-            defaultHistoryFunction: defaultHistoryFunction_2.defaultHistoryFunction,
+            defaultErrorFunction: defaultErrorFunction_1.defaultErrorFunction,
+            defaultHistoryFunction: defaultHistoryFunction_1.defaultHistoryFunction,
             defaultLinkFunction: defaultLinkFunction_1.defaultLinkFunction,
             defaultPostLinkFunction: defaultPostLinkFunction_1.defaultPostLinkFunction,
             defaultPreLinkFunction: defaultPreLinkFunction_1.defaultPreLinkFunction,
-            defaultResizeFunction: defaultResizeFunction_2.defaultResizeFunction,
+            defaultResizeFunction: defaultResizeFunction_1.defaultResizeFunction,
             defaultStartLoadingFunction: defaultStartLoadingFunction_1.defaultStartLoadingFunction,
             deleteProp: deleteProp_1.deleteProp,
             diffObj: diffObj_1.diffObj,

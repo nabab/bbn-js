@@ -1,6 +1,5 @@
 import { getHTMLOfSelection } from '../html/getHTMLOfSelection';
 import { each } from '../loop/each';
-import { defaultErrorFunction } from '../default/defaultErrorFunction';
 
 /**
  * Returns a promise having the event's data as argument.
@@ -81,7 +80,7 @@ const getEventData = function (e) {
 							ok(res);
 						}
 					} else {
-						defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name);
+						bbn.fn.defaultErrorFunction(bbn._('Impossible to read the file') + ' ' + name);
 					}
 				} else {
 					done = true;

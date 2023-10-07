@@ -1,6 +1,5 @@
 import { getCssVar } from './getCssVar';
 import { each } from '../loop/each';
-import { defaultResizeFunction } from '../default/defaultResizeFunction';
 
 const resize = function ()
 {
@@ -37,8 +36,8 @@ const resize = function ()
 			classes.push(newCls);
 		}
 
+		bbn.fn.defaultResizeFunction();
 		document.body.className = classes.join(' ');
-		defaultResizeFunction();
 	}
 };
 
