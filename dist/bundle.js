@@ -3695,7 +3695,24 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
-        dayjs_min_js_1.default.extend(window['dayjs_plugin_calendar']);
+        /**
+         * Returns a date with SQL format.
+         *
+         * @method   dateSQL
+         * @global
+         *
+         * @example
+         * ``` javascript
+         * //"2020-04-16 16:15:23"
+         * let date = new Date();
+         * bbn.fn.dateSQL(date,false);
+         * ```
+         *
+         * @memberof bbn.fn
+         * @param    {Date|String} d
+         * @param    {String | false} wrong_result Whether or not include the time in the date
+         * @returns  {String}
+         */
         const calendar = function (d, wrong_result = false) {
             if (undefined === dayjs_min_js_1.default) {
                 return (0, fdate_js_1.fdate)(d, wrong_result);
