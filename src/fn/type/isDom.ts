@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isDom = function (...args: any[]): boolean {
+const isDom = function (...args) {
   if (!args.length) return false;
   for (let a of args) {
     if (!(a instanceof HTMLElement)) {
