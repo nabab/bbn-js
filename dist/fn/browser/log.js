@@ -13,6 +13,7 @@ import { isFunction } from '../type/isFunction.js';
  * @returns
  */
 var log = function () {
+    var _a;
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -32,7 +33,7 @@ var log = function () {
             args.shift();
         }
         var exec = window.console[fn];
-        if (bbn.env.loggingLevel >= level) {
+        if (((_a = bbn === null || bbn === void 0 ? void 0 : bbn.env) === null || _a === void 0 ? void 0 : _a.loggingLevel) >= level) {
             var i = 0;
             while (i < args.length) {
                 var t = typeof args[i];
