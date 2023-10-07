@@ -19,7 +19,6 @@
   "author": "Thomas Nabet <thomas.nabet@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "dayjs": "^1.11.10",
     "jsdom": "22.1.0",
     "jsdom-global": "3.0.2",
     "mocha": "^10.2.0",

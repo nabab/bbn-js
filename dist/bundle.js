@@ -3691,20 +3691,20 @@
         };
         exports.fdate = fdate;
     });
-    define("fn/datetime/calendar", ["require", "exports", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString"], function (require, exports, fdate_js_1, date_js_3, isDate_js_5, isString_js_8) {
+    define("fn/datetime/calendar", ["require", "exports", "fn/datetime/fdate", "fn/datetime/date", "fn/type/isDate", "fn/type/isString", "../../../node_modules/dayjs/dayjs.min.js"], function (require, exports, fdate_js_1, date_js_3, isDate_js_5, isString_js_8, dayjs_min_js_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
-        dayjs.extend(window['dayjs_plugin_calendar']);
+        dayjs_min_js_1.default.extend(window['dayjs_plugin_calendar']);
         const calendar = function (d, wrong_result = false) {
-            if (undefined === dayjs) {
+            if (undefined === dayjs_min_js_1.default) {
                 return (0, fdate_js_1.fdate)(d, wrong_result);
             }
             let r = (0, date_js_3.date)(d);
             if (!(0, isDate_js_5.isDate)(r)) {
                 return wrong_result && (0, isString_js_8.isString)(wrong_result) ? wrong_result : '';
             }
-            return dayjs(r).calendar(null, {
+            return (0, dayjs_min_js_1.default)(r).calendar(null, {
                 sameDay: '[' + bbn._('Today') + ']',
                 nextDay: '[' + bbn._('Tomorrow') + ']',
                 nextWeek: 'ddd D',
@@ -4301,7 +4301,7 @@
         };
         exports.cssExists = cssExists;
     });
-    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date", "../../../node_modules/dayjs/dayjs.min.js"], function (require, exports, date_js_4, dayjs_min_js_1) {
+    define("fn/datetime/dateSQL", ["require", "exports", "fn/datetime/date", "../../../node_modules/dayjs/dayjs.min.js"], function (require, exports, date_js_4, dayjs_min_js_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.dateSQL = void 0;
@@ -4326,7 +4326,7 @@
         const dateSQL = function (v, dayOnly) {
             let value = (0, date_js_4.date)(v);
             if (value) {
-                return (0, dayjs_min_js_1.default)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
+                return (0, dayjs_min_js_2.default)(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
             }
         };
         exports.dateSQL = dateSQL;
