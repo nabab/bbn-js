@@ -42,10 +42,10 @@ import { defaultAlertFunction } from '../default/defaultAlertFunction';
  */
 const callback = function (
 	url: string,
-	res: BbnAjaxResult = null,
-	fn: (a: BbnAjaxResult, b?: HTMLElement) => any = null,
-	fn2: (a: BbnAjaxResult) => any = null,
-	ele: HTMLElement|HTMLInputElement|HTMLTextAreaElement = null
+	res: any = null,
+	fn = null,
+	fn2 = null,
+	ele = null
 ) {
 	let tmp = false;
 	if (res) {
@@ -65,7 +65,7 @@ const callback = function (
 			res.url = url;
 		}
 		/* Case where a callback is defined */
-		if (fn) {
+		if (fn && isFunction(fn)) {
 			tmp = fn(res, ele);
 		} else {
 			tmp = defaultLinkFunction(res, ele);
@@ -98,7 +98,7 @@ const callback = function (
 			}
 		}
 		/* Case where a callback is defined */
-		if (tmp && fn2) {
+		if (tmp && fn2 && isFunction(fn2)) {
 			fn2(res);
 		} else if (isObj && defaultPostLinkFunction) {
 			defaultPostLinkFunction(res, ele);

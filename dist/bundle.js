@@ -3813,7 +3813,7 @@
                     res.url = url;
                 }
                 /* Case where a callback is defined */
-                if (fn) {
+                if (fn && (0, isFunction_4.isFunction)(fn)) {
                     tmp = fn(res, ele);
                 }
                 else {
@@ -3849,7 +3849,7 @@
                     }
                 }
                 /* Case where a callback is defined */
-                if (tmp && fn2) {
+                if (tmp && fn2 && (0, isFunction_4.isFunction)(fn2)) {
                     fn2(res);
                 }
                 else if (isObj && defaultPostLinkFunction_1.defaultPostLinkFunction) {
