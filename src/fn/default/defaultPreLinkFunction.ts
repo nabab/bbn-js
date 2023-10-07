@@ -1,7 +1,8 @@
-import { isFunction } from '../type/isFunction';
+import { log } from '../browser/log';
 
 const defaultPreLinkFunction = function (url: string, force?: boolean, ele?: HTMLElement): any
 {
+	log("defaultPreLinkFunction", url, force, ele);
 	return true;
 };
 
