@@ -3,6 +3,7 @@ import { getLoader } from './getLoader';
 import { defaultPreLinkFunction } from '../default/defaultPreLinkFunction';
 import { ajax } from './ajax';
 import { log } from '../browser/log';
+import { extend } from '../object/extend';
 import { isObject } from '../type/isObject';
 import { callback } from './callback';
 import { setNavigationVars } from './setNavigationVars';
@@ -41,7 +42,7 @@ interface Res {
  */
 const link = function (...args) {
 	let cfg = treatAjaxArguments(args);
-	let ok: boolean | number | string | object = true;
+	let ok: any = true;
 	/* If we can't find a correct link we load the current URL */
 	if (!cfg) {
 		return link(window.location.href);
@@ -93,12 +94,10 @@ const link = function (...args) {
 			ok = cfg.successFn(cfg.url);
 		} else if (defaultPreLinkFunction) {
 			ok = defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
-			/*
 			if (ok.data !== undefined) {
 				extend(cfg.obj, ok.data);
 				ok = 1;
 			}
-			*/
 		}
 
 		if (ok) {
