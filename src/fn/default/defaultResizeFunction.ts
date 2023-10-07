@@ -1,8 +1,5 @@
+const defaultResizeFunction = function () {
+  return true;
+};
 
-
-
-const defaultResizeFunction = function() {
-      return true;
-    };
-
-export {defaultResizeFunction}
+export { defaultResizeFunction };

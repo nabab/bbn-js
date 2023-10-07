@@ -506,6 +506,7 @@
             }
             const typesList = [];
             (0, each_1.each)(type, (t) => {
+                var _a;
                 if (t === String) {
                     t = 'string';
                 }
@@ -525,7 +526,7 @@
                     t = 'function';
                 }
                 if ((0, isFunction_2.isFunction)(t)) {
-                    typesList.push(t.name || t.constructor?.name || t.toString());
+                    typesList.push(t.name || ((_a = t.constructor) === null || _a === void 0 ? void 0 : _a.name) || t.toString());
                     if (value instanceof t) {
                         ok = true;
                         return false;
@@ -585,7 +586,7 @@
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.$ = void 0;
         const $ = (selector, context) => {
-            if (context?.querySelectorAll) {
+            if (context === null || context === void 0 ? void 0 : context.querySelectorAll) {
                 return context.querySelectorAll(selector);
             }
             return document.body.querySelectorAll(selector);
@@ -820,7 +821,8 @@
             this.selectOne = (table, field, where, order, start, limit) => {
                 return new Promise(resolve => {
                     this.select(table, [field], where, order, start, limit).then(d => {
-                        resolve(d[field] ?? undefined);
+                        var _a;
+                        resolve((_a = d[field]) !== null && _a !== void 0 ? _a : undefined);
                     });
                 });
             };
@@ -910,7 +912,8 @@
                 });
             },
             add(database, name, structure) {
-                if (structure?.keys?.PRIMARY && structure?.fields) {
+                var _a;
+                if (((_a = structure === null || structure === void 0 ? void 0 : structure.keys) === null || _a === void 0 ? void 0 : _a.PRIMARY) && (structure === null || structure === void 0 ? void 0 : structure.fields)) {
                     if (!db._structures[database]) {
                         db._structures[database] = {};
                     }
@@ -1364,13 +1367,14 @@
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.isCp = void 0;
         const isCp = function (...args) {
+            var _a;
             if (!args.length) {
                 return false;
             }
             if ('cp' in bbn && 'isComponent' in bbn['cp'] && (typeof bbn['cp'].isComponent === 'function')) {
                 for (let a of args) {
                     let res = bbn.cp.isComponent(a);
-                    if (!res || (0, isDom_1.isDom)(a) || !a.$el?.bbnCid) {
+                    if (!res || (0, isDom_1.isDom)(a) || !((_a = a.$el) === null || _a === void 0 ? void 0 : _a.bbnCid)) {
                         return false;
                     }
                 }
@@ -3064,7 +3068,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.defaultAjaxAbortFunction = void 0;
-        const defaultAjaxAbortFunction = function (message, url = '') {
+        const defaultAjaxAbortFunction = function (message, url = "") {
             (0, log_10.log)(message);
         };
         exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
@@ -3171,7 +3175,7 @@
                 let requestId = (0, getRequestId_1.getRequestId)(url, data, datatype);
                 let loaderObj = (0, getLoader_2.getLoader)(requestId);
                 //log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
-                if (loaderObj?.loader) {
+                if (loaderObj === null || loaderObj === void 0 ? void 0 : loaderObj.loader) {
                     return loaderObj.loader;
                 }
                 if (bbn.env.token) {
@@ -5008,7 +5012,7 @@
             return (0, ajax_1.ajax)(url, 'blob', params || { _bbn_download: 1 }, (d, headers) => {
                 if (!filename) {
                     let cd = 'attachment; filename=';
-                    if (headers?.['content-disposition'] && headers['content-disposition'].indexOf(cd) === 0) {
+                    if ((headers === null || headers === void 0 ? void 0 : headers['content-disposition']) && headers['content-disposition'].indexOf(cd) === 0) {
                         filename = (0, substr_7.substr)(headers['content-disposition'], cd.length + 1, headers['content-disposition'].length - cd.length - 2);
                     }
                     else {
@@ -7869,7 +7873,7 @@
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.makeReactive = void 0;
         const makeReactive = function (obj, onSet, parent, parentProp) {
-            const parentString = parent?.$cid || '';
+            const parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
             const prefix = '__bbn_' + (parentString ? parentString + '_' : '');
             if (obj && typeof obj === 'object' && [undefined, Object, Array].includes(obj.constructor)) {
                 if (obj.__bbnIsProxy && obj.__bbnParent === parent) {
@@ -7910,7 +7914,7 @@
                         }
                         if (key === '__bbnRoot') {
                             let root = obj;
-                            while (root && root?.__bbnTarget) {
+                            while (root && (root === null || root === void 0 ? void 0 : root.__bbnTarget)) {
                                 root = root.__bbnTarget;
                             }
                             return root;
@@ -10027,7 +10031,7 @@
                     Object.defineProperty(exports, "__cjsModule", { value: true });
                     Object.defineProperty(exports, "default", { value: require(name) });
                 }
-                catch {
+                catch (_a) {
                     throw Error(['module "', name, '" not found.'].join(''));
                 }
             };
