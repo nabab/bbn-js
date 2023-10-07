@@ -1,5 +1,4 @@
 import { date } from "./date.js";
-
 /**
  * Returns a date with SQL format.
  *
