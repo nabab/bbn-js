@@ -1,6 +1,5 @@
 import {expect} from 'chai';
-import {} from 'jsdom-global';
-import {} from '../dist/fn/misc/analyzeFunction.js';
+import {analyzeFunction} from '../dist/fn/misc/analyzeFunction.js';
 
 describe('analyzeFunction', function() {
 
