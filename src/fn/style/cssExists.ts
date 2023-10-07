@@ -1,5 +1,5 @@
-//import { log } from './log';
-import { escapeRegExp } from "../string/escapeRegExp";
+//import { log } from "./log.js";
+import { escapeRegExp } from "../string/escapeRegExp.js";
 
 /**
  * not used

@@ -1,5 +1,5 @@
-import { isMobileDevice } from './isMobileDevice';
-import { isTabletDevice } from './isTabletDevice';
+import { isMobileDevice } from "./isMobileDevice.js";
+import { isTabletDevice } from "./isTabletDevice.js";
 
 /**
  * Returns true if the current browser is on a mobile device (smartphone or tablet).

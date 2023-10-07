@@ -1,4 +1,4 @@
-import { extend } from "./extend";
+import { extend } from "./extend.js";
 
 /**
  * Extends the bbn object by passing the namespace and the object it will merge with.

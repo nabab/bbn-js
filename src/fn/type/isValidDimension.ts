@@ -1,5 +1,5 @@
-import { isNumber } from "./isNumber";
-import { substr } from "../string/substr";
+import { isNumber } from "./isNumber.js";
+import { substr } from "../string/substr.js";
 
 /**
  * Returns true if the given value is a valid CSS dimension string, false otherwise.

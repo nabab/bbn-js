@@ -1,4 +1,4 @@
-import { imageToCanvas } from './imageToCanvas';
+import { imageToCanvas } from "./imageToCanvas.js";
 
 const imgToBase64 = function (img, type = 'image/png')
 {

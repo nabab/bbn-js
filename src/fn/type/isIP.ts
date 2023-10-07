@@ -1,4 +1,4 @@
-import { isString } from './isString';
+import { isString } from "./isString.js";
 
 const isIP = function (...args: any[]): boolean
 {

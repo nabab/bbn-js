@@ -1,6 +1,6 @@
-import { each } from "../loop/each";
-import { isArray } from "../type/isArray";
-import { replaceAll } from "../string/replaceAll";
+import { each } from "../loop/each.js";
+import { isArray } from "../type/isArray.js";
+import { replaceAll } from "../string/replaceAll.js";
 
 /**
  * Returns a CSV string from the given array of arrays or objects.

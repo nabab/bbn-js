@@ -1,4 +1,4 @@
-import { iterate } from "./iterate";
+import { iterate } from "./iterate.js";
 
 /**
  * Executes the provided function on each property of the given object.

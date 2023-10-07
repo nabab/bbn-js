@@ -1,4 +1,4 @@
-import { isString } from '../type/isString';
+import { isString } from "../type/isString.js";
 
 const escapeTicks = function (str) {
 	if (!isString(str)) {

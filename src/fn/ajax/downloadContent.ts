@@ -1,7 +1,7 @@
-import { isCanvas } from '../type/isCanvas';
-import { isObject } from '../type/isObject';
-import { isString } from '../type/isString';
-import { log } from '../browser/log';
+import { isCanvas } from "../type/isCanvas.js";
+import { isObject } from "../type/isObject.js";
+import { isString } from "../type/isString.js";
+import { log } from "../browser/log.js";
 
 /**
  * Downloads a file with given filename from the given content.

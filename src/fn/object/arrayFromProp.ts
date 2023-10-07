@@ -1,5 +1,5 @@
-import { each } from "../loop/each";
-import { getProperty } from "./getProperty";
+import { each } from "../loop/each.js";
+import { getProperty } from "./getProperty.js";
 
 /**
  * Creates and returns a new array made of the given property's values from the given array of objects.

@@ -1,4 +1,4 @@
-import { substr } from '../string/substr';
+import { substr } from "../string/substr.js";
 
 /**
   * Returns an object with the original objects' properties starting with an alphanumeric character.

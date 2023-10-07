@@ -1,4 +1,4 @@
-import { each } from '../loop/each';
+import { each } from "../loop/each.js";
 
 /**
  * Returns the value of the given property from the given object.

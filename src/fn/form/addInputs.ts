@@ -1,4 +1,4 @@
-import { iterate } from '../loop/iterate';
+import { iterate } from "../loop/iterate.js";
 
 /**
  * Adds the given data to the given form by inserting hidden inputs.

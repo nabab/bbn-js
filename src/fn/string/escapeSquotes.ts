@@ -1,4 +1,4 @@
-import { isString } from '../type/isString';
+import { isString } from "../type/isString.js";
 
 const escapeSquotes = function (str) {
 	if (!isString(str)) {

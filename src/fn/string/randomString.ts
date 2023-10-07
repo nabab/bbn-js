@@ -1,4 +1,4 @@
-import { randomInt } from "../misc/randomInt";
+import { randomInt } from "../misc/randomInt.js";
 
 /**
  * Returns a random String with random lenght,

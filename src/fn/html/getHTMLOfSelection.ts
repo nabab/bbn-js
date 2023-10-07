@@ -1,4 +1,4 @@
-import { log } from '../browser/log';
+import { log } from "../browser/log.js";
 
 const getHTMLOfSelection = function () {
 	let range;

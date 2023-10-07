@@ -1,7 +1,7 @@
-import { fdatetime } from './fdatetime';
-import { date } from './date';
-import { isDate } from '../type/isDate';
-import { isString } from '../type/isString';
+import { fdatetime } from "./fdatetime.js";
+import { date } from "./date.js";
+import { isDate } from "../type/isDate.js";
+import { isString } from "../type/isString.js";
 
 /**
  * @method   fdate

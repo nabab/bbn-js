@@ -1,6 +1,6 @@
-import { isArray } from "../type/isArray";
-import { isObject } from "../type/isObject";
-import { numProperties } from "./numProperties";
+import { isArray } from "../type/isArray.js";
+import { isObject } from "../type/isObject.js";
+import { numProperties } from "./numProperties.js";
 
 /**
  * Returns a new array, having removed all elements deemed empty from the given array.

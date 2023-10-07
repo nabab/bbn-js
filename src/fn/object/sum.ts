@@ -1,5 +1,5 @@
-import { each } from '../loop/each';
-import { filter } from './filter';
+import { each } from "../loop/each.js";
+import { filter } from "./filter.js";
 
 /**
  * Returns the sum of the given property or function for the array's elements matching the filter.

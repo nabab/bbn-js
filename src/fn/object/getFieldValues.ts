@@ -1,6 +1,6 @@
-import { checkType } from '../type/checkType';
-import { filter } from './filter';
-import { each } from '../loop/each';
+import { checkType } from "../type/checkType.js";
+import { filter } from "./filter.js";
+import { each } from "../loop/each.js";
 
 /**
  * Returns all the unique values of the given field (property) from the first object matching the given filter in an array.

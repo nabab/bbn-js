@@ -1,6 +1,6 @@
-import { isArray } from "../type/isArray";
-import { each } from "../loop/each";
-import { md5 } from "./md5";
+import { isArray } from "../type/isArray.js";
+import { each } from "../loop/each.js";
+import { md5 } from "./md5.js";
 
 /**
  * Create a unique string in md5 format.

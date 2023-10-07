@@ -1,4 +1,4 @@
-import { replaceAll } from '../string/replaceAll';
+import { replaceAll } from "../string/replaceAll.js";
 
 /**
  * @method   getPath

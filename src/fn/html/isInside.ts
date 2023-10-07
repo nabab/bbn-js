@@ -1,6 +1,6 @@
-import { getAncestors } from './getAncestors';
-import { isString } from '../type/isString';
-import { each } from '../loop/each';
+import { getAncestors } from "./getAncestors.js";
+import { isString } from "../type/isString.js";
+import { each } from "../loop/each.js";
 
 const isInside = function (ele, ancestor) {
 	let ancestors = getAncestors(ele);

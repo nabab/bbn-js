@@ -1,4 +1,4 @@
-import { search } from '../object/search';
+import { search } from "../object/search.js";
 
 /**
  * Finds the loader object corresponding to the given unique ID and returns it if found.

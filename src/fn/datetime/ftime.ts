@@ -1,6 +1,6 @@
-import { date } from './date';
-import { isDate } from '../type/isDate';
-import { isString } from '../type/isString';
+import { date } from "./date.js";
+import { isDate } from "../type/isDate.js";
+import { isString } from "../type/isString.js";
 
 /**
  * @method   ftime

@@ -1,7 +1,7 @@
-import { formdata } from './formdata';
-import { isFunction } from '../type/isFunction';
-import { isString } from '../type/isString';
-import { post } from '../ajax/post';
+import { formdata } from "./formdata.js";
+import { isFunction } from "../type/isFunction.js";
+import { isString } from "../type/isString.js";
+import { post } from "../ajax/post.js";
 
 /**
  * Submit a form's data through an Ajax request.

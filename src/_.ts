@@ -1,4 +1,4 @@
-import {checkType} from './fn/type/checkType'
+import {checkType} from "./fn/type/checkType.js"
 /**
  * Translate an expression using the object bbn.lng
  * 

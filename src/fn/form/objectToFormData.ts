@@ -1,8 +1,8 @@
-import { isArray } from '../type/isArray';
-import { each } from '../loop/each';
-import { isObject } from '../type/isObject';
-import { iterate } from '../loop/iterate';
-import { isNull } from '../type/isNull';
+import { isArray } from "../type/isArray.js";
+import { each } from "../loop/each.js";
+import { isObject } from "../type/isObject.js";
+import { iterate } from "../loop/iterate.js";
+import { isNull } from "../type/isNull.js";
 
 /**
  * @method   objectToFormData

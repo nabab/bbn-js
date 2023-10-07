@@ -1,5 +1,5 @@
-import { substr } from "../string/substr";
-import { log } from "../browser/log";
+import { substr } from "../string/substr.js";
+import { log } from "../browser/log.js";
 
 /**
  * Creates and adds a "loader" object to the property bbn.env.loaders.

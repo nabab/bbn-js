@@ -1,4 +1,4 @@
-import { isString } from '../type/isString';
+import { isString } from "../type/isString.js";
 
 const getAncestors = function (ele, selector = null)
 {

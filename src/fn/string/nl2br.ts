@@ -1,4 +1,4 @@
-import { replaceAll } from "./replaceAll";
+import { replaceAll } from "./replaceAll.js";
 
 /**
  * Replaces all new line characters '\ n' with html tag '<br>'.

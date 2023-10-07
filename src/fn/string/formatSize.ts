@@ -1,5 +1,5 @@
-import { isNumber } from '../type/isNumber';
-import { isString } from '../type/isString';
+import { isNumber } from "../type/isNumber.js";
+import { isString } from "../type/isString.js";
 
 const formatSize = function (st, noValid) {
 	if (isNumber(st)) {

@@ -1,4 +1,4 @@
-import { isFunction } from '../type/isFunction';
+import { isFunction } from "../type/isFunction.js";
 
 /**
  * Logs the given arguments in the browser's console.

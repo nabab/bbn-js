@@ -1,4 +1,4 @@
-import { log } from './log';
+import { log } from "./log.js";
 
 /**
  * Logs the given argument in the browser's console highlighting it with a blue background.

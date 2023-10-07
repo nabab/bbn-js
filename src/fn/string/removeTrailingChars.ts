@@ -1,4 +1,4 @@
-import { substr } from "./substr";
+import { substr } from "./substr.js";
 
 /**
  * @method   removeTrailingChars

@@ -1,4 +1,4 @@
-import { date } from './date';
+import { date } from "./date.js";
 
 /**
  * Returns the number of days of the month given in the date.

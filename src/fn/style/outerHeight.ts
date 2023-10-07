@@ -1,4 +1,4 @@
-import { selector } from "../html/selector";
+import { selector } from "../html/selector.js";
 
 /**
  *

@@ -1,4 +1,4 @@
-import { md5 } from '../string/md5';
+import { md5 } from "../string/md5.js";
 
 /**
  * Analyzes the given function and extracts details about its structure.

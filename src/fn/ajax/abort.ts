@@ -1,4 +1,4 @@
-import { getLoader } from './getLoader';
+import { getLoader } from "./getLoader.js";
 
 /**
  * Aborts (client side) the XHR corresponding to the given ID if it still exists.

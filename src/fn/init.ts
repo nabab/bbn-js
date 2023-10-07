@@ -1,14 +1,14 @@
-import { substr } from "./string/substr";
-import { each } from "./loop/each";
-import { extend } from "./object/extend";
-import { addColors } from "./style/addColors";
-import { link } from "./ajax/link";
-import { submit } from "./form/submit";
-import { resize } from "./style/resize";
-import { isMobile } from "./browser/isMobile";
-import { isTabletDevice } from "./browser/isTabletDevice";
-import { isFunction } from "./type/isFunction";
-import { log } from "./browser/log";
+import { substr } from "./string/substr.js";
+import { each } from "./loop/each.js";
+import { extend } from "./object/extend.js";
+import { addColors } from "./style/addColors.js";
+import { link } from "./ajax/link.js";
+import { submit } from "./form/submit.js";
+import { resize } from "./style/resize.js";
+import { isMobile } from "./browser/isMobile.js";
+import { isTabletDevice } from "./browser/isTabletDevice.js";
+import { isFunction } from "./type/isFunction.js";
+import { log } from "./browser/log.js";
 
 /**
  * Initializes the library bbn basing on the given configuration object.
