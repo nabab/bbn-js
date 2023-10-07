@@ -10,7 +10,7 @@
     "outDir": "./dist",
     "allowUmdGlobalAccess": true
   },
-  "include": [
+  "files": [
     "src/types/index.d.ts",
     "src/index.ts"
   ],
