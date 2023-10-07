@@ -745,7 +745,7 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.db = void 0;
-        const idb = indexedDB || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
+        const idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
         const dbObject = function (dbName) {
             const conn = db._connections[dbName];
             const structure = db._structures[dbName];
