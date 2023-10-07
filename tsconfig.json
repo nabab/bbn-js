@@ -8,12 +8,13 @@
     "moduleResolution": "NodeNext",
     "target": "ES5",
     "declaration": true,
-    "outDir": "./dist",
-    "allowUmdGlobalAccess": true,
-    "noEmit": false
+    "outDir": "./dist"
   },
   "files": [
     "src/types/index.d.ts",
     "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules/*"
   ]
 }
