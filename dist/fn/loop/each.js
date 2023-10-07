@@ -1,6 +1,6 @@
-import { isNumber } from "../type/isNumber.js";
-import { isIterable } from "../type/isIterable.js";
-import { iterate } from "./iterate.js";
+import { isNumber } from '../type/isNumber';
+import { isIterable } from '../type/isIterable';
+import { iterate } from './iterate';
 /**
  * Executes the provided function on each element of the given array.
  *

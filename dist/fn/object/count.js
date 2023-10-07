@@ -1,4 +1,4 @@
-import { filter } from "./filter.js";
+import { filter } from './filter';
 /**
  * Counts the number of objects matching the given filter in the given array.
  *

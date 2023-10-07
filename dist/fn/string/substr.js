@@ -1,6 +1,6 @@
-import { isString } from "../type/isString.js";
-import { isInt } from "../type/isInt.js";
-import { log } from "../browser/log.js";
+import { isString } from '../type/isString';
+import { isInt } from '../type/isInt';
+import { log } from '../browser/log';
 /**
  * Basic substring function accepting both positive and negative values.
  *

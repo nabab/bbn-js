@@ -1,4 +1,4 @@
-import { extend } from "./extend.js";
+import { extend } from './extend' ;
 
 const createObject = function (...args) {
 	const obj = Object.create(null);

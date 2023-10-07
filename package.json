@@ -7,7 +7,6 @@
   "files": [
     "/dist"
   ],
-  "type": "module",
   "scripts": {
     "bbn": "tsc && tsc-bundle tsconfig.json && git stage ./src/* && git stage ./*.ts && git stage ./*.json && git stage -f ./dist/* && git stage ./test/* && git commit -m \"Latest changes\" && git push && npm version patch && npm publish",
     "test": "IS_TESTING=true ./node_modules/.bin/mocha -r jsdom-global/register",
@@ -22,7 +21,10 @@
     "jsdom": "22.1.0",
     "jsdom-global": "3.0.2",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2"
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "bugs": {
     "url": "https://github.com/nabab/bbn-js/issues"

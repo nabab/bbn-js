@@ -1,7 +1,7 @@
-import { _ } from "./_.js";
-import { each } from "./fn/loop/each.js";
-import { iterate } from "./fn/loop/iterate.js";
-import { log } from "./fn/browser/log.js";
+import { _ } from './_';
+import { each } from './fn/loop/each';
+import { iterate } from './fn/loop/iterate';
+import { log } from './fn/browser/log';
 const idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
 const dbObject = function (dbName) {
     const conn = db._connections[dbName];

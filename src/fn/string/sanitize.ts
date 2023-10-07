@@ -1,5 +1,5 @@
-import { removeAccents } from "./removeAccents.js";
-import { trim } from "./trim.js";
+import { removeAccents } from './removeAccents' ;
+import { trim } from './trim' ;
 
 /**
  * Removes all unacceptable characters in a DOM node.

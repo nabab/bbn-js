@@ -1,6 +1,6 @@
-import { isArray } from "../type/isArray.js";
-import { isObject } from "../type/isObject.js";
-import { extend } from "./extend.js";
+import { isArray } from '../type/isArray';
+import { isObject } from '../type/isObject';
+import { extend } from './extend';
 /**
  * Creates and returns a perfect clone - but different - from the given object.
  *

@@ -1,4 +1,4 @@
-import { iterate } from "../loop/iterate.js";
+import { iterate } from '../loop/iterate' ;
 
 const translate = function (o: object, namespace?: string): void
 {

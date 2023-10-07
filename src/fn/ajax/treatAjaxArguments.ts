@@ -1,7 +1,7 @@
-import { isObject } from "../type/isObject.js";
-import { isFunction } from "../type/isFunction.js";
-import { substr } from "../string/substr.js";
-import { numProperties } from "../object/numProperties.js";
+import { isObject } from '../type/isObject' ;
+import { isFunction } from '../type/isFunction' ;
+import { substr } from '../string/substr' ;
+import { numProperties } from '../object/numProperties' ;
 
 /**
  * Transforms unordered arguments into a configuratiuon object for Ajax shortcut functions.

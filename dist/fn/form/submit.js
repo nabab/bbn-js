@@ -1,5 +1,5 @@
-import { formdata } from "./formdata.js";
-import { post } from "../ajax/post.js";
+import { formdata } from './formdata';
+import { post } from '../ajax/post';
 /**
  * Submit a form's data through an Ajax request.
  *

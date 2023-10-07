@@ -1,8 +1,8 @@
-import { isEmpty } from "../type/isEmpty.js";
-import { removeAccents } from "../string/removeAccents.js";
-import { isNull } from "../type/isNull.js";
-import { isObject } from "../type/isObject.js";
-import { isSame } from "../type/isSame.js";
+import { isEmpty } from '../type/isEmpty';
+import { removeAccents } from '../string/removeAccents';
+import { isNull } from '../type/isNull';
+import { isObject } from '../type/isObject';
+import { isSame } from '../type/isSame';
 /**
  * Performs a comparison between two values based on the given operator and returns a boolean.
  *

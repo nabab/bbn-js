@@ -1,4 +1,4 @@
-import { Filter } from "./filterToConditions.js";
+import { Filter } from './filterToConditions';
 /**
  * Returns a new array with only the data matching the given filter.
  *

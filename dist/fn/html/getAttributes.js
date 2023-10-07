@@ -1,4 +1,4 @@
-import { error } from "../browser/error.js";
+import { error } from '../browser/error';
 /**
  * Check if the property contain sizing
  * @return {Boolean}

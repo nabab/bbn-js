@@ -1,5 +1,5 @@
-import { isArray } from "../type/isArray.js";
-import { isNumber } from "../type/isNumber.js";
+import { isArray } from '../type/isArray';
+import { isNumber } from '../type/isNumber';
 /**
  * Executes the provided function on each element of the given array, going backward.
  *

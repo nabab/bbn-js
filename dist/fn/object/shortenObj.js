@@ -1,7 +1,7 @@
-import { clone } from "./clone.js";
-import { each } from "../loop/each.js";
-import { isString } from "../type/isString.js";
-import { shorten } from "../string/shorten.js";
+import { clone } from './clone';
+import { each } from '../loop/each';
+import { isString } from '../type/isString';
+import { shorten } from '../string/shorten';
 /**
  * Shortens all the strings contained in the object properties or element in a array.
  *

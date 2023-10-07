@@ -1,4 +1,4 @@
-import { _compareValues } from "./_compareValues.js";
+import { _compareValues } from './_compareValues' ;
 
 /**
  * Sorts an array of objects based on the given property.

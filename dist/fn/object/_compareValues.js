@@ -1,7 +1,7 @@
-import { getProperty } from "./getProperty.js";
-import { isString } from "../type/isString.js";
-import { removeAccents } from "../string/removeAccents.js";
-import { isDate } from "../type/isDate.js";
+import { getProperty } from './getProperty';
+import { isString } from '../type/isString';
+import { removeAccents } from '../string/removeAccents';
+import { isDate } from '../type/isDate';
 /**
   * Compares the given property in the given objects and returns -1, 1, or 0 depending on their difference.
   *

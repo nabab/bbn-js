@@ -1,11 +1,11 @@
-import { log } from "../browser/log.js";
-import { createObject } from "../object/createObject.js";
-import { isSymbol } from "../type/isSymbol.js";
-import { isNumber } from "../type/isNumber.js";
-import { isArray } from "../type/isArray.js";
-import { warning } from "../browser/warning.js";
-import { isFunction } from "../type/isFunction.js";
-import { isSame } from "../type/isSame.js";
+import { log } from '../browser/log';
+import { createObject } from '../object/createObject';
+import { isSymbol } from '../type/isSymbol';
+import { isNumber } from '../type/isNumber';
+import { isArray } from '../type/isArray';
+import { warning } from '../browser/warning';
+import { isFunction } from '../type/isFunction';
+import { isSame } from '../type/isSame';
 const makeReactive = function (obj, onSet, parent, parentProp) {
     const parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
     const prefix = '__bbn_' + (parentString ? parentString + '_' : '');

@@ -1,4 +1,4 @@
-import { isString } from "../type/isString.js";
+import { isString } from '../type/isString';
 /**
  * Gets the extension from a file's name.
  *

@@ -1,5 +1,5 @@
-import { isString } from "../type/isString.js";
-import { log } from "../browser/log.js";
+import { isString } from '../type/isString';
+import { log } from '../browser/log';
 /**
  * Returns the string passed as an argument without accents.
  *

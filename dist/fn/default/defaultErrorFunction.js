@@ -1,4 +1,4 @@
-import { log } from "../browser/log.js";
+import { log } from '../browser/log';
 const defaultErrorFunction = function (message) {
     log(message);
 };

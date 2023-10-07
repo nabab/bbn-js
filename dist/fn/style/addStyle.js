@@ -1,5 +1,5 @@
-import { isObject } from "../type/isObject.js";
-import { iterate } from "../loop/iterate.js";
+import { isObject } from '../type/isObject';
+import { iterate } from '../loop/iterate';
 /**
  * @ignore
  * @method   addStyle

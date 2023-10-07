@@ -1,6 +1,6 @@
-import { search } from "../object/search.js";
-import { getRow } from "../object/getRow.js";
-import { isObject } from "../type/isObject.js";
+import { search } from '../object/search';
+import { getRow } from '../object/getRow';
+import { isObject } from '../type/isObject';
 /**
  * Deletes a loader and changes its history state after the promise is fullfilled.
  *

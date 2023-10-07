@@ -1,4 +1,4 @@
-import { isFunction } from "../type/isFunction.js";
+import { isFunction } from '../type/isFunction';
 const defaultConfirmFunction = function (text, yesFn, noFn = null) {
     let ok = 0;
     if (confirm(text)) {

@@ -1,5 +1,5 @@
-import { isObject } from "../type/isObject.js";
-import { isFunction } from "../type/isFunction.js";
+import { isObject } from '../type/isObject';
+import { isFunction } from '../type/isFunction';
 /**
  * Copies to the clipboard the value of the given string.
  * @method   copy

@@ -1,4 +1,4 @@
-import { search } from "./search.js";
+import { search } from './search';
 /**
  * Returns the first object matching the given filter in an array of objects.
  *

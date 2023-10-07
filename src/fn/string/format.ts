@@ -1,4 +1,4 @@
-import { checkType } from "../type/checkType.js";
+import { checkType } from '../type/checkType' ;
 
 const format = function (str) {
 	let args = Array.prototype.slice.call(arguments, 1);

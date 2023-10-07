@@ -1,5 +1,5 @@
-import { date } from "./date.js";
-import dayjs from '../../../node_modules/dayjs/dayjs.min.js';
+import { date } from './date';
+const dayjs = require('dayjs');
 /**
  * Returns a date with SQL format.
  *

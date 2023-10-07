@@ -1,4 +1,4 @@
-import { isObject } from "../type/isObject.js";
+import { isObject } from '../type/isObject';
 /**
  * Returns a new object made of the properties from all the given objects.
  *

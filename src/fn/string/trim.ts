@@ -1,4 +1,4 @@
-import { substr } from "./substr.js";
+import { substr } from './substr' ;
 
 const trim = function (str, hair = ' ') {
 	if (hair === ' ') {

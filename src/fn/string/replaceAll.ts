@@ -1,5 +1,5 @@
-import { isObject } from "../type/isObject.js";
-import { escapeRegExp } from "./escapeRegExp.js";
+import { isObject } from '../type/isObject' ;
+import { escapeRegExp } from './escapeRegExp' ;
 
 /**
  * Looks for and replaces parts of string with what we want.

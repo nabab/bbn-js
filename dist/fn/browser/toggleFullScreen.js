@@ -1,4 +1,4 @@
-import { resize } from "../style/resize.js";
+import { resize } from '../style/resize';
 const toggleFullScreen = function () {
     if ('mozRequestFullScreen' in window.document.documentElement) {
         if (window.document['mozFullScreen']) {

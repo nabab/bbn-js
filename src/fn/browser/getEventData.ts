@@ -1,5 +1,5 @@
-import { getHTMLOfSelection } from "../html/getHTMLOfSelection.js";
-import { each } from "../loop/each.js";
+import { getHTMLOfSelection } from '../html/getHTMLOfSelection' ;
+import { each } from '../loop/each' ;
 
 /**
  * Returns a promise having the event's data as argument.

@@ -1,4 +1,4 @@
-import { getRow } from "./getRow.js";
+import { getRow } from './getRow' ;
 
 /**
   * Returns the value of the given field (property) from the first object matching the given filter in an array of objects.

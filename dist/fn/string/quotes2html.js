@@ -1,4 +1,4 @@
-import { replaceAll } from "./replaceAll.js";
+import { replaceAll } from './replaceAll';
 /**
  * Replace quotes in ASCII code
  *

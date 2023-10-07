@@ -1,6 +1,6 @@
-import { isNumber } from "../type/isNumber.js";
-import { substr } from "../string/substr.js";
-import { isDate } from "../type/isDate.js";
+import { isNumber } from '../type/isNumber';
+import { substr } from '../string/substr';
+import { isDate } from '../type/isDate';
 /**
  * Returns a date object from the given argument.
  *

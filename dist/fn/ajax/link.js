@@ -1,11 +1,11 @@
-import { treatAjaxArguments } from "./treatAjaxArguments.js";
-import { getLoader } from "./getLoader.js";
-import { ajax } from "./ajax.js";
-import { log } from "../browser/log.js";
-import { extend } from "../object/extend.js";
-import { isObject } from "../type/isObject.js";
-import { callback } from "./callback.js";
-import { setNavigationVars } from "./setNavigationVars.js";
+import { treatAjaxArguments } from './treatAjaxArguments';
+import { getLoader } from './getLoader';
+import { ajax } from './ajax';
+import { log } from '../browser/log';
+import { extend } from '../object/extend';
+import { isObject } from '../type/isObject';
+import { callback } from './callback';
+import { setNavigationVars } from './setNavigationVars';
 /**
  * Follows a link and if needed by sending the corresponding Ajax request and executing bbn.fn.defaultPreLinkFunction.
  *

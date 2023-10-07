@@ -1,8 +1,8 @@
-import { log } from "../browser/log.js";
-import { isDom } from "../type/isDom.js";
-import { isCp } from "../type/isCp.js";
-import { circularReplacer } from "../object/circularReplacer.js";
-import { simpleHash } from "./simpleHash.js";
+import { log } from '../browser/log' ;
+import { isDom } from '../type/isDom' ;
+import { isCp } from '../type/isCp' ;
+import { circularReplacer } from '../object/circularReplacer' ;
+import { simpleHash } from './simpleHash' ;
 
 /**
  * Makes a hash out of anything

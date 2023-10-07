@@ -1,4 +1,4 @@
-import { each } from "../loop/each.js";
+import { each } from '../loop/each' ;
 
 const isPropSize = function (name) {
 	let isTrue = false;

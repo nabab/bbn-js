@@ -1,5 +1,5 @@
-import { isString } from "./isString.js";
-import { isIP } from "./isIP.js";
+import { isString } from './isString';
+import { isIP } from './isIP';
 const isHostname = function (...args) {
     if (!args.length)
         return false;

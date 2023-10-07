@@ -1,7 +1,7 @@
-import { isArray } from "../type/isArray.js";
-import { each } from "../loop/each.js";
-import { filterToConditions } from "./filterToConditions.js";
-import { compareConditions } from "./compareConditions.js";
+import { isArray } from '../type/isArray';
+import { each } from '../loop/each';
+import { filterToConditions } from './filterToConditions';
+import { compareConditions } from './compareConditions';
 /**
  * Returns a new array with only the data matching the given filter.
  *

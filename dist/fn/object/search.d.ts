@@ -1,4 +1,4 @@
-import { Filter } from "./filterToConditions.js";
+import { Filter } from './filterToConditions';
 /**
  * Retrieves the index of the array's first element corresponding to the given filter.
  *

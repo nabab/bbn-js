@@ -1,10 +1,10 @@
-import { isArray } from "./isArray.js";
-import { each } from "../loop/each.js";
-import { isFunction } from "./isFunction.js";
-import { isString } from "./isString.js";
-import { correctCase } from "../string/correctCase.js";
-import { error } from "../browser/error.js";
-import { log } from "../browser/log.js";
+import { isArray } from './isArray';
+import { each } from '../loop/each';
+import { isFunction } from './isFunction';
+import { isString } from './isString';
+import { correctCase } from '../string/correctCase';
+import { error } from '../browser/error';
+import { log } from '../browser/log';
 const checkType = function (value, type, msg, ...logs) {
     let ok = false;
     if (!isArray(type)) {

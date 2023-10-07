@@ -1,5 +1,5 @@
-import { isString } from "../type/isString.js";
-import { substr } from "./substr.js";
+import { isString } from '../type/isString' ;
+import { substr } from './substr' ;
 
 /**
  * Returns the name of the element indicated by path given to it as an argument.

@@ -1,7 +1,7 @@
-import { substr } from "../string/substr.js";
-import { filter } from "../object/filter.js";
-import { extend } from "../object/extend.js";
-import { html2text } from "../html/html2text.js";
+import { substr } from '../string/substr' ;
+import { filter } from '../object/filter' ;
+import { extend } from '../object/extend' ;
+import { html2text } from '../html/html2text' ;
 
 /**
  * Changes the URL and the associated variables and updates the history.

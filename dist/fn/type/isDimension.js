@@ -1,4 +1,4 @@
-import { isValidDimension } from "./isValidDimension.js";
+import { isValidDimension } from './isValidDimension';
 /**
  * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
  *

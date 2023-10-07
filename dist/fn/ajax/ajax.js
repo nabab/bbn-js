@@ -1,12 +1,12 @@
-import { isObject } from "../type/isObject.js";
-import { replaceAll } from "../string/replaceAll.js";
-import { getRequestId } from "./getRequestId.js";
-import { getLoader } from "./getLoader.js";
-import { extend } from "../object/extend.js";
-import { numProperties } from "../object/numProperties.js";
-import { _deleteLoader } from "./_deleteLoader.js";
-import { isFunction } from "../type/isFunction.js";
-import { _addLoader } from "./_addLoader.js";
+import { isObject } from '../type/isObject';
+import { replaceAll } from '../string/replaceAll';
+import { getRequestId } from './getRequestId';
+import { getLoader } from './getLoader';
+import { extend } from '../object/extend';
+import { numProperties } from '../object/numProperties';
+import { _deleteLoader } from './_deleteLoader';
+import { isFunction } from '../type/isFunction';
+import { _addLoader } from './_addLoader';
 /**
  * Creates an XHR object and returns the Promise.
  *

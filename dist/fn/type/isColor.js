@@ -1,4 +1,4 @@
-import { isString } from "./isString.js";
+import { isString } from './isString';
 /**
  * Intended to check if the argument provided is a color.
  *

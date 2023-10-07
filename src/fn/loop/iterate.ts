@@ -1,4 +1,4 @@
-import { removePrivateProp } from "../object/removePrivateProp.js";
+import { removePrivateProp } from '../object/removePrivateProp' ;
 
 /**
  * Executes the provided function on each property of the given object.

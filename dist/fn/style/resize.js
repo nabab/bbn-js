@@ -1,5 +1,5 @@
-import { getCssVar } from "./getCssVar.js";
-import { each } from "../loop/each.js";
+import { getCssVar } from './getCssVar';
+import { each } from '../loop/each';
 const resize = function () {
     let diffW = bbn.env.width !== window.innerWidth;
     let diffH = bbn.env.height !== window.innerHeight;

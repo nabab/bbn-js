@@ -1,4 +1,4 @@
-import { log } from "../browser/log.js";
+import { log } from '../browser/log' ;
 
 const defaultPreLinkFunction = function (url, force = false, ele = null)
 {

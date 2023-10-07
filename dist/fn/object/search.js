@@ -1,9 +1,9 @@
-import { isIterable } from "../type/isIterable.js";
-import { compareConditions } from "./compareConditions.js";
-import { filterToConditions } from "./filterToConditions.js";
-import { isObject } from "../type/isObject.js";
-import { numProperties } from "./numProperties.js";
-import { isNumber } from "../type/isNumber.js";
+import { isIterable } from '../type/isIterable';
+import { compareConditions } from './compareConditions';
+import { filterToConditions } from './filterToConditions';
+import { isObject } from '../type/isObject';
+import { numProperties } from './numProperties';
+import { isNumber } from '../type/isNumber';
 /**
  * Retrieves the index of the array's first element corresponding to the given filter.
  *

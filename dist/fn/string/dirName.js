@@ -1,5 +1,5 @@
-import { isString } from "../type/isString.js";
-import { substr } from "./substr.js";
+import { isString } from '../type/isString';
+import { substr } from './substr';
 /**
  * Returns the path of the folder containing the last hierarchical element of the path.
  *

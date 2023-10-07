@@ -1,4 +1,4 @@
-import { checkType } from "../type/checkType.js";
+import { checkType } from '../type/checkType';
 /**
  * Gets the given property from the given object
  * @param {Object} obj

@@ -1,5 +1,5 @@
-import { iterate } from "../loop/iterate.js";
-import { md5 } from "../string/md5.js";
+import { iterate } from '../loop/iterate';
+import { md5 } from '../string/md5';
 /**
  * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
  *

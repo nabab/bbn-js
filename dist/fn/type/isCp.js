@@ -1,4 +1,4 @@
-import { isDom } from "./isDom.js";
+import { isDom } from './isDom';
 const isCp = function (...args) {
     var _a;
     if (!args.length) {

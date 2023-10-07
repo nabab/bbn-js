@@ -1,5 +1,5 @@
-import { isArray } from "./isArray.js";
-import { numProperties } from "../object/numProperties.js";
+import { isArray } from './isArray' ;
+import { numProperties } from '../object/numProperties' ;
 
 /**
  * Checks if the argument is empty or not.

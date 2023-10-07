@@ -1,4 +1,4 @@
-import { isString } from "./isString.js";
+import { isString } from './isString';
 const isIP = function (...args) {
     if (!args.length)
         return false;

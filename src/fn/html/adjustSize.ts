@@ -1,4 +1,4 @@
-import { each } from "../loop/each.js";
+import { each } from '../loop/each' ;
 
 const adjustSize = function (type, eles) {
 	let max = 0,

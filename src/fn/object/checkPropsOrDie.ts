@@ -1,4 +1,4 @@
-import { checkPropsDetails } from "./checkPropsDetails.js";
+import { checkPropsDetails } from './checkPropsDetails' ;
 
 const checkPropsOrDie = function (
   obj: object,

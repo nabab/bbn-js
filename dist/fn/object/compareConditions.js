@@ -1,7 +1,7 @@
-import { isArray } from "../type/isArray.js";
-import { each } from "../loop/each.js";
-import { compare } from "./compare.js";
-import { getProperty } from "./getProperty.js";
+import { isArray } from '../type/isArray';
+import { each } from '../loop/each';
+import { compare } from './compare';
+import { getProperty } from './getProperty';
 /**
  * Checks whether the given data object complies or not with the given filter.
  *

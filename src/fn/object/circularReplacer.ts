@@ -1,6 +1,6 @@
-import { isDom } from "../type/isDom.js";
-import { isCp } from "../type/isCp.js";
-import { log } from "../browser/log.js";
+import { isDom } from '../type/isDom' ;
+import { isCp } from '../type/isCp' ;
+import { log } from '../browser/log' ;
 
 /**
  * Returns a function to give to JSON.stringify in order to avoid circular values.

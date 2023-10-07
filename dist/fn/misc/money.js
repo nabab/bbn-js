@@ -1,4 +1,4 @@
-import { isNumber } from "../type/isNumber.js";
+import { isNumber } from '../type/isNumber';
 /**
  * Returns the given value to money format basing on the given configuration.
  *

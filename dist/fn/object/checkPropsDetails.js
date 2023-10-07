@@ -1,7 +1,7 @@
-import { isArray } from "../type/isArray.js";
-import { isObject } from "../type/isObject.js";
-import { each } from "../loop/each.js";
-import { substr } from "../string/substr.js";
+import { isArray } from '../type/isArray';
+import { isObject } from '../type/isObject';
+import { each } from '../loop/each';
+import { substr } from '../string/substr';
 const checkPropsDetails = function (obj, props, checkEmpty = false) {
     let res = {
         error: false,

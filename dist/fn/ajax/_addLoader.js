@@ -1,4 +1,4 @@
-import { substr } from "../string/substr.js";
+import { substr } from '../string/substr';
 /**
  * Creates and adds a "loader" object to the property bbn.env.loaders.
  *
