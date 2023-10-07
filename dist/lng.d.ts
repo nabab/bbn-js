@@ -1,0 +1,26 @@
+declare const lng: {
+    select_unselect_all: string;
+    select_all: string;
+    search: string;
+    loading: string;
+    choose: string;
+    error: string;
+    server_response: string;
+    reload: string;
+    errorText: string;
+    closeAll: string;
+    closeOthers: string;
+    pin: string;
+    arrange: string;
+    cancel: string;
+    unpin: string;
+    yes: string;
+    no: string;
+    unknown: string;
+    untitled: string;
+    confirmation: string;
+    Today: string;
+    Tomorrow: string;
+    Yesterday: string;
+};
+export { lng };

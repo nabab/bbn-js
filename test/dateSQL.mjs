@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import {} from '../node_modules/dayjs/dayjs.min.js';
 import {dateSQL} from '../dist/fn/datetime/dateSQL.js';
 
 describe('dateSQL', function() {
