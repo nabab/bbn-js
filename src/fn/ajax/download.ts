@@ -4,7 +4,6 @@ import { baseName } from '../string/baseName';
 import { isBlob } from '../type/isBlob';
 import { fileExt } from '../string/fileExt';
 import { downloadContent } from './downloadContent';
-import { defaultAjaxErrorFunction } from '../default/defaultAjaxErrorFunction';
 
 /**
  * Downloads a file with given filename from a URL.
@@ -68,7 +67,7 @@ const download = function (url: string, filename?: string|object, params?: objec
 			}
 		},
 	  e => {
-			defaultAjaxErrorFunction(e);
+			bbn.fn.defaultAjaxErrorFunction(e);
 		}
 	);
 };

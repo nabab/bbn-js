@@ -3045,43 +3045,7 @@
         };
         exports.extend = extend;
     });
-    define("fn/default/defaultEndLoadingFunction", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultEndLoadingFunction = void 0;
-        const defaultEndLoadingFunction = function (url, timestamp, data, res) {
-            return true;
-        };
-        exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
-    });
-    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_8) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultAjaxErrorFunction = void 0;
-        const defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
-            (0, log_8.log)(textStatus, errorThrown);
-        };
-        exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
-    });
-    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_9) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultAjaxAbortFunction = void 0;
-        const defaultAjaxAbortFunction = function (message, url = "") {
-            (0, log_9.log)(message);
-        };
-        exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
-    });
-    define("fn/default/defaultStartLoadingFunction", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultStartLoadingFunction = void 0;
-        const defaultStartLoadingFunction = function (url, tst, data, requestId = null) {
-            return true;
-        };
-        exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
-    });
-    define("fn/ajax/ajax", ["require", "exports", "fn/type/isObject", "fn/string/replaceAll", "fn/ajax/getRequestId", "fn/ajax/getLoader", "fn/object/extend", "fn/object/numProperties", "fn/ajax/_deleteLoader", "fn/default/defaultEndLoadingFunction", "fn/type/isFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAjaxAbortFunction", "fn/ajax/_addLoader", "fn/default/defaultStartLoadingFunction"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, defaultEndLoadingFunction_1, isFunction_3, defaultAjaxErrorFunction_1, defaultAjaxAbortFunction_1, _addLoader_1, defaultStartLoadingFunction_1) {
+    define("fn/ajax/ajax", ["require", "exports", "fn/type/isObject", "fn/string/replaceAll", "fn/ajax/getRequestId", "fn/ajax/getLoader", "fn/object/extend", "fn/object/numProperties", "fn/ajax/_deleteLoader", "fn/type/isFunction", "fn/ajax/_addLoader"], function (require, exports, isObject_8, replaceAll_1, getRequestId_1, getLoader_2, extend_1, numProperties_4, _deleteLoader_1, isFunction_3, _addLoader_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.ajax = void 0;
@@ -3202,7 +3166,7 @@
                     .apply(null, args)
                     .then((res) => {
                     (0, _deleteLoader_1._deleteLoader)(requestId, res);
-                    (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, res);
+                    bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
                     switch (res.status) {
                         case 200:
                             if ((0, isFunction_3.isFunction)(success)) {
@@ -3210,21 +3174,21 @@
                             }
                             break;
                         default:
-                            (0, defaultAjaxErrorFunction_1.defaultAjaxErrorFunction)(loader, res);
+                            bbn.fn.defaultAjaxErrorFunction(loader, res);
                     }
                     return res;
                 })
                     .catch((err) => {
                     let isAbort = axios.isCancel(err);
                     (0, _deleteLoader_1._deleteLoader)(requestId, err.message || err.response.data, isAbort);
-                    (0, defaultEndLoadingFunction_1.defaultEndLoadingFunction)(url, tst, data, err);
+                    bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
                     if (isAbort) {
                         let ok = 1;
                         if ((0, isFunction_3.isFunction)(abort)) {
                             ok = abort(err.message, url);
                         }
                         if (ok) {
-                            (0, defaultAjaxAbortFunction_1.defaultAjaxAbortFunction)(err.message, url);
+                            bbn.fn.defaultAjaxAbortFunction(err.message, url);
                         }
                     }
                     else {
@@ -3233,12 +3197,12 @@
                             ok = failure(err.request, err);
                         }
                         if (ok) {
-                            (0, defaultAjaxErrorFunction_1.defaultAjaxErrorFunction)(err.request, err.response ? err.response.data : "", err.response ? err.response.status : err);
+                            bbn.fn.defaultAjaxErrorFunction(err.request, err.response ? err.response.data : "", err.response ? err.response.status : err);
                         }
                     }
                 });
                 let tst = (0, _addLoader_1._addLoader)(requestId, loader, source);
-                (0, defaultStartLoadingFunction_1.defaultStartLoadingFunction)(url, tst, data, requestId);
+                bbn.fn.defaultStartLoadingFunction(url, tst, data, requestId);
                 return loader;
             }
         };
@@ -3725,35 +3689,7 @@
         };
         exports.calendar = calendar;
     });
-    define("fn/default/defaultLinkFunction", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultLinkFunction = void 0;
-        const defaultLinkFunction = function (responseObj, ele) {
-            return true;
-        };
-        exports.defaultLinkFunction = defaultLinkFunction;
-    });
-    define("fn/default/defaultPostLinkFunction", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultPostLinkFunction = void 0;
-        const defaultPostLinkFunction = function (r, ele) {
-            return true;
-        };
-        exports.defaultPostLinkFunction = defaultPostLinkFunction;
-    });
-    define("fn/default/defaultAlertFunction", ["require", "exports"], function (require, exports) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", { value: true });
-        exports.defaultAlertFunction = void 0;
-        const defaultAlertFunction = function (msg, title) {
-            /** @todo */
-            alert(msg);
-        };
-        exports.defaultAlertFunction = defaultAlertFunction;
-    });
-    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/default/defaultLinkFunction", "fn/type/isFunction", "fn/browser/log", "fn/default/defaultPostLinkFunction", "fn/default/defaultAlertFunction"], function (require, exports, error_2, defaultLinkFunction_1, isFunction_4, log_10, defaultPostLinkFunction_1, defaultAlertFunction_1) {
+    define("fn/ajax/callback", ["require", "exports", "fn/browser/error", "fn/type/isFunction", "fn/browser/log"], function (require, exports, error_2, isFunction_4, log_8) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.callback = void 0;
@@ -3816,7 +3752,7 @@
                     tmp = fn(res, ele);
                 }
                 else {
-                    tmp = (0, defaultLinkFunction_1.defaultLinkFunction)(res, ele);
+                    tmp = bbn.fn.defaultLinkFunction(res, ele);
                 }
                 if (ele && isObj && (res.content !== undefined)) {
                     if ('value' in ele) {
@@ -3840,7 +3776,7 @@
                                 }
                             }
                             catch (e) {
-                                (0, log_10.log)(e, res);
+                                (0, log_8.log)(e, res);
                                 (0, error_2.error)((0, isFunction_4.isFunction)(e.getMessage) ? e.getMessage() : null);
                             }
                             return r;
@@ -3851,19 +3787,19 @@
                 if (tmp && fn2 && (0, isFunction_4.isFunction)(fn2)) {
                     fn2(res);
                 }
-                else if (isObj && defaultPostLinkFunction_1.defaultPostLinkFunction) {
-                    (0, defaultPostLinkFunction_1.defaultPostLinkFunction)(res, ele);
+                else if (isObj && bbn.fn.defaultPostLinkFunction) {
+                    bbn.fn.defaultPostLinkFunction(res, ele);
                 }
                 if (tmp && isObj && res.postscript) {
                     eval(res.postscript);
                 }
                 if (isObj && res.error) {
                     errTitle = res.errorTitle || bbn.lng.server_response;
-                    (0, defaultAlertFunction_1.defaultAlertFunction)(res.error, errTitle);
+                    bbn.fn.defaultAlertFunction(res.error, errTitle);
                 }
             }
             else {
-                (0, defaultAlertFunction_1.defaultAlertFunction)(bbn.lng.errorText, bbn.lng.error);
+                bbn.fn.defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
             }
             return tmp;
         };
@@ -4477,6 +4413,34 @@
         };
         exports.deepPath = deepPath;
     });
+    define("fn/default/defaultAjaxAbortFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_9) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultAjaxAbortFunction = void 0;
+        const defaultAjaxAbortFunction = function (message, url = "") {
+            (0, log_9.log)(message);
+        };
+        exports.defaultAjaxAbortFunction = defaultAjaxAbortFunction;
+    });
+    define("fn/default/defaultAjaxErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_10) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultAjaxErrorFunction = void 0;
+        const defaultAjaxErrorFunction = function (jqXHR, textStatus, errorThrown) {
+            (0, log_10.log)(textStatus, errorThrown);
+        };
+        exports.defaultAjaxErrorFunction = defaultAjaxErrorFunction;
+    });
+    define("fn/default/defaultAlertFunction", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultAlertFunction = void 0;
+        const defaultAlertFunction = function (msg, title) {
+            /** @todo */
+            alert(msg);
+        };
+        exports.defaultAlertFunction = defaultAlertFunction;
+    });
     define("fn/default/defaultConfirmFunction", ["require", "exports", "fn/type/isFunction"], function (require, exports, isFunction_6) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -4494,6 +4458,15 @@
             }
         };
         exports.defaultConfirmFunction = defaultConfirmFunction;
+    });
+    define("fn/default/defaultEndLoadingFunction", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultEndLoadingFunction = void 0;
+        const defaultEndLoadingFunction = function (url, timestamp, data, res) {
+            return true;
+        };
+        exports.defaultEndLoadingFunction = defaultEndLoadingFunction;
     });
     define("fn/default/defaultErrorFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_11) {
         "use strict";
@@ -4513,6 +4486,24 @@
         };
         exports.defaultHistoryFunction = defaultHistoryFunction;
     });
+    define("fn/default/defaultLinkFunction", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultLinkFunction = void 0;
+        const defaultLinkFunction = function (responseObj, ele) {
+            return true;
+        };
+        exports.defaultLinkFunction = defaultLinkFunction;
+    });
+    define("fn/default/defaultPostLinkFunction", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultPostLinkFunction = void 0;
+        const defaultPostLinkFunction = function (r, ele) {
+            return true;
+        };
+        exports.defaultPostLinkFunction = defaultPostLinkFunction;
+    });
     define("fn/default/defaultPreLinkFunction", ["require", "exports", "fn/browser/log"], function (require, exports, log_12) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
@@ -4531,6 +4522,15 @@
             return true;
         };
         exports.defaultResizeFunction = defaultResizeFunction;
+    });
+    define("fn/default/defaultStartLoadingFunction", ["require", "exports"], function (require, exports) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.defaultStartLoadingFunction = void 0;
+        const defaultStartLoadingFunction = function (url, tst, data, requestId = null) {
+            return true;
+        };
+        exports.defaultStartLoadingFunction = defaultStartLoadingFunction;
     });
     define("fn/object/deleteProp", ["require", "exports", "fn/type/checkType"], function (require, exports, checkType_2) {
         "use strict";
@@ -4971,7 +4971,7 @@
         };
         exports.downloadContent = downloadContent;
     });
-    define("fn/ajax/download", ["require", "exports", "fn/ajax/ajax", "fn/string/substr", "fn/string/baseName", "fn/type/isBlob", "fn/string/fileExt", "fn/ajax/downloadContent", "fn/default/defaultAjaxErrorFunction"], function (require, exports, ajax_1, substr_7, baseName_1, isBlob_1, fileExt_1, downloadContent_1, defaultAjaxErrorFunction_2) {
+    define("fn/ajax/download", ["require", "exports", "fn/ajax/ajax", "fn/string/substr", "fn/string/baseName", "fn/type/isBlob", "fn/string/fileExt", "fn/ajax/downloadContent"], function (require, exports, ajax_1, substr_7, baseName_1, isBlob_1, fileExt_1, downloadContent_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.download = void 0;
@@ -5028,7 +5028,7 @@
                     }
                 }
             }, e => {
-                (0, defaultAjaxErrorFunction_2.defaultAjaxErrorFunction)(e);
+                bbn.fn.defaultAjaxErrorFunction(e);
             });
         };
         exports.download = download;
@@ -6671,7 +6671,7 @@
         };
         exports.setNavigationVars = setNavigationVars;
     });
-    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/default/defaultPreLinkFunction", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, defaultPreLinkFunction_1, ajax_2, log_17, extend_6, isObject_15, callback_1, setNavigationVars_1) {
+    define("fn/ajax/link", ["require", "exports", "fn/ajax/treatAjaxArguments", "fn/ajax/getLoader", "fn/ajax/ajax", "fn/browser/log", "fn/object/extend", "fn/type/isObject", "fn/ajax/callback", "fn/ajax/setNavigationVars"], function (require, exports, treatAjaxArguments_1, getLoader_3, ajax_2, log_17, extend_6, isObject_15, callback_1, setNavigationVars_1) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.link = void 0;
@@ -6752,8 +6752,8 @@
                 if (cfg.successFn) {
                     ok = cfg.successFn(cfg.url);
                 }
-                else if (defaultPreLinkFunction_1.defaultPreLinkFunction) {
-                    ok = (0, defaultPreLinkFunction_1.defaultPreLinkFunction)(cfg.url, cfg.force, cfg.ele);
+                else if (bbn.fn.defaultPreLinkFunction) {
+                    ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
                     if (ok.data !== undefined) {
                         (0, extend_6.extend)(cfg.obj, ok.data);
                         ok = 1;
@@ -9764,7 +9764,7 @@
         };
         exports.upload = upload;
     });
-    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_2, defaultAjaxErrorFunction_3, defaultAlertFunction_2, defaultConfirmFunction_1, defaultEndLoadingFunction_2, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_2, defaultPostLinkFunction_2, defaultPreLinkFunction_2, defaultResizeFunction_2, defaultStartLoadingFunction_2, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_8, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
+    define("fn", ["require", "exports", "fn/ajax/_addLoader", "fn/object/_compareValues", "fn/ajax/_deleteLoader", "fn/ajax/abort", "fn/ajax/abortURL", "fn/style/addColors", "fn/form/addInputs", "fn/style/addStyle", "fn/html/adjustHeight", "fn/html/adjustSize", "fn/html/adjustWidth", "fn/ajax/ajax", "fn/misc/analyzeFunction", "fn/style/animateCss", "fn/convert/arrayBuffer2String", "fn/object/arrayFromProp", "fn/object/autoExtend", "fn/string/baseName", "fn/string/br2nl", "fn/datetime/calendar", "fn/ajax/callback", "fn/string/camelize", "fn/string/camelToCss", "fn/convert/canvasToImage", "fn/style/center", "fn/object/checkProps", "fn/object/checkPropsDetails", "fn/object/checkPropsOrDie", "fn/type/checkType", "fn/object/circularReplacer", "fn/object/clone", "fn/convert/colorToHex", "fn/object/compare", "fn/object/compareConditions", "fn/browser/copy", "fn/string/correctCase", "fn/object/count", "fn/string/crc32", "fn/object/createObject", "fn/style/cssExists", "fn/datetime/date", "fn/datetime/dateSQL", "fn/datetime/daysInMonth", "fn/object/deepPath", "fn/default/defaultAjaxAbortFunction", "fn/default/defaultAjaxErrorFunction", "fn/default/defaultAlertFunction", "fn/default/defaultConfirmFunction", "fn/default/defaultEndLoadingFunction", "fn/default/defaultErrorFunction", "fn/default/defaultHistoryFunction", "fn/default/defaultLinkFunction", "fn/default/defaultPostLinkFunction", "fn/default/defaultPreLinkFunction", "fn/default/defaultResizeFunction", "fn/default/defaultStartLoadingFunction", "fn/object/deleteProp", "fn/object/diffObj", "fn/string/dirName", "fn/ajax/download", "fn/ajax/downloadContent", "fn/loop/each", "fn/browser/eraseCookie", "fn/browser/error", "fn/string/escapeDquotes", "fn/string/escapeRegExp", "fn/string/escapeSquotes", "fn/string/escapeTicks", "fn/string/escapeUrl", "fn/object/extend", "fn/object/extendOut", "fn/datetime/fdate", "fn/datetime/fdatetime", "fn/form/fieldValue", "fn/string/fileExt", "fn/object/filter", "fn/object/filterToConditions", "fn/object/findAll", "fn/loop/fori", "fn/loop/forir", "fn/string/format", "fn/string/formatBytes", "fn/datetime/formatDate", "fn/string/formatSize", "fn/form/formdata", "fn/convert/fromXml", "fn/datetime/ftime", "fn/html/getAllTags", "fn/html/getAncestors", "fn/html/getAttributes", "fn/browser/getBrowserName", "fn/browser/getBrowserVersion", "fn/browser/getCookie", "fn/style/getCssVar", "fn/datetime/getDay", "fn/browser/getDeviceType", "fn/browser/getEventData", "fn/object/getField", "fn/object/getFieldValues", "fn/html/getHtml", "fn/html/getHTMLOfSelection", "fn/ajax/getLoader", "fn/html/getPath", "fn/object/getProp", "fn/object/getProperty", "fn/ajax/getRequestId", "fn/object/getRow", "fn/style/getScrollBarSize", "fn/html/getText", "fn/misc/getTimeoff", "fn/browser/happy", "fn/string/hash", "fn/convert/hex2rgb", "fn/browser/history", "fn/html/html2text", "fn/convert/imageToCanvas", "fn/convert/imgToBase64", "fn/browser/info", "fn/init", "fn/browser/isActiveInterface", "fn/type/isArray", "fn/type/isBlob", "fn/type/isBoolean", "fn/type/isCanvas", "fn/type/isColor", "fn/type/isComment", "fn/type/isCp", "fn/type/isDate", "fn/browser/isDesktopDevice", "fn/type/isDimension", "fn/type/isDom", "fn/type/isEmail", "fn/type/isEmpty", "fn/type/isEvent", "fn/browser/isFocused", "fn/type/isFunction", "fn/type/isHostname", "fn/html/isInside", "fn/type/isInt", "fn/type/isIP", "fn/type/isIterable", "fn/browser/isMobile", "fn/browser/isMobileDevice", "fn/type/isNull", "fn/type/isNumber", "fn/type/isObject", "fn/type/isPercent", "fn/type/isPrimitive", "fn/type/isPromise", "fn/type/isPropSize", "fn/type/isSame", "fn/type/isSQLDate", "fn/type/isString", "fn/type/isSymbol", "fn/browser/isTabletDevice", "fn/type/isURL", "fn/type/isValidDimension", "fn/type/isValidName", "fn/type/isValue", "fn/type/isVue", "fn/loop/iterate", "fn/style/lightenDarkenHex", "fn/ajax/link", "fn/browser/log", "fn/html/makeReactive", "fn/object/map", "fn/string/md5", "fn/misc/money", "fn/object/move", "fn/object/multiorder", "fn/string/nl2br", "fn/object/numProperties", "fn/form/objectToFormData", "fn/object/order", "fn/style/outerHeight", "fn/style/outerWidth", "fn/misc/percent", "fn/object/pickValue", "fn/ajax/post", "fn/ajax/postOut", "fn/string/printf", "fn/string/quotes2html", "fn/misc/randomInt", "fn/string/randomString", "fn/string/removeAccents", "fn/object/removeEmpty", "fn/string/removeExtraSpaces", "fn/string/removeHtmlComments", "fn/object/removePrivateProp", "fn/string/removeTrailingChars", "fn/string/repeat", "fn/string/replaceAll", "fn/browser/replaceSelection", "fn/style/resize", "fn/convert/rgb2hex", "fn/loop/riterate", "fn/misc/roundDecimal", "fn/string/sanitize", "fn/object/search", "fn/browser/selectElementText", "fn/html/selector", "fn/browser/setCookie", "fn/style/setCssVar", "fn/ajax/setNavigationVars", "fn/object/setProp", "fn/object/setProperty", "fn/string/shorten", "fn/object/shortenObj", "fn/object/shuffle", "fn/string/simpleHash", "fn/string/simpleHash1", "fn/string/simpleHash2", "fn/datetime/chrono", "fn/convert/string2ArrayBuffer", "fn/form/submit", "fn/string/substr", "fn/object/sum", "fn/datetime/timestamp", "fn/convert/toCSV", "fn/browser/toggleFullScreen", "fn/misc/translate", "fn/ajax/treatAjaxArguments", "fn/string/trim", "fn/string/uniqString", "fn/object/unique", "fn/ajax/upload", "fn/browser/warning"], function (require, exports, _addLoader_2, _compareValues_3, _deleteLoader_2, abort_1, abortURL_1, addColors_2, addInputs_2, addStyle_1, adjustHeight_1, adjustSize_3, adjustWidth_1, ajax_4, analyzeFunction_1, animateCss_1, arrayBuffer2String_1, arrayFromProp_1, autoExtend_1, baseName_3, br2nl_1, calendar_1, callback_3, camelize_1, camelToCss_1, canvasToImage_1, center_1, checkProps_1, checkPropsDetails_3, checkPropsOrDie_1, checkType_6, circularReplacer_2, clone_2, colorToHex_1, compare_2, compareConditions_3, copy_1, correctCase_2, count_1, crc32_1, createObject_4, cssExists_1, date_8, dateSQL_1, daysInMonth_1, deepPath_1, defaultAjaxAbortFunction_1, defaultAjaxErrorFunction_1, defaultAlertFunction_1, defaultConfirmFunction_1, defaultEndLoadingFunction_1, defaultErrorFunction_2, defaultHistoryFunction_2, defaultLinkFunction_1, defaultPostLinkFunction_1, defaultPreLinkFunction_1, defaultResizeFunction_2, defaultStartLoadingFunction_1, deleteProp_1, diffObj_1, dirName_2, download_1, downloadContent_2, each_28, eraseCookie_1, error_4, escapeDquotes_1, escapeRegExp_3, escapeSquotes_1, escapeTicks_1, escapeUrl_1, extend_8, extendOut_1, fdate_2, fdatetime_2, fieldValue_2, fileExt_2, filter_6, filterToConditions_3, findAll_1, fori_1, forir_1, format_1, formatBytes_1, formatDate_1, formatSize_1, formdata_2, fromXml_1, ftime_1, getAllTags_1, getAncestors_2, getAttributes_1, getBrowserName_1, getBrowserVersion_1, getCookie_1, getCssVar_2, getDay_1, getDeviceType_4, getEventData_1, getField_1, getFieldValues_1, getHtml_1, getHTMLOfSelection_2, getLoader_4, getPath_1, getProp_1, getProperty_4, getRequestId_2, getRow_3, getScrollBarSize_1, getText_1, getTimeoff_1, happy_1, hash_2, hex2rgb_1, history_1, html2text_2, imageToCanvas_2, imgToBase64_1, info_1, init_1, isActiveInterface_1, isArray_19, isBlob_2, isBoolean_1, isCanvas_2, isColor_1, isComment_1, isCp_3, isDate_8, isDesktopDevice_1, isDimension_1, isDom_5, isEmail_1, isEmpty_2, isEvent_1, isFocused_1, isFunction_11, isHostname_1, isInside_1, isInt_2, isIP_2, isIterable_5, isMobile_2, isMobileDevice_2, isNull_4, isNumber_10, isObject_18, isPercent_1, isPrimitive_1, isPromise_1, isPropSize_1, isSame_3, isSQLDate_1, isString_27, isSymbol_2, isTabletDevice_3, isURL_1, isValidDimension_2, isValidName_1, isValue_2, isVue_1, iterate_12, lightenDarkenHex_1, link_2, log_22, makeReactive_1, map_1, md5_4, money_1, move_1, multiorder_1, nl2br_1, numProperties_8, objectToFormData_2, order_1, outerHeight_1, outerWidth_1, percent_1, pickValue_1, post_2, postOut_1, printf_1, quotes2html_1, randomInt_2, randomString_1, removeAccents_4, removeEmpty_1, removeExtraSpaces_1, removeHtmlComments_2, removePrivateProp_2, removeTrailingChars_1, repeat_1, replaceAll_8, replaceSelection_1, resize_3, rgb2hex_1, riterate_1, roundDecimal_1, sanitize_1, search_6, selectElementText_1, selector_3, setCookie_1, setCssVar_1, setNavigationVars_2, setProp_1, setProperty_1, shorten_2, shortenObj_1, shuffle_1, simpleHash_2, simpleHash1_2, simpleHash2_2, chrono_1, string2ArrayBuffer_1, submit_2, substr_16, sum_1, timestamp_1, toCSV_1, toggleFullScreen_1, translate_1, treatAjaxArguments_3, trim_2, uniqString_1, unique_2, upload_1, warning_2) {
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.fn = void 0;
@@ -9813,18 +9813,18 @@
             dateSQL: dateSQL_1.dateSQL,
             daysInMonth: daysInMonth_1.daysInMonth,
             deepPath: deepPath_1.deepPath,
-            defaultAjaxAbortFunction: defaultAjaxAbortFunction_2.defaultAjaxAbortFunction,
-            defaultAjaxErrorFunction: defaultAjaxErrorFunction_3.defaultAjaxErrorFunction,
-            defaultAlertFunction: defaultAlertFunction_2.defaultAlertFunction,
+            defaultAjaxAbortFunction: defaultAjaxAbortFunction_1.defaultAjaxAbortFunction,
+            defaultAjaxErrorFunction: defaultAjaxErrorFunction_1.defaultAjaxErrorFunction,
+            defaultAlertFunction: defaultAlertFunction_1.defaultAlertFunction,
             defaultConfirmFunction: defaultConfirmFunction_1.defaultConfirmFunction,
-            defaultEndLoadingFunction: defaultEndLoadingFunction_2.defaultEndLoadingFunction,
+            defaultEndLoadingFunction: defaultEndLoadingFunction_1.defaultEndLoadingFunction,
             defaultErrorFunction: defaultErrorFunction_2.defaultErrorFunction,
             defaultHistoryFunction: defaultHistoryFunction_2.defaultHistoryFunction,
-            defaultLinkFunction: defaultLinkFunction_2.defaultLinkFunction,
-            defaultPostLinkFunction: defaultPostLinkFunction_2.defaultPostLinkFunction,
-            defaultPreLinkFunction: defaultPreLinkFunction_2.defaultPreLinkFunction,
+            defaultLinkFunction: defaultLinkFunction_1.defaultLinkFunction,
+            defaultPostLinkFunction: defaultPostLinkFunction_1.defaultPostLinkFunction,
+            defaultPreLinkFunction: defaultPreLinkFunction_1.defaultPreLinkFunction,
             defaultResizeFunction: defaultResizeFunction_2.defaultResizeFunction,
-            defaultStartLoadingFunction: defaultStartLoadingFunction_2.defaultStartLoadingFunction,
+            defaultStartLoadingFunction: defaultStartLoadingFunction_1.defaultStartLoadingFunction,
             deleteProp: deleteProp_1.deleteProp,
             diffObj: diffObj_1.diffObj,
             dirName: dirName_2.dirName,

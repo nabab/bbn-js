@@ -6,12 +6,8 @@ import { log } from "../browser/log";
 import { extend } from "../object/extend";
 import { numProperties } from "../object/numProperties";
 import { _deleteLoader } from "./_deleteLoader";
-import { defaultEndLoadingFunction } from "../default/defaultEndLoadingFunction";
 import { isFunction } from "../type/isFunction";
-import { defaultAjaxErrorFunction } from "../default/defaultAjaxErrorFunction";
-import { defaultAjaxAbortFunction } from "../default/defaultAjaxAbortFunction";
 import { _addLoader } from "./_addLoader";
-import { defaultStartLoadingFunction } from "../default/defaultStartLoadingFunction";
 
 interface Ajax {
   url: string;
@@ -157,7 +153,7 @@ const ajax = function (
       .apply(null, args)
       .then((res) => {
         _deleteLoader(requestId, res);
-        defaultEndLoadingFunction(url, tst, data, res);
+        bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
         switch (res.status) {
           case 200:
             if (isFunction(success)) {
@@ -165,21 +161,21 @@ const ajax = function (
             }
             break;
           default:
-            defaultAjaxErrorFunction(loader, res);
+            bbn.fn.defaultAjaxErrorFunction(loader, res);
         }
         return res;
       })
       .catch((err: bbnXHR) => {
         let isAbort = axios.isCancel(err);
         _deleteLoader(requestId, err.message || err.response.data, isAbort);
-        defaultEndLoadingFunction(url, tst, data, err);
+        bbn.fn.defaultEndLoadingFunction(url, tst, data, err);
         if (isAbort) {
           let ok = 1;
           if (isFunction(abort)) {
             ok = abort(err.message, url);
           }
           if (ok) {
-            defaultAjaxAbortFunction(err.message, url);
+            bbn.fn.defaultAjaxAbortFunction(err.message, url);
           }
         } else {
           let ok = 1;
@@ -187,7 +183,7 @@ const ajax = function (
             ok = failure(err.request, err);
           }
           if (ok) {
-            defaultAjaxErrorFunction(
+            bbn.fn.defaultAjaxErrorFunction(
               err.request,
               err.response ? err.response.data : "",
               err.response ? err.response.status : err
@@ -196,7 +192,7 @@ const ajax = function (
         }
       });
     let tst = _addLoader(requestId, loader, source);
-    defaultStartLoadingFunction(url, tst, data, requestId);
+    bbn.fn.defaultStartLoadingFunction(url, tst, data, requestId);
     return loader;
   }
 };

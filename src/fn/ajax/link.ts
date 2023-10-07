@@ -1,6 +1,5 @@
 import { treatAjaxArguments } from './treatAjaxArguments';
 import { getLoader } from './getLoader';
-import { defaultPreLinkFunction } from '../default/defaultPreLinkFunction';
 import { ajax } from './ajax';
 import { log } from '../browser/log';
 import { extend } from '../object/extend';
@@ -92,8 +91,8 @@ const link = function (...args) {
 		/* If a second callback is defined, it is triggered instead of defaultPreLinkFunction */
 		if (cfg.successFn) {
 			ok = cfg.successFn(cfg.url);
-		} else if (defaultPreLinkFunction) {
-			ok = defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
+		} else if (bbn.fn.defaultPreLinkFunction) {
+			ok = bbn.fn.defaultPreLinkFunction(cfg.url, cfg.force, cfg.ele);
 			if (ok.data !== undefined) {
 				extend(cfg.obj, ok.data);
 				ok = 1;

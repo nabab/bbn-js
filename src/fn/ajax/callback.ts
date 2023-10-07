@@ -1,9 +1,6 @@
 import { error } from '../browser/error';
-import { defaultLinkFunction } from '../default/defaultLinkFunction';
 import { isFunction } from '../type/isFunction';
 import { log } from '../browser/log';
-import { defaultPostLinkFunction } from '../default/defaultPostLinkFunction';
-import { defaultAlertFunction } from '../default/defaultAlertFunction';
 
 /**
  * Executes a serie of predefined actions once an Ajax request has been done.
@@ -68,7 +65,7 @@ const callback = function (
 		if (fn && isFunction(fn)) {
 			tmp = fn(res, ele);
 		} else {
-			tmp = defaultLinkFunction(res, ele);
+			tmp = bbn.fn.defaultLinkFunction(res, ele);
 		}
 		if (ele && isObj && (res.content !== undefined)) {
 			if ('value' in ele) {
@@ -100,18 +97,18 @@ const callback = function (
 		/* Case where a callback is defined */
 		if (tmp && fn2 && isFunction(fn2)) {
 			fn2(res);
-		} else if (isObj && defaultPostLinkFunction) {
-			defaultPostLinkFunction(res, ele);
+		} else if (isObj && bbn.fn.defaultPostLinkFunction) {
+			bbn.fn.defaultPostLinkFunction(res, ele);
 		}
 		if (tmp && isObj && res.postscript) {
 			eval(res.postscript);
 		}
 		if (isObj && res.error) {
 			errTitle = res.errorTitle || bbn.lng.server_response;
-			defaultAlertFunction(res.error, errTitle);
+			bbn.fn.defaultAlertFunction(res.error, errTitle);
 		}
 	} else {
-		defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
+		bbn.fn.defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
 	}
 	return tmp;
 };
