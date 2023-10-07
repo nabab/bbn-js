@@ -210,7 +210,7 @@ import {shuffle} from "./fn/object/shuffle.js"
 import {simpleHash} from "./fn/string/simpleHash.js"
 import {simpleHash1} from "./fn/string/simpleHash1.js"
 import {simpleHash2} from "./fn/string/simpleHash2.js"
-import {startChrono, stopChrono} from './fn/datetime/chrono'
+import {startChrono, stopChrono} from './fn/datetime/chrono.js'
 import {string2ArrayBuffer} from "./fn/convert/string2ArrayBuffer.js"
 import {submit} from "./fn/form/submit.js"
 import {substr} from "./fn/string/substr.js"
