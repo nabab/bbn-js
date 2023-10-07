@@ -3695,6 +3695,9 @@
         "use strict";
         Object.defineProperty(exports, "__esModule", { value: true });
         exports.calendar = void 0;
+        const bbn = {
+            _: st => st
+        };
         //dayjs.extend(window['dayjs_plugin_calendar']);
         /**
          * Returns a date relative to the current day.

@@ -5,6 +5,10 @@ import { isDate } from "../type/isDate.js";
 import { isString } from "../type/isString.js";
 import {}  from '../../../node_modules/dayjs/plugin/calendar.js';
 
+const bbn = {
+	_: st => st
+};
+
 //dayjs.extend(window['dayjs_plugin_calendar']);
 
 /**
