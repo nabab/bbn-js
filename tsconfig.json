@@ -9,7 +9,8 @@
     "target": "ES5",
     "declaration": true,
     "outDir": "./dist",
-    "allowUmdGlobalAccess": true
+    "allowUmdGlobalAccess": true,
+    "noEmit": false
   },
   "files": [
     "src/types/index.d.ts",
