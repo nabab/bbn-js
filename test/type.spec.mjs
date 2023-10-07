@@ -1,6 +1,6 @@
-const {expect} = require('chai');
-require('jsdom-global')();
-const bbn = require('../dist/bundle.js');
+import {expect} from 'chai';
+import {} from 'jsdom-global';
+import {} from '../dist/index.js';
 
 describe(`Type Functions`, () => {
   describe(`isEmail`, () => {
