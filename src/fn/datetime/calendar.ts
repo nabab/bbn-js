@@ -9,7 +9,7 @@ const bbn = {
 	_: st => st
 };
 
-//dayjs.extend(window['dayjs_plugin_calendar']);
+dayjs.extend(dayjs_plugin_calendar);
 
 /**
  * Returns a date relative to the current day.

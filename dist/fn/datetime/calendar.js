@@ -3,10 +3,11 @@ import { fdate } from "./fdate.js";
 import { date } from "./date.js";
 import { isDate } from "../type/isDate.js";
 import { isString } from "../type/isString.js";
+import { dayjs_plugin_calendar } from '../../../node_modules/dayjs/plugin/calendar.js';
 const bbn = {
     _: st => st
 };
-//dayjs.extend(window['dayjs_plugin_calendar']);
+dayjs.extend(dayjs_plugin_calendar);
 /**
  * Returns a date relative to the current day.
  *
