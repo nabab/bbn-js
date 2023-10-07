@@ -2,7 +2,7 @@ import { fdate } from "./fdate.js";
 import { date } from "./date.js";
 import { isDate } from "../type/isDate.js";
 import { isString } from "../type/isString.js";
-import dayjs from '../../../node_modules/dayjs/dayjs.min.js';
+import { dayjs } from '../../../node_modules/dayjs/dayjs.min.js';
 dayjs.extend(window['dayjs_plugin_calendar']);
 const calendar = function (d, wrong_result = false) {
     if (undefined === dayjs) {
