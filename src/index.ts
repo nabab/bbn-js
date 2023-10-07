@@ -1,12 +1,12 @@
-import { _ } from './_.js';
-import { $ } from './$.js';
-import { lng } from './lng.js';
-import { vars } from './vars.js';
-import { env } from './env.js';
-import { db } from './db.js';
-import { fn } from './fn.js';
+import { _ } from './_.ts';
+import { $ } from './$.ts';
+import { lng } from './lng.ts';
+import { vars } from './vars.ts';
+import { env } from './env.ts';
+import { db } from './db.ts';
+import { fn } from './fn.ts';
 
-const bbn: Bbn = {
+const bbn = {
   version: "1.0.1",
   opt: {
     _cat: {}
@@ -22,7 +22,7 @@ const bbn: Bbn = {
   fn
 };
 
-window.bbn = bbn;
+window['bbn'] = bbn;
 
 
 export {bbn};
