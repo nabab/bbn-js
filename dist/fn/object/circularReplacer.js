@@ -1,6 +1,5 @@
 import { isDom } from '../type/isDom.js';
 import { isCp } from '../type/isCp.js';
-import { log } from '../browser/log.js';
 /**
  * Returns a function to give to JSON.stringify in order to avoid circular values.
  *
@@ -25,7 +24,6 @@ var circularReplacer = function () {
                     }
                 }
                 else if (isCp(value)) {
-                    log("IS CP", value);
                     value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                 }
                 else {

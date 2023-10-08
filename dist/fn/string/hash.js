@@ -1,4 +1,3 @@
-import { log } from '../browser/log.js';
 import { isDom } from '../type/isDom.js';
 import { isCp } from '../type/isCp.js';
 import { circularReplacer } from '../object/circularReplacer.js';
@@ -24,7 +23,6 @@ var hash = function (obj) {
                 }
             }
             else if (isCp(value)) {
-                log("IS CP");
                 st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
             }
             else {
