@@ -25,7 +25,7 @@ var circularReplacer = function () {
                     }
                 }
                 else if (isCp(value)) {
-                    log("IS CP");
+                    log("IS CP", value);
                     value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                 }
                 else {
