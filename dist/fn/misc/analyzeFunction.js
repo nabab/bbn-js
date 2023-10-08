@@ -30,6 +30,7 @@ var analyzeFunction = function (fn) {
     var settingDefault = false;
     var isComment = false;
     var isCommentLine = false;
+    var isDestructuring = false;
     for (var i = 0; i < all.length; i++) {
         // Handle string literals
         if (!isComment && all[i] === '/' && all[i + 1] === '*') {
@@ -107,7 +108,9 @@ var analyzeFunction = function (fn) {
             settingDefault = true;
         }
         else if (all[i] === ',') {
-            if (parOpened > parClosed) {
+            if (isDestructuring) {
+            }
+            else if (parOpened > parClosed) {
                 if (settingDefault) {
                     currentArg['default'] = exp.trim();
                     settingDefault = false;
@@ -131,6 +134,14 @@ var analyzeFunction = function (fn) {
                 break;
             }
             else {
+                if (parOpened > parClosed) {
+                    if (all[i] === '{' && !isDestructuring) {
+                        isDestructuring = true;
+                    }
+                    else if (all[i] === '}' && isDestructuring) {
+                        isDestructuring = false;
+                    }
+                }
                 exp = '';
             }
         }

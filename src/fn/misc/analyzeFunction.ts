@@ -32,6 +32,7 @@ const analyzeFunction = function (fn) {
 	let settingDefault = false;
 	let isComment = false;
 	let isCommentLine = false;
+	let isDestructuring = false;
 
 	for (let i = 0; i < all.length; i++) {
 		// Handle string literals
@@ -97,7 +98,10 @@ const analyzeFunction = function (fn) {
 				exp = '';
 				settingDefault = true;
 		} else if (all[i] === ',') {
-			if (parOpened > parClosed) {
+			if (isDestructuring) {
+
+			}
+			else if (parOpened > parClosed) {
 				if (settingDefault) {
 					currentArg['default'] = exp.trim();
 					settingDefault = false;
@@ -118,6 +122,14 @@ const analyzeFunction = function (fn) {
 				break;
 			}
 			else {
+				if (parOpened > parClosed) {
+					if (all[i] === '{' && !isDestructuring) {
+						isDestructuring = true;
+					}
+					else if (all[i] === '}' && isDestructuring) {
+						isDestructuring = false;
+					}
+				}
 				exp = '';
 			}
 		} else if (isArrow) {
