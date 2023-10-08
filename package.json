@@ -9,8 +9,11 @@
   ],
   "type": "module",
   "scripts": {
+    "type": "./node_modules/.bin/tsc",
+    "gitauto": "git stage ./src/* && git stage ./*.ts && git stage ./*.json && git stage -f ./dist/* && git stage ./test/* && git commit -m \"Latest changes\" && git push",
+    "pub": "npm version patch && npm publish",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
-    "bbn": "./node_modules/.bin/tsc && ./node_modules/.bin/tsc-bundle tsconfig.json && git stage ./src/* && git stage ./*.ts && git stage ./*.json && git stage -f ./dist/* && git stage ./test/* && git commit -m \"Latest changes\" && git push && npm version patch && npm publish",
+    "all": "npm run type && npm run test && npm version patch && npm run build && npm run gitauto && npm publish",
     "test": "IS_TESTING=true ./node_modules/.bin/mocha -r jsdom-global/register",
     "wtf": "echo \"Error: no test specified\" && exit 1"
   },
