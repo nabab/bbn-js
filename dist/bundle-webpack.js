@@ -6390,8 +6390,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   analyzeFunction: () => (/* binding */ analyzeFunction)
 /* harmony export */ });
 /* harmony import */ var _string_md5_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../string/md5.js */ "./dist/fn/string/md5.js");
-/* harmony import */ var _browser_log_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../browser/log.js */ "./dist/fn/browser/log.js");
-
 
 /**
  * Analyzes the given function and extracts details about its structure.
@@ -6406,7 +6404,6 @@ var analyzeFunction = function (fn) {
     if (typeof all !== "string") {
         throw Error("Unexpected type " + typeof fn + " while parsing function");
     }
-    (0,_browser_log_js__WEBPACK_IMPORTED_MODULE_1__.log)("INSIDE ANALYZE FUNCTION", all);
     var exp = "";
     var isArrow = false;
     var isAsync = false;
