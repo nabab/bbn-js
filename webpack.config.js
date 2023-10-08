@@ -9,7 +9,7 @@ import webpack from 'webpack';
 export default {
     mode: "development",
     // Entry file(s)
-    entry: './src/index.ts',
+    entry: './dist/index.js',
 
     // Output configuration
     output: {
@@ -30,9 +30,9 @@ export default {
 
     // Resolve extensions and modules
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.js'],
         modules: [
-            __dirname + 'src',
+            __dirname + 'dist',
             'node_modules'
         ]
     },
