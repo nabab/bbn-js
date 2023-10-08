@@ -83,7 +83,9 @@ const analyzeFunction = function (fn) {
         exp = "";
       }
       parClosed++;
-    } else if (all[i] === "=" && all[i + 1] === ">") {
+    } else if (isDestructuring && all[i] !== "}") {
+			exp += all[i];
+		} else if (all[i] === "=" && all[i + 1] === ">") {
       if (exp.trim() !== "" && parOpened === parClosed) {
         currentArg["name"] = exp.trim();
         args.push(currentArg);
