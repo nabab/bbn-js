@@ -3457,7 +3457,9 @@
                                 isDestructuring = false;
                             }
                         }
-                        exp = "";
+                        else {
+                            exp = "";
+                        }
                     }
                 }
                 else if (isArrow) {

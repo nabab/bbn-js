@@ -140,7 +140,9 @@ var analyzeFunction = function (fn) {
                         isDestructuring = false;
                     }
                 }
-                exp = "";
+                else {
+                    exp = "";
+                }
             }
         }
         else if (isArrow) {

@@ -125,7 +125,9 @@ const analyzeFunction = function (fn) {
             isDestructuring = false;
           }
         }
-        exp = "";
+				else {
+					exp = "";
+				}
       }
     } else if (isArrow) {
       body = all.substring(all.indexOf("=>") + 2).trim();
