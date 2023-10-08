@@ -3326,23 +3326,23 @@
          * @throws {Error} When unexpected syntax is encountered while parsing.
          */
         var analyzeFunction = function (fn) {
-            var all = typeof fn === 'function' ? fn.toString() : fn;
-            if (typeof all !== 'string') {
-                throw Error('Unexpected type ' + typeof fn + ' while parsing function');
+            var all = typeof fn === "function" ? fn.toString() : fn;
+            if (typeof all !== "string") {
+                throw Error("Unexpected type " + typeof fn + " while parsing function");
             }
             (0, log_js_8.log)("INSIDE ANALYZE FUNCTION", all);
-            var exp = '';
+            var exp = "";
             var isArrow = false;
             var isAsync = false;
             var hasFunction = false;
-            var name = '';
+            var name = "";
             var parOpened = 0;
             var parClosed = 0;
             var args = [];
             var currentArg = {};
             var body;
-            var currentQuote = '';
-            var escapable = ['"', "'", '`'];
+            var currentQuote = "";
+            var escapable = ['"', "'", "`"];
             var isEscaped = false;
             var settingDefault = false;
             var isComment = false;
@@ -3350,129 +3350,126 @@
             var isDestructuring = false;
             for (var i = 0; i < all.length; i++) {
                 // Handle string literals
-                if (!isComment && all[i] === '/' && all[i + 1] === '*') {
+                if (!isComment && all[i] === "/" && all[i + 1] === "*") {
                     isComment = true;
-                    exp = '';
+                    exp = "";
                 }
-                else if (all[i] === '*' && all[i + 1] === '/') {
+                else if (all[i] === "*" && all[i + 1] === "/") {
                     isComment = false;
                 }
-                else if (!isCommentLine && all[i] === '/' && all[i + 1] === '/') {
+                else if (!isCommentLine && all[i] === "/" && all[i + 1] === "/") {
                     isCommentLine = true;
-                    exp = '';
+                    exp = "";
                 }
-                else if (all[i] === '\n') {
+                else if (all[i] === "\n") {
                     isCommentLine = false;
                 }
                 else if (isComment || isCommentLine) {
                     continue;
                 }
                 else if (all[i] === currentQuote && !isEscaped && currentQuote) {
-                    currentQuote = '';
+                    currentQuote = "";
                     exp += all[i];
                 }
                 else if (currentQuote) {
-                    isEscaped = all[i] === '\\' && !isEscaped;
+                    isEscaped = all[i] === "\\" && !isEscaped;
                     exp += all[i];
                 }
                 else if (escapable.includes(all[i]) && !isEscaped) {
                     currentQuote = all[i];
                     exp += all[i];
                 }
-                else if (all[i] === '(') {
+                else if (all[i] === "(") {
                     parOpened++;
-                    if (exp.trim() !== '') {
-                        if (exp.trim() === 'function') {
+                    if (exp.trim() !== "") {
+                        if (exp.trim() === "function") {
                             hasFunction = true;
                         }
-                        if (exp.trim() !== 'async') {
+                        if (exp.trim() !== "async") {
                             name = exp.trim();
                         }
-                        exp = '';
+                        exp = "";
                     }
                 }
-                else if (all[i] === ')') {
+                else if (all[i] === ")") {
                     if (parOpened === parClosed + 1) {
                         if (settingDefault) {
-                            currentArg['default'] = exp.trim();
+                            currentArg["default"] = exp.trim();
                             settingDefault = false;
                         }
                         else if (exp) {
-                            currentArg['name'] = exp.trim();
+                            currentArg["name"] = exp.trim();
                         }
-                        if (currentArg['name'] || currentArg['default']) {
+                        if (currentArg["name"] || currentArg["default"]) {
                             args.push(currentArg);
                             currentArg = {};
                         }
-                        exp = '';
+                        exp = "";
                     }
                     parClosed++;
                 }
-                else if (all[i] === '=' && all[i + 1] === '>') {
-                    if (exp.trim() !== '' && parOpened === parClosed) {
-                        currentArg['name'] = exp.trim();
+                else if (all[i] === "=" && all[i + 1] === ">") {
+                    if (exp.trim() !== "" && parOpened === parClosed) {
+                        currentArg["name"] = exp.trim();
                         args.push(currentArg);
                         currentArg = {};
-                        exp = '';
+                        exp = "";
                     }
                     isArrow = true;
                     i++;
                     continue;
                 }
-                else if (all[i] === '=' && parOpened > parClosed && !settingDefault) {
-                    currentArg['name'] = exp.trim();
-                    exp = '';
+                else if (all[i] === "=" && parOpened > parClosed && !settingDefault) {
+                    currentArg["name"] = exp.trim();
+                    exp = "";
                     settingDefault = true;
                 }
-                else if (all[i] === ',') {
-                    if (isDestructuring) {
-                        exp += all[i];
-                    }
-                    else if (parOpened > parClosed) {
+                else if (all[i] === ",") {
+                    if (parOpened > parClosed) {
                         if (settingDefault) {
-                            currentArg['default'] = exp.trim();
+                            currentArg["default"] = exp.trim();
                             settingDefault = false;
                         }
                         else if (exp) {
-                            currentArg['name'] = exp.trim();
+                            currentArg["name"] = exp.trim();
                         }
-                        if (currentArg['name'] || currentArg['default']) {
+                        if (currentArg["name"] || currentArg["default"]) {
                             args.push(currentArg);
                             currentArg = {};
                         }
-                        exp = '';
+                        exp = "";
                     }
                     else {
                         throw Error("Unexpected ',' while parsing function");
                     }
                 }
-                else if (all[i] === '{' || all[i] === '}') {
+                else if (all[i] === "{" || all[i] === "}") {
                     if (parOpened === parClosed) {
                         body = all.substring(i).trim();
                         break;
                     }
                     else {
                         if (parOpened > parClosed) {
-                            if (all[i] === '{' && !isDestructuring) {
+                            if (all[i] === "{" && !isDestructuring) {
                                 isDestructuring = true;
                             }
-                            else if (all[i] === '}' && isDestructuring) {
+                            else if (all[i] === "}" && isDestructuring) {
                                 isDestructuring = false;
                             }
                         }
-                        exp = '';
+                        exp = "";
                     }
                 }
                 else if (isArrow) {
-                    body = all.substring(all.indexOf('=>') + 2).trim();
+                    body = all.substring(all.indexOf("=>") + 2).trim();
                     break;
                 }
-                else if (all[i] === ' ') {
-                    if (exp.trim() !== '') {
-                        if (exp.trim() === 'async') {
+                else if (all[i] === " ") {
+                    if (exp.trim() !== "") {
+                        if (exp.trim() === "async") {
                             isAsync = true;
                         }
-                        exp = '';
+                        exp = "";
                     }
                 }
                 else {
@@ -3484,11 +3481,13 @@
                     body = exp;
                 }
                 else {
-                    throw Error('Unexpected end of function while parsing function');
+                    throw Error("Unexpected end of function while parsing function");
                 }
             }
-            var argString = args.map(function (arg) { return arg.name + (arg.default ? ' = ' + arg.default : ''); }).join(', ');
-            var hash = (0, md5_js_2.md5)(body + (name ? '-' + name : '') + (argString ? '-' + argString : ''));
+            var argString = args
+                .map(function (arg) { return arg.name + (arg.default ? " = " + arg.default : ""); })
+                .join(", ");
+            var hash = (0, md5_js_2.md5)(body + (name ? "-" + name : "") + (argString ? "-" + argString : ""));
             return {
                 body: body,
                 args: args,
