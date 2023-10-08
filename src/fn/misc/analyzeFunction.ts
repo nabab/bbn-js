@@ -14,7 +14,6 @@ const analyzeFunction = function (fn) {
   if (typeof all !== "string") {
     throw Error("Unexpected type " + typeof fn + " while parsing function");
   }
-  log("INSIDE ANALYZE FUNCTION", all);
 
   let exp = "";
   let isArrow = false;

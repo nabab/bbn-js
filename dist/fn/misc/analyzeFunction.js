@@ -1,5 +1,4 @@
 import { md5 } from "../string/md5.js";
-import { log } from "../browser/log.js";
 /**
  * Analyzes the given function and extracts details about its structure.
  *
@@ -13,7 +12,6 @@ var analyzeFunction = function (fn) {
     if (typeof all !== "string") {
         throw Error("Unexpected type " + typeof fn + " while parsing function");
     }
-    log("INSIDE ANALYZE FUNCTION", all);
     var exp = "";
     var isArrow = false;
     var isAsync = false;
