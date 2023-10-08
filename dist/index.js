@@ -3455,9 +3455,11 @@
                         if (parOpened > parClosed) {
                             if (all[i] === "{" && !isDestructuring) {
                                 isDestructuring = true;
+                                exp = all[i];
                             }
                             else if (all[i] === "}" && isDestructuring) {
                                 isDestructuring = false;
+                                exp += all[i];
                             }
                         }
                         else {
