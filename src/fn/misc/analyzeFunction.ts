@@ -99,7 +99,7 @@ const analyzeFunction = function (fn) {
 				settingDefault = true;
 		} else if (all[i] === ',') {
 			if (isDestructuring) {
-
+				exp += all[i];
 			}
 			else if (parOpened > parClosed) {
 				if (settingDefault) {
