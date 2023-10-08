@@ -30,7 +30,7 @@ const log = function (...args) {
 		}
 
 		const exec = window.console[fn];
-		if (bbn?.env?.loggingLevel >= level) {
+		if (window['bbn']?.env?.loggingLevel >= level) {
 			let i = 0;
 			while (i < args.length) {
 				let t = typeof args[i];
