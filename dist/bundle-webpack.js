@@ -7263,8 +7263,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _type_isDom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../type/isDom.js */ "./dist/fn/type/isDom.js");
 /* harmony import */ var _type_isCp_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../type/isCp.js */ "./dist/fn/type/isCp.js");
-/* harmony import */ var _browser_log_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../browser/log.js */ "./dist/fn/browser/log.js");
-
 
 
 /**
@@ -7291,7 +7289,6 @@ var circularReplacer = function () {
                     }
                 }
                 else if ((0,_type_isCp_js__WEBPACK_IMPORTED_MODULE_1__.isCp)(value)) {
-                    (0,_browser_log_js__WEBPACK_IMPORTED_MODULE_2__.log)("IS CP", value);
                     value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                 }
                 else {
@@ -10499,12 +10496,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   hash: () => (/* binding */ hash)
 /* harmony export */ });
-/* harmony import */ var _browser_log_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../browser/log.js */ "./dist/fn/browser/log.js");
-/* harmony import */ var _type_isDom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../type/isDom.js */ "./dist/fn/type/isDom.js");
-/* harmony import */ var _type_isCp_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../type/isCp.js */ "./dist/fn/type/isCp.js");
-/* harmony import */ var _object_circularReplacer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../object/circularReplacer.js */ "./dist/fn/object/circularReplacer.js");
-/* harmony import */ var _simpleHash_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./simpleHash.js */ "./dist/fn/string/simpleHash.js");
-
+/* harmony import */ var _type_isDom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../type/isDom.js */ "./dist/fn/type/isDom.js");
+/* harmony import */ var _type_isCp_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../type/isCp.js */ "./dist/fn/type/isCp.js");
+/* harmony import */ var _object_circularReplacer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../object/circularReplacer.js */ "./dist/fn/object/circularReplacer.js");
+/* harmony import */ var _simpleHash_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./simpleHash.js */ "./dist/fn/string/simpleHash.js");
 
 
 
@@ -10520,7 +10515,7 @@ var hash = function (obj) {
     for (var i in arguments) {
         if (arguments[i]) {
             var value = arguments[i];
-            if ((0,_type_isDom_js__WEBPACK_IMPORTED_MODULE_1__.isDom)(value)) {
+            if ((0,_type_isDom_js__WEBPACK_IMPORTED_MODULE_0__.isDom)(value)) {
                 if (value.bbnId) {
                     st +=
                         "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
@@ -10529,13 +10524,12 @@ var hash = function (obj) {
                     st += "__BBN_DOM__" + value.tagName + "/" + value.className;
                 }
             }
-            else if ((0,_type_isCp_js__WEBPACK_IMPORTED_MODULE_2__.isCp)(value)) {
-                (0,_browser_log_js__WEBPACK_IMPORTED_MODULE_0__.log)("IS CP");
+            else if ((0,_type_isCp_js__WEBPACK_IMPORTED_MODULE_1__.isCp)(value)) {
                 st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
             }
             else {
                 try {
-                    st += JSON.stringify(arguments[i], (0,_object_circularReplacer_js__WEBPACK_IMPORTED_MODULE_3__.circularReplacer)());
+                    st += JSON.stringify(arguments[i], (0,_object_circularReplacer_js__WEBPACK_IMPORTED_MODULE_2__.circularReplacer)());
                 }
                 catch (e) {
                     st += ".";
@@ -10543,7 +10537,7 @@ var hash = function (obj) {
             }
         }
     }
-    return (0,_simpleHash_js__WEBPACK_IMPORTED_MODULE_4__.simpleHash)(st);
+    return (0,_simpleHash_js__WEBPACK_IMPORTED_MODULE_3__.simpleHash)(st);
 };
 
 
