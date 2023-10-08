@@ -3425,7 +3425,10 @@
                     settingDefault = true;
                 }
                 else if (all[i] === ",") {
-                    if (parOpened > parClosed) {
+                    if (isDestructuring) {
+                        exp += all[i];
+                    }
+                    else if (parOpened > parClosed) {
                         if (settingDefault) {
                             currentArg["default"] = exp.trim();
                             settingDefault = false;
