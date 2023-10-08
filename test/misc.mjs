@@ -93,6 +93,7 @@ describe(`Misc. Functions`, () => {
             const result = analyzeFunction(testFunction);
 
             expect(result.returnType).to.equal('T');
+            expect(result.name).to.equal('withReturnType');
         });
         it("should understand a function with a comment inside its signature", function() {
           const testFunction = `

@@ -15,5 +15,6 @@ declare const analyzeFunction: (fn: any) => {
     name: string;
     isAsync: boolean;
     hash: string;
+    returnType: string;
 };
 export { analyzeFunction };

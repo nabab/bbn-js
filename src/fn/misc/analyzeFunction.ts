@@ -33,13 +33,14 @@ const analyzeFunction = function (fn) {
   let isComment = false;
   let isCommentLine = false;
   let isDestructuring = false;
+	let returnType = "";
 
   for (let i = 0; i < all.length; i++) {
     // Handle string literals
     if (!isComment && all[i] === "/" && all[i + 1] === "*") {
       isComment = true;
       exp = "";
-    } else if (all[i] === "*" && all[i + 1] === "/") {
+    } else if (all[i] === "/" && all[i - 1] === "*") {
       isComment = false;
     } else if (!isCommentLine && all[i] === "/" && all[i + 1] === "/") {
       isCommentLine = true;
@@ -65,6 +66,10 @@ const analyzeFunction = function (fn) {
         }
         else if (exp.trim() !== "async") {
           name = exp.trim();
+					let tmp = name.match(/^([a-zA-Z0-9_]+)<[a-zA-Z0-9_]+>$/);
+					if (tmp) {
+						name = tmp[1];
+					}
         }
         exp = "";
       }
@@ -85,6 +90,15 @@ const analyzeFunction = function (fn) {
       parClosed++;
     } else if (isDestructuring && all[i] !== "}") {
 			exp += all[i];
+		} else if (parOpened && parOpened === parClosed && all[i] === ":") {
+			const matches = all.substring(i + 1).trim().match(/^\s*([a-zA-Z0-9_]+)\s*\{/);
+			if (!matches) {
+				throw Error("Unexpected ':' while parsing function");
+			}
+			returnType = matches[1];
+			body = all.substring(i + matches[0].length).trim();
+			break;
+
 		} else if (all[i] === "=" && all[i + 1] === ">") {
       if (exp.trim() !== "" && parOpened === parClosed) {
         currentArg["name"] = exp.trim();
@@ -145,7 +159,12 @@ const analyzeFunction = function (fn) {
           isAsync = true;
         }
 
-        exp = "";
+				if (parOpened > parClosed) {
+					exp += all[i];
+				}
+				else {
+	        exp = "";
+				}
       }
     } else {
       exp += all[i];
@@ -176,6 +195,7 @@ const analyzeFunction = function (fn) {
     name,
     isAsync,
     hash,
+		returnType
   };
 };
 

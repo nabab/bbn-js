@@ -20,6 +20,7 @@ declare const fn: {
         name: string;
         isAsync: boolean;
         hash: string;
+        returnType: string;
     };
     animateCss: (ele: any, animationName: any, callback: any) => void;
     arrayBuffer2String: (buf: any) => any;

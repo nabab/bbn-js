@@ -3348,13 +3348,14 @@
             var isComment = false;
             var isCommentLine = false;
             var isDestructuring = false;
+            var returnType = "";
             for (var i = 0; i < all.length; i++) {
                 // Handle string literals
                 if (!isComment && all[i] === "/" && all[i + 1] === "*") {
                     isComment = true;
                     exp = "";
                 }
-                else if (all[i] === "*" && all[i + 1] === "/") {
+                else if (all[i] === "/" && all[i - 1] === "*") {
                     isComment = false;
                 }
                 else if (!isCommentLine && all[i] === "/" && all[i + 1] === "/") {
@@ -3387,6 +3388,10 @@
                         }
                         else if (exp.trim() !== "async") {
                             name = exp.trim();
+                            var tmp = name.match(/^([a-zA-Z0-9_]+)<[a-zA-Z0-9_]+>$/);
+                            if (tmp) {
+                                name = tmp[1];
+                            }
                         }
                         exp = "";
                     }
@@ -3410,6 +3415,15 @@
                 }
                 else if (isDestructuring && all[i] !== "}") {
                     exp += all[i];
+                }
+                else if (parOpened && parOpened === parClosed && all[i] === ":") {
+                    var matches = all.substring(i + 1).trim().match(/^\s*([a-zA-Z0-9_]+)\s*\{/);
+                    if (!matches) {
+                        throw Error("Unexpected ':' while parsing function");
+                    }
+                    returnType = matches[1];
+                    body = all.substring(i + matches[0].length).trim();
+                    break;
                 }
                 else if (all[i] === "=" && all[i + 1] === ">") {
                     if (exp.trim() !== "" && parOpened === parClosed) {
@@ -3479,7 +3493,12 @@
                         if (exp.trim() === "async") {
                             isAsync = true;
                         }
-                        exp = "";
+                        if (parOpened > parClosed) {
+                            exp += all[i];
+                        }
+                        else {
+                            exp = "";
+                        }
                     }
                 }
                 else {
@@ -3507,6 +3526,7 @@
                 name: name,
                 isAsync: isAsync,
                 hash: hash,
+                returnType: returnType
             };
         };
         exports.analyzeFunction = analyzeFunction;
