@@ -126,8 +126,13 @@ var analyzeFunction = function (fn) {
             }
         }
         else if (all[i] === '{' || all[i] === '}') {
-            body = all.substring(i).trim();
-            break;
+            if (parOpened === parClosed) {
+                body = all.substring(i).trim();
+                break;
+            }
+            else {
+                exp = '';
+            }
         }
         else if (isArrow) {
             body = all.substring(all.indexOf('=>') + 2).trim();
