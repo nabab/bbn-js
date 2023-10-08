@@ -25,7 +25,6 @@ const circularReplacer = function () {
             value = "__BBN_DOM__" + value.tagName + "/" + value.className;
           }
         } else if (isCp(value)) {
-          log("IS CP", value);
           value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
         } else {
           value = value.constructor.toString();

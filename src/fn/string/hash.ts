@@ -23,7 +23,6 @@ const hash = function (obj) {
           st += "__BBN_DOM__" + value.tagName + "/" + value.className;
         }
       } else if (isCp(value)) {
-        log("IS CP");
         st += "__BBN_CP__" + value.$options.name + "/" + value.$cid;
       } else {
         try {
