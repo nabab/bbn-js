@@ -3385,7 +3385,7 @@
                         if (exp.trim() === "function") {
                             hasFunction = true;
                         }
-                        if (exp.trim() !== "async") {
+                        else if (exp.trim() !== "async") {
                             name = exp.trim();
                         }
                         exp = "";
