@@ -7291,7 +7291,7 @@ var circularReplacer = function () {
                     }
                 }
                 else if ((0,_type_isCp_js__WEBPACK_IMPORTED_MODULE_1__.isCp)(value)) {
-                    (0,_browser_log_js__WEBPACK_IMPORTED_MODULE_2__.log)("IS CP");
+                    (0,_browser_log_js__WEBPACK_IMPORTED_MODULE_2__.log)("IS CP", value);
                     value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                 }
                 else {
