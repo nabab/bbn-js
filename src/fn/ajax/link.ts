@@ -101,6 +101,9 @@ const link = function (...args) {
 				extend(cfg.obj, tmp.data);
 				ok = 1;
 			}
+			else {
+				ok = tmp;
+			}
 		}
 
 		if (ok) {

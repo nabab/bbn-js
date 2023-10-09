@@ -96,6 +96,9 @@ var link = function () {
                 extend(cfg.obj, tmp.data);
                 ok = 1;
             }
+            else {
+                ok = tmp;
+            }
         }
         if (ok) {
             if (ok !== 1 && typeof ok === 'string') {

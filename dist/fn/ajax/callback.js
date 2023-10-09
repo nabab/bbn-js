@@ -47,7 +47,6 @@ var callback = function (url, res, fn, fn2, ele) {
         var t = typeof res;
         var isObj = t.toLowerCase() === 'object';
         var errTitle = void 0;
-        bbn.fn.log("CALLBACK", res);
         if (isObj && res.prescript) {
             /* var ok can be changed to false in prescript execution */
             try {
