@@ -113,15 +113,17 @@ const link = function (...args) {
 				cfg.url,
 				cfg.datatype,
 				cfg.obj,
-				function (res) {
+				res => {
 					if (!res) {
 						log(errSt + bbn._('returned no answer'));
 					}
+
 					if (isObject(res)) {
 						// If there's nothing in the result, just an empty object, the callback stops here and the URL is not changed
 						if (Object.keys(res).length === 0) {
 							log(errSt + bbn._('returned an empty object'));
 						}
+
 						if (res.new_url) {
 							res.old_path = cfg.url;
 							cfg.url = res.new_url;

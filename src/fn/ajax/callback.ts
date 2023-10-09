@@ -50,6 +50,7 @@ const callback = function (
 		let t = typeof res;
 		let isObj = t.toLowerCase() === 'object';
 		let errTitle;
+		bbn.fn.log("CALLBACK", res)
 		if (isObj && res.prescript) {
 			/* var ok can be changed to false in prescript execution */
 			try {
