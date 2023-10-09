@@ -1537,7 +1537,6 @@ var callback = function (url, res, fn, fn2, ele) {
         var t = typeof res;
         var isObj = t.toLowerCase() === 'object';
         var errTitle = void 0;
-        bbn.fn.log("CALLBACK", res);
         if (isObj && res.prescript) {
             /* var ok can be changed to false in prescript execution */
             try {
@@ -2049,6 +2048,9 @@ var link = function () {
             if (tmp.data !== undefined) {
                 (0,_object_extend_js__WEBPACK_IMPORTED_MODULE_4__.extend)(cfg.obj, tmp.data);
                 ok = 1;
+            }
+            else {
+                ok = tmp;
             }
         }
         if (ok) {
