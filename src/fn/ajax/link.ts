@@ -42,6 +42,10 @@ interface Res {
 const link = function (...args) {
 	let cfg = treatAjaxArguments(args);
 	let ok = 1;
+	if (cfg === true) {
+		return true;
+	}
+
 	/* If we can't find a correct link we load the current URL */
 	if (!cfg) {
 		return link(window.location.href);
@@ -86,7 +90,7 @@ const link = function (...args) {
 		}
 		window.open(cfg.url);
 		return false;
-	} else if (cfg.url !== bbn.env.params.join('/') || cfg.force) {
+	} else if (cfg.url !== bbn.env.params.join('/') || cfg.force === 1) {
 		/* The URL is fine so go ahead if something is not already loading */
 		/* If a second callback is defined, it is triggered instead of defaultPreLinkFunction */
 		if (cfg.successFn) {
