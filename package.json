@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {
     "type": "./node_modules/.bin/tsc",
-    "gitauto": "git stage ./src/* ./*.ts ./*.json ./test/*.mjs && git stage -f ./dist/* && git commit -m \"Latest changes\"",
+    "gitauto": "git stage ./src/* ./*.ts ./*.json ./*.config.js ./test/*.mjs && git stage -f ./dist/* && git commit -m \"Latest changes\"",
     "gitend": "git stage ./package.json && git stage -f ./dist/* && git commit -m \"Latest changes\" && git push",
     "pub": "npm version patch && npm publish",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",

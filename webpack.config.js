@@ -15,6 +15,7 @@ export default {
     output: {
         path: __dirname  + 'dist',
         filename: 'bbn.js',
+        libraryTarget: 'global'
     },
 
     // Set up loaders
