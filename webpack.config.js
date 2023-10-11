@@ -14,7 +14,7 @@ export default {
     // Output configuration
     output: {
         path: __dirname  + 'dist',
-        filename: 'bundle-webpack.js',
+        filename: 'bbn.js',
     },
 
     // Set up loaders
