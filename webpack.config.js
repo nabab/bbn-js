@@ -17,6 +17,12 @@ export default {
         filename: 'bbn.js',
         libraryTarget: 'global'
     },
+    library: {
+        name: {
+          root: ['bbn', 'axios', 'dayjs']
+        },
+        type: 'global'
+    },
 
     // Set up loaders
     module: {

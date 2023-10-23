@@ -25,7 +25,8 @@ const bbn: Bbn = {
 };
 
 window['bbn'] = bbn;
-
+window['axios'] = axios;
+window['dayjs'] = dayjs;
 
 export {bbn, axios, dayjs};
 
