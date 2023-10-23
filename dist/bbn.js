@@ -18089,9 +18089,6 @@ var bbn = {
     db: _db_js__WEBPACK_IMPORTED_MODULE_6__.db,
     fn: _fn_js__WEBPACK_IMPORTED_MODULE_7__.fn
 };
-window['bbn'] = bbn;
-window['axios'] = axios__WEBPACK_IMPORTED_MODULE_8__["default"];
-window['dayjs'] = dayjs__WEBPACK_IMPORTED_MODULE_0__;
 
 
 })();

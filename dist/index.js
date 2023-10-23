@@ -21,7 +21,4 @@ var bbn = {
     db: db,
     fn: fn
 };
-window['bbn'] = bbn;
-window['axios'] = axios;
-window['dayjs'] = dayjs;
 export { bbn, axios, dayjs };
