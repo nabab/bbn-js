@@ -1,3 +1,5 @@
+import { Axios } from 'axios';
+import { Dayjs } from 'dayjs';
 import { _ } from './_.js';
 import { $ } from './$.js';
 import { lng } from './lng.js';
@@ -20,4 +22,4 @@ var bbn = {
     fn: fn
 };
 window['bbn'] = bbn;
-export { bbn };
+export { bbn, Axios, Dayjs };

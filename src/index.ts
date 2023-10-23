@@ -1,3 +1,5 @@
+import { Axios } from 'axios';
+import { Dayjs } from 'dayjs';
 import { _ } from './_.js';
 import { $ } from './$.js';
 import { lng } from './lng.js';
@@ -25,5 +27,5 @@ const bbn: Bbn = {
 window['bbn'] = bbn;
 
 
-export {bbn};
+export {bbn, Axios, Dayjs};
 

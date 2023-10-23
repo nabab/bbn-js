@@ -44,11 +44,6 @@ export default {
         IS_TESTING: JSON.stringify(process.env.IS_TESTING)
       })
     ],
-    externals: {
-        "axios": "axios",
-        "dayjs": "dayjs"
-    },
-
     // Optional: Development server configuration
     // devServer: {
     //     contentBase: path.join(__dirname, 'public'),
