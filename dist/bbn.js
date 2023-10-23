@@ -326,6 +326,7 @@ var env = {
     last_focus: (new Date()).getTime(),
     /* Sleep mode (tab or window unfocused */
     sleep: false,
+    theme: 'dark',
     /**
      *  @var bbn.env.loaders Object where the props are MD5 of data and url while the values are the requests,
      *  for preventing the same call to be made at the same time

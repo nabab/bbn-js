@@ -12,6 +12,7 @@ declare const env: {
     focused: boolean;
     last_focus: number;
     sleep: boolean;
+    theme: string;
     /**
      *  @var bbn.env.loaders Object where the props are MD5 of data and url while the values are the requests,
      *  for preventing the same call to be made at the same time
