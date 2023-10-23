@@ -1,5 +1,6 @@
 import { hash } from '../string/hash.js'  ;
 import { each } from '../loop/each.js'  ;
+import { analyzeFunction } from '../misc/analyzeFunction.js';
 
 /**
   * Checks whether the data contained in the given objects is identical.
@@ -48,7 +49,8 @@ const isSame = function (obj1: any, obj2: any, done?: any[]) {
 	if (obj1 === obj2) {
 		return true;
 	}
-	if (obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object') {
+
+  if (obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object') {
 		let tmp1 = Object.keys(obj1).sort(),
 			tmp2 = Object.keys(obj2).sort();
 		// Case where the keys are different
@@ -72,7 +74,12 @@ const isSame = function (obj1: any, obj2: any, done?: any[]) {
 		});
 		return ok;
 	}
+  else if (obj1 && obj2 && typeof obj1 === 'function' && typeof obj2 === 'function') {
+    let tmp1 = analyzeFunction(obj1);
+    let tmp2 = analyzeFunction(obj2);
+    return tmp1.hash === tmp2.hash;
+  }
+
 	return false;
 };
-
 export { isSame };

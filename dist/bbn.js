@@ -13341,6 +13341,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _string_hash_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../string/hash.js */ "./dist/fn/string/hash.js");
 /* harmony import */ var _loop_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../loop/each.js */ "./dist/fn/loop/each.js");
+/* harmony import */ var _misc_analyzeFunction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../misc/analyzeFunction.js */ "./dist/fn/misc/analyzeFunction.js");
+
 
 
 /**
@@ -13409,6 +13411,11 @@ var isSame = function (obj1, obj2, done) {
             }
         });
         return ok_1;
+    }
+    else if (obj1 && obj2 && typeof obj1 === 'function' && typeof obj2 === 'function') {
+        var tmp1 = (0,_misc_analyzeFunction_js__WEBPACK_IMPORTED_MODULE_2__.analyzeFunction)(obj1);
+        var tmp2 = (0,_misc_analyzeFunction_js__WEBPACK_IMPORTED_MODULE_2__.analyzeFunction)(obj2);
+        return tmp1.hash === tmp2.hash;
     }
     return false;
 };

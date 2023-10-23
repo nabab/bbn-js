@@ -8,8 +8,8 @@ git stage -f ./dist
 git commit -m "Latest changes"
 git push
 npm publish
-rm -rf ~/web/bbn-js/v2/dist
-cp -rf dist ~/web/bbn-js/v2/
+#rm -rf ~/web/bbn-js/v2/dist
+#cp -rf dist ~/web/bbn-js/v2/
 
 
 

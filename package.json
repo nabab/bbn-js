@@ -48,5 +48,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:nabab/bbn-js.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

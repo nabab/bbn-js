@@ -1,5 +1,6 @@
 import { hash } from '../string/hash.js';
 import { each } from '../loop/each.js';
+import { analyzeFunction } from '../misc/analyzeFunction.js';
 /**
   * Checks whether the data contained in the given objects is identical.
   *
@@ -66,6 +67,11 @@ var isSame = function (obj1, obj2, done) {
             }
         });
         return ok_1;
+    }
+    else if (obj1 && obj2 && typeof obj1 === 'function' && typeof obj2 === 'function') {
+        var tmp1 = analyzeFunction(obj1);
+        var tmp2 = analyzeFunction(obj2);
+        return tmp1.hash === tmp2.hash;
     }
     return false;
 };
