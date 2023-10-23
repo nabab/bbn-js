@@ -6,7 +6,7 @@ const simpleHash2 = function (str: string): number
 		hash = char + (hash << 6) + (hash << 16) - hash;
 		hash |= 0; // Convert to 32-bit integer
 	}
-	return hash;
+	return Math.abs(hash);
 };
 
 export { simpleHash2 };
