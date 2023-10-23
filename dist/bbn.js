@@ -13882,63 +13882,6 @@ var vars = {
 
 /***/ }),
 
-/***/ "./node_modules/axios/index.js":
-/*!*************************************!*\
-  !*** ./node_modules/axios/index.js ***!
-  \*************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Axios: () => (/* binding */ Axios),
-/* harmony export */   AxiosError: () => (/* binding */ AxiosError),
-/* harmony export */   AxiosHeaders: () => (/* binding */ AxiosHeaders),
-/* harmony export */   Cancel: () => (/* binding */ Cancel),
-/* harmony export */   CancelToken: () => (/* binding */ CancelToken),
-/* harmony export */   CanceledError: () => (/* binding */ CanceledError),
-/* harmony export */   HttpStatusCode: () => (/* binding */ HttpStatusCode),
-/* harmony export */   VERSION: () => (/* binding */ VERSION),
-/* harmony export */   all: () => (/* binding */ all),
-/* harmony export */   "default": () => (/* reexport safe */ _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   formToJSON: () => (/* binding */ formToJSON),
-/* harmony export */   getAdapter: () => (/* binding */ getAdapter),
-/* harmony export */   isAxiosError: () => (/* binding */ isAxiosError),
-/* harmony export */   isCancel: () => (/* binding */ isCancel),
-/* harmony export */   mergeConfig: () => (/* binding */ mergeConfig),
-/* harmony export */   spread: () => (/* binding */ spread),
-/* harmony export */   toFormData: () => (/* binding */ toFormData)
-/* harmony export */ });
-/* harmony import */ var _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/axios.js */ "./node_modules/axios/lib/axios.js");
-
-
-// This module is intended to unwrap Axios default export as named.
-// Keep top-level export same with static properties
-// so that it can keep same with es module or cjs
-const {
-  Axios,
-  AxiosError,
-  CanceledError,
-  isCancel,
-  CancelToken,
-  VERSION,
-  all,
-  Cancel,
-  isAxiosError,
-  spread,
-  toFormData,
-  AxiosHeaders,
-  HttpStatusCode,
-  formToJSON,
-  getAdapter,
-  mergeConfig
-} = _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"];
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/axios/lib/adapters/adapters.js":
 /*!*****************************************************!*\
   !*** ./node_modules/axios/lib/adapters/adapters.js ***!
@@ -18110,11 +18053,11 @@ var __webpack_exports__ = {};
   \***********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Axios: () => (/* reexport safe */ axios__WEBPACK_IMPORTED_MODULE_8__.Axios),
-/* harmony export */   Dayjs: () => (/* reexport safe */ dayjs__WEBPACK_IMPORTED_MODULE_0__.Dayjs),
-/* harmony export */   bbn: () => (/* binding */ bbn)
+/* harmony export */   axios: () => (/* reexport safe */ axios__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   bbn: () => (/* binding */ bbn),
+/* harmony export */   dayjs: () => (/* reexport default export from named module */ dayjs__WEBPACK_IMPORTED_MODULE_0__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
 /* harmony import */ var _js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_.js */ "./dist/_.js");
 /* harmony import */ var _$_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./$.js */ "./dist/$.js");

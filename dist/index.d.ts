@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
-import { Dayjs } from 'dayjs';
+import axios from 'axios';
+import dayjs from 'dayjs';
 declare const bbn: Bbn;
-export { bbn, Axios, Dayjs };
+export { bbn, axios, dayjs };
