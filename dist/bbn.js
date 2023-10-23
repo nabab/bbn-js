@@ -18090,13 +18090,13 @@ var bbn = {
     fn: _fn_js__WEBPACK_IMPORTED_MODULE_7__.fn
 };
 window['bbn'] = bbn;
+window['axios'] = axios__WEBPACK_IMPORTED_MODULE_8__["default"];
+window['dayjs'] = dayjs__WEBPACK_IMPORTED_MODULE_0__;
 
 
 })();
 
-var __webpack_export_target__ = self;
-for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
-if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+((self.bbn = self.bbn || {}).axios = self.bbn.axios || {}).dayjs = __webpack_exports__;
 /******/ })()
 ;
 //# sourceMappingURL=bbn.js.map

@@ -16,9 +16,7 @@ export default {
         path: __dirname  + 'dist',
         filename: 'bbn.js',
         library: {
-            name: {
-              root: ['bbn', 'axios', 'dayjs']
-            },
+            name: ['bbn', 'axios', 'dayjs'],
             type: 'global'
         },
     },
