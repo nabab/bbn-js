@@ -224,7 +224,7 @@ declare const fn: {
     shuffle: (array: any[]) => any[];
     simpleHash: (str: any) => string;
     simpleHash1: (str: string) => number;
-    simpleHash2: (str: string) => number;
+    simpleHash2: (str: string) => string;
     startChrono: (name: any) => void;
     stopChrono: (name: any) => number;
     string2ArrayBuffer: (str: string) => ArrayBuffer;

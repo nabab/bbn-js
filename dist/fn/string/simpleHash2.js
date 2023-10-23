@@ -5,6 +5,6 @@ var simpleHash2 = function (str) {
         hash = char + (hash << 6) + (hash << 16) - hash;
         hash |= 0; // Convert to 32-bit integer
     }
-    return Math.abs(hash);
+    return Math.abs(hash).toString(16);
 };
 export { simpleHash2 };
