@@ -4,7 +4,7 @@ npm run type
 npm run build
 npm version patch
 git stage ./*
-git stage -f ./dist/*
+git stage -f ./dist
 git commit -m "Latest changes"
 git push
 npm publish
