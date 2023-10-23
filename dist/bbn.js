@@ -18274,6 +18274,11 @@ var bbn = {
     db: _db_js__WEBPACK_IMPORTED_MODULE_21__.db,
     fn: _fn_js__WEBPACK_IMPORTED_MODULE_22__.fn
 };
+if ('undefined' !== typeof window) {
+    window.axios = axios__WEBPACK_IMPORTED_MODULE_23__["default"];
+    window.dayjs = dayjs__WEBPACK_IMPORTED_MODULE_0__;
+    window.bbn = bbn;
+}
 
 
 })();

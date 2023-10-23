@@ -51,4 +51,9 @@ var bbn = {
     db: db,
     fn: fn
 };
+if ('undefined' !== typeof window) {
+    window.axios = axios;
+    window.dayjs = dayjs;
+    window.bbn = bbn;
+}
 export { bbn, axios, dayjs };

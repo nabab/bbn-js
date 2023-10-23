@@ -68,6 +68,8 @@ interface BbnEnv {
 declare global {
   interface Window {
     bbn: Bbn;
+    axios: any;
+    dayjs: any;
   }  
   
   interface Bbn {
