@@ -15,13 +15,10 @@ export default {
     output: {
         path: __dirname  + 'dist',
         filename: 'bbn.js',
-        libraryTarget: 'global'
-    },
-    library: {
-        name: {
-          root: ['bbn', 'axios', 'dayjs']
+        library: {
+            name: ['bbn', 'axios', 'dayjs'],
+            type: 'global'
         },
-        type: 'global'
     },
 
     // Set up loaders
