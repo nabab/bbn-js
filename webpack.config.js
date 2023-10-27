@@ -15,10 +15,9 @@ export default {
     output: {
         path: __dirname  + 'dist',
         filename: 'bbn.js',
-        library: {
-            name: ['bbn', 'axios', 'dayjs'],
-            type: 'global'
-        },
+        targetType: 'umd',
+        library: 'bbn',
+        type: 'global'
     },
 
     // Set up loaders
