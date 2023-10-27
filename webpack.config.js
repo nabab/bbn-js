@@ -6,7 +6,7 @@ var config = {};
 function generateConfig(name) {
   var compress = name.indexOf('min') > -1;
   var config = {
-    entry: './index.js',
+    entry: './index.ts',
     output: {
       path: __dirname + '/dist/',
       filename: name + '.js',
@@ -17,7 +17,16 @@ function generateConfig(name) {
     },
     node: false,
     devtool: 'source-map',
-    mode: compress ? 'production' : 'development'
+    mode: compress ? 'production' : 'development',
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
   };
   return config;
 }
