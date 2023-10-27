@@ -1,5 +1,5 @@
-import path from 'path';
 import { URL } from 'url'; // in Browser, the URL in native accessible on window
+const __dirname = new URL('.', import.meta.url).pathname;
 
 var config = {};
 
@@ -11,7 +11,7 @@ function generateConfig(name) {
       path: __dirname + '/dist/',
       filename: name + '.js',
       sourceMapFilename: name + '.map',
-      library: 'axios',
+      library: 'bbn',
       libraryTarget: 'umd',
       globalObject: 'this'
     },
