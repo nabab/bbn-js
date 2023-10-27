@@ -62,8 +62,4 @@ if ('undefined' !== typeof window) {
   window.bbn = bbn;
 }
 
-export {
-  bbn as default,
-  dayjs,
-  axios
-}
+export default bbn;
