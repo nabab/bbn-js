@@ -15,6 +15,7 @@ import timezone from 'dayjs/plugin/timezone.js';
 import updateLocale from 'dayjs/plugin/updateLocale.js';
 import utc from 'dayjs/plugin/utc.js';
 import weekOfYear from 'dayjs/plugin/weekOfYear.js';
+
 dayjs.extend(calendar);
 dayjs.extend(dayOfYear);
 dayjs.extend(duration);
@@ -30,7 +31,6 @@ dayjs.extend(timezone);
 dayjs.extend(updateLocale);
 dayjs.extend(utc);
 dayjs.extend(weekOfYear);
-
 
 import { _ } from './_.js';
 import { $ } from './$.js';
