@@ -1,46 +1,3 @@
-import { URL } from 'url'; // in Browser, the URL in native accessible on window
-const __dirname = new URL('.', import.meta.url).pathname;
-
-var config = {};
-
-function generateConfig(name) {
-  var compress = name.indexOf('min') > -1;
-  var config = {
-    entry: './index.ts',
-    output: {
-      path: __dirname + '/dist/',
-      filename: name + '.js',
-      sourceMapFilename: name + '.map',
-      library: 'bbn',
-      libraryTarget: 'umd',
-      globalObject: 'this'
-    },
-    node: false,
-    devtool: 'source-map',
-    mode: compress ? 'production' : 'development',
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-        ],
-    },
-  };
-  return config;
-}
-
-['bbn', 'bbn.min'].forEach(function (key) {
-  config[key] = generateConfig(key);
-});
-
-export default config;
-
-
-
-
-/*
 import path from 'path';
 import { URL } from 'url'; // in Browser, the URL in native accessible on window
 
@@ -101,4 +58,3 @@ export default {
     devtool: 'source-map',
 };
 
-*/
