@@ -640,94 +640,96 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fn_type_isHostname_js__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./fn/type/isHostname.js */ "./dist/fn/type/isHostname.js");
 /* harmony import */ var _fn_html_isInside_js__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./fn/html/isInside.js */ "./dist/fn/html/isInside.js");
 /* harmony import */ var _fn_type_isInt_js__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./fn/type/isInt.js */ "./dist/fn/type/isInt.js");
-/* harmony import */ var _fn_type_isIP_js__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./fn/type/isIP.js */ "./dist/fn/type/isIP.js");
-/* harmony import */ var _fn_type_isIterable_js__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./fn/type/isIterable.js */ "./dist/fn/type/isIterable.js");
-/* harmony import */ var _fn_browser_isMobile_js__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./fn/browser/isMobile.js */ "./dist/fn/browser/isMobile.js");
-/* harmony import */ var _fn_browser_isMobileDevice_js__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./fn/browser/isMobileDevice.js */ "./dist/fn/browser/isMobileDevice.js");
-/* harmony import */ var _fn_type_isNull_js__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ./fn/type/isNull.js */ "./dist/fn/type/isNull.js");
-/* harmony import */ var _fn_type_isNumber_js__WEBPACK_IMPORTED_MODULE_144__ = __webpack_require__(/*! ./fn/type/isNumber.js */ "./dist/fn/type/isNumber.js");
-/* harmony import */ var _fn_type_isObject_js__WEBPACK_IMPORTED_MODULE_145__ = __webpack_require__(/*! ./fn/type/isObject.js */ "./dist/fn/type/isObject.js");
-/* harmony import */ var _fn_type_isPercent_js__WEBPACK_IMPORTED_MODULE_146__ = __webpack_require__(/*! ./fn/type/isPercent.js */ "./dist/fn/type/isPercent.js");
-/* harmony import */ var _fn_type_isPrimitive_js__WEBPACK_IMPORTED_MODULE_147__ = __webpack_require__(/*! ./fn/type/isPrimitive.js */ "./dist/fn/type/isPrimitive.js");
-/* harmony import */ var _fn_type_isPromise_js__WEBPACK_IMPORTED_MODULE_148__ = __webpack_require__(/*! ./fn/type/isPromise.js */ "./dist/fn/type/isPromise.js");
-/* harmony import */ var _fn_type_isPropSize_js__WEBPACK_IMPORTED_MODULE_149__ = __webpack_require__(/*! ./fn/type/isPropSize.js */ "./dist/fn/type/isPropSize.js");
-/* harmony import */ var _fn_type_isSame_js__WEBPACK_IMPORTED_MODULE_150__ = __webpack_require__(/*! ./fn/type/isSame.js */ "./dist/fn/type/isSame.js");
-/* harmony import */ var _fn_type_isSQLDate_js__WEBPACK_IMPORTED_MODULE_151__ = __webpack_require__(/*! ./fn/type/isSQLDate.js */ "./dist/fn/type/isSQLDate.js");
-/* harmony import */ var _fn_type_isString_js__WEBPACK_IMPORTED_MODULE_152__ = __webpack_require__(/*! ./fn/type/isString.js */ "./dist/fn/type/isString.js");
-/* harmony import */ var _fn_type_isSymbol_js__WEBPACK_IMPORTED_MODULE_153__ = __webpack_require__(/*! ./fn/type/isSymbol.js */ "./dist/fn/type/isSymbol.js");
-/* harmony import */ var _fn_browser_isTabletDevice_js__WEBPACK_IMPORTED_MODULE_154__ = __webpack_require__(/*! ./fn/browser/isTabletDevice.js */ "./dist/fn/browser/isTabletDevice.js");
-/* harmony import */ var _fn_type_isURL_js__WEBPACK_IMPORTED_MODULE_155__ = __webpack_require__(/*! ./fn/type/isURL.js */ "./dist/fn/type/isURL.js");
-/* harmony import */ var _fn_type_isValidDimension_js__WEBPACK_IMPORTED_MODULE_156__ = __webpack_require__(/*! ./fn/type/isValidDimension.js */ "./dist/fn/type/isValidDimension.js");
-/* harmony import */ var _fn_type_isValidName_js__WEBPACK_IMPORTED_MODULE_157__ = __webpack_require__(/*! ./fn/type/isValidName.js */ "./dist/fn/type/isValidName.js");
-/* harmony import */ var _fn_type_isValue_js__WEBPACK_IMPORTED_MODULE_158__ = __webpack_require__(/*! ./fn/type/isValue.js */ "./dist/fn/type/isValue.js");
-/* harmony import */ var _fn_type_isVue_js__WEBPACK_IMPORTED_MODULE_159__ = __webpack_require__(/*! ./fn/type/isVue.js */ "./dist/fn/type/isVue.js");
-/* harmony import */ var _fn_loop_iterate_js__WEBPACK_IMPORTED_MODULE_160__ = __webpack_require__(/*! ./fn/loop/iterate.js */ "./dist/fn/loop/iterate.js");
-/* harmony import */ var _fn_style_lightenDarkenHex_js__WEBPACK_IMPORTED_MODULE_161__ = __webpack_require__(/*! ./fn/style/lightenDarkenHex.js */ "./dist/fn/style/lightenDarkenHex.js");
-/* harmony import */ var _fn_ajax_link_js__WEBPACK_IMPORTED_MODULE_162__ = __webpack_require__(/*! ./fn/ajax/link.js */ "./dist/fn/ajax/link.js");
-/* harmony import */ var _fn_browser_log_js__WEBPACK_IMPORTED_MODULE_163__ = __webpack_require__(/*! ./fn/browser/log.js */ "./dist/fn/browser/log.js");
-/* harmony import */ var _fn_html_makeReactive_js__WEBPACK_IMPORTED_MODULE_164__ = __webpack_require__(/*! ./fn/html/makeReactive.js */ "./dist/fn/html/makeReactive.js");
-/* harmony import */ var _fn_object_map_js__WEBPACK_IMPORTED_MODULE_165__ = __webpack_require__(/*! ./fn/object/map.js */ "./dist/fn/object/map.js");
-/* harmony import */ var _fn_string_md5_js__WEBPACK_IMPORTED_MODULE_166__ = __webpack_require__(/*! ./fn/string/md5.js */ "./dist/fn/string/md5.js");
-/* harmony import */ var _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_167__ = __webpack_require__(/*! ./fn/misc/money.js */ "./dist/fn/misc/money.js");
-/* harmony import */ var _fn_object_move_js__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ./fn/object/move.js */ "./dist/fn/object/move.js");
-/* harmony import */ var _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ./fn/object/multiorder.js */ "./dist/fn/object/multiorder.js");
-/* harmony import */ var _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ./fn/string/nl2br.js */ "./dist/fn/string/nl2br.js");
-/* harmony import */ var _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ./fn/object/numProperties.js */ "./dist/fn/object/numProperties.js");
-/* harmony import */ var _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ./fn/form/objectToFormData.js */ "./dist/fn/form/objectToFormData.js");
-/* harmony import */ var _fn_object_order_js__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ./fn/object/order.js */ "./dist/fn/object/order.js");
-/* harmony import */ var _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ./fn/style/outerHeight.js */ "./dist/fn/style/outerHeight.js");
-/* harmony import */ var _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ./fn/style/outerWidth.js */ "./dist/fn/style/outerWidth.js");
-/* harmony import */ var _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ./fn/misc/percent.js */ "./dist/fn/misc/percent.js");
-/* harmony import */ var _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ./fn/object/pickValue.js */ "./dist/fn/object/pickValue.js");
-/* harmony import */ var _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ./fn/ajax/post.js */ "./dist/fn/ajax/post.js");
-/* harmony import */ var _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ./fn/ajax/postOut.js */ "./dist/fn/ajax/postOut.js");
-/* harmony import */ var _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ./fn/string/printf.js */ "./dist/fn/string/printf.js");
-/* harmony import */ var _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ./fn/string/quotes2html.js */ "./dist/fn/string/quotes2html.js");
-/* harmony import */ var _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ./fn/misc/randomInt.js */ "./dist/fn/misc/randomInt.js");
-/* harmony import */ var _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ./fn/string/randomString.js */ "./dist/fn/string/randomString.js");
-/* harmony import */ var _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ./fn/string/removeAccents.js */ "./dist/fn/string/removeAccents.js");
-/* harmony import */ var _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ./fn/object/removeEmpty.js */ "./dist/fn/object/removeEmpty.js");
-/* harmony import */ var _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ./fn/string/removeExtraSpaces.js */ "./dist/fn/string/removeExtraSpaces.js");
-/* harmony import */ var _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ./fn/string/removeHtmlComments.js */ "./dist/fn/string/removeHtmlComments.js");
-/* harmony import */ var _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ./fn/object/removePrivateProp.js */ "./dist/fn/object/removePrivateProp.js");
-/* harmony import */ var _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ./fn/string/removeTrailingChars.js */ "./dist/fn/string/removeTrailingChars.js");
-/* harmony import */ var _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ./fn/string/repeat.js */ "./dist/fn/string/repeat.js");
-/* harmony import */ var _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ./fn/string/replaceAll.js */ "./dist/fn/string/replaceAll.js");
-/* harmony import */ var _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ./fn/browser/replaceSelection.js */ "./dist/fn/browser/replaceSelection.js");
-/* harmony import */ var _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ./fn/style/resize.js */ "./dist/fn/style/resize.js");
-/* harmony import */ var _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ./fn/convert/rgb2hex.js */ "./dist/fn/convert/rgb2hex.js");
-/* harmony import */ var _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ./fn/loop/riterate.js */ "./dist/fn/loop/riterate.js");
-/* harmony import */ var _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ./fn/misc/roundDecimal.js */ "./dist/fn/misc/roundDecimal.js");
-/* harmony import */ var _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ./fn/string/sanitize.js */ "./dist/fn/string/sanitize.js");
-/* harmony import */ var _fn_object_search_js__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ./fn/object/search.js */ "./dist/fn/object/search.js");
-/* harmony import */ var _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ./fn/browser/selectElementText.js */ "./dist/fn/browser/selectElementText.js");
-/* harmony import */ var _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ./fn/html/selector.js */ "./dist/fn/html/selector.js");
-/* harmony import */ var _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ./fn/browser/setCookie.js */ "./dist/fn/browser/setCookie.js");
-/* harmony import */ var _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ./fn/style/setCssVar.js */ "./dist/fn/style/setCssVar.js");
-/* harmony import */ var _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ./fn/ajax/setNavigationVars.js */ "./dist/fn/ajax/setNavigationVars.js");
-/* harmony import */ var _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ./fn/object/setProp.js */ "./dist/fn/object/setProp.js");
-/* harmony import */ var _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ./fn/object/setProperty.js */ "./dist/fn/object/setProperty.js");
-/* harmony import */ var _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ./fn/string/shorten.js */ "./dist/fn/string/shorten.js");
-/* harmony import */ var _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ./fn/object/shortenObj.js */ "./dist/fn/object/shortenObj.js");
-/* harmony import */ var _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ./fn/object/shuffle.js */ "./dist/fn/object/shuffle.js");
-/* harmony import */ var _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ./fn/string/simpleHash.js */ "./dist/fn/string/simpleHash.js");
-/* harmony import */ var _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ./fn/string/simpleHash1.js */ "./dist/fn/string/simpleHash1.js");
-/* harmony import */ var _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ./fn/string/simpleHash2.js */ "./dist/fn/string/simpleHash2.js");
-/* harmony import */ var _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ./fn/datetime/chrono.js */ "./dist/fn/datetime/chrono.js");
-/* harmony import */ var _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ./fn/convert/string2ArrayBuffer.js */ "./dist/fn/convert/string2ArrayBuffer.js");
-/* harmony import */ var _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ./fn/form/submit.js */ "./dist/fn/form/submit.js");
-/* harmony import */ var _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ./fn/string/substr.js */ "./dist/fn/string/substr.js");
-/* harmony import */ var _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ./fn/object/sum.js */ "./dist/fn/object/sum.js");
-/* harmony import */ var _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ./fn/datetime/timestamp.js */ "./dist/fn/datetime/timestamp.js");
-/* harmony import */ var _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ./fn/convert/toCSV.js */ "./dist/fn/convert/toCSV.js");
-/* harmony import */ var _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ./fn/browser/toggleFullScreen.js */ "./dist/fn/browser/toggleFullScreen.js");
-/* harmony import */ var _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ./fn/misc/translate.js */ "./dist/fn/misc/translate.js");
-/* harmony import */ var _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ./fn/ajax/treatAjaxArguments.js */ "./dist/fn/ajax/treatAjaxArguments.js");
-/* harmony import */ var _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ./fn/string/trim.js */ "./dist/fn/string/trim.js");
-/* harmony import */ var _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ./fn/string/uniqString.js */ "./dist/fn/string/uniqString.js");
-/* harmony import */ var _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ./fn/object/unique.js */ "./dist/fn/object/unique.js");
-/* harmony import */ var _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ./fn/ajax/upload.js */ "./dist/fn/ajax/upload.js");
-/* harmony import */ var _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ./fn/browser/warning.js */ "./dist/fn/browser/warning.js");
+/* harmony import */ var _fn_html_isInViewport_js__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./fn/html/isInViewport.js */ "./dist/fn/html/isInViewport.js");
+/* harmony import */ var _fn_type_isIP_js__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./fn/type/isIP.js */ "./dist/fn/type/isIP.js");
+/* harmony import */ var _fn_type_isIterable_js__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./fn/type/isIterable.js */ "./dist/fn/type/isIterable.js");
+/* harmony import */ var _fn_browser_isMobile_js__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./fn/browser/isMobile.js */ "./dist/fn/browser/isMobile.js");
+/* harmony import */ var _fn_browser_isMobileDevice_js__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ./fn/browser/isMobileDevice.js */ "./dist/fn/browser/isMobileDevice.js");
+/* harmony import */ var _fn_type_isNull_js__WEBPACK_IMPORTED_MODULE_144__ = __webpack_require__(/*! ./fn/type/isNull.js */ "./dist/fn/type/isNull.js");
+/* harmony import */ var _fn_type_isNumber_js__WEBPACK_IMPORTED_MODULE_145__ = __webpack_require__(/*! ./fn/type/isNumber.js */ "./dist/fn/type/isNumber.js");
+/* harmony import */ var _fn_type_isObject_js__WEBPACK_IMPORTED_MODULE_146__ = __webpack_require__(/*! ./fn/type/isObject.js */ "./dist/fn/type/isObject.js");
+/* harmony import */ var _fn_type_isPercent_js__WEBPACK_IMPORTED_MODULE_147__ = __webpack_require__(/*! ./fn/type/isPercent.js */ "./dist/fn/type/isPercent.js");
+/* harmony import */ var _fn_type_isPrimitive_js__WEBPACK_IMPORTED_MODULE_148__ = __webpack_require__(/*! ./fn/type/isPrimitive.js */ "./dist/fn/type/isPrimitive.js");
+/* harmony import */ var _fn_type_isPromise_js__WEBPACK_IMPORTED_MODULE_149__ = __webpack_require__(/*! ./fn/type/isPromise.js */ "./dist/fn/type/isPromise.js");
+/* harmony import */ var _fn_type_isPropSize_js__WEBPACK_IMPORTED_MODULE_150__ = __webpack_require__(/*! ./fn/type/isPropSize.js */ "./dist/fn/type/isPropSize.js");
+/* harmony import */ var _fn_type_isSame_js__WEBPACK_IMPORTED_MODULE_151__ = __webpack_require__(/*! ./fn/type/isSame.js */ "./dist/fn/type/isSame.js");
+/* harmony import */ var _fn_type_isSQLDate_js__WEBPACK_IMPORTED_MODULE_152__ = __webpack_require__(/*! ./fn/type/isSQLDate.js */ "./dist/fn/type/isSQLDate.js");
+/* harmony import */ var _fn_type_isString_js__WEBPACK_IMPORTED_MODULE_153__ = __webpack_require__(/*! ./fn/type/isString.js */ "./dist/fn/type/isString.js");
+/* harmony import */ var _fn_type_isSymbol_js__WEBPACK_IMPORTED_MODULE_154__ = __webpack_require__(/*! ./fn/type/isSymbol.js */ "./dist/fn/type/isSymbol.js");
+/* harmony import */ var _fn_browser_isTabletDevice_js__WEBPACK_IMPORTED_MODULE_155__ = __webpack_require__(/*! ./fn/browser/isTabletDevice.js */ "./dist/fn/browser/isTabletDevice.js");
+/* harmony import */ var _fn_type_isURL_js__WEBPACK_IMPORTED_MODULE_156__ = __webpack_require__(/*! ./fn/type/isURL.js */ "./dist/fn/type/isURL.js");
+/* harmony import */ var _fn_type_isValidDimension_js__WEBPACK_IMPORTED_MODULE_157__ = __webpack_require__(/*! ./fn/type/isValidDimension.js */ "./dist/fn/type/isValidDimension.js");
+/* harmony import */ var _fn_type_isValidName_js__WEBPACK_IMPORTED_MODULE_158__ = __webpack_require__(/*! ./fn/type/isValidName.js */ "./dist/fn/type/isValidName.js");
+/* harmony import */ var _fn_type_isValue_js__WEBPACK_IMPORTED_MODULE_159__ = __webpack_require__(/*! ./fn/type/isValue.js */ "./dist/fn/type/isValue.js");
+/* harmony import */ var _fn_type_isVue_js__WEBPACK_IMPORTED_MODULE_160__ = __webpack_require__(/*! ./fn/type/isVue.js */ "./dist/fn/type/isVue.js");
+/* harmony import */ var _fn_loop_iterate_js__WEBPACK_IMPORTED_MODULE_161__ = __webpack_require__(/*! ./fn/loop/iterate.js */ "./dist/fn/loop/iterate.js");
+/* harmony import */ var _fn_style_lightenDarkenHex_js__WEBPACK_IMPORTED_MODULE_162__ = __webpack_require__(/*! ./fn/style/lightenDarkenHex.js */ "./dist/fn/style/lightenDarkenHex.js");
+/* harmony import */ var _fn_ajax_link_js__WEBPACK_IMPORTED_MODULE_163__ = __webpack_require__(/*! ./fn/ajax/link.js */ "./dist/fn/ajax/link.js");
+/* harmony import */ var _fn_browser_log_js__WEBPACK_IMPORTED_MODULE_164__ = __webpack_require__(/*! ./fn/browser/log.js */ "./dist/fn/browser/log.js");
+/* harmony import */ var _fn_html_makeReactive_js__WEBPACK_IMPORTED_MODULE_165__ = __webpack_require__(/*! ./fn/html/makeReactive.js */ "./dist/fn/html/makeReactive.js");
+/* harmony import */ var _fn_object_map_js__WEBPACK_IMPORTED_MODULE_166__ = __webpack_require__(/*! ./fn/object/map.js */ "./dist/fn/object/map.js");
+/* harmony import */ var _fn_string_md5_js__WEBPACK_IMPORTED_MODULE_167__ = __webpack_require__(/*! ./fn/string/md5.js */ "./dist/fn/string/md5.js");
+/* harmony import */ var _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ./fn/misc/money.js */ "./dist/fn/misc/money.js");
+/* harmony import */ var _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ./fn/object/move.js */ "./dist/fn/object/move.js");
+/* harmony import */ var _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ./fn/object/multiorder.js */ "./dist/fn/object/multiorder.js");
+/* harmony import */ var _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ./fn/string/nl2br.js */ "./dist/fn/string/nl2br.js");
+/* harmony import */ var _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ./fn/object/numProperties.js */ "./dist/fn/object/numProperties.js");
+/* harmony import */ var _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ./fn/form/objectToFormData.js */ "./dist/fn/form/objectToFormData.js");
+/* harmony import */ var _fn_object_order_js__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ./fn/object/order.js */ "./dist/fn/object/order.js");
+/* harmony import */ var _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ./fn/style/outerHeight.js */ "./dist/fn/style/outerHeight.js");
+/* harmony import */ var _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ./fn/style/outerWidth.js */ "./dist/fn/style/outerWidth.js");
+/* harmony import */ var _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ./fn/misc/percent.js */ "./dist/fn/misc/percent.js");
+/* harmony import */ var _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ./fn/object/pickValue.js */ "./dist/fn/object/pickValue.js");
+/* harmony import */ var _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ./fn/ajax/post.js */ "./dist/fn/ajax/post.js");
+/* harmony import */ var _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ./fn/ajax/postOut.js */ "./dist/fn/ajax/postOut.js");
+/* harmony import */ var _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ./fn/string/printf.js */ "./dist/fn/string/printf.js");
+/* harmony import */ var _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ./fn/string/quotes2html.js */ "./dist/fn/string/quotes2html.js");
+/* harmony import */ var _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ./fn/misc/randomInt.js */ "./dist/fn/misc/randomInt.js");
+/* harmony import */ var _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ./fn/string/randomString.js */ "./dist/fn/string/randomString.js");
+/* harmony import */ var _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ./fn/string/removeAccents.js */ "./dist/fn/string/removeAccents.js");
+/* harmony import */ var _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ./fn/object/removeEmpty.js */ "./dist/fn/object/removeEmpty.js");
+/* harmony import */ var _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ./fn/string/removeExtraSpaces.js */ "./dist/fn/string/removeExtraSpaces.js");
+/* harmony import */ var _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ./fn/string/removeHtmlComments.js */ "./dist/fn/string/removeHtmlComments.js");
+/* harmony import */ var _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ./fn/object/removePrivateProp.js */ "./dist/fn/object/removePrivateProp.js");
+/* harmony import */ var _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ./fn/string/removeTrailingChars.js */ "./dist/fn/string/removeTrailingChars.js");
+/* harmony import */ var _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ./fn/string/repeat.js */ "./dist/fn/string/repeat.js");
+/* harmony import */ var _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ./fn/string/replaceAll.js */ "./dist/fn/string/replaceAll.js");
+/* harmony import */ var _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ./fn/browser/replaceSelection.js */ "./dist/fn/browser/replaceSelection.js");
+/* harmony import */ var _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ./fn/style/resize.js */ "./dist/fn/style/resize.js");
+/* harmony import */ var _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ./fn/convert/rgb2hex.js */ "./dist/fn/convert/rgb2hex.js");
+/* harmony import */ var _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ./fn/loop/riterate.js */ "./dist/fn/loop/riterate.js");
+/* harmony import */ var _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ./fn/misc/roundDecimal.js */ "./dist/fn/misc/roundDecimal.js");
+/* harmony import */ var _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ./fn/string/sanitize.js */ "./dist/fn/string/sanitize.js");
+/* harmony import */ var _fn_object_search_js__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ./fn/object/search.js */ "./dist/fn/object/search.js");
+/* harmony import */ var _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ./fn/browser/selectElementText.js */ "./dist/fn/browser/selectElementText.js");
+/* harmony import */ var _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ./fn/html/selector.js */ "./dist/fn/html/selector.js");
+/* harmony import */ var _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ./fn/browser/setCookie.js */ "./dist/fn/browser/setCookie.js");
+/* harmony import */ var _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ./fn/style/setCssVar.js */ "./dist/fn/style/setCssVar.js");
+/* harmony import */ var _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ./fn/ajax/setNavigationVars.js */ "./dist/fn/ajax/setNavigationVars.js");
+/* harmony import */ var _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ./fn/object/setProp.js */ "./dist/fn/object/setProp.js");
+/* harmony import */ var _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ./fn/object/setProperty.js */ "./dist/fn/object/setProperty.js");
+/* harmony import */ var _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ./fn/string/shorten.js */ "./dist/fn/string/shorten.js");
+/* harmony import */ var _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ./fn/object/shortenObj.js */ "./dist/fn/object/shortenObj.js");
+/* harmony import */ var _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ./fn/object/shuffle.js */ "./dist/fn/object/shuffle.js");
+/* harmony import */ var _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ./fn/string/simpleHash.js */ "./dist/fn/string/simpleHash.js");
+/* harmony import */ var _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ./fn/string/simpleHash1.js */ "./dist/fn/string/simpleHash1.js");
+/* harmony import */ var _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ./fn/string/simpleHash2.js */ "./dist/fn/string/simpleHash2.js");
+/* harmony import */ var _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ./fn/datetime/chrono.js */ "./dist/fn/datetime/chrono.js");
+/* harmony import */ var _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ./fn/convert/string2ArrayBuffer.js */ "./dist/fn/convert/string2ArrayBuffer.js");
+/* harmony import */ var _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ./fn/form/submit.js */ "./dist/fn/form/submit.js");
+/* harmony import */ var _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ./fn/string/substr.js */ "./dist/fn/string/substr.js");
+/* harmony import */ var _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ./fn/object/sum.js */ "./dist/fn/object/sum.js");
+/* harmony import */ var _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ./fn/datetime/timestamp.js */ "./dist/fn/datetime/timestamp.js");
+/* harmony import */ var _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ./fn/convert/toCSV.js */ "./dist/fn/convert/toCSV.js");
+/* harmony import */ var _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ./fn/browser/toggleFullScreen.js */ "./dist/fn/browser/toggleFullScreen.js");
+/* harmony import */ var _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ./fn/misc/translate.js */ "./dist/fn/misc/translate.js");
+/* harmony import */ var _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ./fn/ajax/treatAjaxArguments.js */ "./dist/fn/ajax/treatAjaxArguments.js");
+/* harmony import */ var _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ./fn/string/trim.js */ "./dist/fn/string/trim.js");
+/* harmony import */ var _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ./fn/string/uniqString.js */ "./dist/fn/string/uniqString.js");
+/* harmony import */ var _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ./fn/object/unique.js */ "./dist/fn/object/unique.js");
+/* harmony import */ var _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ./fn/ajax/upload.js */ "./dist/fn/ajax/upload.js");
+/* harmony import */ var _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_227__ = __webpack_require__(/*! ./fn/browser/warning.js */ "./dist/fn/browser/warning.js");
+
 
 
 
@@ -1095,95 +1097,96 @@ var fn = {
     isHostname: _fn_type_isHostname_js__WEBPACK_IMPORTED_MODULE_136__.isHostname,
     isInside: _fn_html_isInside_js__WEBPACK_IMPORTED_MODULE_137__.isInside,
     isInt: _fn_type_isInt_js__WEBPACK_IMPORTED_MODULE_138__.isInt,
-    isIP: _fn_type_isIP_js__WEBPACK_IMPORTED_MODULE_139__.isIP,
-    isIterable: _fn_type_isIterable_js__WEBPACK_IMPORTED_MODULE_140__.isIterable,
-    isMobile: _fn_browser_isMobile_js__WEBPACK_IMPORTED_MODULE_141__.isMobile,
-    isMobileDevice: _fn_browser_isMobileDevice_js__WEBPACK_IMPORTED_MODULE_142__.isMobileDevice,
-    isNull: _fn_type_isNull_js__WEBPACK_IMPORTED_MODULE_143__.isNull,
-    isNumber: _fn_type_isNumber_js__WEBPACK_IMPORTED_MODULE_144__.isNumber,
-    isObject: _fn_type_isObject_js__WEBPACK_IMPORTED_MODULE_145__.isObject,
-    isPercent: _fn_type_isPercent_js__WEBPACK_IMPORTED_MODULE_146__.isPercent,
-    isPrimitive: _fn_type_isPrimitive_js__WEBPACK_IMPORTED_MODULE_147__.isPrimitive,
-    isPromise: _fn_type_isPromise_js__WEBPACK_IMPORTED_MODULE_148__.isPromise,
-    isPropSize: _fn_type_isPropSize_js__WEBPACK_IMPORTED_MODULE_149__.isPropSize,
-    isSame: _fn_type_isSame_js__WEBPACK_IMPORTED_MODULE_150__.isSame,
-    isSQLDate: _fn_type_isSQLDate_js__WEBPACK_IMPORTED_MODULE_151__.isSQLDate,
-    isString: _fn_type_isString_js__WEBPACK_IMPORTED_MODULE_152__.isString,
-    isSymbol: _fn_type_isSymbol_js__WEBPACK_IMPORTED_MODULE_153__.isSymbol,
-    isTabletDevice: _fn_browser_isTabletDevice_js__WEBPACK_IMPORTED_MODULE_154__.isTabletDevice,
-    isURL: _fn_type_isURL_js__WEBPACK_IMPORTED_MODULE_155__.isURL,
-    isValidDimension: _fn_type_isValidDimension_js__WEBPACK_IMPORTED_MODULE_156__.isValidDimension,
-    isValidName: _fn_type_isValidName_js__WEBPACK_IMPORTED_MODULE_157__.isValidName,
-    isValue: _fn_type_isValue_js__WEBPACK_IMPORTED_MODULE_158__.isValue,
-    isVue: _fn_type_isVue_js__WEBPACK_IMPORTED_MODULE_159__.isVue,
-    iterate: _fn_loop_iterate_js__WEBPACK_IMPORTED_MODULE_160__.iterate,
-    lightenDarkenHex: _fn_style_lightenDarkenHex_js__WEBPACK_IMPORTED_MODULE_161__.lightenDarkenHex,
-    link: _fn_ajax_link_js__WEBPACK_IMPORTED_MODULE_162__.link,
-    log: _fn_browser_log_js__WEBPACK_IMPORTED_MODULE_163__.log,
-    makeReactive: _fn_html_makeReactive_js__WEBPACK_IMPORTED_MODULE_164__.makeReactive,
-    map: _fn_object_map_js__WEBPACK_IMPORTED_MODULE_165__.map,
-    md5: _fn_string_md5_js__WEBPACK_IMPORTED_MODULE_166__.md5,
-    money: _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_167__.money,
-    move: _fn_object_move_js__WEBPACK_IMPORTED_MODULE_168__.move,
-    multiorder: _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_169__.multiorder,
-    nl2br: _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_170__.nl2br,
-    numProperties: _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_171__.numProperties,
-    objectToFormData: _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_172__.objectToFormData,
-    order: _fn_object_order_js__WEBPACK_IMPORTED_MODULE_173__.order,
-    outerHeight: _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_174__.outerHeight,
-    outerWidth: _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_175__.outerWidth,
-    percent: _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_176__.percent,
-    pickValue: _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_177__.pickValue,
-    post: _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_178__.post,
-    postOut: _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_179__.postOut,
-    printf: _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_180__.printf,
-    quotes2html: _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_181__.quotes2html,
-    randomInt: _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_182__.randomInt,
-    randomString: _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_183__.randomString,
-    removeAccents: _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_184__.removeAccents,
-    removeEmpty: _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_185__.removeEmpty,
-    removeExtraSpaces: _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_186__.removeExtraSpaces,
-    removeHtmlComments: _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_187__.removeHtmlComments,
-    removePrivateProp: _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_188__.removePrivateProp,
-    removeTrailingChars: _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_189__.removeTrailingChars,
-    repeat: _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_190__.repeat,
-    replaceAll: _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_191__.replaceAll,
-    replaceSelection: _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_192__.replaceSelection,
-    resize: _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_193__.resize,
-    rgb2hex: _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_194__.rgb2hex,
-    riterate: _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_195__.riterate,
-    roundDecimal: _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_196__.roundDecimal,
-    sanitize: _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_197__.sanitize,
-    search: _fn_object_search_js__WEBPACK_IMPORTED_MODULE_198__.search,
-    selectElementText: _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_199__.selectElementText,
-    selector: _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_200__.selector,
-    setCookie: _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_201__.setCookie,
-    setCssVar: _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_202__.setCssVar,
-    setNavigationVars: _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_203__.setNavigationVars,
-    setProp: _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_204__.setProp,
-    setProperty: _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_205__.setProperty,
-    shorten: _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_206__.shorten,
-    shortenObj: _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_207__.shortenObj,
-    shuffle: _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_208__.shuffle,
-    simpleHash: _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_209__.simpleHash,
-    simpleHash1: _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_210__.simpleHash1,
-    simpleHash2: _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_211__.simpleHash2,
-    startChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_212__.startChrono,
-    stopChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_212__.stopChrono,
-    string2ArrayBuffer: _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_213__.string2ArrayBuffer,
-    submit: _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_214__.submit,
-    substr: _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_215__.substr,
-    sum: _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_216__.sum,
-    timestamp: _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_217__.timestamp,
-    toCSV: _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_218__.toCSV,
-    toggleFullScreen: _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_219__.toggleFullScreen,
-    translate: _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_220__.translate,
-    treatAjaxArguments: _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_221__.treatAjaxArguments,
-    trim: _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_222__.trim,
-    uniqString: _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_223__.uniqString,
-    unique: _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_224__.unique,
-    upload: _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_225__.upload,
-    warning: _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_226__.warning,
+    isInViewport: _fn_html_isInViewport_js__WEBPACK_IMPORTED_MODULE_139__.isInViewport,
+    isIP: _fn_type_isIP_js__WEBPACK_IMPORTED_MODULE_140__.isIP,
+    isIterable: _fn_type_isIterable_js__WEBPACK_IMPORTED_MODULE_141__.isIterable,
+    isMobile: _fn_browser_isMobile_js__WEBPACK_IMPORTED_MODULE_142__.isMobile,
+    isMobileDevice: _fn_browser_isMobileDevice_js__WEBPACK_IMPORTED_MODULE_143__.isMobileDevice,
+    isNull: _fn_type_isNull_js__WEBPACK_IMPORTED_MODULE_144__.isNull,
+    isNumber: _fn_type_isNumber_js__WEBPACK_IMPORTED_MODULE_145__.isNumber,
+    isObject: _fn_type_isObject_js__WEBPACK_IMPORTED_MODULE_146__.isObject,
+    isPercent: _fn_type_isPercent_js__WEBPACK_IMPORTED_MODULE_147__.isPercent,
+    isPrimitive: _fn_type_isPrimitive_js__WEBPACK_IMPORTED_MODULE_148__.isPrimitive,
+    isPromise: _fn_type_isPromise_js__WEBPACK_IMPORTED_MODULE_149__.isPromise,
+    isPropSize: _fn_type_isPropSize_js__WEBPACK_IMPORTED_MODULE_150__.isPropSize,
+    isSame: _fn_type_isSame_js__WEBPACK_IMPORTED_MODULE_151__.isSame,
+    isSQLDate: _fn_type_isSQLDate_js__WEBPACK_IMPORTED_MODULE_152__.isSQLDate,
+    isString: _fn_type_isString_js__WEBPACK_IMPORTED_MODULE_153__.isString,
+    isSymbol: _fn_type_isSymbol_js__WEBPACK_IMPORTED_MODULE_154__.isSymbol,
+    isTabletDevice: _fn_browser_isTabletDevice_js__WEBPACK_IMPORTED_MODULE_155__.isTabletDevice,
+    isURL: _fn_type_isURL_js__WEBPACK_IMPORTED_MODULE_156__.isURL,
+    isValidDimension: _fn_type_isValidDimension_js__WEBPACK_IMPORTED_MODULE_157__.isValidDimension,
+    isValidName: _fn_type_isValidName_js__WEBPACK_IMPORTED_MODULE_158__.isValidName,
+    isValue: _fn_type_isValue_js__WEBPACK_IMPORTED_MODULE_159__.isValue,
+    isVue: _fn_type_isVue_js__WEBPACK_IMPORTED_MODULE_160__.isVue,
+    iterate: _fn_loop_iterate_js__WEBPACK_IMPORTED_MODULE_161__.iterate,
+    lightenDarkenHex: _fn_style_lightenDarkenHex_js__WEBPACK_IMPORTED_MODULE_162__.lightenDarkenHex,
+    link: _fn_ajax_link_js__WEBPACK_IMPORTED_MODULE_163__.link,
+    log: _fn_browser_log_js__WEBPACK_IMPORTED_MODULE_164__.log,
+    makeReactive: _fn_html_makeReactive_js__WEBPACK_IMPORTED_MODULE_165__.makeReactive,
+    map: _fn_object_map_js__WEBPACK_IMPORTED_MODULE_166__.map,
+    md5: _fn_string_md5_js__WEBPACK_IMPORTED_MODULE_167__.md5,
+    money: _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__.money,
+    move: _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__.move,
+    multiorder: _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__.multiorder,
+    nl2br: _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_171__.nl2br,
+    numProperties: _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_172__.numProperties,
+    objectToFormData: _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_173__.objectToFormData,
+    order: _fn_object_order_js__WEBPACK_IMPORTED_MODULE_174__.order,
+    outerHeight: _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_175__.outerHeight,
+    outerWidth: _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_176__.outerWidth,
+    percent: _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_177__.percent,
+    pickValue: _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_178__.pickValue,
+    post: _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_179__.post,
+    postOut: _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_180__.postOut,
+    printf: _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_181__.printf,
+    quotes2html: _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_182__.quotes2html,
+    randomInt: _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_183__.randomInt,
+    randomString: _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_184__.randomString,
+    removeAccents: _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_185__.removeAccents,
+    removeEmpty: _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_186__.removeEmpty,
+    removeExtraSpaces: _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_187__.removeExtraSpaces,
+    removeHtmlComments: _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_188__.removeHtmlComments,
+    removePrivateProp: _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_189__.removePrivateProp,
+    removeTrailingChars: _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_190__.removeTrailingChars,
+    repeat: _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_191__.repeat,
+    replaceAll: _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_192__.replaceAll,
+    replaceSelection: _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_193__.replaceSelection,
+    resize: _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_194__.resize,
+    rgb2hex: _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_195__.rgb2hex,
+    riterate: _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_196__.riterate,
+    roundDecimal: _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_197__.roundDecimal,
+    sanitize: _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_198__.sanitize,
+    search: _fn_object_search_js__WEBPACK_IMPORTED_MODULE_199__.search,
+    selectElementText: _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_200__.selectElementText,
+    selector: _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_201__.selector,
+    setCookie: _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_202__.setCookie,
+    setCssVar: _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_203__.setCssVar,
+    setNavigationVars: _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_204__.setNavigationVars,
+    setProp: _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_205__.setProp,
+    setProperty: _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_206__.setProperty,
+    shorten: _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_207__.shorten,
+    shortenObj: _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_208__.shortenObj,
+    shuffle: _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_209__.shuffle,
+    simpleHash: _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_210__.simpleHash,
+    simpleHash1: _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_211__.simpleHash1,
+    simpleHash2: _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_212__.simpleHash2,
+    startChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__.startChrono,
+    stopChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__.stopChrono,
+    string2ArrayBuffer: _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_214__.string2ArrayBuffer,
+    submit: _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_215__.submit,
+    substr: _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_216__.substr,
+    sum: _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_217__.sum,
+    timestamp: _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_218__.timestamp,
+    toCSV: _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_219__.toCSV,
+    toggleFullScreen: _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_220__.toggleFullScreen,
+    translate: _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_221__.translate,
+    treatAjaxArguments: _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_222__.treatAjaxArguments,
+    trim: _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_223__.trim,
+    uniqString: _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_224__.uniqString,
+    unique: _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_225__.unique,
+    upload: _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_226__.upload,
+    warning: _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_227__.warning,
 };
 
 
@@ -5716,6 +5719,38 @@ var html2text = function (st) {
     $test.innerHTML = st;
     st = $test.innerText;
     return st;
+};
+
+
+
+/***/ }),
+
+/***/ "./dist/fn/html/isInViewport.js":
+/*!**************************************!*\
+  !*** ./dist/fn/html/isInViewport.js ***!
+  \**************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isInViewport: () => (/* binding */ isInViewport)
+/* harmony export */ });
+var isInViewport = function (ele, fully) {
+    if (fully === void 0) { fully = false; }
+    var bounding = ele.getBoundingClientRect();
+    if (fully) {
+        return (bounding.top >= 0
+            && bounding.left >= 0
+            && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+            && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight));
+    }
+    var eleHeight = ele.offsetHeight;
+    var eleWidth = ele.offsetWidth;
+    return (bounding.top >= -eleHeight
+        && bounding.left >= -eleWidth
+        && bounding.right <= (window.innerWidth || document.documentElement.clientWidth) + eleWidth
+        && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) + eleHeight);
 };
 
 

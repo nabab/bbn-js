@@ -137,6 +137,7 @@ import {isFunction} from './fn/type/isFunction.js'
 import {isHostname} from './fn/type/isHostname.js'  
 import {isInside} from './fn/html/isInside.js'  
 import {isInt} from './fn/type/isInt.js'  
+import {isInViewport} from './fn/html/isInViewport.js'  
 import {isIP} from './fn/type/isIP.js'  
 import {isIterable} from './fn/type/isIterable.js'  
 import {isMobile} from './fn/browser/isMobile.js'  
@@ -366,6 +367,7 @@ const fn = {
   isHostname,
   isInside,
   isInt,
+  isInViewport,
   isIP,
   isIterable,
   isMobile,

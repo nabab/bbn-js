@@ -152,6 +152,7 @@ declare const fn: {
     isHostname: (...args: any[]) => boolean;
     isInside: (ele: any, ancestor: any) => boolean;
     isInt: (...args: any[]) => boolean;
+    isInViewport: (ele: HTMLElement, fully?: Boolean) => boolean;
     isIP: (...args: any[]) => boolean;
     isIterable: (...args: any[]) => boolean;
     isMobile: () => boolean;
