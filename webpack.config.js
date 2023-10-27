@@ -16,8 +16,7 @@ export default {
         path: __dirname  + 'dist',
         filename: 'bbn.js',
         targetType: 'umd',
-        library: 'bbn',
-        type: 'global'
+        library: 'bbn'
     },
 
     // Set up loaders
