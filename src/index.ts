@@ -63,6 +63,7 @@ if ('undefined' !== typeof window) {
 }
 
 export {
+  bbn as default,
   bbn,
   dayjs,
   axios
