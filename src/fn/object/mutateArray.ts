@@ -13,9 +13,7 @@ const mutateArray = (a1, a2) => {
 
   // Build a1Ordered to have the same order and contents as a2
   a2.forEach(item => {
-    if (mapA2.has(hash(item))) {
-      a1Ordered.push(item);
-    }
+    a1Ordered.push(item);
   });
 
   // Remove items from a1 that are not in a2

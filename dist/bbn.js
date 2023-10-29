@@ -9311,9 +9311,7 @@ var mutateArray = function (a1, a2) {
     var a1Ordered = [];
     // Build a1Ordered to have the same order and contents as a2
     a2.forEach(function (item) {
-        if (mapA2.has((0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(item))) {
-            a1Ordered.push(item);
-        }
+        a1Ordered.push(item);
     });
     // Remove items from a1 that are not in a2
     var i = a1.length;
