@@ -2,7 +2,7 @@
   "name": "@bbn/bbn",
   "version": "1.0.189",
   "description": "Javascript toolkit",
-  "main": "dist/index.js",
+  "main": "dist/bbn.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
