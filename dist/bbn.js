@@ -672,63 +672,65 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ./fn/misc/money.js */ "./dist/fn/misc/money.js");
 /* harmony import */ var _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ./fn/object/move.js */ "./dist/fn/object/move.js");
 /* harmony import */ var _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ./fn/object/multiorder.js */ "./dist/fn/object/multiorder.js");
-/* harmony import */ var _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ./fn/string/nl2br.js */ "./dist/fn/string/nl2br.js");
-/* harmony import */ var _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ./fn/object/numProperties.js */ "./dist/fn/object/numProperties.js");
-/* harmony import */ var _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ./fn/form/objectToFormData.js */ "./dist/fn/form/objectToFormData.js");
-/* harmony import */ var _fn_object_order_js__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ./fn/object/order.js */ "./dist/fn/object/order.js");
-/* harmony import */ var _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ./fn/style/outerHeight.js */ "./dist/fn/style/outerHeight.js");
-/* harmony import */ var _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ./fn/style/outerWidth.js */ "./dist/fn/style/outerWidth.js");
-/* harmony import */ var _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ./fn/misc/percent.js */ "./dist/fn/misc/percent.js");
-/* harmony import */ var _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ./fn/object/pickValue.js */ "./dist/fn/object/pickValue.js");
-/* harmony import */ var _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ./fn/ajax/post.js */ "./dist/fn/ajax/post.js");
-/* harmony import */ var _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ./fn/ajax/postOut.js */ "./dist/fn/ajax/postOut.js");
-/* harmony import */ var _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ./fn/string/printf.js */ "./dist/fn/string/printf.js");
-/* harmony import */ var _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ./fn/string/quotes2html.js */ "./dist/fn/string/quotes2html.js");
-/* harmony import */ var _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ./fn/misc/randomInt.js */ "./dist/fn/misc/randomInt.js");
-/* harmony import */ var _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ./fn/string/randomString.js */ "./dist/fn/string/randomString.js");
-/* harmony import */ var _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ./fn/string/removeAccents.js */ "./dist/fn/string/removeAccents.js");
-/* harmony import */ var _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ./fn/object/removeEmpty.js */ "./dist/fn/object/removeEmpty.js");
-/* harmony import */ var _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ./fn/string/removeExtraSpaces.js */ "./dist/fn/string/removeExtraSpaces.js");
-/* harmony import */ var _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ./fn/string/removeHtmlComments.js */ "./dist/fn/string/removeHtmlComments.js");
-/* harmony import */ var _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ./fn/object/removePrivateProp.js */ "./dist/fn/object/removePrivateProp.js");
-/* harmony import */ var _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ./fn/string/removeTrailingChars.js */ "./dist/fn/string/removeTrailingChars.js");
-/* harmony import */ var _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ./fn/string/repeat.js */ "./dist/fn/string/repeat.js");
-/* harmony import */ var _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ./fn/string/replaceAll.js */ "./dist/fn/string/replaceAll.js");
-/* harmony import */ var _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ./fn/browser/replaceSelection.js */ "./dist/fn/browser/replaceSelection.js");
-/* harmony import */ var _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ./fn/style/resize.js */ "./dist/fn/style/resize.js");
-/* harmony import */ var _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ./fn/convert/rgb2hex.js */ "./dist/fn/convert/rgb2hex.js");
-/* harmony import */ var _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ./fn/loop/riterate.js */ "./dist/fn/loop/riterate.js");
-/* harmony import */ var _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ./fn/misc/roundDecimal.js */ "./dist/fn/misc/roundDecimal.js");
-/* harmony import */ var _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ./fn/string/sanitize.js */ "./dist/fn/string/sanitize.js");
-/* harmony import */ var _fn_object_search_js__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ./fn/object/search.js */ "./dist/fn/object/search.js");
-/* harmony import */ var _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ./fn/browser/selectElementText.js */ "./dist/fn/browser/selectElementText.js");
-/* harmony import */ var _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ./fn/html/selector.js */ "./dist/fn/html/selector.js");
-/* harmony import */ var _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ./fn/browser/setCookie.js */ "./dist/fn/browser/setCookie.js");
-/* harmony import */ var _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ./fn/style/setCssVar.js */ "./dist/fn/style/setCssVar.js");
-/* harmony import */ var _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ./fn/ajax/setNavigationVars.js */ "./dist/fn/ajax/setNavigationVars.js");
-/* harmony import */ var _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ./fn/object/setProp.js */ "./dist/fn/object/setProp.js");
-/* harmony import */ var _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ./fn/object/setProperty.js */ "./dist/fn/object/setProperty.js");
-/* harmony import */ var _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ./fn/string/shorten.js */ "./dist/fn/string/shorten.js");
-/* harmony import */ var _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ./fn/object/shortenObj.js */ "./dist/fn/object/shortenObj.js");
-/* harmony import */ var _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ./fn/object/shuffle.js */ "./dist/fn/object/shuffle.js");
-/* harmony import */ var _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ./fn/string/simpleHash.js */ "./dist/fn/string/simpleHash.js");
-/* harmony import */ var _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ./fn/string/simpleHash1.js */ "./dist/fn/string/simpleHash1.js");
-/* harmony import */ var _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ./fn/string/simpleHash2.js */ "./dist/fn/string/simpleHash2.js");
-/* harmony import */ var _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ./fn/datetime/chrono.js */ "./dist/fn/datetime/chrono.js");
-/* harmony import */ var _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ./fn/convert/string2ArrayBuffer.js */ "./dist/fn/convert/string2ArrayBuffer.js");
-/* harmony import */ var _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ./fn/form/submit.js */ "./dist/fn/form/submit.js");
-/* harmony import */ var _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ./fn/string/substr.js */ "./dist/fn/string/substr.js");
-/* harmony import */ var _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ./fn/object/sum.js */ "./dist/fn/object/sum.js");
-/* harmony import */ var _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ./fn/datetime/timestamp.js */ "./dist/fn/datetime/timestamp.js");
-/* harmony import */ var _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ./fn/convert/toCSV.js */ "./dist/fn/convert/toCSV.js");
-/* harmony import */ var _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ./fn/browser/toggleFullScreen.js */ "./dist/fn/browser/toggleFullScreen.js");
-/* harmony import */ var _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ./fn/misc/translate.js */ "./dist/fn/misc/translate.js");
-/* harmony import */ var _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ./fn/ajax/treatAjaxArguments.js */ "./dist/fn/ajax/treatAjaxArguments.js");
-/* harmony import */ var _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ./fn/string/trim.js */ "./dist/fn/string/trim.js");
-/* harmony import */ var _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ./fn/string/uniqString.js */ "./dist/fn/string/uniqString.js");
-/* harmony import */ var _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ./fn/object/unique.js */ "./dist/fn/object/unique.js");
-/* harmony import */ var _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ./fn/ajax/upload.js */ "./dist/fn/ajax/upload.js");
-/* harmony import */ var _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_227__ = __webpack_require__(/*! ./fn/browser/warning.js */ "./dist/fn/browser/warning.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './fn/object/mutateArray.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ./fn/string/nl2br.js */ "./dist/fn/string/nl2br.js");
+/* harmony import */ var _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ./fn/object/numProperties.js */ "./dist/fn/object/numProperties.js");
+/* harmony import */ var _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ./fn/form/objectToFormData.js */ "./dist/fn/form/objectToFormData.js");
+/* harmony import */ var _fn_object_order_js__WEBPACK_IMPORTED_MODULE_175__ = __webpack_require__(/*! ./fn/object/order.js */ "./dist/fn/object/order.js");
+/* harmony import */ var _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_176__ = __webpack_require__(/*! ./fn/style/outerHeight.js */ "./dist/fn/style/outerHeight.js");
+/* harmony import */ var _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_177__ = __webpack_require__(/*! ./fn/style/outerWidth.js */ "./dist/fn/style/outerWidth.js");
+/* harmony import */ var _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_178__ = __webpack_require__(/*! ./fn/misc/percent.js */ "./dist/fn/misc/percent.js");
+/* harmony import */ var _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_179__ = __webpack_require__(/*! ./fn/object/pickValue.js */ "./dist/fn/object/pickValue.js");
+/* harmony import */ var _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_180__ = __webpack_require__(/*! ./fn/ajax/post.js */ "./dist/fn/ajax/post.js");
+/* harmony import */ var _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_181__ = __webpack_require__(/*! ./fn/ajax/postOut.js */ "./dist/fn/ajax/postOut.js");
+/* harmony import */ var _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_182__ = __webpack_require__(/*! ./fn/string/printf.js */ "./dist/fn/string/printf.js");
+/* harmony import */ var _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_183__ = __webpack_require__(/*! ./fn/string/quotes2html.js */ "./dist/fn/string/quotes2html.js");
+/* harmony import */ var _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_184__ = __webpack_require__(/*! ./fn/misc/randomInt.js */ "./dist/fn/misc/randomInt.js");
+/* harmony import */ var _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_185__ = __webpack_require__(/*! ./fn/string/randomString.js */ "./dist/fn/string/randomString.js");
+/* harmony import */ var _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_186__ = __webpack_require__(/*! ./fn/string/removeAccents.js */ "./dist/fn/string/removeAccents.js");
+/* harmony import */ var _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_187__ = __webpack_require__(/*! ./fn/object/removeEmpty.js */ "./dist/fn/object/removeEmpty.js");
+/* harmony import */ var _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_188__ = __webpack_require__(/*! ./fn/string/removeExtraSpaces.js */ "./dist/fn/string/removeExtraSpaces.js");
+/* harmony import */ var _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_189__ = __webpack_require__(/*! ./fn/string/removeHtmlComments.js */ "./dist/fn/string/removeHtmlComments.js");
+/* harmony import */ var _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_190__ = __webpack_require__(/*! ./fn/object/removePrivateProp.js */ "./dist/fn/object/removePrivateProp.js");
+/* harmony import */ var _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_191__ = __webpack_require__(/*! ./fn/string/removeTrailingChars.js */ "./dist/fn/string/removeTrailingChars.js");
+/* harmony import */ var _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_192__ = __webpack_require__(/*! ./fn/string/repeat.js */ "./dist/fn/string/repeat.js");
+/* harmony import */ var _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_193__ = __webpack_require__(/*! ./fn/string/replaceAll.js */ "./dist/fn/string/replaceAll.js");
+/* harmony import */ var _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_194__ = __webpack_require__(/*! ./fn/browser/replaceSelection.js */ "./dist/fn/browser/replaceSelection.js");
+/* harmony import */ var _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_195__ = __webpack_require__(/*! ./fn/style/resize.js */ "./dist/fn/style/resize.js");
+/* harmony import */ var _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_196__ = __webpack_require__(/*! ./fn/convert/rgb2hex.js */ "./dist/fn/convert/rgb2hex.js");
+/* harmony import */ var _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_197__ = __webpack_require__(/*! ./fn/loop/riterate.js */ "./dist/fn/loop/riterate.js");
+/* harmony import */ var _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_198__ = __webpack_require__(/*! ./fn/misc/roundDecimal.js */ "./dist/fn/misc/roundDecimal.js");
+/* harmony import */ var _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_199__ = __webpack_require__(/*! ./fn/string/sanitize.js */ "./dist/fn/string/sanitize.js");
+/* harmony import */ var _fn_object_search_js__WEBPACK_IMPORTED_MODULE_200__ = __webpack_require__(/*! ./fn/object/search.js */ "./dist/fn/object/search.js");
+/* harmony import */ var _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_201__ = __webpack_require__(/*! ./fn/browser/selectElementText.js */ "./dist/fn/browser/selectElementText.js");
+/* harmony import */ var _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_202__ = __webpack_require__(/*! ./fn/html/selector.js */ "./dist/fn/html/selector.js");
+/* harmony import */ var _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_203__ = __webpack_require__(/*! ./fn/browser/setCookie.js */ "./dist/fn/browser/setCookie.js");
+/* harmony import */ var _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_204__ = __webpack_require__(/*! ./fn/style/setCssVar.js */ "./dist/fn/style/setCssVar.js");
+/* harmony import */ var _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_205__ = __webpack_require__(/*! ./fn/ajax/setNavigationVars.js */ "./dist/fn/ajax/setNavigationVars.js");
+/* harmony import */ var _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_206__ = __webpack_require__(/*! ./fn/object/setProp.js */ "./dist/fn/object/setProp.js");
+/* harmony import */ var _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_207__ = __webpack_require__(/*! ./fn/object/setProperty.js */ "./dist/fn/object/setProperty.js");
+/* harmony import */ var _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_208__ = __webpack_require__(/*! ./fn/string/shorten.js */ "./dist/fn/string/shorten.js");
+/* harmony import */ var _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_209__ = __webpack_require__(/*! ./fn/object/shortenObj.js */ "./dist/fn/object/shortenObj.js");
+/* harmony import */ var _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_210__ = __webpack_require__(/*! ./fn/object/shuffle.js */ "./dist/fn/object/shuffle.js");
+/* harmony import */ var _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_211__ = __webpack_require__(/*! ./fn/string/simpleHash.js */ "./dist/fn/string/simpleHash.js");
+/* harmony import */ var _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_212__ = __webpack_require__(/*! ./fn/string/simpleHash1.js */ "./dist/fn/string/simpleHash1.js");
+/* harmony import */ var _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_213__ = __webpack_require__(/*! ./fn/string/simpleHash2.js */ "./dist/fn/string/simpleHash2.js");
+/* harmony import */ var _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_214__ = __webpack_require__(/*! ./fn/datetime/chrono.js */ "./dist/fn/datetime/chrono.js");
+/* harmony import */ var _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_215__ = __webpack_require__(/*! ./fn/convert/string2ArrayBuffer.js */ "./dist/fn/convert/string2ArrayBuffer.js");
+/* harmony import */ var _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_216__ = __webpack_require__(/*! ./fn/form/submit.js */ "./dist/fn/form/submit.js");
+/* harmony import */ var _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_217__ = __webpack_require__(/*! ./fn/string/substr.js */ "./dist/fn/string/substr.js");
+/* harmony import */ var _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_218__ = __webpack_require__(/*! ./fn/object/sum.js */ "./dist/fn/object/sum.js");
+/* harmony import */ var _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_219__ = __webpack_require__(/*! ./fn/datetime/timestamp.js */ "./dist/fn/datetime/timestamp.js");
+/* harmony import */ var _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_220__ = __webpack_require__(/*! ./fn/convert/toCSV.js */ "./dist/fn/convert/toCSV.js");
+/* harmony import */ var _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_221__ = __webpack_require__(/*! ./fn/browser/toggleFullScreen.js */ "./dist/fn/browser/toggleFullScreen.js");
+/* harmony import */ var _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_222__ = __webpack_require__(/*! ./fn/misc/translate.js */ "./dist/fn/misc/translate.js");
+/* harmony import */ var _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_223__ = __webpack_require__(/*! ./fn/ajax/treatAjaxArguments.js */ "./dist/fn/ajax/treatAjaxArguments.js");
+/* harmony import */ var _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_224__ = __webpack_require__(/*! ./fn/string/trim.js */ "./dist/fn/string/trim.js");
+/* harmony import */ var _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_225__ = __webpack_require__(/*! ./fn/string/uniqString.js */ "./dist/fn/string/uniqString.js");
+/* harmony import */ var _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_226__ = __webpack_require__(/*! ./fn/object/unique.js */ "./dist/fn/object/unique.js");
+/* harmony import */ var _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_227__ = __webpack_require__(/*! ./fn/ajax/upload.js */ "./dist/fn/ajax/upload.js");
+/* harmony import */ var _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_228__ = __webpack_require__(/*! ./fn/browser/warning.js */ "./dist/fn/browser/warning.js");
+
 
 
 
@@ -1129,64 +1131,65 @@ var fn = {
     money: _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__.money,
     move: _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__.move,
     multiorder: _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__.multiorder,
-    nl2br: _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_171__.nl2br,
-    numProperties: _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_172__.numProperties,
-    objectToFormData: _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_173__.objectToFormData,
-    order: _fn_object_order_js__WEBPACK_IMPORTED_MODULE_174__.order,
-    outerHeight: _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_175__.outerHeight,
-    outerWidth: _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_176__.outerWidth,
-    percent: _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_177__.percent,
-    pickValue: _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_178__.pickValue,
-    post: _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_179__.post,
-    postOut: _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_180__.postOut,
-    printf: _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_181__.printf,
-    quotes2html: _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_182__.quotes2html,
-    randomInt: _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_183__.randomInt,
-    randomString: _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_184__.randomString,
-    removeAccents: _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_185__.removeAccents,
-    removeEmpty: _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_186__.removeEmpty,
-    removeExtraSpaces: _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_187__.removeExtraSpaces,
-    removeHtmlComments: _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_188__.removeHtmlComments,
-    removePrivateProp: _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_189__.removePrivateProp,
-    removeTrailingChars: _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_190__.removeTrailingChars,
-    repeat: _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_191__.repeat,
-    replaceAll: _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_192__.replaceAll,
-    replaceSelection: _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_193__.replaceSelection,
-    resize: _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_194__.resize,
-    rgb2hex: _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_195__.rgb2hex,
-    riterate: _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_196__.riterate,
-    roundDecimal: _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_197__.roundDecimal,
-    sanitize: _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_198__.sanitize,
-    search: _fn_object_search_js__WEBPACK_IMPORTED_MODULE_199__.search,
-    selectElementText: _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_200__.selectElementText,
-    selector: _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_201__.selector,
-    setCookie: _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_202__.setCookie,
-    setCssVar: _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_203__.setCssVar,
-    setNavigationVars: _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_204__.setNavigationVars,
-    setProp: _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_205__.setProp,
-    setProperty: _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_206__.setProperty,
-    shorten: _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_207__.shorten,
-    shortenObj: _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_208__.shortenObj,
-    shuffle: _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_209__.shuffle,
-    simpleHash: _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_210__.simpleHash,
-    simpleHash1: _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_211__.simpleHash1,
-    simpleHash2: _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_212__.simpleHash2,
-    startChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__.startChrono,
-    stopChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_213__.stopChrono,
-    string2ArrayBuffer: _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_214__.string2ArrayBuffer,
-    submit: _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_215__.submit,
-    substr: _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_216__.substr,
-    sum: _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_217__.sum,
-    timestamp: _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_218__.timestamp,
-    toCSV: _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_219__.toCSV,
-    toggleFullScreen: _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_220__.toggleFullScreen,
-    translate: _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_221__.translate,
-    treatAjaxArguments: _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_222__.treatAjaxArguments,
-    trim: _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_223__.trim,
-    uniqString: _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_224__.uniqString,
-    unique: _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_225__.unique,
-    upload: _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_226__.upload,
-    warning: _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_227__.warning,
+    mutateArray: Object(function webpackMissingModule() { var e = new Error("Cannot find module './fn/object/mutateArray.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    nl2br: _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_172__.nl2br,
+    numProperties: _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_173__.numProperties,
+    objectToFormData: _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_174__.objectToFormData,
+    order: _fn_object_order_js__WEBPACK_IMPORTED_MODULE_175__.order,
+    outerHeight: _fn_style_outerHeight_js__WEBPACK_IMPORTED_MODULE_176__.outerHeight,
+    outerWidth: _fn_style_outerWidth_js__WEBPACK_IMPORTED_MODULE_177__.outerWidth,
+    percent: _fn_misc_percent_js__WEBPACK_IMPORTED_MODULE_178__.percent,
+    pickValue: _fn_object_pickValue_js__WEBPACK_IMPORTED_MODULE_179__.pickValue,
+    post: _fn_ajax_post_js__WEBPACK_IMPORTED_MODULE_180__.post,
+    postOut: _fn_ajax_postOut_js__WEBPACK_IMPORTED_MODULE_181__.postOut,
+    printf: _fn_string_printf_js__WEBPACK_IMPORTED_MODULE_182__.printf,
+    quotes2html: _fn_string_quotes2html_js__WEBPACK_IMPORTED_MODULE_183__.quotes2html,
+    randomInt: _fn_misc_randomInt_js__WEBPACK_IMPORTED_MODULE_184__.randomInt,
+    randomString: _fn_string_randomString_js__WEBPACK_IMPORTED_MODULE_185__.randomString,
+    removeAccents: _fn_string_removeAccents_js__WEBPACK_IMPORTED_MODULE_186__.removeAccents,
+    removeEmpty: _fn_object_removeEmpty_js__WEBPACK_IMPORTED_MODULE_187__.removeEmpty,
+    removeExtraSpaces: _fn_string_removeExtraSpaces_js__WEBPACK_IMPORTED_MODULE_188__.removeExtraSpaces,
+    removeHtmlComments: _fn_string_removeHtmlComments_js__WEBPACK_IMPORTED_MODULE_189__.removeHtmlComments,
+    removePrivateProp: _fn_object_removePrivateProp_js__WEBPACK_IMPORTED_MODULE_190__.removePrivateProp,
+    removeTrailingChars: _fn_string_removeTrailingChars_js__WEBPACK_IMPORTED_MODULE_191__.removeTrailingChars,
+    repeat: _fn_string_repeat_js__WEBPACK_IMPORTED_MODULE_192__.repeat,
+    replaceAll: _fn_string_replaceAll_js__WEBPACK_IMPORTED_MODULE_193__.replaceAll,
+    replaceSelection: _fn_browser_replaceSelection_js__WEBPACK_IMPORTED_MODULE_194__.replaceSelection,
+    resize: _fn_style_resize_js__WEBPACK_IMPORTED_MODULE_195__.resize,
+    rgb2hex: _fn_convert_rgb2hex_js__WEBPACK_IMPORTED_MODULE_196__.rgb2hex,
+    riterate: _fn_loop_riterate_js__WEBPACK_IMPORTED_MODULE_197__.riterate,
+    roundDecimal: _fn_misc_roundDecimal_js__WEBPACK_IMPORTED_MODULE_198__.roundDecimal,
+    sanitize: _fn_string_sanitize_js__WEBPACK_IMPORTED_MODULE_199__.sanitize,
+    search: _fn_object_search_js__WEBPACK_IMPORTED_MODULE_200__.search,
+    selectElementText: _fn_browser_selectElementText_js__WEBPACK_IMPORTED_MODULE_201__.selectElementText,
+    selector: _fn_html_selector_js__WEBPACK_IMPORTED_MODULE_202__.selector,
+    setCookie: _fn_browser_setCookie_js__WEBPACK_IMPORTED_MODULE_203__.setCookie,
+    setCssVar: _fn_style_setCssVar_js__WEBPACK_IMPORTED_MODULE_204__.setCssVar,
+    setNavigationVars: _fn_ajax_setNavigationVars_js__WEBPACK_IMPORTED_MODULE_205__.setNavigationVars,
+    setProp: _fn_object_setProp_js__WEBPACK_IMPORTED_MODULE_206__.setProp,
+    setProperty: _fn_object_setProperty_js__WEBPACK_IMPORTED_MODULE_207__.setProperty,
+    shorten: _fn_string_shorten_js__WEBPACK_IMPORTED_MODULE_208__.shorten,
+    shortenObj: _fn_object_shortenObj_js__WEBPACK_IMPORTED_MODULE_209__.shortenObj,
+    shuffle: _fn_object_shuffle_js__WEBPACK_IMPORTED_MODULE_210__.shuffle,
+    simpleHash: _fn_string_simpleHash_js__WEBPACK_IMPORTED_MODULE_211__.simpleHash,
+    simpleHash1: _fn_string_simpleHash1_js__WEBPACK_IMPORTED_MODULE_212__.simpleHash1,
+    simpleHash2: _fn_string_simpleHash2_js__WEBPACK_IMPORTED_MODULE_213__.simpleHash2,
+    startChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_214__.startChrono,
+    stopChrono: _fn_datetime_chrono_js__WEBPACK_IMPORTED_MODULE_214__.stopChrono,
+    string2ArrayBuffer: _fn_convert_string2ArrayBuffer_js__WEBPACK_IMPORTED_MODULE_215__.string2ArrayBuffer,
+    submit: _fn_form_submit_js__WEBPACK_IMPORTED_MODULE_216__.submit,
+    substr: _fn_string_substr_js__WEBPACK_IMPORTED_MODULE_217__.substr,
+    sum: _fn_object_sum_js__WEBPACK_IMPORTED_MODULE_218__.sum,
+    timestamp: _fn_datetime_timestamp_js__WEBPACK_IMPORTED_MODULE_219__.timestamp,
+    toCSV: _fn_convert_toCSV_js__WEBPACK_IMPORTED_MODULE_220__.toCSV,
+    toggleFullScreen: _fn_browser_toggleFullScreen_js__WEBPACK_IMPORTED_MODULE_221__.toggleFullScreen,
+    translate: _fn_misc_translate_js__WEBPACK_IMPORTED_MODULE_222__.translate,
+    treatAjaxArguments: _fn_ajax_treatAjaxArguments_js__WEBPACK_IMPORTED_MODULE_223__.treatAjaxArguments,
+    trim: _fn_string_trim_js__WEBPACK_IMPORTED_MODULE_224__.trim,
+    uniqString: _fn_string_uniqString_js__WEBPACK_IMPORTED_MODULE_225__.uniqString,
+    unique: _fn_object_unique_js__WEBPACK_IMPORTED_MODULE_226__.unique,
+    upload: _fn_ajax_upload_js__WEBPACK_IMPORTED_MODULE_227__.upload,
+    warning: _fn_browser_warning_js__WEBPACK_IMPORTED_MODULE_228__.warning,
 };
 
 
