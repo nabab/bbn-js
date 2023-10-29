@@ -1,38 +1,50 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 import { isArray } from '../type/isArray.js';
 import { hash } from '../string/hash.js';
 var mutateArray = function (a1, a2) {
-    if (!isArray(a1) || !isArray(a2)) {
+    if (!isArray(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
     }
-    // Create a map from the second array using the identity function to get the key
     var mapA2 = new Map(a2.map(function (item) { return [hash(item), item]; }));
-    var mapA1 = new Map(a1.map(function (item) { return [hash(item), item]; }));
-    // Result array to build the correct order
-    var result = [];
-    // Iterate over a2 and build the result array
-    for (var _i = 0, a2_1 = a2; _i < a2_1.length; _i++) {
-        var item = a2_1[_i];
-        var key = hash(item);
-        if (mapA1.has(key)) {
-            // If the item is in a1, use the item from a2 to preserve the order
-            result.push(mapA2.get(key));
+    var a1Pointer = 0;
+    var a2Pointer = 0;
+    var _loop_1 = function () {
+        var a1Item = a1[a1Pointer];
+        var a2Item = a2[a2Pointer];
+        var a1Key = a1Item ? hash(a1Item) : undefined;
+        var a2Key = hash(a2Item);
+        if (a1Key === a2Key) {
+            // The items match, move both pointers.
+            a1Pointer++;
+            a2Pointer++;
+        }
+        else if (mapA2.has(a1Key)) {
+            // The item in a1 exists in a2 but is out of order, so it should be moved.
+            // First, find the correct position to move it to.
+            var correctIndex = a1.findIndex(function (item) { return hash(item) === a2Key; });
+            var itemToMove = a1.splice(correctIndex, 1)[0];
+            a1.splice(a1Pointer, 0, itemToMove);
+            // Now that the item has been moved to the correct position, move pointers.
+            a1Pointer++;
+            a2Pointer++;
         }
         else {
-            // If the item is not in a1, it's a new item to be added
-            result.push(item);
+            // The item in a1 does not exist in a2, so it should be removed.
+            a1.splice(a1Pointer, 1);
         }
+        // If there's no corresponding item in a1 for the current a2 item, insert it.
+        if (a1[a1Pointer] === undefined && a2Pointer < a2.length) {
+            a1.splice(a1Pointer, 0, a2Item);
+            a1Pointer++;
+            a2Pointer++;
+        }
+    };
+    while (a2Pointer < a2.length) {
+        _loop_1();
     }
-    // Clear a1 and push the ordered results into it
-    a1.splice.apply(a1, __spreadArray([0, a1.length], result, false));
+    // If there are any remaining items in a1 that are not in a2, remove them.
+    while (a1.length > a2.length) {
+        a1.pop();
+    }
     return a1;
 };
 export { mutateArray };
