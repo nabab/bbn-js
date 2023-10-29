@@ -672,7 +672,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__ = __webpack_require__(/*! ./fn/misc/money.js */ "./dist/fn/misc/money.js");
 /* harmony import */ var _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__ = __webpack_require__(/*! ./fn/object/move.js */ "./dist/fn/object/move.js");
 /* harmony import */ var _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__ = __webpack_require__(/*! ./fn/object/multiorder.js */ "./dist/fn/object/multiorder.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './fn/object/mutateArray.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _fn_object_mutateArray_js__WEBPACK_IMPORTED_MODULE_171__ = __webpack_require__(/*! ./fn/object/mutateArray.js */ "./dist/fn/object/mutateArray.js");
 /* harmony import */ var _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_172__ = __webpack_require__(/*! ./fn/string/nl2br.js */ "./dist/fn/string/nl2br.js");
 /* harmony import */ var _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_173__ = __webpack_require__(/*! ./fn/object/numProperties.js */ "./dist/fn/object/numProperties.js");
 /* harmony import */ var _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_174__ = __webpack_require__(/*! ./fn/form/objectToFormData.js */ "./dist/fn/form/objectToFormData.js");
@@ -1131,7 +1131,7 @@ var fn = {
     money: _fn_misc_money_js__WEBPACK_IMPORTED_MODULE_168__.money,
     move: _fn_object_move_js__WEBPACK_IMPORTED_MODULE_169__.move,
     multiorder: _fn_object_multiorder_js__WEBPACK_IMPORTED_MODULE_170__.multiorder,
-    mutateArray: Object(function webpackMissingModule() { var e = new Error("Cannot find module './fn/object/mutateArray.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mutateArray: _fn_object_mutateArray_js__WEBPACK_IMPORTED_MODULE_171__.mutateArray,
     nl2br: _fn_string_nl2br_js__WEBPACK_IMPORTED_MODULE_172__.nl2br,
     numProperties: _fn_object_numProperties_js__WEBPACK_IMPORTED_MODULE_173__.numProperties,
     objectToFormData: _fn_form_objectToFormData_js__WEBPACK_IMPORTED_MODULE_174__.objectToFormData,
@@ -9282,6 +9282,61 @@ var multiorder = function (arr, orders) {
         }
         return 0;
     });
+};
+
+
+
+/***/ }),
+
+/***/ "./dist/fn/object/mutateArray.js":
+/*!***************************************!*\
+  !*** ./dist/fn/object/mutateArray.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mutateArray: () => (/* binding */ mutateArray)
+/* harmony export */ });
+/* harmony import */ var _type_isArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../type/isArray.js */ "./dist/fn/type/isArray.js");
+/* harmony import */ var _string_hash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../string/hash.js */ "./dist/fn/string/hash.js");
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+
+var mutateArray = function (a1, a2) {
+    if (!(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(a1) || !(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(a2)) {
+        throw new TypeError('mutateArray can only be called with arrays');
+    }
+    // Create a map from the second array using the identity function to get the key
+    var mapA2 = new Map(a2.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item), item]; }));
+    var mapA1 = new Map(a1.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item), item]; }));
+    // Result array to build the correct order
+    var result = [];
+    // Iterate over a2 and build the result array
+    for (var _i = 0, a2_1 = a2; _i < a2_1.length; _i++) {
+        var item = a2_1[_i];
+        var key = (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item);
+        if (mapA1.has(key)) {
+            // If the item is in a1, use the item from a2 to preserve the order
+            result.push(mapA2.get(key));
+        }
+        else {
+            // If the item is not in a1, it's a new item to be added
+            result.push(item);
+        }
+    }
+    // Clear a1 and push the ordered results into it
+    a1.splice.apply(a1, __spreadArray([0, a1.length], result, false));
+    return a1;
 };
 
 
