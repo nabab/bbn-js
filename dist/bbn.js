@@ -9301,6 +9301,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _type_isArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../type/isArray.js */ "./dist/fn/type/isArray.js");
 /* harmony import */ var _string_hash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../string/hash.js */ "./dist/fn/string/hash.js");
+/* harmony import */ var _type_isSame_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../type/isSame.js */ "./dist/fn/type/isSame.js");
+/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./search.js */ "./dist/fn/object/search.js");
+
+
 
 
 var mutateArray = function (a1, a2) {
@@ -9320,10 +9324,11 @@ var mutateArray = function (a1, a2) {
             a1.splice(i, 1);
         }
     }
-    var _loop_1 = function (j) {
-        if (j >= a1.length || (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(a1[j]) !== (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(a1Ordered[j])) {
+    // Insert or move items to match the order of a2
+    for (var j = 0; j < a1Ordered.length; j++) {
+        if ((j >= a1.length) || !(0,_type_isSame_js__WEBPACK_IMPORTED_MODULE_2__.isSame)(a1[j], a1Ordered[j])) {
             // Find the index of the item in a1, if it exists
-            var indexInA1 = a1.findIndex(function (item) { return (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(item) === (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(a1Ordered[j]); });
+            var indexInA1 = (0,_search_js__WEBPACK_IMPORTED_MODULE_3__.search)(a1, a1Ordered[j]);
             if (indexInA1 !== -1) {
                 // Move the item to the correct position if it already exists in a1
                 var itemToMove = a1.splice(indexInA1, 1)[0];
@@ -9334,10 +9339,6 @@ var mutateArray = function (a1, a2) {
                 a1.splice(j, 0, a1Ordered[j]);
             }
         }
-    };
-    // Insert or move items to match the order of a2
-    for (var j = 0; j < a1Ordered.length; j++) {
-        _loop_1(j);
     }
     // If a1 has extra items at the end (not present in a2), remove them
     if (a1.length > a1Ordered.length) {

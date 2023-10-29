@@ -1,5 +1,7 @@
 import { isArray } from '../type/isArray.js';
 import { hash } from '../string/hash.js';
+import { isSame } from '../type/isSame.js';
+import { search } from './search.js';
 var mutateArray = function (a1, a2) {
     if (!isArray(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
@@ -17,10 +19,11 @@ var mutateArray = function (a1, a2) {
             a1.splice(i, 1);
         }
     }
-    var _loop_1 = function (j) {
-        if (j >= a1.length || hash(a1[j]) !== hash(a1Ordered[j])) {
+    // Insert or move items to match the order of a2
+    for (var j = 0; j < a1Ordered.length; j++) {
+        if ((j >= a1.length) || !isSame(a1[j], a1Ordered[j])) {
             // Find the index of the item in a1, if it exists
-            var indexInA1 = a1.findIndex(function (item) { return hash(item) === hash(a1Ordered[j]); });
+            var indexInA1 = search(a1, a1Ordered[j]);
             if (indexInA1 !== -1) {
                 // Move the item to the correct position if it already exists in a1
                 var itemToMove = a1.splice(indexInA1, 1)[0];
@@ -31,10 +34,6 @@ var mutateArray = function (a1, a2) {
                 a1.splice(j, 0, a1Ordered[j]);
             }
         }
-    };
-    // Insert or move items to match the order of a2
-    for (var j = 0; j < a1Ordered.length; j++) {
-        _loop_1(j);
     }
     // If a1 has extra items at the end (not present in a2), remove them
     if (a1.length > a1Ordered.length) {

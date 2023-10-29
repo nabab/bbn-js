@@ -1,6 +1,7 @@
 import { isArray } from '../type/isArray.js';
 import { hash } from '../string/hash.js';
 import { isSame } from '../type/isSame.js';
+import { search } from './search.js';
 
 
 const mutateArray = (a1, a2) => {
@@ -26,9 +27,9 @@ const mutateArray = (a1, a2) => {
 
   // Insert or move items to match the order of a2
   for (let j = 0; j < a1Ordered.length; j++) {
-    if (j >= a1.length || hash(a1[j]) !== hash(a1Ordered[j])) {
+    if ((j >= a1.length) || !isSame(a1[j], a1Ordered[j])) {
       // Find the index of the item in a1, if it exists
-      const indexInA1 = a1.findIndex(item => hash(item) === hash(a1Ordered[j]));
+      const indexInA1 = search(a1, a1Ordered[j]);
       if (indexInA1 !== -1) {
         // Move the item to the correct position if it already exists in a1
         const [itemToMove] = a1.splice(indexInA1, 1);
