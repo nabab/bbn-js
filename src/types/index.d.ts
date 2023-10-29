@@ -94,7 +94,7 @@ declare global {
     start: number;
     url: string;
     loader: any;
-    source: any;
+    aborter: any;
     loading: boolean;
     error: boolean;
     abort: boolean;

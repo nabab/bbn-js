@@ -9,11 +9,11 @@ import { substr } from '../string/substr.js';
  *
  * @param    {String}  requestId
  * @param    {Promise} prom
- * @param    {Object}  source
+ * @param    {Object}  aborter
  *
  * @returns  {Number}  The timestamp (in ms)
  */
-var _addLoader = function (requestId, prom, source) {
+var _addLoader = function (requestId, prom, aborter) {
     /** @var {Number} tst Current timestamp */
     var tst = new Date().getTime();
     /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -23,7 +23,7 @@ var _addLoader = function (requestId, prom, source) {
         key: requestId,
         url: url,
         loader: prom,
-        source: source,
+        aborter: aborter,
         loading: true,
         error: false,
         abort: false,

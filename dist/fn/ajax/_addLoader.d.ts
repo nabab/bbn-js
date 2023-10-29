@@ -8,9 +8,9 @@
  *
  * @param    {String}  requestId
  * @param    {Promise} prom
- * @param    {Object}  source
+ * @param    {Object}  aborter
  *
  * @returns  {Number}  The timestamp (in ms)
  */
-declare const _addLoader: (requestId: any, prom: any, source: any) => number;
+declare const _addLoader: (requestId: any, prom: any, aborter: any) => number;
 export { _addLoader };

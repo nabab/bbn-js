@@ -115,11 +115,10 @@ const ajax = function (
     if (bbn.env.token) {
       extend(data || {}, { _bbn_token: bbn.env.token });
     }
-    let cancelToken = axios.CancelToken;
-    let source = cancelToken.source();
+    const aborter = new AbortController();
     let options = {
       responseType: datatype,
-      cancelToken: source.token,
+      signal: aborter.signal
     };
     if (datatype === "text") {
       options['headers'] = {
@@ -176,7 +175,7 @@ const ajax = function (
           }
         }
       });
-    let tst = _addLoader(requestId, loader, source);
+    let tst = _addLoader(requestId, loader, aborter);
     bbn.fn.defaultStartLoadingFunction(url, tst, data, requestId);
     return loader;
   }

@@ -11,12 +11,12 @@ import { log } from '../browser/log.js'  ;
  *
  * @param    {String}  requestId
  * @param    {Promise} prom
- * @param    {Object}  source
+ * @param    {Object}  aborter
  *
  * @returns  {Number}  The timestamp (in ms)
  */
 
-const _addLoader = function (requestId, prom, source) {
+const _addLoader = function (requestId, prom, aborter) {
   /** @var {Number} tst Current timestamp */
   let tst = new Date().getTime();
   /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -24,9 +24,9 @@ const _addLoader = function (requestId, prom, source) {
   /** @var {Object} loader The loader object */
   let loader = {
     key: requestId,
-    url: url,
+    url,
     loader: prom,
-    source: source,
+    aborter,
     loading: true,
     error: false,
     abort: false,

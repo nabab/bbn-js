@@ -23,14 +23,11 @@ import { getLoader } from './getLoader.js';
  */
 var abort = function (requestId) {
     var loader = getLoader(requestId);
-    if (loader && loader.source) {
-        //_deleteLoader(requestId);
-        loader.source.cancel('Operation canceled by the user.');
+    if (loader === null || loader === void 0 ? void 0 : loader.aborter) {
+        loader.aborter.abort('Operation canceled by the user.');
     }
-    /*
-      else {
+    else {
         throw new Error("Impossible to find the loader " + requestId);
-      }
-      */
+    }
 };
 export { abort };

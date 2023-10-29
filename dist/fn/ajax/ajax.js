@@ -107,11 +107,10 @@ var ajax = function (url, datatype, data, success, failure, abort) {
         if (bbn.env.token) {
             extend(data || {}, { _bbn_token: bbn.env.token });
         }
-        var cancelToken = axios.CancelToken;
-        var source = cancelToken.source();
+        var aborter = new AbortController();
         var options = {
             responseType: datatype,
-            cancelToken: source.token,
+            signal: aborter.signal
         };
         if (datatype === "text") {
             options['headers'] = {
@@ -164,7 +163,7 @@ var ajax = function (url, datatype, data, success, failure, abort) {
                 }
             }
         });
-        var tst_1 = _addLoader(requestId_1, loader_1, source);
+        var tst_1 = _addLoader(requestId_1, loader_1, aborter);
         bbn.fn.defaultStartLoadingFunction(url, tst_1, data, requestId_1);
         return loader_1;
     }

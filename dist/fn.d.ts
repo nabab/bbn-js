@@ -1,5 +1,5 @@
 declare const fn: {
-    _addLoader: (requestId: any, prom: any, source: any) => number;
+    _addLoader: (requestId: any, prom: any, aborter: any) => number;
     _compareValues: (a: any, b: any, prop: any, dir?: string) => 0 | 1 | -1;
     _deleteLoader: (requestId: any, res?: any, isAbort?: boolean) => boolean;
     abort: (requestId: any) => void;

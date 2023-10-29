@@ -1219,11 +1219,11 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @param    {String}  requestId
  * @param    {Promise} prom
- * @param    {Object}  source
+ * @param    {Object}  aborter
  *
  * @returns  {Number}  The timestamp (in ms)
  */
-var _addLoader = function (requestId, prom, source) {
+var _addLoader = function (requestId, prom, aborter) {
     /** @var {Number} tst Current timestamp */
     var tst = new Date().getTime();
     /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -1233,7 +1233,7 @@ var _addLoader = function (requestId, prom, source) {
         key: requestId,
         url: url,
         loader: prom,
-        source: source,
+        aborter: aborter,
         loading: true,
         error: false,
         abort: false,
@@ -1359,15 +1359,12 @@ __webpack_require__.r(__webpack_exports__);
  */
 var abort = function (requestId) {
     var loader = (0,_getLoader_js__WEBPACK_IMPORTED_MODULE_0__.getLoader)(requestId);
-    if (loader && loader.source) {
-        //_deleteLoader(requestId);
-        loader.source.cancel('Operation canceled by the user.');
+    if (loader === null || loader === void 0 ? void 0 : loader.aborter) {
+        loader.aborter.abort('Operation canceled by the user.');
     }
-    /*
-      else {
+    else {
         throw new Error("Impossible to find the loader " + requestId);
-      }
-      */
+    }
 };
 
 
@@ -1553,11 +1550,10 @@ var ajax = function (url, datatype, data, success, failure, abort) {
         if (bbn.env.token) {
             (0,_object_extend_js__WEBPACK_IMPORTED_MODULE_4__.extend)(data || {}, { _bbn_token: bbn.env.token });
         }
-        var cancelToken = axios.CancelToken;
-        var source = cancelToken.source();
+        var aborter = new AbortController();
         var options = {
             responseType: datatype,
-            cancelToken: source.token,
+            signal: aborter.signal
         };
         if (datatype === "text") {
             options['headers'] = {
@@ -1610,7 +1606,7 @@ var ajax = function (url, datatype, data, success, failure, abort) {
                 }
             }
         });
-        var tst_1 = (0,_addLoader_js__WEBPACK_IMPORTED_MODULE_8__._addLoader)(requestId_1, loader_1, source);
+        var tst_1 = (0,_addLoader_js__WEBPACK_IMPORTED_MODULE_8__._addLoader)(requestId_1, loader_1, aborter);
         bbn.fn.defaultStartLoadingFunction(url, tst_1, data, requestId_1);
         return loader_1;
     }
