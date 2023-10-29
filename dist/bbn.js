@@ -9301,6 +9301,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _type_isArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../type/isArray.js */ "./dist/fn/type/isArray.js");
 /* harmony import */ var _string_hash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../string/hash.js */ "./dist/fn/string/hash.js");
+/* harmony import */ var _type_isSame_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../type/isSame.js */ "./dist/fn/type/isSame.js");
+
 
 
 var mutateArray = function (a1, a2) {
@@ -9348,7 +9350,7 @@ var mutateArray = function (a1, a2) {
     while (a1.length > a2.length) {
         a1.pop();
     }
-    if (JSON.stringify(a1) !== JSON.stringify(a2)) {
+    if (!(0,_type_isSame_js__WEBPACK_IMPORTED_MODULE_2__.isSame)(a1, a2)) {
         bbn.fn.log(a1, a2);
         throw new Error('mutateArray failed');
     }

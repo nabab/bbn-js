@@ -1,5 +1,6 @@
 import { isArray } from '../type/isArray.js';
 import { hash } from '../string/hash.js';
+import { isSame } from '../type/isSame.js';
 var mutateArray = function (a1, a2) {
     if (!isArray(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
@@ -45,7 +46,7 @@ var mutateArray = function (a1, a2) {
     while (a1.length > a2.length) {
         a1.pop();
     }
-    if (JSON.stringify(a1) !== JSON.stringify(a2)) {
+    if (!isSame(a1, a2)) {
         bbn.fn.log(a1, a2);
         throw new Error('mutateArray failed');
     }
