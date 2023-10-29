@@ -47,6 +47,11 @@ const mutateArray = (a1, a2) => {
     a1.pop();
   }
 
+  if (JSON.stringify(a1) !== JSON.stringify(a2)) {
+    bbn.fn.log(a1, a2);
+    throw new Error('mutateArray failed');
+  }
+
   return a1;
 };
 
