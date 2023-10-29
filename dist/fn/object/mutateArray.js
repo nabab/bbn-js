@@ -7,8 +7,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import isArray from '../type/isArray.js';
-import hash from '../string/hash.js';
+import { isArray } from '../type/isArray.js';
+import { hash } from '../string/hash.js';
 var mutateArray = function (a1, a2) {
     if (!isArray(a1) || !isArray(a2)) {
         throw new TypeError('mutateArray can only be called with arrays');

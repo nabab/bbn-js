@@ -1,5 +1,5 @@
-import isArray from '../type/isArray.js';
-import hash from '../string/hash.js';
+import { isArray } from '../type/isArray.js';
+import { hash } from '../string/hash.js';
 
 const mutateArray = function(a1, a2) {
   if (!isArray(a1) || !isArray(a2)) {

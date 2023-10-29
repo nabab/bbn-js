@@ -9313,18 +9313,18 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 var mutateArray = function (a1, a2) {
-    if (!(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(a1) || !(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(a2)) {
+    if (!(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__.isArray)(a1) || !(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__.isArray)(a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
     }
     // Create a map from the second array using the identity function to get the key
-    var mapA2 = new Map(a2.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item), item]; }));
-    var mapA1 = new Map(a1.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item), item]; }));
+    var mapA2 = new Map(a2.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(item), item]; }));
+    var mapA1 = new Map(a1.map(function (item) { return [(0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(item), item]; }));
     // Result array to build the correct order
     var result = [];
     // Iterate over a2 and build the result array
     for (var _i = 0, a2_1 = a2; _i < a2_1.length; _i++) {
         var item = a2_1[_i];
-        var key = (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__["default"])(item);
+        var key = (0,_string_hash_js__WEBPACK_IMPORTED_MODULE_1__.hash)(item);
         if (mapA1.has(key)) {
             // If the item is in a1, use the item from a2 to preserve the order
             result.push(mapA2.get(key));
