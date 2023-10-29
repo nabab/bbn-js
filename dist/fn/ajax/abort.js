@@ -26,8 +26,9 @@ var abort = function (requestId) {
     if (loader === null || loader === void 0 ? void 0 : loader.aborter) {
         loader.aborter.abort('Operation canceled by the user.');
     }
+    /*
     else {
         throw new Error("Impossible to find the loader " + requestId);
-    }
+    }*/
 };
 export { abort };
