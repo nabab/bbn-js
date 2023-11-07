@@ -9304,7 +9304,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mutateArray = function (a1, a2) {
+var mutateArray = function (a1, a2, onInsert) {
     if (!(0,_type_isArray_js__WEBPACK_IMPORTED_MODULE_0__.isArray)(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
     }
@@ -9333,7 +9333,7 @@ var mutateArray = function (a1, a2) {
             }
             else {
                 // Insert the new item from a2 into a1
-                a1.splice(j, 0, a1Ordered[j]);
+                a1.splice(j, 0, onInsert ? onInsert(a1Ordered[j]) : a1Ordered[j]);
             }
         }
     }

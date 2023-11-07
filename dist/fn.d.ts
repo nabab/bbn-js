@@ -184,7 +184,7 @@ declare const fn: {
     money: (val: number, kilo?: boolean, currency?: string, novalue?: string | false, decimal?: string, thousands?: string, precision?: number) => string;
     move: (arr: any[], fromIndex: number, toIndex: number) => any[];
     multiorder: (arr: object[], orders: any) => object[];
-    mutateArray: (a1: any, a2: any) => any;
+    mutateArray: (a1: any, a2: any, onInsert: any) => any;
     nl2br: (st: any, keepNl: any) => string;
     numProperties: (obj: object) => number;
     objectToFormData: (obj: any, key?: string, ignoreList?: any) => FormData;
