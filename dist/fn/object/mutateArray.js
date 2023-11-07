@@ -2,7 +2,7 @@ import { isArray } from '../type/isArray.js';
 import { hash } from '../string/hash.js';
 import { isSame } from '../type/isSame.js';
 import { search } from './search.js';
-var mutateArray = function (a1, a2, onInsert) {
+var mutateArray = function (a1, a2) {
     if (!isArray(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
     }
@@ -31,7 +31,7 @@ var mutateArray = function (a1, a2, onInsert) {
             }
             else {
                 // Insert the new item from a2 into a1
-                a1.splice(j, 0, onInsert ? onInsert(a1Ordered[j]) : a1Ordered[j]);
+                a1.splice(j, 0, a1Ordered[j]);
             }
         }
     }
