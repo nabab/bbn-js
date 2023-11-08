@@ -23,12 +23,17 @@
  * ```
  * @memberof bbn.fn
  * @param    {Object} obj
- * @param    {String} prop
+ * @param    {String} props
  * @returns  {*}      The property's value or undefined
  */
-const getProperty = function (obj, prop) {
-	if (typeof obj === 'object' && typeof prop === 'string') {
-		return prop.split('.').reduce((o, i) => {
+const getProperty = function (obj, ...props) {
+	if (typeof obj === 'object') {
+		const arr = [];
+		if (props.length === 1 && typeof props[0] === 'string') {
+			arr.push(...props[0].split('.'));
+		}
+
+		return arr.reduce((o, i) => {
 			if (o) {
 				return o[i];
 			}

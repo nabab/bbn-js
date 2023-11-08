@@ -8956,12 +8956,20 @@ __webpack_require__.r(__webpack_exports__);
  * ```
  * @memberof bbn.fn
  * @param    {Object} obj
- * @param    {String} prop
+ * @param    {String} props
  * @returns  {*}      The property's value or undefined
  */
-var getProperty = function (obj, prop) {
-    if (typeof obj === 'object' && typeof prop === 'string') {
-        return prop.split('.').reduce(function (o, i) {
+var getProperty = function (obj) {
+    var props = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        props[_i - 1] = arguments[_i];
+    }
+    if (typeof obj === 'object') {
+        var arr = [];
+        if (props.length === 1 && typeof props[0] === 'string') {
+            arr.push.apply(arr, props[0].split('.'));
+        }
+        return arr.reduce(function (o, i) {
             if (o) {
                 return o[i];
             }

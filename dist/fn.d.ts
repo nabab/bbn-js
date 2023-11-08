@@ -113,7 +113,7 @@ declare const fn: {
     getLoader: (requestId: any) => BbnLoader;
     getPath: (element: any) => any;
     getProp: (obj: any, prop: any) => any;
-    getProperty: (obj: any, prop: any) => any;
+    getProperty: (obj: any, ...props: any[]) => any;
     getRequestId: (url: any, data: any, datatype: any) => string;
     getRow: (arr: any[], prop: string | object, val?: any, operator?: string) => any;
     getScrollBarSize: () => number;
