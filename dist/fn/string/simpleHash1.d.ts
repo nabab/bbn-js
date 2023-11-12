@@ -1,2 +1,2 @@
-declare const simpleHash1: (str: string) => number;
+declare const simpleHash1: (str: string) => string;
 export { simpleHash1 };

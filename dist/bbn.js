@@ -11502,7 +11502,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var simpleHash = function (str) {
-    var part1 = (0,_simpleHash1_js__WEBPACK_IMPORTED_MODULE_0__.simpleHash1)(str).toString(16).padStart(8, '0');
+    var part1 = (0,_simpleHash1_js__WEBPACK_IMPORTED_MODULE_0__.simpleHash1)(str).padStart(8, '0');
     var part2 = (0,_simpleHash2_js__WEBPACK_IMPORTED_MODULE_1__.simpleHash2)(str).padStart(8, '0');
     return part1 + part2;
 };
@@ -11529,7 +11529,7 @@ var simpleHash1 = function (str) {
         hash = (hash << 5) - hash + char;
         hash |= 0; // Convert to 32-bit integer
     }
-    return hash;
+    return Math.abs(hash).toString(16);
 };
 
 

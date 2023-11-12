@@ -225,7 +225,7 @@ declare const fn: {
     shortenObj: (obj: any, max?: number) => object;
     shuffle: (array: any[]) => any[];
     simpleHash: (str: any) => string;
-    simpleHash1: (str: string) => number;
+    simpleHash1: (str: string) => string;
     simpleHash2: (str: string) => string;
     startChrono: (name: any) => void;
     stopChrono: (name: any) => number;
