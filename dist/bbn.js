@@ -161,6 +161,16 @@
 
 /***/ }),
 
+/***/ "./node_modules/dayjs/plugin/weekday.js":
+/*!**********************************************!*\
+  !*** ./node_modules/dayjs/plugin/weekday.js ***!
+  \**********************************************/
+/***/ (function(module) {
+
+!function(e,t){ true?module.exports=t():0}(this,(function(){"use strict";return function(e,t){t.prototype.weekday=function(e){var t=this.$locale().weekStart||0,i=this.$W,n=(i<t?i+7:i)-t;return this.$utils().u(e)?n:this.subtract(n,"day").add(e,"day")}}}));
+
+/***/ }),
+
 /***/ "./dist/$.js":
 /*!*******************!*\
   !*** ./dist/$.js ***!
@@ -18302,12 +18312,12 @@ var __webpack_exports__ = {};
   \***********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   axios: () => (/* reexport safe */ axios__WEBPACK_IMPORTED_MODULE_23__["default"]),
+/* harmony export */   axios: () => (/* reexport safe */ axios__WEBPACK_IMPORTED_MODULE_24__["default"]),
 /* harmony export */   bbn: () => (/* binding */ bbn),
 /* harmony export */   dayjs: () => (/* reexport default export from named module */ dayjs__WEBPACK_IMPORTED_MODULE_0__),
 /* harmony export */   "default": () => (/* binding */ bbn)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
 /* harmony import */ var dayjs_plugin_calendar_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dayjs/plugin/calendar.js */ "./node_modules/dayjs/plugin/calendar.js");
 /* harmony import */ var dayjs_plugin_dayOfYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs/plugin/dayOfYear.js */ "./node_modules/dayjs/plugin/dayOfYear.js");
@@ -18323,14 +18333,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dayjs_plugin_timezone_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! dayjs/plugin/timezone.js */ "./node_modules/dayjs/plugin/timezone.js");
 /* harmony import */ var dayjs_plugin_updateLocale_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! dayjs/plugin/updateLocale.js */ "./node_modules/dayjs/plugin/updateLocale.js");
 /* harmony import */ var dayjs_plugin_utc_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! dayjs/plugin/utc.js */ "./node_modules/dayjs/plugin/utc.js");
-/* harmony import */ var dayjs_plugin_weekOfYear_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! dayjs/plugin/weekOfYear.js */ "./node_modules/dayjs/plugin/weekOfYear.js");
-/* harmony import */ var _js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_.js */ "./dist/_.js");
-/* harmony import */ var _$_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./$.js */ "./dist/$.js");
-/* harmony import */ var _lng_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./lng.js */ "./dist/lng.js");
-/* harmony import */ var _vars_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./vars.js */ "./dist/vars.js");
-/* harmony import */ var _env_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./env.js */ "./dist/env.js");
-/* harmony import */ var _db_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./db.js */ "./dist/db.js");
-/* harmony import */ var _fn_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./fn.js */ "./dist/fn.js");
+/* harmony import */ var dayjs_plugin_weekday_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! dayjs/plugin/weekday.js */ "./node_modules/dayjs/plugin/weekday.js");
+/* harmony import */ var dayjs_plugin_weekOfYear_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! dayjs/plugin/weekOfYear.js */ "./node_modules/dayjs/plugin/weekOfYear.js");
+/* harmony import */ var _js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_.js */ "./dist/_.js");
+/* harmony import */ var _$_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./$.js */ "./dist/$.js");
+/* harmony import */ var _lng_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./lng.js */ "./dist/lng.js");
+/* harmony import */ var _vars_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./vars.js */ "./dist/vars.js");
+/* harmony import */ var _env_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./env.js */ "./dist/env.js");
+/* harmony import */ var _db_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./db.js */ "./dist/db.js");
+/* harmony import */ var _fn_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./fn.js */ "./dist/fn.js");
+
 
 
 
@@ -18362,7 +18374,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_relativeTime_js__WEBPACK_
 dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_timezone_js__WEBPACK_IMPORTED_MODULE_12__);
 dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_updateLocale_js__WEBPACK_IMPORTED_MODULE_13__);
 dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_utc_js__WEBPACK_IMPORTED_MODULE_14__);
-dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_weekOfYear_js__WEBPACK_IMPORTED_MODULE_15__);
+dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_weekday_js__WEBPACK_IMPORTED_MODULE_15__);
+dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_weekOfYear_js__WEBPACK_IMPORTED_MODULE_16__);
 
 
 
@@ -18376,16 +18389,16 @@ var bbn = {
         _cat: {}
     },
     app: {},
-    _: _js__WEBPACK_IMPORTED_MODULE_16__._,
-    $: _$_js__WEBPACK_IMPORTED_MODULE_17__.$,
-    lng: _lng_js__WEBPACK_IMPORTED_MODULE_18__.lng,
-    var: _vars_js__WEBPACK_IMPORTED_MODULE_19__.vars,
-    env: _env_js__WEBPACK_IMPORTED_MODULE_20__.env,
-    db: _db_js__WEBPACK_IMPORTED_MODULE_21__.db,
-    fn: _fn_js__WEBPACK_IMPORTED_MODULE_22__.fn
+    _: _js__WEBPACK_IMPORTED_MODULE_17__._,
+    $: _$_js__WEBPACK_IMPORTED_MODULE_18__.$,
+    lng: _lng_js__WEBPACK_IMPORTED_MODULE_19__.lng,
+    var: _vars_js__WEBPACK_IMPORTED_MODULE_20__.vars,
+    env: _env_js__WEBPACK_IMPORTED_MODULE_21__.env,
+    db: _db_js__WEBPACK_IMPORTED_MODULE_22__.db,
+    fn: _fn_js__WEBPACK_IMPORTED_MODULE_23__.fn
 };
 if ('undefined' !== typeof window) {
-    window.axios = axios__WEBPACK_IMPORTED_MODULE_23__["default"];
+    window.axios = axios__WEBPACK_IMPORTED_MODULE_24__["default"];
     window.dayjs = dayjs__WEBPACK_IMPORTED_MODULE_0__;
     window.bbn = bbn;
 }
