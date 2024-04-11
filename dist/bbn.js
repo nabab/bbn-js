@@ -14258,7 +14258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_AxiosError_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../core/AxiosError.js */ "./node_modules/axios/lib/core/AxiosError.js");
 /* harmony import */ var _cancel_CanceledError_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../cancel/CanceledError.js */ "./node_modules/axios/lib/cancel/CanceledError.js");
 /* harmony import */ var _helpers_parseProtocol_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../helpers/parseProtocol.js */ "./node_modules/axios/lib/helpers/parseProtocol.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 /* harmony import */ var _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/AxiosHeaders.js */ "./node_modules/axios/lib/core/AxiosHeaders.js");
 /* harmony import */ var _helpers_speedometer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/speedometer.js */ "./node_modules/axios/lib/helpers/speedometer.js");
 
@@ -14312,7 +14312,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     let requestData = config.data;
     const requestHeaders = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_1__["default"].from(config.headers).normalize();
-    const responseType = config.responseType;
+    let {responseType, withXSRFToken} = config;
     let onCanceled;
     function done() {
       if (config.cancelToken) {
@@ -14327,13 +14327,12 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     let contentType;
 
     if (_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFormData(requestData)) {
-      if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv || _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserWebWorkerEnv) {
+      if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserEnv || _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserWebWorkerEnv) {
         requestHeaders.setContentType(false); // Let the browser set it
-      } else if(!requestHeaders.getContentType(/^\s*multipart\/form-data/)){
-        requestHeaders.setContentType('multipart/form-data'); // mobile/desktop app frameworks
-      } else if(_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isString(contentType = requestHeaders.getContentType())){
+      } else if ((contentType = requestHeaders.getContentType()) !== false) {
         // fix semicolon duplication issue for ReactNative FormData implementation
-        requestHeaders.setContentType(contentType.replace(/^\s*(multipart\/form-data);+/, '$1'))
+        const [type, ...tokens] = contentType ? contentType.split(';').map(token => token.trim()).filter(Boolean) : [];
+        requestHeaders.setContentType([type || 'multipart/form-data', ...tokens].join('; '));
       }
     }
 
@@ -14449,13 +14448,16 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     // Add xsrf header
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
-    if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv) {
-      // Add xsrf header
-      const xsrfValue = (config.withCredentials || (0,_helpers_isURLSameOrigin_js__WEBPACK_IMPORTED_MODULE_9__["default"])(fullPath))
-        && config.xsrfCookieName && _helpers_cookies_js__WEBPACK_IMPORTED_MODULE_10__["default"].read(config.xsrfCookieName);
+    if(_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserEnv) {
+      withXSRFToken && _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(config));
 
-      if (xsrfValue) {
-        requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+      if (withXSRFToken || (withXSRFToken !== false && (0,_helpers_isURLSameOrigin_js__WEBPACK_IMPORTED_MODULE_9__["default"])(fullPath))) {
+        // Add xsrf header
+        const xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && _helpers_cookies_js__WEBPACK_IMPORTED_MODULE_10__["default"].read(config.xsrfCookieName);
+
+        if (xsrfValue) {
+          requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+        }
       }
     }
 
@@ -14899,7 +14901,31 @@ class Axios {
    *
    * @returns {Promise} The Promise to be fulfilled
    */
-  request(configOrUrl, config) {
+  async request(configOrUrl, config) {
+    try {
+      return await this._request(configOrUrl, config);
+    } catch (err) {
+      if (err instanceof Error) {
+        let dummy;
+
+        Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : (dummy = new Error());
+
+        // slice off the Error: ... line
+        const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, '') : '';
+
+        if (!err.stack) {
+          err.stack = stack;
+          // match without the 2 top stack lines
+        } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ''))) {
+          err.stack += '\n' + stack
+        }
+      }
+
+      throw err;
+    }
+  }
+
+  _request(configOrUrl, config) {
     /*eslint no-param-reassign:0*/
     // Allow for axios('example/url'[, config]) a la fetch API
     if (typeof configOrUrl === 'string') {
@@ -15743,7 +15769,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const headersToObject = (thing) => thing instanceof _AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_0__["default"] ? thing.toJSON() : thing;
+const headersToObject = (thing) => thing instanceof _AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_0__["default"] ? { ...thing } : thing;
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -15815,6 +15841,7 @@ function mergeConfig(config1, config2) {
     timeout: defaultToConfig2,
     timeoutMessage: defaultToConfig2,
     withCredentials: defaultToConfig2,
+    withXSRFToken: defaultToConfig2,
     adapter: defaultToConfig2,
     responseType: defaultToConfig2,
     xsrfCookieName: defaultToConfig2,
@@ -15952,7 +15979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _transitional_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transitional.js */ "./node_modules/axios/lib/defaults/transitional.js");
 /* harmony import */ var _helpers_toFormData_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/toFormData.js */ "./node_modules/axios/lib/helpers/toFormData.js");
 /* harmony import */ var _helpers_toURLEncodedForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/toURLEncodedForm.js */ "./node_modules/axios/lib/helpers/toURLEncodedForm.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 /* harmony import */ var _helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/formDataToJSON.js */ "./node_modules/axios/lib/helpers/formDataToJSON.js");
 
 
@@ -16007,9 +16034,6 @@ const defaults = {
     const isFormData = _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isFormData(data);
 
     if (isFormData) {
-      if (!hasJSONContentType) {
-        return data;
-      }
       return hasJSONContentType ? JSON.stringify((0,_helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_2__["default"])(data)) : data;
     }
 
@@ -16150,7 +16174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.5.1";
+const VERSION = "1.6.8";
 
 /***/ }),
 
@@ -16439,7 +16463,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function combineURLs(baseURL, relativeURL) {
   return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    ? baseURL.replace(/\/?\/$/, '') + '/' + relativeURL.replace(/^\/+/, '')
     : baseURL;
 }
 
@@ -16458,59 +16482,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils.js */ "./node_modules/axios/lib/utils.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].hasStandardBrowserEnv ?
 
+  // Standard browser envs support document.cookie
+  {
+    write(name, value, expires, path, domain, secure) {
+      const cookie = [name + '=' + encodeURIComponent(value)];
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].isStandardBrowserEnv ?
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isNumber(expires) && cookie.push('expires=' + new Date(expires).toGMTString());
 
-// Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        const cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(path) && cookie.push('path=' + path);
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(domain) && cookie.push('domain=' + domain);
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(path)) {
-          cookie.push('path=' + path);
-        }
+      secure === true && cookie.push('secure');
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
+      document.cookie = cookie.join('; ');
+    },
 
-        if (secure === true) {
-          cookie.push('secure');
-        }
+    read(name) {
+      const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+      return (match ? decodeURIComponent(match[3]) : null);
+    },
 
-        document.cookie = cookie.join('; ');
-      },
+    remove(name) {
+      this.write(name, '', Date.now() - 86400000);
+    }
+  }
 
-      read: function read(name) {
-        const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
+  :
 
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {},
+    read() {
+      return null;
+    },
+    remove() {}
+  });
 
-// Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })());
 
 
 /***/ }),
@@ -16578,6 +16592,9 @@ function arrayToObject(arr) {
 function formDataToJSON(formData) {
   function buildPath(path, value, target, index) {
     let name = path[index++];
+
+    if (name === '__proto__') return true;
+
     const isNumericKey = Number.isFinite(+name);
     const isLast = index >= path.length;
     name = !name && _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isArray(target) ? target.length : name;
@@ -16695,13 +16712,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils.js */ "./node_modules/axios/lib/utils.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].isStandardBrowserEnv ?
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].hasStandardBrowserEnv ?
 
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
@@ -16711,7 +16728,7 @@ __webpack_require__.r(__webpack_exports__);
     let originURL;
 
     /**
-    * Parse a URL to discover it's components
+    * Parse a URL to discover its components
     *
     * @param {String} url The URL to be parsed
     * @returns {Object}
@@ -17239,7 +17256,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils.js */ "./node_modules/axios/lib/utils.js");
 /* harmony import */ var _toFormData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toFormData.js */ "./node_modules/axios/lib/helpers/toFormData.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
@@ -17444,6 +17461,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  isBrowser: true,
+  classes: {
+    URLSearchParams: _classes_URLSearchParams_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+    FormData: _classes_FormData_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Blob: _classes_Blob_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/platform/common/utils.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/platform/common/utils.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasBrowserEnv: () => (/* binding */ hasBrowserEnv),
+/* harmony export */   hasStandardBrowserEnv: () => (/* binding */ hasStandardBrowserEnv),
+/* harmony export */   hasStandardBrowserWebWorkerEnv: () => (/* binding */ hasStandardBrowserWebWorkerEnv)
+/* harmony export */ });
+const hasBrowserEnv = typeof window !== 'undefined' && typeof document !== 'undefined';
+
 /**
  * Determine if we're running in a standard browser environment
  *
@@ -17461,18 +17506,10 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @returns {boolean}
  */
-const isStandardBrowserEnv = (() => {
-  let product;
-  if (typeof navigator !== 'undefined' && (
-    (product = navigator.product) === 'ReactNative' ||
-    product === 'NativeScript' ||
-    product === 'NS')
-  ) {
-    return false;
-  }
-
-  return typeof window !== 'undefined' && typeof document !== 'undefined';
-})();
+const hasStandardBrowserEnv = (
+  (product) => {
+    return hasBrowserEnv && ['ReactNative', 'NativeScript', 'NS'].indexOf(product) < 0
+  })(typeof navigator !== 'undefined' && navigator.product);
 
 /**
  * Determine if we're running in a standard browser webWorker environment
@@ -17483,7 +17520,7 @@ const isStandardBrowserEnv = (() => {
  * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
  * This leads to a problem when axios post `FormData` in webWorker
  */
- const isStandardBrowserWebWorkerEnv = (() => {
+const hasStandardBrowserWebWorkerEnv = (() => {
   return (
     typeof WorkerGlobalScope !== 'undefined' &&
     // eslint-disable-next-line no-undef
@@ -17493,16 +17530,29 @@ const isStandardBrowserEnv = (() => {
 })();
 
 
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/platform/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/platform/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _common_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common/utils.js */ "./node_modules/axios/lib/platform/common/utils.js");
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  isBrowser: true,
-  classes: {
-    URLSearchParams: _classes_URLSearchParams_js__WEBPACK_IMPORTED_MODULE_0__["default"],
-    FormData: _classes_FormData_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Blob: _classes_Blob_js__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  isStandardBrowserEnv,
-  isStandardBrowserWebWorkerEnv,
-  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+  ..._common_utils_js__WEBPACK_IMPORTED_MODULE_0__,
+  ..._node_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 
