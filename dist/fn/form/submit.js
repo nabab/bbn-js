@@ -36,15 +36,15 @@ export default function submit(form, e, fn) {
             //$form.attr("action", null);
             form.setAttribute('action', null);
             //$form.data("bbnSubmit", 1);
-            if (!fn) {
-                fn = form.getAttribute('data-script') ? eval(form.getAttribute('data-script')) : null;
+            var args = [url, data];
+            if (!fn && form.getAttribute('data-script')) {
+                fn = new Function(form.getAttribute('data-script'));
+                fn = fn();
             }
             if (fn) {
-                post(url, data, fn);
+                args.push(fn);
             }
-            else {
-                post(url, data);
-            }
+            post.apply(void 0, args);
         }
     }
 }

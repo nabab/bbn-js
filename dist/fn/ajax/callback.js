@@ -50,7 +50,8 @@ export default function callback(url, res, fn, fn2, ele) {
         if (isObj && res.prescript) {
             /* var ok can be changed to false in prescript execution */
             try {
-                eval(res.prescript);
+                var preFn = new Function(res.prescript);
+                preFn();
             }
             catch (e) {
                 error(e.message || '');

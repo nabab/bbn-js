@@ -43,14 +43,16 @@ export default function submit(form: HTMLFormElement, e?: Event, fn?: Function):
 			//$form.attr("action", null);
 			form.setAttribute('action', null);
 			//$form.data("bbnSubmit", 1);
-			if (!fn) {
-				fn = form.getAttribute('data-script') ? eval(form.getAttribute('data-script')) : null;
+			const args = [url, data];
+			if (!fn && form.getAttribute('data-script')) {
+				fn = new Function(form.getAttribute('data-script'));
+				fn = fn();
 			}
 			if (fn) {
-				post(url, data, fn);
-			} else {
-				post(url, data);
+				args.push(fn);
 			}
+
+			post(...args);
 		}
 	}
 };

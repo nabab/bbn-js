@@ -13,7 +13,7 @@
     "gitauto": "git stage ./src/* ./*.ts ./*.json ./*.config.js ./test/*.mjs && git stage -f ./dist/* && git commit -m \"Latest changes\"",
     "gitend": "git stage ./package.json && git stage -f ./dist/* && git commit -m \"Latest changes\" && git push",
     "pub": "npm version patch && npm publish",
-    "build": "./node_modules/.bin/webpack --config webpack.config.js",
+    "build": "./node_modules/.bin/rollup -c",
     "all": "npm run type && npm run test && npm run gitauto && npm version patch && npm run build && npm run gitend && npm publish",
     "test": "IS_TESTING=true ./node_modules/.bin/mocha -r jsdom-global/register",
     "wtf": "echo \"Error: no test specified\" && exit 1"
@@ -29,7 +29,7 @@
     "jsdom-global": "3.0.2",
     "mocha": "^10.2.0",
     "ts-loader": "^9.5.0",
-    "typescript": "5.1.6",
+    "typescript": "^5.4.5",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
@@ -38,8 +38,16 @@
   },
   "homepage": "https://github.com/nabab/bbn-js#readme",
   "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-typescript": "^11.1.6",
     "axios": "^1.5.1",
-    "dayjs": "^1.11.10"
+    "dayjs": "^1.11.10",
+    "rollup": "^4.16.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.6.2"
   },
   "directories": {
     "doc": "doc",

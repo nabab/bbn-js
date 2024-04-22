@@ -53,7 +53,8 @@ export default function callback(
 		if (isObj && res.prescript) {
 			/* var ok can be changed to false in prescript execution */
 			try {
-				eval(res.prescript);
+				const preFn = new Function(res.prescript);
+				preFn();
 			} catch (e) {
 				error(e.message || '');
 			}
