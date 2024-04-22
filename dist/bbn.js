@@ -4206,13 +4206,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ calendar)
 /* harmony export */ });
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs_plugin_isLeapYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dayjs/plugin/isLeapYear.js */ "./node_modules/dayjs/plugin/isLeapYear.js");
-/* harmony import */ var _fdate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fdate.js */ "./dist/fn/datetime/fdate.js");
-/* harmony import */ var _date_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./date.js */ "./dist/fn/datetime/date.js");
-/* harmony import */ var _type_isDate_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../type/isDate.js */ "./dist/fn/type/isDate.js");
-/* harmony import */ var _type_isString_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../type/isString.js */ "./dist/fn/type/isString.js");
+/* harmony import */ var _fdate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fdate.js */ "./dist/fn/datetime/fdate.js");
+/* harmony import */ var _date_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./date.js */ "./dist/fn/datetime/date.js");
+/* harmony import */ var _type_isDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../type/isDate.js */ "./dist/fn/type/isDate.js");
+/* harmony import */ var _type_isString_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../type/isString.js */ "./dist/fn/type/isString.js");
 
-
+//import isLeapYear from 'dayjs/plugin/isLeapYear.js' 
 //import dayjs_plugin_calendar from 'dayjs/plugin/calendar.js';
 
 
@@ -4222,7 +4221,7 @@ var bbn = {
     _: function (st) { return st; }
 };
 //dayjs.extend(dayjs_plugin_calendar);
-dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_isLeapYear_js__WEBPACK_IMPORTED_MODULE_1__);
+//dayjs.extend(isLeapYear);
 /**
  * Returns a date relative to the current day.
  *
@@ -4244,11 +4243,11 @@ dayjs__WEBPACK_IMPORTED_MODULE_0__.extend(dayjs_plugin_isLeapYear_js__WEBPACK_IM
 function calendar(d, wrong_result) {
     if (wrong_result === void 0) { wrong_result = false; }
     if (undefined === dayjs__WEBPACK_IMPORTED_MODULE_0__) {
-        return (0,_fdate_js__WEBPACK_IMPORTED_MODULE_2__["default"])(d, wrong_result);
+        return (0,_fdate_js__WEBPACK_IMPORTED_MODULE_1__["default"])(d, wrong_result);
     }
-    var r = (0,_date_js__WEBPACK_IMPORTED_MODULE_3__["default"])(d);
-    if (!(0,_type_isDate_js__WEBPACK_IMPORTED_MODULE_4__["default"])(r)) {
-        return wrong_result && (0,_type_isString_js__WEBPACK_IMPORTED_MODULE_5__["default"])(wrong_result) ? wrong_result : '';
+    var r = (0,_date_js__WEBPACK_IMPORTED_MODULE_2__["default"])(d);
+    if (!(0,_type_isDate_js__WEBPACK_IMPORTED_MODULE_3__["default"])(r)) {
+        return wrong_result && (0,_type_isString_js__WEBPACK_IMPORTED_MODULE_4__["default"])(wrong_result) ? wrong_result : '';
     }
     return dayjs__WEBPACK_IMPORTED_MODULE_0__(r).calendar(null, {
         sameDay: '[' + bbn._('Today') + ']',
