@@ -1,4 +1,4 @@
-import { extend } from './extend.js';
+import extend from './extend.js';
 /**
  * Extends the bbn object by passing the namespace and the object it will merge with.
  *
@@ -30,7 +30,7 @@ import { extend } from './extend.js';
  * @param    {Object}    obj       The object to merge
  * @returns  {undefined} No return value
  */
-var autoExtend = function (namespace, obj) {
+export default function autoExtend(namespace, obj) {
     if (!bbn[namespace]) {
         bbn[namespace] = {};
         //$.extend(true, bbn[namespace], obj);
@@ -40,5 +40,5 @@ var autoExtend = function (namespace, obj) {
         // $.extend(true, bbn[namespace], obj);
         extend(bbn[namespace], obj);
     }
-};
-export { autoExtend };
+}
+;

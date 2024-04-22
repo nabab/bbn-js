@@ -26,5 +26,4 @@
   * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
   * @returns  {*}
   */
-declare const getField: (arr: any[], field: string, prop?: object | string, val?: any, operator?: string) => any;
-export { getField };
+export default function getField(arr: any[], field: string, prop?: object | string, val?: any, operator?: string): any;

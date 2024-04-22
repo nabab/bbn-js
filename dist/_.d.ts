@@ -4,5 +4,4 @@
  * @param {String} st
  * @returns {String}
  */
-declare const _: (...args: any[]) => string;
-export { _ };
+export default function _(...args: any[]): string;

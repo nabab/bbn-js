@@ -6,7 +6,7 @@
  * @memberof bbn.fn
  * @returns  {HTMLElement | undefined}
  */
-var selector = function (ele) {
+export default function selector(ele) {
     return typeof ele === "string" ? document.querySelector(ele) : ele;
-};
-export { selector };
+}
+;

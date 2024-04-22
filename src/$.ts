@@ -1,4 +1,4 @@
-const $ = (selector, context) => {
+export default function(selector, context) {
   if (context?.querySelectorAll) {
     return context.querySelectorAll(selector);
   }
@@ -9,6 +9,4 @@ const $ = (selector, context) => {
 
   return document.body.querySelectorAll(selector);
 };
-
-export {$};
 

@@ -19,5 +19,4 @@
  * @param    {Number|String} cent
  * @returns  {Number}
  */
-declare const percent: (percent: any, cent: any) => number;
-export { percent };
+export default function percent(percent: any, cent: any): number;

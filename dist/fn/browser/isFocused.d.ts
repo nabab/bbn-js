@@ -17,5 +17,4 @@
  *
  * @returns  {Boolean} True if focused
  */
-declare const isFocused: (ele: any, contain?: boolean) => boolean;
-export { isFocused };
+export default function isFocused(ele: any, contain?: boolean): boolean;

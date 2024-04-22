@@ -1,8 +1,8 @@
-import { isArray } from '../type/isArray.js'  ;
-import { each } from '../loop/each.js'  ;
-import { isObject } from '../type/isObject.js'  ;
-import { iterate } from '../loop/iterate.js'  ;
-import { isNull } from '../type/isNull.js'  ;
+import isArray from '../type/isArray.js'  ;
+import each from '../loop/each.js'  ;
+import isObject from '../type/isObject.js'  ;
+import iterate from '../loop/iterate.js'  ;
+import isNull from '../type/isNull.js'  ;
 
 /**
  * @method   objectToFormData
@@ -14,7 +14,7 @@ import { isNull } from '../type/isNull.js'  ;
  * @param    {Array}             ignoreList 
  * @returns                      
  */
-const objectToFormData = function (obj, key = '', ignoreList = null) {
+export default function objectToFormData(obj, key = '', ignoreList = null) {
 	let formData = new FormData();
 	let appendFormData = (data, key = '') => {
 		if (!ignoreList || (isArray(ignoreList) && !ignoreList.includes(key))) {
@@ -40,5 +40,3 @@ const objectToFormData = function (obj, key = '', ignoreList = null) {
 	appendFormData(obj, key);
 	return formData;
 };
-
-export { objectToFormData };

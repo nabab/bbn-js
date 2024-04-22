@@ -1,4 +1,4 @@
-import { getRow } from './getRow.js';
+import getRow from './getRow.js';
 /**
   * Returns the value of the given field (property) from the first object matching the given filter in an array of objects.
   *
@@ -27,7 +27,7 @@ import { getRow } from './getRow.js';
   * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
   * @returns  {*}
   */
-var getField = function (arr, field, prop, val, operator) {
+export default function getField(arr, field, prop, val, operator) {
     if (prop === void 0) { prop = ''; }
     if (val === void 0) { val = null; }
     if (operator === void 0) { operator = '='; }
@@ -36,5 +36,5 @@ var getField = function (arr, field, prop, val, operator) {
         return r[field];
     }
     return undefined;
-};
-export { getField };
+}
+;

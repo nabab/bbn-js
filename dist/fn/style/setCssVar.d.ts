@@ -4,5 +4,4 @@
  * @param {String*} value
  * @returns
  */
-declare const setCssVar: (varname: any, value: any) => void;
-export { setCssVar };
+export default function setCssVar(varname: any, value: any): void;

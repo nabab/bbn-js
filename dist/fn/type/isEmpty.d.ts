@@ -37,5 +37,4 @@
  * @param    {*} obj
  * @returns  {Boolean}
  */
-declare const isEmpty: (obj: any) => boolean;
-export { isEmpty };
+export default function isEmpty(obj: any): boolean;

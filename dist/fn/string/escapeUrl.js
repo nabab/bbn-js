@@ -1,7 +1,7 @@
-import { each } from '../loop/each.js';
-import { dirName } from './dirName.js';
-import { baseName } from './baseName.js';
-import { isString } from '../type/isString.js';
+import each from '../loop/each.js';
+import dirName from './dirName.js';
+import baseName from './baseName.js';
+import isString from '../type/isString.js';
 /**
  * Escapes a URL or a file path, optionally adding parameters (get type, to append to the URL without the first separator).
  *
@@ -9,7 +9,7 @@ import { isString } from '../type/isString.js';
  * @param {*} params
  * @returns
  */
-var escapeUrl = function (url, params) {
+export default function escapeUrl(url, params) {
     var st = "";
     if (url.match("^(http|https)://")) {
         st += "http";
@@ -43,5 +43,5 @@ var escapeUrl = function (url, params) {
         params = "";
     }
     return st + encodeURIComponent(base) + existingParams + params;
-};
-export { escapeUrl };
+}
+;

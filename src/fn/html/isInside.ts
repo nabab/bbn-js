@@ -1,8 +1,8 @@
-import { getAncestors } from './getAncestors.js'  ;
-import { isString } from '../type/isString.js'  ;
-import { each } from '../loop/each.js'  ;
+import getAncestors from './getAncestors.js'  ;
+import isString from '../type/isString.js'  ;
+import each from '../loop/each.js'  ;
 
-const isInside = function (ele, ancestor) {
+export default function isInside(ele, ancestor) {
 	let ancestors = getAncestors(ele);
 	if (ancestors.length) {
 		if (isString(ancestor)) {
@@ -22,5 +22,3 @@ const isInside = function (ele, ancestor) {
 
 	return false;
 };
-
-export { isInside };

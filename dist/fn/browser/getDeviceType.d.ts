@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-declare const getDeviceType: () => "mobile" | "tablet" | "desktop";
-export { getDeviceType };
+export default function getDeviceType(): "mobile" | "tablet" | "desktop";

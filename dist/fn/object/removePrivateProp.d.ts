@@ -20,5 +20,4 @@
   * @param    {Boolean} deep If true the function will be reapplied on object properties
   * @returns  {Object}  A new object without only the _public_ properties.
   */
-declare const removePrivateProp: (obj: object, deep?: boolean) => any;
-export { removePrivateProp };
+export default function removePrivateProp(obj: object, deep?: boolean): any;

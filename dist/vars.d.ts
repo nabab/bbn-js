@@ -1,4 +1,4 @@
-declare const vars: {
+declare const _default: {
     loggers: {
         _num: number;
     };
@@ -52,4 +52,4 @@ declare const vars: {
         hostname: RegExp;
     };
 };
-export { vars };
+export default _default;

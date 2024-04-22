@@ -1,11 +1,11 @@
-import { isArray } from './isArray.js';
-import { each } from '../loop/each.js';
-import { isFunction } from './isFunction.js';
-import { isString } from './isString.js';
-import { correctCase } from '../string/correctCase.js';
-import { error } from '../browser/error.js';
-import { log } from '../browser/log.js';
-var checkType = function (value, type, msg) {
+import isArray from './isArray.js';
+import each from '../loop/each.js';
+import isFunction from './isFunction.js';
+import isString from './isString.js';
+import correctCase from '../string/correctCase.js';
+import error from '../browser/error.js';
+import log from '../browser/log.js';
+export default function checkType(value, type, msg) {
     var logs = [];
     for (var _i = 3; _i < arguments.length; _i++) {
         logs[_i - 3] = arguments[_i];
@@ -60,5 +60,5 @@ var checkType = function (value, type, msg) {
         }
         throw new Error((msg ? msg + ' - ' : '') + bbn._('The value should be a %s', typesList.join(' ' + bbn._('or a') + ' ')));
     }
-};
-export { checkType };
+}
+;

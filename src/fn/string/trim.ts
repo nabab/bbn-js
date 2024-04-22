@@ -1,6 +1,6 @@
-import { substr } from './substr.js'  ;
+import substr from './substr.js'  ;
 
-const trim = function (str, hair = ' ') {
+export default function trim(str, hair = ' ') {
 	if (hair === ' ') {
 		return str.trim();
 	}
@@ -23,5 +23,3 @@ const trim = function (str, hair = ' ') {
 
 	return str;
 };
-
-export { trim };

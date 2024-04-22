@@ -1,5 +1,5 @@
-import { log } from '../browser/log.js';
-var getHTMLOfSelection = function () {
+import log from '../browser/log.js';
+export default function getHTMLOfSelection() {
     var range;
     var selection = window.getSelection();
     if (selection.rangeCount > 0) {
@@ -14,5 +14,5 @@ var getHTMLOfSelection = function () {
     else {
         return '';
     }
-};
-export { getHTMLOfSelection };
+}
+;

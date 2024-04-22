@@ -1,2 +1,1 @@
-declare const isInside: (ele: any, ancestor: any) => boolean;
-export { isInside };
+export default function isInside(ele: any, ancestor: any): boolean;

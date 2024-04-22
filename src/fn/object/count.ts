@@ -1,4 +1,4 @@
-import { filter } from './filter.js'  ;
+import filter from './filter.js'  ;
 
 /**
  * Counts the number of objects matching the given filter in the given array.
@@ -54,8 +54,6 @@ import { filter } from './filter.js'  ;
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The number of items
  */
-const count = function (arr: any[], prop: object | string, val: any = null, operator: string = '=') {
+export default function count(arr: any[], prop: object | string, val: any = null, operator: string = '=') {
 	return filter(arr, prop, val, operator).length || 0;
 };
-
-export { count };

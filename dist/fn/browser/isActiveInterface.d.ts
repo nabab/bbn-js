@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isActiveInterface: (secs?: number) => boolean;
-export { isActiveInterface };
+export default function isActiveInterface(secs?: number): boolean;

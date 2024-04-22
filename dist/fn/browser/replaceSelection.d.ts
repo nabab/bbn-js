@@ -1,2 +1,1 @@
-declare const replaceSelection: (html: any, selectInserted: any) => void;
-export { replaceSelection };
+export default function replaceSelection(html: any, selectInserted: any): void;

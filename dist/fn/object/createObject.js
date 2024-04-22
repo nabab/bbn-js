@@ -7,8 +7,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { extend } from './extend.js';
-var createObject = function () {
+import extend from './extend.js';
+export default function createObject() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -18,5 +18,5 @@ var createObject = function () {
         extend.apply(void 0, __spreadArray([obj], args, false));
     }
     return obj;
-};
-export { createObject };
+}
+;

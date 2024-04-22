@@ -1,2 +1,1 @@
-declare const isIP: (...args: any[]) => boolean;
-export { isIP };
+export default function isIP(...args: any[]): boolean;

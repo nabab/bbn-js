@@ -13,5 +13,4 @@
  * @memberof bbn.fn
  * @returns  {String} str
  */
-declare const sanitize: (str: any, separator?: string) => any;
-export { sanitize };
+export default function sanitize(str: any, separator?: string): any;

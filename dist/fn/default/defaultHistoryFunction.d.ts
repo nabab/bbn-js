@@ -1,2 +1,1 @@
-declare const defaultHistoryFunction: (obj: any) => boolean;
-export { defaultHistoryFunction };
+export default function defaultHistoryFunction(obj: any): boolean;

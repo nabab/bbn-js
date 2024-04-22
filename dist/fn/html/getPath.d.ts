@@ -6,5 +6,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const getPath: (element: any) => any;
-export { getPath };
+export default function getPath(element: any): any;

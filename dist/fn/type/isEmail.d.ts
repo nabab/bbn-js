@@ -19,5 +19,4 @@
  * @param    {String} st
  * @returns  {Boolean}
  */
-declare const isEmail: (...args: any[]) => boolean;
-export { isEmail };
+export default function isEmail(...args: any[]): boolean;

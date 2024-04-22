@@ -1,4 +1,4 @@
-import { iterate } from './iterate.js';
+import iterate from './iterate.js';
 /**
  * Executes the provided function on each property of the given object.
  *
@@ -18,8 +18,8 @@ import { iterate } from './iterate.js';
  * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
  * @returns  {Object}
  */
-var riterate = function (obj, fn, noPrivate) {
+export default function riterate(obj, fn, noPrivate) {
     if (noPrivate === void 0) { noPrivate = false; }
     return iterate(obj, fn, noPrivate, true);
-};
-export { riterate };
+}
+;

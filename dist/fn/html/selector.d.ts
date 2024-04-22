@@ -6,5 +6,4 @@
  * @memberof bbn.fn
  * @returns  {HTMLElement | undefined}
  */
-declare const selector: (ele: any) => any;
-export { selector };
+export default function selector(ele: any): any;

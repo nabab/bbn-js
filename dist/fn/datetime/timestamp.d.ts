@@ -11,5 +11,4 @@
  * @param    {Number} seconds
  * @returns  {Boolean}
  */
-declare const timestamp: (seconds?: boolean) => number;
-export { timestamp };
+export default function timestamp(seconds?: boolean): number;

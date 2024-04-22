@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isPercent = function () {
+export default function isPercent() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -24,5 +24,5 @@ var isPercent = function () {
         }
     }
     return true;
-};
-export { isPercent };
+}
+;

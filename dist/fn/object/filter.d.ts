@@ -46,5 +46,4 @@ import { Filter } from './filterToConditions.js';
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Array}                    A new filtered array
  */
-declare const filter: (arr: any[], prop: string | object | Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string) => any[];
-export { filter };
+export default function filter(arr: any[], prop: Filter | object | string | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: string): any[];

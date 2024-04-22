@@ -1,2 +1,1 @@
-declare const isURL: (...args: any[]) => boolean;
-export { isURL };
+export default function isURL(...args: any[]): boolean;

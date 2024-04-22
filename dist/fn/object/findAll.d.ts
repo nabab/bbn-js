@@ -53,5 +53,4 @@
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The number of items
  */
-declare const findAll: (arr: any, filter: any, deepProperty: any, res?: any[]) => any[];
-export { findAll };
+export default function findAll(arr: any, filter: any, deepProperty: any, res?: any[]): any[];

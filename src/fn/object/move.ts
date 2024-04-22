@@ -30,7 +30,7 @@
  * @param    {Number} toIndex   The future index of the element
  * @returns  {Array}  The same array, with elements repositionned.
  */
-const move = function (arr: any[], fromIndex: number, toIndex: number): any[]
+export default function move(arr: any[], fromIndex: number, toIndex: number): any[]
 {
 	if (toIndex >= arr.length) {
 		let k = toIndex - arr.length;
@@ -41,5 +41,3 @@ const move = function (arr: any[], fromIndex: number, toIndex: number): any[]
 	arr.splice(toIndex, 0, arr.splice(fromIndex, 1)[0]);
 	return arr;
 };
-
-export { move };

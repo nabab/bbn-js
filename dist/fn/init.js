@@ -1,14 +1,14 @@
-import { substr } from './string/substr.js';
-import { each } from './loop/each.js';
-import { extend } from './object/extend.js';
-import { addColors } from './style/addColors.js';
-import { link } from './ajax/link.js';
-import { submit } from './form/submit.js';
-import { resize } from './style/resize.js';
-import { isMobile } from './browser/isMobile.js';
-import { isTabletDevice } from './browser/isTabletDevice.js';
-import { isFunction } from './type/isFunction.js';
-import { log } from './browser/log.js';
+import substr from './string/substr.js';
+import each from './loop/each.js';
+import extend from './object/extend.js';
+import addColors from './style/addColors.js';
+import link from './ajax/link.js';
+import submit from './form/submit.js';
+import resize from './style/resize.js';
+import isMobile from './browser/isMobile.js';
+import isTabletDevice from './browser/isTabletDevice.js';
+import isFunction from './type/isFunction.js';
+import log from './browser/log.js';
 /**
  * Initializes the library bbn basing on the given configuration object.
  * - Gives to the environment the dimension of the window.innerWidth and window.innerHeight
@@ -22,7 +22,7 @@ import { log } from './browser/log.js';
  * @param    {Object} cfg
  * @returns
  */
-var init = function (cfg, force) {
+export default function init(cfg, force) {
     var parts;
     if (!bbn.env.isInit || force) {
         bbn.env.root =
@@ -180,5 +180,5 @@ var init = function (cfg, force) {
             log("Logging in bbn is enabled");
         }
     }
-};
-export { init };
+}
+;

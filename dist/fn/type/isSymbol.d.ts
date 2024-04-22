@@ -11,5 +11,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isSymbol: (...args: any[]) => boolean;
-export { isSymbol };
+export default function isSymbol(...args: any[]): boolean;

@@ -8,7 +8,7 @@
  * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
  * @returns {Object}
  */
-var fromXml = function (xml, arrayTags) {
+export default function fromXml(xml, arrayTags) {
     var dom = null;
     if (window.DOMParser)
         dom = new DOMParser().parseFromString(xml, "text/xml");
@@ -56,5 +56,5 @@ var fromXml = function (xml, arrayTags) {
         parseNode(node, result);
     }
     return result;
-};
-export { fromXml };
+}
+;

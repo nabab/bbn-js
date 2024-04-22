@@ -70,5 +70,4 @@
  * @param    {Number}   level
  * @returns  {Array}
  */
-declare const map: (arr: any, fn: any, deepProp: any, level?: number) => any;
-export { map };
+export default function map(arr: any, fn: any, deepProp: any, level?: number): any;

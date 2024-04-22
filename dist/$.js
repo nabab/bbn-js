@@ -1,4 +1,4 @@
-var $ = function (selector, context) {
+export default function (selector, context) {
     if (context === null || context === void 0 ? void 0 : context.querySelectorAll) {
         return context.querySelectorAll(selector);
     }
@@ -6,5 +6,5 @@ var $ = function (selector, context) {
         throw new Error('Invalid context');
     }
     return document.body.querySelectorAll(selector);
-};
-export { $ };
+}
+;

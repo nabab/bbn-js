@@ -1,4 +1,4 @@
-var shuffle = function (array) {
+export default function shuffle(array) {
     var _a;
     var currentIndex = array.length, randomIndex;
     // While there remain elements to shuffle.
@@ -10,5 +10,5 @@ var shuffle = function (array) {
         _a = [array[randomIndex], array[currentIndex]], array[currentIndex] = _a[0], array[randomIndex] = _a[1];
     }
     return array;
-};
-export { shuffle };
+}
+;

@@ -26,7 +26,7 @@
  * @param    {String} props
  * @returns  {*}      The property's value or undefined
  */
-var getProperty = function (obj) {
+export default function getProperty(obj) {
     var props = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         props[_i - 1] = arguments[_i];
@@ -43,5 +43,5 @@ var getProperty = function (obj) {
             return undefined;
         }, obj);
     }
-};
-export { getProperty };
+}
+;

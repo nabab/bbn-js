@@ -1,6 +1,6 @@
-import { each } from '../loop/each.js'  ;
+import each from '../loop/each.js'  ;
 
-const adjustSize = function (type, eles) {
+export default function adjustSize(type, eles) {
 	let max = 0,
 		idx;
 	each(eles, (el) => {
@@ -21,5 +21,3 @@ const adjustSize = function (type, eles) {
 		}
 	});
 };
-
-export { adjustSize };

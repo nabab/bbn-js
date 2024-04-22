@@ -49,5 +49,4 @@
  *
  * @returns  {Object} The configuration object
  */
-declare const treatAjaxArguments: (args: any) => any;
-export { treatAjaxArguments };
+export default function treatAjaxArguments(args: any): any;

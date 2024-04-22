@@ -22,5 +22,4 @@
  *
  * @returns
  */
-declare const link: (...args: any[]) => any;
-export { link };
+export default function link(...args: any[]): any;

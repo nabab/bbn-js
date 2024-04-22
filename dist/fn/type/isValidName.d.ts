@@ -23,5 +23,4 @@
  * @param    {String} st
  * @returns {Boolean}
  */
-declare const isValidName: (...args: any[]) => boolean;
-export { isValidName };
+export default function isValidName(...args: any[]): boolean;

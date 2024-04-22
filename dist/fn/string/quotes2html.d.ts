@@ -26,5 +26,4 @@
  * @param    {String} st
  * @returns  {String}
  */
-declare const quotes2html: (st: string, type?: string) => string;
-export { quotes2html };
+export default function quotes2html(st: string, type?: string): string;

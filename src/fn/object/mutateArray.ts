@@ -1,10 +1,10 @@
-import { isArray } from '../type/isArray.js';
-import { hash } from '../string/hash.js';
-import { isSame } from '../type/isSame.js';
-import { search } from './search.js';
+import isArray from '../type/isArray.js';
+import hash from '../string/hash.js';
+import isSame from '../type/isSame.js';
+import search from './search.js';
 
 
-const mutateArray = (a1, a2) => {
+export default function mutateArray(a1, a2) {
   if (!isArray(a1, a2)) {
     throw new TypeError('mutateArray can only be called with arrays');
   }
@@ -48,5 +48,3 @@ const mutateArray = (a1, a2) => {
 
   return a1;
 }
-
-export { mutateArray }

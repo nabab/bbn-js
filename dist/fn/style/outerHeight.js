@@ -1,4 +1,4 @@
-import { selector } from '../html/selector.js';
+import selector from '../html/selector.js';
 /**
  *
  * @ignore
@@ -8,12 +8,12 @@ import { selector } from '../html/selector.js';
  * @memberof bbn.fn
  * @returns  {*}
  */
-var outerHeight = function (ele) {
+export default function outerHeight(ele) {
     ele = selector(ele);
     if (ele && "offsetHeight" in ele) {
         var styles = window.getComputedStyle(ele);
         var margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
         return Math.ceil(ele.offsetHeight + margin);
     }
-};
-export { outerHeight };
+}
+;

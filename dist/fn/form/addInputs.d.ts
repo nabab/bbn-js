@@ -39,5 +39,4 @@
  * @param    {String}      prefix The optional object's name of the fields in the form
  * @returns  {undefined}
  */
-declare const addInputs: (form: any, params?: any, prefix?: string) => void;
-export { addInputs };
+export default function addInputs(form: any, params?: any, prefix?: string): void;

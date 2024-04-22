@@ -15,5 +15,4 @@
  * @param    {String} str
  * @returns  {String} string with escape
  */
-declare const escapeRegExp: (str: any) => any;
-export { escapeRegExp };
+export default function escapeRegExp(str: any): any;

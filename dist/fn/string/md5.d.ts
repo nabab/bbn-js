@@ -18,5 +18,4 @@
  * @param    {Mixed} st
  * @returns  {String} in md5 format
  */
-declare const md5: (st: any) => string;
-export { md5 };
+export default function md5(st: any): string;

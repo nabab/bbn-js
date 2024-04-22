@@ -1,4 +1,4 @@
-import { checkType } from '../type/checkType.js'  ;
+import checkType from '../type/checkType.js'  ;
 
 /**
  * Gets the given property from the given object
@@ -6,10 +6,8 @@ import { checkType } from '../type/checkType.js'  ;
  * @param {String} prop
  * @returns
  */
-const deleteProp = function (obj: object, prop: string) {
+export default function deleteProp(obj: object, prop: string) {
   checkType(obj, "object", bbn._("The obj must be an object in setProp"));
   checkType(prop, "string", bbn._("The prop must be a string in setProp"));
   delete obj[prop];
 };
-
-export { deleteProp };

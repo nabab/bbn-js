@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isPercent = function (...args: any[]): boolean {
+export default function isPercent(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (typeof a !== "string" || !a.match(/^\d+(?:\.\d+)?%$/)) {
@@ -19,5 +19,3 @@ const isPercent = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isPercent };

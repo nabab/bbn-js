@@ -1,6 +1,6 @@
-import { isString } from '../type/isString.js'  ;
+import isString from '../type/isString.js'  ;
 
-const getAncestors = function (ele, selector = null)
+export default function getAncestors(ele, selector = null)
 {
 	let r = [];
 	if (typeof ele === 'string') {
@@ -25,5 +25,3 @@ const getAncestors = function (ele, selector = null)
 	}
 	return r;
 };
-
-export { getAncestors };

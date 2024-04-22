@@ -1,5 +1,5 @@
-import { isObject } from '../type/isObject.js';
-import { isFunction } from '../type/isFunction.js';
+import isObject from '../type/isObject.js';
+import isFunction from '../type/isFunction.js';
 /**
  * Copies to the clipboard the value of the given string.
  * @method   copy
@@ -13,7 +13,7 @@ import { isFunction } from '../type/isFunction.js';
  * @param {String} st The string to copy.
  * @returns
  */
-var copy = function (st) {
+export default function copy(st) {
     return new Promise(function (resolve) {
         var _a;
         if (st) {
@@ -48,5 +48,5 @@ var copy = function (st) {
         }
         resolve(false);
     });
-};
-export { copy };
+}
+;

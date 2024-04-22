@@ -1,9 +1,9 @@
-import { isDate } from '../type/isDate.js';
-import { createObject } from './createObject.js';
-import { isFunction } from '../type/isFunction.js';
-import { isValue } from '../type/isValue.js';
-import { isDom } from '../type/isDom.js';
-import { numProperties } from './numProperties.js';
+import isDate from '../type/isDate.js';
+import createObject from './createObject.js';
+import isFunction from '../type/isFunction.js';
+import isValue from '../type/isValue.js';
+import isDom from '../type/isDom.js';
+import numProperties from './numProperties.js';
 var diffObjProcessed = [];
 /**
   * Returns an object describing the differences for transforming the first given object into the second.
@@ -82,7 +82,7 @@ var diffObjProcessed = [];
   * @param    {Boolean} notRoot
   * @returns  {Object}
   */
-var diffObj = function (obj1, obj2, unchanged, notRoot) {
+export default function diffObj(obj1, obj2, unchanged, notRoot) {
     if (unchanged === void 0) { unchanged = false; }
     if (notRoot === void 0) { notRoot = false; }
     if (!notRoot) {
@@ -166,5 +166,5 @@ var diffObj = function (obj1, obj2, unchanged, notRoot) {
         }
     }
     return !notRoot || unchanged || numProperties(diff) ? diff : false;
-};
-export { diffObj };
+}
+;

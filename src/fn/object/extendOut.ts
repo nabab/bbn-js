@@ -1,4 +1,4 @@
-import { isObject } from '../type/isObject.js'  ;
+import isObject from '../type/isObject.js'  ;
 
 /**
  * Returns a new object made of the properties from all the given objects.
@@ -16,7 +16,7 @@ import { isObject } from '../type/isObject.js'  ;
  * @memberof bbn.fn
  * @returns  {Object}
  */
-const extendOut = function (...args: object[]) {
+export default function extendOut(...args: object[]) {
   let r = null;
   for (let a of args) {
     if (!isObject(a)) {
@@ -39,5 +39,3 @@ const extendOut = function (...args: object[]) {
   }
   return r;
 };
-
-export { extendOut };

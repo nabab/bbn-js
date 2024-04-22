@@ -1,2 +1,1 @@
-declare const crc32: (str: any) => number;
-export { crc32 };
+export default function crc32(str: any): number;

@@ -16,5 +16,4 @@
  * @param    {String} rgb
  * @returns  {String}
  */
-declare const rgb2hex: (rgb: any) => string;
-export { rgb2hex };
+export default function rgb2hex(rgb: any): string;

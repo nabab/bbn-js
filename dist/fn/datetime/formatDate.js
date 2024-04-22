@@ -1,4 +1,4 @@
-var formatDate = function (date, format) {
+export default function formatDate(date, format) {
     return dayjs(date).format(format);
-};
-export { formatDate };
+}
+;

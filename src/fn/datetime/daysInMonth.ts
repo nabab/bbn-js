@@ -1,4 +1,4 @@
-import { date } from './date.js'  ;
+import date from './date.js'  ;
 
 /**
  * Returns the number of days of the month given in the date.
@@ -15,12 +15,10 @@ import { date } from './date.js'  ;
  * @param    {String|Date} v
  * @returns  {Number}
  */
-const daysInMonth = function (v) {
+export default function daysInMonth(v) {
 	let d = date(v);
 	if (d) {
 		return dayjs(d).daysInMonth();
 	}
 	return false;
 };
-
-export { daysInMonth };

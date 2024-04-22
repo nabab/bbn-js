@@ -14,5 +14,4 @@
  * @param    {Array} arr
  * @returns  {Array}
  */
-declare const removeEmpty: (arr: any[]) => any[];
-export { removeEmpty };
+export default function removeEmpty(arr: any[]): any[];

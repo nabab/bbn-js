@@ -1,13 +1,13 @@
-import { isObject } from '../type/isObject.js'  ;
-import { replaceAll } from '../string/replaceAll.js'  ;
-import { getRequestId } from './getRequestId.js'  ;
-import { getLoader } from './getLoader.js'  ;
-import { log } from '../browser/log.js'  ;
-import { extend } from '../object/extend.js'  ;
-import { numProperties } from '../object/numProperties.js'  ;
-import { _deleteLoader } from './_deleteLoader.js'  ;
-import { isFunction } from '../type/isFunction.js'  ;
-import { _addLoader } from './_addLoader.js'  ;
+import isObject from '../type/isObject.js'  ;
+import replaceAll from '../string/replaceAll.js'  ;
+import getRequestId from './getRequestId.js'  ;
+import getLoader from './getLoader.js'  ;
+import log from '../browser/log.js'  ;
+import extend from '../object/extend.js'  ;
+import numProperties from '../object/numProperties.js'  ;
+import _deleteLoader from './_deleteLoader.js'  ;
+import isFunction from '../type/isFunction.js'  ;
+import _addLoader from './_addLoader.js'  ;
 
 /**
  * Creates an XHR object and returns the Promise.
@@ -65,7 +65,7 @@ import { _addLoader } from './_addLoader.js'  ;
  *
  * @returns  {Promise}  The Promise created by the generated XHR.
  */
-const ajax = function (
+export default function ajax(
   url,
   datatype = null,
   data = null,
@@ -180,5 +180,3 @@ const ajax = function (
     return loader;
   }
 };
-
-export { ajax };

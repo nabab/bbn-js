@@ -4,7 +4,7 @@
  * @param {String*} value
  * @returns
  */
-const setCssVar = function (varname, value) {
+export default function setCssVar(varname, value) {
   if (varname.indexOf("--") !== 0) {
     varname = "--" + varname;
   }
@@ -12,5 +12,3 @@ const setCssVar = function (varname, value) {
   /** @todo To Fix */
   document.documentElement.style.setProperty(varname, value);
 };
-
-export { setCssVar };

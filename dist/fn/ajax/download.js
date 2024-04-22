@@ -1,9 +1,9 @@
-import { ajax } from './ajax.js';
-import { substr } from '../string/substr.js';
-import { baseName } from '../string/baseName.js';
-import { isBlob } from '../type/isBlob.js';
-import { fileExt } from '../string/fileExt.js';
-import { downloadContent } from './downloadContent.js';
+import ajax from './ajax.js';
+import substr from '../string/substr.js';
+import baseName from '../string/baseName.js';
+import isBlob from '../type/isBlob.js';
+import fileExt from '../string/fileExt.js';
+import downloadContent from './downloadContent.js';
 /**
  * Downloads a file with given filename from a URL.
  *
@@ -32,7 +32,7 @@ import { downloadContent } from './downloadContent.js';
  *
  * @returns  {undefined}
  */
-var download = function (url, filename, params) {
+export default function download(url, filename, params) {
     if (filename === void 0) { filename = ''; }
     if (params === void 0) { params = null; }
     // We can intervert the arguments
@@ -64,5 +64,5 @@ var download = function (url, filename, params) {
     }, function (e) {
         bbn.fn.defaultAjaxErrorFunction(e);
     });
-};
-export { download };
+}
+;

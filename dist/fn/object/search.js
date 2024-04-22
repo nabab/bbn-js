@@ -1,9 +1,9 @@
-import { isIterable } from '../type/isIterable.js';
-import { compareConditions } from './compareConditions.js';
+import isIterable from '../type/isIterable.js';
+import compareConditions from './compareConditions.js';
 import { filterToConditions } from './filterToConditions.js';
-import { isObject } from '../type/isObject.js';
-import { numProperties } from './numProperties.js';
-import { isNumber } from '../type/isNumber.js';
+import isObject from '../type/isObject.js';
+import numProperties from './numProperties.js';
+import isNumber from '../type/isNumber.js';
 /**
  * Retrieves the index of the array's first element corresponding to the given filter.
  *
@@ -102,7 +102,7 @@ import { isNumber } from '../type/isNumber.js';
  * @param    {Number}                   startFrom The index from which the search should start
  * @returns  {Number}                   The index if found, otherwise -1
  */
-var search = function (arr, prop, val, operator, startFrom) {
+export default function search(arr, prop, val, operator, startFrom) {
     if (val === void 0) { val = null; }
     if (operator === void 0) { operator = '='; }
     if (startFrom === void 0) { startFrom = 0; }
@@ -176,5 +176,5 @@ var search = function (arr, prop, val, operator, startFrom) {
         }
     }
     return -1;
-};
-export { search };
+}
+;

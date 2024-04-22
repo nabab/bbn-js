@@ -1,4 +1,4 @@
-var getScrollBarSize = function () {
+export default function getScrollBarSize() {
     if (bbn.env.scrollBarSize === undefined) {
         var outer = document.createElement('div');
         outer.style.visibility = 'hidden';
@@ -21,5 +21,5 @@ var getScrollBarSize = function () {
         bbn.env.scrollBarSize = sz ? sz + 1 : 0;
     }
     return bbn.env.scrollBarSize;
-};
-export { getScrollBarSize };
+}
+;

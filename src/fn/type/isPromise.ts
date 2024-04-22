@@ -14,7 +14,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isPromise = function (...args: any[]): boolean {
+export default function isPromise(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Promise]") {
@@ -23,5 +23,3 @@ const isPromise = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isPromise };

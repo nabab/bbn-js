@@ -1,4 +1,4 @@
-import { log } from './log.js'  ;
+import log from './log.js'  ;
 
 /**
  * Throws an error.
@@ -12,7 +12,7 @@ import { log } from './log.js'  ;
  * @param    {String} errorMsg
  * @returns    
  */
-const error = function (errorMsg) {
+export default function error(errorMsg) {
 	if (arguments.length > 1) {
 		const args = [];
 		for (let i = 1; i < arguments.length; i++) {
@@ -29,5 +29,3 @@ const error = function (errorMsg) {
 
 	throw new Error(errorMsg);
 };
-
-export { error };

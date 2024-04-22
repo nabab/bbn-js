@@ -6,7 +6,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isSQLDate = function (...args: any[]): boolean {
+export default function isSQLDate(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (
@@ -20,5 +20,3 @@ const isSQLDate = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isSQLDate };

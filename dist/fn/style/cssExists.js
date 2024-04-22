@@ -1,5 +1,5 @@
-//import { log } from './log.js'  ;
-import { escapeRegExp } from '../string/escapeRegExp.js';
+//import log from './log.js'  ;
+import escapeRegExp from '../string/escapeRegExp.js';
 /**
  * not used
  * @ignore
@@ -10,7 +10,7 @@ import { escapeRegExp } from '../string/escapeRegExp.js';
  * @param    {String} f
  * @returns
  */
-var cssExists = function (f) {
+export default function cssExists(f) {
     var ok;
     var rules;
     var css = document.styleSheets;
@@ -36,5 +36,5 @@ var cssExists = function (f) {
         }
     }
     return false;
-};
-export { cssExists };
+}
+;

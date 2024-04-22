@@ -3,5 +3,4 @@
  * @param {Object|Array} obj
  * @returns {String}
  */
-declare const hash: (obj: any) => string;
-export { hash };
+export default function hash(obj: any): string;

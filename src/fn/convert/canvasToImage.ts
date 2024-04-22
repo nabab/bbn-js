@@ -12,10 +12,8 @@
  * @param {canvas} canvas 
  * @returns  {HTMLElement} 
  */
-const canvasToImage = function (canvas) {
+export default function canvasToImage(canvas) {
 	let img = new Image();
 	img.src = canvas.toDataURL('image/png');
 	return img;
 };
-
-export { canvasToImage };

@@ -19,5 +19,4 @@
  * @param {String} thousands The character to use to separate thounsands.
  * @param {Number} precision The number of decimals places.
  */
-declare const money: (val: number, kilo?: boolean, currency?: string, novalue?: string | false, decimal?: string, thousands?: string, precision?: number) => string;
-export { money };
+export default function money(val: number, kilo?: boolean, currency?: string, novalue?: string | false, decimal?: string, thousands?: string, precision?: number): string;

@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isComment: (...args: any[]) => boolean;
-export { isComment };
+export default function isComment(...args: any[]): boolean;

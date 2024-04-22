@@ -1,11 +1,11 @@
-import { treatAjaxArguments } from './treatAjaxArguments.js'  ;
-import { getLoader } from './getLoader.js'  ;
-import { ajax } from './ajax.js'  ;
-import { log } from '../browser/log.js'  ;
-import { extend } from '../object/extend.js'  ;
-import { isObject } from '../type/isObject.js'  ;
-import { callback } from './callback.js'  ;
-import { setNavigationVars } from './setNavigationVars.js'  ;
+import treatAjaxArguments from './treatAjaxArguments.js'  ;
+import getLoader from './getLoader.js'  ;
+import ajax from './ajax.js'  ;
+import log from '../browser/log.js'  ;
+import extend from '../object/extend.js'  ;
+import isObject from '../type/isObject.js'  ;
+import callback from './callback.js'  ;
+import setNavigationVars from './setNavigationVars.js'  ;
 
 interface Res {
 	url?: string;
@@ -39,7 +39,7 @@ interface Res {
  * 
  * @returns   
  */
-const link = function (...args) {
+export default function link(...args) {
 	let cfg = treatAjaxArguments(args);
 	let ok = 1;
 	if (cfg === true) {
@@ -147,5 +147,3 @@ const link = function (...args) {
 	}
 	return true;
 };
-
-export { link };

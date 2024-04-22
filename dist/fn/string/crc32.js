@@ -9,12 +9,12 @@ for (var i = 0; i < 256; i++) {
     }
     crc32Table.push(c);
 }
-var crc32 = function (str) {
+export default function crc32(str) {
     var crc = 0 ^ -1;
     for (var i = 0; i < str.length; i++) {
         var charCode = str.charCodeAt(i);
         crc = (crc >>> 8) ^ crc32Table[(crc ^ charCode) & 0xff];
     }
     return (crc ^ -1) >>> 0; // Make sure the result is a 32-bit positive integer
-};
-export { crc32 };
+}
+;

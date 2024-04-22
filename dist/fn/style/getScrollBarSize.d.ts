@@ -1,2 +1,1 @@
-declare const getScrollBarSize: () => number;
-export { getScrollBarSize };
+export default function getScrollBarSize(): number;

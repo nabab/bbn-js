@@ -3,5 +3,4 @@
  * @param {String*} varname
  * @returns
  */
-declare const getCssVar: (varname: any) => string;
-export { getCssVar };
+export default function getCssVar(varname: any): string;

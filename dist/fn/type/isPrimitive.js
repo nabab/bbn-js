@@ -14,7 +14,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isPrimitive = function () {
+export default function isPrimitive() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -28,5 +28,5 @@ var isPrimitive = function () {
         }
     }
     return true;
-};
-export { isPrimitive };
+}
+;

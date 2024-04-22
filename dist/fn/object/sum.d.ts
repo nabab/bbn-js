@@ -42,5 +42,4 @@
  * @param    {String}                   operator   The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The sum
  */
-declare const sum: (arr: object[], numberProp: string | ((a: any) => any), prop: object | string, val?: any, operator?: string) => number;
-export { sum };
+export default function sum(arr: object[], numberProp: string | ((a: any) => any), prop: object | string, val?: any, operator?: string): number;

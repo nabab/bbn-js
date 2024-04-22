@@ -13,5 +13,4 @@
  * @param    {String} st
  * @returns  {String}
  */
-declare const nl2br: (st: any, keepNl: any) => string;
-export { nl2br };
+export default function nl2br(st: any, keepNl: any): string;

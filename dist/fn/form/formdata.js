@@ -1,7 +1,7 @@
-import { each } from '../loop/each.js';
-import { fieldValue } from './fieldValue.js';
-import { replaceAll } from '../string/replaceAll.js';
-import { substr } from '../string/substr.js';
+import each from '../loop/each.js';
+import fieldValue from './fieldValue.js';
+import replaceAll from '../string/replaceAll.js';
+import substr from '../string/substr.js';
 /**
  * Returns all the data contained in a form as a single object.
  *
@@ -45,7 +45,7 @@ import { substr } from '../string/substr.js';
  *
  * @returns  {Object}
  */
-var formdata = function (form) {
+export default function formdata(form) {
     var $inputs = form.querySelectorAll('input[name],select[name],textarea[name],button[name]');
     var res = {};
     var n;
@@ -91,5 +91,5 @@ var formdata = function (form) {
     });
     // return num_changes ? res : false;
     return res;
-};
-export { formdata };
+}
+;

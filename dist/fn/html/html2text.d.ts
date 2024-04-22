@@ -13,5 +13,4 @@
  * @param    {String} st
  * @returns {String}
  */
-declare const html2text: (st: any) => any;
-export { html2text };
+export default function html2text(st: any): any;

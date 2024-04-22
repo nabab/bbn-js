@@ -1,6 +1,6 @@
-import { treatAjaxArguments } from './treatAjaxArguments.js'  ;
-import { ajax } from './ajax.js'  ;
-import { callback } from './callback.js'  ;
+import treatAjaxArguments from './treatAjaxArguments.js'  ;
+import ajax from './ajax.js'  ;
+import callback from './callback.js'  ;
 
 /**
  * Creates a POST XHR through bbn.fn.ajax then launches bbn.fn.callback with the result.
@@ -35,7 +35,7 @@ import { callback } from './callback.js'  ;
  * 
  * @returns  {undefined|Promise}
  */
-const post = function (...args) {
+export default function post(...args) {
 	let cfg = treatAjaxArguments(args);
 	if (cfg.url) {
 		return ajax(
@@ -50,5 +50,3 @@ const post = function (...args) {
 		);
 	}
 };
-
-export { post };

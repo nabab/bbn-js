@@ -11,7 +11,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isSymbol = function (...args: any[]): boolean {
+export default function isSymbol(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Symbol]") {
@@ -21,5 +21,3 @@ const isSymbol = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isSymbol };

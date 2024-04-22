@@ -19,5 +19,4 @@
  * @param    {String} flags
  * @returns  {String}
  */
-declare const replaceAll: (find: string, replace: string, str: string, flags?: string) => string;
-export { replaceAll };
+export default function replaceAll(find: string, replace: string, str: string, flags?: string): string;

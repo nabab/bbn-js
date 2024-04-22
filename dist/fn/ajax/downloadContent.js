@@ -1,7 +1,7 @@
-import { isCanvas } from '../type/isCanvas.js';
-import { isObject } from '../type/isObject.js';
-import { isString } from '../type/isString.js';
-import { log } from '../browser/log.js';
+import isCanvas from '../type/isCanvas.js';
+import isObject from '../type/isObject.js';
+import isString from '../type/isString.js';
+import log from '../browser/log.js';
 /**
  * Downloads a file with given filename from the given content.
  *
@@ -28,7 +28,7 @@ import { log } from '../browser/log.js';
  *
  * @returns  {undefined}
  */
-var downloadContent = function (filename, content, type) {
+export default function downloadContent(filename, content, type) {
     if (type === void 0) { type = null; }
     if (isCanvas(content)) {
         content.toBlob(function (blob) {
@@ -71,5 +71,5 @@ var downloadContent = function (filename, content, type) {
     window.URL.revokeObjectURL(a.href);
     // Remove anchor from body
     document.body.removeChild(a);
-};
-export { downloadContent };
+}
+;

@@ -23,5 +23,4 @@
  * @param    {Number} len
  * @returns  {String}
  */
-declare const shorten: (st: string, len?: number, adj?: string) => string;
-export { shorten };
+export default function shorten(st: string, len?: number, adj?: string): string;

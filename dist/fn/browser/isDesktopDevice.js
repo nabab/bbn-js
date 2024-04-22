@@ -1,4 +1,4 @@
-import { getDeviceType } from '../browser/getDeviceType.js';
+import getDeviceType from '../browser/getDeviceType.js';
 /**
  * Returns true if the current device type is a desktop.
  * @method   isDesktopDevice
@@ -11,7 +11,7 @@ import { getDeviceType } from '../browser/getDeviceType.js';
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isDesktopDevice = function () {
+export default function isDesktopDevice() {
     return getDeviceType() === 'desktop';
-};
-export { isDesktopDevice };
+}
+;

@@ -1,6 +1,6 @@
-import { createObject } from '../object/createObject.js';
-import { addInputs } from '../form/addInputs.js';
-import { setProperty } from '../object/setProperty.js';
+import createObject from '../object/createObject.js';
+import addInputs from '../form/addInputs.js';
+import setProperty from '../object/setProperty.js';
 /**
  * Posts a request in a new window.
  *
@@ -20,7 +20,7 @@ import { setProperty } from '../object/setProperty.js';
  *
  * @returns  {void}
  */
-var postOut = function (url, data, success, target) {
+export default function postOut(url, data, success, target) {
     if (success === void 0) { success = null; }
     if (target === void 0) { target = ""; }
     var form = document.body.querySelector("form#bbn-form_out");
@@ -50,5 +50,5 @@ var postOut = function (url, data, success, target) {
             success();
         }
     }
-};
-export { postOut };
+}
+;

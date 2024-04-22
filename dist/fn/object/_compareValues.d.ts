@@ -36,5 +36,4 @@
   * @param    {String} [dir=asc]  Direction of comparison (desc or asc by default)
   * @returns  {Number} Always either -1, 1, or 0
   */
-declare const _compareValues: (a: any, b: any, prop: any, dir?: string) => 0 | 1 | -1;
-export { _compareValues };
+export default function _compareValues(a: any, b: any, prop: any, dir?: string): 0 | 1 | -1;

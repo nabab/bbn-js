@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const getTimeoff = function (): number
+export default function getTimeoff(): number
 {
 	if (!bbn.env.isFocused) {
 		return Math.round(new Date().getTime() / 1000 - bbn.env.timeoff);
@@ -18,5 +18,3 @@ const getTimeoff = function (): number
 
 	return 0;
 };
-
-export { getTimeoff };

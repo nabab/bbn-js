@@ -38,5 +38,4 @@
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Object|Boolean}           The item if found, false otherwise
  */
-declare const getRow: (arr: any[], prop: object | string, val?: any, operator?: string) => any | false;
-export { getRow };
+export default function getRow(arr: any[], prop: object | string, val?: any, operator?: string): any | false;

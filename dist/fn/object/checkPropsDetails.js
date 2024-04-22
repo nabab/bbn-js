@@ -1,8 +1,8 @@
-import { isArray } from '../type/isArray.js';
-import { isObject } from '../type/isObject.js';
-import { each } from '../loop/each.js';
-import { substr } from '../string/substr.js';
-var checkPropsDetails = function (obj, props, checkEmpty) {
+import isArray from '../type/isArray.js';
+import isObject from '../type/isObject.js';
+import each from '../loop/each.js';
+import substr from '../string/substr.js';
+export default function checkPropsDetails(obj, props, checkEmpty) {
     if (checkEmpty === void 0) { checkEmpty = false; }
     var res = {
         error: false,
@@ -50,5 +50,5 @@ var checkPropsDetails = function (obj, props, checkEmpty) {
         res.result = false;
     }
     return res;
-};
-export { checkPropsDetails };
+}
+;

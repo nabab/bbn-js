@@ -1,5 +1,5 @@
-import { each } from '../loop/each.js';
-import { filter } from '../object/filter.js';
+import each from '../loop/each.js';
+import filter from '../object/filter.js';
 /**
  * Aborts (client side) all the XHR using the given URL if it still exists.
  *
@@ -20,7 +20,7 @@ import { filter } from '../object/filter.js';
  *
  * @returns  {undefined}
  */
-var abortURL = function (url) {
+export default function abortURL(url) {
     each(filter(bbn.env.loaders, { url: url }), function (a) {
         if (a && a.source) {
             a.source.cancel('Operation canceled by the user.');
@@ -29,5 +29,5 @@ var abortURL = function (url) {
             throw new Error('Impossible to find the loader with URL ' + url);
         }
     });
-};
-export { abortURL };
+}
+;

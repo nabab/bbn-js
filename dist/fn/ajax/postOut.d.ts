@@ -17,5 +17,4 @@
  *
  * @returns  {void}
  */
-declare const postOut: (url: any, data: any, success?: any, target?: string) => void;
-export { postOut };
+export default function postOut(url: any, data: any, success?: any, target?: string): void;

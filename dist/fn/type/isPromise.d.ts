@@ -14,5 +14,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isPromise: (...args: any[]) => boolean;
-export { isPromise };
+export default function isPromise(...args: any[]): boolean;

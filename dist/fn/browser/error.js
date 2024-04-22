@@ -1,4 +1,4 @@
-import { log } from './log.js';
+import log from './log.js';
 /**
  * Throws an error.
  * @method   error
@@ -11,7 +11,7 @@ import { log } from './log.js';
  * @param    {String} errorMsg
  * @returns
  */
-var error = function (errorMsg) {
+export default function error(errorMsg) {
     if (arguments.length > 1) {
         var args = [];
         for (var i = 1; i < arguments.length; i++) {
@@ -25,5 +25,5 @@ var error = function (errorMsg) {
         log.apply(this, args);
     }
     throw new Error(errorMsg);
-};
-export { error };
+}
+;

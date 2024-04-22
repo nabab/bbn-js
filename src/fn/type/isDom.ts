@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isDom = function (...args) {
+export default function isDom(...args) {
   if (!args.length) return false;
   for (let a of args) {
     if (!(a instanceof HTMLElement)) {
@@ -19,5 +19,3 @@ const isDom = function (...args) {
   }
   return true;
 };
-
-export { isDom };

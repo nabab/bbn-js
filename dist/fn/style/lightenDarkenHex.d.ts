@@ -16,5 +16,4 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-declare const lightenDarkenHex: (hex: any, amt: any) => string;
-export { lightenDarkenHex };
+export default function lightenDarkenHex(hex: any, amt: any): string;

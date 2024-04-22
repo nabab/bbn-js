@@ -32,5 +32,4 @@
  * @param    {Number}    min The index at which the loop will start
  * @returns  {undefined}
  */
-declare const forir: (arr: any, fn: any, max?: number, min?: number) => void;
-export { forir };
+export default function forir(arr: any, fn: any, max?: number, min?: number): void;

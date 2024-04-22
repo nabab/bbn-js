@@ -19,5 +19,4 @@
  * @param    {Number} length
  * @returns  {String} Result substring
  */
-declare const substr: (str: string, from: number, length?: number) => string;
-export { substr };
+export default function substr(str: string, from: number, length?: number): string;

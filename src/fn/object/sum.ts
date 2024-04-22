@@ -1,5 +1,5 @@
-import { each } from '../loop/each.js'  ;
-import { filter } from './filter.js'  ;
+import each from '../loop/each.js'  ;
+import filter from './filter.js'  ;
 
 /**
  * Returns the sum of the given property or function for the array's elements matching the filter.
@@ -45,7 +45,7 @@ import { filter } from './filter.js'  ;
  * @param    {String}                   operator   The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The sum
  */
-const sum = function (
+export default function sum(
 	arr: object[],
 	numberProp: string | ((a: any) => any),
 	prop: object | string,
@@ -62,5 +62,3 @@ const sum = function (
 	});
 	return r;
 };
-
-export { sum };

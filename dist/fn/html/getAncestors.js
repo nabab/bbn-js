@@ -1,4 +1,4 @@
-var getAncestors = function (ele, selector) {
+export default function getAncestors(ele, selector) {
     if (selector === void 0) { selector = null; }
     var r = [];
     if (typeof ele === 'string') {
@@ -22,5 +22,5 @@ var getAncestors = function (ele, selector) {
         }
     }
     return r;
-};
-export { getAncestors };
+}
+;

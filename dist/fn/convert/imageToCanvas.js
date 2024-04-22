@@ -11,11 +11,11 @@
  * @param {HTMLElement} img
  * @returns {HTMLCanvasElement}
  */
-var imageToCanvas = function (img) {
+export default function imageToCanvas(img) {
     var canvas = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
     canvas.getContext('2d').drawImage(img, 0, 0);
     return canvas;
-};
-export { imageToCanvas };
+}
+;

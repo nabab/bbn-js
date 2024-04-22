@@ -1,6 +1,6 @@
-import { isObject } from '../type/isObject.js'  ;
-import { isArray } from '../type/isArray.js'  ;
-import { iterate } from '../loop/iterate.js'  ;
+import isObject from '../type/isObject.js'  ;
+import isArray from '../type/isArray.js'  ;
+import iterate from '../loop/iterate.js'  ;
 
 interface Condition {
   field: string;
@@ -49,7 +49,7 @@ interface Filter {
  * @param    {String} operator
  * @returns  {Object}
  */
-const filterToConditions = function (
+export default function filterToConditions(
   filter: any,
   operator: string = "="
 ): Filter {

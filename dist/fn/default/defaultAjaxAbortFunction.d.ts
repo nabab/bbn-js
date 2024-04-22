@@ -1,2 +1,1 @@
-declare const defaultAjaxAbortFunction: (message: any, url?: string) => void;
-export { defaultAjaxAbortFunction };
+export default function defaultAjaxAbortFunction(message: any, url?: string): void;

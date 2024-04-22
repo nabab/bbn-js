@@ -75,5 +75,4 @@
   * @param    {Boolean} notRoot
   * @returns  {Object}
   */
-declare const diffObj: (obj1: object, obj2: object, unchanged?: boolean, notRoot?: boolean) => any;
-export { diffObj };
+export default function diffObj(obj1: object, obj2: object, unchanged?: boolean, notRoot?: boolean): any;

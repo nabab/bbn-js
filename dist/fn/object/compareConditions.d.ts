@@ -42,5 +42,4 @@
  * @param    {Object} filter
  * @returns  {Boolean}
  */
-declare const compareConditions: (data: any, filter: any) => boolean;
-export { compareConditions };
+export default function compareConditions(data: any, filter: any): boolean;

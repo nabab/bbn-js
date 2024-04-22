@@ -1,7 +1,5 @@
-import { checkPropsDetails } from './checkPropsDetails.js'  ;
+import checkPropsDetails from './checkPropsDetails.js'  ;
 
-const checkProps = function (obj: object, props: string | string[], checkEmpty: boolean = false) {
+export default function checkProps(obj: object, props: string | string[], checkEmpty: boolean = false) {
 	return checkPropsDetails(obj, props, checkEmpty).result;
 };
-
-export { checkProps };

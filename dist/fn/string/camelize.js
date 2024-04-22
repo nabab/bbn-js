@@ -16,12 +16,12 @@
  * @param    {String} str
  * @returns  {String}
  */
-var camelize = function (str) {
+export default function camelize(str) {
     return str.replace(/^([A-Z])|[\s-](\w)/g, function (match, p1, p2, offset) {
         if (p2) {
             return p2.toUpperCase();
         }
         return p1.toLowerCase();
     });
-};
-export { camelize };
+}
+;

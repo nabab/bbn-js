@@ -1,4 +1,4 @@
-import { isObject } from '../type/isObject.js';
+import isObject from '../type/isObject.js';
 /**
  * Returns a new object made of the properties from all the given objects.
  *
@@ -15,7 +15,7 @@ import { isObject } from '../type/isObject.js';
  * @memberof bbn.fn
  * @returns  {Object}
  */
-var extendOut = function () {
+export default function extendOut() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -41,5 +41,5 @@ var extendOut = function () {
         }
     }
     return r;
-};
-export { extendOut };
+}
+;

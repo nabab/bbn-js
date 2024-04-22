@@ -41,5 +41,4 @@
  *
  * @returns  {Object}
  */
-declare const formdata: (form: any) => {};
-export { formdata };
+export default function formdata(form: any): {};

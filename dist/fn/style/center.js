@@ -12,7 +12,7 @@
  * @param    {HTMLElement} ele
  * @returns  {HTMLElement} The dom element with the new style.
  */
-var center = function (ele) {
+export default function center(ele) {
     //ele = $(ele);
     var parent = ele.parentNode, 
     //w = parent.width(),
@@ -36,5 +36,5 @@ var center = function (ele) {
     ele.style.left =
         Math.max(0, (h - ele.offsetWidth) / 2 + parent.scrollLeft) + "px";
     return ele;
-};
-export { center };
+}
+;

@@ -15,11 +15,9 @@
  * @returns  {Array}
  */
 
-const unique = function (arr: any[]): any[]
+export default function unique(arr: any[]): any[]
 {
 	return arr.filter(function (el, index, ar) {
 		return index === ar.indexOf(el);
 	});
 };
-
-export { unique };

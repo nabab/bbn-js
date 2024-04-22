@@ -11,5 +11,4 @@
  * @param    {...any} args
  * @returns
  */
-declare const log: (...args: any[]) => any;
-export { log };
+export default function log(...args: any[]): any;

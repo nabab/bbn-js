@@ -1,6 +1,6 @@
-import { checkType } from '../type/checkType.js'  ;
+import checkType from '../type/checkType.js'  ;
 
-const format = function (str) {
+export default function format(str) {
 	let args = Array.prototype.slice.call(arguments, 1);
 	if (args.length) {
 		let i = 0;
@@ -13,5 +13,3 @@ const format = function (str) {
 
 	return str;
 };
-
-export { format };

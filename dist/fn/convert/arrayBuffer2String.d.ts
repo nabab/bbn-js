@@ -1,2 +1,1 @@
-declare const arrayBuffer2String: (buf: any) => any;
-export { arrayBuffer2String };
+export default function arrayBuffer2String(buf: any): any;

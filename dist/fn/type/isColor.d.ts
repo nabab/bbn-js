@@ -27,5 +27,4 @@
  * @param    {String} st
  * @returns  {Boolean}
  */
-declare const isColor: (...args: any[]) => boolean;
-export { isColor };
+export default function isColor(...args: any[]): boolean;

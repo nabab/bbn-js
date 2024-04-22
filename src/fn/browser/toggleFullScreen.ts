@@ -1,6 +1,6 @@
-import { resize } from '../style/resize.js'  ;
+import resize from '../style/resize.js'  ;
 
-const toggleFullScreen = function () {
+export default function toggleFullScreen() {
 	if ('mozRequestFullScreen' in window.document.documentElement) {
 		if (window.document['mozFullScreen']) {
 			window.document['mozCancelFullScreen']();
@@ -30,5 +30,3 @@ const toggleFullScreen = function () {
 		resize();
 	}, 0);
 };
-
-export { toggleFullScreen };

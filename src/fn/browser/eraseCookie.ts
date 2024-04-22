@@ -11,8 +11,6 @@
  * @memberof bbn.fn
  * @returns  {*} 
  */
-const eraseCookie = function (name) {
+export default function eraseCookie(name) {
 	document.cookie = name + '=; Max-Age=-99999999;';
 };
-
-export { eraseCookie };

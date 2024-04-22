@@ -1,9 +1,9 @@
-import { ajax } from './ajax.js'  ;
-import { substr } from '../string/substr.js'  ;
-import { baseName } from '../string/baseName.js'  ;
-import { isBlob } from '../type/isBlob.js'  ;
-import { fileExt } from '../string/fileExt.js'  ;
-import { downloadContent } from './downloadContent.js'  ;
+import ajax from './ajax.js'  ;
+import substr from '../string/substr.js'  ;
+import baseName from '../string/baseName.js'  ;
+import isBlob from '../type/isBlob.js'  ;
+import fileExt from '../string/fileExt.js'  ;
+import downloadContent from './downloadContent.js'  ;
 
 /**
  * Downloads a file with given filename from a URL.
@@ -33,7 +33,7 @@ import { downloadContent } from './downloadContent.js'  ;
  *
  * @returns  {undefined}
  */
-const download = function (
+export default function download(
   url,
   filename = '',
   params = null
@@ -81,5 +81,3 @@ const download = function (
     }
   );
 };
-
-export { download };

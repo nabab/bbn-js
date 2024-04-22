@@ -1,2 +1,1 @@
-declare const getText: (ele: any) => any;
-export { getText };
+export default function getText(ele: any): any;

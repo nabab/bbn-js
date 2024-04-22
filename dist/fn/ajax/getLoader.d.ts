@@ -33,5 +33,4 @@
  *
  * @returns  {null|Object} The corresponding loader Object if it exists, false otherwise
  */
-declare const getLoader: (requestId: any) => BbnLoader;
-export { getLoader };
+export default function getLoader(requestId: any): BbnLoader;

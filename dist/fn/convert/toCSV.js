@@ -1,6 +1,6 @@
-import { each } from '../loop/each.js';
-import { isArray } from '../type/isArray.js';
-import { replaceAll } from '../string/replaceAll.js';
+import each from '../loop/each.js';
+import isArray from '../type/isArray.js';
+import replaceAll from '../string/replaceAll.js';
 /**
  * Returns a CSV string from the given array of arrays or objects.
  *
@@ -25,7 +25,7 @@ import { replaceAll } from '../string/replaceAll.js';
  * @param    {String} [valEsc="] The string escaper character
  * @returns  {String} A CSV string
  */
-var toCSV = function (arr, valSep, rowSep, valEsc) {
+export default function toCSV(arr, valSep, rowSep, valEsc) {
     if (valSep === void 0) { valSep = ","; }
     if (rowSep === void 0) { rowSep = ""; }
     if (valEsc === void 0) { valEsc = '"'; }
@@ -63,5 +63,5 @@ var toCSV = function (arr, valSep, rowSep, valEsc) {
         }
     });
     return csvContent;
-};
-export { toCSV };
+}
+;

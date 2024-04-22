@@ -1,5 +1,5 @@
-import { objectToFormData } from '../form/objectToFormData.js';
-import { log } from '../browser/log.js';
+import objectToFormData from '../form/objectToFormData.js';
+import log from '../browser/log.js';
 /**
  * Uploads a file synchronously through an XHR indicating progress.
  *
@@ -16,7 +16,7 @@ import { log } from '../browser/log.js';
  *
  * @returns  {Promise}
  */
-var upload = function (url, file, success, failure, progress) {
+export default function upload(url, file, success, failure, progress) {
     if (success === void 0) { success = null; }
     if (failure === void 0) { failure = null; }
     if (progress === void 0) { progress = null; }
@@ -51,5 +51,5 @@ var upload = function (url, file, success, failure, progress) {
             }
         });
     }
-};
-export { upload };
+}
+;

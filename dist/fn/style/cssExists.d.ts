@@ -8,5 +8,4 @@
  * @param    {String} f
  * @returns
  */
-declare const cssExists: (f: any) => boolean;
-export { cssExists };
+export default function cssExists(f: any): boolean;

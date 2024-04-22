@@ -16,5 +16,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isDate: (...args: any[]) => boolean;
-export { isDate };
+export default function isDate(...args: any[]): boolean;

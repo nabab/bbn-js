@@ -1,2 +1,1 @@
-declare const $: (selector: any, context: any) => any;
-export { $ };
+export default function (selector: any, context: any): any;

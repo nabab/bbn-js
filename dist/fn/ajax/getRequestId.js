@@ -1,5 +1,5 @@
-import { iterate } from '../loop/iterate.js';
-import { md5 } from '../string/md5.js';
+import iterate from '../loop/iterate.js';
+import md5 from '../string/md5.js';
 /**
  * Returns a unique ID for a "loader" based on the URL, the data keys and the datatype.
  *
@@ -48,7 +48,7 @@ import { md5 } from '../string/md5.js';
  *
  * @returns  {String} The unique ID
  */
-var getRequestId = function (url, data, datatype) {
+export default function getRequestId(url, data, datatype) {
     var d = {};
     if (data) {
         iterate(data, function (a, n) {
@@ -58,5 +58,5 @@ var getRequestId = function (url, data, datatype) {
         });
     }
     return url + ':' + md5((datatype || 'json') + JSON.stringify(d));
-};
-export { getRequestId };
+}
+;

@@ -15,5 +15,4 @@
  * @param    {Object} obj The source object
  * @returns  {Object} A new object
  */
-declare const clone: (obj: any) => any;
-export { clone };
+export default function clone(obj: any): any;

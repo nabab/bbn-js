@@ -1,7 +1,7 @@
-import { isArray } from '../type/isArray.js'  ;
-import { each } from '../loop/each.js'  ;
+import isArray from '../type/isArray.js'  ;
+import each from '../loop/each.js'  ;
 import { Filter, filterToConditions } from './filterToConditions.js'  ;
-import { compareConditions } from './compareConditions.js'  ;
+import compareConditions from './compareConditions.js'  ;
 
 /**
  * Returns a new array with only the data matching the given filter.
@@ -50,7 +50,7 @@ import { compareConditions } from './compareConditions.js'  ;
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Array}                    A new filtered array
  */
-const filter = function (
+export default function filter(
 	arr: any[],
 	prop: Filter | object | string | ((a: any, i: string | number | symbol) => boolean),
 	val: any = null,
@@ -95,5 +95,3 @@ const filter = function (
 		return res;
 	}
 };
-
-export { filter };

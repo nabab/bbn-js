@@ -5,5 +5,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isBlob: (...args: any[]) => boolean;
-export { isBlob };
+export default function isBlob(...args: any[]): boolean;

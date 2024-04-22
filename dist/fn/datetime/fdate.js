@@ -1,7 +1,7 @@
-import { fdatetime } from './fdatetime.js';
-import { date } from './date.js';
-import { isDate } from '../type/isDate.js';
-import { isString } from '../type/isString.js';
+import fdatetime from './fdatetime.js';
+import date from './date.js';
+import isDate from '../type/isDate.js';
+import isString from '../type/isString.js';
 /**
  * @method   fdate
  * @todo     Add method description for fdate
@@ -11,7 +11,7 @@ import { isString } from '../type/isString.js';
  * @param    {String}      wrong_result
  * @returns
  */
-var fdate = function (d, wrong_result) {
+export default function fdate(d, wrong_result) {
     if (wrong_result === void 0) { wrong_result = false; }
     // Retro compatibility
     if (wrong_result === true) {
@@ -25,5 +25,5 @@ var fdate = function (d, wrong_result) {
         return dayjs(r).format('L');
     }
     return r.toLocaleDateString();
-};
-export { fdate };
+}
+;

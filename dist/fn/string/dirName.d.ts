@@ -13,5 +13,4 @@
  * @param    {String} path
  * @returns  {String} path of the folder
  */
-declare const dirName: (path: any) => string;
-export { dirName };
+export default function dirName(path: any): string;

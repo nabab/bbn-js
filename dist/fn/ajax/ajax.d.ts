@@ -54,5 +54,4 @@
  *
  * @returns  {Promise}  The Promise created by the generated XHR.
  */
-declare const ajax: (url: any, datatype?: any, data?: any, success?: any, failure?: any, abort?: any) => any;
-export { ajax };
+export default function ajax(url: any, datatype?: any, data?: any, success?: any, failure?: any, abort?: any): any;

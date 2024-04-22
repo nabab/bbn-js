@@ -1,4 +1,4 @@
-import { date } from './date.js';
+import date from './date.js';
 import dayjs from 'dayjs';
 /**
  * Returns a date with SQL format.
@@ -18,10 +18,10 @@ import dayjs from 'dayjs';
  * @param    {Boolean}     dayOnly Whether or not include the time in the date
  * @returns  {String}
  */
-var dateSQL = function (v, dayOnly) {
+export default function dateSQL(v, dayOnly) {
     var value = date(v);
     if (value) {
         return dayjs(value).format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
     }
-};
-export { dateSQL };
+}
+;

@@ -17,5 +17,4 @@
  *
  * @returns  {Boolean} True if focused
  */
-declare const selectElementText: (ele: any, win?: any) => void;
-export { selectElementText };
+export default function selectElementText(ele: any, win?: any): void;

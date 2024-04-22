@@ -8,5 +8,4 @@
  *
  * @returns  {Mixed}       The value
  */
-declare const fieldValue: (field: any) => any;
-export { fieldValue };
+export default function fieldValue(field: any): any;

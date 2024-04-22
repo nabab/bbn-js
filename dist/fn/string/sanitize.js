@@ -1,5 +1,5 @@
-import { removeAccents } from './removeAccents.js';
-import { trim } from './trim.js';
+import removeAccents from './removeAccents.js';
+import trim from './trim.js';
 /**
  * Removes all unacceptable characters in a DOM node.
  *
@@ -15,7 +15,7 @@ import { trim } from './trim.js';
  * @memberof bbn.fn
  * @returns  {String} str
  */
-var sanitize = function (str, separator) {
+export default function sanitize(str, separator) {
     if (separator === void 0) { separator = "_"; }
     var escaped = ["[", "]", "{", "}", "(", ")", "-", "+", "*", "/"];
     var exp = "[";
@@ -31,5 +31,5 @@ var sanitize = function (str, separator) {
         .replace(/[^a-z0-9]/gi, separator)
         .replace(re, separator);
     return trim(res, separator);
-};
-export { sanitize };
+}
+;

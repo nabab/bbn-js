@@ -12,5 +12,4 @@
  * @param    {HTMLElement} ele
  * @returns  {HTMLElement} The dom element with the new style.
  */
-declare const center: (ele: any) => any;
-export { center };
+export default function center(ele: any): any;

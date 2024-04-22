@@ -16,7 +16,7 @@
  * @param    {String} rgb
  * @returns  {String}
  */
-const rgb2hex = function (rgb) {
+export default function rgb2hex(rgb) {
   rgb = rgb.match(
     /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i
   );
@@ -27,5 +27,3 @@ const rgb2hex = function (rgb) {
         ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2)
     : "";
 };
-
-export { rgb2hex };

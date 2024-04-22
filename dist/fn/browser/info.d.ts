@@ -6,5 +6,4 @@
  * @param    {...any} args
  * @returns  {*}
  */
-declare const info: (...args: any[]) => any;
-export { info };
+export default function info(...args: any[]): any;

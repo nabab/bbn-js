@@ -9,7 +9,7 @@
  * @param    {Function}    callback
  * @returns  {*}
  */
-var animateCss = function (ele, animationName, callback) {
+export default function animateCss(ele, animationName, callback) {
     var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
     /*$(ele).addClass('animated ' + animationName).one(animationEnd, function(){
           if ( typeof callback == 'function' ){ // make sure the callback is a function
@@ -27,5 +27,5 @@ var animateCss = function (ele, animationName, callback) {
         }
         e.target.classList.remove(animationName);
     });
-};
-export { animateCss };
+}
+;

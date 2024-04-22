@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isCanvas = function (...args: any[]): boolean {
+export default function isCanvas(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (!(a instanceof HTMLCanvasElement)) {
@@ -21,5 +21,3 @@ const isCanvas = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isCanvas };

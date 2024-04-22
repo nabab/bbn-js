@@ -10,5 +10,4 @@
   * @memberof bbn.fn
   * @returns  {Boolean}
   */
-declare const isTabletDevice: () => boolean;
-export { isTabletDevice };
+export default function isTabletDevice(): boolean;

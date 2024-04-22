@@ -1,5 +1,3 @@
-const defaultLinkFunction = function (responseObj, ele) {
+export default function defaultLinkFunction(responseObj, ele) {
 	return true;
 };
-
-export { defaultLinkFunction };

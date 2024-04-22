@@ -7,7 +7,7 @@
  * @param {Boolean} writable
  * @param {Boolean} configurable
  */
-var setProp = function (obj, prop, value, writable, configurable) {
+export default function setProp(obj, prop, value, writable, configurable) {
     if (writable === void 0) { writable = true; }
     if (configurable === void 0) { configurable = true; }
     Object.defineProperty(obj, prop, {
@@ -15,5 +15,5 @@ var setProp = function (obj, prop, value, writable, configurable) {
         writable: writable,
         configurable: configurable,
     });
-};
-export { setProp };
+}
+;

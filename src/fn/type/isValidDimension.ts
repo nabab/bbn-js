@@ -1,5 +1,5 @@
-import { isNumber } from './isNumber.js'  ;
-import { substr } from '../string/substr.js'  ;
+import isNumber from './isNumber.js'  ;
+import substr from '../string/substr.js'  ;
 
 /**
  * Returns true if the given value is a valid CSS dimension string, false otherwise.
@@ -10,7 +10,7 @@ import { substr } from '../string/substr.js'  ;
  * @param    {String} st
  * @returns
  */
-const isValidDimension = function (st) {
+export default function isValidDimension(st) {
   if (
     typeof st === "string" &&
     st.length > 0 &&
@@ -24,5 +24,3 @@ const isValidDimension = function (st) {
   }
   return false;
 };
-
-export { isValidDimension };

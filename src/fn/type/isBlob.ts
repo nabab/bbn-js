@@ -5,7 +5,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isBlob = function (...args: any[]): boolean {
+export default function isBlob(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Blob]") {
@@ -14,5 +14,3 @@ const isBlob = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isBlob };

@@ -14,5 +14,4 @@
  * @param    {String|Number} v
  * @returns  {date}
  */
-declare const date: (v: any) => any;
-export { date };
+export default function date(v: any): any;

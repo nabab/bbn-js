@@ -14,5 +14,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isPrimitive: (...args: any[]) => boolean;
-export { isPrimitive };
+export default function isPrimitive(...args: any[]): boolean;

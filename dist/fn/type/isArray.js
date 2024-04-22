@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isArray = function () {
+export default function isArray() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -24,5 +24,5 @@ var isArray = function () {
         }
     }
     return true;
-};
-export { isArray };
+}
+;

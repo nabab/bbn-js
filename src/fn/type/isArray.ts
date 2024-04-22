@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isArray = function (...args: any[]): boolean {
+export default function isArray(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (!Array.isArray(a)) {
@@ -19,5 +19,3 @@ const isArray = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isArray };

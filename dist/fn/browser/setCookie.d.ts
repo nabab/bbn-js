@@ -12,5 +12,4 @@
  * @param    {Number} days  The days before expiration of the cookie.
  * @returns
  */
-declare const setCookie: (name: any, value: any, days: any) => void;
-export { setCookie };
+export default function setCookie(name: any, value: any, days: any): void;

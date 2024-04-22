@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isFunction = function () {
+export default function isFunction() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -26,5 +26,5 @@ var isFunction = function () {
         }
     }
     return true;
-};
-export { isFunction };
+}
+;

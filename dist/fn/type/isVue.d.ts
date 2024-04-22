@@ -12,5 +12,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isVue: (...args: any[]) => boolean;
-export { isVue };
+export default function isVue(...args: any[]): boolean;

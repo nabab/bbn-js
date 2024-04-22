@@ -16,7 +16,7 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-var lightenDarkenHex = function (hex, amt) {
+export default function lightenDarkenHex(hex, amt) {
     if (hex && amt) {
         var ht = hex[0] === "#";
         hex = ht ? hex.slice(1) : hex;
@@ -41,5 +41,5 @@ var lightenDarkenHex = function (hex, amt) {
         }
         return (ht ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
-};
-export { lightenDarkenHex };
+}
+;

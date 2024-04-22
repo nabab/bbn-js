@@ -8,5 +8,4 @@
  * @param    {Object}      o
  * @returns  {*}
  */
-declare const addStyle: (ele: any, o: any) => void;
-export { addStyle };
+export default function addStyle(ele: any, o: any): void;

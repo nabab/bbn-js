@@ -14,5 +14,4 @@
  * @memberof bbn.fn
  * @returns  {Object}
  */
-declare const extendOut: (...args: object[]) => any;
-export { extendOut };
+export default function extendOut(...args: object[]): any;

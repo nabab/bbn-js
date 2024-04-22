@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isString = function (...args: any[]): boolean {
+export default function isString(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object String]") {
@@ -19,5 +19,3 @@ const isString = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isString };

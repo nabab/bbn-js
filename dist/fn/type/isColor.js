@@ -1,4 +1,4 @@
-import { isString } from './isString.js';
+import isString from './isString.js';
 /**
  * Intended to check if the argument provided is a color.
  *
@@ -28,7 +28,7 @@ import { isString } from './isString.js';
  * @param    {String} st
  * @returns  {Boolean}
  */
-var isColor = function () {
+export default function isColor() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -46,5 +46,5 @@ var isColor = function () {
         }
     }
     return true;
-};
-export { isColor };
+}
+;

@@ -5,5 +5,4 @@
  * @param {*} params
  * @returns
  */
-declare const escapeUrl: (url: any, params: any) => string;
-export { escapeUrl };
+export default function escapeUrl(url: any, params: any): string;

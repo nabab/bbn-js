@@ -1,6 +1,6 @@
-import { isObject } from '../type/isObject.js';
-import { isArray } from '../type/isArray.js';
-import { iterate } from '../loop/iterate.js';
+import isObject from '../type/isObject.js';
+import isArray from '../type/isArray.js';
+import iterate from '../loop/iterate.js';
 /**
  * Converts the given object 'filter' to a valid format of condition.
  *
@@ -38,7 +38,7 @@ import { iterate } from '../loop/iterate.js';
  * @param    {String} operator
  * @returns  {Object}
  */
-var filterToConditions = function (filter, operator) {
+export default function filterToConditions(filter, operator) {
     if (operator === void 0) { operator = "="; }
     if (!isObject(filter)) {
         throw new Error("Error in filterToCondition: filter must be an object");
@@ -65,5 +65,6 @@ var filterToConditions = function (filter, operator) {
         filter.logic = "AND";
     }
     return filter;
-};
+}
+;
 export { filterToConditions };

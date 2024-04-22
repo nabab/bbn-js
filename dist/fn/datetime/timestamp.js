@@ -11,9 +11,9 @@
  * @param    {Number} seconds
  * @returns  {Boolean}
  */
-var timestamp = function (seconds) {
+export default function timestamp(seconds) {
     if (seconds === void 0) { seconds = false; }
     var r = new Date().getTime();
     return seconds ? Math.round(r / 1000) : r;
-};
-export { timestamp };
+}
+;

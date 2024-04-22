@@ -30,5 +30,4 @@
  * @param    {Number} toIndex   The future index of the element
  * @returns  {Array}  The same array, with elements repositionned.
  */
-declare const move: (arr: any[], fromIndex: number, toIndex: number) => any[];
-export { move };
+export default function move(arr: any[], fromIndex: number, toIndex: number): any[];

@@ -11,7 +11,7 @@
  * @param {HTMLElement} img
  * @returns {HTMLCanvasElement}
  */
-const imageToCanvas = function (img)
+export default function imageToCanvas(img)
 {
 	let canvas = document.createElement('canvas');
 	canvas.width = img.width;
@@ -20,5 +20,3 @@ const imageToCanvas = function (img)
 
 	return canvas;
 };
-
-export { imageToCanvas };

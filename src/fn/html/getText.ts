@@ -1,6 +1,4 @@
-const getText = function (ele)
+export default function getText(ele)
 {
 	return ele.innerText().trim();
 };
-
-export { getText };

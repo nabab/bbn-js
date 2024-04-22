@@ -12,7 +12,7 @@
  * @param    {String} name 
  * @returns           
  */
-const getCookie = function (name) {
+export default function getCookie(name) {
 	let nameEqual = name + '=';
 	let ca = document.cookie.split(';');
 	for (let i = 0; i < ca.length; i++) {
@@ -29,5 +29,3 @@ const getCookie = function (name) {
 	}
 	return null;
 };
-
-export { getCookie };

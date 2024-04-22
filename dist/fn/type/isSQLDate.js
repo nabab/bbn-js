@@ -6,7 +6,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isSQLDate = function () {
+export default function isSQLDate() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -21,5 +21,5 @@ var isSQLDate = function () {
         }
     }
     return true;
-};
-export { isSQLDate };
+}
+;

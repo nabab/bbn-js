@@ -1,2 +1,1 @@
-declare const defaultAlertFunction: (msg: any, title?: any) => void;
-export { defaultAlertFunction };
+export default function defaultAlertFunction(msg: any, title?: any): void;

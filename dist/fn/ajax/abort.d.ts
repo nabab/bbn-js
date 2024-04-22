@@ -20,5 +20,4 @@
  *
  * @returns  {undefined}
  */
-declare const abort: (requestId: any) => void;
-export { abort };
+export default function abort(requestId: any): void;

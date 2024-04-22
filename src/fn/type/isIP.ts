@@ -1,6 +1,6 @@
-import { isString } from './isString.js'  ;
+import isString from './isString.js'  ;
 
-const isIP = function (...args: any[]): boolean
+export default function isIP(...args: any[]): boolean
 {
 	if (!args.length) return false;
 	for (let st of args) {
@@ -11,5 +11,3 @@ const isIP = function (...args: any[]): boolean
 
 	return true;
 };
-
-export { isIP };

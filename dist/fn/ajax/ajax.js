@@ -1,12 +1,12 @@
-import { isObject } from '../type/isObject.js';
-import { replaceAll } from '../string/replaceAll.js';
-import { getRequestId } from './getRequestId.js';
-import { getLoader } from './getLoader.js';
-import { extend } from '../object/extend.js';
-import { numProperties } from '../object/numProperties.js';
-import { _deleteLoader } from './_deleteLoader.js';
-import { isFunction } from '../type/isFunction.js';
-import { _addLoader } from './_addLoader.js';
+import isObject from '../type/isObject.js';
+import replaceAll from '../string/replaceAll.js';
+import getRequestId from './getRequestId.js';
+import getLoader from './getLoader.js';
+import extend from '../object/extend.js';
+import numProperties from '../object/numProperties.js';
+import _deleteLoader from './_deleteLoader.js';
+import isFunction from '../type/isFunction.js';
+import _addLoader from './_addLoader.js';
 /**
  * Creates an XHR object and returns the Promise.
  *
@@ -63,7 +63,7 @@ import { _addLoader } from './_addLoader.js';
  *
  * @returns  {Promise}  The Promise created by the generated XHR.
  */
-var ajax = function (url, datatype, data, success, failure, abort) {
+export default function ajax(url, datatype, data, success, failure, abort) {
     if (datatype === void 0) { datatype = null; }
     if (data === void 0) { data = null; }
     if (success === void 0) { success = null; }
@@ -167,5 +167,5 @@ var ajax = function (url, datatype, data, success, failure, abort) {
         bbn.fn.defaultStartLoadingFunction(url, tst_1, data, requestId_1);
         return loader_1;
     }
-};
-export { ajax };
+}
+;

@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import dayjs_plugin_calendar from 'dayjs/plugin/calendar.js';
-import { fdate } from './fdate.js';
-import { date } from './date.js';
-import { isDate } from '../type/isDate.js';
-import { isString } from '../type/isString.js';
+import fdate from './fdate.js';
+import date from './date.js';
+import isDate from '../type/isDate.js';
+import isString from '../type/isString.js';
 var bbn = {
     _: function (st) { return st; }
 };
@@ -26,7 +26,7 @@ dayjs.extend(dayjs_plugin_calendar);
  * @param    {String | Boolean} wrong_result Whether or not include the time in the date
  * @returns  {String}
  */
-var calendar = function (d, wrong_result) {
+export default function calendar(d, wrong_result) {
     if (wrong_result === void 0) { wrong_result = false; }
     if (undefined === dayjs) {
         return fdate(d, wrong_result);
@@ -43,5 +43,5 @@ var calendar = function (d, wrong_result) {
         lastWeek: 'ddd D',
         sameElse: 'L',
     });
-};
-export { calendar };
+}
+;

@@ -1,4 +1,4 @@
-const isInViewport = function(ele: HTMLElement, fully: Boolean = false) {
+export default function isInViewport(ele: HTMLElement, fully: Boolean = false) {
 
   const bounding = ele.getBoundingClientRect();
 
@@ -20,5 +20,3 @@ const isInViewport = function(ele: HTMLElement, fully: Boolean = false) {
     && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) + eleHeight
   );
 };
-
-export { isInViewport };

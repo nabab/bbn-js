@@ -12,5 +12,4 @@
  * @param {canvas} canvas
  * @returns  {HTMLElement}
  */
-declare const canvasToImage: (canvas: any) => HTMLImageElement;
-export { canvasToImage };
+export default function canvasToImage(canvas: any): HTMLImageElement;

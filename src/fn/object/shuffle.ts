@@ -1,4 +1,4 @@
-const shuffle = function (array: any[]): any[]
+export default function shuffle(array: any[]): any[]
 {
 	let currentIndex = array.length,
 		randomIndex;
@@ -15,5 +15,3 @@ const shuffle = function (array: any[]): any[]
 
 	return array;
 };
-
-export { shuffle };

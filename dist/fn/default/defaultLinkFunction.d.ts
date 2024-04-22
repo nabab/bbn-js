@@ -1,2 +1,1 @@
-declare const defaultLinkFunction: (responseObj: any, ele: any) => boolean;
-export { defaultLinkFunction };
+export default function defaultLinkFunction(responseObj: any, ele: any): boolean;

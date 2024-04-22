@@ -1,11 +1,11 @@
-import { isDom } from '../type/isDom.js';
-import { isCp } from '../type/isCp.js';
+import isDom from '../type/isDom.js';
+import isCp from '../type/isCp.js';
 /**
  * Returns a function to give to JSON.stringify in order to avoid circular values.
  *
  * @returns Function
  */
-var circularReplacer = function () {
+export default function circularReplacer() {
     var visited = new WeakSet();
     return function (key, value) {
         if (typeof value === "object" && value !== null) {
@@ -33,5 +33,5 @@ var circularReplacer = function () {
         }
         return value;
     };
-};
-export { circularReplacer };
+}
+;

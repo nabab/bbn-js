@@ -1,2 +1,1 @@
-declare const formatDate: (date: any, format: any) => string;
-export { formatDate };
+export default function formatDate(date: any, format: any): string;

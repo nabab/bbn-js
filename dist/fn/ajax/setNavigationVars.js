@@ -1,7 +1,7 @@
-import { substr } from '../string/substr.js';
-import { filter } from '../object/filter.js';
-import { extend } from '../object/extend.js';
-import { html2text } from '../html/html2text.js';
+import substr from '../string/substr.js';
+import filter from '../object/filter.js';
+import extend from '../object/extend.js';
+import html2text from '../html/html2text.js';
 /**
  * Changes the URL and the associated variables and updates the history.
  *
@@ -25,7 +25,7 @@ import { html2text } from '../html/html2text.js';
  *
  * @returns  {void}
  */
-var setNavigationVars = function (url, title, data, repl) {
+export default function setNavigationVars(url, title, data, repl) {
     if (data === void 0) { data = null; }
     if (repl === void 0) { repl = false; }
     // Current path becomes old path
@@ -78,5 +78,5 @@ var setNavigationVars = function (url, title, data, repl) {
             h.pushState(obj, title, bbn.env.url);
         }
     }
-};
-export { setNavigationVars };
+}
+;

@@ -10,5 +10,4 @@
  * @param    {...any} args
  * @returns
  */
-declare const warning: (message: any) => void;
-export { warning };
+export default function warning(message: any): void;

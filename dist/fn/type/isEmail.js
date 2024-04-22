@@ -1,4 +1,4 @@
-import { isString } from './isString.js';
+import isString from './isString.js';
 /**
  * Intended to check if the argument provided is an e-mail address written correctly
  *
@@ -20,7 +20,7 @@ import { isString } from './isString.js';
  * @param    {String} st
  * @returns  {Boolean}
  */
-var isEmail = function () {
+export default function isEmail() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -38,5 +38,5 @@ var isEmail = function () {
         }
     }
     return true;
-};
-export { isEmail };
+}
+;

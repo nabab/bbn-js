@@ -17,5 +17,4 @@
  * @param    {Boolean}         noPrivate If set to true the _private_ properties won't be included
  * @returns  {Object}
  */
-declare const riterate: (obj: any, fn: any, noPrivate?: boolean) => any;
-export { riterate };
+export default function riterate(obj: any, fn: any, noPrivate?: boolean): any;

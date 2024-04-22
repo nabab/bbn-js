@@ -1,8 +1,8 @@
-import { isArray } from '../type/isArray.js';
-import { hash } from '../string/hash.js';
-import { isSame } from '../type/isSame.js';
-import { search } from './search.js';
-var mutateArray = function (a1, a2) {
+import isArray from '../type/isArray.js';
+import hash from '../string/hash.js';
+import isSame from '../type/isSame.js';
+import search from './search.js';
+export default function mutateArray(a1, a2) {
     if (!isArray(a1, a2)) {
         throw new TypeError('mutateArray can only be called with arrays');
     }
@@ -40,5 +40,4 @@ var mutateArray = function (a1, a2) {
         a1.splice(a1Ordered.length, a1.length - a1Ordered.length);
     }
     return a1;
-};
-export { mutateArray };
+}

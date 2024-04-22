@@ -7,7 +7,7 @@
  * @param {Boolean} writable
  * @param {Boolean} configurable
  */
-const setProp = function (
+export default function setProp(
   obj: object,
   prop: string,
   value: any,
@@ -20,5 +20,3 @@ const setProp = function (
     configurable: configurable,
   });
 };
-
-export { setProp };

@@ -1,2 +1,1 @@
-declare const escapeSquotes: (str: any) => any;
-export { escapeSquotes };
+export default function escapeSquotes(str: any): any;

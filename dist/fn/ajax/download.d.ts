@@ -26,5 +26,4 @@
  *
  * @returns  {undefined}
  */
-declare const download: (url: any, filename?: string, params?: any) => any;
-export { download };
+export default function download(url: any, filename?: string, params?: any): any;

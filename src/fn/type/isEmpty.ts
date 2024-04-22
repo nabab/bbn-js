@@ -1,5 +1,5 @@
-import { isArray } from './isArray.js'  ;
-import { numProperties } from '../object/numProperties.js'  ;
+import isArray from './isArray.js'  ;
+import numProperties from '../object/numProperties.js'  ;
 
 /**
  * Checks if the argument is empty or not.
@@ -40,7 +40,7 @@ import { numProperties } from '../object/numProperties.js'  ;
  * @param    {*} obj
  * @returns  {Boolean}
  */
-const isEmpty = function (obj): boolean {
+export default function isEmpty(obj): boolean {
   if (!obj) {
     return true;
   }
@@ -55,5 +55,3 @@ const isEmpty = function (obj): boolean {
   }
   return false;
 };
-
-export { isEmpty };

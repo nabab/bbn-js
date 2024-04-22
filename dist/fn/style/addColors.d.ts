@@ -13,5 +13,4 @@
  * @param    {Object} colors
  * @returns
  */
-declare const addColors: (colors: object) => void;
-export { addColors };
+export default function addColors(colors: object): void;

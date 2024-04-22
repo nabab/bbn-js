@@ -1,10 +1,10 @@
-import { error } from '../browser/error.js'  ;
+import error from '../browser/error.js'  ;
 
 /**
  * Check if the property contain sizing
  * @return {Boolean}
  */
-const getAttributes = function (ele) {
+export default function getAttributes(ele) {
 	if (!ele.getAttributeNames) {
 		error('The element is not a proper HTML Element');
 	}
@@ -15,5 +15,3 @@ const getAttributes = function (ele) {
 	});
 	return res;
 };
-
-export { getAttributes };

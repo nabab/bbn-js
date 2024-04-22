@@ -1,2 +1,1 @@
-declare const isCp: (...args: any[]) => boolean;
-export { isCp };
+export default function isCp(...args: any[]): boolean;

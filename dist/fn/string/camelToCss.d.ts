@@ -14,5 +14,4 @@
  * @param   {String} str
  * @returns {String}
  */
-declare const camelToCss: (str: any) => any;
-export { camelToCss };
+export default function camelToCss(str: any): any;

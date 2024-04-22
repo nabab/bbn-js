@@ -1,4 +1,4 @@
-import { each } from '../loop/each.js'  ;
+import each from '../loop/each.js'  ;
 
 /**
  * Returns the value of the given property from the given object.
@@ -28,7 +28,7 @@ import { each } from '../loop/each.js'  ;
  * @param    {String} prop
  * @returns  {*}      The property's value or undefined
  */
-const setProperty = function (obj: object, prop: string, value: any, force?: boolean): void
+export default function setProperty(obj: object, prop: string, value: any, force?: boolean): void
 {
 	if (typeof obj === 'object' && typeof prop === 'string') {
 		let o = obj;
@@ -49,5 +49,3 @@ const setProperty = function (obj: object, prop: string, value: any, force?: boo
 		});
 	}
 };
-
-export { setProperty };

@@ -14,7 +14,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isPrimitive = function (...args: any[]): boolean {
+export default function isPrimitive(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (a !== null && (typeof a == "object" || typeof a == "function")) {
@@ -24,5 +24,3 @@ const isPrimitive = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isPrimitive };

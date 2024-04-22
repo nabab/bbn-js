@@ -24,5 +24,4 @@
  * @param    {String} chars
  * @returns  {String}
  */
-declare const randomString: (min?: number, max?: string | number, types?: string) => string;
-export { randomString };
+export default function randomString(min?: number, max?: string | number, types?: string): string;

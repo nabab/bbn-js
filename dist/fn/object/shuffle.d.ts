@@ -1,2 +1,1 @@
-declare const shuffle: (array: any[]) => any[];
-export { shuffle };
+export default function shuffle(array: any[]): any[];

@@ -24,5 +24,4 @@
  * @param    {String} [dir=asc] The direction of the order (desc or asc by default)
  * @returns  {Array}
  */
-declare const order: (arr: any, prop: any, dir?: string) => any;
-export { order };
+export default function order(arr: any, prop: any, dir?: string): any;

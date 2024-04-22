@@ -5,5 +5,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const ftime: (d: any, wrong_result: any) => any;
-export { ftime };
+export default function ftime(d: any, wrong_result: any): any;

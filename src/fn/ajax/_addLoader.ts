@@ -1,5 +1,5 @@
-import { substr } from '../string/substr.js'  ;
-import { log } from '../browser/log.js'  ;
+import substr from '../string/substr.js'  ;
+import log from '../browser/log.js'  ;
 
 /**
  * Creates and adds a "loader" object to the property bbn.env.loaders.
@@ -16,7 +16,7 @@ import { log } from '../browser/log.js'  ;
  * @returns  {Number}  The timestamp (in ms)
  */
 
-const _addLoader = function (requestId, prom, aborter) {
+export default function _addLoader(requestId, prom, aborter) {
   /** @var {Number} tst Current timestamp */
   let tst = new Date().getTime();
   /** @var {String} url The original URL (part of requestId before : and md5) */
@@ -51,5 +51,3 @@ const _addLoader = function (requestId, prom, aborter) {
   }
   return tst;
 };
-
-export { _addLoader };

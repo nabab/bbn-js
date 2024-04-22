@@ -16,9 +16,8 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const hex2rgb: (hex: any) => {
+export default function hex2rgb(hex: any): {
     r: number;
     g: number;
     b: number;
 };
-export { hex2rgb };

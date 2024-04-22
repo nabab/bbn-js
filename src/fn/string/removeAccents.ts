@@ -1,5 +1,5 @@
-import { isString } from '../type/isString.js'  ;
-import { log } from '../browser/log.js'  ;
+import isString from '../type/isString.js'  ;
+import log from '../browser/log.js'  ;
 
 /**
  * Returns the string passed as an argument without accents.
@@ -16,7 +16,7 @@ import { log } from '../browser/log.js'  ;
  * @param    {String} st
  * @returns  {String}
  */
-const removeAccents = function (st: string): string {
+export default function removeAccents(st: string): string {
   if (!isString(st)) {
     if (st.toString) {
       st = st.toString();
@@ -28,5 +28,3 @@ const removeAccents = function (st: string): string {
 
   return st.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
-
-export { removeAccents };

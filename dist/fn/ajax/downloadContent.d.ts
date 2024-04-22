@@ -24,5 +24,4 @@
  *
  * @returns  {undefined}
  */
-declare const downloadContent: (filename: any, content: any, type?: any) => void;
-export { downloadContent };
+export default function downloadContent(filename: any, content: any, type?: any): void;

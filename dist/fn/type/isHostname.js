@@ -1,6 +1,6 @@
-import { isString } from './isString.js';
-import { isIP } from './isIP.js';
-var isHostname = function () {
+import isString from './isString.js';
+import isIP from './isIP.js';
+export default function isHostname() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -17,5 +17,5 @@ var isHostname = function () {
         }
     }
     return true;
-};
-export { isHostname };
+}
+;

@@ -16,7 +16,7 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-const hex2rgb = function (hex) {
+export default function hex2rgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
@@ -26,5 +26,3 @@ const hex2rgb = function (hex) {
       }
     : null;
 };
-
-export { hex2rgb };

@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isVue = function (...args: any[]): boolean {
+export default function isVue(...args: any[]): boolean {
   if (!args.length) {
     return false;
   }
@@ -43,5 +43,3 @@ const isVue = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isVue };

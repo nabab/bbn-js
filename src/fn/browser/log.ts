@@ -1,4 +1,4 @@
-import { isFunction } from '../type/isFunction.js'  ;
+import isFunction from '../type/isFunction.js'  ;
 
 /**
  * Logs the given arguments in the browser's console.
@@ -13,7 +13,7 @@ import { isFunction } from '../type/isFunction.js'  ;
  * @param    {...any} args 
  * @returns       
  */
-const log = function (...args) {
+export default function log(...args) {
 	if (window.console !== undefined) {
 		let cfg;
 		let level = 5;
@@ -46,5 +46,3 @@ const log = function (...args) {
 	}
 	return this;
 };
-
-export { log };

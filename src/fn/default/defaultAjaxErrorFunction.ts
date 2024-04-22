@@ -1,7 +1,5 @@
-import { log } from '../browser/log.js'  ;
+import log from '../browser/log.js'  ;
 
-const defaultAjaxErrorFunction = function (jqXHR, textStatus = null, errorThrown = null) {
+export default function defaultAjaxErrorFunction(jqXHR, textStatus = null, errorThrown = null) {
 	log(textStatus, errorThrown);
 };
-
-export { defaultAjaxErrorFunction };

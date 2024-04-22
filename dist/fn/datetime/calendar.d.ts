@@ -16,5 +16,4 @@
  * @param    {String | Boolean} wrong_result Whether or not include the time in the date
  * @returns  {String}
  */
-declare const calendar: (d: any, wrong_result?: boolean) => any;
-export { calendar };
+export default function calendar(d: any, wrong_result?: boolean): any;

@@ -14,7 +14,7 @@
  * @param   {String} str
  * @returns {String}
  */
-const camelToCss = function (str) {
+export default function camelToCss(str) {
   return str
     .replace(/([A-Z])/g, function (st) {
       return "-" + st.toLowerCase();
@@ -23,5 +23,3 @@ const camelToCss = function (str) {
       return st.toLowerCase();
     });
 };
-
-export { camelToCss };

@@ -1,7 +1,7 @@
-import { formdata } from './formdata.js'  ;
-import { isFunction } from '../type/isFunction.js'  ;
-import { isString } from '../type/isString.js'  ;
-import { post } from '../ajax/post.js'  ;
+import formdata from './formdata.js'  ;
+import isFunction from '../type/isFunction.js'  ;
+import isString from '../type/isString.js'  ;
+import post from '../ajax/post.js'  ;
 
 /**
  * Submit a form's data through an Ajax request.
@@ -21,7 +21,7 @@ import { post } from '../ajax/post.js'  ;
  * 
  * @returns  {*}           
  */
-const submit = function (form: HTMLFormElement, e?: Event, fn?: Function): void
+export default function submit(form: HTMLFormElement, e?: Event, fn?: Function): void
 {
 	let url: string = form.getAttribute('action') || bbn.env.path;
 	let data: object;
@@ -54,5 +54,3 @@ const submit = function (form: HTMLFormElement, e?: Event, fn?: Function): void
 		}
 	}
 };
-
-export { submit };

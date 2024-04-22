@@ -1,7 +1,7 @@
-import { getCssVar } from './getCssVar.js'  ;
-import { each } from '../loop/each.js'  ;
+import getCssVar from './getCssVar.js'  ;
+import each from '../loop/each.js'  ;
 
-const resize = function ()
+export default function resize()
 {
 	let diffW = bbn.env.width !== window.innerWidth;
 	let diffH = bbn.env.height !== window.innerHeight;
@@ -40,5 +40,3 @@ const resize = function ()
 		document.body.className = classes.join(' ');
 	}
 };
-
-export { resize };

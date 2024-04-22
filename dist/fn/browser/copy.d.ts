@@ -11,5 +11,4 @@
  * @param {String} st The string to copy.
  * @returns
  */
-declare const copy: (st: any) => Promise<unknown>;
-export { copy };
+export default function copy(st: any): Promise<unknown>;

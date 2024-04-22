@@ -46,5 +46,4 @@
  *
  * @returns  {String} The unique ID
  */
-declare const getRequestId: (url: any, data: any, datatype: any) => string;
-export { getRequestId };
+export default function getRequestId(url: any, data: any, datatype: any): string;

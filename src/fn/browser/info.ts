@@ -1,4 +1,4 @@
-import { log } from './log.js'  ;
+import log from './log.js'  ;
 
 /**
  * Logs the given argument in the browser's console highlighting it with a blue background.
@@ -8,7 +8,7 @@ import { log } from './log.js'  ;
  * @param    {...any} args 
  * @returns  {*}      
  */
-const info = function (...args) {
+export default function info(...args) {
 	args.unshift({
 		//_bbn_console_mode: "info",
 		_bbn_console_level: 4,
@@ -17,5 +17,3 @@ const info = function (...args) {
 	log.apply(this, args);
 	return this;
 };
-
-export { info };

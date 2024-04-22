@@ -11,10 +11,8 @@
  * @param    {Number} seconds
  * @returns  {Boolean}            
  */
-const timestamp = function (seconds = false)
+export default function timestamp(seconds = false)
 {
 	let r = new Date().getTime();
 	return seconds ? Math.round(r / 1000) : r;
 };
-
-export { timestamp };

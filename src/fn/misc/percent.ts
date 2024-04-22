@@ -19,8 +19,6 @@
  * @param    {Number|String} cent
  * @returns  {Number}
  */
-const percent = function (percent, cent) {
+export default function percent(percent, cent) {
   return (cent / 100) * percent;
 };
-
-export { percent };

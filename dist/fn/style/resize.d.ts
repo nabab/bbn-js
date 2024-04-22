@@ -1,2 +1,1 @@
-declare const resize: () => void;
-export { resize };
+export default function resize(): void;

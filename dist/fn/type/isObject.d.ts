@@ -15,5 +15,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isObject: (...args: any[]) => boolean;
-export { isObject };
+export default function isObject(...args: any[]): boolean;

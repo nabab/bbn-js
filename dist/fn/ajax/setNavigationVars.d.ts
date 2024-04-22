@@ -21,5 +21,4 @@
  *
  * @returns  {void}
  */
-declare const setNavigationVars: (url: any, title: any, data?: any, repl?: boolean) => void;
-export { setNavigationVars };
+export default function setNavigationVars(url: any, title: any, data?: any, repl?: boolean): void;

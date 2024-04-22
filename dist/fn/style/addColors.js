@@ -1,5 +1,5 @@
-import { numProperties } from '../object/numProperties.js';
-import { iterate } from '../loop/iterate.js';
+import numProperties from '../object/numProperties.js';
+import iterate from '../loop/iterate.js';
 /**
  * Adds the given color to the object bbn.var.colors in order to be able to use
  * the css classes bbn-bg-myColor for the background and bbn-myColor for the text color.
@@ -15,7 +15,7 @@ import { iterate } from '../loop/iterate.js';
  * @param    {Object} colors
  * @returns
  */
-var addColors = function (colors) {
+export default function addColors(colors) {
     if (numProperties(colors)) {
         if (!bbn.var.colors) {
             bbn.var.colors = {};
@@ -72,5 +72,5 @@ var addColors = function (colors) {
                 ";}", i_1);
         });
     }
-};
-export { addColors };
+}
+;

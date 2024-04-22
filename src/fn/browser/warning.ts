@@ -1,4 +1,4 @@
-import { log } from './log.js'  ;
+import log from './log.js'  ;
 
 /**
  * Logs the given argument in the browser's console highlighting it with a yellow background and red color.
@@ -12,7 +12,7 @@ import { log } from './log.js'  ;
  * @param    {...any} args 
  * @returns  
  */
-const warning = function (message)
+export default function warning(message)
 {
 	const args: any[] = ['BBN: ' + message];
   const obj: object = {
@@ -23,5 +23,3 @@ const warning = function (message)
 	args.unshift(obj);
 	log.apply(this, args);
 };
-
-export { warning };

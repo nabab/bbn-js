@@ -1,2 +1,1 @@
-declare const createObject: (...args: any[]) => any;
-export { createObject };
+export default function createObject(...args: any[]): any;

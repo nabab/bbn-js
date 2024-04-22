@@ -1,4 +1,4 @@
-import { isNumber } from '../type/isNumber.js'  ;
+import isNumber from '../type/isNumber.js'  ;
 
 /**
  * Returns the given value to money format basing on the given configuration.
@@ -21,7 +21,7 @@ import { isNumber } from '../type/isNumber.js'  ;
  * @param {String} thousands The character to use to separate thounsands.
  * @param {Number} precision The number of decimals places.
  */
-const money = function (
+export default function money(
 	val: number,
 	kilo?: boolean,
 	currency?: string,
@@ -130,5 +130,3 @@ const money = function (
 		}) + (currency ? ' ' + currency : '')
 	);
 };
-
-export { money };

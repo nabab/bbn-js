@@ -17,8 +17,8 @@
  *
  * @returns  {Boolean} True if focused
  */
-var isFocused = function (ele, contain) {
+export default function isFocused(ele, contain) {
     if (contain === void 0) { contain = false; }
     return ele === document.activeElement || (contain && ele.contains && ele.contains(document.activeElement));
-};
-export { isFocused };
+}
+;

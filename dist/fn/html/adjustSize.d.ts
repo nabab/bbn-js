@@ -1,2 +1,1 @@
-declare const adjustSize: (type: any, eles: any) => void;
-export { adjustSize };
+export default function adjustSize(type: any, eles: any): void;

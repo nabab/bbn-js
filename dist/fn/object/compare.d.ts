@@ -49,5 +49,4 @@
  * @param    {String}        operator
  * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
  */
-declare const compare: (v1: any, v2: any, operator: any) => boolean;
-export { compare };
+export default function compare(v1: any, v2: any, operator: any): boolean;

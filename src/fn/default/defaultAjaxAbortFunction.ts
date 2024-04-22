@@ -1,7 +1,5 @@
-import { log } from '../browser/log.js'  ;
+import log from '../browser/log.js'  ;
 
-const defaultAjaxAbortFunction = function (message, url = "") {
+export default function defaultAjaxAbortFunction(message, url = "") {
   log(message);
 };
-
-export { defaultAjaxAbortFunction };

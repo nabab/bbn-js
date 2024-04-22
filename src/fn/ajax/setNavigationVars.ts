@@ -1,7 +1,7 @@
-import { substr } from '../string/substr.js'  ;
-import { filter } from '../object/filter.js'  ;
-import { extend } from '../object/extend.js'  ;
-import { html2text } from '../html/html2text.js'  ;
+import substr from '../string/substr.js'  ;
+import filter from '../object/filter.js'  ;
+import extend from '../object/extend.js'  ;
+import html2text from '../html/html2text.js'  ;
 
 /**
  * Changes the URL and the associated variables and updates the history.
@@ -26,7 +26,7 @@ import { html2text } from '../html/html2text.js'  ;
  * 
  * @returns  {void}
  */
-const setNavigationVars = function (url, title, data = null, repl = false)
+export default function setNavigationVars(url, title, data = null, repl = false)
 {
 	// Current path becomes old path
 	bbn.env.old_path = bbn.env.path;
@@ -79,5 +79,3 @@ const setNavigationVars = function (url, title, data = null, repl = false)
 		}
 	}
 };
-
-export { setNavigationVars };

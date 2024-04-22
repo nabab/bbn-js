@@ -1,4 +1,4 @@
-var replaceSelection = function (html, selectInserted) {
+export default function replaceSelection(html, selectInserted) {
     var sel, range, fragment;
     sel = window.getSelection();
     // Test that the Selection object contains at least one Range
@@ -38,5 +38,5 @@ var replaceSelection = function (html, selectInserted) {
             sel.addRange(range);
         }
     }
-};
-export { replaceSelection };
+}
+;

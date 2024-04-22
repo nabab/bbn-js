@@ -1,4 +1,4 @@
-var vars = {
+export default {
     loggers: {
         _num: 0
     },
@@ -60,4 +60,3 @@ var vars = {
         hostname: /^[a-z\d]([a-z\d-]{0,61}[a-z\d])?(\.[a-z\d]([a-z\d-]{0,61}[a-z\d])?)*$/i,
     }
 };
-export { vars };

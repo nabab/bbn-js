@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-var getDeviceType = function () {
+export default function getDeviceType() {
     var userAgent = navigator.userAgent.toLowerCase();
     if (/iPhone|Android/i.test(navigator.userAgent)) {
         return 'mobile';
@@ -19,5 +19,5 @@ var getDeviceType = function () {
         return 'tablet';
     }
     return 'desktop';
-};
-export { getDeviceType };
+}
+;

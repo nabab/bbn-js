@@ -1,5 +1,5 @@
-import { checkType } from '../type/checkType.js';
-var format = function (str) {
+import checkType from '../type/checkType.js';
+export default function format(str) {
     var args = Array.prototype.slice.call(arguments, 1);
     if (args.length) {
         var i_1 = 0;
@@ -10,5 +10,5 @@ var format = function (str) {
         });
     }
     return str;
-};
-export { format };
+}
+;

@@ -10,5 +10,4 @@
  * @param    {...any} args
  * @returns
  */
-declare const happy: (...args: any[]) => any;
-export { happy };
+export default function happy(...args: any[]): any;

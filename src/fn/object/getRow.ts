@@ -1,4 +1,4 @@
-import { search } from './search.js'  ;
+import search from './search.js'  ;
 
 /**
  * Returns the first object matching the given filter in an array of objects.
@@ -40,7 +40,7 @@ import { search } from './search.js'  ;
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Object|Boolean}           The item if found, false otherwise
  */
-const getRow = function (arr: any[], prop: object | string, val: any = null, operator: string = '='): any|false
+export default function getRow(arr: any[], prop: object | string, val: any = null, operator: string = '='): any|false
 {
 	var idx = search(arr, prop, val, operator);
 	if (idx > -1) {
@@ -49,5 +49,3 @@ const getRow = function (arr: any[], prop: object | string, val: any = null, ope
 
 	return false;
 };
-
-export { getRow };

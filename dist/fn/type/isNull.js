@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isNull = function () {
+export default function isNull() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -24,5 +24,5 @@ var isNull = function () {
         }
     }
     return true;
-};
-export { isNull };
+}
+;

@@ -1,2 +1,1 @@
-declare const getHTMLOfSelection: () => string;
-export { getHTMLOfSelection };
+export default function getHTMLOfSelection(): string;

@@ -1,2 +1,1 @@
-declare const simpleHash2: (str: string) => string;
-export { simpleHash2 };
+export default function simpleHash2(str: string): string;

@@ -6,5 +6,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const outerWidth: (ele: HTMLElement) => number | false;
-export { outerWidth };
+export default function outerWidth(ele: HTMLElement): number | false;

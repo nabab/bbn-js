@@ -1,11 +1,9 @@
-import { isString } from '../type/isString.js'  ;
+import isString from '../type/isString.js'  ;
 
-const escapeDquotes = function (str) {
+export default function escapeDquotes(str) {
   if (!isString(str)) {
     return str;
   }
 
   return str.replace(/"/g, '\\"');
 };
-
-export { escapeDquotes };

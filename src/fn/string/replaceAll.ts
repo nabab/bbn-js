@@ -1,5 +1,5 @@
-import { isObject } from '../type/isObject.js'  ;
-import { escapeRegExp } from './escapeRegExp.js'  ;
+import isObject from '../type/isObject.js'  ;
+import escapeRegExp from './escapeRegExp.js'  ;
 
 /**
  * Looks for and replaces parts of string with what we want.
@@ -22,7 +22,7 @@ import { escapeRegExp } from './escapeRegExp.js'  ;
  * @param    {String} flags
  * @returns  {String}
  */
-const replaceAll = function (
+export default function replaceAll(
   find: string,
   replace: string,
   str: string,
@@ -35,5 +35,3 @@ const replaceAll = function (
       replace
     );
 };
-
-export { replaceAll };

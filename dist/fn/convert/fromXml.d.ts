@@ -8,5 +8,4 @@
  * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
  * @returns {Object}
  */
-declare const fromXml: (xml: any, arrayTags: any) => {};
-export { fromXml };
+export default function fromXml(xml: any, arrayTags: any): {};

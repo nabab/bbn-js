@@ -15,7 +15,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isNumber = function (...args: any[]): boolean {
+export default function isNumber(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (
@@ -28,5 +28,3 @@ const isNumber = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isNumber };

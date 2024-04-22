@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isVue = function () {
+export default function isVue() {
     var _a;
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -45,5 +45,5 @@ var isVue = function () {
         return (_a = bbn.cp).isComponent.apply(_a, args);
     }
     return true;
-};
-export { isVue };
+}
+;

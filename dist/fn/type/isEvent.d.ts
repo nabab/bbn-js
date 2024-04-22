@@ -5,5 +5,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isEvent: (...args: any[]) => boolean;
-export { isEvent };
+export default function isEvent(...args: any[]): boolean;

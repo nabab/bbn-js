@@ -1,4 +1,4 @@
-import { log } from './log.js'  ;
+import log from './log.js'  ;
 
 /**
  * Logs the given argument in the browser's console highlighting it with a green background.
@@ -12,7 +12,7 @@ import { log } from './log.js'  ;
  * @param    {...any} args 
  * @returns  
  */
-const happy = function (...args) {
+export default function happy(...args) {
 	args.unshift({
 		_bbn_console_level: 3,
 		_bbn_console_style: 'color: white; background: green; font-size: 18px;',
@@ -20,5 +20,3 @@ const happy = function (...args) {
 	log.apply(this, args);
 	return this;
 };
-
-export { happy };

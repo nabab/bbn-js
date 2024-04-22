@@ -13,5 +13,4 @@
  * @param    {String|Date} v
  * @returns  {Number}
  */
-declare const daysInMonth: (v: any) => number | false;
-export { daysInMonth };
+export default function daysInMonth(v: any): number | false;

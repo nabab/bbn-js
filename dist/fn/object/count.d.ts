@@ -52,5 +52,4 @@
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The number of items
  */
-declare const count: (arr: any[], prop: object | string, val?: any, operator?: string) => number;
-export { count };
+export default function count(arr: any[], prop: object | string, val?: any, operator?: string): number;

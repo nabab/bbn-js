@@ -44,5 +44,5 @@ interface Filter {
  * @param    {String} operator
  * @returns  {Object}
  */
-declare const filterToConditions: (filter: any, operator?: string) => Filter;
+export default function filterToConditions(filter: any, operator?: string): Filter;
 export { Filter, filterToConditions };

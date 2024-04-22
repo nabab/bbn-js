@@ -12,5 +12,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isBoolean: (...args: any[]) => boolean;
-export { isBoolean };
+export default function isBoolean(...args: any[]): boolean;

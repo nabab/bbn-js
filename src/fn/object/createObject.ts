@@ -1,6 +1,6 @@
-import { extend } from './extend.js'  ;
+import extend from './extend.js'  ;
 
-const createObject = function (...args) {
+export default function createObject(...args) {
 	const obj = Object.create(null);
 	if (args.length) {
 		extend(obj, ...args);
@@ -8,5 +8,3 @@ const createObject = function (...args) {
 
 	return obj;
 };
-
-export { createObject };

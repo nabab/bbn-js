@@ -53,5 +53,4 @@
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Number}                   The number of items
  */
-declare const deepPath: (arr: any[], filter: object, deepProperty: string, res?: any[]) => false | any[];
-export { deepPath };
+export default function deepPath(arr: any[], filter: object, deepProperty: string, res?: any[]): false | any[];

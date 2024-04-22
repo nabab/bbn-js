@@ -83,5 +83,4 @@
  * @memberof bbn.fn
  * @returns  {Object} The first object argument, merged with the other objects given
  */
-declare const extend: (...originalArgs: (boolean | object)[]) => any;
-export { extend };
+export default function extend(...originalArgs: (boolean | object)[]): any;

@@ -1,2 +1,1 @@
-declare const formatSize: (st: any, noValid: any) => any;
-export { formatSize };
+export default function formatSize(st: any, noValid: any): any;

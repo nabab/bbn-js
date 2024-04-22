@@ -1,4 +1,4 @@
-import { removePrivateProp } from '../object/removePrivateProp.js';
+import removePrivateProp from '../object/removePrivateProp.js';
 /**
  * Executes the provided function on each property of the given object.
  *
@@ -19,7 +19,7 @@ import { removePrivateProp } from '../object/removePrivateProp.js';
  * @param    {Boolean}         reverse   If set to true the order of the keys will be reversed
  * @returns  {Object}
  */
-var iterate = function (obj, fn, noPrivate, reverse) {
+export default function iterate(obj, fn, noPrivate, reverse) {
     if (noPrivate === void 0) { noPrivate = false; }
     if (reverse === void 0) { reverse = false; }
     if (obj !== null && typeof obj === "object") {
@@ -35,5 +35,5 @@ var iterate = function (obj, fn, noPrivate, reverse) {
         }
     }
     return obj;
-};
-export { iterate };
+}
+;

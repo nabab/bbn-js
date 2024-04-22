@@ -1,2 +1,1 @@
-declare const isMobileDevice: () => boolean;
-export { isMobileDevice };
+export default function isMobileDevice(): boolean;

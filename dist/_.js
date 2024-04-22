@@ -1,11 +1,11 @@
-import { checkType } from './fn/type/checkType.js';
+import checkType from './fn/type/checkType.js';
 /**
  * Translate an expression using the object bbn.lng
  *
  * @param {String} st
  * @returns {String}
  */
-var _ = function () {
+export default function _() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -24,5 +24,5 @@ var _ = function () {
         });
     }
     return res;
-};
-export { _ };
+}
+;

@@ -1,2 +1,1 @@
-declare const getAncestors: (ele: any, selector?: any) => any[];
-export { getAncestors };
+export default function getAncestors(ele: any, selector?: any): any[];

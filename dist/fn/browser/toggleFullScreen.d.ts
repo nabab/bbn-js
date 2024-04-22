@@ -1,2 +1,1 @@
-declare const toggleFullScreen: () => void;
-export { toggleFullScreen };
+export default function toggleFullScreen(): void;

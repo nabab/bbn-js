@@ -16,5 +16,4 @@
  * @param    {String} str
  * @returns  {String}
  */
-declare const camelize: (str: any) => any;
-export { camelize };
+export default function camelize(str: any): any;

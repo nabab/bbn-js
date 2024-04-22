@@ -1,5 +1,3 @@
-const defaultEndLoadingFunction = function (url, timestamp, data = null, res = null) {
+export default function defaultEndLoadingFunction(url, timestamp, data = null, res = null) {
 	return true;
 };
-
-export { defaultEndLoadingFunction };

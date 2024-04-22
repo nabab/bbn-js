@@ -15,7 +15,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isObject = function () {
+export default function isObject() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -29,5 +29,5 @@ var isObject = function () {
         }
     }
     return true;
-};
-export { isObject };
+}
+;

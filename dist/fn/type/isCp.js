@@ -1,5 +1,5 @@
-import { isDom } from './isDom.js';
-var isCp = function () {
+import isDom from './isDom.js';
+export default function isCp() {
     var _a;
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -19,5 +19,5 @@ var isCp = function () {
         }
     }
     return true;
-};
-export { isCp };
+}
+;

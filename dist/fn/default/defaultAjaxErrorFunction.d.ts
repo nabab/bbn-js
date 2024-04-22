@@ -1,2 +1,1 @@
-declare const defaultAjaxErrorFunction: (jqXHR: any, textStatus?: any, errorThrown?: any) => void;
-export { defaultAjaxErrorFunction };
+export default function defaultAjaxErrorFunction(jqXHR: any, textStatus?: any, errorThrown?: any): void;

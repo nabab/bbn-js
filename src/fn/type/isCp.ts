@@ -1,6 +1,6 @@
-import { isDom } from './isDom.js'  ;
+import isDom from './isDom.js'  ;
 
-const isCp = function (...args: any[]): boolean
+export default function isCp(...args: any[]): boolean
 {
 	if (!args.length) {
 		return false;
@@ -19,5 +19,3 @@ const isCp = function (...args: any[]): boolean
 
 	return true;
 };
-
-export { isCp };

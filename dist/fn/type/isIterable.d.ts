@@ -23,5 +23,4 @@
  *
  * @returns  {Boolean}
  */
-declare const isIterable: (...args: any[]) => boolean;
-export { isIterable };
+export default function isIterable(...args: any[]): boolean;

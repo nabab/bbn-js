@@ -1,7 +1,7 @@
-import { iterate } from '../loop/iterate.js'  ;
-import { isArray } from '../type/isArray.js'  ;
-import { each } from '../loop/each.js'  ;
-import { isObject } from '../type/isObject.js'  ;
+import iterate from '../loop/iterate.js'  ;
+import isArray from '../type/isArray.js'  ;
+import each from '../loop/each.js'  ;
+import isObject from '../type/isObject.js'  ;
 
 /**
  * Merges the contents of two or more objects together into the first object.
@@ -88,7 +88,7 @@ import { isObject } from '../type/isObject.js'  ;
  * @memberof bbn.fn
  * @returns  {Object} The first object argument, merged with the other objects given
  */
-const extend = function (...originalArgs: (boolean | object)[]) {
+export default function extend(...originalArgs: (boolean | object)[]) {
   let deep = false;
   let args = [];
   for (let i = 0; i < originalArgs.length; i++) {
@@ -159,5 +159,3 @@ const extend = function (...originalArgs: (boolean | object)[]) {
   }
   return out;
 };
-
-export { extend };

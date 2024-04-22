@@ -1,4 +1,4 @@
-const env = {
+export default {
   siteTitle: window.document.title,
   /* This variable should be set to true in debugging mode only */
   logging: false,
@@ -41,6 +41,4 @@ const env = {
   historyDisabled: false,
   nav: 'ajax'
 }
-
-export {env};
 

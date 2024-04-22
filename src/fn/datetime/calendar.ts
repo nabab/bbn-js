@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import dayjs_plugin_calendar from 'dayjs/plugin/calendar.js';
 
-import { fdate } from './fdate.js'  ;
-import { date } from './date.js'  ;
-import { isDate } from '../type/isDate.js'  ;
-import { isString } from '../type/isString.js'  ;
+import fdate from './fdate.js'  ;
+import date from './date.js'  ;
+import isDate from '../type/isDate.js'  ;
+import isString from '../type/isString.js'  ;
 
 const bbn = {
 	_: st => st
@@ -30,7 +30,7 @@ dayjs.extend(dayjs_plugin_calendar);
  * @param    {String | Boolean} wrong_result Whether or not include the time in the date
  * @returns  {String}
  */
-const calendar = function (d, wrong_result = false) {
+export default function calendar(d, wrong_result = false) {
 	if (undefined === dayjs) {
 		return fdate(d, wrong_result);
 	}
@@ -48,5 +48,3 @@ const calendar = function (d, wrong_result = false) {
 		sameElse: 'L',
 	});
 };
-
-export { calendar };

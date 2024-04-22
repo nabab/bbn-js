@@ -1,6 +1,6 @@
-import { search } from '../object/search.js'  ;
-import { getRow } from '../object/getRow.js'  ;
-import { isObject } from '../type/isObject.js'  ;
+import search from '../object/search.js'  ;
+import getRow from '../object/getRow.js'  ;
+import isObject from '../type/isObject.js'  ;
 
 /**
  * Deletes a loader and changes its history state after the promise is fullfilled.
@@ -16,7 +16,7 @@ import { isObject } from '../type/isObject.js'  ;
  * 
  * @returns  {Boolean} True if the loader was found
  */
-const _deleteLoader = function (requestId, res = null, isAbort = false) {
+export default function _deleteLoader(requestId, res = null, isAbort = false) {
 	let idx = search(bbn.env.loaders, { key: requestId });
 	if (idx > -1) {
 		let loader = bbn.env.loaders.splice(idx, 1)[0];
@@ -36,5 +36,3 @@ const _deleteLoader = function (requestId, res = null, isAbort = false) {
 	}
 	return false;
 };
-
-export { _deleteLoader };

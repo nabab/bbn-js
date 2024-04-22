@@ -15,5 +15,4 @@
  * @param    string st
  * @returns  {String}
  */
-declare const br2nl: (st: any) => string;
-export { br2nl };
+export default function br2nl(st: any): string;

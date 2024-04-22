@@ -1,4 +1,4 @@
-import { isValidDimension } from './isValidDimension.js';
+import isValidDimension from './isValidDimension.js';
 /**
  * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
  *
@@ -8,7 +8,7 @@ import { isValidDimension } from './isValidDimension.js';
  * @param    {String} st
  * @returns
  */
-var isDimension = function () {
+export default function isDimension() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -25,5 +25,5 @@ var isDimension = function () {
         }
     }
     return true;
-};
-export { isDimension };
+}
+;

@@ -1,12 +1,12 @@
-import { log } from '../browser/log.js';
-import { createObject } from '../object/createObject.js';
-import { isSymbol } from '../type/isSymbol.js';
-import { isNumber } from '../type/isNumber.js';
-import { isArray } from '../type/isArray.js';
-import { warning } from '../browser/warning.js';
-import { isFunction } from '../type/isFunction.js';
-import { isSame } from '../type/isSame.js';
-var makeReactive = function (obj, onSet, parent, parentProp) {
+import log from '../browser/log.js';
+import createObject from '../object/createObject.js';
+import isSymbol from '../type/isSymbol.js';
+import isNumber from '../type/isNumber.js';
+import isArray from '../type/isArray.js';
+import warning from '../browser/warning.js';
+import isFunction from '../type/isFunction.js';
+import isSame from '../type/isSame.js';
+export default function makeReactive(obj, onSet, parent, parentProp) {
     var parentString = (parent === null || parent === void 0 ? void 0 : parent.$cid) || '';
     var prefix = '__bbn_' + (parentString ? parentString + '_' : '');
     if (obj && typeof obj === 'object' && [undefined, Object, Array].includes(obj.constructor)) {
@@ -185,5 +185,5 @@ var makeReactive = function (obj, onSet, parent, parentProp) {
         return new Proxy(obj, handler);
     }
     return obj;
-};
-export { makeReactive };
+}
+;

@@ -8,7 +8,7 @@
  *
  * @returns  {Mixed}       The value
  */
-var fieldValue = function (field) {
+export default function fieldValue(field) {
     var v;
     if (field.type === 'checkbox') {
         if (field.checked) {
@@ -30,5 +30,5 @@ var fieldValue = function (field) {
         v = field.value;
     }
     return v;
-};
-export { fieldValue };
+}
+;

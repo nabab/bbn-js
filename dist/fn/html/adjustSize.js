@@ -1,5 +1,5 @@
-import { each } from '../loop/each.js';
-var adjustSize = function (type, eles) {
+import each from '../loop/each.js';
+export default function adjustSize(type, eles) {
     var max = 0, idx;
     each(eles, function (el) {
         el.style[type] = 'auto';
@@ -17,5 +17,5 @@ var adjustSize = function (type, eles) {
             el.style[type] = max + 'px';
         }
     });
-};
-export { adjustSize };
+}
+;

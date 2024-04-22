@@ -22,5 +22,4 @@
  * @param    {String} [valEsc="] The string escaper character
  * @returns  {String} A CSV string
  */
-declare const toCSV: (arr: any, valSep?: string, rowSep?: string, valEsc?: string) => string;
-export { toCSV };
+export default function toCSV(arr: any, valSep?: string, rowSep?: string, valEsc?: string): string;

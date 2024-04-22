@@ -1,2 +1,1 @@
-declare const getHtml: (ele: any, stripComments?: boolean) => any;
-export { getHtml };
+export default function getHtml(ele: any, stripComments?: boolean): any;

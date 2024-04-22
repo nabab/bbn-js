@@ -1,5 +1,5 @@
-import { getHTMLOfSelection } from '../html/getHTMLOfSelection.js';
-import { each } from '../loop/each.js';
+import getHTMLOfSelection from '../html/getHTMLOfSelection.js';
+import each from '../loop/each.js';
 /**
  * Returns a promise having the event's data as argument.
  * @method   getEventData
@@ -14,7 +14,7 @@ import { each } from '../loop/each.js';
  * @memberof bbn.fn
  * @returns  {Promise}
  */
-var getEventData = function (e) {
+export default function getEventData(e) {
     var dt = e.dataTransfer || e.clipboardData;
     var t = dt.getData('Text');
     var res = { raw: t, files: [], str: [] };
@@ -111,5 +111,5 @@ var getEventData = function (e) {
         }
     });
     return p;
-};
-export { getEventData };
+}
+;

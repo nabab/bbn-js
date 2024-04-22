@@ -1,2 +1,1 @@
-declare const defaultResizeFunction: () => boolean;
-export { defaultResizeFunction };
+export default function defaultResizeFunction(): boolean;

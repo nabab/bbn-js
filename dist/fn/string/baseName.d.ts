@@ -20,5 +20,4 @@
  * @param    {String} suffix An optional suffix that will be removed from the basename
  * @returns  {String} The basename of path
  */
-declare const baseName: (path: string, suffix?: string) => string;
-export { baseName };
+export default function baseName(path: string, suffix?: string): string;

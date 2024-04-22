@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean} 
  */
-const isActiveInterface = function (secs = 600)
+export default function isActiveInterface(secs = 600)
 {
 	if (!bbn.env.last_focus) {
 		return false;
@@ -19,5 +19,3 @@ const isActiveInterface = function (secs = 600)
 	let t = new Date().getTime();
 	return t - bbn.env.last_focus < secs * 1000;
 };
-
-export { isActiveInterface };

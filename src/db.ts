@@ -1,7 +1,7 @@
-import {_} from './_.js'  ;
-import {each} from './fn/loop/each.js'  ;
-import {iterate} from './fn/loop/iterate.js'  ;
-import {log} from './fn/browser/log.js'  ;
+import _ from './_.js'  ;
+import each from './fn/loop/each.js'  ;
+import iterate from './fn/loop/iterate.js'  ;
+import log from './fn/browser/log.js'  ;
 
 const idb      = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
 
@@ -166,7 +166,7 @@ interface Structure {
   };
 }
 
-const db: Db = {
+const db = {
   _structures: {},
   /* This variable should be set to true in debugging mode only */
   _connections: {},
@@ -221,6 +221,5 @@ const db: Db = {
   }
 };
 
-
-export {db};
+export default db;
 

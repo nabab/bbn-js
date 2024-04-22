@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isNull = function (...args: any[]): boolean {
+export default function isNull(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Null]") {
@@ -19,5 +19,3 @@ const isNull = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isNull };

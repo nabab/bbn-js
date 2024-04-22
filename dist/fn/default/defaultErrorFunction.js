@@ -1,5 +1,5 @@
-import { log } from '../browser/log.js';
-var defaultErrorFunction = function (message) {
+import log from '../browser/log.js';
+export default function defaultErrorFunction(message) {
     log(message);
-};
-export { defaultErrorFunction };
+}
+;

@@ -37,5 +37,4 @@
   * @param    {Object} obj2
   * @returns  {Boolean}
   */
-declare const isSame: (obj1: any, obj2: any, done?: any[]) => boolean;
-export { isSame };
+export default function isSame(obj1: any, obj2: any, done?: any[]): boolean;

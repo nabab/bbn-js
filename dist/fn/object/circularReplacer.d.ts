@@ -3,5 +3,4 @@
  *
  * @returns Function
  */
-declare const circularReplacer: () => (key: any, value: any) => any;
-export { circularReplacer };
+export default function circularReplacer(): (key: any, value: any) => any;

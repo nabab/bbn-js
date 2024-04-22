@@ -1,2 +1,1 @@
-declare const history: () => false | History;
-export { history };
+export default function history(): false | History;

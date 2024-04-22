@@ -7,5 +7,4 @@
  * @param    {String|Date} v
  * @returns
  */
-declare const getDay: (v: any) => number | false;
-export { getDay };
+export default function getDay(v: any): number | false;

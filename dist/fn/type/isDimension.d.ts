@@ -7,5 +7,4 @@
  * @param    {String} st
  * @returns
  */
-declare const isDimension: (...args: any[]) => boolean;
-export { isDimension };
+export default function isDimension(...args: any[]): boolean;

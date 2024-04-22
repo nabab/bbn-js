@@ -14,9 +14,9 @@
  * @param    {Array} arr
  * @returns  {Array}
  */
-var unique = function (arr) {
+export default function unique(arr) {
     return arr.filter(function (el, index, ar) {
         return index === ar.indexOf(el);
     });
-};
-export { unique };
+}
+;

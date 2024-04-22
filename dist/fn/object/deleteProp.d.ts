@@ -4,5 +4,4 @@
  * @param {String} prop
  * @returns
  */
-declare const deleteProp: (obj: object, prop: string) => void;
-export { deleteProp };
+export default function deleteProp(obj: object, prop: string): void;

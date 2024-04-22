@@ -7,5 +7,4 @@
  * @param    {String} char
  * @returns  {*}
  */
-declare const removeTrailingChars: (st: string, char?: string) => string;
-export { removeTrailingChars };
+export default function removeTrailingChars(st: string, char?: string): string;

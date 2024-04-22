@@ -1,9 +1,9 @@
-import { isDate } from '../type/isDate.js'  ;
-import { createObject } from './createObject.js'  ;
-import { isFunction } from '../type/isFunction.js'  ;
-import { isValue } from '../type/isValue.js'  ;
-import { isDom } from '../type/isDom.js'  ;
-import { numProperties } from './numProperties.js'  ;
+import isDate from '../type/isDate.js'  ;
+import createObject from './createObject.js'  ;
+import isFunction from '../type/isFunction.js'  ;
+import isValue from '../type/isValue.js'  ;
+import isDom from '../type/isDom.js'  ;
+import numProperties from './numProperties.js'  ;
 
 let diffObjProcessed = [];
 
@@ -84,7 +84,7 @@ let diffObjProcessed = [];
   * @param    {Boolean} notRoot
   * @returns  {Object}
   */
-const diffObj = function (obj1: object, obj2: object, unchanged: boolean = false, notRoot: boolean = false) {
+export default function diffObj(obj1: object, obj2: object, unchanged: boolean = false, notRoot: boolean = false) {
 	if (!notRoot) {
 		diffObjProcessed = [];
 	}
@@ -181,5 +181,3 @@ const diffObj = function (obj1: object, obj2: object, unchanged: boolean = false
 
 	return !notRoot || unchanged || numProperties(diff) ? diff : false;
 };
-
-export { diffObj };

@@ -1,2 +1,1 @@
-declare const pickValue: (arr: any[]) => any;
-export { pickValue };
+export default function pickValue(arr: any[]): any;

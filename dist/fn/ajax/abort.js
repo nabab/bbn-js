@@ -1,4 +1,4 @@
-import { getLoader } from './getLoader.js';
+import getLoader from './getLoader.js';
 /**
  * Aborts (client side) the XHR corresponding to the given ID if it still exists.
  *
@@ -21,7 +21,7 @@ import { getLoader } from './getLoader.js';
  *
  * @returns  {undefined}
  */
-var abort = function (requestId) {
+export default function abort(requestId) {
     var loader = getLoader(requestId);
     if (loader === null || loader === void 0 ? void 0 : loader.aborter) {
         loader.aborter.abort('Operation canceled by the user.');
@@ -30,5 +30,5 @@ var abort = function (requestId) {
     else {
         throw new Error("Impossible to find the loader " + requestId);
     }*/
-};
-export { abort };
+}
+;

@@ -1,4 +1,4 @@
-var defaultResizeFunction = function () {
+export default function defaultResizeFunction() {
     return true;
-};
-export { defaultResizeFunction };
+}
+;

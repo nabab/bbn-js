@@ -16,5 +16,4 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-declare const colorToHex: (color: any) => string | CanvasGradient | CanvasPattern;
-export { colorToHex };
+export default function colorToHex(color: any): string | CanvasGradient | CanvasPattern;

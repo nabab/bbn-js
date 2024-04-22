@@ -3,7 +3,7 @@
  * @param {String} str
  * @returns
  */
-var removeExtraSpaces = function (str) {
+export default function removeExtraSpaces(str) {
     return str.replace(/\s+/g, " ").trim();
-};
-export { removeExtraSpaces };
+}
+;

@@ -14,5 +14,4 @@
  * @param    {Array} arr
  * @returns  {Array}
  */
-declare const unique: (arr: any[]) => any[];
-export { unique };
+export default function unique(arr: any[]): any[];

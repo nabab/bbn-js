@@ -1,6 +1,6 @@
-import { checkPropsDetails } from './checkPropsDetails.js'  ;
+import checkPropsDetails from './checkPropsDetails.js'  ;
 
-const checkPropsOrDie = function (
+export default function checkPropsOrDie(
   obj: object,
   props: string | string[],
   checkEmpty: boolean = false
@@ -11,5 +11,3 @@ const checkPropsOrDie = function (
   }
   return true;
 };
-
-export { checkPropsOrDie };

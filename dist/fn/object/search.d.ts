@@ -97,5 +97,4 @@ import { Filter } from './filterToConditions.js';
  * @param    {Number}                   startFrom The index from which the search should start
  * @returns  {Number}                   The index if found, otherwise -1
  */
-declare const search: (arr: any[], prop: string | object | Filter | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: number | string, startFrom?: number) => number;
-export { search };
+export default function search(arr: any[], prop: Filter | object | string | ((a: any, i: string | number | symbol) => boolean), val?: any, operator?: number | string, startFrom?: number): number;

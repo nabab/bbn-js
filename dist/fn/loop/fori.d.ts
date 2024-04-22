@@ -32,5 +32,4 @@
  * @param    {Number}    min The index at which the loop will start
  * @returns  {undefined}
  */
-declare const fori: (arr: any, fn: any, max?: number, min?: number) => void;
-export { fori };
+export default function fori(arr: any, fn: any, max?: number, min?: number): void;

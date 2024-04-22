@@ -9,5 +9,4 @@
  * @param    {Function}    callback
  * @returns  {*}
  */
-declare const animateCss: (ele: any, animationName: any, callback: any) => void;
-export { animateCss };
+export default function animateCss(ele: any, animationName: any, callback: any): void;

@@ -16,5 +16,4 @@
  * @param    {Boolean}     dayOnly Whether or not include the time in the date
  * @returns  {String}
  */
-declare const dateSQL: (v: any, dayOnly: any) => string;
-export { dateSQL };
+export default function dateSQL(v: any, dayOnly: any): string;

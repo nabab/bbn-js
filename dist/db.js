@@ -1,7 +1,7 @@
-import { _ } from './_.js';
-import { each } from './fn/loop/each.js';
-import { iterate } from './fn/loop/iterate.js';
-import { log } from './fn/browser/log.js';
+import _ from './_.js';
+import each from './fn/loop/each.js';
+import iterate from './fn/loop/iterate.js';
+import log from './fn/browser/log.js';
 var idb = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
 var dbObject = function (dbName) {
     var _this = this;
@@ -182,4 +182,4 @@ var db = {
         }
     }
 };
-export { db };
+export default db;

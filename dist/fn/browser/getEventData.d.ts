@@ -12,5 +12,4 @@
  * @memberof bbn.fn
  * @returns  {Promise}
  */
-declare const getEventData: (e: any) => Promise<unknown>;
-export { getEventData };
+export default function getEventData(e: any): Promise<unknown>;

@@ -1,5 +1,5 @@
-import { numProperties } from '../object/numProperties.js'  ;
-import { iterate } from '../loop/iterate.js'  ;
+import numProperties from '../object/numProperties.js'  ;
+import iterate from '../loop/iterate.js'  ;
 
 /**
  * Adds the given color to the object bbn.var.colors in order to be able to use
@@ -16,7 +16,7 @@ import { iterate } from '../loop/iterate.js'  ;
  * @param    {Object} colors
  * @returns
  */
-const addColors = function (colors: object) {
+export default function addColors(colors: object) {
   if (numProperties(colors)) {
     if (!bbn.var.colors) {
       bbn.var.colors = {};
@@ -89,5 +89,3 @@ const addColors = function (colors: object) {
     });
   }
 };
-
-export { addColors };

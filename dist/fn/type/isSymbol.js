@@ -11,7 +11,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isSymbol = function () {
+export default function isSymbol() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -25,5 +25,5 @@ var isSymbol = function () {
         }
     }
     return true;
-};
-export { isSymbol };
+}
+;

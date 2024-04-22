@@ -21,5 +21,4 @@
  * @param    {Number}         [max=100]
  * @returns  {(Object|Array)} The same object, modified
  */
-declare const shortenObj: (obj: any, max?: number) => object;
-export { shortenObj };
+export default function shortenObj(obj: any, max?: number): object;

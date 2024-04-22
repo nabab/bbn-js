@@ -12,5 +12,4 @@
  *
  * @returns  {Boolean} True if the loader was found
  */
-declare const _deleteLoader: (requestId: any, res?: any, isAbort?: boolean) => boolean;
-export { _deleteLoader };
+export default function _deleteLoader(requestId: any, res?: any, isAbort?: boolean): boolean;

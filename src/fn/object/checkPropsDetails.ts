@@ -1,10 +1,10 @@
-import { isString } from '../type/isString.js'  ;
-import { isArray } from '../type/isArray.js'  ;
-import { isObject } from '../type/isObject.js'  ;
-import { each } from '../loop/each.js'  ;
-import { substr } from '../string/substr.js'  ;
+import isString from '../type/isString.js'  ;
+import isArray from '../type/isArray.js'  ;
+import isObject from '../type/isObject.js'  ;
+import each from '../loop/each.js'  ;
+import substr from '../string/substr.js'  ;
 
-const checkPropsDetails = function (
+export default function checkPropsDetails(
   obj: object,
   props: string | string[],
   checkEmpty: boolean = false
@@ -55,5 +55,3 @@ const checkPropsDetails = function (
   }
   return res;
 };
-
-export { checkPropsDetails };

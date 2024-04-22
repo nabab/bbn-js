@@ -1,7 +1,7 @@
-import { isArray } from '../type/isArray.js';
-import { each } from '../loop/each.js';
+import isArray from '../type/isArray.js';
+import each from '../loop/each.js';
 import { filterToConditions } from './filterToConditions.js';
-import { compareConditions } from './compareConditions.js';
+import compareConditions from './compareConditions.js';
 /**
  * Returns a new array with only the data matching the given filter.
  *
@@ -49,7 +49,7 @@ import { compareConditions } from './compareConditions.js';
  * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
  * @returns  {Array}                    A new filtered array
  */
-var filter = function (arr, prop, val, operator) {
+export default function filter(arr, prop, val, operator) {
     if (val === void 0) { val = null; }
     if (operator === void 0) { operator = '='; }
     if (!isArray(arr)) {
@@ -92,5 +92,5 @@ var filter = function (arr, prop, val, operator) {
         }
         return res;
     }
-};
-export { filter };
+}
+;

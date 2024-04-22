@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-declare const formatBytes: (bytes: any, decimals?: number) => string;
-export { formatBytes };
+export default function formatBytes(bytes: any, decimals?: number): string;

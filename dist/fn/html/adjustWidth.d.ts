@@ -1,2 +1,1 @@
-declare const adjustWidth: () => void;
-export { adjustWidth };
+export default function adjustWidth(): void;

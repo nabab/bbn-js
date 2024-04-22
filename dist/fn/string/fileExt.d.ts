@@ -34,5 +34,4 @@
  * @param   {String} filename
  * @returns {String} The file's extension
  */
-declare const fileExt: (filename: any) => any;
-export { fileExt };
+export default function fileExt(filename: any): any;

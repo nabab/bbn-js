@@ -14,7 +14,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isInt = function () {
+export default function isInt() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -28,5 +28,5 @@ var isInt = function () {
         }
     }
     return true;
-};
-export { isInt };
+}
+;

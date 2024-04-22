@@ -1,4 +1,4 @@
-import { isString } from './isString.js'  ;
+import isString from './isString.js'  ;
 
 /**
  * Returns true if the given value is a valid name for a function without checking in reserved words, false otherwise
@@ -25,7 +25,7 @@ import { isString } from './isString.js'  ;
  * @param    {String} st
  * @returns {Boolean}
  */
-const isValidName = function (...args: any[]): boolean {
+export default function isValidName(...args: any[]): boolean {
   if (!args.length) {
     return false;
   }
@@ -38,5 +38,3 @@ const isValidName = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isValidName };

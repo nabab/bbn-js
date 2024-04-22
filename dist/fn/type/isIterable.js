@@ -23,7 +23,7 @@
  *
  * @returns  {Boolean}
  */
-var isIterable = function () {
+export default function isIterable() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -40,5 +40,5 @@ var isIterable = function () {
         }
     }
     return true;
-};
-export { isIterable };
+}
+;

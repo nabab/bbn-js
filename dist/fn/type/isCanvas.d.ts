@@ -12,5 +12,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isCanvas: (...args: any[]) => boolean;
-export { isCanvas };
+export default function isCanvas(...args: any[]): boolean;

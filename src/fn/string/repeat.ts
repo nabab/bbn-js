@@ -12,8 +12,6 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-const repeat = function (st: string, num: number): string {
+export default function repeat(st: string, num: number): string {
   return st.repeat(num);
 };
-
-export { repeat };

@@ -5,7 +5,7 @@
  * @memberof bbn.fn
  * @returns {String}
  */
-const getBrowserName = function () {
+export default function getBrowserName() {
 	const userAgent = navigator.userAgent.toLowerCase();
 	switch (true) {
 		case userAgent.includes('edge'):
@@ -31,5 +31,3 @@ const getBrowserName = function () {
 			return 'Other';
 	}
 };
-
-export { getBrowserName };

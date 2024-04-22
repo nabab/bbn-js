@@ -9,7 +9,7 @@
  * @param    {Function}    callback
  * @returns  {*}
  */
-const animateCss = function (ele, animationName, callback) {
+export default function animateCss(ele, animationName, callback) {
   let animationEnd =
     "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
   /*$(ele).addClass('animated ' + animationName).one(animationEnd, function(){
@@ -29,5 +29,3 @@ const animateCss = function (ele, animationName, callback) {
     e.target.classList.remove(animationName);
   });
 };
-
-export { animateCss };

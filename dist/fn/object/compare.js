@@ -1,8 +1,8 @@
-import { isEmpty } from '../type/isEmpty.js';
-import { removeAccents } from '../string/removeAccents.js';
-import { isNull } from '../type/isNull.js';
-import { isObject } from '../type/isObject.js';
-import { isSame } from '../type/isSame.js';
+import isEmpty from '../type/isEmpty.js';
+import removeAccents from '../string/removeAccents.js';
+import isNull from '../type/isNull.js';
+import isObject from '../type/isObject.js';
+import isSame from '../type/isSame.js';
 /**
  * Performs a comparison between two values based on the given operator and returns a boolean.
  *
@@ -54,7 +54,7 @@ import { isSame } from '../type/isSame.js';
  * @param    {String}        operator
  * @returns  {Boolean}       True if the values' comparison complies with the operator, false otherwise
  */
-var compare = function (v1, v2, operator) {
+export default function compare(v1, v2, operator) {
     switch (operator) {
         case '===':
         case '=':
@@ -146,5 +146,5 @@ var compare = function (v1, v2, operator) {
         default:
             return v1 == v2;
     }
-};
-export { compare };
+}
+;

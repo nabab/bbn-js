@@ -1,4 +1,4 @@
-import { isNull } from './isNull.js'  ;
+import isNull from './isNull.js'  ;
 
 /**
  * Returns true if the given argument is not null or type object or array.
@@ -24,7 +24,7 @@ import { isNull } from './isNull.js'  ;
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isValue = function (...args: any[]): boolean {
+export default function isValue(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (typeof a === "object" && !isNull(a)) {
@@ -33,5 +33,3 @@ const isValue = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isValue };

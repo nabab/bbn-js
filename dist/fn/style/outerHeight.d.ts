@@ -7,5 +7,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const outerHeight: (ele: HTMLElement) => number | false;
-export { outerHeight };
+export default function outerHeight(ele: HTMLElement): number | false;

@@ -26,5 +26,4 @@
  * @param    {String} prop
  * @returns  {*}      The property's value or undefined
  */
-declare const setProperty: (obj: object, prop: string, value: any, force?: boolean) => void;
-export { setProperty };
+export default function setProperty(obj: object, prop: string, value: any, force?: boolean): void;

@@ -1,6 +1,6 @@
-import { isArray } from '../type/isArray.js'  ;
-import { isObject } from '../type/isObject.js'  ;
-import { numProperties } from './numProperties.js'  ;
+import isArray from '../type/isArray.js'  ;
+import isObject from '../type/isObject.js'  ;
+import numProperties from './numProperties.js'  ;
 
 /**
  * Returns a new array, having removed all elements deemed empty from the given array.
@@ -18,7 +18,7 @@ import { numProperties } from './numProperties.js'  ;
  * @param    {Array} arr
  * @returns  {Array}
  */
-const removeEmpty = function (arr: any[]): any[] {
+export default function removeEmpty(arr: any[]): any[] {
   var tmp = [];
   if (isArray(arr)) {
     for (let i = 0; i < arr.length; i++) {
@@ -43,5 +43,3 @@ const removeEmpty = function (arr: any[]): any[] {
   }
   return tmp;
 };
-
-export { removeEmpty };

@@ -13,10 +13,10 @@
  * @param    {String} st
  * @returns {String}
  */
-var html2text = function (st) {
+export default function html2text(st) {
     var $test = document.createElement("div");
     $test.innerHTML = st;
     st = $test.innerText;
     return st;
-};
-export { html2text };
+}
+;

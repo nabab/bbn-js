@@ -30,7 +30,7 @@
  * @param    {Number} toIndex   The future index of the element
  * @returns  {Array}  The same array, with elements repositionned.
  */
-var move = function (arr, fromIndex, toIndex) {
+export default function move(arr, fromIndex, toIndex) {
     if (toIndex >= arr.length) {
         var k = toIndex - arr.length;
         while (k-- + 1) {
@@ -39,5 +39,5 @@ var move = function (arr, fromIndex, toIndex) {
     }
     arr.splice(toIndex, 0, arr.splice(fromIndex, 1)[0]);
     return arr;
-};
-export { move };
+}
+;

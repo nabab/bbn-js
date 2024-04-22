@@ -1,4 +1,4 @@
-import { date } from './date.js'  ;
+import date from './date.js'  ;
 
 /**
  * @method   getDay
@@ -9,7 +9,7 @@ import { date } from './date.js'  ;
  * @param    {String|Date} v 
  * @returns                
  */
-const getDay = function (v) {
+export default function getDay(v) {
 	const biss = 1972;
 	let d = date(v);
 	if (d) {
@@ -27,5 +27,3 @@ const getDay = function (v) {
 	}
 	return false;
 };
-
-export { getDay };

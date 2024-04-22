@@ -1,2 +1,1 @@
-declare const isPropSize: (name: any) => boolean;
-export { isPropSize };
+export default function isPropSize(name: any): boolean;

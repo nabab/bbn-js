@@ -1,4 +1,4 @@
-const isURL = function (...args: any[]): boolean
+export default function isURL(...args: any[]): boolean
 {
 	if (!args.length) return false;
 	for (let str of args) {
@@ -9,5 +9,3 @@ const isURL = function (...args: any[]): boolean
 
 	return true;
 };
-
-export { isURL };

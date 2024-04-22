@@ -6,5 +6,4 @@
  * @param    String format
  * @returns  {*}
  */
-declare const printf: (format: any) => any;
-export { printf };
+export default function printf(format: any): any;

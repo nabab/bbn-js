@@ -1,4 +1,4 @@
-const lng = {
+export default {
   /* User-defined languages elements */
   select_unselect_all: "Select/Clear all",
   select_all: "Select all",
@@ -24,7 +24,4 @@ const lng = {
   Tomorrow: "Tomorrow",
   Yesterday: "Yesterday"
 };
-
-
-export {lng};
 

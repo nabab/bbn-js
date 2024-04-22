@@ -10,7 +10,7 @@ for (let i = 0; i < 256; i++) {
   crc32Table.push(c);
 }
 
-const crc32 = function (str) {
+export default function crc32(str) {
   let crc = 0 ^ -1;
   for (let i = 0; i < str.length; i++) {
     const charCode = str.charCodeAt(i);
@@ -18,5 +18,3 @@ const crc32 = function (str) {
   }
   return (crc ^ -1) >>> 0; // Make sure the result is a 32-bit positive integer
 };
-
-export { crc32 };

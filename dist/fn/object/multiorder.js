@@ -1,4 +1,4 @@
-import { _compareValues } from './_compareValues.js';
+import _compareValues from './_compareValues.js';
 /**
  * Sorts an array of objects based on a set of properties.
  *
@@ -37,7 +37,7 @@ import { _compareValues } from './_compareValues.js';
  * @param    {Array|Object} orders The properties and directions (asc, desc) to order by
  * @returns  {Array}        The same array (arr), ordered differently
  */
-var multiorder = function (arr, orders) {
+export default function multiorder(arr, orders) {
     if (!orders) {
         return arr;
     }
@@ -66,5 +66,5 @@ var multiorder = function (arr, orders) {
         }
         return 0;
     });
-};
-export { multiorder };
+}
+;

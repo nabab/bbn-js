@@ -1,6 +1,6 @@
-import { isString } from '../type/isString.js'  ;
-import { isInt } from '../type/isInt.js'  ;
-import { log } from '../browser/log.js'  ;
+import isString from '../type/isString.js'  ;
+import isInt from '../type/isInt.js'  ;
+import log from '../browser/log.js'  ;
 
 /**
  * Basic substring function accepting both positive and negative values.
@@ -23,7 +23,7 @@ import { log } from '../browser/log.js'  ;
  * @param    {Number} length
  * @returns  {String} Result substring
  */
-const substr = function (str: string, from: number, length?: number) {
+export default function substr(str: string, from: number, length?: number) {
   if (!isString(str) || !isInt(from)) {
     log(arguments);
     throw new Error(
@@ -43,5 +43,3 @@ const substr = function (str: string, from: number, length?: number) {
 
   return str.substring(from, (length < 0 ? str.length : from) + length);
 };
-
-export { substr };

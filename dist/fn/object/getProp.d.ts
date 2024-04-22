@@ -4,5 +4,4 @@
  * @param {String} prop
  * @returns
  */
-declare const getProp: (obj: any, prop: any) => any;
-export { getProp };
+export default function getProp(obj: any, prop: any): any;

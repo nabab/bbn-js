@@ -12,7 +12,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isFunction = function (...args: any[]): boolean {
+export default function isFunction(...args: any[]): boolean {
   if (!args.length) return false;
 
   for (let obj of args) {
@@ -22,5 +22,3 @@ const isFunction = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isFunction };

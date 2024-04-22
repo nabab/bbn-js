@@ -1,2 +1,1 @@
-declare const defaultErrorFunction: (message: any) => void;
-export { defaultErrorFunction };
+export default function defaultErrorFunction(message: any): void;

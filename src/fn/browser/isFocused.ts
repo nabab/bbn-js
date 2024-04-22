@@ -17,9 +17,7 @@
  * 
  * @returns  {Boolean} True if focused
  */
-const isFocused = function (ele, contain = false): boolean
+export default function isFocused(ele, contain = false): boolean
 {
 	return ele === document.activeElement || (contain && ele.contains && ele.contains(document.activeElement));
 };
-
-export { isFocused };

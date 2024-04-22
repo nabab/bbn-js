@@ -7,5 +7,4 @@
  * @param {Boolean} writable
  * @param {Boolean} configurable
  */
-declare const setProp: (obj: object, prop: string, value: any, writable?: boolean, configurable?: boolean) => void;
-export { setProp };
+export default function setProp(obj: object, prop: string, value: any, writable?: boolean, configurable?: boolean): void;

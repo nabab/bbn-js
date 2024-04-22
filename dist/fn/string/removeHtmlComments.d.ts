@@ -1,2 +1,1 @@
-declare const removeHtmlComments: (str: string) => string;
-export { removeHtmlComments };
+export default function removeHtmlComments(str: string): string;

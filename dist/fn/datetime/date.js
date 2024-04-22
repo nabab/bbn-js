@@ -1,6 +1,6 @@
-import { isNumber } from '../type/isNumber.js';
-import { substr } from '../string/substr.js';
-import { isDate } from '../type/isDate.js';
+import isNumber from '../type/isNumber.js';
+import substr from '../string/substr.js';
+import isDate from '../type/isDate.js';
 /**
  * Returns a date object from the given argument.
  *
@@ -17,7 +17,7 @@ import { isDate } from '../type/isDate.js';
  * @param    {String|Number} v
  * @returns  {date}
  */
-var date = function (v) {
+export default function date(v) {
     var d = false, t = typeof v;
     if (v === undefined) {
         return new Date();
@@ -40,5 +40,5 @@ var date = function (v) {
         return v;
     }
     return d;
-};
-export { date };
+}
+;

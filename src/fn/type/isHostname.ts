@@ -1,7 +1,7 @@
-import { isString } from './isString.js'  ;
-import { isIP } from './isIP.js'  ;
+import isString from './isString.js'  ;
+import isIP from './isIP.js'  ;
 
-const isHostname = function (...args: any[]): boolean
+export default function isHostname(...args: any[]): boolean
 {
 	if (!args.length) return false;
 	for (let st of args) {
@@ -15,5 +15,3 @@ const isHostname = function (...args: any[]): boolean
 
 	return true;
 };
-
-export { isHostname };

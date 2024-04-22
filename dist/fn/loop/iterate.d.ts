@@ -18,5 +18,4 @@
  * @param    {Boolean}         reverse   If set to true the order of the keys will be reversed
  * @returns  {Object}
  */
-declare const iterate: (obj: any, fn: any, noPrivate?: boolean, reverse?: boolean) => any;
-export { iterate };
+export default function iterate(obj: any, fn: any, noPrivate?: boolean, reverse?: boolean): any;

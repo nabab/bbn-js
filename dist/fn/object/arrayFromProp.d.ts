@@ -29,5 +29,4 @@
  * @param    {String} prop
  * @returns  {Array}  The new array
  */
-declare const arrayFromProp: (arr: any, prop: any) => any[];
-export { arrayFromProp };
+export default function arrayFromProp(arr: any, prop: any): any[];

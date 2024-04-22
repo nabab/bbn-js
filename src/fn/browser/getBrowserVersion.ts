@@ -5,7 +5,7 @@
  * @memberof bbn.fn
  * @returns {String}
  */
-const getBrowserVersion = function () {
+export default function getBrowserVersion() {
 	const userAgent = navigator.userAgent.toLowerCase();
 	switch (true) {
 		case userAgent.includes('edge/'):
@@ -33,5 +33,3 @@ const getBrowserVersion = function () {
 			return '';
 	}
 };
-
-export { getBrowserVersion };

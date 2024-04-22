@@ -1,5 +1,5 @@
-import { objectToFormData } from '../form/objectToFormData.js'  ;
-import { log } from '../browser/log.js'  ;
+import objectToFormData from '../form/objectToFormData.js'  ;
+import log from '../browser/log.js'  ;
 
 /**
  * Uploads a file synchronously through an XHR indicating progress.
@@ -17,7 +17,7 @@ import { log } from '../browser/log.js'  ;
  * 
  * @returns  {Promise}
  */
-const upload = function (url, file, success = null, failure = null, progress = null) {
+export default function upload(url, file, success = null, failure = null, progress = null) {
 	let fn = () => {
 		return axios.post(url || bbn.env.path, objectToFormData(file), {
 			headers: {
@@ -49,5 +49,3 @@ const upload = function (url, file, success = null, failure = null, progress = n
 			});
 	}
 };
-
-export { upload };

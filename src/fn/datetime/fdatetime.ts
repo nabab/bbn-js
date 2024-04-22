@@ -1,6 +1,6 @@
-import { date } from './date.js'  ;
-import { isDate } from '../type/isDate.js'  ;
-import { isString } from '../type/isString.js'  ;
+import date from './date.js'  ;
+import isDate from '../type/isDate.js'  ;
+import isString from '../type/isString.js'  ;
 
 /**
  * @method   fdatetime
@@ -9,7 +9,7 @@ import { isString } from '../type/isString.js'  ;
  * @memberof bbn.fn
  * @returns  {*} 
  */
-const fdatetime = function (d, wrong_result = false) {
+export default function fdatetime(d, wrong_result = false) {
 	let r = date(d);
 	if (!isDate(r)) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
@@ -28,5 +28,3 @@ const fdatetime = function (d, wrong_result = false) {
 	}
 	return r.toLocaleDateString();
 };
-
-export { fdatetime };

@@ -12,9 +12,9 @@
  * @param {canvas} canvas
  * @returns  {HTMLElement}
  */
-var canvasToImage = function (canvas) {
+export default function canvasToImage(canvas) {
     var img = new Image();
     img.src = canvas.toDataURL('image/png');
     return img;
-};
-export { canvasToImage };
+}
+;

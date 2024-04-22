@@ -1,4 +1,4 @@
-import { selector } from '../html/selector.js'  ;
+import selector from '../html/selector.js'  ;
 
 /**
  *
@@ -9,7 +9,7 @@ import { selector } from '../html/selector.js'  ;
  * @memberof bbn.fn
  * @returns  {*}
  */
-const outerHeight = function (ele: HTMLElement): number | false {
+export default function outerHeight(ele: HTMLElement): number | false {
   ele = selector(ele);
   if (ele && "offsetHeight" in ele) {
     let styles = window.getComputedStyle(ele);
@@ -18,5 +18,3 @@ const outerHeight = function (ele: HTMLElement): number | false {
     return Math.ceil(ele.offsetHeight + margin);
   }
 };
-
-export { outerHeight };

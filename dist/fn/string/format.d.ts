@@ -1,2 +1,1 @@
-declare const format: (str: any) => any;
-export { format };
+export default function format(str: any): any;

@@ -1,2 +1,1 @@
-declare const isHostname: (...args: any[]) => boolean;
-export { isHostname };
+export default function isHostname(...args: any[]): boolean;

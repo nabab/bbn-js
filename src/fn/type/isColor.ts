@@ -1,4 +1,4 @@
-import { isString } from './isString.js'  ;
+import isString from './isString.js'  ;
 
 /**
  * Intended to check if the argument provided is a color.
@@ -29,7 +29,7 @@ import { isString } from './isString.js'  ;
  * @param    {String} st
  * @returns  {Boolean}
  */
-const isColor = function (...args: any[]) {
+export default function isColor(...args: any[]) {
   if (!args.length) return false;
 
   var reg = new RegExp(
@@ -49,5 +49,3 @@ const isColor = function (...args: any[]) {
 
   return true;
 };
-
-export { isColor };

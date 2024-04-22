@@ -1,5 +1,5 @@
-import { isFunction } from '../type/isFunction.js';
-var defaultConfirmFunction = function (text, yesFn, noFn) {
+import isFunction from '../type/isFunction.js';
+export default function defaultConfirmFunction(text, yesFn, noFn) {
     if (noFn === void 0) { noFn = null; }
     var ok = 0;
     if (confirm(text)) {
@@ -11,5 +11,5 @@ var defaultConfirmFunction = function (text, yesFn, noFn) {
     if (!ok && isFunction(noFn)) {
         noFn();
     }
-};
-export { defaultConfirmFunction };
+}
+;

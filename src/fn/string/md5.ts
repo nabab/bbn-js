@@ -18,7 +18,7 @@
  * @param    {Mixed} st
  * @returns  {String} in md5 format
  */
-const md5 = function (st) {
+export default function md5(st) {
   var hc = "0123456789abcdef";
   function rh(n) {
     var j,
@@ -148,5 +148,3 @@ const md5 = function (st) {
   }
   return rh(a) + rh(b) + rh(c) + rh(d);
 };
-
-export { md5 };

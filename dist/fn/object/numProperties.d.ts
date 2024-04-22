@@ -27,5 +27,4 @@
   * @param    {Object} obj The object to analyze
   * @returns  {Number} The number of properties
   */
-declare const numProperties: (obj: object) => number;
-export { numProperties };
+export default function numProperties(obj: object): number;

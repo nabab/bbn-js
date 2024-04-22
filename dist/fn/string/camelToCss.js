@@ -14,7 +14,7 @@
  * @param   {String} str
  * @returns {String}
  */
-var camelToCss = function (str) {
+export default function camelToCss(str) {
     return str
         .replace(/([A-Z])/g, function (st) {
         return "-" + st.toLowerCase();
@@ -22,5 +22,5 @@ var camelToCss = function (str) {
         .replace("/^./", function (st) {
         return st.toLowerCase();
     });
-};
-export { camelToCss };
+}
+;

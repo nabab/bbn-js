@@ -8,7 +8,7 @@
  * @param   {Array}  arrayTags An array of tag names which should always be returned as array (even if single)
  * @returns {Object}
  */
-const fromXml = function (xml, arrayTags) {
+export default function fromXml(xml, arrayTags) {
   let dom = null;
   if (window.DOMParser) dom = new DOMParser().parseFromString(xml, "text/xml");
   else if (window["ActiveXObject"]) {
@@ -49,5 +49,3 @@ const fromXml = function (xml, arrayTags) {
 
   return result;
 };
-
-export { fromXml };

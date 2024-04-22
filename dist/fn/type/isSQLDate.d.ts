@@ -6,5 +6,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isSQLDate: (...args: any[]) => boolean;
-export { isSQLDate };
+export default function isSQLDate(...args: any[]): boolean;

@@ -1,4 +1,4 @@
-const replaceSelection = function (html, selectInserted) {
+export default function replaceSelection(html, selectInserted) {
 	let sel, range, fragment;
 	sel = window.getSelection();
 
@@ -39,5 +39,3 @@ const replaceSelection = function (html, selectInserted) {
 		}
 	}
 };
-
-export { replaceSelection };

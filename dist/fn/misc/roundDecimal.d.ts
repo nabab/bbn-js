@@ -7,5 +7,4 @@
  * @param    {Number} decimals
  * @returns  {}
  */
-declare const roundDecimal: (value: number, decimals: number) => number;
-export { roundDecimal };
+export default function roundDecimal(value: number, decimals: number): number;

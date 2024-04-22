@@ -14,5 +14,4 @@
  * @param    {STring} str
  * @returns  {String}
  */
-declare const correctCase: (str: any) => any;
-export { correctCase };
+export default function correctCase(str: any): any;

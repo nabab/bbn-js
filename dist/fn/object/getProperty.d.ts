@@ -26,5 +26,4 @@
  * @param    {String} props
  * @returns  {*}      The property's value or undefined
  */
-declare const getProperty: (obj: any, ...props: any[]) => any;
-export { getProperty };
+export default function getProperty(obj: any, ...props: any[]): any;

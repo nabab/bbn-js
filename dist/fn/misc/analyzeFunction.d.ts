@@ -6,7 +6,7 @@
  * @returns {Object} An object containing details about the function.
  * @throws {Error} When unexpected syntax is encountered while parsing.
  */
-declare const analyzeFunction: (fn: any) => {
+export default function analyzeFunction(fn: any): {
     body: any;
     args: any[];
     argString: string;
@@ -17,4 +17,3 @@ declare const analyzeFunction: (fn: any) => {
     hash: string;
     returnType: string;
 };
-export { analyzeFunction };

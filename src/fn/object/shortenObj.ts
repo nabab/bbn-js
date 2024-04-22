@@ -1,7 +1,7 @@
-import { clone } from './clone.js'  ;
-import { each } from '../loop/each.js'  ;
-import { isString } from '../type/isString.js'  ;
-import { shorten } from '../string/shorten.js'  ;
+import clone from './clone.js'  ;
+import each from '../loop/each.js'  ;
+import isString from '../type/isString.js'  ;
+import shorten from '../string/shorten.js'  ;
 
 /**
  * Shortens all the strings contained in the object properties or element in a array.
@@ -26,7 +26,7 @@ import { shorten } from '../string/shorten.js'  ;
  * @param    {Number}         [max=100]
  * @returns  {(Object|Array)} The same object, modified
  */
-const shortenObj = function (obj, max = 100): object {
+export default function shortenObj(obj, max = 100): object {
   let o = clone(obj);
   each(o, (a, n) => {
     if (isString(a) && a.length > max) {
@@ -37,5 +37,3 @@ const shortenObj = function (obj, max = 100): object {
   });
   return o;
 };
-
-export { shortenObj };

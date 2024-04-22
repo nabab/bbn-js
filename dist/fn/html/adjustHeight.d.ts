@@ -1,2 +1,1 @@
-declare const adjustHeight: () => void;
-export { adjustHeight };
+export default function adjustHeight(): void;

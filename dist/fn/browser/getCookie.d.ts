@@ -12,5 +12,4 @@
  * @param    {String} name
  * @returns
  */
-declare const getCookie: (name: any) => any;
-export { getCookie };
+export default function getCookie(name: any): any;

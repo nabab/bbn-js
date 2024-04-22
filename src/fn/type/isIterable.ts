@@ -23,7 +23,7 @@
  *
  * @returns  {Boolean}
  */
-const isIterable = function (...args): boolean {
+export default function isIterable(...args): boolean {
   if (!args.length) {
     return false;
   }
@@ -40,5 +40,3 @@ const isIterable = function (...args): boolean {
 
   return true;
 };
-
-export { isIterable };

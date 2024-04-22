@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const getTimeoff: () => number;
-export { getTimeoff };
+export default function getTimeoff(): number;

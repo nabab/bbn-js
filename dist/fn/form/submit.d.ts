@@ -16,5 +16,4 @@
  *
  * @returns  {*}
  */
-declare const submit: (form: HTMLFormElement, e?: Event, fn?: Function) => void;
-export { submit };
+export default function submit(form: HTMLFormElement, e?: Event, fn?: Function): void;

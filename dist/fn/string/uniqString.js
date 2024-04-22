@@ -1,6 +1,6 @@
-import { isArray } from '../type/isArray.js';
-import { each } from '../loop/each.js';
-import { md5 } from './md5.js';
+import isArray from '../type/isArray.js';
+import each from '../loop/each.js';
+import md5 from './md5.js';
 /**
  * Create a unique string in md5 format.
  *
@@ -17,7 +17,7 @@ import { md5 } from './md5.js';
  * @memberof bbn.fn
  * @returns  {String} The unique string in md5 format
  */
-var uniqString = function () {
+export default function uniqString() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -52,5 +52,5 @@ var uniqString = function () {
         _loop_1();
     }
     return md5(st);
-};
-export { uniqString };
+}
+;

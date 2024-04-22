@@ -1,5 +1,3 @@
-const defaultPostLinkFunction = function (r, ele = null) {
+export default function defaultPostLinkFunction(r, ele = null) {
 	return true;
 };
-
-export { defaultPostLinkFunction };

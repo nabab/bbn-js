@@ -5,7 +5,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isEvent = function (...args: any[]): boolean {
+export default function isEvent(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (!(a instanceof Event)) {
@@ -14,5 +14,3 @@ const isEvent = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isEvent };

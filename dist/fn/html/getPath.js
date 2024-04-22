@@ -1,4 +1,4 @@
-import { replaceAll } from '../string/replaceAll.js';
+import replaceAll from '../string/replaceAll.js';
 /**
  * @method   getPath
  * @todo     Add method description for getPath
@@ -7,7 +7,7 @@ import { replaceAll } from '../string/replaceAll.js';
  * @memberof bbn.fn
  * @returns  {*}
  */
-var getPath = function (element) {
+export default function getPath(element) {
     var path, 
     //node = $(element),
     node = element, done = 0;
@@ -53,5 +53,5 @@ var getPath = function (element) {
             break;
     }
     return path;
-};
-export { getPath };
+}
+;

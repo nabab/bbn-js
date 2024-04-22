@@ -3,5 +3,4 @@
  * @param {String} str
  * @returns
  */
-declare const removeExtraSpaces: (str: string) => string;
-export { removeExtraSpaces };
+export default function removeExtraSpaces(str: string): string;

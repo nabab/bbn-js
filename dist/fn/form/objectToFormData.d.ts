@@ -8,5 +8,4 @@
  * @param    {Array}             ignoreList
  * @returns
  */
-declare const objectToFormData: (obj: any, key?: string, ignoreList?: any) => FormData;
-export { objectToFormData };
+export default function objectToFormData(obj: any, key?: string, ignoreList?: any): FormData;

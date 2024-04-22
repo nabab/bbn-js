@@ -10,5 +10,4 @@
  * @param    {String} errorMsg
  * @returns
  */
-declare const error: (errorMsg: any) => never;
-export { error };
+export default function error(errorMsg: any): void;

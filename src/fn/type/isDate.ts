@@ -16,7 +16,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isDate = function (...args: any[]): boolean {
+export default function isDate(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Date]") {
@@ -25,5 +25,3 @@ const isDate = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isDate };

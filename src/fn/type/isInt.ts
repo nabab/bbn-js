@@ -14,7 +14,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isInt = function (...args: any[]): boolean {
+export default function isInt(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if (!Number.isInteger(a)) {
@@ -24,5 +24,3 @@ const isInt = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isInt };

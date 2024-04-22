@@ -3,12 +3,10 @@
  * @param {String*} varname
  * @returns
  */
-const getCssVar = function (varname) {
+export default function getCssVar(varname) {
   if (varname.indexOf("--") !== 0) {
     varname = "--" + varname;
   }
 
   return getComputedStyle(document.documentElement).getPropertyValue(varname);
 };
-
-export { getCssVar };

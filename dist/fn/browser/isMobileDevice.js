@@ -1,5 +1,5 @@
-import { getDeviceType } from '../browser/getDeviceType.js';
-var isMobileDevice = function () {
+import getDeviceType from '../browser/getDeviceType.js';
+export default function isMobileDevice() {
     return getDeviceType() === 'mobile';
-};
-export { isMobileDevice };
+}
+;

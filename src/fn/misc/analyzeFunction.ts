@@ -1,5 +1,5 @@
-import { md5 } from "../string/md5.js";
-import { log } from "../browser/log.js";
+import md5 from "../string/md5.js";
+import log from "../browser/log.js";
 
 /**
  * Analyzes the given function and extracts details about its structure.
@@ -9,7 +9,7 @@ import { log } from "../browser/log.js";
  * @returns {Object} An object containing details about the function.
  * @throws {Error} When unexpected syntax is encountered while parsing.
  */
-const analyzeFunction = function (fn) {
+export default function analyzeFunction(fn) {
   const all = typeof fn === "function" ? fn.toString() : fn;
   if (typeof all !== "string") {
     throw Error("Unexpected type " + typeof fn + " while parsing function");
@@ -197,5 +197,3 @@ const analyzeFunction = function (fn) {
 		returnType
   };
 };
-
-export { analyzeFunction };

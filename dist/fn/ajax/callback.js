@@ -1,6 +1,6 @@
-import { error } from '../browser/error.js';
-import { isFunction } from '../type/isFunction.js';
-import { log } from '../browser/log.js';
+import error from '../browser/error.js';
+import isFunction from '../type/isFunction.js';
+import log from '../browser/log.js';
 /**
  * Executes a serie of predefined actions once an Ajax request has been done.
  *
@@ -36,7 +36,7 @@ import { log } from '../browser/log.js';
  *
  * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
  */
-var callback = function (url, res, fn, fn2, ele) {
+export default function callback(url, res, fn, fn2, ele) {
     if (res === void 0) { res = null; }
     if (fn === void 0) { fn = null; }
     if (fn2 === void 0) { fn2 = null; }
@@ -114,5 +114,5 @@ var callback = function (url, res, fn, fn2, ele) {
         bbn.fn.defaultAlertFunction(bbn.lng.errorText, bbn.lng.error);
     }
     return tmp;
-};
-export { callback };
+}
+;

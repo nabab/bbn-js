@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isMobile: () => boolean;
-export { isMobile };
+export default function isMobile(): boolean;

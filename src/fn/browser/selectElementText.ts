@@ -17,7 +17,7 @@
  * 
  * @returns  {Boolean} True if focused
  */
-const selectElementText = function (ele, win = null): void
+export default function selectElementText(ele, win = null): void
 {
 	win = win || window;
 	if (ele instanceof HTMLInputElement) {
@@ -40,5 +40,3 @@ const selectElementText = function (ele, win = null): void
 		range.select();
 	}
 };
-
-export { selectElementText };

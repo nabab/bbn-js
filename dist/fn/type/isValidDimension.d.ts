@@ -7,5 +7,4 @@
  * @param    {String} st
  * @returns
  */
-declare const isValidDimension: (st: any) => boolean;
-export { isValidDimension };
+export default function isValidDimension(st: any): boolean;

@@ -1,7 +1,7 @@
-import { isArray } from '../type/isArray.js';
-import { each } from '../loop/each.js';
-import { compare } from './compare.js';
-import { getProperty } from './getProperty.js';
+import isArray from '../type/isArray.js';
+import each from '../loop/each.js';
+import compare from './compare.js';
+import getProperty from './getProperty.js';
 /**
  * Checks whether the given data object complies or not with the given filter.
  *
@@ -46,7 +46,7 @@ import { getProperty } from './getProperty.js';
  * @param    {Object} filter
  * @returns  {Boolean}
  */
-var compareConditions = function (data, filter) {
+export default function compareConditions(data, filter) {
     if (!filter.conditions || !filter.logic || !isArray(filter.conditions)) {
         throw new Error("Error in compareConditions: the filter should an abject with conditions and logic properties and conditions should be an array of objects");
     }
@@ -82,5 +82,5 @@ var compareConditions = function (data, filter) {
         }
     });
     return ok;
-};
-export { compareConditions };
+}
+;

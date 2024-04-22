@@ -1,5 +1,5 @@
-import { each } from '../loop/each.js';
-import { getProperty } from './getProperty.js';
+import each from '../loop/each.js';
+import getProperty from './getProperty.js';
 /**
  * Creates and returns a new array made of the given property's values from the given array of objects.
  *
@@ -31,11 +31,11 @@ import { getProperty } from './getProperty.js';
  * @param    {String} prop
  * @returns  {Array}  The new array
  */
-var arrayFromProp = function (arr, prop) {
+export default function arrayFromProp(arr, prop) {
     var r = [];
     each(arr, function (a, i) {
         r.push(getProperty(a, prop));
     });
     return r;
-};
-export { arrayFromProp };
+}
+;

@@ -12,5 +12,4 @@
  * @memberof bbn.fn
  * @returns  {String}
  */
-declare const repeat: (st: string, num: number) => string;
-export { repeat };
+export default function repeat(st: string, num: number): string;

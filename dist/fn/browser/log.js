@@ -1,4 +1,4 @@
-import { isFunction } from '../type/isFunction.js';
+import isFunction from '../type/isFunction.js';
 /**
  * Logs the given arguments in the browser's console.
  * @method   log
@@ -12,7 +12,7 @@ import { isFunction } from '../type/isFunction.js';
  * @param    {...any} args
  * @returns
  */
-var log = function () {
+export default function log() {
     var _a, _b;
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -47,5 +47,5 @@ var log = function () {
         }
     }
     return this;
-};
-export { log };
+}
+;

@@ -1,4 +1,4 @@
-import { each } from '../loop/each.js';
+import each from '../loop/each.js';
 /**
  * Returns the value of the given property from the given object.
  *
@@ -27,7 +27,7 @@ import { each } from '../loop/each.js';
  * @param    {String} prop
  * @returns  {*}      The property's value or undefined
  */
-var setProperty = function (obj, prop, value, force) {
+export default function setProperty(obj, prop, value, force) {
     if (typeof obj === 'object' && typeof prop === 'string') {
         var o_1 = obj;
         var bits_1 = prop.split('.');
@@ -46,5 +46,5 @@ var setProperty = function (obj, prop, value, force) {
             }
         });
     }
-};
-export { setProperty };
+}
+;

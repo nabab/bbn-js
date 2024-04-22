@@ -14,5 +14,4 @@
  *
  * @returns  {Promise}
  */
-declare const upload: (url: any, file: any, success?: any, failure?: any, progress?: any) => any;
-export { upload };
+export default function upload(url: any, file: any, success?: any, failure?: any, progress?: any): any;

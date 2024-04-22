@@ -1,4 +1,4 @@
-const getScrollBarSize = function (): number
+export default function getScrollBarSize(): number
 {
 	if (bbn.env.scrollBarSize === undefined) {
 		let outer = document.createElement('div');
@@ -29,5 +29,3 @@ const getScrollBarSize = function (): number
 	}
 	return bbn.env.scrollBarSize;
 };
-
-export { getScrollBarSize };

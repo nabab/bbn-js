@@ -1,2 +1,1 @@
-declare const escapeTicks: (str: any) => any;
-export { escapeTicks };
+export default function escapeTicks(str: any): any;

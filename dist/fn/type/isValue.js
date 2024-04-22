@@ -1,4 +1,4 @@
-import { isNull } from './isNull.js';
+import isNull from './isNull.js';
 /**
  * Returns true if the given argument is not null or type object or array.
  * @method   isValue
@@ -23,7 +23,7 @@ import { isNull } from './isNull.js';
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isValue = function () {
+export default function isValue() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -37,5 +37,5 @@ var isValue = function () {
         }
     }
     return true;
-};
-export { isValue };
+}
+;

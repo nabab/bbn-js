@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {String} 
  */
-const formatBytes = function (bytes, decimals = 2) {
+export default function formatBytes(bytes, decimals = 2) {
 	if (!bytes) {
 		return '0 B';
 	}
@@ -19,5 +19,3 @@ const formatBytes = function (bytes, decimals = 2) {
 		i = Math.floor(Math.log(bytes) / Math.log(k));
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals < 0 ? 0 : decimals)) + ' ' + s[i];
 };
-
-export { formatBytes };

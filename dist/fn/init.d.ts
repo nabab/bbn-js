@@ -11,5 +11,4 @@
  * @param    {Object} cfg
  * @returns
  */
-declare const init: (cfg: any, force: any) => void;
-export { init };
+export default function init(cfg: any, force: any): void;

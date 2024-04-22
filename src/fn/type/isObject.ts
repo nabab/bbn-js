@@ -15,7 +15,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-const isObject = function (...args: any[]): boolean {
+export default function isObject(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
     if ({}.toString.apply(a) !== "[object Object]") {
@@ -24,5 +24,3 @@ const isObject = function (...args: any[]): boolean {
   }
   return true;
 };
-
-export { isObject };

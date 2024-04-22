@@ -1,6 +1,6 @@
-import { isFunction } from '../type/isFunction.js'  ;
+import isFunction from '../type/isFunction.js'  ;
 
-const defaultConfirmFunction = function (
+export default function defaultConfirmFunction(
   text,
   yesFn,
   noFn = null
@@ -16,5 +16,3 @@ const defaultConfirmFunction = function (
     noFn();
   }
 };
-
-export { defaultConfirmFunction };

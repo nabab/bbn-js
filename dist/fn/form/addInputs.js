@@ -1,4 +1,4 @@
-import { iterate } from '../loop/iterate.js';
+import iterate from '../loop/iterate.js';
 /**
  * Adds the given data to the given form by inserting hidden inputs.
  *
@@ -40,7 +40,7 @@ import { iterate } from '../loop/iterate.js';
  * @param    {String}      prefix The optional object's name of the fields in the form
  * @returns  {undefined}
  */
-var addInputs = function (form, params, prefix) {
+export default function addInputs(form, params, prefix) {
     if (params === void 0) { params = null; }
     if (prefix === void 0) { prefix = ''; }
     if (form && form.tagName === 'FORM') {
@@ -79,5 +79,5 @@ var addInputs = function (form, params, prefix) {
             });
         }
     }
-};
-export { addInputs };
+}
+;

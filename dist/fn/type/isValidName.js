@@ -1,4 +1,4 @@
-import { isString } from './isString.js';
+import isString from './isString.js';
 /**
  * Returns true if the given value is a valid name for a function without checking in reserved words, false otherwise
  * @method   isValidName
@@ -24,7 +24,7 @@ import { isString } from './isString.js';
  * @param    {String} st
  * @returns {Boolean}
  */
-var isValidName = function () {
+export default function isValidName() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -39,5 +39,5 @@ var isValidName = function () {
         }
     }
     return true;
-};
-export { isValidName };
+}
+;

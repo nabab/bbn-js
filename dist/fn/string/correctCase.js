@@ -14,7 +14,7 @@
  * @param    {STring} str
  * @returns  {String}
  */
-var correctCase = function (str) {
+export default function correctCase(str) {
     return str.replace(/[A-z]{1}/, function (c) { return c.toUpperCase(); });
-};
-export { correctCase };
+}
+;

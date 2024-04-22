@@ -33,5 +33,4 @@
  *
  * @returns  {*} The result of the main callback function: res.script, fn, or bbn.fn.defaultLinkFunction
  */
-declare const callback: (url: any, res?: any, fn?: any, fn2?: any, ele?: any) => boolean;
-export { callback };
+export default function callback(url: any, res?: any, fn?: any, fn2?: any, ele?: any): boolean;

@@ -1,13 +1,13 @@
-import { log } from '../browser/log.js'  ;
-import { createObject } from '../object/createObject.js'  ;
-import { isSymbol } from '../type/isSymbol.js'  ;
-import { isNumber } from '../type/isNumber.js'  ;
-import { isArray } from '../type/isArray.js'  ;
-import { warning } from '../browser/warning.js'  ;
-import { isFunction } from '../type/isFunction.js'  ;
-import { isSame } from '../type/isSame.js'  ;
+import log from '../browser/log.js'  ;
+import createObject from '../object/createObject.js'  ;
+import isSymbol from '../type/isSymbol.js'  ;
+import isNumber from '../type/isNumber.js'  ;
+import isArray from '../type/isArray.js'  ;
+import warning from '../browser/warning.js'  ;
+import isFunction from '../type/isFunction.js'  ;
+import isSame from '../type/isSame.js'  ;
 
-const makeReactive = function (obj, onSet, parent, parentProp) {
+export default function makeReactive(obj, onSet, parent, parentProp) {
 	const parentString = parent?.$cid || '';
 	const prefix = '__bbn_' + (parentString ? parentString + '_' : '');
 	if (obj && typeof obj === 'object' && [undefined, Object, Array].includes(obj.constructor)) {
@@ -215,5 +215,3 @@ const makeReactive = function (obj, onSet, parent, parentProp) {
 
 	return obj;
 };
-
-export { makeReactive };

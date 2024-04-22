@@ -1,5 +1,3 @@
-const defaultHistoryFunction = function (obj) {
+export default function defaultHistoryFunction(obj) {
 	return true;
 };
-
-export { defaultHistoryFunction };

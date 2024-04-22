@@ -27,10 +27,10 @@
   * @param    {Object} obj The object to analyze
   * @returns  {Number} The number of properties
   */
-var numProperties = function (obj) {
+export default function numProperties(obj) {
     if (!obj || typeof obj !== 'object') {
         return 0;
     }
     return Object.keys(obj).length;
-};
-export { numProperties };
+}
+;

@@ -5,7 +5,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isBlob = function () {
+export default function isBlob() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -19,5 +19,5 @@ var isBlob = function () {
         }
     }
     return true;
-};
-export { isBlob };
+}
+;

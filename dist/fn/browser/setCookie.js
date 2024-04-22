@@ -12,7 +12,7 @@
  * @param    {Number} days  The days before expiration of the cookie.
  * @returns
  */
-var setCookie = function (name, value, days) {
+export default function setCookie(name, value, days) {
     var expires = '';
     if (days) {
         var date = new Date();
@@ -21,5 +21,5 @@ var setCookie = function (name, value, days) {
     }
     var st = escape(JSON.stringify({ value: value }));
     document.cookie = name + '=' + st + expires + '; path=/';
-};
-export { setCookie };
+}
+;

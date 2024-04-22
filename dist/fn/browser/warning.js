@@ -1,4 +1,4 @@
-import { log } from './log.js';
+import log from './log.js';
 /**
  * Logs the given argument in the browser's console highlighting it with a yellow background and red color.
  * @method   warning
@@ -11,7 +11,7 @@ import { log } from './log.js';
  * @param    {...any} args
  * @returns
  */
-var warning = function (message) {
+export default function warning(message) {
     var args = ['BBN: ' + message];
     var obj = {
         _bbn_console_mode: 'warn',
@@ -20,5 +20,5 @@ var warning = function (message) {
     };
     args.unshift(obj);
     log.apply(this, args);
-};
-export { warning };
+}
+;

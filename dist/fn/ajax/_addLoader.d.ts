@@ -12,5 +12,4 @@
  *
  * @returns  {Number}  The timestamp (in ms)
  */
-declare const _addLoader: (requestId: any, prom: any, aborter: any) => number;
-export { _addLoader };
+export default function _addLoader(requestId: any, prom: any, aborter: any): number;

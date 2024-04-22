@@ -1,4 +1,4 @@
-declare const lng: {
+declare const _default: {
     select_unselect_all: string;
     select_all: string;
     search: string;
@@ -23,4 +23,4 @@ declare const lng: {
     Tomorrow: string;
     Yesterday: string;
 };
-export { lng };
+export default _default;

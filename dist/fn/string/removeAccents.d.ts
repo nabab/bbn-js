@@ -13,5 +13,4 @@
  * @param    {String} st
  * @returns  {String}
  */
-declare const removeAccents: (st: string) => string;
-export { removeAccents };
+export default function removeAccents(st: string): string;

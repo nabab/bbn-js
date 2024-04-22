@@ -1,4 +1,4 @@
-import { substr } from './substr.js';
+import substr from './substr.js';
 /**
  * @method   removeTrailingChars
  * @todo     Add method description for removeTrailingChars
@@ -8,7 +8,7 @@ import { substr } from './substr.js';
  * @param    {String} char
  * @returns  {*}
  */
-var removeTrailingChars = function (st, char) {
+export default function removeTrailingChars(st, char) {
     if (!char) {
         char = " ";
     }
@@ -21,5 +21,5 @@ var removeTrailingChars = function (st, char) {
         }
     }
     return st;
-};
-export { removeTrailingChars };
+}
+;

@@ -1,4 +1,4 @@
-import { replaceAll } from './replaceAll.js';
+import replaceAll from './replaceAll.js';
 /**
  * Replace quotes in ASCII code
  *
@@ -27,7 +27,7 @@ import { replaceAll } from './replaceAll.js';
  * @param    {String} st
  * @returns  {String}
  */
-var quotes2html = function (st, type) {
+export default function quotes2html(st, type) {
     if (!type || type.toLowerCase().indexOf("s") === 0) {
         st = replaceAll("'", "&#39;", st);
     }
@@ -35,5 +35,5 @@ var quotes2html = function (st, type) {
         st = replaceAll('"', "&quot;", st);
     }
     return st;
-};
-export { quotes2html };
+}
+;

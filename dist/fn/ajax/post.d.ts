@@ -31,5 +31,4 @@
  *
  * @returns  {undefined|Promise}
  */
-declare const post: (...args: any[]) => any;
-export { post };
+export default function post(...args: any[]): any;

@@ -1,7 +1,7 @@
-import { isNumber } from '../type/isNumber.js'  ;
-import { isString } from '../type/isString.js'  ;
+import isNumber from '../type/isNumber.js'  ;
+import isString from '../type/isString.js'  ;
 
-const formatSize = function (st, noValid) {
+export default function formatSize(st, noValid) {
 	if (isNumber(st)) {
 		return st + 'px';
 	}
@@ -10,5 +10,3 @@ const formatSize = function (st, noValid) {
 	}
 	return noValid ? false : 'auto';
 };
-
-export { formatSize };

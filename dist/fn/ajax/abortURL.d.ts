@@ -18,5 +18,4 @@
  *
  * @returns  {undefined}
  */
-declare const abortURL: (url: any) => void;
-export { abortURL };
+export default function abortURL(url: any): void;

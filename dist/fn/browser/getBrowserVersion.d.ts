@@ -5,5 +5,4 @@
  * @memberof bbn.fn
  * @returns {String}
  */
-declare const getBrowserVersion: () => string;
-export { getBrowserVersion };
+export default function getBrowserVersion(): string;

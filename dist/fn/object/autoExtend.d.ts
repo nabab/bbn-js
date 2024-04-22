@@ -29,5 +29,4 @@
  * @param    {Object}    obj       The object to merge
  * @returns  {undefined} No return value
  */
-declare const autoExtend: (namespace: any, obj: any) => void;
-export { autoExtend };
+export default function autoExtend(namespace: any, obj: any): void;

@@ -14,5 +14,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isInt: (...args: any[]) => boolean;
-export { isInt };
+export default function isInt(...args: any[]): boolean;

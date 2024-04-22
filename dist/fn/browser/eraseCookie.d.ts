@@ -11,5 +11,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const eraseCookie: (name: any) => void;
-export { eraseCookie };
+export default function eraseCookie(name: any): void;

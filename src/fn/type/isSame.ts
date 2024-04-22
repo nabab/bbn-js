@@ -1,6 +1,6 @@
-import { hash } from '../string/hash.js'  ;
-import { each } from '../loop/each.js'  ;
-import { analyzeFunction } from '../misc/analyzeFunction.js';
+import hash from '../string/hash.js'  ;
+import each from '../loop/each.js'  ;
+import analyzeFunction from '../misc/analyzeFunction.js';
 
 /**
   * Checks whether the data contained in the given objects is identical.
@@ -41,7 +41,7 @@ import { analyzeFunction } from '../misc/analyzeFunction.js';
   * @param    {Object} obj2
   * @returns  {Boolean}
   */
-const isSame = function (obj1: any, obj2: any, done?: any[]) {
+export default function isSame(obj1: any, obj2: any, done?: any[]) {
 	if (!done) {
 		done = [];
 	}
@@ -82,4 +82,3 @@ const isSame = function (obj1: any, obj2: any, done?: any[]) {
 
 	return false;
 };
-export { isSame };

@@ -1,13 +1,13 @@
-import { isDom } from '../type/isDom.js';
-import { isCp } from '../type/isCp.js';
-import { circularReplacer } from '../object/circularReplacer.js';
-import { simpleHash } from './simpleHash.js';
+import isDom from '../type/isDom.js';
+import isCp from '../type/isCp.js';
+import circularReplacer from '../object/circularReplacer.js';
+import simpleHash from './simpleHash.js';
 /**
  * Makes a hash out of anything
  * @param {Object|Array} obj
  * @returns {String}
  */
-var hash = function (obj) {
+export default function hash(obj) {
     //log(obj);
     var st = "__bbn__";
     for (var i in arguments) {
@@ -36,5 +36,5 @@ var hash = function (obj) {
         }
     }
     return simpleHash(st);
-};
-export { hash };
+}
+;

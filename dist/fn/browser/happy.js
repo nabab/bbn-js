@@ -1,4 +1,4 @@
-import { log } from './log.js';
+import log from './log.js';
 /**
  * Logs the given argument in the browser's console highlighting it with a green background.
  * @method   happy
@@ -11,7 +11,7 @@ import { log } from './log.js';
  * @param    {...any} args
  * @returns
  */
-var happy = function () {
+export default function happy() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -22,5 +22,5 @@ var happy = function () {
     });
     log.apply(this, args);
     return this;
-};
-export { happy };
+}
+;

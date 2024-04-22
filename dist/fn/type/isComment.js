@@ -10,7 +10,7 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-var isComment = function () {
+export default function isComment() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -24,5 +24,5 @@ var isComment = function () {
         }
     }
     return true;
-};
-export { isComment };
+}
+;

@@ -26,7 +26,7 @@
  * @param    {String} props
  * @returns  {*}      The property's value or undefined
  */
-const getProperty = function (obj, ...props) {
+export default function getProperty(obj, ...props) {
 	if (typeof obj === 'object') {
 		const arr = [];
 		if (props.length === 1 && typeof props[0] === 'string') {
@@ -42,5 +42,3 @@ const getProperty = function (obj, ...props) {
 		}, obj);
 	}
 };
-
-export { getProperty };

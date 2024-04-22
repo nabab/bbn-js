@@ -18,5 +18,4 @@
  * @param    {Number} max
  * @returns  {Number}
  */
-declare const randomInt: (min: number, max: number) => number;
-export { randomInt };
+export default function randomInt(min: number, max: number): number;

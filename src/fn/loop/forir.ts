@@ -1,5 +1,5 @@
-import { isArray } from '../type/isArray.js'  ;
-import { isNumber } from '../type/isNumber.js'  ;
+import isArray from '../type/isArray.js'  ;
+import isNumber from '../type/isNumber.js'  ;
 
 /**
  * Executes the provided function on each element of the given array, going backward.
@@ -35,7 +35,7 @@ import { isNumber } from '../type/isNumber.js'  ;
  * @param    {Number}    min The index at which the loop will start
  * @returns  {undefined}
  */
-const forir = function (
+export default function forir(
   arr,
   fn,
   max = arr.length - 1,
@@ -58,5 +58,3 @@ const forir = function (
     }
   }
 };
-
-export { forir };

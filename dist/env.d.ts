@@ -1,4 +1,4 @@
-declare const env: {
+declare const _default: {
     siteTitle: string;
     logging: boolean;
     cdn: string;
@@ -31,4 +31,4 @@ declare const env: {
     historyDisabled: boolean;
     nav: string;
 };
-export { env };
+export default _default;

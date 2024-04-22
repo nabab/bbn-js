@@ -1,5 +1,5 @@
-import { isString } from '../type/isString.js';
-import { substr } from './substr.js';
+import isString from '../type/isString.js';
+import substr from './substr.js';
 /**
  * Returns the name of the element indicated by path given to it as an argument.
  *
@@ -22,7 +22,7 @@ import { substr } from './substr.js';
  * @param    {String} suffix An optional suffix that will be removed from the basename
  * @returns  {String} The basename of path
  */
-var baseName = function (path, suffix) {
+export default function baseName(path, suffix) {
     if (path && isString(path)) {
         var bits = path.split("/");
         var res = bits.pop();
@@ -35,5 +35,5 @@ var baseName = function (path, suffix) {
         }
     }
     return "";
-};
-export { baseName };
+}
+;

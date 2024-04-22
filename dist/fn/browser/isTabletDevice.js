@@ -1,4 +1,4 @@
-import { getDeviceType } from '../browser/getDeviceType.js';
+import getDeviceType from '../browser/getDeviceType.js';
 /**
   * Returns true if the current device type is a tablet.
   * @method   isTabletDevice
@@ -11,7 +11,7 @@ import { getDeviceType } from '../browser/getDeviceType.js';
   * @memberof bbn.fn
   * @returns  {Boolean}
   */
-var isTabletDevice = function () {
+export default function isTabletDevice() {
     return getDeviceType() === 'tablet';
-};
-export { isTabletDevice };
+}
+;

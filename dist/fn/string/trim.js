@@ -1,5 +1,5 @@
-import { substr } from './substr.js';
-var trim = function (str, hair) {
+import substr from './substr.js';
+export default function trim(str, hair) {
     if (hair === void 0) { hair = ' '; }
     if (hair === ' ') {
         return str.trim();
@@ -17,5 +17,5 @@ var trim = function (str, hair) {
         str = substr(str, 0, str.length - hair.length);
     }
     return str;
-};
-export { trim };
+}
+;

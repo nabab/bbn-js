@@ -1,5 +1,5 @@
-import { isString } from './isString.js';
-var isIP = function () {
+import isString from './isString.js';
+export default function isIP() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -13,5 +13,5 @@ var isIP = function () {
         }
     }
     return true;
-};
-export { isIP };
+}
+;

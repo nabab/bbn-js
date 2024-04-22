@@ -1,8 +1,8 @@
-import { isString } from '../type/isString.js';
-var escapeSquotes = function (str) {
+import isString from '../type/isString.js';
+export default function escapeSquotes(str) {
     if (!isString(str)) {
         return str;
     }
     return str.replace(/'/g, "\\'");
-};
-export { escapeSquotes };
+}
+;

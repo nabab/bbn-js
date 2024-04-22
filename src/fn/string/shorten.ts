@@ -1,5 +1,5 @@
-import { isString } from '../type/isString.js'  ;
-import { substr } from './substr.js'  ;
+import isString from '../type/isString.js'  ;
+import substr from './substr.js'  ;
 
 /**
  * Shortens the given string after *len* characters.
@@ -26,7 +26,7 @@ import { substr } from './substr.js'  ;
  * @param    {Number} len
  * @returns  {String}
  */
-const shorten = function (st: string, len?: number, adj?: string): string {
+export default function shorten(st: string, len?: number, adj?: string): string {
   if (typeof st.toLowerCase() === "string") {
     if (!len) {
       len = bbn.var.shortenLen;
@@ -40,5 +40,3 @@ const shorten = function (st: string, len?: number, adj?: string): string {
   }
   return st;
 };
-
-export { shorten };

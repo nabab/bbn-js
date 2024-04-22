@@ -5,5 +5,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-declare const fdatetime: (d: any, wrong_result?: boolean) => any;
-export { fdatetime };
+export default function fdatetime(d: any, wrong_result?: boolean): any;

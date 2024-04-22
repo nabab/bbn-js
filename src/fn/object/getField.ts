@@ -1,4 +1,4 @@
-import { getRow } from './getRow.js'  ;
+import getRow from './getRow.js'  ;
 
 /**
   * Returns the value of the given field (property) from the first object matching the given filter in an array of objects.
@@ -28,7 +28,7 @@ import { getRow } from './getRow.js'  ;
   * @param    {String}                   operator  The operator to use for comparison with the value as used in bbn.fn.compare
   * @returns  {*}
   */
-const getField = function (
+export default function getField(
 	arr: any[],
 	field: string,
 	prop: object | string = '',
@@ -42,5 +42,3 @@ const getField = function (
 
 	return undefined;
 };
-
-export { getField };

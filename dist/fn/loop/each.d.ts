@@ -29,5 +29,4 @@
  * @param    {Function}  fn  The function, gets the array's element and the index as arguments
  * @returns  {[Array, Object, void]}
  */
-declare const each: (arr: any, fn: any) => any;
-export { each };
+export default function each(arr: any, fn: any): any;

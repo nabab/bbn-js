@@ -1,4 +1,4 @@
-import { randomInt } from '../misc/randomInt.js'  ;
+import randomInt from '../misc/randomInt.js'  ;
 
 /**
  * Returns a random String with random lenght,
@@ -26,7 +26,7 @@ import { randomInt } from '../misc/randomInt.js'  ;
  * @param    {String} chars
  * @returns  {String}
  */
-const randomString = function (
+export default function randomString(
   min?: number,
   max?: string | number,
   types?: string
@@ -74,5 +74,3 @@ const randomString = function (
   }
   return result;
 };
-
-export { randomString };

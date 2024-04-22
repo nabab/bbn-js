@@ -14,5 +14,4 @@
  * @memberof bbn.fn
  * @returns  {String} The unique string in md5 format
  */
-declare const uniqString: (...args: any[]) => string;
-export { uniqString };
+export default function uniqString(...args: any[]): string;

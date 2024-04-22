@@ -1,4 +1,4 @@
-import { date } from './date.js';
+import date from './date.js';
 /**
  * @method   getDay
  * @ignore
@@ -8,7 +8,7 @@ import { date } from './date.js';
  * @param    {String|Date} v
  * @returns
  */
-var getDay = function (v) {
+export default function getDay(v) {
     var biss = 1972;
     var d = date(v);
     if (d) {
@@ -22,5 +22,5 @@ var getDay = function (v) {
         return days + Math.floor(t / (24 * 3600000));
     }
     return false;
-};
-export { getDay };
+}
+;

@@ -1,4 +1,4 @@
-import { isValidDimension } from './isValidDimension.js'  ;
+import isValidDimension from './isValidDimension.js'  ;
 
 /**
  * Returns true if the given value is a valid CSS dimension string or a number, false otherwise.
@@ -9,7 +9,7 @@ import { isValidDimension } from './isValidDimension.js'  ;
  * @param    {String} st
  * @returns
  */
-const isDimension = function (...args: any[]): boolean {
+export default function isDimension(...args: any[]): boolean {
   if (!args.length) return false;
   for (let st of args) {
     if (typeof st !== "number" || st < 0) {
@@ -23,5 +23,3 @@ const isDimension = function (...args: any[]): boolean {
 
   return true;
 };
-
-export { isDimension };

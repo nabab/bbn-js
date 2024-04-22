@@ -1,5 +1,5 @@
 
-const string2ArrayBuffer = function (str: string)
+export default function string2ArrayBuffer(str: string)
 {
 	var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
 	var bufView = new Uint16Array(buf);
@@ -8,5 +8,3 @@ const string2ArrayBuffer = function (str: string)
 	}
 	return buf;
 };
-
-export { string2ArrayBuffer };

@@ -10,5 +10,4 @@
  * @memberof bbn.fn
  * @returns  {Boolean}
  */
-declare const isPercent: (...args: any[]) => boolean;
-export { isPercent };
+export default function isPercent(...args: any[]): boolean;

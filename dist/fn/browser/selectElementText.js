@@ -17,7 +17,7 @@
  *
  * @returns  {Boolean} True if focused
  */
-var selectElementText = function (ele, win) {
+export default function selectElementText(ele, win) {
     if (win === void 0) { win = null; }
     win = win || window;
     if (ele instanceof HTMLInputElement) {
@@ -39,5 +39,5 @@ var selectElementText = function (ele, win) {
         range.moveToElementText(ele);
         range.select();
     }
-};
-export { selectElementText };
+}
+;
