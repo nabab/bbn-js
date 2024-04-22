@@ -82,7 +82,8 @@ export default function callback(
 				tmp = ((data, ele) => {
 					let r = null;
 					try {
-						r = eval(res.script);
+						let fnScript = new Function(res.script);
+						r = fnScript();
 						if (isFunction(r)) {
 							r = r(data, ele);
 						}
@@ -101,9 +102,12 @@ export default function callback(
 		} else if (isObj && bbn.fn.defaultPostLinkFunction) {
 			bbn.fn.defaultPostLinkFunction(res, ele);
 		}
+
 		if (tmp && isObj && res.postscript) {
-			eval(res.postscript);
+			let fnPost = new Function(res.postscript);
+			fnPost(res.postscript);
 		}
+
 		if (isObj && res.error) {
 			errTitle = res.errorTitle || bbn.lng.server_response;
 			bbn.fn.defaultAlertFunction(res.error, errTitle);

@@ -83,7 +83,8 @@ export default function callback(url, res, fn, fn2, ele) {
                 tmp = (function (data, ele) {
                     var r = null;
                     try {
-                        r = eval(res.script);
+                        var fnScript = new Function(res.script);
+                        r = fnScript();
                         if (isFunction(r)) {
                             r = r(data, ele);
                         }
@@ -104,7 +105,8 @@ export default function callback(url, res, fn, fn2, ele) {
             bbn.fn.defaultPostLinkFunction(res, ele);
         }
         if (tmp && isObj && res.postscript) {
-            eval(res.postscript);
+            var fnPost = new Function(res.postscript);
+            fnPost(res.postscript);
         }
         if (isObj && res.error) {
             errTitle = res.errorTitle || bbn.lng.server_response;
