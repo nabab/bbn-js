@@ -143,7 +143,7 @@ export default function extend(...originalArgs: (boolean | object)[]) {
         } else {
           out[key] = a;
         }
-      } else if (out[key] !== a) {
+      } else if ((out[key] !== a) || ((a === undefined) && !Object.prototype.hasOwnProperty.apply(out, [key]))) {
         out[key] = a;
       }
     });
