@@ -144,7 +144,7 @@ export default function extend() {
                     out[key] = a;
                 }
             }
-            else if (out[key] !== a) {
+            else if ((out[key] !== a) || ((a === undefined) && !Object.prototype.hasOwnProperty.apply(out, [key]))) {
                 out[key] = a;
             }
         });
