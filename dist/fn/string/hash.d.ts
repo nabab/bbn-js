@@ -3,4 +3,4 @@
  * @param {Object|Array} obj
  * @returns {String}
  */
-export default function hash(obj: any): string;
+export default function hash(): string;
