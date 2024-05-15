@@ -11,7 +11,7 @@ import simpleHash from './simpleHash.js'  ;
  */
 export default function hash(obj) {
   //log(obj);
-  let st = "__bbn__";
+  let st = "";
   for (let i in arguments) {
     if (arguments[i]) {
       let value = arguments[i];
@@ -29,9 +29,12 @@ export default function hash(obj) {
           value = value.constructor.toString();
         }
       }
+      else if (value?.__bbnData && window.bbnData) {
+        st += bbnData.getObject(value).old;
+      }
 
       try {
-        st += JSON.stringify(arguments[i], circularReplacer());
+        st += JSON.stringify(value, circularReplacer());
       } catch (e) {
         st += ".";
       }

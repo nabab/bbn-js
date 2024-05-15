@@ -9,7 +9,7 @@ import simpleHash from './simpleHash.js';
  */
 export default function hash(obj) {
     //log(obj);
-    var st = "__bbn__";
+    var st = "";
     for (var i in arguments) {
         if (arguments[i]) {
             var value = arguments[i];
@@ -30,8 +30,11 @@ export default function hash(obj) {
                     value = value.constructor.toString();
                 }
             }
+            else if ((value === null || value === void 0 ? void 0 : value.__bbnData) && window.bbnData) {
+                st += bbnData.getObject(value).old;
+            }
             try {
-                st += JSON.stringify(arguments[i], circularReplacer());
+                st += JSON.stringify(value, circularReplacer());
             }
             catch (e) {
                 st += ".";
