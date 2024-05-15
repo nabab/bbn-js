@@ -9,34 +9,33 @@ import simpleHash from './simpleHash.js';
  */
 export default function hash(obj) {
     //log(obj);
-    var st = "";
+    var st = "__bbn__";
     for (var i in arguments) {
-        var value = arguments[i];
-        if (value === undefined) {
-            value = "__BBN_UNDEFINED__";
-        }
-        else if (![undefined, Object, Array, null].includes(value.constructor)) {
-            if (isDom(value)) {
-                if (value.bbnId) {
-                    value =
-                        "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
+        if (arguments[i]) {
+            var value = arguments[i];
+            if (![undefined, Object, Array, null].includes(value.constructor)) {
+                if (isDom(value)) {
+                    if (value.bbnId) {
+                        value =
+                            "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
+                    }
+                    else {
+                        value = "__BBN_DOM__" + value.tagName + "/" + value.className;
+                    }
+                }
+                else if (isCp(value)) {
+                    value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
                 }
                 else {
-                    value = "__BBN_DOM__" + value.tagName + "/" + value.className;
+                    value = value.constructor.toString();
                 }
             }
-            else if (isCp(value)) {
-                value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
+            try {
+                st += JSON.stringify(arguments[i], circularReplacer());
             }
-            else {
-                value = value.constructor.toString();
+            catch (e) {
+                st += ".";
             }
-        }
-        try {
-            st += JSON.stringify(value, circularReplacer());
-        }
-        catch (e) {
-            st += ".";
         }
     }
     return simpleHash(st);
