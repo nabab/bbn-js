@@ -30,9 +30,6 @@ export default function hash(obj) {
                     value = value.constructor.toString();
                 }
             }
-            else if ((value === null || value === void 0 ? void 0 : value.__bbnData) && window.bbnData) {
-                st += bbnData.getObject(value).old;
-            }
             try {
                 st += JSON.stringify(value, circularReplacer());
             }

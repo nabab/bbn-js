@@ -29,9 +29,6 @@ export default function hash(obj) {
           value = value.constructor.toString();
         }
       }
-      else if (value?.__bbnData && window.bbnData) {
-        st += bbnData.getObject(value).old;
-      }
 
       try {
         st += JSON.stringify(value, circularReplacer());
