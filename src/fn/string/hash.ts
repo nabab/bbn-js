@@ -17,7 +17,7 @@ export default function hash() {
     if (value === undefined) {
       value = "__BBN_UNDEFINED__";
     }
-    else if (![undefined, Object, Array, null].includes(value.constructor)) {
+    else if (![undefined, Object, Array, null].includes(value?.constructor)) {
       if (isDom(value)) {
         if (value.bbnId) {
           value =
