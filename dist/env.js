@@ -28,7 +28,7 @@ export default {
      **/
     loaders: [],
     loadersHistory: [],
-    maxLoadersHistory: 20,
+    maxLoadersHistory: 50,
     /* bbn.env.params is an array of each element of the path */
     resizeTimer: false,
     hashChanged: 0,
