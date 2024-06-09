@@ -2,14 +2,22 @@ import isArray from '../type/isArray.js';
 import hash from '../string/hash.js';
 import isSame from '../type/isSame.js';
 import search from './search.js';
+import checkType from '../type/checkType.js';
 
 
-export default function mutateArray(a1, a2) {
+export default function mutateArray(a1, a2, hashFn = null) {
   if (!isArray(a1, a2)) {
     throw new TypeError('mutateArray can only be called with arrays');
   }
 
-  const mapA2 = new Map(a2.map(item => [hash(item), item]));
+  if (!hashFn) {
+    hashFn = hash;
+  }
+  else {
+    checkType(hashFn, 'function');
+  }
+
+  const mapA2 = new Map(a2.map(item => [hashFn(item), item]));
   let a1Ordered = [];
 
   // Build a1Ordered to have the same order and contents as a2
