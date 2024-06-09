@@ -170,6 +170,7 @@ import money from './fn/misc/money.js';
 import move from './fn/object/move.js';
 import multiorder from './fn/object/multiorder.js';
 import mutateArray from './fn/object/mutateArray.js';
+import mutateObject from './fn/object/mutateObject.js';
 import nl2br from './fn/string/nl2br.js';
 import numProperties from './fn/object/numProperties.js';
 import objectToFormData from './fn/form/objectToFormData.js';
@@ -402,6 +403,7 @@ export default {
   move,
   multiorder,
   mutateArray,
+  mutateObject,
   nl2br,
   numProperties,
   objectToFormData,
