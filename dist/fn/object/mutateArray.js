@@ -12,7 +12,7 @@ export default function mutateArray(a1, a2, hashFn) {
         hashFn = hash;
     }
     else {
-        checkType(hashFn, 'function');
+        checkType(hashFn, 'function', 'The hash function must be a function');
     }
     var mapA2 = new Map(a2.map(function (item) { return [hashFn(item), item]; }));
     var a1Ordered = [];
@@ -23,7 +23,7 @@ export default function mutateArray(a1, a2, hashFn) {
     // Remove items from a1 that are not in a2
     var i = a1.length;
     while (i--) {
-        if (!mapA2.has(hash(a1[i]))) {
+        if (!mapA2.has(hashFn(a1[i]))) {
             a1.splice(i, 1);
         }
     }
