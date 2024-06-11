@@ -45,8 +45,9 @@ export default function isWritable(obj: Object, key: keyof Object) {
     if (desc) {
       break;
     }
+
     obj = Object.getPrototypeOf(obj);
   }
 
-  return desc ? Boolean(desc.writable) : true;
+  return desc ? Boolean(desc.writable || desc.set) : true;
 };
