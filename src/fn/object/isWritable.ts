@@ -39,10 +39,14 @@ import getRow from './getRow.js'  ;
   */
  
 export default function isWritable(obj: Object, key: keyof Object) {
-  const desc = 
-        Object.getOwnPropertyDescriptor(obj, key) 
-        || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(obj), key)
-        || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(Object.getPrototypeOf(obj)), key)
-        || {};
-  return Boolean(desc.writable);
+  let desc;
+  while (obj) {
+    desc = Object.getOwnPropertyDescriptor(obj, key);
+    if (desc) {
+      break;
+    }
+    obj = Object.getPrototypeOf(obj);
+  }
+
+  return desc ? Boolean(desc.writable) : true;
 };
