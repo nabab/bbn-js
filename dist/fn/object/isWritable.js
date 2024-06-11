@@ -38,6 +38,7 @@
 export default function isWritable(obj, key) {
     var desc = Object.getOwnPropertyDescriptor(obj, key)
         || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(obj), key)
+        || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(Object.getPrototypeOf(obj)), key)
         || {};
     return Boolean(desc.writable);
 }
