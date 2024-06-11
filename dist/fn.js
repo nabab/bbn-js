@@ -159,6 +159,7 @@ import isValidDimension from './fn/type/isValidDimension.js';
 import isValidName from './fn/type/isValidName.js';
 import isValue from './fn/type/isValue.js';
 import isVue from './fn/type/isVue.js';
+import isWritable from './fn/object/isWritable.js';
 import iterate from './fn/loop/iterate.js';
 import lightenDarkenHex from './fn/style/lightenDarkenHex.js';
 import link from './fn/ajax/link.js';
@@ -391,6 +392,7 @@ export default {
     isValidName: isValidName,
     isValue: isValue,
     isVue: isVue,
+    isWritable: isWritable,
     iterate: iterate,
     lightenDarkenHex: lightenDarkenHex,
     link: link,
