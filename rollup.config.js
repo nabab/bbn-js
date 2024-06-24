@@ -17,7 +17,6 @@ export default defineConfig({
         sourcemap: true, // Equivalent to Webpack's devtool: 'source-map',
         exports: 'named'
     },
-    context: 'window', // Equivalent to Webpack's target: 'web
     plugins: [
         nodeResolve({
             browser: true,
