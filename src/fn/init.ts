@@ -94,7 +94,9 @@ export default function init(cfg, force) {
     }
 
     if (bbn.env.lang && undefined !== dayjs) {
-      dayjs.locale(bbn.env.lang);
+      import(`dayjs/locale/${bbn.env.lang}.js`).then(() => {
+        dayjs.locale(bbn.env.lang);
+      });
     }
 
     window.onfocus = () => {

@@ -1,6 +1,6 @@
 /**
  * Makes a hash out of anything
- * @param {Object|Array} obj
+ * @param {[*]} args
  * @returns {String}
  */
-export default function hash(): string;
+export default function hash(...args: any[]): string;

@@ -88,7 +88,9 @@ export default function init(cfg, force) {
             addColors(bbn.var.colors);
         }
         if (bbn.env.lang && undefined !== dayjs) {
-            dayjs.locale(bbn.env.lang);
+            import("dayjs/locale/".concat(bbn.env.lang, ".js")).then(function () {
+                dayjs.locale(bbn.env.lang);
+            });
         }
         window.onfocus = function () {
             bbn.env.isFocused = true;

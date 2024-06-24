@@ -6,14 +6,14 @@ import simpleHash from './simpleHash.js'  ;
 
 /**
  * Makes a hash out of anything
- * @param {Object|Array} obj
+ * @param {[*]} args
  * @returns {String}
  */
-export default function hash() {
+export default function hash(...args) {
   //log(obj);
   let st = "";
-  for (let i in arguments) {
-    let value = arguments[i];
+  for (let i in args) {
+    let value = args[i];
     if (value === undefined) {
       value = "__BBN_UNDEFINED__";
     }

@@ -4,14 +4,18 @@ import circularReplacer from '../object/circularReplacer.js';
 import simpleHash from './simpleHash.js';
 /**
  * Makes a hash out of anything
- * @param {Object|Array} obj
+ * @param {[*]} args
  * @returns {String}
  */
 export default function hash() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
     //log(obj);
     var st = "";
-    for (var i in arguments) {
-        var value = arguments[i];
+    for (var i in args) {
+        var value = args[i];
         if (value === undefined) {
             value = "__BBN_UNDEFINED__";
         }
