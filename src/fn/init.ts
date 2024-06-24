@@ -94,7 +94,7 @@ export default function init(cfg, force) {
     }
 
     if (bbn.env.lang && undefined !== dayjs) {
-      import(`${bbn.env.cdn}'lib/bbn-cp/v2/node_modules/dayjs/locale/fr.js`).then(() => {
+      import('dayjs/locale/fr.js').then(() => {
         dayjs.locale(bbn.env.lang);
       });
     }
