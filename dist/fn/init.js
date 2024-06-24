@@ -88,7 +88,7 @@ export default function init(cfg, force) {
             addColors(bbn.var.colors);
         }
         if (bbn.env.lang && undefined !== dayjs) {
-            import("dayjs/locale/".concat(bbn.env.lang, ".js")).then(function () {
+            import("./node_modules/dayjs/locale/".concat(bbn.env.lang, ".js")).then(function () {
                 dayjs.locale(bbn.env.lang);
             });
         }
