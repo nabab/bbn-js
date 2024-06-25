@@ -17,6 +17,7 @@ export default defineConfig({
         sourcemap: true, // Equivalent to Webpack's devtool: 'source-map',
         exports: 'named'
     },
+    inlineDynamicImports: true,
     plugins: [
         nodeResolve({
             browser: true,
