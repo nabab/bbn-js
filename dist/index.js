@@ -1,6 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar.js';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import dayOfYear from 'dayjs/plugin/dayOfYear.js';
 import duration from 'dayjs/plugin/duration.js';
 import isBetween from 'dayjs/plugin/isBetween.js';
@@ -17,6 +18,7 @@ import utc from 'dayjs/plugin/utc.js';
 import weekday from 'dayjs/plugin/weekday.js';
 import weekOfYear from 'dayjs/plugin/weekOfYear.js';
 dayjs.extend(calendar);
+dayjs.extend(customParseFormat);
 dayjs.extend(dayOfYear);
 dayjs.extend(duration);
 dayjs.extend(isBetween);
