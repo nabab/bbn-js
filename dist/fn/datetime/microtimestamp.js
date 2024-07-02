@@ -1,6 +1,6 @@
 /**
  * Returns the timestamp of the given seconds if an argument is given, else returns the timestamp of new Date().
- * @method   timestamp
+ * @method   microtimestamp
  * @global
  * @example
  * ```javascript
@@ -8,7 +8,9 @@
  * bbn.fn.timestamp();
  * ```
  * @memberof bbn.fn
- * @param    {Boolean} seconds
  * @returns  {Number}
  */
-export default function timestamp(seconds?: boolean): number;
+export default function microtimestamp() {
+    return window.performance.now() + performance.timeOrigin;
+}
+;

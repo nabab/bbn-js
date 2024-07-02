@@ -167,6 +167,7 @@ import log from './fn/browser/log.js';
 import makeReactive from './fn/html/makeReactive.js';
 import map from './fn/object/map.js';
 import md5 from './fn/string/md5.js';
+import microtimestamp from './fn/datetime/microtimestamp.js';
 import money from './fn/misc/money.js';
 import move from './fn/object/move.js';
 import multiorder from './fn/object/multiorder.js';
@@ -400,6 +401,7 @@ export default {
     makeReactive: makeReactive,
     map: map,
     md5: md5,
+    microtimestamp: microtimestamp,
     money: money,
     move: move,
     multiorder: multiorder,

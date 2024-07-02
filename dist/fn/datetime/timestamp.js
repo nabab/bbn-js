@@ -8,8 +8,8 @@
  * bbn.fn.timestamp();
  * ```
  * @memberof bbn.fn
- * @param    {Number} seconds
- * @returns  {Boolean}
+ * @param    {Boolean} seconds
+ * @returns  {Number}
  */
 export default function timestamp(seconds) {
     if (seconds === void 0) { seconds = false; }
