@@ -36,9 +36,12 @@ export default function getProperty(obj) {
         if (props.length === 1 && typeof props[0] === 'string') {
             arr.push.apply(arr, props[0].split('.'));
         }
+        else {
+            arr.push.apply(arr, props);
+        }
         return arr.reduce(function (o, i) {
             if (o) {
-                return o[i];
+                return o[bbn.fn.isArray(o) ? parseInt(i) : i];
             }
             return undefined;
         }, obj);
