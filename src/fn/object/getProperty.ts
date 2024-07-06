@@ -38,7 +38,7 @@ export default function getProperty(obj, ...props) {
 
 		return arr.reduce((o, i) => {
 			if (o) {
-				return o[bbn.fn.isArray(o) ? parseInt(i) : i];
+				return o[o instanceof Array ? parseInt(i) : i];
 			}
 
 			return undefined;

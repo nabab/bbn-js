@@ -41,7 +41,7 @@ export default function getProperty(obj) {
         }
         return arr.reduce(function (o, i) {
             if (o) {
-                return o[bbn.fn.isArray(o) ? parseInt(i) : i];
+                return o[o instanceof Array ? parseInt(i) : i];
             }
             return undefined;
         }, obj);
