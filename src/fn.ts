@@ -469,4 +469,3 @@ export default {
   upload,
   warning,
 };
-
