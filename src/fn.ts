@@ -226,6 +226,7 @@ import toCSV from './fn/convert/toCSV.js';
 import toggleFullScreen from './fn/browser/toggleFullScreen.js';
 import translate from './fn/misc/translate.js';
 import treatAjaxArguments from './fn/ajax/treatAjaxArguments.js';
+import treatForHash from './fn/string/treatForHash.js';
 import trim from './fn/string/trim.js';
 import uniqString from './fn/string/uniqString.js';
 import unique from './fn/object/unique.js';
@@ -461,6 +462,7 @@ export default {
   toggleFullScreen,
   translate,
   treatAjaxArguments,
+  treatForHash,
   trim,
   uniqString,
   unique,
