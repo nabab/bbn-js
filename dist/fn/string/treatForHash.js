@@ -2,12 +2,20 @@ import isDom from '../type/isDom.js';
 import isCp from '../type/isCp.js';
 /**
  * Makes a hash out of anything
- * @param {[*]} args
+ * @param {*} value
+ * @param {Function} fn
+ * @param {Number} [depth=null]
+ * @param {Number} [level=0]
+ * @param {WeakSet} [visited=null]
  * @returns {String}
  */
-export default function treatForHash(value, fn, depth, level) {
+export default function treatForHash(value, fn, depth, level, visited) {
     if (depth === void 0) { depth = null; }
     if (level === void 0) { level = 0; }
+    if (visited === void 0) { visited = null; }
+    if (!level) {
+        visited = new WeakSet();
+    }
     if (value === undefined) {
         value = "__BBN_UNDEFINED__";
     }
@@ -47,29 +55,31 @@ export default function treatForHash(value, fn, depth, level) {
         }
     }
     else if (bbn.fn.isArray(value)) {
-        if (depth && (depth < level)) {
+        if (visited.has(value) || (depth && (depth < level))) {
             value = "__BBN_ARRAY__" + value.constructor.toString();
         }
         else {
+            visited.add(value);
             var st = '';
             for (var i = 0; i < value.length; i++) {
-                st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], fn, level + 1, depth);
+                st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], fn, depth, level + 1, visited);
             }
             value = "__BBN_ARRAY__" + st;
         }
     }
     else if (typeof value === 'object') {
-        if (depth && (depth < level)) {
+        if (visited.has(value) || (depth && (depth < level))) {
             value = "__BBN_OBJECT__" + value.constructor.toString();
         }
         else {
+            visited.add(value);
             var st = '';
             for (var n in value) {
                 var idx = n;
                 if (typeof idx !== 'string') {
-                    idx = fn(idx);
+                    idx = fn(idx, fn, 1, 1);
                 }
-                st += "__BBN_PROP_" + idx + "__" + fn(value[n], fn, level + 1, depth);
+                st += "__BBN_PROP_" + idx + "__" + fn(value[n], fn, depth, level + 1, visited);
             }
             value = "__BBN_OBJECT__" + st;
         }
