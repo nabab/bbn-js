@@ -1,5 +1,5 @@
 /**
- * Makes a hash out of anything
+ * Makes a string out of anything
  * @param {*} value
  * @param {Function} fn
  * @param {Number} [depth=null]

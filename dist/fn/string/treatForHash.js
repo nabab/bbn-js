@@ -1,7 +1,7 @@
 import isDom from '../type/isDom.js';
 import isCp from '../type/isCp.js';
 /**
- * Makes a hash out of anything
+ * Makes a string out of anything
  * @param {*} value
  * @param {Function} fn
  * @param {Number} [depth=null]
