@@ -1,8 +1,5 @@
-import log from '../browser/log.js'  ;
-import isDom from '../type/isDom.js'  ;
-import isCp from '../type/isCp.js'  ;
-import circularReplacer from '../object/circularReplacer.js'  ;
-import simpleHash from './simpleHash.js'  ;
+import simpleHash from './simpleHash.js';
+import treatForHash from './treatForHash.js'
 
 /**
  * Makes a hash out of anything
@@ -12,29 +9,14 @@ import simpleHash from './simpleHash.js'  ;
 export default function hash(...args) {
   //log(obj);
   let st = "";
-  for (let i in args) {
-    let value = args[i];
-    if (value === undefined) {
-      value = "__BBN_UNDEFINED__";
-    }
-    else if (![undefined, Object, Array, null].includes(value?.constructor)) {
-      if (isDom(value)) {
-        if (value.bbnId) {
-          value =
-            "__BBN_DOM__" + value.tagName + "/" + value.bbnId + value.bbnHash;
-        } else {
-          value = "__BBN_DOM__" + value.tagName + "/" + value.className;
-        }
-      } else if (isCp(value)) {
-        value = "__BBN_CP__" + value.$options.name + "/" + value.$cid;
-      }
-    }
+  let depth = null;
+  if ((args.length === 2) && (typeof args[1] === 'number')) {
+    depth = args[1];
+    args = [args[0]];
+  }
 
-    try {
-      st += JSON.stringify(value, circularReplacer());
-    } catch (e) {
-      st += ".";
-    }
+  for (let i in args) {
+    st += treatForHash(args[i], treatForHash, depth);
   }
 
   return simpleHash(st);
