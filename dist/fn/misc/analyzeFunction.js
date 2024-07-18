@@ -106,19 +106,17 @@ export default function analyzeFunction(fn) {
             body = all.substring(i + matches[0].length).trim();
             break;
         }
+        else if (!exp && (all[i] === "=") && (all[i + 1] === ">")) {
+            currentArg["name"] = exp.trim();
+            args.push(currentArg);
+        }
         else if (all[i] === "=" && all[i + 1] === ">") {
-            if (parOpened === parClosed) {
-                if (!parOpened) {
-                    currentArg["name"] = all.slice(0, i).trim();
-                }
-                else {
-                    currentArg["name"] = exp.trim();
-                }
+            if (exp.trim() !== "" && parOpened === parClosed) {
+                currentArg["name"] = exp.trim();
                 args.push(currentArg);
                 currentArg = {};
                 exp = "";
             }
-            bbn.fn.log(["LOGGGGG", exp, all.slice(0, i).trim(), parOpened, parClosed]);
             isArrow = true;
             i++;
             continue;
