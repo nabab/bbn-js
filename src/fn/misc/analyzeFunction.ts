@@ -102,7 +102,10 @@ export default function analyzeFunction(fn) {
       args.push(currentArg);
       currentArg = {};
       exp = "";
-  } else if (all[i] === "=" && all[i + 1] === ">") {
+      isArrow = true;
+      i++;
+      continue;
+    } else if (all[i] === "=" && all[i + 1] === ">") {
       if (exp.trim() !== "" && parOpened === parClosed) {
         currentArg["name"] = exp.trim();
         args.push(currentArg);
