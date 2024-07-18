@@ -110,6 +110,7 @@ export default function analyzeFunction(fn) {
         currentArg = {};
         exp = "";
       }
+      bbn.fn.log(["LOGGGGG", exp, all.slice(0, i).trim()]);
       isArrow = true;
       i++;
       continue;
