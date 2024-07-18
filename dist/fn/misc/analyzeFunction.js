@@ -108,7 +108,12 @@ export default function analyzeFunction(fn) {
         }
         else if (all[i] === "=" && all[i + 1] === ">") {
             if (exp.trim() !== "" && parOpened === parClosed) {
-                currentArg["name"] = exp.trim();
+                if (!parOpened) {
+                    currentArg["name"] = all.slice(0, i).trim();
+                }
+                else {
+                    currentArg["name"] = exp.trim();
+                }
                 args.push(currentArg);
                 currentArg = {};
                 exp = "";
