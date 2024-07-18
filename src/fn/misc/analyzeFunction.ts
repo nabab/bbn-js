@@ -103,7 +103,6 @@ export default function analyzeFunction(fn) {
       currentArg = {};
       isArrow = true;
       body = bbn.fn.substr(all, i + 2).trim();
-      i++;
       break;
     } else if (all[i] === "=" && all[i + 1] === ">") {
       if (exp.trim() !== "" && parOpened === parClosed) {
