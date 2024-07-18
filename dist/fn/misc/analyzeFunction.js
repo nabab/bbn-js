@@ -118,7 +118,7 @@ export default function analyzeFunction(fn) {
                 currentArg = {};
                 exp = "";
             }
-            bbn.fn.log(["LOGGGGG", exp, all.slice(0, i).trim()]);
+            bbn.fn.log(["LOGGGGG", exp, all.slice(0, i).trim(), parOpened, parClosed]);
             isArrow = true;
             i++;
             continue;
