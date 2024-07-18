@@ -97,13 +97,13 @@ export default function analyzeFunction(fn) {
 			returnType = matches[1];
 			body = all.substring(i + matches[0].length).trim();
 			break;
-		} else if (!exp && (all[i] === "=") && (all[i + 1] === ">")) {
+		} else if (!exp && (all[i] === "=") && (all[i + 1] === ">") && (parOpened === parClosed) && !parClosed && !isArrow) {
       currentArg["name"] = all.slice(0, i).trim();
       args.push(currentArg);
       currentArg = {};
       isArrow = true;
       i++;
-      continue;
+      break;
     } else if (all[i] === "=" && all[i + 1] === ">") {
       if (exp.trim() !== "" && parOpened === parClosed) {
         currentArg["name"] = exp.trim();
