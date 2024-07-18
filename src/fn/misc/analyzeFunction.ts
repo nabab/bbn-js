@@ -98,10 +98,9 @@ export default function analyzeFunction(fn) {
 			body = all.substring(i + matches[0].length).trim();
 			break;
 		} else if (!exp && (all[i] === "=") && (all[i + 1] === ">")) {
-      currentArg["name"] = exp.trim();
+      currentArg["name"] = all.slice(0, i).trim();
       args.push(currentArg);
       currentArg = {};
-      exp = "";
       isArrow = true;
       i++;
       continue;
