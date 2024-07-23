@@ -75,6 +75,7 @@ import fieldValue from './fn/form/fieldValue.js';
 import fileExt from './fn/string/fileExt.js';
 import filter from './fn/object/filter.js';
 import filterToConditions from './fn/object/filterToConditions.js';
+import firstVarElement from './fn/string/firstVarElement.js';
 import findAll from './fn/object/findAll.js';
 import fori from './fn/loop/fori.js';
 import forir from './fn/loop/forir.js';
@@ -311,6 +312,7 @@ export default {
     filter: filter,
     filterToConditions: filterToConditions,
     findAll: findAll,
+    firstVarElement: firstVarElement,
     fori: fori,
     forir: forir,
     format: format,
