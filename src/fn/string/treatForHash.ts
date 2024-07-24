@@ -21,6 +21,9 @@ export default function treatForHash(value, fn, depth = null, level = 0, visited
   else if (value === null) {
     value = "__BBN_NULL__";
   }
+  else if (value === null) {
+    value = "__BBN_NULL__";
+  }
   else if (typeof value === 'function') {
     value = "__BBN_FUNCTION__" + value.toString();
   }
@@ -66,7 +69,7 @@ export default function treatForHash(value, fn, depth = null, level = 0, visited
   }
   else if (typeof value === 'object') {
     if (visited.has(value) || (depth && (depth < level))) {
-      value = "__BBN_OBJECT__" + value.constructor.toString();
+      value = "__BBN_OBJECT__" + (value.constructor ? value.constructor.toString() : '');
     }
     else {
       visited.add(value);
