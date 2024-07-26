@@ -101,11 +101,12 @@ export default function init(cfg, force) {
 
     window.onfocus = () => {
       bbn.env.isFocused = true;
+      bbn.env.last_focus = bbn.fn.timestamp();
       bbn.fn.defaultWindowFocusFunction();
     };
     window.onblur = () => {
       bbn.env.isFocused = false;
-      bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
+      bbn.env.timeoff = Math.round(bbn.fn.timestamp() / 1000);
       bbn.fn.defaultWindowBlurFunction();
     };
 
@@ -116,10 +117,10 @@ export default function init(cfg, force) {
       ) {
         bbn.env.focused = e.target;
       }
-      bbn.env.last_focus = new Date().getTime();
+      bbn.env.last_focus = bbn.fn.timestamp();
     });
     document.addEventListener("click", (e) => {
-      bbn.env.last_focus = new Date().getTime();
+      bbn.env.last_focus = bbn.fn.timestamp();
       if (bbn.env.nav !== "ajax") {
         return;
       }
