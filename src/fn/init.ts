@@ -100,19 +100,6 @@ export default function init(cfg, force) {
       });
     }
 
-    window.onfocus = () => {
-      bbn.env.isFocused = true;
-      bbn.env.last_focus = timestamp();
-      bbn.fn.defaultWindowFocusFunction();
-      bbn.fn.log("FOCUSING ON WINDOW");
-    };
-    window.onblur = () => {
-      bbn.env.isFocused = false;
-      bbn.env.timeoff = Math.round(timestamp() / 1000);
-      bbn.fn.defaultWindowBlurFunction();
-      bbn.fn.log("BLURING ON WINDOW");
-    };
-
     document.addEventListener("focusin", (e: Event) => {
       if (
         e.target instanceof HTMLElement &&

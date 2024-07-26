@@ -93,18 +93,6 @@ export default function init(cfg, force) {
                 dayjs.locale(bbn.env.lang);
             });
         }
-        window.onfocus = function () {
-            bbn.env.isFocused = true;
-            bbn.env.last_focus = timestamp();
-            bbn.fn.defaultWindowFocusFunction();
-            bbn.fn.log("FOCUSING ON WINDOW");
-        };
-        window.onblur = function () {
-            bbn.env.isFocused = false;
-            bbn.env.timeoff = Math.round(timestamp() / 1000);
-            bbn.fn.defaultWindowBlurFunction();
-            bbn.fn.log("BLURING ON WINDOW");
-        };
         document.addEventListener("focusin", function (e) {
             if (e.target instanceof HTMLElement &&
                 !e.target.classList.contains("bbn-no")) {

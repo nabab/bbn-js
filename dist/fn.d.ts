@@ -54,8 +54,6 @@ import defaultPostLinkFunction from './fn/default/defaultPostLinkFunction.js';
 import defaultPreLinkFunction from './fn/default/defaultPreLinkFunction.js';
 import defaultResizeFunction from './fn/default/defaultResizeFunction.js';
 import defaultStartLoadingFunction from './fn/default/defaultStartLoadingFunction.js';
-import defaultWindowBlurFunction from './fn/default/defaultWindowBlurFunction.js';
-import defaultWindowFocusFunction from './fn/default/defaultWindowFocusFunction.js';
 import deleteProp from './fn/object/deleteProp.js';
 import diffObj from './fn/object/diffObj.js';
 import dirName from './fn/string/dirName.js';
@@ -292,8 +290,6 @@ declare const _default: {
     defaultPreLinkFunction: typeof defaultPreLinkFunction;
     defaultResizeFunction: typeof defaultResizeFunction;
     defaultStartLoadingFunction: typeof defaultStartLoadingFunction;
-    defaultWindowBlurFunction: typeof defaultWindowBlurFunction;
-    defaultWindowFocusFunction: typeof defaultWindowFocusFunction;
     deleteProp: typeof deleteProp;
     diffObj: typeof diffObj;
     dirName: typeof dirName;
