@@ -101,10 +101,12 @@ export default function init(cfg, force) {
 
     window.onfocus = () => {
       bbn.env.isFocused = true;
+      bbn.fn.defaultWindowFocusFunction();
     };
     window.onblur = () => {
       bbn.env.isFocused = false;
       bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
+      bbn.fn.defaultWindowBlurFunction();
     };
 
     document.addEventListener("focusin", (e: Event) => {

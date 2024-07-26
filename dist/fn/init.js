@@ -94,10 +94,12 @@ export default function init(cfg, force) {
         }
         window.onfocus = function () {
             bbn.env.isFocused = true;
+            bbn.fn.defaultWindowFocusFunction();
         };
         window.onblur = function () {
             bbn.env.isFocused = false;
             bbn.env.timeoff = Math.round(new Date().getTime() / 1000);
+            bbn.fn.defaultWindowBlurFunction();
         };
         document.addEventListener("focusin", function (e) {
             if (e.target instanceof HTMLElement &&
