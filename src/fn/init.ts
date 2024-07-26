@@ -9,6 +9,7 @@ import isMobile from './browser/isMobile.js'  ;
 import isTabletDevice from './browser/isTabletDevice.js'  ;
 import isFunction from './type/isFunction.js'  ;
 import log from './browser/log.js'  ;
+import timestamp from './datetime/timestamp.js'  ;
 
 /**
  * Initializes the library bbn basing on the given configuration object.
@@ -101,12 +102,12 @@ export default function init(cfg, force) {
 
     window.onfocus = () => {
       bbn.env.isFocused = true;
-      bbn.env.last_focus = bbn.fn.timestamp();
+      bbn.env.last_focus = timestamp();
       bbn.fn.defaultWindowFocusFunction();
     };
     window.onblur = () => {
       bbn.env.isFocused = false;
-      bbn.env.timeoff = Math.round(bbn.fn.timestamp() / 1000);
+      bbn.env.timeoff = Math.round(timestamp() / 1000);
       bbn.fn.defaultWindowBlurFunction();
     };
 
@@ -117,10 +118,10 @@ export default function init(cfg, force) {
       ) {
         bbn.env.focused = e.target;
       }
-      bbn.env.last_focus = bbn.fn.timestamp();
+      bbn.env.last_focus = timestamp();
     });
     document.addEventListener("click", (e) => {
-      bbn.env.last_focus = bbn.fn.timestamp();
+      bbn.env.last_focus = timestamp();
       if (bbn.env.nav !== "ajax") {
         return;
       }
