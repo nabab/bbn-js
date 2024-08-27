@@ -13,7 +13,7 @@ export default function treatForHash(value, fn, depth, level, visited) {
     if (depth === void 0) { depth = null; }
     if (level === void 0) { level = 0; }
     if (visited === void 0) { visited = null; }
-    if (!level) {
+    if (!level && !visited) {
         visited = new WeakSet();
     }
     if (value === undefined) {

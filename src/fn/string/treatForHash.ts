@@ -11,7 +11,7 @@ import isCp from '../type/isCp.js';
  * @returns {String}
  */
 export default function treatForHash(value, fn, depth = null, level = 0, visited = null) {
-  if (!level) {
+  if (!level && !visited) {
     visited = new WeakSet();
   }
 
