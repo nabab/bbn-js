@@ -9,10 +9,11 @@ import isCp from '../type/isCp.js';
  * @param {WeakSet} [visited=null]
  * @returns {String}
  */
-export default function treatForHash(value, fn, depth, level, visited) {
+export default function treatForHash(value, depth, level, visited, fn) {
     if (depth === void 0) { depth = null; }
     if (level === void 0) { level = 0; }
     if (visited === void 0) { visited = null; }
+    if (fn === void 0) { fn = null; }
     if (!level && !visited) {
         visited = new WeakSet();
     }
@@ -65,7 +66,7 @@ export default function treatForHash(value, fn, depth, level, visited) {
             visited.add(value);
             var st = '';
             for (var i = 0; i < value.length; i++) {
-                st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], fn, depth, level + 1, visited);
+                st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], depth, level + 1, visited, fn);
             }
             value = "__BBN_ARRAY__" + st;
         }
@@ -82,7 +83,7 @@ export default function treatForHash(value, fn, depth, level, visited) {
                 if (typeof idx !== 'string') {
                     idx = fn(idx, fn, 1, 1);
                 }
-                st += "__BBN_PROP_" + idx + "__" + fn(value[n], fn, depth, level + 1, visited);
+                st += "__BBN_PROP_" + idx + "__" + fn(value[n], depth, level + 1, visited, fn);
             }
             value = "__BBN_OBJECT__" + st;
         }

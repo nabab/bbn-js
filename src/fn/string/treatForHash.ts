@@ -10,7 +10,7 @@ import isCp from '../type/isCp.js';
  * @param {WeakSet} [visited=null]
  * @returns {String}
  */
-export default function treatForHash(value, fn, depth = null, level = 0, visited = null) {
+export default function treatForHash(value, depth = null, level = 0, visited = null, fn = null) {
   if (!level && !visited) {
     visited = new WeakSet();
   }
@@ -61,7 +61,7 @@ export default function treatForHash(value, fn, depth = null, level = 0, visited
       visited.add(value);
       let st = '';
       for (let i = 0; i < value.length; i++) {
-        st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], fn, depth, level + 1, visited);
+        st += "__BBN_ITEM" + i.toString() + "__" + fn(value[i], depth, level + 1, visited, fn);
       }
 
       value = "__BBN_ARRAY__" + st;
@@ -80,7 +80,7 @@ export default function treatForHash(value, fn, depth = null, level = 0, visited
           idx = fn(idx, fn, 1, 1);
         }
 
-        st += "__BBN_PROP_" + idx + "__" + fn(value[n], fn, depth, level + 1, visited);
+        st += "__BBN_PROP_" + idx + "__" + fn(value[n], depth, level + 1, visited, fn);
       }
 
       value = "__BBN_OBJECT__" + st;

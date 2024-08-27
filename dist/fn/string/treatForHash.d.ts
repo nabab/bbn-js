@@ -7,4 +7,4 @@
  * @param {WeakSet} [visited=null]
  * @returns {String}
  */
-export default function treatForHash(value: any, fn: any, depth?: any, level?: number, visited?: any): any;
+export default function treatForHash(value: any, depth?: any, level?: number, visited?: any, fn?: any): any;

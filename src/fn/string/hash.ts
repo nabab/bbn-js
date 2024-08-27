@@ -16,7 +16,7 @@ export default function hash(...args) {
   }
 
   for (let i in args) {
-    st += treatForHash(args[i], treatForHash, depth);
+    st += treatForHash(args[i], depth, 0, null, treatForHash);
   }
 
   return simpleHash(st);
