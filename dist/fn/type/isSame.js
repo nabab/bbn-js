@@ -68,7 +68,7 @@ export default function isSame(obj1, obj2, done) {
         });
         return ok_1;
     }
-    else if (obj1 && obj2 && typeof obj1 === 'function' && typeof obj2 === 'function') {
+    else if (obj1 && obj2 && (typeof obj1 === 'function') && (typeof obj2 === 'function')) {
         var tmp1 = analyzeFunction(obj1);
         var tmp2 = analyzeFunction(obj2);
         var isSame_1 = tmp1.hash === tmp2.hash;
