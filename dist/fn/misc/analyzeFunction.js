@@ -29,6 +29,7 @@ export default function analyzeFunction(fn) {
     var isComment = false;
     var isCommentLine = false;
     var isDestructuring = false;
+    var isBinary = false;
     var returnType = "";
     for (var i = 0; i < all.length; i++) {
         // Handle string literals
@@ -202,6 +203,9 @@ export default function analyzeFunction(fn) {
             throw Error("Unexpected end of function while parsing function");
         }
     }
+    if (body === '{ [native code] }') {
+        isBinary = true;
+    }
     var argString = args
         .map(function (arg) { return arg.name + (arg.default ? " = " + arg.default : ""); })
         .join(", ");
@@ -214,6 +218,7 @@ export default function analyzeFunction(fn) {
         hasFunction: hasFunction,
         name: name,
         isAsync: isAsync,
+        isBinary: isBinary,
         hash: hash,
         returnType: returnType
     };

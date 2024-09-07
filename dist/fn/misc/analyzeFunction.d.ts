@@ -14,6 +14,7 @@ export default function analyzeFunction(fn: any): {
     hasFunction: boolean;
     name: string;
     isAsync: boolean;
+    isBinary: boolean;
     hash: string;
     returnType: string;
 };

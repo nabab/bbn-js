@@ -32,6 +32,7 @@ export default function analyzeFunction(fn) {
   let isComment = false;
   let isCommentLine = false;
   let isDestructuring = false;
+  let isBinary = false;
 	let returnType = "";
 
   for (let i = 0; i < all.length; i++) {
@@ -184,6 +185,11 @@ export default function analyzeFunction(fn) {
     }
   }
 
+
+  if (body === '{ [native code] }') {
+    isBinary = true;
+  }
+
   const argString = args
     .map((arg) => arg.name + (arg.default ? " = " + arg.default : ""))
     .join(", ");
@@ -199,6 +205,7 @@ export default function analyzeFunction(fn) {
     hasFunction,
     name,
     isAsync,
+    isBinary,
     hash,
 		returnType
   };
