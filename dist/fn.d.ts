@@ -22,6 +22,7 @@ import callback from './fn/ajax/callback.js';
 import camelize from './fn/string/camelize.js';
 import camelToCss from './fn/string/camelToCss.js';
 import canvasToImage from './fn/convert/canvasToImage.js';
+import cast from './fn/string/cast.js';
 import center from './fn/style/center.js';
 import checkProps from './fn/object/checkProps.js';
 import checkPropsDetails from './fn/object/checkPropsDetails.js';
@@ -258,6 +259,7 @@ declare const _default: {
     camelize: typeof camelize;
     camelToCss: typeof camelToCss;
     canvasToImage: typeof canvasToImage;
+    cast: typeof cast;
     center: typeof center;
     checkProps: typeof checkProps;
     checkPropsDetails: typeof checkPropsDetails;
