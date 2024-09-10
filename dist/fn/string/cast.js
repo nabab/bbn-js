@@ -18,11 +18,14 @@ export default function cast(st) {
     if (!st) {
         return '';
     }
+    if (typeof st === 'object') {
+        if (bbn.fn.isArray(st)) {
+            return 'Array (' + st.length + ')';
+        }
+        return ((_a = st.constructor) === null || _a === void 0 ? void 0 : _a.name) || '{}';
+    }
     if (st.toString) {
         return st.toString();
-    }
-    if (typeof st === 'object') {
-        return ((_a = st.constructor) === null || _a === void 0 ? void 0 : _a.name) || '{}';
     }
     return typeof st === 'string' ? st : '';
 }

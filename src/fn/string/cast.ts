@@ -18,12 +18,16 @@ export default function cast(st) {
     return '';
   }
 
-  if (st.toString) {
-    return st.toString();
+  if (typeof st === 'object') {
+    if (bbn.fn.isArray(st)) {
+      return 'Array (' + st.length + ')';
+    }
+
+    return st.constructor?.name || '{}';
   }
 
-  if (typeof st === 'object') {
-    return st.constructor?.name || '{}';
+  if (st.toString) {
+    return st.toString();
   }
 
   return typeof st === 'string' ? st : '';
