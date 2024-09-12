@@ -115,8 +115,8 @@ export default function analyzeFunction(fn) {
             body = bbn.fn.substr(all, i + 2).trim();
             break;
         }
-        else if (all[i] === "=" && all[i + 1] === ">") {
-            if (exp.trim() !== "" && parOpened === parClosed) {
+        else if (parOpened === parClosed && all[i] === "=" && all[i + 1] === ">") {
+            if (exp.trim() !== "") {
                 currentArg["name"] = exp.trim();
                 args.push(currentArg);
                 currentArg = {};
