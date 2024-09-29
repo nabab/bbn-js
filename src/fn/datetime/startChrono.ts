@@ -9,7 +9,7 @@
  * @returns 
  */
 export default function startChrono(name) {
-	let now = bbn.fn.microtime();
+	let now = bbn.fn.microtimestamp();
 	if (!this.constructor.chronos) {
 		Object.defineProperty(this.constructor, 'chronos', {
 			value: Object.create(null),

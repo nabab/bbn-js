@@ -12,7 +12,7 @@
  */
 export default function stopChrono(name) {
 	if (this.constructor.chronos[name || 'default']) {
-		let now = bbn.fn.microtime();
+		let now = bbn.fn.microtimestamp();
 		let diff = now - this.constructor.chronos[name || 'default'];
 		delete this.constructor.chronos[name || 'default'];
 		return diff;
