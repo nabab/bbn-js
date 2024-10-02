@@ -8,5 +8,5 @@
  * @returns  {}
  */
 export default function roundDecimal(value: number, decimals: number) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+  return Number(Math.round(parseFloat((value + 'e' + decimals) + 'e-' + decimals)));
 };
