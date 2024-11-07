@@ -136,6 +136,7 @@ import isEmpty from './fn/type/isEmpty.js';
 import isEvent from './fn/type/isEvent.js';
 import isFocused from './fn/browser/isFocused.js';
 import isFunction from './fn/type/isFunction.js';
+import isHex from './fn/type/isHex.js';
 import isHostname from './fn/type/isHostname.js';
 import isInside from './fn/html/isInside.js';
 import isInt from './fn/type/isInt.js';
@@ -373,6 +374,7 @@ declare const _default: {
     isEvent: typeof isEvent;
     isFocused: typeof isFocused;
     isFunction: typeof isFunction;
+    isHex: typeof isHex;
     isHostname: typeof isHostname;
     isInside: typeof isInside;
     isInt: typeof isInt;
