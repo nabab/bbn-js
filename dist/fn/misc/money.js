@@ -94,6 +94,12 @@ export default function money(val, kilo, currency, novalue, decimal, thousands, 
     if (isNaN(val) || !val) {
         return 0 + (currency ? ' ' + currency : '');
     }
+    if (typeof val === 'string') {
+        val = Number(val);
+    }
+    if (typeof val !== 'number') {
+        throw new Error('The value must be a number');
+    }
     if (kilo && val) {
         val = val / 1000;
         if (currency) {
