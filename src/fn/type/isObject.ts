@@ -18,7 +18,7 @@
 export default function isObject(...args: any[]): boolean {
   if (!args.length) return false;
   for (let a of args) {
-    if ({}.toString.apply(a) !== "[object Object]") {
+    if ({}.toString.apply(a).substr(0, 7) !== "[object") {
       return false;
     }
   }
