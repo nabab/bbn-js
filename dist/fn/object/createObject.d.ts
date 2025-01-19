@@ -1,1 +1,1 @@
-export default function createObject(...args: any[]): any;
+export default function createObject(...originalArgs: any[]): any;

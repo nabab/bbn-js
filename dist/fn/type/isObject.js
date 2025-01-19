@@ -24,7 +24,7 @@ export default function isObject() {
         return false;
     for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
         var a = args_1[_a];
-        if ({}.toString.apply(a) !== "[object Object]") {
+        if ({}.toString.apply(a).substr(0, 7) !== "[object") {
             return false;
         }
     }
