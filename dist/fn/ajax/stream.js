@@ -62,7 +62,8 @@ export default function stream(url, success, data, failure, abort) {
                     return;
                 }
                 if (isFn_1) {
-                    success(JSON.parse(arrayBuffer2String(value)));
+                    var res = arrayBuffer2String(value).trim();
+                    success(res ? JSON.parse(res) : null);
                 }
                 // Read some more, and call this function again
                 return reader_1.read().then(pump);

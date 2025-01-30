@@ -72,7 +72,8 @@ export default function stream(
           }
     
           if (isFn) {
-            success(JSON.parse(arrayBuffer2String(value)));
+            const res = arrayBuffer2String(value).trim();
+            success(res ? JSON.parse(res) : null);
           }
 
           // Read some more, and call this function again
