@@ -7,6 +7,7 @@ import defaultStartLoadingFunction from '../default/defaultStartLoadingFunction.
 import defaultEndLoadingFunction from '../default/defaultEndLoadingFunction.js';
 import defaultAjaxAbortFunction from '../default/defaultAjaxAbortFunction.js';
 import defaultAjaxErrorFunction from '../default/defaultAjaxErrorFunction.js';
+import arrayBuffer2String from '../convert/arrayBuffer2String.js';
 /**
  * @method   stream
  * @global
@@ -55,7 +56,7 @@ export default function stream(url, success, data, failure, abort) {
             reader_1.read().then(function pump(_a) {
                 var done = _a.done, value = _a.value;
                 if (isFn_1) {
-                    success(value);
+                    success(JSON.parse(arrayBuffer2String(value)));
                 }
                 if (done) {
                     // Do something with last chunk of data then exit reader

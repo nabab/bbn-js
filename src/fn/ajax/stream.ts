@@ -7,6 +7,7 @@ import defaultStartLoadingFunction from '../default/defaultStartLoadingFunction.
 import defaultEndLoadingFunction from '../default/defaultEndLoadingFunction.js';
 import defaultAjaxAbortFunction from '../default/defaultAjaxAbortFunction.js';
 import defaultAjaxErrorFunction from '../default/defaultAjaxErrorFunction.js';
+import arrayBuffer2String from '../convert/arrayBuffer2String.js';
 
 
 /**
@@ -64,7 +65,7 @@ export default function stream(
         const isFn = isFunction(success);
         reader.read().then(function pump({ done, value }) {
           if (isFn) {
-            success(value);
+            success(JSON.parse(arrayBuffer2String(value)));
           }
 
           if (done) {
