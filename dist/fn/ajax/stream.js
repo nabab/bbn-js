@@ -56,6 +56,7 @@ export default function stream(url, success, data, failure, abort) {
             reader_1.read().then(function pump(_a) {
                 var done = _a.done, value = _a.value;
                 if (isFn_1) {
+                    bbn.fn.log(arrayBuffer2String(value));
                     success(JSON.parse(arrayBuffer2String(value)));
                 }
                 if (done) {

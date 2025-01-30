@@ -65,6 +65,7 @@ export default function stream(
         const isFn = isFunction(success);
         reader.read().then(function pump({ done, value }) {
           if (isFn) {
+            bbn.fn.log(arrayBuffer2String(value));
             success(JSON.parse(arrayBuffer2String(value)));
           }
 
