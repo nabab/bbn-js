@@ -64,11 +64,6 @@ export default function stream(
         const reader = response.body.getReader();
         const isFn = isFunction(success);
         reader.read().then(function pump({ done, value }) {
-          if (isFn) {
-            bbn.fn.log(arrayBuffer2String(value));
-            success(JSON.parse(arrayBuffer2String(value)));
-          }
-
           if (done) {
             // Do something with last chunk of data then exit reader
             _deleteLoader(requestId, data);
@@ -76,6 +71,10 @@ export default function stream(
             return;
           }
     
+          if (isFn) {
+            success(JSON.parse(arrayBuffer2String(value)));
+          }
+
           // Read some more, and call this function again
           return reader.read().then(pump);
         });
