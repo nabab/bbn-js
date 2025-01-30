@@ -1,6 +1,14 @@
+/**
+ * Default function to start loading
+ *
+ * @param {String} url
+ * @param {Number} tst
+ * @param {Object} data
+ * @param {String} requestId
+ *
+ * @returns {Boolean}
+ */
 export default function defaultStartLoadingFunction(url, tst, data, requestId) {
-    if (data === void 0) { data = null; }
-    if (requestId === void 0) { requestId = null; }
     return true;
 }
 ;

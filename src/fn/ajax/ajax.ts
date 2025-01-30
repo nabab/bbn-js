@@ -135,7 +135,7 @@ export default function ajax(
     const axiosMethod = args.length === 2 ? "get" : "post";
     let loader = axios[axiosMethod]
       .apply(null, args)
-      .then((res) => {
+      .then(res => {
         _deleteLoader(requestId, res);
         bbn.fn.defaultEndLoadingFunction(url, tst, data, res);
         switch (res.status) {

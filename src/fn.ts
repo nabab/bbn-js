@@ -220,6 +220,7 @@ import simpleHash1 from './fn/string/simpleHash1.js';
 import simpleHash2 from './fn/string/simpleHash2.js';
 import startChrono from './fn/datetime/startChrono.js';
 import stopChrono from './fn/datetime/stopChrono.js';
+import stream from './fn/ajax/stream.js';
 import string2ArrayBuffer from './fn/convert/string2ArrayBuffer.js';
 import submit from './fn/form/submit.js';
 import substr from './fn/string/substr.js';
@@ -459,6 +460,7 @@ export default {
   simpleHash2,
   startChrono,
   stopChrono,
+  stream,
   string2ArrayBuffer,
   submit,
   substr,
