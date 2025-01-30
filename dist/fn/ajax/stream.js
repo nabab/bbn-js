@@ -27,6 +27,12 @@ export default function stream(url, success, data, failure, abort) {
     if (loaderObj === null || loaderObj === void 0 ? void 0 : loaderObj.loader) {
         return loaderObj.loader;
     }
+    if (!data) {
+        data = {};
+    }
+    if (bbn.env.token) {
+        data._bbn_token = bbn.env.token;
+    }
     var aborter = new AbortController();
     var loader = fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.

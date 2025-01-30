@@ -36,6 +36,13 @@ export default function stream(
     return loaderObj.loader;
   }
 
+  if (!data) {
+    data = {};
+  }
+  if (bbn.env.token) {
+    data._bbn_token = bbn.env.token;
+  }
+
   const aborter = new AbortController();
   const loader = fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
