@@ -70,8 +70,8 @@ export default function stream(
 
           if (done) {
             // Do something with last chunk of data then exit reader
-            _deleteLoader(requestId, value);
-            defaultEndLoadingFunction(url, tst, data, value);
+            _deleteLoader(requestId, data);
+            defaultEndLoadingFunction(url, tst, data);
             return;
           }
     
@@ -82,7 +82,7 @@ export default function stream(
     })
     .catch((err) => {
       let isAbort = axios.isCancel(err);
-      _deleteLoader(requestId, err.message || err.response.data, isAbort);
+      _deleteLoader(requestId, data, isAbort);
       defaultEndLoadingFunction(url, tst, data, err);
       if (isAbort) {
         let ok = 1;
