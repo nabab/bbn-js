@@ -3,6 +3,7 @@ import getLoader from './getLoader.js';
 import _deleteLoader from './_deleteLoader.js';
 import isFunction from '../type/isFunction.js';
 import _addLoader from './_addLoader.js';
+import log from '../browser/log.js';
 import defaultStartLoadingFunction from '../default/defaultStartLoadingFunction.js';
 import defaultEndLoadingFunction from '../default/defaultEndLoadingFunction.js';
 import defaultAjaxAbortFunction from '../default/defaultAjaxAbortFunction.js';
@@ -68,7 +69,7 @@ export default function stream(url, success, data, failure, abort) {
                             success(JSON.parse(res));
                         }
                         catch (e) {
-                            bbn.fn.log(res);
+                            log(res);
                             success(res);
                         }
                     }
