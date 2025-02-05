@@ -73,7 +73,17 @@ export default function stream(
     
           if (isFn) {
             const res = arrayBuffer2String(value).trim();
-            success(res ? JSON.parse(res) : null);
+            if (res) {
+              try {
+                success(JSON.parse(res));
+              } catch (e) {
+                bbn.fn.log(res);
+                success(res);
+              }
+            }
+            else {
+              success();
+            }
           }
 
           // Read some more, and call this function again
