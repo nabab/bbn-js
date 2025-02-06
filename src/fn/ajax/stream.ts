@@ -78,7 +78,7 @@ export default function stream(
               try {
                 success(JSON.parse(res));
               } catch (e) {
-                log(["Couldn't parse the JSON", res]);
+                log(["Couldn't parse the JSON", e, res]);
                 success(res);
               }
             }
