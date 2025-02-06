@@ -69,7 +69,7 @@ export default function stream(url, success, data, failure, abort) {
                             success(JSON.parse(res));
                         }
                         catch (e) {
-                            log(res);
+                            log("Couldn't parse the JSON", res);
                             success(res);
                         }
                     }
