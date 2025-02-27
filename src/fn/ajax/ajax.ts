@@ -108,8 +108,8 @@ export default function ajax(
     }
     let requestId = getRequestId(url, data, datatype);
     let loaderObj = getLoader(requestId);
-    //log("IN AJAX", loaderObj? loaderObj.loader : "NO LOADER")
     if (loaderObj?.loader) {
+      log("LOADER EXISTS", loaderObj);
       return loaderObj.loader;
     }
     if (bbn.env.token) {
