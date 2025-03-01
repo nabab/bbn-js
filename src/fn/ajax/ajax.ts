@@ -109,7 +109,6 @@ export default function ajax(
     let requestId = getRequestId(url, data, datatype);
     let loaderObj = getLoader(requestId);
     if (loaderObj?.loader) {
-      log("LOADER EXISTS", loaderObj);
       return loaderObj.loader;
     }
     if (bbn.env.token) {

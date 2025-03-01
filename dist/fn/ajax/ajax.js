@@ -2,7 +2,6 @@ import isObject from '../type/isObject.js';
 import replaceAll from '../string/replaceAll.js';
 import getRequestId from './getRequestId.js';
 import getLoader from './getLoader.js';
-import log from '../browser/log.js';
 import extend from '../object/extend.js';
 import numProperties from '../object/numProperties.js';
 import _deleteLoader from './_deleteLoader.js';
@@ -102,7 +101,6 @@ export default function ajax(url, datatype, data, success, failure, abort) {
         var requestId_1 = getRequestId(url, data, datatype);
         var loaderObj = getLoader(requestId_1);
         if (loaderObj === null || loaderObj === void 0 ? void 0 : loaderObj.loader) {
-            log("LOADER EXISTS", loaderObj);
             return loaderObj.loader;
         }
         if (bbn.env.token) {
