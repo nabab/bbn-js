@@ -85,6 +85,7 @@ import formatBytes from './fn/string/formatBytes.js';
 import formatDate from './fn/datetime/formatDate.js';
 import formatSize from './fn/string/formatSize.js';
 import formdata from './fn/form/formdata.js';
+import fphone from './fn/phone/fphone.js';
 import fromXml from './fn/convert/fromXml.js';
 import ftime from './fn/datetime/ftime.js';
 import getAllTags from './fn/html/getAllTags.js';
@@ -325,6 +326,7 @@ export default {
   formatDate,
   formatSize,
   formdata,
+  fphone,
   fromXml,
   ftime,
   getAllTags,

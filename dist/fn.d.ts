@@ -85,6 +85,7 @@ import formatBytes from './fn/string/formatBytes.js';
 import formatDate from './fn/datetime/formatDate.js';
 import formatSize from './fn/string/formatSize.js';
 import formdata from './fn/form/formdata.js';
+import fphone from './fn/phone/fphone.js';
 import fromXml from './fn/convert/fromXml.js';
 import ftime from './fn/datetime/ftime.js';
 import getAllTags from './fn/html/getAllTags.js';
@@ -324,6 +325,7 @@ declare const _default: {
     formatDate: typeof formatDate;
     formatSize: typeof formatSize;
     formdata: typeof formdata;
+    fphone: typeof fphone;
     fromXml: typeof fromXml;
     ftime: typeof ftime;
     getAllTags: typeof getAllTags;
