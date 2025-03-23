@@ -25,7 +25,7 @@ import timestamp from './datetime/timestamp.js';
  */
 export default function init(cfg, force) {
     var parts;
-    if (!bbn.env.isInit || force) {
+    if (!bbn.env.isInit) {
         bbn.env.root =
             document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
         if (bbn.env.root.length && substr(bbn.env.root, -1) !== "/") {
