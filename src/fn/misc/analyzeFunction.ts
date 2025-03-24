@@ -186,7 +186,7 @@ export default function analyzeFunction(fn) {
   }
 
 
-  if (body === '{ [native code] }') {
+  if (body.substr(0, 25).indexOf('[native code]') > -1) {
     isBinary = true;
   }
 

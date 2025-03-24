@@ -77,8 +77,7 @@ export default function isSame(obj1: any, obj2: any, done?: any[]) {
   else if (obj1 && obj2 && (typeof obj1 === 'function') && (typeof obj2 === 'function')) {
     let tmp1 = analyzeFunction(obj1);
     let tmp2 = analyzeFunction(obj2);
-    bbn.fn.log(['functions', tmp1, tmp2]);
-    let isSame = tmp1.hash === tmp2.hash;
+    let isSame = (tmp1.hash === tmp2.hash);
     // If native code better to replace
     if (isSame && tmp1.isBinary) {
       isSame = false;
