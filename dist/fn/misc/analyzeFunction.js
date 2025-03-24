@@ -203,7 +203,7 @@ export default function analyzeFunction(fn) {
             throw Error("Unexpected end of function while parsing function");
         }
     }
-    if (body === '{ [native code] }') {
+    if (body.substr(0, 25).indexOf('[native code]') > -1) {
         isBinary = true;
     }
     var argString = args
