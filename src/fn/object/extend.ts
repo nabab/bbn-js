@@ -112,6 +112,7 @@ export default function extend(...originalArgs: (boolean | object)[]) {
   }
 
   let out = args[0];
+  let hasNoData;
   for (let i = 1; i < args.length; i++) {
     iterate(args[i], (a, key) => {
       if (deep) {
@@ -148,14 +149,23 @@ export default function extend(...originalArgs: (boolean | object)[]) {
       }
     });
 
-    if (args[i].__bbnNoData) {
-      Object.defineProperty(out, "__bbnNoData", {
-        value: true,
-        enumerable: false,
-        configurable: false,
-        writable: false,
-      });
+    if (!hasNoData) {
+      hasNoData = !!args[i].__bbnNoData;
     }
   }
+
+  if (hasNoData && 'bbnData' in window) {
+    if (out.__bbnData) {
+      out.__bbnData.unset();
+    }
+
+    Object.defineProperty(out, "__bbnNoData", {
+      value: true,
+      enumerable: false,
+      configurable: false,
+      writable: false,
+    });
+  }
+
   return out;
 };
