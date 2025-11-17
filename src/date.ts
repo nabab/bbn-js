@@ -366,7 +366,7 @@ class bbnDateTool {
       if (t === 'number' || (isNumber(value) && value !== '')) {
         if ((value < 5000) && isNumber(inputFormat)) {
           value = Array.from(arguments);
-        }
+        }                
         else if (value < 10000000000) {
           value = value * 1000;
         }
@@ -710,7 +710,7 @@ class bbnDateTool {
     return t.format(this.#value);
   }
 
-  format(format: string = 'y-m-d h:i:s'): string {
+  format(format: string = 'YYYY-MM-DD HH:II:SS'): string {
     let str: string = '';
     if (format) {
       const reg = new RegExp('(\[|\]|' + Object.keys(unitsCorrespondence).join('|') + ')', 'g');

@@ -611,7 +611,7 @@ class bbnDateTool {
         const t = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
         return t.format(__classPrivateFieldGet(this, _bbnDateTool_value, "f"));
     }
-    format(format = 'y-m-d h:i:s') {
+    format(format = 'YYYY-MM-DD HH:II:SS') {
         let str = '';
         if (format) {
             const reg = new RegExp('(\[|\]|' + Object.keys(unitsCorrespondence).join('|') + ')', 'g');
