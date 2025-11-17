@@ -4,6 +4,7 @@ import substr from './fn/string/substr.js';
 import isNumber from './fn/type/isNumber.js';
 import isDate from './fn/type/isDate.js';
 import isPrimitive from './fn/type/isPrimitive.js';
+import extend from './fn/object/extend.js';
 
 const patterns: {
   name: string;
@@ -247,7 +248,7 @@ const buildLocaleFromIntl = () => {
   };
 };
 
-const locales = buildLocaleFromIntl();
+const locales: any = {};
 
 
 class bbnDateDuration {
@@ -431,6 +432,9 @@ class bbnDateTool {
       weekdaysShort?: string[];
     }
   ): Date {
+    if (!('monthsLong' in locales)) {
+      extend(locales, buildLocaleFromIntl());
+    }
     const loc = {
       monthsLong: locale?.monthsLong ?? locales.monthsLong,
       monthsShort: locale?.monthsShort ?? locales.monthsShort,

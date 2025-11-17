@@ -16,6 +16,7 @@ import substr from './fn/string/substr.js';
 import isNumber from './fn/type/isNumber.js';
 import isDate from './fn/type/isDate.js';
 import isPrimitive from './fn/type/isPrimitive.js';
+import extend from './fn/object/extend.js';
 const patterns = [
     // MariaDB DATETIME "YYYY-MM-DD HH:MM:SS"
     {
@@ -235,7 +236,7 @@ const buildLocaleFromIntl = () => {
         weekdaysShort,
     };
 };
-const locales = buildLocaleFromIntl();
+const locales = {};
 class bbnDateDuration {
     constructor(len, unit, fromMs = false) {
         _bbnDateDuration_instances.add(this);
@@ -373,6 +374,9 @@ class bbnDateTool {
      */
     static parse(input, format, locale) {
         var _a, _b, _c, _d;
+        if (!('monthsLong' in locales)) {
+            extend(locales, buildLocaleFromIntl());
+        }
         const loc = {
             monthsLong: (_a = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _a !== void 0 ? _a : locales.monthsLong,
             monthsShort: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _b !== void 0 ? _b : locales.monthsShort,
