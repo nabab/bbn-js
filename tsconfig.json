@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2019"
+    ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "es2015",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "outDir": "./dist"
+  },
+  "files": [
+    "src/types/index.d.ts",
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules/*"
+  ]
+}

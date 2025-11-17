@@ -7,7 +7,7 @@ doc/src/
 src/fn/backup/
 .DS_STORE*
 ._*
-
+.vscode
 
 [core]
 filemode = false
@@ -23,3 +23,5 @@ node_modules/
 
 # Archives
 *.tgz
+
+user-*.sh

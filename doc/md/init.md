@@ -1,11 +1,3 @@
-# init.js
-
-## Initialization.
-
-<a name="bbn_top"></a>[bbn.fn.__init__](#init)  
-Initializes the library bbn basing on the given configuration object.  
-
-
 ### <a name="init"></a>bbn.fn.init(cfg)
 
   __Initializes the library bbn basing on the given configuration object.__
@@ -19,4 +11,5 @@ Initializes the library bbn basing on the given configuration object.
   * __cfg__ _Object_ 
 
   __Returns__ _undefined_ 
-[Back to top](#bbn_top)  
+[Back to top](#bbn_top)  <a name="bbn_top"></a>
+
