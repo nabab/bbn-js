@@ -1,0 +1,10 @@
+/**
+ * Makes a string out of anything
+ * @param {*} value
+ * @param {Function} fn
+ * @param {Number} [depth=null]
+ * @param {Number} [level=0]
+ * @param {WeakSet} [visited=null]
+ * @returns {String}
+ */
+export default function treatForHash(value: any, depth?: any, level?: number, visited?: any, fn?: any): any;

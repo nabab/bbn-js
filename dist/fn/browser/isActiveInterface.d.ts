@@ -1,0 +1,13 @@
+/**
+ * Tells if the interface is beeing active for the past x seconds.
+ * @method   isActiveInterface
+ * @global
+ * @example
+ * // true
+ * ``` javascript
+ * bbn.fn.isActiveInterface(54764654);
+ * ```
+ * @memberof bbn.fn
+ * @returns  {Boolean}
+ */
+export default function isActiveInterface(secs?: number): boolean;
