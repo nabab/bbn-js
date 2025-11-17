@@ -204,6 +204,38 @@ const unitsCorrespondence = {
     'W': 'w',
     'w': 'w'
 };
+const buildLocaleFromIntl = () => {
+    const langs = [bbn.env.lang, ...navigator.languages];
+    const fmtMonthLong = new Intl.DateTimeFormat(langs, { month: 'long' });
+    const fmtMonthShort = new Intl.DateTimeFormat(langs, { month: 'short' });
+    const fmtWeekLong = new Intl.DateTimeFormat(langs, { weekday: 'long' });
+    const fmtWeekShort = new Intl.DateTimeFormat(langs, { weekday: 'short' });
+    // Create 12 dates for months (2020 chosen arbitrarily)
+    const monthsLong = [];
+    const monthsShort = [];
+    for (let m = 0; m < 12; m++) {
+        const d = new Date(2020, m, 1);
+        monthsLong.push(fmtMonthLong.format(d));
+        monthsShort.push(fmtMonthShort.format(d));
+    }
+    // Create 7 dates for weekdays (starting from Sunday 2020-02-02 which *is* Sunday)
+    // 2020-02-02 is Sunday → guarantees stable weekday list
+    const baseSunday = new Date(2020, 1, 2); // YYYY, MM (0-based), DD
+    const weekdaysLong = [];
+    const weekdaysShort = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(baseSunday.getTime() + i * 86400000);
+        weekdaysLong.push(fmtWeekLong.format(d));
+        weekdaysShort.push(fmtWeekShort.format(d));
+    }
+    return {
+        monthsLong,
+        monthsShort,
+        weekdaysLong,
+        weekdaysShort,
+    };
+};
+const locales = buildLocaleFromIntl();
 class bbnDateDuration {
     constructor(len, unit, fromMs = false) {
         _bbnDateDuration_instances.add(this);
@@ -235,6 +267,17 @@ class bbnDateDuration {
     //      Day.js style
     //   "asX" conversions
     // -----------------------
+    toJSON() {
+        return {
+            years: this.years(true),
+            months: this.months(true),
+            days: this.days(true),
+            hours: this.hours(true),
+            minutes: this.minutes(true),
+            seconds: this.seconds(true),
+            milliseconds: this.toMilliseconds()
+        };
+    }
     /**
      * Returns the full duration expressed as X (float), like Day.js.
      */
@@ -312,6 +355,414 @@ _bbnDateDuration_durationMs = new WeakMap(), _bbnDateDuration_unit = new WeakMap
     return Math.floor(remainingMs / unitMs);
 };
 class bbnDateTool {
+    /**
+     * Parses a date string strictly according to a format.
+     *
+     * Supported tokens:
+     *   Years:   YYYY, YY, Y
+     *   Months:  MMMM, MMM, MM, M, m
+     *   Days:    DD, D, d
+     *   Weekday: dddd, ddd, EE  (validation only)
+     *   Hours:   HH, H, h
+     *   Minutes: II, I, i
+     *   Seconds: SS, S, s
+     *   Milli:   ms
+     *   Weeks:   WWWW, WWW, WW, W (parsed but not used to build the Date)
+     *
+     * @throws Error if parsing fails or the date is invalid.
+     */
+    static parse(input, format, locale) {
+        var _a, _b, _c, _d;
+        const loc = {
+            monthsLong: (_a = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _a !== void 0 ? _a : locales.monthsLong,
+            monthsShort: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _b !== void 0 ? _b : locales.monthsShort,
+            weekdaysLong: (_c = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _c !== void 0 ? _c : locales.weekdaysLong,
+            weekdaysShort: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _d !== void 0 ? _d : locales.weekdaysShort
+        };
+        const ctx = {
+            year: 1970,
+            month: 1,
+            day: 1,
+            hour: 0,
+            minute: 0,
+            second: 0,
+            ms: 0
+        };
+        const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const tokenSpecs = [
+            // Years
+            {
+                token: 'YYYY',
+                regex: '\\d{4}',
+                apply: v => { ctx.year = parseInt(v, 10); }
+            },
+            {
+                token: 'YY',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    ctx.year = n >= 70 ? 1900 + n : 2000 + n;
+                }
+            },
+            {
+                token: 'Y',
+                regex: '[+-]?\\d{1,6}',
+                apply: v => { ctx.year = parseInt(v, 10); }
+            },
+            // Months
+            {
+                token: 'MMMM',
+                regex: '[^\\d\\s]+',
+                apply: v => {
+                    const idx = loc.monthsLong
+                        .findIndex(m => m.toLowerCase() === v.toLowerCase());
+                    if (idx === -1) {
+                        throw new Error('Invalid month name: ' + v);
+                    }
+                    ctx.month = idx + 1;
+                }
+            },
+            {
+                token: 'MMM',
+                regex: '[^\\d\\s]+',
+                apply: v => {
+                    const idx = loc.monthsShort
+                        .findIndex(m => m.toLowerCase() === v.toLowerCase());
+                    if (idx === -1) {
+                        throw new Error('Invalid short month name: ' + v);
+                    }
+                    ctx.month = idx + 1;
+                }
+            },
+            {
+                token: 'MM',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 12) {
+                        throw new Error('Invalid month: ' + n);
+                    }
+                    ctx.month = n;
+                }
+            },
+            {
+                token: 'M',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 12) {
+                        throw new Error('Invalid month: ' + n);
+                    }
+                    ctx.month = n;
+                }
+            },
+            {
+                token: 'm', // PHP-like month
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 12) {
+                        throw new Error('Invalid month: ' + n);
+                    }
+                    ctx.month = n;
+                }
+            },
+            // Day of month
+            {
+                token: 'DD',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 31) {
+                        throw new Error('Invalid day of month: ' + n);
+                    }
+                    ctx.day = n;
+                }
+            },
+            {
+                token: 'D',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 31) {
+                        throw new Error('Invalid day of month: ' + n);
+                    }
+                    ctx.day = n;
+                }
+            },
+            {
+                token: 'd', // PHP-like day-of-month
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 31) {
+                        throw new Error('Invalid day of month: ' + n);
+                    }
+                    ctx.day = n;
+                }
+            },
+            // Weekday (only validated)
+            {
+                token: 'dddd',
+                regex: '[^\\d\\s]+',
+                apply: v => {
+                    const idx = loc.weekdaysLong
+                        .findIndex(w => w.toLowerCase() === v.toLowerCase());
+                    if (idx === -1) {
+                        throw new Error('Invalid weekday name: ' + v);
+                    }
+                    ctx.weekday = idx; // 0-6, Sunday-based
+                }
+            },
+            {
+                token: 'ddd',
+                regex: '[^\\d\\s]+',
+                apply: v => {
+                    const idx = loc.weekdaysShort
+                        .findIndex(w => w.toLowerCase() === v.toLowerCase());
+                    if (idx === -1) {
+                        throw new Error('Invalid short weekday name: ' + v);
+                    }
+                    ctx.weekday = idx; // 0-6
+                }
+            },
+            {
+                token: 'EE',
+                regex: '\\d{1}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 7) {
+                        throw new Error('Invalid weekday number: ' + n);
+                    }
+                    ctx.weekday = n;
+                }
+            },
+            // Hours
+            {
+                token: 'HH',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 23) {
+                        throw new Error('Invalid hour: ' + n);
+                    }
+                    ctx.hour = n;
+                }
+            },
+            {
+                token: 'H',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 23) {
+                        throw new Error('Invalid hour: ' + n);
+                    }
+                    ctx.hour = n;
+                }
+            },
+            {
+                token: 'h', // PHP-like 24h alias here
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 23) {
+                        throw new Error('Invalid hour: ' + n);
+                    }
+                    ctx.hour = n;
+                }
+            },
+            // Minutes
+            {
+                token: 'II',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid minute: ' + n);
+                    }
+                    ctx.minute = n;
+                }
+            },
+            {
+                token: 'I',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid minute: ' + n);
+                    }
+                    ctx.minute = n;
+                }
+            },
+            {
+                token: 'i', // PHP-like minutes
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid minute: ' + n);
+                    }
+                    ctx.minute = n;
+                }
+            },
+            // Seconds
+            {
+                token: 'SS',
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid second: ' + n);
+                    }
+                    ctx.second = n;
+                }
+            },
+            {
+                token: 'S',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid second: ' + n);
+                    }
+                    ctx.second = n;
+                }
+            },
+            {
+                token: 's', // PHP-like seconds
+                regex: '\\d{2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 59) {
+                        throw new Error('Invalid second: ' + n);
+                    }
+                    ctx.second = n;
+                }
+            },
+            // Milliseconds
+            {
+                token: 'ms',
+                regex: '\\d{1,3}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 0 || n > 999) {
+                        throw new Error('Invalid millisecond: ' + n);
+                    }
+                    ctx.ms = n;
+                }
+            },
+            // Weeks (parsed, but not used to construct the Date yet)
+            {
+                token: 'WWWW',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 53) {
+                        throw new Error('Invalid week number: ' + n);
+                    }
+                    ctx.week = n;
+                }
+            },
+            {
+                token: 'WWW',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 53) {
+                        throw new Error('Invalid week number: ' + n);
+                    }
+                    ctx.week = n;
+                }
+            },
+            {
+                token: 'WW',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 53) {
+                        throw new Error('Invalid week number: ' + n);
+                    }
+                    ctx.week = n;
+                }
+            },
+            {
+                token: 'W',
+                regex: '\\d{1,2}',
+                apply: v => {
+                    const n = parseInt(v, 10);
+                    if (n < 1 || n > 53) {
+                        throw new Error('Invalid week number: ' + n);
+                    }
+                    ctx.week = n;
+                }
+            }
+        ];
+        // Sort tokens by length (desc) so we match 'YYYY' before 'YY', 'ms' before 'm'/'s', etc.
+        const tokensByLength = [...tokenSpecs].sort((a, b) => b.token.length - a.token.length);
+        let pattern = '';
+        const applyFns = [];
+        let i = 0;
+        while (i < format.length) {
+            let matchedToken = null;
+            for (const spec of tokensByLength) {
+                if (format.startsWith(spec.token, i)) {
+                    matchedToken = spec;
+                    break;
+                }
+            }
+            if (matchedToken) {
+                pattern += `(${matchedToken.regex})`;
+                if (matchedToken.apply) {
+                    applyFns.push(matchedToken.apply);
+                }
+                else {
+                    // Still consume the capturing group, but ignore value
+                    applyFns.push(() => { });
+                }
+                i += matchedToken.token.length;
+            }
+            else {
+                // Literal character
+                pattern += escapeRegex(format[i]);
+                i += 1;
+            }
+        }
+        const fullRegex = new RegExp('^' + pattern + '$');
+        const match = fullRegex.exec(input);
+        if (!match) {
+            throw new Error(`Date string "${input}" does not match format "${format}"`);
+        }
+        // Apply captured groups
+        for (let idx = 1; idx < match.length; idx++) {
+            const value = match[idx];
+            const apply = applyFns[idx - 1];
+            if (value != null && apply) {
+                apply(value);
+            }
+        }
+        // Build Date (local time)
+        const date = new Date(ctx.year, ctx.month - 1, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms);
+        // Strict validation: ensure Date didn't overflow (e.g. 31 Feb)
+        if (date.getFullYear() !== ctx.year ||
+            date.getMonth() !== ctx.month - 1 ||
+            date.getDate() !== ctx.day ||
+            date.getHours() !== ctx.hour ||
+            date.getMinutes() !== ctx.minute ||
+            date.getSeconds() !== ctx.second ||
+            date.getMilliseconds() !== ctx.ms) {
+            throw new Error('Invalid date produced from components');
+        }
+        // Optional: validate weekday if provided
+        if (typeof ctx.weekday !== 'undefined') {
+            const jsWeekday = date.getDay(); // 0 (Sunday) - 6 (Saturday)
+            if (ctx.weekday === 0 || ctx.weekday === 7) {
+                // If you decide EE is 0–6 or 1–7, adjust here as needed.
+                // Not enforcing a strict rule beyond basic numeric check above.
+            }
+            // You could enforce consistency between ctx.weekday and jsWeekday here if you want.
+        }
+        return date;
+    }
     constructor(value, inputFormat = null) {
         _bbnDateTool_value.set(this, void 0);
         _bbnDateTool_isDuration.set(this, false);
@@ -320,8 +771,12 @@ class bbnDateTool {
             __classPrivateFieldSet(this, _bbnDateTool_value, new Date(), "f");
         }
         else if (inputFormat) {
-            /** @todo read the date from the input format */
-            __classPrivateFieldSet(this, _bbnDateTool_value, new Date(), "f");
+            try {
+                __classPrivateFieldSet(this, _bbnDateTool_value, bbnDateTool.parse(value, inputFormat), "f");
+            }
+            catch (e) {
+                throw new Error('Error parsing date with format "' + inputFormat + '": ' + e.message);
+            }
         }
         else {
             if (t === 'number' || (isNumber(value) && value !== '')) {

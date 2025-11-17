@@ -1,5 +1,27 @@
 declare class bbnDateTool {
     #private;
+    /**
+     * Parses a date string strictly according to a format.
+     *
+     * Supported tokens:
+     *   Years:   YYYY, YY, Y
+     *   Months:  MMMM, MMM, MM, M, m
+     *   Days:    DD, D, d
+     *   Weekday: dddd, ddd, EE  (validation only)
+     *   Hours:   HH, H, h
+     *   Minutes: II, I, i
+     *   Seconds: SS, S, s
+     *   Milli:   ms
+     *   Weeks:   WWWW, WWW, WW, W (parsed but not used to build the Date)
+     *
+     * @throws Error if parsing fails or the date is invalid.
+     */
+    static parse(input: string, format: string, locale?: {
+        monthsLong?: string[];
+        monthsShort?: string[];
+        weekdaysLong?: string[];
+        weekdaysShort?: string[];
+    }): Date;
     constructor(value: any, inputFormat?: null | String);
     toString(): string;
     year(v?: number): number | bbnDateTool;
