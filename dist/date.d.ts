@@ -38,7 +38,8 @@ declare class bbnDateTool {
     get S(): string;
     get WW(): string;
     get isValid(): boolean;
-    get daysInMonth(): number;
+    inLeapYear(): boolean;
+    daysInMonth(): number;
     valueOf(): number;
     add(value: number, unit?: string): bbnDateTool | null;
     subtract(value: number, unit?: string): bbnDateTool;

@@ -351,7 +351,6 @@ class bbnDateDuration {
 
 class bbnDateTool {
   #value: Date | undefined;
-  #daysInMonth: number = 0;
   #isDuration: boolean = false;
 
   constructor(value: any, inputFormat: null|String = null) {
@@ -609,32 +608,35 @@ class bbnDateTool {
   get isValid(): boolean {
     return this.#value !== undefined;
   }
+
+  inLeapYear(): boolean {
+    if (this.isValid) {
+      const year = this.#value.getFullYear();
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+    return false;
+  }
   
-  get daysInMonth(): number {
-    if (this.isValid && !this.#daysInMonth) {
+  daysInMonth(): number {
+    if (this.isValid) {
       switch (this.#value.getMonth()) {
         case 1:
           if (this.#value.getFullYear() % 4 === 0) {
-            this.#daysInMonth = 29;
+            return 29;
           }
           else {
-            this.#daysInMonth = 28;
+            return 28;
           }
-          break;
         case 0:
         case 3:
         case 5:
         case 8:
         case 10:
-          this.#daysInMonth = 30;
-          break;
+          return 30;
         default:
-          this.#daysInMonth = 31;
-          break;
+          return 31;
       }
     }
-
-    return this.#daysInMonth;
   }
 
   valueOf(): number {

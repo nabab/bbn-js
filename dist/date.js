@@ -9,7 +9,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _bbnDateDuration_instances, _bbnDateDuration_durationMs, _bbnDateDuration_unit, _bbnDateDuration_getUnitRowByName, _bbnDateDuration_getUnitValue, _bbnDateTool_value, _bbnDateTool_daysInMonth, _bbnDateTool_isDuration;
+var _bbnDateDuration_instances, _bbnDateDuration_durationMs, _bbnDateDuration_unit, _bbnDateDuration_getUnitRowByName, _bbnDateDuration_getUnitValue, _bbnDateTool_value, _bbnDateTool_isDuration;
 import _ from './_.js';
 import each from './fn/loop/each.js';
 import substr from './fn/string/substr.js';
@@ -314,7 +314,6 @@ _bbnDateDuration_durationMs = new WeakMap(), _bbnDateDuration_unit = new WeakMap
 class bbnDateTool {
     constructor(value, inputFormat = null) {
         _bbnDateTool_value.set(this, void 0);
-        _bbnDateTool_daysInMonth.set(this, 0);
         _bbnDateTool_isDuration.set(this, false);
         let t = typeof value;
         if (!value) {
@@ -531,30 +530,33 @@ class bbnDateTool {
     get isValid() {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f") !== undefined;
     }
-    get daysInMonth() {
-        if (this.isValid && !__classPrivateFieldGet(this, _bbnDateTool_daysInMonth, "f")) {
+    inLeapYear() {
+        if (this.isValid) {
+            const year = __classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear();
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+        return false;
+    }
+    daysInMonth() {
+        if (this.isValid) {
             switch (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getMonth()) {
                 case 1:
                     if (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear() % 4 === 0) {
-                        __classPrivateFieldSet(this, _bbnDateTool_daysInMonth, 29, "f");
+                        return 29;
                     }
                     else {
-                        __classPrivateFieldSet(this, _bbnDateTool_daysInMonth, 28, "f");
+                        return 28;
                     }
-                    break;
                 case 0:
                 case 3:
                 case 5:
                 case 8:
                 case 10:
-                    __classPrivateFieldSet(this, _bbnDateTool_daysInMonth, 30, "f");
-                    break;
+                    return 30;
                 default:
-                    __classPrivateFieldSet(this, _bbnDateTool_daysInMonth, 31, "f");
-                    break;
+                    return 31;
             }
         }
-        return __classPrivateFieldGet(this, _bbnDateTool_daysInMonth, "f");
     }
     valueOf() {
         return this.mtst;
@@ -969,7 +971,7 @@ class bbnDateTool {
         return new bbnDateDuration(num, unit);
     }
 }
-_bbnDateTool_value = new WeakMap(), _bbnDateTool_daysInMonth = new WeakMap(), _bbnDateTool_isDuration = new WeakMap();
+_bbnDateTool_value = new WeakMap(), _bbnDateTool_isDuration = new WeakMap();
 function generatorFunction(value, inputFormat = null) {
     if (value instanceof bbnDateTool) {
         return value;
