@@ -4,7 +4,7 @@
 
 ![Build](https://github.com/nabab/bbnjs/workflows/Build/badge.svg)
 
-### BBNJS is an opiniated library for the browser used by the [VueJS Components](https://bbn.io/bbn-vue/home), and by the [Application AppUI](https://app-ui.com), and designed to work in conjonction with the [BBN-PHP Framework](https://bbn.io/bbn-php/home) and the [BBN-CSS Library](https://bbn.io/bbn-css/home).
+### BBN-JS is a Javascript toolkit for the browser used by the [BBN-CP Web Components](https://bbn.io/bbn-cp/home), and by the [AppUI Application](https://app-ui.com), and designed to work in conjonction with the [BBN-PHP Framework](https://bbn.io/bbn-php/home) and the [BBN-CSS Library](https://bbn.io/bbn-css/home).
 
 You can check the documentation:
 
