@@ -42,7 +42,6 @@ import cssExists from './fn/style/cssExists.js';
 import data2Html from './fn/string/data2Html.js';
 import date from './fn/datetime/date.js';
 import dateSQL from './fn/datetime/dateSQL.js';
-import daysInMonth from './fn/datetime/daysInMonth.js';
 import deepPath from './fn/object/deepPath.js';
 import defaultAjaxAbortFunction from './fn/default/defaultAjaxAbortFunction.js';
 import defaultAjaxErrorFunction from './fn/default/defaultAjaxErrorFunction.js';
@@ -290,7 +289,6 @@ declare const _default: {
     data2Html: typeof data2Html;
     date: typeof date;
     dateSQL: typeof dateSQL;
-    daysInMonth: typeof daysInMonth;
     deepPath: typeof deepPath;
     defaultAjaxAbortFunction: typeof defaultAjaxAbortFunction;
     defaultAjaxErrorFunction: typeof defaultAjaxErrorFunction;

@@ -162,19 +162,8 @@ declare global {
     }
   }
 
-  interface BbnDayjsConstructor {
-    (d?: Date|string|number): BbnDayjs;
-    extend: (d: string) => void;
-    locale: (d: string) => void;
-  }
-
-  interface BbnDayjs {
-    calendar: (d?: null|string, o?: object) => string;
-    format: (f: string) => string;
-    daysInMonth: () => number;
-  }
   const bbn: Bbn;
-  const dayjs: BbnDayjsConstructor;
+  const dayjs: any;
 }
 
 export {};
