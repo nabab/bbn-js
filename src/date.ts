@@ -1244,7 +1244,7 @@ class bbnDateTool {
       year: 'numeric',
       month: long ? 'long' : 'numeric',
       day: 'numeric',
-      ...(weekday ? { weekday: 'long' } : {}),
+      ...(weekday ? { weekday: (long ? 'long' : 'short') } : {}),
       ...(withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit'} : {})  
     };
     const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
