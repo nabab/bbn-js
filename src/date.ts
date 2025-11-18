@@ -5,6 +5,7 @@ import isNumber from './fn/type/isNumber.js';
 import isDate from './fn/type/isDate.js';
 import isPrimitive from './fn/type/isPrimitive.js';
 import extend from './fn/object/extend.js';
+import getRow from './fn/object/getRow.js';
 
 const patterns: {
   name: string;
@@ -13,9 +14,9 @@ const patterns: {
     year: number;
     month: number;
     day: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
+    hour: number;
+    minute: number;
+    second: number;
   };
 }[] = [
   // MariaDB DATETIME "YYYY-MM-DD HH:MM:SS"
@@ -26,9 +27,9 @@ const patterns: {
       year: +m[1],
       month: +m[2],
       day: +m[3],
-      hours: +m[4],
-      minutes: +m[5],
-      seconds: +m[6],
+      hour: +m[4],
+      minute: +m[5],
+      second: +m[6],
     })
   },
   // MariaDB DATETIME without seconds "YYYY-MM-DD HH:MM"
@@ -39,9 +40,9 @@ const patterns: {
       year: +m[1],
       month: +m[2],
       day: +m[3],
-      hours: +m[4],
-      minutes: +m[5],
-      seconds: 0,
+      hour: +m[4],
+      minute: +m[5],
+      second: 0,
     })
   },
   // MariaDB DATE "YYYY-MM-DD"
@@ -52,9 +53,9 @@ const patterns: {
       year: +m[1],
       month: +m[2],
       day: +m[3],
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
+      hour: 0,
+      minute: 0,
+      second: 0,
     })
   },
   // ISO / JS-style "YYYY-MM-DDTHH:MM[:SS][.sss][Z or ±HH:MM]"
@@ -65,9 +66,9 @@ const patterns: {
       year: +m[1],
       month: +m[2],
       day: +m[3],
-      hours: +m[4],
-      minutes: +m[5],
-      seconds: m[6] !== undefined ? +m[6] : 0,
+      hour: +m[4],
+      minute: +m[5],
+      second: m[6] !== undefined ? +m[6] : 0,
     })
   },
   // Simple slash date "YYYY/MM/DD"
@@ -78,9 +79,9 @@ const patterns: {
       year: +m[3],
       month: +m[2],
       day: +m[1],
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
+      hour: 0,
+      minute: 0,
+      second: 0,
     })
   },
   // Slash datetime "YYYY/MM/DD HH:MM:SS"
@@ -91,9 +92,9 @@ const patterns: {
       year: +m[3],
       month: +m[2],
       day: +m[1],
-      hours: +m[4],
-      minutes: +m[5],
-      seconds: +m[6],
+      hour: +m[4],
+      minute: +m[5],
+      second: +m[6],
     })
   },
 ];
@@ -263,7 +264,7 @@ class bbnDateDuration {
 
     this.#unit = realUnit;
 
-    const row = bbn.fn.getRow(units, d => d[0] === realUnit);
+    const row = getRow(units, d => d[0] === realUnit);
     if (!row) {
       throw new Error('Invalid unit for duration: ' + realUnit);
     }
@@ -273,7 +274,7 @@ class bbnDateDuration {
   }
 
   #getUnitRowByName(name: string) {
-    const row = bbn.fn.getRow(units, d => d[1] === name);
+    const row = getRow(units, d => d[1] === name);
     if (!row) {
       throw new Error('Unit name not found: ' + name);
     }
@@ -385,7 +386,7 @@ class bbnDateDuration {
       ? (unitsCorrespondence[unit] || unit)
       : this.#unit;
 
-    const row = bbn.fn.getRow(units, d => d[0] === targetUnit);
+    const row = getRow(units, d => d[0] === targetUnit);
     if (!row) {
       throw new Error('Invalid unit for duration: ' + (unit ?? targetUnit));
     }
@@ -910,8 +911,8 @@ class bbnDateTool {
         for (const p of patterns) {
           const m = value.match(p.re);
           if (m) {
-            const { year, month, day, hours, minutes, seconds } = p.map(m);
-            this.#value = new Date(year, month - 1, day, hours, minutes, seconds, 0);
+            const { year, month, day, hour, minute, second } = p.map(m);
+            this.#value = new Date(year, month - 1, day, hour, minute, second, 0);
           }
         }
         if (!this.#value) {
@@ -1102,21 +1103,21 @@ class bbnDateTool {
   }
 
   get HH(): string {
-    const h = parseInt(this.hours().toString());
+    const h = parseInt(this.hour().toString());
     return h < 10 ? '0' + h.toString() : h.toString();
   }
   
   get H(): string {
-    return this.hours().toString();
+    return this.hour().toString();
   }
   
   get II(): string {
-    const i = parseInt(this.minutes().toString());
+    const i = parseInt(this.minute().toString());
     return i < 10 ? '0' + i.toString() : i.toString();
   }
 
   get I(): string {
-    return this.minutes().toString();
+    return this.minute().toString();
   }
 
   get SS(): string {
@@ -1330,7 +1331,7 @@ class bbnDateTool {
     const order: Array<'y' | 'm' | 'd' | 'h' | 'i' | 's'> = ['y', 'm', 'd', 'h', 'i', 's'];
     // Compare step by step until the requested precision
     for (const u of order) {
-      const key = bbn.fn.getRow(units, un => un[0] === u)?.[1];
+      const key = getRow(units, un => un[0] === u)?.[1];
       const a = this[key]() as number;
       const b = d[key]() as number;
 
@@ -1376,7 +1377,7 @@ class bbnDateTool {
     const diff = this.diff(date, chosenUnit);
     const rtf = new Intl.RelativeTimeFormat([bbn.env.lang, ...navigator.languages], { numeric: "auto" });
     // FORCED UNIT MODE
-    const match = bbn.fn.getRow(units, d => d[0] === chosenUnit);
+    const match = getRow(units, d => d[0] === chosenUnit);
     if (!match) {
       throw new Error('Invalid unit for fromDate: ' + unit);
     }
@@ -1412,7 +1413,7 @@ class bbnDateTool {
     }
 
     const realUnit = unitsCorrespondence[unit];
-    const match = bbn.fn.getRow(units, d => d[0] === realUnit);
+    const match = getRow(units, d => d[0] === realUnit);
     if (!match) {
       throw new Error('Invalid unit for diff: ' + unit);
     }
