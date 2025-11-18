@@ -27,9 +27,9 @@ declare class bbnDateTool {
     year(v?: number): number | bbnDateTool;
     month(v?: number): number | bbnDateTool;
     day(v?: number): number | bbnDateTool;
-    hours(v?: number): number | bbnDateTool;
-    minutes(v?: number): number | bbnDateTool;
-    seconds(v?: number): number | bbnDateTool;
+    hour(v?: number): number | bbnDateTool;
+    minute(v?: number): number | bbnDateTool;
+    second(v?: number): number | bbnDateTool;
     weekday(v?: number, past?: boolean): number | bbnDateTool;
     /**
      * Returns the ISO-8601 week number of this date.

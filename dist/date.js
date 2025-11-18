@@ -849,7 +849,7 @@ class bbnDateTool {
         }
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getDate();
     }
-    hours(v) {
+    hour(v) {
         if (0 in arguments) {
             const d = this.copy();
             d.setHours(v);
@@ -857,7 +857,7 @@ class bbnDateTool {
         }
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getHours();
     }
-    minutes(v) {
+    minute(v) {
         if (0 in arguments) {
             const d = this.copy();
             d.setMinutes(v);
@@ -865,7 +865,7 @@ class bbnDateTool {
         }
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getMinutes();
     }
-    seconds(v) {
+    second(v) {
         if (0 in arguments) {
             const d = this.copy();
             d.setSeconds(v);
@@ -974,11 +974,11 @@ class bbnDateTool {
         return this.minutes().toString();
     }
     get SS() {
-        const s = parseInt(this.seconds().toString());
+        const s = parseInt(this.second().toString());
         return s < 10 ? '0' + s.toString() : s.toString();
     }
     get S() {
-        return this.seconds().toString();
+        return this.second().toString();
     }
     get WW() {
         const y = parseInt(this.year().toString());
@@ -1359,7 +1359,7 @@ class bbnDateTool {
             case "w": {
                 // Week starting Monday:
                 // JS getDay(): 0 (Sun) .. 6 (Sat)
-                const current = new Date(this.year(), this.month() - 1, this.day(), this.hours(), this.minutes(), this.seconds(), 0);
+                const current = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), this.second(), 0);
                 const wd = current.getDay(); // 0..6
                 const diffToMonday = (wd + 6) % 7; // 0 for Monday, 6 for Sunday
                 d = new Date(current.getFullYear(), current.getMonth(), current.getDate() - diffToMonday, 0, 0, 0, 0);
@@ -1369,13 +1369,13 @@ class bbnDateTool {
                 d = new Date(this.year(), this.month() - 1, this.day(), 0, 0, 0, 0);
                 break;
             case "h":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), 0, 0, 0);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), 0, 0, 0);
                 break;
             case "i":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), this.minutes(), 0, 0);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), 0, 0);
                 break;
             case "s":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), this.minutes(), this.seconds(), 0);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), this.second(), 0);
                 break;
             default:
                 throw new Error('Invalid unit for startOf: ' + unit);
@@ -1413,13 +1413,13 @@ class bbnDateTool {
                 d = new Date(this.year(), this.month() - 1, this.day(), 23, 59, 59, 999);
                 break;
             case "hour":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), 59, 59, 999);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), 59, 59, 999);
                 break;
             case "minute":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), this.minutes(), 59, 999);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), 59, 999);
                 break;
             case "second":
-                d = new Date(this.year(), this.month() - 1, this.day(), this.hours(), this.minutes(), this.seconds(), 999);
+                d = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), this.second(), 999);
                 break;
             default:
                 d = new Date(this.mtst);
