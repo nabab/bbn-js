@@ -885,13 +885,8 @@ class bbnDateTool {
     if (!value) {
       this.#value = new Date();
     }
-    else if (inputFormat && bbn.fn.isString(value)) {
-      try {
-        this.#value = bbnDateTool.parse(value, inputFormat as string);
-      }
-      catch (e) {
-        throw new Error('Error parsing date with format "' + inputFormat + '": ' + (e as Error).message);
-      }
+    else if (inputFormat) {
+      this.#value = bbnDateTool.parse(value, inputFormat as string);
     }
     else {
       if (t === 'number' || (isNumber(value) && value !== '')) {
