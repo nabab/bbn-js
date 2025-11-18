@@ -885,7 +885,7 @@ class bbnDateTool {
     if (!value) {
       this.#value = new Date();
     }
-    else if (inputFormat) {
+    else if (inputFormat && bbn.fn.isString(value)) {
       try {
         this.#value = bbnDateTool.parse(value, inputFormat as string);
       }

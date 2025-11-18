@@ -775,7 +775,7 @@ class bbnDateTool {
         if (!value) {
             __classPrivateFieldSet(this, _bbnDateTool_value, new Date(), "f");
         }
-        else if (inputFormat) {
+        else if (inputFormat && bbn.fn.isString(value)) {
             try {
                 __classPrivateFieldSet(this, _bbnDateTool_value, bbnDateTool.parse(value, inputFormat), "f");
             }
