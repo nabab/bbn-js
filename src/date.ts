@@ -937,6 +937,21 @@ class bbnDateTool {
     }
   }
 
+  parse(input: string, format: string): bbnDateTool {
+    const d = bbnDateTool.parse(input, format);
+    return new bbnDateTool(d);
+  }
+
+  matchFormat(value, format: string): boolean {
+    try {
+      bbnDateTool.parse(value, format);
+      return true;
+    }
+    catch {
+      return false;
+    }
+  }
+
   toString(): string {
     return this.#value ? this.format() : '';
   }

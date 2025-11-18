@@ -23,6 +23,8 @@ declare class bbnDateTool {
         weekdaysShort?: string[];
     }): Date;
     constructor(value: any, inputFormat?: null | String);
+    parse(input: string, format: string): bbnDateTool;
+    matchFormat(value: any, format: string): boolean;
     toString(): string;
     year(v?: number): number | bbnDateTool;
     month(v?: number): number | bbnDateTool;

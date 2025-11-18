@@ -823,6 +823,19 @@ class bbnDateTool {
             });
         }
     }
+    parse(input, format) {
+        const d = bbnDateTool.parse(input, format);
+        return new bbnDateTool(d);
+    }
+    matchFormat(value, format) {
+        try {
+            bbnDateTool.parse(value, format);
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    }
     toString() {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f") ? this.format() : '';
     }
