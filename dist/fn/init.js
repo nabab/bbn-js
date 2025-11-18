@@ -31,47 +31,6 @@ export default function init(cfg, force) {
         if (bbn.env.root.length && substr(bbn.env.root, -1) !== "/") {
             bbn.env.root += "/";
         }
-        if (!bbn.env.isInit && typeof dayjs !== "undefined") {
-            each([
-                "advancedFormat",
-                "arraySupport",
-                "badMutable",
-                "buddhistEra",
-                "calendar",
-                "customParseFormat",
-                "dayOfYear",
-                "devHelper",
-                "duration",
-                "isBetween",
-                "isLeapYear",
-                "isSameOrAfter",
-                "isSameOrBefore",
-                "isToday",
-                "isTomorrow",
-                "isYesterday",
-                "isoWeek",
-                "isoWeeksInYear",
-                "localeData",
-                "localizedFormat",
-                "minMax",
-                "objectSupport",
-                "pluralGetSet",
-                "quarterOfYear",
-                "relativeTime",
-                "timezone",
-                "toArray",
-                "toObject",
-                "updateLocale",
-                "utc",
-                "weekOfYear",
-                "weekYear",
-                "weekday",
-            ], (plugin) => {
-                if (window["dayjs_plugin_" + plugin]) {
-                    dayjs.extend(window["dayjs_plugin_" + plugin]);
-                }
-            });
-        }
         /* The server's path (difference between the host and the current dir */
         if (typeof cfg === "object") {
             extend(true, bbn, cfg);
@@ -87,11 +46,6 @@ export default function init(cfg, force) {
         });
         if (bbn.var.colors) {
             addColors(bbn.var.colors);
-        }
-        if (bbn.env.lang && undefined !== dayjs) {
-            import('dayjs/locale/' + bbn.env.lang + '.js').then(() => {
-                dayjs.locale(bbn.env.lang);
-            });
         }
         document.addEventListener("visibilitychange", () => {
             if (document.hidden && bbn.env.isFocused) {

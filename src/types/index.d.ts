@@ -73,7 +73,6 @@ declare global {
   interface Window {
     bbn: Bbn;
     bbnData: any;
-    dayjs: any;
     scheduler: any;
   }  
   
@@ -163,7 +162,6 @@ declare global {
   }
 
   const bbn: Bbn;
-  const dayjs: any;
 }
 
 export {};
