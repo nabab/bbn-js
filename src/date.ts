@@ -532,6 +532,17 @@ class bbnDateTool {
         }
       },
       {
+        token: 'mm',
+        regex: '\\d{2}',
+        apply: v => {
+          const n = parseInt(v, 10);
+          if (n < 0 || n > 59) {
+            throw new Error('Invalid minute: ' + n);
+          }
+          ctx.month = n;
+        }
+      },
+      {
         token: 'M',
         regex: '\\d{1,2}',
         apply: v => {
@@ -1122,6 +1133,11 @@ class bbnDateTool {
   }
   
   get II(): string {
+    const i = parseInt(this.minute().toString());
+    return i < 10 ? '0' + i.toString() : i.toString();
+  }
+
+  get mm(): string {
     const i = parseInt(this.minute().toString());
     return i < 10 ? '0' + i.toString() : i.toString();
   }

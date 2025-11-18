@@ -57,6 +57,7 @@ declare class bbnDateTool {
     get HH(): string;
     get H(): string;
     get II(): string;
+    get mm(): string;
     get I(): string;
     get SS(): string;
     get S(): string;
