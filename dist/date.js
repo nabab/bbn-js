@@ -822,14 +822,16 @@ class bbnDateTool {
                 __classPrivateFieldSet(this, _bbnDateTool_value, new Date(...value), "f");
             }
         }
-        if (__classPrivateFieldGet(this, _bbnDateTool_value, "f") === undefined) {
-            const obj = {};
-            return new Proxy(this, {
-                get: (target, prop) => {
-                    return undefined;
-                }
-            });
-        }
+        /*
+        if (this.#value === undefined) {
+          const obj = {};
+          return new Proxy(this, {
+            get: (target, prop) => {
+              if (prop === 'isValid')
+              return undefined;
+            }
+          });
+        }*/
     }
     parse(input, format) {
         const d = bbnDateTool.parse(input, format);

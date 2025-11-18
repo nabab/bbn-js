@@ -935,14 +935,16 @@ class bbnDateTool {
       }
     }
 
+    /*
     if (this.#value === undefined) {
       const obj = {};
       return new Proxy(this, {
         get: (target, prop) => {
+          if (prop === 'isValid')
           return undefined;
         }
       });
-    }
+    }*/
   }
 
   parse(input: string, format: string): bbnDateTool {
