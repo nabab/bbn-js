@@ -897,7 +897,9 @@ class bbnDateTool {
       this.#value = new Date();
     }
     else if (inputFormat) {
-      this.#value = bbnDateTool.parse(value, inputFormat as string);
+      if (this.matchFormat(value, inputFormat as string)) {
+        this.#value = bbnDateTool.parse(value, inputFormat as string);
+      }
     }
     else {
       if (t === 'number' || (isNumber(value) && value !== '')) {

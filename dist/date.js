@@ -787,7 +787,9 @@ class bbnDateTool {
             __classPrivateFieldSet(this, _bbnDateTool_value, new Date(), "f");
         }
         else if (inputFormat) {
-            __classPrivateFieldSet(this, _bbnDateTool_value, bbnDateTool.parse(value, inputFormat), "f");
+            if (this.matchFormat(value, inputFormat)) {
+                __classPrivateFieldSet(this, _bbnDateTool_value, bbnDateTool.parse(value, inputFormat), "f");
+            }
         }
         else {
             if (t === 'number' || (isNumber(value) && value !== '')) {
