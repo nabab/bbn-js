@@ -22,5 +22,5 @@ export default function fdate(d, wrong_result = false) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
 	}
 
-  return r.fdate(true, time);
+  return r.fdate(false, time);
 };
