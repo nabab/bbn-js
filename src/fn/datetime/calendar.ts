@@ -1,17 +1,9 @@
-import dayjs from 'dayjs'
-import isLeapYear from 'dayjs/plugin/isLeapYear.js' 
-import dayjs_plugin_calendar from 'dayjs/plugin/calendar.js';
-
 import date from '../../date.js'  ;
-import isDate from '../type/isDate.js'  ;
 import isString from '../type/isString.js'  ;
 
 const bbn = {
 	_: st => st
 };
-
-dayjs.extend(dayjs_plugin_calendar);
-dayjs.extend(isLeapYear);
 
 /**
  * Returns a date relative to the current day.
