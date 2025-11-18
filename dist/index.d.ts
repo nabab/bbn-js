@@ -1,2 +1,2 @@
 declare const bbn: Bbn;
-export default bbn;
+export { bbn as default, bbn };
