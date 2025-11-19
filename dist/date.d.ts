@@ -22,6 +22,11 @@ declare class bbnDateTool {
         weekdaysLong?: string[];
         weekdaysShort?: string[];
     }): Date;
+    /**
+     * Compare 2 dates with a given precision.
+     * @returns -1 if this < other, 0 if equal, 1 if this > other
+     */
+    static compare(date1: any, date2: any, unit?: string): -1 | 0 | 1;
     constructor(value: any, inputFormat?: null | String);
     parse(input: string, format: string): bbnDateTool;
     matchFormat(value: any, format: string): boolean;
@@ -63,11 +68,6 @@ declare class bbnDateTool {
     get S(): string;
     get WW(): string;
     get isValid(): boolean;
-    inLeapYear(): boolean;
-    daysInMonth(): number;
-    valueOf(): number;
-    add(value: number, unit?: string): bbnDateTool | null;
-    subtract(value: number, unit?: string): bbnDateTool;
     dateFromFormat(value: string, unit: string | null): Date;
     date(v?: any): string | bbnDateTool;
     datetime(v?: any): string | bbnDateTool;
@@ -77,11 +77,16 @@ declare class bbnDateTool {
     format(format?: string): string;
     unix(ms?: boolean | number): number | bbnDateTool;
     sql(noTime?: boolean): string;
+    inLeapYear(): boolean;
+    daysInMonth(): number;
+    valueOf(): number;
     /**
      * Compare this date to another date with a given precision.
      * @returns -1 if this < other, 0 if equal, 1 if this > other
      */
     compare(date: any, unit?: string): -1 | 0 | 1;
+    add(value: number, unit?: string): bbnDateTool | null;
+    subtract(value: number, unit?: string): bbnDateTool;
     isBefore(date: any, unit?: string): Boolean;
     isAfter(date: any, unit?: string): Boolean;
     isSame(date: any, unit?: string): Boolean;

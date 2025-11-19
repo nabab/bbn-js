@@ -779,6 +779,44 @@ class bbnDateTool {
         }
         return date;
     }
+    /**
+     * Compare 2 dates with a given precision.
+     * @returns -1 if this < other, 0 if equal, 1 if this > other
+     */
+    static compare(date1, date2, unit = '') {
+        var _a;
+        const d1 = date1 instanceof bbnDateTool ? date1 : new bbnDateTool(date1);
+        const d2 = date2 instanceof bbnDateTool ? date2 : new bbnDateTool(date2);
+        const realUnit = unitsCorrespondence[unit] || null;
+        // If no unit or unknown unit, fall back to timestamp comparison
+        if (!realUnit) {
+            if (d1.mtst < d2.mtst) {
+                return -1;
+            }
+            if (d1.mtst > d2.mtst) {
+                return 1;
+            }
+            return 0;
+        }
+        const order = ['y', 'm', 'd', 'h', 'i', 's'];
+        // Compare step by step until the requested precision
+        for (const u of order) {
+            const key = (_a = getRow(units, un => un[0] === u)) === null || _a === void 0 ? void 0 : _a[1];
+            const a = d2[key]();
+            const b = d1[key]();
+            if (a < b) {
+                return -1;
+            }
+            if (a > b) {
+                return 1;
+            }
+            // Stop when we've reached the desired unit
+            if (u === realUnit) {
+                break;
+            }
+        }
+        return 0;
+    }
     constructor(value, inputFormat = null) {
         _bbnDateTool_value.set(this, void 0);
         _bbnDateTool_isDuration.set(this, false);
@@ -1038,52 +1076,6 @@ class bbnDateTool {
     get isValid() {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f") !== undefined;
     }
-    inLeapYear() {
-        if (this.isValid) {
-            const year = __classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear();
-            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-        }
-        return false;
-    }
-    daysInMonth() {
-        if (this.isValid) {
-            switch (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getMonth()) {
-                case 1:
-                    if (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear() % 4 === 0) {
-                        return 29;
-                    }
-                    else {
-                        return 28;
-                    }
-                case 0:
-                case 3:
-                case 5:
-                case 8:
-                case 10:
-                    return 30;
-                default:
-                    return 31;
-            }
-        }
-    }
-    valueOf() {
-        return this.mtst;
-    }
-    add(value, unit = 'd') {
-        const date = __classPrivateFieldGet(this, _bbnDateTool_value, "f") ? new Date(__classPrivateFieldGet(this, _bbnDateTool_value, "f").getTime()) : new Date();
-        if (unitsCorrespondence[unit]) {
-            const realUnit = unitsCorrespondence[unit];
-            const suffix = realUnit === 'y' ? 'FullYear' : unitsMap[realUnit];
-            const getter = 'get' + suffix;
-            const setter = 'set' + suffix;
-            date[setter](date[getter]() + value);
-            return new bbnDateTool(date);
-        }
-        return null;
-    }
-    subtract(value, unit) {
-        return this.add(-value, unit);
-    }
     dateFromFormat(value, unit) {
         const d = new Date();
         return d;
@@ -1187,42 +1179,58 @@ class bbnDateTool {
             ? this.format('YYYY-MM-DD')
             : this.format('YYYY-MM-DD HH:II:SS');
     }
+    inLeapYear() {
+        if (this.isValid) {
+            const year = __classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear();
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+        return false;
+    }
+    daysInMonth() {
+        if (this.isValid) {
+            switch (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getMonth()) {
+                case 1:
+                    if (__classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear() % 4 === 0) {
+                        return 29;
+                    }
+                    else {
+                        return 28;
+                    }
+                case 0:
+                case 3:
+                case 5:
+                case 8:
+                case 10:
+                    return 30;
+                default:
+                    return 31;
+            }
+        }
+    }
+    valueOf() {
+        return this.mtst;
+    }
     /**
      * Compare this date to another date with a given precision.
      * @returns -1 if this < other, 0 if equal, 1 if this > other
      */
     compare(date, unit = '') {
-        var _a;
-        const d = date instanceof bbnDateTool ? date : new bbnDateTool(date);
-        const realUnit = unitsCorrespondence[unit] || null;
-        // If no unit or unknown unit, fall back to timestamp comparison
-        if (!realUnit) {
-            if (this.mtst < d.mtst) {
-                return -1;
-            }
-            if (this.mtst > d.mtst) {
-                return 1;
-            }
-            return 0;
+        return bbnDateTool.compare(this, date, unit);
+    }
+    add(value, unit = 'd') {
+        const date = __classPrivateFieldGet(this, _bbnDateTool_value, "f") ? new Date(__classPrivateFieldGet(this, _bbnDateTool_value, "f").getTime()) : new Date();
+        if (unitsCorrespondence[unit]) {
+            const realUnit = unitsCorrespondence[unit];
+            const suffix = realUnit === 'y' ? 'FullYear' : unitsMap[realUnit];
+            const getter = 'get' + suffix;
+            const setter = 'set' + suffix;
+            date[setter](date[getter]() + value);
+            return new bbnDateTool(date);
         }
-        const order = ['y', 'm', 'd', 'h', 'i', 's'];
-        // Compare step by step until the requested precision
-        for (const u of order) {
-            const key = (_a = getRow(units, un => un[0] === u)) === null || _a === void 0 ? void 0 : _a[1];
-            const a = this[key]();
-            const b = d[key]();
-            if (a < b) {
-                return -1;
-            }
-            if (a > b) {
-                return 1;
-            }
-            // Stop when we've reached the desired unit
-            if (u === realUnit) {
-                break;
-            }
-        }
-        return 0;
+        return null;
+    }
+    subtract(value, unit) {
+        return this.add(-value, unit);
     }
     isBefore(date, unit = '') {
         return this.compare(date, unit) === -1;
