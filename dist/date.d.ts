@@ -69,9 +69,9 @@ declare class bbnDateTool {
     add(value: number, unit?: string): bbnDateTool | null;
     subtract(value: number, unit?: string): bbnDateTool;
     dateFromFormat(value: string, unit: string | null): Date;
-    date(): string;
-    datetime(): string;
-    time(): string;
+    date(v: any): string | bbnDateTool;
+    datetime(v: any): string | bbnDateTool;
+    time(v: any): string | bbnDateTool;
     fdate(long?: boolean, withTime?: boolean, weekday?: boolean): string;
     ftime(withSeconds?: boolean): string;
     format(format?: string): string;

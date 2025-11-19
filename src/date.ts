@@ -1227,15 +1227,27 @@ class bbnDateTool {
     return d;
   }
 
-  date(): string {
+  date(v): string | bbnDateTool {
+    if (v) {
+      return this.parse(v, 'Y-m-d');
+    }
+
     return this.format('Y-m-d');
   }
 
-  datetime(): string {
+  datetime(v): string | bbnDateTool {
+    if (v) {
+      return this.parse(v, 'Y-m-d H:i:s');
+    }
+
     return this.format('Y-m-d H:i:s');
   }
 
-  time(): string {
+  time(v): string | bbnDateTool {
+    if (v) {
+      return this.parse(v, 'H:i:s');
+    }
+
     return this.format('H:i:s');
   }
 

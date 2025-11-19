@@ -1067,13 +1067,22 @@ class bbnDateTool {
         const d = new Date();
         return d;
     }
-    date() {
+    date(v) {
+        if (v) {
+            return this.parse(v, 'Y-m-d');
+        }
         return this.format('Y-m-d');
     }
-    datetime() {
+    datetime(v) {
+        if (v) {
+            return this.parse(v, 'Y-m-d H:i:s');
+        }
         return this.format('Y-m-d H:i:s');
     }
-    time() {
+    time(v) {
+        if (v) {
+            return this.parse(v, 'H:i:s');
+        }
         return this.format('H:i:s');
     }
     fdate(long = false, withTime = false, weekday = false) {
