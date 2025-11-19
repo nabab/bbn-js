@@ -26,13 +26,13 @@ declare class bbnDateTool {
     parse(input: string, format: string): bbnDateTool;
     matchFormat(value: any, format: string): boolean;
     toString(): string;
-    year(v?: number): number | bbnDateTool;
-    month(v?: number): number | bbnDateTool;
-    day(v?: number): number | bbnDateTool;
-    hour(v?: number): number | bbnDateTool;
-    minute(v?: number): number | bbnDateTool;
-    second(v?: number): number | bbnDateTool;
-    weekday(v?: number, past?: boolean): number | bbnDateTool;
+    year(v?: any): number | bbnDateTool;
+    month(v?: any): number | bbnDateTool;
+    day(v?: any): number | bbnDateTool;
+    hour(v?: any): number | bbnDateTool;
+    minute(v?: any): number | bbnDateTool;
+    second(v?: any): number | bbnDateTool;
+    weekday(v?: any, past?: boolean): number | bbnDateTool;
     /**
      * Returns the ISO-8601 week number of this date.
      * Week starts on Monday, and week 1 is the week with Jan 4.
@@ -69,9 +69,9 @@ declare class bbnDateTool {
     add(value: number, unit?: string): bbnDateTool | null;
     subtract(value: number, unit?: string): bbnDateTool;
     dateFromFormat(value: string, unit: string | null): Date;
-    date(v: any): string | bbnDateTool;
-    datetime(v: any): string | bbnDateTool;
-    time(v: any): string | bbnDateTool;
+    date(v?: any): string | bbnDateTool;
+    datetime(v?: any): string | bbnDateTool;
+    time(v?: any): string | bbnDateTool;
     fdate(long?: boolean, withTime?: boolean, weekday?: boolean): string;
     ftime(withSeconds?: boolean): string;
     format(format?: string): string;

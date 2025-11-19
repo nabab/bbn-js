@@ -850,7 +850,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f") ? this.format() : '';
     }
     year(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setFullYear(v);
             return new bbnDateTool(d);
@@ -858,7 +858,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getFullYear();
     }
     month(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setMonth(v - 1);
             return new bbnDateTool(d);
@@ -866,7 +866,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getMonth() + 1;
     }
     day(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setDate(v);
             return new bbnDateTool(d);
@@ -874,7 +874,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getDate();
     }
     hour(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setHours(v);
             return new bbnDateTool(d);
@@ -882,7 +882,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getHours();
     }
     minute(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setMinutes(v);
             return new bbnDateTool(d);
@@ -890,7 +890,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getMinutes();
     }
     second(v) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             const d = this.copy();
             d.setSeconds(v);
             return new bbnDateTool(d);
@@ -898,7 +898,7 @@ class bbnDateTool {
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getSeconds();
     }
     weekday(v, past = false) {
-        if (0 in arguments) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.setWeekday(v, past);
         }
         return __classPrivateFieldGet(this, _bbnDateTool_value, "f").getDay();
@@ -1068,19 +1068,19 @@ class bbnDateTool {
         return d;
     }
     date(v) {
-        if (v) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.parse(v, 'Y-m-d');
         }
         return this.format('Y-m-d');
     }
     datetime(v) {
-        if (v) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.parse(v, 'Y-m-d H:i:s');
         }
         return this.format('Y-m-d H:i:s');
     }
     time(v) {
-        if (v) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.parse(v, 'H:i:s');
         }
         return this.format('H:i:s');

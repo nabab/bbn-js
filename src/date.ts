@@ -966,8 +966,8 @@ class bbnDateTool {
     return this.#value ? this.format() : '';
   }
 
-  year(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  year(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setFullYear(v);
       return new bbnDateTool(d);
@@ -975,8 +975,8 @@ class bbnDateTool {
     return this.#value!.getFullYear();
   }
 
-  month(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  month(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setMonth(v-1);
       return new bbnDateTool(d);
@@ -984,8 +984,8 @@ class bbnDateTool {
     return this.#value!.getMonth() + 1;
   }
 
-  day(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  day(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setDate(v);
       return new bbnDateTool(d);
@@ -993,8 +993,8 @@ class bbnDateTool {
     return this.#value!.getDate();
   }
 
-  hour(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  hour(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setHours(v);
       return new bbnDateTool(d);
@@ -1002,8 +1002,8 @@ class bbnDateTool {
     return this.#value!.getHours();
   }
 
-  minute(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  minute(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setMinutes(v);
       return new bbnDateTool(d);
@@ -1011,8 +1011,8 @@ class bbnDateTool {
     return this.#value!.getMinutes();
   }
 
-  second(v?: number): number | bbnDateTool {
-    if (0 in arguments) {
+  second(v?: any): number | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       const d = this.copy();
       d.setSeconds(v);
       return new bbnDateTool(d);
@@ -1020,8 +1020,8 @@ class bbnDateTool {
     return this.#value!.getSeconds();
   }
 
-  weekday(v?: number, past: boolean = false): number | bbnDateTool{
-    if (0 in arguments) {
+  weekday(v?: any, past: boolean = false): number | bbnDateTool{
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       return this.setWeekday(v, past);
     }
     
@@ -1227,24 +1227,24 @@ class bbnDateTool {
     return d;
   }
 
-  date(v): string | bbnDateTool {
-    if (v) {
+  date(v?: any): string | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       return this.parse(v, 'Y-m-d');
     }
 
     return this.format('Y-m-d');
   }
 
-  datetime(v): string | bbnDateTool {
-    if (v) {
+  datetime(v?: any): string | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       return this.parse(v, 'Y-m-d H:i:s');
     }
 
     return this.format('Y-m-d H:i:s');
   }
 
-  time(v): string | bbnDateTool {
-    if (v) {
+  time(v?: any): string | bbnDateTool {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
       return this.parse(v, 'H:i:s');
     }
 
