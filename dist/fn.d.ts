@@ -197,6 +197,7 @@ import printf from './fn/string/printf.js';
 import quotes2html from './fn/string/quotes2html.js';
 import randomInt from './fn/misc/randomInt.js';
 import randomString from './fn/string/randomString.js';
+import range from './fn/object/range.js';
 import removeAccents from './fn/string/removeAccents.js';
 import removeEmpty from './fn/object/removeEmpty.js';
 import removeExtraSpaces from './fn/string/removeExtraSpaces.js';
@@ -444,6 +445,7 @@ declare const _default: {
     quotes2html: typeof quotes2html;
     randomInt: typeof randomInt;
     randomString: typeof randomString;
+    range: typeof range;
     removeAccents: typeof removeAccents;
     removeEmpty: typeof removeEmpty;
     removeExtraSpaces: typeof removeExtraSpaces;
