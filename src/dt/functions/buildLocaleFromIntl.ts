@@ -34,16 +34,21 @@ function partsToPattern(
   const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
   const is12h = hasDayPeriod || hourCycle === 'h12' || hourCycle === 'h11';
 
-  // ALL NUMERIC (not 2-digit): year, month and day resolved as "numeric"
-  const allNumericNonPadded =
-    resolved.year === 'numeric' &&
-    resolved.month === 'numeric' &&
-    resolved.day === 'numeric';
+  const hasYear = !!requestedOpts.year;
+  const hasMonth = !!requestedOpts.month;
+  const hasDay = !!requestedOpts.day;
+  const hasWeekday = !!requestedOpts.weekday;
+  const hasTextMonth =
+    requestedOpts.month === 'short' || requestedOpts.month === 'long';
+
+  // "Whole numeric date" = year+month+day, all numeric, no weekday, no text month
+  const isWholeNumericDate =
+    hasYear && hasMonth && hasDay && !hasWeekday && !hasTextMonth;
 
   for (const p of parts) {
     switch (p.type) {
       case 'year': {
-        // Use YY only if locale actually resolved 2-digit
+        // Keep YY when the locale actually resolved to 2-digit
         if (resolved.year === '2-digit') {
           pattern += 'YY';
         } else {
@@ -59,25 +64,24 @@ function partsToPattern(
           break;
         }
 
-        // ALL NUMERIC and non-padded → always use M
-        if (allNumericNonPadded) {
+        if (isWholeNumericDate) {
+          // whole numeric date → always use M (accepts 1–2 digits)
           pattern += 'M';
           break;
         }
 
-        // numeric / 2-digit generic case
+        // other numeric month cases (e.g. year–month or month–day)
         if (/^\d+$/.test(p.value)) {
           pattern += p.value.length === 2 ? 'MM' : 'M';
         } else {
-          // fallback (shouldn't really happen without text month)
           pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
         }
         break;
       }
 
       case 'day': {
-        // ALL NUMERIC and non-padded → always use D
-        if (allNumericNonPadded) {
+        if (isWholeNumericDate) {
+          // whole numeric date → always use D (accepts 1–2 digits)
           pattern += 'D';
           break;
         }
@@ -123,15 +127,9 @@ function partsToPattern(
         break;
 
       case 'literal': {
-        // Wrap literals in [ ... ] so your parser won't confuse them with tokens
         if (p.value.length) {
-          if (![' ', ',', '/', '-', ':', '.'].includes(p.value)) {
-            const v = p.value.replace(/]/g, '\\]');
-            pattern += `[${v}]`;
-          }
-          else {
-            pattern += p.value;
-          }
+          const v = p.value.replace(/]/g, '\\]');
+          pattern += `[${v}]`;
         }
         break;
       }
