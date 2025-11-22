@@ -97,7 +97,7 @@ function partsToPattern(parts, hourCycle, opts) {
                 break;
             case 'literal': {
                 // Wrap literals in [ ... ] so your parser doesn't confuse them
-                if (p.value.length) {
+                if (p.value.length && ![' ', ',', '/', '-', ':', '.'].includes(p.value)) {
                     const v = p.value.replace(/]/g, '\\]');
                     pattern += `[${v}]`;
                 }
