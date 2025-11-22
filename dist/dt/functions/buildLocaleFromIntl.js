@@ -1,6 +1,7 @@
 import extend from "../../fn/object/extend.js";
+import numProperties from "../../fn/object/numProperties.js";
 export default function buildLocaleFromIntl() {
-    if (bbn.num.properties(bbn.dt.locales)) {
+    if (numProperties(bbn.dt.locales)) {
         return;
     }
     const langs = [bbn.env.lang, ...navigator.languages];
