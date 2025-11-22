@@ -1,6 +1,23 @@
 import parse from './parse.js';
 import { getCommonFormatsForLocale } from './buildLocaleFromIntl.js';
 
+const isPureNumericDateFormat = (fmt: string): boolean => {
+  // Only Y/M/D tokens and literal separators, no time or AM/PM tokens
+  if (/[HhI SAz]/.test(fmt)) {
+    return false;
+  }
+  // Must have year and month and day tokens
+  if (!/[Y]/.test(fmt) || !/[M]/.test(fmt) || !/[D]/.test(fmt)) {
+    return false;
+  }
+  return true;
+}
+
+const makeRelaxedNumericFormat = (fmt: string): string => {
+  // Relax DD -> D and MM -> M, but don't touch other tokens
+  return fmt.replace(/DD/g, 'D').replace(/MM/g, 'M');
+}
+
 export default function guessFormat(
   input: string,
   formats?: string | string[],
@@ -11,16 +28,30 @@ export default function guessFormat(
     return null;
   }
 
-  // helper: try a list of formats with your parse()
   const tryFormats = (fmts: string[]): string | null => {
     for (const fmt of fmts) {
+      // 1) Try strict format first
       try {
-        parse(str, fmt); // will throw if not matching
+        parse(str, fmt);
         return fmt;
       } catch {
-        // ignore and continue
+        // ignore, we'll maybe try a relaxed version
+      }
+
+      // 2) If it's a pure numeric date pattern, try a relaxed version too
+      if (isPureNumericDateFormat(fmt)) {
+        const relaxed = makeRelaxedNumericFormat(fmt);
+        if (relaxed !== fmt) {
+          try {
+            parse(str, relaxed);
+            return relaxed;
+          } catch {
+            // still nothing, move on
+          }
+        }
       }
     }
+
     return null;
   };
 
