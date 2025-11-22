@@ -1,5 +1,8 @@
 import extend from "../../fn/object/extend.js";
 import numProperties from "../../fn/object/numProperties.js";
+/**
+ * Build a token pattern like "DD/MM/YYYY HH:II:SS" from Intl.DateTimeFormat parts.
+ */
 function partsToPattern(parts, hourCycle) {
     let pattern = '';
     const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
@@ -10,10 +13,12 @@ function partsToPattern(parts, hourCycle) {
                 pattern += 'YYYY';
                 break;
             case 'month':
-                if (/^\d+$/.test(p.value))
+                if (/^\d+$/.test(p.value)) {
                     pattern += p.value.length === 2 ? 'MM' : 'M';
-                else
+                }
+                else {
                     pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
+                }
                 break;
             case 'day':
                 pattern += p.value.length === 2 ? 'DD' : 'D';
@@ -22,7 +27,12 @@ function partsToPattern(parts, hourCycle) {
                 pattern += p.value.length > 3 ? 'dddd' : 'ddd';
                 break;
             case 'hour':
-                pattern += is12h ? (p.value.length === 2 ? 'hh' : 'h') : (p.value.length === 2 ? 'HH' : 'H');
+                if (is12h) {
+                    pattern += p.value.length === 2 ? 'hh' : 'h';
+                }
+                else {
+                    pattern += p.value.length === 2 ? 'HH' : 'H';
+                }
                 break;
             case 'minute':
                 pattern += 'II';
@@ -37,8 +47,6 @@ function partsToPattern(parts, hourCycle) {
                 pattern += 'z';
                 break;
             case 'literal':
-                pattern += p.value;
-                break;
             default:
                 pattern += p.value;
                 break;
@@ -47,93 +55,110 @@ function partsToPattern(parts, hourCycle) {
     return pattern;
 }
 /**
- * Returns all common date/time/datetime formats + weekday formats for a given locale.
+ * Returns common date / time / datetime formats for a locale, including
+ * all reasonable combinations of weekday, year, month and day.
  */
-function getCommonFormatsForLocale(lng) {
-    const dateStyles = ['full', 'long', 'medium', 'short'];
+const getCommonFormatsForLocale = function (lng) {
     const timeStyles = ['full', 'long', 'medium', 'short'];
+    // Fixed sample: 2 Jan 2000, 13:45:30 UTC
     const sample = new Date(Date.UTC(2000, 0, 2, 13, 45, 30));
-    const result = {
-        date: [],
-        time: [],
-        datetime: [],
-        dateWithWeekday: [],
-        datetimeWithWeekday: []
-    };
-    // --- Date only ---
-    for (const ds of dateStyles) {
-        const options = { dateStyle: ds };
-        const fmt = new Intl.DateTimeFormat(lng, options);
-        const parts = fmt.formatToParts(sample);
-        result.date.push({
-            style: ds,
-            pattern: partsToPattern(parts, fmt.resolvedOptions().hourCycle),
-            sample: fmt.format(sample),
-            options
-        });
+    const date = [];
+    const time = [];
+    const datetime = [];
+    // To avoid duplicates
+    const seenDatePatterns = new Set();
+    const seenTimePatterns = new Set();
+    const seenDateTimePatterns = new Set();
+    // --- 1) DATE formats via combinations of weekday/year/month/day ---
+    const weekdayOptions = [
+        undefined,
+        'short',
+        'long'
+    ];
+    const yearOptions = [
+        undefined,
+        'numeric',
+        '2-digit'
+    ];
+    const monthOptions = [undefined, 'numeric', '2-digit', 'short', 'long'];
+    const dayOptions = [
+        undefined,
+        'numeric',
+        '2-digit'
+    ];
+    const dateOptionsList = [];
+    for (const weekday of weekdayOptions) {
+        for (const year of yearOptions) {
+            for (const month of monthOptions) {
+                for (const day of dayOptions) {
+                    // Skip combos with no actual date fields
+                    if (!year && !month && !day) {
+                        continue;
+                    }
+                    const options = {};
+                    if (weekday)
+                        options.weekday = weekday;
+                    if (year)
+                        options.year = year;
+                    if (month)
+                        options.month = month;
+                    if (day)
+                        options.day = day;
+                    // Build formatter and pattern
+                    const fmt = new Intl.DateTimeFormat(lng, options);
+                    const parts = fmt.formatToParts(sample);
+                    const resolved = fmt.resolvedOptions();
+                    const pattern = partsToPattern(parts, resolved.hourCycle);
+                    if (!seenDatePatterns.has(pattern)) {
+                        seenDatePatterns.add(pattern);
+                        dateOptionsList.push(options); // keep for datetime combos later
+                        date.push({
+                            pattern,
+                            sample: fmt.format(sample),
+                            options
+                        });
+                    }
+                }
+            }
+        }
     }
-    // --- Time only ---
+    // --- 2) TIME formats via timeStyle only ---
     for (const ts of timeStyles) {
         const options = { timeStyle: ts };
         const fmt = new Intl.DateTimeFormat(lng, options);
         const parts = fmt.formatToParts(sample);
-        result.time.push({
-            style: ts,
-            pattern: partsToPattern(parts, fmt.resolvedOptions().hourCycle),
-            sample: fmt.format(sample),
-            options
-        });
-    }
-    // --- Date + Time ---
-    for (const ds of dateStyles) {
-        for (const ts of timeStyles) {
-            const options = { dateStyle: ds, timeStyle: ts };
-            const fmt = new Intl.DateTimeFormat(lng, options);
-            const parts = fmt.formatToParts(sample);
-            result.datetime.push({
-                dateStyle: ds,
-                timeStyle: ts,
-                pattern: partsToPattern(parts, fmt.resolvedOptions().hourCycle),
+        const resolved = fmt.resolvedOptions();
+        const pattern = partsToPattern(parts, resolved.hourCycle);
+        if (!seenTimePatterns.has(pattern)) {
+            seenTimePatterns.add(pattern);
+            time.push({
+                style: ts,
+                pattern,
                 sample: fmt.format(sample),
                 options
             });
         }
     }
-    // --- Date with Weekday (long + short) ---
-    for (const ds of dateStyles) {
-        for (const w of ["long", "short"]) {
-            const options = { dateStyle: ds, weekday: w };
+    // --- 3) DATETIME formats: each date option × each timeStyle ---
+    for (const dateOpts of dateOptionsList) {
+        for (const ts of timeStyles) {
+            const options = Object.assign(Object.assign({}, dateOpts), { timeStyle: ts });
             const fmt = new Intl.DateTimeFormat(lng, options);
             const parts = fmt.formatToParts(sample);
-            result.dateWithWeekday.push({
-                style: ds,
-                weekday: w,
-                pattern: partsToPattern(parts, fmt.resolvedOptions().hourCycle),
-                sample: fmt.format(sample),
-                options
-            });
-        }
-    }
-    // --- Date + Time + Weekday ---
-    for (const ds of dateStyles) {
-        for (const ts of timeStyles) {
-            for (const w of ["long", "short"]) {
-                const options = { dateStyle: ds, timeStyle: ts, weekday: w };
-                const fmt = new Intl.DateTimeFormat(lng, options);
-                const parts = fmt.formatToParts(sample);
-                result.datetimeWithWeekday.push({
-                    dateStyle: ds,
-                    timeStyle: ts,
-                    weekday: w,
-                    pattern: partsToPattern(parts, fmt.resolvedOptions().hourCycle),
+            const resolved = fmt.resolvedOptions();
+            const pattern = partsToPattern(parts, resolved.hourCycle);
+            if (!seenDateTimePatterns.has(pattern)) {
+                seenDateTimePatterns.add(pattern);
+                datetime.push({
+                    pattern,
                     sample: fmt.format(sample),
                     options
                 });
             }
         }
     }
-    return result;
-}
+    return { date, time, datetime };
+};
 export default function buildLocaleFromIntl() {
     if (numProperties(bbn.dt.locales)) {
         return;
