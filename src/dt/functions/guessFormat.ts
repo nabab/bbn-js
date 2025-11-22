@@ -1,7 +1,7 @@
 import parse from './parse.js';
 import { getCommonFormatsForLocale } from './buildLocaleFromIntl.js';
 
-export function guessFormat(
+export default function guessFormat(
   input: string,
   formats?: string | string[],
   lng?: string

@@ -1,6 +1,6 @@
 import parse from './parse.js';
 import { getCommonFormatsForLocale } from './buildLocaleFromIntl.js';
-export function guessFormat(input, formats, lng) {
+export default function guessFormat(input, formats, lng) {
     const str = input.trim();
     if (!str) {
         return null;
