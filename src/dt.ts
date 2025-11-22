@@ -1,4 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
+import bbnDtDateTime from './dt/classes/dateTime.js';
 import _ from './_.js';
 import each from './fn/loop/each.js';
 import substr from './fn/string/substr.js';
@@ -218,6 +219,39 @@ const unitsCorrespondence: {[key: string]: string} = {
 
 
 const dt = (value: any, inputFormat: null|String = null) => {
+  let v;
+  if (!value) {
+    const d = new Date();
+    return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+  }
+
+  if (typeof value === 'string') {
+    if (inputFormat) {
+      v = parse(value as string, inputFormat as string);
+    }
+    else {
+      const format = guessFormat(value as string);
+      if (format) {
+        v = parse(value as string, format);
+      }
+      else {
+        throw new Error(_('Could not guess the date format for value: %s', value));
+      }
+    }
+  }
+  else {
+    if (typeof value === 'number') {
+      const d = new Date(value as number);
+      v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+    }
+    else if (isDate(value)) {
+      const d = value as Date;
+      v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+    }
+    else if (isPrimitive(value)) {
+      throw new Error(_('Invalid date value: %s', value));
+    }
+  }
 };
 
 dt.locales = Object.create(null);

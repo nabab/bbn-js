@@ -1,3 +1,7 @@
+import bbnDtDateTime from './dt/classes/dateTime.js';
+import _ from './_.js';
+import isDate from './fn/type/isDate.js';
+import isPrimitive from './fn/type/isPrimitive.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
 const patterns = [
@@ -189,6 +193,38 @@ const unitsCorrespondence = {
     'w': 'w'
 };
 const dt = (value, inputFormat = null) => {
+    let v;
+    if (!value) {
+        const d = new Date();
+        return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+    }
+    if (typeof value === 'string') {
+        if (inputFormat) {
+            v = parse(value, inputFormat);
+        }
+        else {
+            const format = guessFormat(value);
+            if (format) {
+                v = parse(value, format);
+            }
+            else {
+                throw new Error(_('Could not guess the date format for value: %s', value));
+            }
+        }
+    }
+    else {
+        if (typeof value === 'number') {
+            const d = new Date(value);
+            v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+        }
+        else if (isDate(value)) {
+            const d = value;
+            v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+        }
+        else if (isPrimitive(value)) {
+            throw new Error(_('Invalid date value: %s', value));
+        }
+    }
 };
 dt.locales = Object.create(null);
 dt.parse = parse;
