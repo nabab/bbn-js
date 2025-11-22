@@ -3,8 +3,6 @@ import numProperties from "../../fn/object/numProperties.js";
 /**
  * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
  * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
- * All literal chunks are wrapped in square brackets so they can't be mistaken
- * for tokens by the parser.
  */
 function partsToPattern(parts, hourCycle, opts) {
     let pattern = '';
@@ -23,11 +21,10 @@ function partsToPattern(parts, hourCycle, opts) {
                     pattern += 'MMMM';
                 }
                 else if (opts.month === 'numeric' || opts.month === '2-digit') {
-                    // numeric month
                     pattern += /^\d{2}$/.test(p.value) ? 'MM' : 'M';
                 }
                 else {
-                    // Fallback: infer from value
+                    // Fallback
                     if (/^\d+$/.test(p.value)) {
                         pattern += p.value.length === 2 ? 'MM' : 'M';
                     }
@@ -70,16 +67,8 @@ function partsToPattern(parts, hourCycle, opts) {
             case 'timeZoneName':
                 pattern += 'z';
                 break;
-            case 'literal': {
-                // Wrap ALL literals into [ ... ] to avoid confusion with tokens
-                if (p.value.length) {
-                    const v = p.value.replace(/]/g, '\\]');
-                    pattern += `[${v}]`;
-                }
-                break;
-            }
+            case 'literal':
             default:
-                // Fallback, should be rare
                 pattern += p.value;
                 break;
         }
@@ -94,12 +83,6 @@ function partsToPattern(parts, hourCycle, opts) {
  *  - Date: only sensible combos (Y-M-D ± weekday, Y-M, M-D).
  *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
  *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
- *
- * Fully numeric date forms (like "1/1/1970") are explicitly included via:
- *   { year: 'numeric', month: 'numeric', day: 'numeric' }
- *   { year: '2-digit', month: 'numeric', day: 'numeric' }
- *   { year: 'numeric', month: '2-digit', day: '2-digit' }
- *   { year: '2-digit', month: '2-digit', day: '2-digit' }
  */
 export function getCommonFormatsForLocale(lng) {
     const sample = new Date(Date.UTC(2000, 0, 2, 13, 45, 30));
@@ -110,14 +93,11 @@ export function getCommonFormatsForLocale(lng) {
     const seenTimePatterns = new Set();
     const seenDateTimePatterns = new Set();
     // ---- 1) DATE: curated list of useful patterns ----
-    // Numeric full dates (this covers "1/1/1970"-style formats as masks like D/M/YYYY or DD/MM/YYYY).
+    // Includes your important one: { day: "numeric", month: "short", year: "numeric" }
     const dateOptionsList = [
-        // Fully numeric YYYY-M-D variants
-        { year: 'numeric', month: 'numeric', day: 'numeric' },
+        // Full dates
         { year: 'numeric', month: '2-digit', day: '2-digit' },
-        { year: '2-digit', month: 'numeric', day: 'numeric' },
-        { year: '2-digit', month: '2-digit', day: '2-digit' },
-        // Full dates with textual month
+        { year: 'numeric', month: 'numeric', day: 'numeric' },
         { year: 'numeric', month: 'short', day: 'numeric' },
         { year: 'numeric', month: 'long', day: 'numeric' },
         // Full dates with weekday
@@ -131,7 +111,7 @@ export function getCommonFormatsForLocale(lng) {
         // Month–day (no year)
         { month: 'numeric', day: 'numeric' },
         { month: '2-digit', day: '2-digit' },
-        { month: 'short', day: 'numeric' },
+        { month: 'short', day: 'numeric' }, // ← e.g. "22 janv."
         { month: 'long', day: 'numeric' }
     ];
     const fullDateOptions = []; // Y+M+D (± weekday)
@@ -176,7 +156,7 @@ export function getCommonFormatsForLocale(lng) {
             });
         }
     }
-    // ---- 3) DATETIME: only full dates (Y-M-D ± weekday) × time ----
+    // ---- 3) DATETIME: only full dates (Y-M-D ± weekday) × time
     for (const dOpts of fullDateOptions) {
         for (const tOpts of timeOptionsList) {
             const opts = Object.assign(Object.assign({}, dOpts), tOpts);
