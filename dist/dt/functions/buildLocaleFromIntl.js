@@ -155,12 +155,15 @@ export default function buildLocaleFromIntl() {
         weekdaysLong.push(fmtWeekLong.format(d));
         weekdaysShort.push(fmtWeekShort.format(d));
     }
-    const { date, time } = getCommonFormatsForLocale(langs);
+    const { date, time, datetime } = getCommonFormatsForLocale(langs);
     extend(bbn.dt.locales, {
         monthsLong,
         monthsShort,
         weekdaysLong,
         weekdaysShort,
+        date,
+        time,
+        datetime
     });
 }
 ;
