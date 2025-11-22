@@ -16,15 +16,13 @@ type CommonFormats = {
     }>;
 };
 /**
- * Enumerate common date, time and datetime formats for a locale, by iterating
- * over combinations of:
- *   - weekday / year / month / day
- *   - hour / minute / second / timeZoneName
+ * Get a curated set of *common* date, time and datetime formats
+ * for the given locale, without exploding into thousands of combos.
  *
- * Constraints:
- *   - no minutes/seconds if you don't have hours
- *   - no seconds if you don't have minutes
- *   - no timezone if you don't have time
+ * Rules:
+ *  - Date: only sensible combos (Y-M-D ± weekday, Y-M, M-D).
+ *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
+ *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
 export declare function getCommonFormatsForLocale(lng: string | string[]): CommonFormats;
 export default function buildLocaleFromIntl(): void;

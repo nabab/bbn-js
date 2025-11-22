@@ -21,10 +21,12 @@ type CommonFormats = {
 
 /**
  * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
+ * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
  */
 function partsToPattern(
   parts: Intl.DateTimeFormatPart[],
-  hourCycle?: string
+  hourCycle: string | undefined,
+  opts: Intl.DateTimeFormatOptions
 ): string {
   let pattern = '';
 
@@ -38,10 +40,19 @@ function partsToPattern(
         break;
 
       case 'month':
-        if (/^\d+$/.test(p.value)) {
-          pattern += p.value.length === 2 ? 'MM' : 'M';
+        if (opts.month === 'short') {
+          pattern += 'MMM';
+        } else if (opts.month === 'long') {
+          pattern += 'MMMM';
+        } else if (opts.month === 'numeric' || opts.month === '2-digit') {
+          pattern += /^\d{2}$/.test(p.value) ? 'MM' : 'M';
         } else {
-          pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
+          // Fallback
+          if (/^\d+$/.test(p.value)) {
+            pattern += p.value.length === 2 ? 'MM' : 'M';
+          } else {
+            pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
+          }
         }
         break;
 
@@ -50,7 +61,13 @@ function partsToPattern(
         break;
 
       case 'weekday':
-        pattern += p.value.length > 3 ? 'dddd' : 'ddd';
+        if (opts.weekday === 'short' || opts.weekday === 'narrow') {
+          pattern += 'ddd';
+        } else if (opts.weekday === 'long') {
+          pattern += 'dddd';
+        } else {
+          pattern += p.value.length > 3 ? 'dddd' : 'ddd';
+        }
         break;
 
       case 'hour':
@@ -88,187 +105,129 @@ function partsToPattern(
 }
 
 /**
- * Enumerate common date, time and datetime formats for a locale, by iterating
- * over combinations of:
- *   - weekday / year / month / day
- *   - hour / minute / second / timeZoneName
+ * Get a curated set of *common* date, time and datetime formats
+ * for the given locale, without exploding into thousands of combos.
  *
- * Constraints:
- *   - no minutes/seconds if you don't have hours
- *   - no seconds if you don't have minutes
- *   - no timezone if you don't have time
+ * Rules:
+ *  - Date: only sensible combos (Y-M-D ± weekday, Y-M, M-D).
+ *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
+ *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
 export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats {
-  // Fixed sample: 2 Jan 2000, 13:45:30 UTC
   const sample = new Date(Date.UTC(2000, 0, 2, 13, 45, 30));
 
   const date: CommonFormats['date'] = [];
   const time: CommonFormats['time'] = [];
   const datetime: CommonFormats['datetime'] = [];
 
-  // Dedupe by options (not just pattern), so we don't lose combinations like
-  // { day: "numeric", month: "short", year: "numeric" }.
-  const seenDateOptions = new Set<string>();
-  const seenTimeOptions = new Set<string>();
-  const seenDateTimeOptions = new Set<string>();
+  const seenDatePatterns = new Set<string>();
+  const seenTimePatterns = new Set<string>();
+  const seenDateTimePatterns = new Set<string>();
 
-  // ---- 1) DATE formats: combinations of weekday/year/month/day ----
+  // ---- 1) DATE: curated list of useful patterns ----
+  // Includes your important one: { day: "numeric", month: "short", year: "numeric" }
+  const dateOptionsList: Intl.DateTimeFormatOptions[] = [
+    // Full dates
+    { year: 'numeric', month: '2-digit', day: '2-digit' },
+    { year: 'numeric', month: 'numeric', day: 'numeric' },
+    { year: 'numeric', month: 'short', day: 'numeric' },
+    { year: 'numeric', month: 'long', day: 'numeric' },
 
-  const weekdayOptions: Array<undefined | 'short' | 'long'> = [
-    undefined,
-    'short',
-    'long'
-  ];
-  const yearOptions: Array<undefined | 'numeric' | '2-digit'> = [
-    undefined,
-    'numeric',
-    '2-digit'
-  ];
-  const monthOptions: Array<undefined | 'numeric' | '2-digit' | 'short' | 'long'> =
-    [undefined, 'numeric', '2-digit', 'short', 'long'];
-  const dayOptions: Array<undefined | 'numeric' | '2-digit'> = [
-    undefined,
-    'numeric',
-    '2-digit'
-  ];
+    // Full dates with weekday
+    { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' },
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
 
-  type DateOpts = Pick<
-    Intl.DateTimeFormatOptions,
-    'weekday' | 'year' | 'month' | 'day'
-  >;
-  const dateOptionsList: DateOpts[] = [];
+    // Year–month
+    { year: 'numeric', month: 'numeric' },
+    { year: 'numeric', month: '2-digit' },
+    { year: 'numeric', month: 'short' },
+    { year: 'numeric', month: 'long' },
 
-  for (const weekday of weekdayOptions) {
-    for (const year of yearOptions) {
-      for (const month of monthOptions) {
-        for (const day of dayOptions) {
-          // Skip combos with no actual date fields
-          if (!year && !month && !day) {
-            continue;
-          }
-
-          const options: DateOpts = {};
-          if (weekday) options.weekday = weekday;
-          if (year) options.year = year;
-          if (month) options.month = month;
-          if (day) options.day = day;
-
-          const key = JSON.stringify(options);
-          if (seenDateOptions.has(key)) {
-            continue;
-          }
-          seenDateOptions.add(key);
-
-          const fmt = new Intl.DateTimeFormat(lng, options);
-          const parts = fmt.formatToParts(sample);
-          const resolved: any = fmt.resolvedOptions();
-          const pattern = partsToPattern(parts, resolved.hourCycle);
-
-          dateOptionsList.push(options);
-          date.push({
-            pattern,
-            sample: fmt.format(sample),
-            options
-          });
-        }
-      }
-    }
-  }
-
-  // ---- 2) TIME formats: combinations of hour/minute/second/timeZoneName ----
-
-  type TimeOpts = Pick<
-    Intl.DateTimeFormatOptions,
-    'hour' | 'minute' | 'second' | 'timeZoneName'
-  >;
-
-  const hourOptions: Array<'numeric' | '2-digit'> = ['numeric', '2-digit'];
-  const minuteOptions: Array<undefined | 'numeric' | '2-digit'> = [
-    undefined,
-    'numeric',
-    '2-digit'
-  ];
-  const secondOptions: Array<undefined | 'numeric' | '2-digit'> = [
-    undefined,
-    'numeric',
-    '2-digit'
-  ];
-  const tzNameOptions: Array<undefined | 'short' | 'long'> = [
-    undefined,
-    'short',
-    'long'
+    // Month–day (no year)
+    { month: 'numeric', day: 'numeric' },
+    { month: '2-digit', day: '2-digit' },
+    { month: 'short', day: 'numeric' }, // ← e.g. "22 janv."
+    { month: 'long', day: 'numeric' }
   ];
 
-  const timeOptionsList: TimeOpts[] = [];
+  const fullDateOptions: Intl.DateTimeFormatOptions[] = []; // Y+M+D (± weekday)
 
-  for (const hour of hourOptions) {
-    for (const minute of minuteOptions) {
-      for (const second of secondOptions) {
-        for (const tzName of tzNameOptions) {
-          // Constraints:
-          // - we always have hour (by design)
-          // - if we have second, we must have minute
-          if (second && !minute) {
-            continue;
-          }
+  for (const opts of dateOptionsList) {
+    const fmt = new Intl.DateTimeFormat(lng, opts);
+    const parts = fmt.formatToParts(sample);
+    const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
+      hourCycle?: string;
+    };
+    const pattern = partsToPattern(parts, resolved.hourCycle, opts);
 
-          const options: TimeOpts = { hour };
-          if (minute) options.minute = minute;
-          if (second) options.second = second;
-          if (tzName) options.timeZoneName = tzName;
-
-          const key = JSON.stringify(options);
-          if (seenTimeOptions.has(key)) {
-            continue;
-          }
-          seenTimeOptions.add(key);
-
-          const fmt = new Intl.DateTimeFormat(lng, options);
-          const parts = fmt.formatToParts(sample);
-          const resolved: any = fmt.resolvedOptions();
-          const pattern = partsToPattern(parts, resolved.hourCycle);
-
-          timeOptionsList.push(options);
-          time.push({
-            pattern,
-            sample: fmt.format(sample),
-            options
-          });
-        }
-      }
-    }
-  }
-
-  // ---- 3) DATETIME formats: each dateOption × each timeOption ----
-
-  for (const dateOpts of dateOptionsList) {
-    for (const timeOpts of timeOptionsList) {
-      const options: Intl.DateTimeFormatOptions = {
-        ...dateOpts,
-        ...timeOpts
-      };
-
-      const key = JSON.stringify(options);
-      if (seenDateTimeOptions.has(key)) {
-        continue;
-      }
-      seenDateTimeOptions.add(key);
-
-      const fmt = new Intl.DateTimeFormat(lng, options);
-      const parts = fmt.formatToParts(sample);
-      const resolved: any = fmt.resolvedOptions();
-      const pattern = partsToPattern(parts, resolved.hourCycle);
-
-      datetime.push({
+    if (!seenDatePatterns.has(pattern)) {
+      seenDatePatterns.add(pattern);
+      date.push({
         pattern,
         sample: fmt.format(sample),
-        options
+        options: opts
       });
+    }
+
+    // keep track of "full dates" (year+month+day) for datetime
+    if (opts.year && opts.month && opts.day) {
+      fullDateOptions.push(opts);
+    }
+  }
+
+  // ---- 2) TIME: curated, valid combos (always have hour, then minute/second) ----
+  const timeOptionsList: Intl.DateTimeFormatOptions[] = [
+    { hour: 'numeric' },
+    { hour: '2-digit', minute: '2-digit' },
+    { hour: '2-digit', minute: '2-digit', second: '2-digit' },
+    { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' },
+    { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' },
+    { hour: '2-digit', minute: '2-digit', timeZoneName: 'long' }
+  ];
+
+  for (const opts of timeOptionsList) {
+    const fmt = new Intl.DateTimeFormat(lng, opts);
+    const parts = fmt.formatToParts(sample);
+    const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
+      hourCycle?: string;
+    };
+    const pattern = partsToPattern(parts, resolved.hourCycle, opts);
+
+    if (!seenTimePatterns.has(pattern)) {
+      seenTimePatterns.add(pattern);
+      time.push({
+        pattern,
+        sample: fmt.format(sample),
+        options: opts
+      });
+    }
+  }
+
+  // ---- 3) DATETIME: only full dates (Y-M-D ± weekday) × time
+  for (const dOpts of fullDateOptions) {
+    for (const tOpts of timeOptionsList) {
+      const opts: Intl.DateTimeFormatOptions = { ...dOpts, ...tOpts };
+      const fmt = new Intl.DateTimeFormat(lng, opts);
+      const parts = fmt.formatToParts(sample);
+      const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
+        hourCycle?: string;
+      };
+      const pattern = partsToPattern(parts, resolved.hourCycle, opts);
+
+      if (!seenDateTimePatterns.has(pattern)) {
+        seenDateTimePatterns.add(pattern);
+        datetime.push({
+          pattern,
+          sample: fmt.format(sample),
+          options: opts
+        });
+      }
     }
   }
 
   return { date, time, datetime };
 }
+
 
 export default function buildLocaleFromIntl() {
 
