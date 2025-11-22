@@ -1,4 +1,5 @@
 import parse from './dt/functions/parse.js';
+import guessFormat from './dt/functions/guessFormat.js';
 const patterns = [
     // MariaDB DATETIME "YYYY-MM-DD HH:MM:SS"
     {
@@ -191,6 +192,7 @@ const dt = (value, inputFormat = null) => {
 };
 dt.locales = Object.create(null);
 dt.parse = parse;
+dt.guessFormat = guessFormat;
 dt.time = () => { };
 dt.date = () => { };
 dt.dateTime = () => { };

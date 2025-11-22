@@ -1,8 +1,10 @@
 import parse from './dt/functions/parse.js';
+import guessFormat from './dt/functions/guessFormat.js';
 declare const dt: {
     (value: any, inputFormat?: null | String): void;
     locales: any;
     parse: typeof parse;
+    guessFormat: typeof guessFormat;
     time(): void;
     date(): void;
     dateTime(): void;

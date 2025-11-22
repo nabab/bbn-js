@@ -9,6 +9,7 @@ import extend from './fn/object/extend.js';
 import getRow from './fn/object/getRow.js';
 
 import parse from './dt/functions/parse.js';
+import guessFormat from './dt/functions/guessFormat.js';
 
 const patterns: {
   name: string;
@@ -221,6 +222,7 @@ const dt = (value: any, inputFormat: null|String = null) => {
 
 dt.locales = Object.create(null);
 dt.parse = parse;
+dt.guessFormat = guessFormat;
 dt.time = () => {};
 dt.date = () => {};
 dt.dateTime = () => {};
