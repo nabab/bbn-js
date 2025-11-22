@@ -1,6 +1,15 @@
 import { Temporal } from 'temporal-polyfill';
 import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 
+const lc = function(str: string, localeCode?: string): string {
+  try {
+    return localeCode ? str.toLocaleLowerCase(localeCode) : str.toLowerCase();
+  }
+  catch {
+    return str.toLowerCase();
+  }
+};
+
 export default function parse(
   input: string,
   format: string | string[],
@@ -31,6 +40,11 @@ export default function parse(
     weekdaysLong: locale?.weekdaysLong ?? bbn.dt.locales.weekdaysLong,
     weekdaysShort: locale?.weekdaysShort ?? bbn.dt.locales.weekdaysShort
   };
+
+  const localeCode =
+    (bbn?.env && (bbn as any).env?.lang) ||
+    (bbn?.dt && (bbn as any).dt?.locale) ||
+    Intl.DateTimeFormat().resolvedOptions().locale;
 
   const escapeRegex = (s: string) =>
     s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -102,8 +116,9 @@ export default function parse(
       token: 'MMMM',
       regex: '[^\\d\\s]+',
       apply: (v, ctx) => {
+        const val = lc(v, localeCode);
         const idx = loc.monthsLong
-          .findIndex((m: string) => m.toLowerCase() === v.toLowerCase());
+          .findIndex((m: string) => lc(m, localeCode) === val);
         if (idx === -1) {
           throw new Error('Invalid month name: ' + v);
         }
@@ -115,8 +130,9 @@ export default function parse(
       token: 'MMM',
       regex: '[^\\d\\s]+',
       apply: (v, ctx) => {
+        const val = lc(v, localeCode);
         const idx = loc.monthsShort
-          .findIndex((m: string) => m.toLowerCase() === v.toLowerCase());
+          .findIndex((m: string) => lc(m, localeCode) === val);
         if (idx === -1) {
           throw new Error('Invalid short month name: ' + v);
         }
@@ -217,8 +233,9 @@ export default function parse(
       token: 'dddd',
       regex: '[^\\d\\s]+',
       apply: (v, ctx) => {
+        const val = lc(v, localeCode);
         const idx = loc.weekdaysLong
-          .findIndex((w: string) => w.toLowerCase() === v.toLowerCase());
+          .findIndex((w: string) => lc(w, localeCode) === val);
         if (idx === -1) {
           throw new Error('Invalid weekday name: ' + v);
         }
@@ -229,8 +246,9 @@ export default function parse(
       token: 'ddd',
       regex: '[^\\d\\s]+',
       apply: (v, ctx) => {
+        const val = lc(v, localeCode);
         const idx = loc.weekdaysShort
-          .findIndex((w: string) => w.toLowerCase() === v.toLowerCase());
+          .findIndex((w: string) => lc(w, localeCode) === val);
         if (idx === -1) {
           throw new Error('Invalid short weekday name: ' + v);
         }

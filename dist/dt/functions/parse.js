@@ -1,6 +1,14 @@
 import buildLocaleFromIntl from './buildLocaleFromIntl.js';
+const lc = function (str, localeCode) {
+    try {
+        return localeCode ? str.toLocaleLowerCase(localeCode) : str.toLowerCase();
+    }
+    catch (_a) {
+        return str.toLowerCase();
+    }
+};
 export default function parse(input, format, locale) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f;
     buildLocaleFromIntl();
     const TemporalAny = globalThis.Temporal;
     if (!TemporalAny) {
@@ -13,6 +21,9 @@ export default function parse(input, format, locale) {
         weekdaysLong: (_c = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _c !== void 0 ? _c : bbn.dt.locales.weekdaysLong,
         weekdaysShort: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _d !== void 0 ? _d : bbn.dt.locales.weekdaysShort
     };
+    const localeCode = ((bbn === null || bbn === void 0 ? void 0 : bbn.env) && ((_e = bbn.env) === null || _e === void 0 ? void 0 : _e.lang)) ||
+        ((bbn === null || bbn === void 0 ? void 0 : bbn.dt) && ((_f = bbn.dt) === null || _f === void 0 ? void 0 : _f.locale)) ||
+        Intl.DateTimeFormat().resolvedOptions().locale;
     const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const makeTokenSpecs = () => [
         // Years
@@ -46,8 +57,9 @@ export default function parse(input, format, locale) {
             token: 'MMMM',
             regex: '[^\\d\\s]+',
             apply: (v, ctx) => {
+                const val = lc(v, localeCode);
                 const idx = loc.monthsLong
-                    .findIndex((m) => m.toLowerCase() === v.toLowerCase());
+                    .findIndex((m) => lc(m, localeCode) === val);
                 if (idx === -1) {
                     throw new Error('Invalid month name: ' + v);
                 }
@@ -59,8 +71,9 @@ export default function parse(input, format, locale) {
             token: 'MMM',
             regex: '[^\\d\\s]+',
             apply: (v, ctx) => {
+                const val = lc(v, localeCode);
                 const idx = loc.monthsShort
-                    .findIndex((m) => m.toLowerCase() === v.toLowerCase());
+                    .findIndex((m) => lc(m, localeCode) === val);
                 if (idx === -1) {
                     throw new Error('Invalid short month name: ' + v);
                 }
@@ -159,8 +172,9 @@ export default function parse(input, format, locale) {
             token: 'dddd',
             regex: '[^\\d\\s]+',
             apply: (v, ctx) => {
+                const val = lc(v, localeCode);
                 const idx = loc.weekdaysLong
-                    .findIndex((w) => w.toLowerCase() === v.toLowerCase());
+                    .findIndex((w) => lc(w, localeCode) === val);
                 if (idx === -1) {
                     throw new Error('Invalid weekday name: ' + v);
                 }
@@ -171,8 +185,9 @@ export default function parse(input, format, locale) {
             token: 'ddd',
             regex: '[^\\d\\s]+',
             apply: (v, ctx) => {
+                const val = lc(v, localeCode);
                 const idx = loc.weekdaysShort
-                    .findIndex((w) => w.toLowerCase() === v.toLowerCase());
+                    .findIndex((w) => lc(w, localeCode) === val);
                 if (idx === -1) {
                     throw new Error('Invalid short weekday name: ' + v);
                 }
