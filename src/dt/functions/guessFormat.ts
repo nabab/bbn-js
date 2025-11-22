@@ -11,12 +11,50 @@ const isPureNumericDateFormat = (fmt: string): boolean => {
     return false;
   }
   return true;
-}
+};
 
 const makeRelaxedNumericFormat = (fmt: string): string => {
   // Relax DD -> D and MM -> M, but don't touch other tokens
   return fmt.replace(/DD/g, 'D').replace(/MM/g, 'M');
-}
+};
+
+/**
+ * If the format is a pure numeric date like D/M/YYYY or DD/MM/YYYY,
+ * and the input clearly uses 2-digit day and 2-digit month (22/11/2022),
+ * upgrade to DD/MM/YYYY.
+ */
+const normalizeNumericDM = (fmt: string, input: string): string => {
+  // Only touch "pure numeric date" patterns: D/M/YYYY, DD-MM-YY, etc.
+  // No time tokens, no text months, no weekdays.
+  if (/[HhI SAzM]{2,}|[A-Za-z]/.test(fmt.replace(/[DMY]/g, ''))) {
+    // If there are other letters than D/M/Y (like MMM, ddd), don't touch.
+    // (We only want simple numeric dates)
+    return fmt;
+  }
+
+  // Quick check: must contain D and M and Y
+  if (!fmt.includes('D') || !fmt.includes('M') || !fmt.includes('Y')) {
+    return fmt;
+  }
+
+  // Extract numeric chunks from the input: ["22", "11", "2022"] for "22/11/2022"
+  const nums = input.split(/\D+/).filter(Boolean);
+  if (nums.length < 3) {
+    return fmt;
+  }
+  const [dayStr, monthStr] = nums;
+
+  // Only upgrade if both day and month are exactly 2-digit
+  if (dayStr.length === 2 && monthStr.length === 2) {
+    // Upgrade first D-group to DD and first M-group to MM
+    let out = fmt;
+    out = out.replace(/D+/, 'DD');
+    out = out.replace(/M+/, 'MM');
+    return out;
+  }
+
+  return fmt;
+};
 
 export default function guessFormat(
   input: string,
@@ -33,7 +71,7 @@ export default function guessFormat(
       // 1) Try strict format first
       try {
         parse(str, fmt);
-        return fmt;
+        return normalizeNumericDM(fmt, str);
       } catch {
         // ignore, we'll maybe try a relaxed version
       }
