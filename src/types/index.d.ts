@@ -67,13 +67,6 @@ interface BbnEnv {
   online: boolean;
 }
 
-declare namespace Intl {
-  interface ResolvedDateTimeFormatOptions {
-    hourCycle?: "h11" | "h12" | "h23" | "h24";
-  }
-}
-
-
 declare global {
   interface Window {
     bbn: Bbn;
