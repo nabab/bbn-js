@@ -1,5 +1,4 @@
 /* eslint-disable no-var */
-
 interface Money {
   precision: number;
   thousands: string;
@@ -66,6 +65,12 @@ interface BbnEnv {
   path?: string;
   scrollBarSize?: number;
   online: boolean;
+}
+
+declare namespace Intl {
+  interface ResolvedDateTimeFormatOptions {
+    hourCycle?: "h11" | "h12" | "h23" | "h24";
+  }
 }
 
 

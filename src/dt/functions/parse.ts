@@ -56,6 +56,11 @@ export default function parse(
     hasMinute: boolean;
     hasSecond: boolean;
     hasMs: boolean;
+
+    // NEW for AM/PM support
+    uses12Hour?: boolean;
+    hasAmPm?: boolean;
+    isPM?: boolean;
   };
 
   type TokenSpec = {
@@ -139,8 +144,7 @@ export default function parse(
         if (n < 0 || n > 59) {
           throw new Error('Invalid minute: ' + n);
         }
-        // NOTE: in your original code this wrote to month, but name suggests minutes.
-        // I'm keeping original behavior, but you might want to correct this.
+        // NOTE: kept as in your original code, even though name suggests minutes.
         ctx.month = n;
         ctx.hasMonth = true;
       }
@@ -245,7 +249,24 @@ export default function parse(
       }
     },
 
-    // Hours
+    // -------- Hours (24h + 12h) --------
+
+    // 12-hour, zero-padded (01–12)
+    {
+      token: 'hh',
+      regex: '\\d{2}',
+      apply: (v, ctx) => {
+        const n = parseInt(v, 10);
+        if (n < 1 || n > 12) {
+          throw new Error('Invalid 12-hour clock hour: ' + n);
+        }
+        ctx.hour = n;           // keep 1–12 for now, convert after AM/PM
+        ctx.hasHour = true;
+        ctx.uses12Hour = true;
+      }
+    },
+
+    // 24-hour, zero-padded
     {
       token: 'HH',
       regex: '\\d{2}',
@@ -271,7 +292,7 @@ export default function parse(
       }
     },
     {
-      token: 'h', // PHP-like 24h alias here
+      token: 'h', // PHP-like 24h alias here (kept as you had it)
       regex: '\\d{2}',
       apply: (v, ctx) => {
         const n = parseInt(v, 10);
@@ -454,6 +475,24 @@ export default function parse(
       apply: (v, ctx) => {
         ctx.timeZone = v;
       }
+    },
+
+    // -------- NEW: AM/PM markers --------
+    {
+      token: 'A',
+      regex: '(?:AM|PM|am|pm)',
+      apply: (v, ctx) => {
+        ctx.isPM = /pm/i.test(v);
+        ctx.hasAmPm = true;
+      }
+    },
+    {
+      token: 'a',
+      regex: '(?:AM|PM|am|pm)',
+      apply: (v, ctx) => {
+        ctx.isPM = /pm/i.test(v);
+        ctx.hasAmPm = true;
+      }
     }
   ];
 
@@ -531,6 +570,24 @@ export default function parse(
       }
     }
 
+    // ---- NEW: convert 12h + AM/PM to 24h ----
+    if (ctx.uses12Hour) {
+      if (!ctx.hasAmPm) {
+        throw new Error('AM/PM marker (A or a) is required with 12-hour format (hh)');
+      }
+      let h = ctx.hour; // 1–12
+      if (ctx.isPM) {
+        if (h < 12) {
+          h += 12;
+        }
+      } else { // AM
+        if (h === 12) {
+          h = 0;
+        }
+      }
+      ctx.hour = h;
+    }
+
     const hasDate = ctx.hasYear || ctx.hasMonth || ctx.hasDay;
     const hasFullDate = ctx.hasYear && ctx.hasMonth && ctx.hasDay;
     const hasYearMonthOnly = ctx.hasYear && ctx.hasMonth && !ctx.hasDay;
@@ -541,7 +598,6 @@ export default function parse(
 
     // ---------- 1) If timezone (Z or z) → Instant ----------
     if (hasZone) {
-      // Fill date/time with whatever we have + defaults (1970-01-01 etc.)
       let pdt: Temporal.PlainDateTime;
       try {
         pdt = new T.PlainDateTime(
@@ -563,7 +619,6 @@ export default function parse(
         return zdt.toInstant();
       }
 
-      // offsetMinutes only
       const utcMs = Date.UTC(
         ctx.year,
         ctx.month - 1,
@@ -580,7 +635,6 @@ export default function parse(
     // ---------- 2) No timezone: decide which Plain* type ----------
 
     if (hasDate && hasTime) {
-      // Full DateTime (even if some date fields defaulted; we require full date)
       if (!hasFullDate) {
         throw new Error('PlainDateTime requires year, month and day');
       }
@@ -603,15 +657,12 @@ export default function parse(
         return new T.PlainYearMonth(ctx.year, ctx.month);
       }
       if (hasMonthDayOnly) {
-        // Reference year: 1972 is often used (leap year)
         return new T.PlainMonthDay(ctx.month, ctx.day, 1972);
       }
-      // e.g. only year → ambiguous, you can decide another behavior if you want
       throw new Error('Not enough date components for a known Temporal type');
     }
 
     if (!hasDate && hasTime) {
-      // PlainTime
       return new T.PlainTime(
         ctx.hour,
         ctx.minute,
@@ -622,8 +673,6 @@ export default function parse(
 
     throw new Error('No date or time information found in input');
   }
-
-  // ---------- Handle single format or array of formats ----------
 
   if (Array.isArray(format)) {
     let lastError: unknown = null;
