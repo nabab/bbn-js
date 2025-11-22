@@ -33,18 +33,47 @@ function partsToPattern(
   const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
   const is12h = hasDayPeriod || hourCycle === 'h12' || hourCycle === 'h11';
 
+  // ---- detect "all numeric date" ----
+  const yearIsNumeric =
+    opts.year === 'numeric' || opts.year === '2-digit';
+  const monthIsNumeric =
+    opts.month === 'numeric' || opts.month === '2-digit';
+  const dayIsNumeric =
+    opts.day === 'numeric' || opts.day === '2-digit';
+
+  const hasYear = !!opts.year;
+  const hasMonth = !!opts.month;
+  const hasDay = !!opts.day;
+
+  const hasWeekday = !!opts.weekday;
+  const hasTextMonth =
+    opts.month === 'short' || opts.month === 'long';
+
+  const isAllNumericDate =
+    hasYear && hasMonth && hasDay &&
+    yearIsNumeric && monthIsNumeric && dayIsNumeric &&
+    !hasWeekday && !hasTextMonth;
+
   for (const p of parts) {
     switch (p.type) {
       case 'year':
-        pattern += 'YYYY';
+        if (opts.year === '2-digit') {
+          pattern += 'YY';
+        } else {
+          pattern += 'YYYY';
+        }
         break;
 
       case 'month':
-        if (opts.month === 'short') {
+        if (isAllNumericDate) {
+          // normalize to single M when date is fully numeric
+          pattern += 'M';
+        } else if (opts.month === 'short') {
           pattern += 'MMM';
         } else if (opts.month === 'long') {
           pattern += 'MMMM';
         } else if (opts.month === 'numeric' || opts.month === '2-digit') {
+          // non "all numeric" case (e.g., month+year or month+day only)
           pattern += /^\d{2}$/.test(p.value) ? 'MM' : 'M';
         } else {
           // Fallback
@@ -57,7 +86,12 @@ function partsToPattern(
         break;
 
       case 'day':
-        pattern += p.value.length === 2 ? 'DD' : 'D';
+        if (isAllNumericDate) {
+          // normalize to single D when date is fully numeric
+          pattern += 'D';
+        } else {
+          pattern += p.value.length === 2 ? 'DD' : 'D';
+        }
         break;
 
       case 'weekday':
@@ -94,7 +128,15 @@ function partsToPattern(
         pattern += 'z';
         break;
 
-      case 'literal':
+      case 'literal': {
+        // Wrap literals in [ ... ] so your parser doesn't confuse them
+        if (p.value.length) {
+          const v = p.value.replace(/]/g, '\\]');
+          pattern += `[${v}]`;
+        }
+        break;
+      }
+
       default:
         pattern += p.value;
         break;
