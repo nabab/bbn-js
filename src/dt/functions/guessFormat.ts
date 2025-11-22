@@ -8,8 +8,10 @@ const MYSQL_AND_NATIVE_FORMATS: string[] = [
   // Date + time
   'YYYY-MM-DD HH:II:SS.ms',
   'YYYY-MM-DD HH:II:SS',
+  'YYYY-MM-DD HH:II',
   // Time only
   'HH:II:SS',
+  'HH:II',
 
   // --- ISO 8601 / JS toISOString() ---
   // 2025-11-22T14:30:00.123Z
