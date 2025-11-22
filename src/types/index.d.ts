@@ -82,6 +82,7 @@ declare global {
     env: BbnEnv;
     var: Vars;
     date: Function;
+    dt: Function;
     com: object;
     lng: Lng;
     fn: {

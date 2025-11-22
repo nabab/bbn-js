@@ -7,6 +7,7 @@ import com from './com.js';
 import db from './db.js';
 import fn from './fn.js';
 import date from './date.js';
+import dt from './dt.js';
 
 const bbn: Bbn = {
   version: "1.0.1",
@@ -20,6 +21,7 @@ const bbn: Bbn = {
   lng,
   var: vars,
   date,
+  dt,
   com,
   env,
   db,
