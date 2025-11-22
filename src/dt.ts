@@ -227,12 +227,12 @@ const dt = (value: any, inputFormat: null|String = null) => {
 
   if (typeof value === 'string') {
     if (inputFormat) {
-      v = parse(value as string, inputFormat as string);
+      return parse(value as string, inputFormat as string);
     }
     else {
       const format = guessFormat(value as string);
       if (format) {
-        v = parse(value as string, format);
+        return parse(value as string, format);
       }
       else {
         throw new Error(_('Could not guess the date format for value: %s', value));
@@ -242,11 +242,11 @@ const dt = (value: any, inputFormat: null|String = null) => {
   else {
     if (typeof value === 'number') {
       const d = new Date(value as number);
-      v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+      return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
     }
     else if (isDate(value)) {
       const d = value as Date;
-      v = new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+      return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
     }
     else if (isPrimitive(value)) {
       throw new Error(_('Invalid date value: %s', value));
