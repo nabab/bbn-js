@@ -1,6 +1,1 @@
-export default function buildLocaleFromIntl(): {
-    monthsLong: any[];
-    monthsShort: any[];
-    weekdaysLong: any[];
-    weekdaysShort: any[];
-};
+export default function buildLocaleFromIntl(): void;

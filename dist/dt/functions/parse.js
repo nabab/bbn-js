@@ -1,16 +1,17 @@
-import locales from '../vars/locales.js';
+import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 export default function parse(input, format, locale) {
     var _a, _b, _c, _d;
+    buildLocaleFromIntl();
     const TemporalAny = globalThis.Temporal;
     if (!TemporalAny) {
         throw new Error('Temporal API is required (load @js-temporal/polyfill)');
     }
     const T = TemporalAny;
     const loc = {
-        monthsLong: (_a = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _a !== void 0 ? _a : locales.monthsLong,
-        monthsShort: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _b !== void 0 ? _b : locales.monthsShort,
-        weekdaysLong: (_c = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _c !== void 0 ? _c : locales.weekdaysLong,
-        weekdaysShort: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _d !== void 0 ? _d : locales.weekdaysShort
+        monthsLong: (_a = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _a !== void 0 ? _a : bbn.dt.locales.monthsLong,
+        monthsShort: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _b !== void 0 ? _b : bbn.dt.locales.monthsShort,
+        weekdaysLong: (_c = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _c !== void 0 ? _c : bbn.dt.locales.weekdaysLong,
+        weekdaysShort: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _d !== void 0 ? _d : bbn.dt.locales.weekdaysShort
     };
     const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const makeTokenSpecs = () => [

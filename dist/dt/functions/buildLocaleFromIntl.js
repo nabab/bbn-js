@@ -1,4 +1,8 @@
+import extend from "../../fn/object/extend.js";
 export default function buildLocaleFromIntl() {
+    if (bbn.num.properties(bbn.dt.locales)) {
+        return;
+    }
     const langs = [bbn.env.lang, ...navigator.languages];
     const fmtMonthLong = new Intl.DateTimeFormat(langs, { month: 'long' });
     const fmtMonthShort = new Intl.DateTimeFormat(langs, { month: 'short' });
@@ -22,11 +26,11 @@ export default function buildLocaleFromIntl() {
         weekdaysLong.push(fmtWeekLong.format(d));
         weekdaysShort.push(fmtWeekShort.format(d));
     }
-    return {
+    extend(bbn.dt.locales, {
         monthsLong,
         monthsShort,
         weekdaysLong,
         weekdaysShort,
-    };
+    });
 }
 ;

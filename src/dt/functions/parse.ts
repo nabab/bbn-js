@@ -1,6 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import extend from '../../fn/object/extend.js';
-import locales from '../vars/locales.js';
+import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 
 export default function parse(
   input: string,
@@ -19,6 +18,7 @@ export default function parse(
   | Temporal.PlainYearMonth
   | Temporal.PlainMonthDay
 {
+  buildLocaleFromIntl();
   const TemporalAny = (globalThis as any).Temporal;
   if (!TemporalAny) {
     throw new Error('Temporal API is required (load @js-temporal/polyfill)');
@@ -26,10 +26,10 @@ export default function parse(
   const T = TemporalAny;
 
   const loc = {
-    monthsLong: locale?.monthsLong ?? locales.monthsLong,
-    monthsShort: locale?.monthsShort ?? locales.monthsShort,
-    weekdaysLong: locale?.weekdaysLong ?? locales.weekdaysLong,
-    weekdaysShort: locale?.weekdaysShort ?? locales.weekdaysShort
+    monthsLong: locale?.monthsLong ?? bbn.dt.locales.monthsLong,
+    monthsShort: locale?.monthsShort ?? bbn.dt.locales.monthsShort,
+    weekdaysLong: locale?.weekdaysLong ?? bbn.dt.locales.weekdaysLong,
+    weekdaysShort: locale?.weekdaysShort ?? bbn.dt.locales.weekdaysShort
   };
 
   const escapeRegex = (s: string) =>

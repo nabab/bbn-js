@@ -219,6 +219,7 @@ const unitsCorrespondence: {[key: string]: string} = {
 const dt = (value: any, inputFormat: null|String = null) => {
 };
 
+dt.locales = Object.create(null);
 dt.parse = parse;
 dt.time = () => {};
 dt.date = () => {};
