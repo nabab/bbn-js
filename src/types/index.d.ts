@@ -72,6 +72,7 @@ interface BbnEnv {
 declare global {
   interface Window {
     bbn: Bbn;
+    Temporal: any;
     bbnData: any;
     scheduler: any;
   }  
