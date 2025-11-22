@@ -91,9 +91,21 @@ function partsToPattern(parts, resolved, requestedOpts) {
                 pattern += 'z';
                 break;
             case 'literal': {
-                if (p.value.length) {
+                if (!p.value) {
+                    break;
+                }
+                // If the literal contains any letter (ASCII or basic Latin-1),
+                // wrap it in [ ... ] so it can't be confused with tokens.
+                // Otherwise (spaces, /, -, :, commas, etc.) keep it raw.
+                const hasLetter = /[A-Za-zÀ-ÖØ-öø-ÿ]/.test(p.value);
+                if (hasLetter) {
+                    // Escape ']' inside the bracketed literal
                     const v = p.value.replace(/]/g, '\\]');
                     pattern += `[${v}]`;
+                }
+                else {
+                    // Non-problematic punctuation/whitespace: just append as-is
+                    pattern += p.value;
                 }
                 break;
             }
