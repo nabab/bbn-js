@@ -21,7 +21,10 @@ type CommonFormats = {
  *   - weekday / year / month / day
  *   - hour / minute / second / timeZoneName
  *
- * No dateStyle/timeStyle is used, so we can safely combine date + time.
+ * Constraints:
+ *   - no minutes/seconds if you don't have hours
+ *   - no seconds if you don't have minutes
+ *   - no timezone if you don't have time
  */
 export declare function getCommonFormatsForLocale(lng: string | string[]): CommonFormats;
 export default function buildLocaleFromIntl(): void;

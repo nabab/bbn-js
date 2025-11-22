@@ -60,7 +60,10 @@ function partsToPattern(parts, hourCycle) {
  *   - weekday / year / month / day
  *   - hour / minute / second / timeZoneName
  *
- * No dateStyle/timeStyle is used, so we can safely combine date + time.
+ * Constraints:
+ *   - no minutes/seconds if you don't have hours
+ *   - no seconds if you don't have minutes
+ *   - no timezone if you don't have time
  */
 export function getCommonFormatsForLocale(lng) {
     // Fixed sample: 2 Jan 2000, 13:45:30 UTC
@@ -68,9 +71,11 @@ export function getCommonFormatsForLocale(lng) {
     const date = [];
     const time = [];
     const datetime = [];
-    const seenDatePatterns = new Set();
-    const seenTimePatterns = new Set();
-    const seenDateTimePatterns = new Set();
+    // Dedupe by options (not just pattern), so we don't lose combinations like
+    // { day: "numeric", month: "short", year: "numeric" }.
+    const seenDateOptions = new Set();
+    const seenTimeOptions = new Set();
+    const seenDateTimeOptions = new Set();
     // ---- 1) DATE formats: combinations of weekday/year/month/day ----
     const weekdayOptions = [
         undefined,
@@ -106,19 +111,21 @@ export function getCommonFormatsForLocale(lng) {
                         options.month = month;
                     if (day)
                         options.day = day;
+                    const key = JSON.stringify(options);
+                    if (seenDateOptions.has(key)) {
+                        continue;
+                    }
+                    seenDateOptions.add(key);
                     const fmt = new Intl.DateTimeFormat(lng, options);
                     const parts = fmt.formatToParts(sample);
                     const resolved = fmt.resolvedOptions();
                     const pattern = partsToPattern(parts, resolved.hourCycle);
-                    if (!seenDatePatterns.has(pattern)) {
-                        seenDatePatterns.add(pattern);
-                        dateOptionsList.push(options);
-                        date.push({
-                            pattern,
-                            sample: fmt.format(sample),
-                            options
-                        });
-                    }
+                    dateOptionsList.push(options);
+                    date.push({
+                        pattern,
+                        sample: fmt.format(sample),
+                        options
+                    });
                 }
             }
         }
@@ -144,8 +151,10 @@ export function getCommonFormatsForLocale(lng) {
         for (const minute of minuteOptions) {
             for (const second of secondOptions) {
                 for (const tzName of tzNameOptions) {
-                    // Need at least hour to be a "time"
-                    if (!hour) {
+                    // Constraints:
+                    // - we always have hour (by design)
+                    // - if we have second, we must have minute
+                    if (second && !minute) {
                         continue;
                     }
                     const options = { hour };
@@ -155,19 +164,21 @@ export function getCommonFormatsForLocale(lng) {
                         options.second = second;
                     if (tzName)
                         options.timeZoneName = tzName;
+                    const key = JSON.stringify(options);
+                    if (seenTimeOptions.has(key)) {
+                        continue;
+                    }
+                    seenTimeOptions.add(key);
                     const fmt = new Intl.DateTimeFormat(lng, options);
                     const parts = fmt.formatToParts(sample);
                     const resolved = fmt.resolvedOptions();
                     const pattern = partsToPattern(parts, resolved.hourCycle);
-                    if (!seenTimePatterns.has(pattern)) {
-                        seenTimePatterns.add(pattern);
-                        timeOptionsList.push(options);
-                        time.push({
-                            pattern,
-                            sample: fmt.format(sample),
-                            options
-                        });
-                    }
+                    timeOptionsList.push(options);
+                    time.push({
+                        pattern,
+                        sample: fmt.format(sample),
+                        options
+                    });
                 }
             }
         }
@@ -176,18 +187,20 @@ export function getCommonFormatsForLocale(lng) {
     for (const dateOpts of dateOptionsList) {
         for (const timeOpts of timeOptionsList) {
             const options = Object.assign(Object.assign({}, dateOpts), timeOpts);
+            const key = JSON.stringify(options);
+            if (seenDateTimeOptions.has(key)) {
+                continue;
+            }
+            seenDateTimeOptions.add(key);
             const fmt = new Intl.DateTimeFormat(lng, options);
             const parts = fmt.formatToParts(sample);
             const resolved = fmt.resolvedOptions();
             const pattern = partsToPattern(parts, resolved.hourCycle);
-            if (!seenDateTimePatterns.has(pattern)) {
-                seenDateTimePatterns.add(pattern);
-                datetime.push({
-                    pattern,
-                    sample: fmt.format(sample),
-                    options
-                });
-            }
+            datetime.push({
+                pattern,
+                sample: fmt.format(sample),
+                options
+            });
         }
     }
     return { date, time, datetime };
