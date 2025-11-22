@@ -25,92 +25,86 @@ type CommonFormats = {
  */
 function partsToPattern(
   parts: Intl.DateTimeFormatPart[],
-  hourCycle: string | undefined,
-  opts: Intl.DateTimeFormatOptions
+  resolved: Intl.ResolvedDateTimeFormatOptions & { hourCycle?: string },
+  requestedOpts: Intl.DateTimeFormatOptions
 ): string {
   let pattern = '';
 
+  const hourCycle = resolved.hourCycle;
   const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
   const is12h = hasDayPeriod || hourCycle === 'h12' || hourCycle === 'h11';
 
-  // ---- detect "all numeric date" ----
-  const yearIsNumeric =
-    opts.year === 'numeric' || opts.year === '2-digit';
-  const monthIsNumeric =
-    opts.month === 'numeric' || opts.month === '2-digit';
-  const dayIsNumeric =
-    opts.day === 'numeric' || opts.day === '2-digit';
-
-  const hasYear = !!opts.year;
-  const hasMonth = !!opts.month;
-  const hasDay = !!opts.day;
-
-  const hasWeekday = !!opts.weekday;
-  const hasTextMonth =
-    opts.month === 'short' || opts.month === 'long';
-
-  const isAllNumericDate =
-    hasYear && hasMonth && hasDay &&
-    yearIsNumeric && monthIsNumeric && dayIsNumeric &&
-    !hasWeekday && !hasTextMonth;
+  // ALL NUMERIC (not 2-digit): year, month and day resolved as "numeric"
+  const allNumericNonPadded =
+    resolved.year === 'numeric' &&
+    resolved.month === 'numeric' &&
+    resolved.day === 'numeric';
 
   for (const p of parts) {
     switch (p.type) {
-      case 'year':
-        if (opts.year === '2-digit') {
+      case 'year': {
+        // Use YY only if locale actually resolved 2-digit
+        if (resolved.year === '2-digit') {
           pattern += 'YY';
         } else {
           pattern += 'YYYY';
         }
         break;
+      }
 
-      case 'month':
-        if (isAllNumericDate) {
-          // normalize to single M when date is fully numeric
+      case 'month': {
+        // textual month
+        if (requestedOpts.month === 'short' || requestedOpts.month === 'long') {
+          pattern += requestedOpts.month === 'long' ? 'MMMM' : 'MMM';
+          break;
+        }
+
+        // ALL NUMERIC and non-padded → always use M
+        if (allNumericNonPadded) {
           pattern += 'M';
-        } else if (opts.month === 'short') {
-          pattern += 'MMM';
-        } else if (opts.month === 'long') {
-          pattern += 'MMMM';
-        } else if (opts.month === 'numeric' || opts.month === '2-digit') {
-          // non "all numeric" case (e.g., month+year or month+day only)
-          pattern += /^\d{2}$/.test(p.value) ? 'MM' : 'M';
+          break;
+        }
+
+        // numeric / 2-digit generic case
+        if (/^\d+$/.test(p.value)) {
+          pattern += p.value.length === 2 ? 'MM' : 'M';
         } else {
-          // Fallback
-          if (/^\d+$/.test(p.value)) {
-            pattern += p.value.length === 2 ? 'MM' : 'M';
-          } else {
-            pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
-          }
+          // fallback (shouldn't really happen without text month)
+          pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
         }
         break;
+      }
 
-      case 'day':
-        if (isAllNumericDate) {
-          // normalize to single D when date is fully numeric
+      case 'day': {
+        // ALL NUMERIC and non-padded → always use D
+        if (allNumericNonPadded) {
           pattern += 'D';
-        } else {
-          pattern += p.value.length === 2 ? 'DD' : 'D';
+          break;
         }
-        break;
 
-      case 'weekday':
-        if (opts.weekday === 'short' || opts.weekday === 'narrow') {
+        pattern += p.value.length === 2 ? 'DD' : 'D';
+        break;
+      }
+
+      case 'weekday': {
+        if (requestedOpts.weekday === 'short' || requestedOpts.weekday === 'narrow') {
           pattern += 'ddd';
-        } else if (opts.weekday === 'long') {
+        } else if (requestedOpts.weekday === 'long') {
           pattern += 'dddd';
         } else {
           pattern += p.value.length > 3 ? 'dddd' : 'ddd';
         }
         break;
+      }
 
-      case 'hour':
+      case 'hour': {
         if (is12h) {
           pattern += p.value.length === 2 ? 'hh' : 'h';
         } else {
           pattern += p.value.length === 2 ? 'HH' : 'H';
         }
         break;
+      }
 
       case 'minute':
         pattern += 'II';
@@ -129,8 +123,8 @@ function partsToPattern(
         break;
 
       case 'literal': {
-        // Wrap literals in [ ... ] so your parser doesn't confuse them
-        if (p.value.length && ![' ', ',', '/', '-', ':', '.'].includes(p.value)) {
+        // Wrap literals in [ ... ] so your parser won't confuse them with tokens
+        if (p.value.length) {
           const v = p.value.replace(/]/g, '\\]');
           pattern += `[${v}]`;
         }
@@ -200,8 +194,7 @@ export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats
     const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
       hourCycle?: string;
     };
-    const pattern = partsToPattern(parts, resolved.hourCycle, opts);
-
+    const pattern = partsToPattern(parts, resolved, opts);
     if (!seenDatePatterns.has(pattern)) {
       seenDatePatterns.add(pattern);
       date.push({
@@ -233,7 +226,7 @@ export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats
     const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
       hourCycle?: string;
     };
-    const pattern = partsToPattern(parts, resolved.hourCycle, opts);
+    const pattern = partsToPattern(parts, resolved, opts);
 
     if (!seenTimePatterns.has(pattern)) {
       seenTimePatterns.add(pattern);
@@ -254,7 +247,7 @@ export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats
       const resolved = fmt.resolvedOptions() as Intl.ResolvedDateTimeFormatOptions & {
         hourCycle?: string;
       };
-      const pattern = partsToPattern(parts, resolved.hourCycle, opts);
+      const pattern = partsToPattern(parts, resolved, opts);
 
       if (!seenDateTimePatterns.has(pattern)) {
         seenDateTimePatterns.add(pattern);
