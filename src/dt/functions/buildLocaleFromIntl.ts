@@ -125,8 +125,13 @@ function partsToPattern(
       case 'literal': {
         // Wrap literals in [ ... ] so your parser won't confuse them with tokens
         if (p.value.length) {
-          const v = p.value.replace(/]/g, '\\]');
-          pattern += `[${v}]`;
+          if (![' ', ',', '/', '-', ':', '.'].includes(p.value)) {
+            const v = p.value.replace(/]/g, '\\]');
+            pattern += `[${v}]`;
+          }
+          else {
+            pattern += p.value;
+          }
         }
         break;
       }
