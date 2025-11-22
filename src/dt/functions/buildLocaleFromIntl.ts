@@ -1,8 +1,6 @@
 import extend from "../../fn/object/extend.js";
 import numProperties from "../../fn/object/numProperties.js";
 
-type Style = 'full' | 'long' | 'medium' | 'short';
-
 type CommonFormats = {
   date: Array<{
     pattern: string;
@@ -10,7 +8,6 @@ type CommonFormats = {
     options: Intl.DateTimeFormatOptions;
   }>;
   time: Array<{
-    style: Style;
     pattern: string;
     sample: string;
     options: Intl.DateTimeFormatOptions;
@@ -23,7 +20,7 @@ type CommonFormats = {
 };
 
 /**
- * Build a token pattern like "DD/MM/YYYY HH:II:SS" from Intl.DateTimeFormat parts.
+ * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
  */
 function partsToPattern(
   parts: Intl.DateTimeFormatPart[],
@@ -91,12 +88,14 @@ function partsToPattern(
 }
 
 /**
- * Returns common date / time / datetime formats for a locale, including
- * all reasonable combinations of weekday, year, month and day.
+ * Enumerate common date, time and datetime formats for a locale, by iterating
+ * over combinations of:
+ *   - weekday / year / month / day
+ *   - hour / minute / second / timeZoneName
+ *
+ * No dateStyle/timeStyle is used, so we can safely combine date + time.
  */
-const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormats {
-  const timeStyles: Style[] = ['full', 'long', 'medium', 'short'];
-
+export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats {
   // Fixed sample: 2 Jan 2000, 13:45:30 UTC
   const sample = new Date(Date.UTC(2000, 0, 2, 13, 45, 30));
 
@@ -104,12 +103,11 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
   const time: CommonFormats['time'] = [];
   const datetime: CommonFormats['datetime'] = [];
 
-  // To avoid duplicates
   const seenDatePatterns = new Set<string>();
   const seenTimePatterns = new Set<string>();
   const seenDateTimePatterns = new Set<string>();
 
-  // --- 1) DATE formats via combinations of weekday/year/month/day ---
+  // ---- 1) DATE formats: combinations of weekday/year/month/day ----
 
   const weekdayOptions: Array<undefined | 'short' | 'long'> = [
     undefined,
@@ -133,7 +131,6 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
     Intl.DateTimeFormatOptions,
     'weekday' | 'year' | 'month' | 'day'
   >;
-
   const dateOptionsList: DateOpts[] = [];
 
   for (const weekday of weekdayOptions) {
@@ -151,7 +148,6 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
           if (month) options.month = month;
           if (day) options.day = day;
 
-          // Build formatter and pattern
           const fmt = new Intl.DateTimeFormat(lng, options);
           const parts = fmt.formatToParts(sample);
           const resolved: any = fmt.resolvedOptions();
@@ -159,7 +155,7 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
 
           if (!seenDatePatterns.has(pattern)) {
             seenDatePatterns.add(pattern);
-            dateOptionsList.push(options); // keep for datetime combos later
+            dateOptionsList.push(options);
             date.push({
               pattern,
               sample: fmt.format(sample),
@@ -171,38 +167,79 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
     }
   }
 
-  // --- 2) TIME formats via timeStyle only ---
+  // ---- 2) TIME formats: combinations of hour/minute/second/timeZoneName ----
 
-  for (const ts of timeStyles) {
-    const options: Intl.DateTimeFormatOptions = { timeStyle: ts };
-    const fmt = new Intl.DateTimeFormat(lng, options);
-    const parts = fmt.formatToParts(sample);
-    const resolved: any = fmt.resolvedOptions();
-    const pattern = partsToPattern(parts, resolved.hourCycle);
+  type TimeOpts = Pick<
+    Intl.DateTimeFormatOptions,
+    'hour' | 'minute' | 'second' | 'timeZoneName'
+  >;
 
-    if (!seenTimePatterns.has(pattern)) {
-      seenTimePatterns.add(pattern);
-      time.push({
-        style: ts,
-        pattern,
-        sample: fmt.format(sample),
-        options
-      });
+  const hourOptions: Array<'numeric' | '2-digit'> = ['numeric', '2-digit'];
+  const minuteOptions: Array<undefined | 'numeric' | '2-digit'> = [
+    undefined,
+    'numeric',
+    '2-digit'
+  ];
+  const secondOptions: Array<undefined | 'numeric' | '2-digit'> = [
+    undefined,
+    'numeric',
+    '2-digit'
+  ];
+  const tzNameOptions: Array<undefined | 'short' | 'long'> = [
+    undefined,
+    'short',
+    'long'
+  ];
+
+  const timeOptionsList: TimeOpts[] = [];
+
+  for (const hour of hourOptions) {
+    for (const minute of minuteOptions) {
+      for (const second of secondOptions) {
+        for (const tzName of tzNameOptions) {
+          // Need at least hour to be a "time"
+          if (!hour) {
+            continue;
+          }
+
+          const options: TimeOpts = { hour };
+          if (minute) options.minute = minute;
+          if (second) options.second = second;
+          if (tzName) options.timeZoneName = tzName;
+
+          const fmt = new Intl.DateTimeFormat(lng, options);
+          const parts = fmt.formatToParts(sample);
+          const resolved: any = fmt.resolvedOptions();
+          const pattern = partsToPattern(parts, resolved.hourCycle);
+
+          if (!seenTimePatterns.has(pattern)) {
+            seenTimePatterns.add(pattern);
+            timeOptionsList.push(options);
+            time.push({
+              pattern,
+              sample: fmt.format(sample),
+              options
+            });
+          }
+        }
+      }
     }
   }
 
-  // --- 3) DATETIME formats: each date option × each timeStyle ---
+  // ---- 3) DATETIME formats: each dateOption × each timeOption ----
 
   for (const dateOpts of dateOptionsList) {
-    for (const ts of timeStyles) {
+    for (const timeOpts of timeOptionsList) {
       const options: Intl.DateTimeFormatOptions = {
         ...dateOpts,
-        timeStyle: ts
+        ...timeOpts
       };
+
       const fmt = new Intl.DateTimeFormat(lng, options);
       const parts = fmt.formatToParts(sample);
       const resolved: any = fmt.resolvedOptions();
       const pattern = partsToPattern(parts, resolved.hourCycle);
+
       if (!seenDateTimePatterns.has(pattern)) {
         seenDateTimePatterns.add(pattern);
         datetime.push({
@@ -215,7 +252,7 @@ const getCommonFormatsForLocale = function(lng: string | string[]): CommonFormat
   }
 
   return { date, time, datetime };
-};
+}
 
 export default function buildLocaleFromIntl() {
 
