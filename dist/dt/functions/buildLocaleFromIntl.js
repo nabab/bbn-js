@@ -1,10 +1,9 @@
 import extend from "../../fn/object/extend.js";
-import numProperties from "../../fn/object/numProperties.js";
 /**
  * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
  * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
  */
-function partsToPattern(parts, resolved, requestedOpts) {
+const partsToPattern = (parts, resolved, requestedOpts) => {
     let pattern = '';
     const hourCycle = resolved.hourCycle;
     const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
@@ -115,7 +114,7 @@ function partsToPattern(parts, resolved, requestedOpts) {
         }
     }
     return pattern;
-}
+};
 /**
  * Get a curated set of *common* date, time and datetime formats
  * for the given locale, without exploding into thousands of combos.
@@ -218,7 +217,7 @@ export function getCommonFormatsForLocale(lng) {
     return { date, time, datetime };
 }
 export default function buildLocaleFromIntl() {
-    if (numProperties(bbn.dt.locales)) {
+    if (Object.keys(bbn.dt.locales).length) {
         return;
     }
     const langs = [bbn.env.lang, ...navigator.languages];

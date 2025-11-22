@@ -23,11 +23,11 @@ type CommonFormats = {
  * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
  * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
  */
-function partsToPattern(
+const partsToPattern = (
   parts: Intl.DateTimeFormatPart[],
   resolved: Intl.ResolvedDateTimeFormatOptions & { hourCycle?: string },
   requestedOpts: Intl.DateTimeFormatOptions
-): string {
+): string => {
   let pattern = '';
 
   const hourCycle = resolved.hourCycle;
@@ -283,7 +283,7 @@ export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats
 
 export default function buildLocaleFromIntl() {
 
-  if (numProperties(bbn.dt.locales)) {
+  if (Object.keys(bbn.dt.locales).length) {
     return;
   }
 

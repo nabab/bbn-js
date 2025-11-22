@@ -1,5 +1,33 @@
 import parse from './parse.js';
 import { getCommonFormatsForLocale } from './buildLocaleFromIntl.js';
+// Common MySQL & native JS string formats – tried first in guessFormat
+const MYSQL_AND_NATIVE_FORMATS = [
+    // --- MySQL / MariaDB classic ---
+    // Date
+    'YYYY-MM-DD',
+    // Date + time
+    'YYYY-MM-DD HH:II:SS.ms',
+    'YYYY-MM-DD HH:II:SS',
+    // Time only
+    'HH:II:SS',
+    // --- ISO 8601 / JS toISOString() ---
+    // 2025-11-22T14:30:00.123Z
+    'YYYY-MM-DDTHH:II:SS.msZ',
+    // 2025-11-22T14:30:00Z
+    'YYYY-MM-DDTHH:II:SSZ',
+    // 2025-11-22T14:30:00
+    'YYYY-MM-DDTHH:II:SS',
+    // 2025-11-22T14:30
+    'YYYY-MM-DDTHH:II',
+    // --- JS toUTCString() ---
+    // Tue, 29 Oct 2024 14:30:00 GMT
+    'ddd[, ]DD MMM YYYY HH:II:SS[ GMT]',
+    // --- JS toString() (without the parenthesized TZ name) ---
+    // Tue Oct 29 2024 14:30:00 GMT+0200
+    'ddd MMM DD YYYY HH:II:SS[ GMT]Z',
+    // Tue Oct 29 2024 14:30:00
+    'ddd MMM DD YYYY HH:II:SS'
+];
 const isPureNumericDateFormat = (fmt) => {
     // Only Y/M/D tokens and literal separators, no time or AM/PM tokens
     if (/[HhI SAz]/.test(fmt)) {
@@ -90,9 +118,29 @@ export default function guessFormat(input, formats, lng) {
             ? navigator.language
             : Intl.DateTimeFormat().resolvedOptions().locale);
     const common = getCommonFormatsForLocale(resolvedLocale);
-    const candidates = [];
-    // prioritize datetime patterns first, then date, then time
-    candidates.push(...common.datetime.map(f => f.pattern), ...common.date.map(f => f.pattern), ...common.time.map(f => f.pattern));
+    // Avoid trivial duplicates
+    const seen = new Set();
+    const mysqlNativeCandidates = MYSQL_AND_NATIVE_FORMATS.filter(fmt => {
+        if (seen.has(fmt))
+            return false;
+        seen.add(fmt);
+        return true;
+    });
+    const localeCandidates = [
+        ...common.datetime.map(f => f.pattern),
+        ...common.date.map(f => f.pattern),
+        ...common.time.map(f => f.pattern)
+    ].filter(fmt => {
+        if (seen.has(fmt))
+            return false;
+        seen.add(fmt);
+        return true;
+    });
+    // MySQL & native JS patterns are checked FIRST
+    const candidates = [
+        ...mysqlNativeCandidates,
+        ...localeCandidates
+    ];
     const fmt = tryFormats(candidates);
     if (fmt) {
         return fmt;
