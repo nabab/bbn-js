@@ -532,6 +532,29 @@ export default function parse(
     let i = 0;
 
     while (i < fmt.length) {
+      // 1) Handle [literal] blocks first
+      if (fmt[i] === '[') {
+        let j = i + 1;
+        let rawLiteral = '';
+
+        while (j < fmt.length && fmt[j] !== ']') {
+          rawLiteral += fmt[j];
+          j++;
+        }
+
+        if (j < fmt.length && fmt[j] === ']') {
+          // We found a closing bracket: treat content as literal
+          // Undo our earlier escaping of ']' (we used '\]' when building)
+          const literal = rawLiteral.replace(/\\]/g, ']');
+          pattern += escapeRegex(literal);
+          // No capturing group & no applyFn, we just match this text
+          i = j + 1;
+          continue;
+        }
+        // If there's no closing ']', fall through and treat '[' as normal char
+      }
+
+      // 2) Try to match a token at this position
       let matchedToken: TokenSpec | null = null;
 
       for (const spec of tokensByLength) {
@@ -550,6 +573,7 @@ export default function parse(
         }
         i += matchedToken.token.length;
       } else {
+        // 3) Plain literal character
         pattern += escapeRegex(fmt[i]);
         i += 1;
       }
