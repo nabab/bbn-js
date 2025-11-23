@@ -115,11 +115,7 @@ export default function guessFormat(input, formats, lng) {
         return tryFormats(list);
     }
     // autodetect via Intl-derived formats
-    const resolvedLocale = lng ||
-        (typeof navigator !== 'undefined'
-            ? navigator.language
-            : Intl.DateTimeFormat().resolvedOptions().locale);
-    const common = getCommonFormatsForLocale(resolvedLocale);
+    const common = getCommonFormatsForLocale(lng);
     // Avoid trivial duplicates
     const seen = new Set();
     const mysqlNativeCandidates = MYSQL_AND_NATIVE_FORMATS.filter(fmt => {

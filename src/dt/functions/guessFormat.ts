@@ -133,13 +133,7 @@ export default function guessFormat(
   }
 
   // autodetect via Intl-derived formats
-  const resolvedLocale =
-    lng ||
-    (typeof navigator !== 'undefined'
-      ? navigator.language
-      : Intl.DateTimeFormat().resolvedOptions().locale);
-
-  const common = getCommonFormatsForLocale(resolvedLocale);
+  const common = getCommonFormatsForLocale(lng);
 
   // Avoid trivial duplicates
   const seen = new Set<string>();
