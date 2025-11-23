@@ -511,7 +511,6 @@ export default function parse(input, format, cls = 'auto', locale) {
                 }
             }
             if (matchedToken) {
-                debugger;
                 pattern += `(${matchedToken.regex})`;
                 if (matchedToken.apply) {
                     applyFns.push(value => matchedToken.apply(value, ctx));

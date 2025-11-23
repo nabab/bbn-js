@@ -603,7 +603,6 @@ export default function parse(
       }
 
       if (matchedToken) {
-        debugger;
         pattern += `(${matchedToken.regex})`;
         if (matchedToken.apply) {
           applyFns.push(value => matchedToken!.apply!(value, ctx));
