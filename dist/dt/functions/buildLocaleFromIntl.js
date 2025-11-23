@@ -167,7 +167,7 @@ const getCommonFormatsForLocale = (lng) => {
         const fmt = new Intl.DateTimeFormat(lng, opts);
         const parts = fmt.formatToParts(sample);
         const resolved = fmt.resolvedOptions();
-        const pattern = partsToPattern(parts, resolved, opts);
+        const pattern = partsToPattern(parts, resolved.hourCycle, opts);
         if (!seenDatePatterns.has(pattern)) {
             seenDatePatterns.add(pattern);
             date.push({
@@ -194,7 +194,7 @@ const getCommonFormatsForLocale = (lng) => {
         const fmt = new Intl.DateTimeFormat(lng, opts);
         const parts = fmt.formatToParts(sample);
         const resolved = fmt.resolvedOptions();
-        const pattern = partsToPattern(parts, resolved, opts);
+        const pattern = partsToPattern(parts, resolved.hourCycle, opts);
         if (!seenTimePatterns.has(pattern)) {
             seenTimePatterns.add(pattern);
             time.push({
@@ -211,7 +211,7 @@ const getCommonFormatsForLocale = (lng) => {
             const fmt = new Intl.DateTimeFormat(lng, opts);
             const parts = fmt.formatToParts(sample);
             const resolved = fmt.resolvedOptions();
-            const pattern = partsToPattern(parts, resolved, opts);
+            const pattern = partsToPattern(parts, resolved.hourCycle, opts);
             if (!seenDateTimePatterns.has(pattern)) {
                 seenDateTimePatterns.add(pattern);
                 datetime.push({
