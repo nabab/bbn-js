@@ -34,8 +34,6 @@ export default function parse(
   | bbnDtYearMonth
   | bbnDtMonthDay
 {
-  bbn.fn.log([input, format, cls]);
-  debugger;
   buildLocaleFromIntl();
   const TemporalAny = (globalThis as any).Temporal;
   if (!TemporalAny) {
