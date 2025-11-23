@@ -23,33 +23,37 @@ type CommonFormats = {
  * Build a token pattern (YYYY, MM, DD, dddd, HH, II, SS, A, z) from Intl parts.
  * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
  */
-const partsToPattern = (
+function partsToPattern(
   parts: Intl.DateTimeFormatPart[],
-  resolved: Intl.ResolvedDateTimeFormatOptions & { hourCycle?: string },
-  requestedOpts: Intl.DateTimeFormatOptions
-): string => {
+  hourCycle: string | undefined,
+  opts: Intl.DateTimeFormatOptions
+): string {
   let pattern = '';
 
-  const hourCycle = resolved.hourCycle;
   const hasDayPeriod = parts.some(p => p.type === 'dayPeriod');
   const is12h = hasDayPeriod || hourCycle === 'h12' || hourCycle === 'h11';
 
-  const hasYear = !!requestedOpts.year;
-  const hasMonth = !!requestedOpts.month;
-  const hasDay = !!requestedOpts.day;
-  const hasWeekday = !!requestedOpts.weekday;
+  const hasWeekday = !!opts.weekday;
   const hasTextMonth =
-    requestedOpts.month === 'short' || requestedOpts.month === 'long';
+    opts.month === 'short' || opts.month === 'long';
 
-  // "Whole numeric date" = year+month+day, all numeric, no weekday, no text month
-  const isWholeNumericDate =
-    hasYear && hasMonth && hasDay && !hasWeekday && !hasTextMonth;
+  // when we *request* year/month/day in "numeric" (not 2-digit, not short),
+  // and all three are present, then we want D/M/YYYY in our mask,
+  // in the locale's order, even if the sample shows "02" / "01".
+  const requestedPureNumericYMD =
+    opts.year === 'numeric' &&
+    opts.month === 'numeric' &&
+    opts.day === 'numeric' &&
+    !hasWeekday &&
+    !hasTextMonth;
 
   for (const p of parts) {
     switch (p.type) {
       case 'year': {
-        // Keep YY when the locale actually resolved to 2-digit
-        if (resolved.year === '2-digit') {
+        // If you want YY vs YYYY disambiguation you can still
+        // look at opts.year here; I’ll keep it simple:
+        // numeric → YYYY, '2-digit' → YY
+        if (opts.year === '2-digit') {
           pattern += 'YY';
         } else {
           pattern += 'YYYY';
@@ -58,30 +62,35 @@ const partsToPattern = (
       }
 
       case 'month': {
-        // textual month
-        if (requestedOpts.month === 'short' || requestedOpts.month === 'long') {
-          pattern += requestedOpts.month === 'long' ? 'MMMM' : 'MMM';
+        // Textual month first
+        if (opts.month === 'short') {
+          pattern += 'MMM';
+          break;
+        }
+        if (opts.month === 'long') {
+          pattern += 'MMMM';
           break;
         }
 
-        if (isWholeNumericDate) {
-          // whole numeric date → always use M (accepts 1–2 digits)
+        // 👉 Pure numeric Y-M-D requested: always M
+        if (requestedPureNumericYMD) {
           pattern += 'M';
           break;
         }
 
-        // other numeric month cases (e.g. year–month or month–day)
+        // Other numeric month cases (year-month, month-day, or 2-digit)
         if (/^\d+$/.test(p.value)) {
           pattern += p.value.length === 2 ? 'MM' : 'M';
         } else {
+          // should not happen, but be defensive
           pattern += p.value.length > 3 ? 'MMMM' : 'MMM';
         }
         break;
       }
 
       case 'day': {
-        if (isWholeNumericDate) {
-          // whole numeric date → always use D (accepts 1–2 digits)
+        // 👉 Pure numeric Y-M-D requested: always D
+        if (requestedPureNumericYMD) {
           pattern += 'D';
           break;
         }
@@ -91,9 +100,9 @@ const partsToPattern = (
       }
 
       case 'weekday': {
-        if (requestedOpts.weekday === 'short' || requestedOpts.weekday === 'narrow') {
+        if (opts.weekday === 'short' || opts.weekday === 'narrow') {
           pattern += 'ddd';
-        } else if (requestedOpts.weekday === 'long') {
+        } else if (opts.weekday === 'long') {
           pattern += 'dddd';
         } else {
           pattern += p.value.length > 3 ? 'dddd' : 'ddd';
@@ -127,22 +136,14 @@ const partsToPattern = (
         break;
 
       case 'literal': {
-        if (!p.value) {
-          break;
-        }
+        if (!p.value) break;
 
-        // If the literal contains any letter (ASCII or basic Latin-1),
-        // wrap it in [ ... ] so it can't be confused with tokens.
-        // Otherwise (spaces, /, -, :, commas, etc.) keep it raw.
+        // Only wrap *text* literals in [ ... ], not separators like /, -, spaces, etc.
         const hasLetter = /[A-Za-zÀ-ÖØ-öø-ÿ]/.test(p.value);
-
         if (hasLetter) {
-          // Escape ']' inside the bracketed literal
           const v = p.value.replace(/]/g, '\\]');
           pattern += `[${v}]`;
-        }
-        else {
-          // Non-problematic punctuation/whitespace: just append as-is
+        } else {
           pattern += p.value;
         }
         break;
@@ -155,7 +156,8 @@ const partsToPattern = (
   }
 
   return pattern;
-}
+};
+
 
 /**
  * Get a curated set of *common* date, time and datetime formats
