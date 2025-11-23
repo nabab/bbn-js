@@ -92,7 +92,7 @@ const normalizeNumericDM = (fmt: string, input: string): string => {
 export default function guessFormat(
   input: string,
   formats?: string | string[],
-  lng?: string
+  lng?: string | string[]
 ): string | null {
   const str = input.trim();
   if (!str) {

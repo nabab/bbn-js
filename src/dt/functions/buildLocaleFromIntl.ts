@@ -166,7 +166,11 @@ const partsToPattern = (
  *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
  *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
-export function getCommonFormatsForLocale(lng: string | string[]): CommonFormats {
+export function getCommonFormatsForLocale(lng?: string | string[]): CommonFormats {
+  if (!lng) {
+    lng = [bbn.env.lang, ...navigator.languages];
+  }
+
   const sample = new Date(Date.UTC(2000, 0, 2, 13, 45, 30));
 
   const date: CommonFormats['date'] = [];

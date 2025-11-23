@@ -24,6 +24,6 @@ type CommonFormats = {
  *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
  *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
-export declare function getCommonFormatsForLocale(lng: string | string[]): CommonFormats;
+export declare function getCommonFormatsForLocale(lng?: string | string[]): CommonFormats;
 export default function buildLocaleFromIntl(): void;
 export {};
