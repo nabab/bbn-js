@@ -42,6 +42,10 @@ export default function parse(
   }
   const T = TemporalAny;
 
+  if (!locale) {
+    locale = bbn?.dt?.locales || {};
+  }
+
   const loc = {
     monthsLong: locale?.monthsLong ?? bbn.dt.locales.monthsLong,
     monthsShort: locale?.monthsShort ?? bbn.dt.locales.monthsShort,

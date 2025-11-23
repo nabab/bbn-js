@@ -14,7 +14,7 @@ const lc = function (str, localeCode) {
     }
 };
 export default function parse(input, format, cls = 'auto', locale) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g;
     bbn.fn.log([input, format, cls]);
     buildLocaleFromIntl();
     const TemporalAny = globalThis.Temporal;
@@ -22,14 +22,17 @@ export default function parse(input, format, cls = 'auto', locale) {
         throw new Error('Temporal API is required (load @js-temporal/polyfill)');
     }
     const T = TemporalAny;
+    if (!locale) {
+        locale = ((_a = bbn === null || bbn === void 0 ? void 0 : bbn.dt) === null || _a === void 0 ? void 0 : _a.locales) || {};
+    }
     const loc = {
-        monthsLong: (_a = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _a !== void 0 ? _a : bbn.dt.locales.monthsLong,
-        monthsShort: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _b !== void 0 ? _b : bbn.dt.locales.monthsShort,
-        weekdaysLong: (_c = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _c !== void 0 ? _c : bbn.dt.locales.weekdaysLong,
-        weekdaysShort: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _d !== void 0 ? _d : bbn.dt.locales.weekdaysShort
+        monthsLong: (_b = locale === null || locale === void 0 ? void 0 : locale.monthsLong) !== null && _b !== void 0 ? _b : bbn.dt.locales.monthsLong,
+        monthsShort: (_c = locale === null || locale === void 0 ? void 0 : locale.monthsShort) !== null && _c !== void 0 ? _c : bbn.dt.locales.monthsShort,
+        weekdaysLong: (_d = locale === null || locale === void 0 ? void 0 : locale.weekdaysLong) !== null && _d !== void 0 ? _d : bbn.dt.locales.weekdaysLong,
+        weekdaysShort: (_e = locale === null || locale === void 0 ? void 0 : locale.weekdaysShort) !== null && _e !== void 0 ? _e : bbn.dt.locales.weekdaysShort
     };
-    const localeCode = ((bbn === null || bbn === void 0 ? void 0 : bbn.env) && ((_e = bbn.env) === null || _e === void 0 ? void 0 : _e.lang)) ||
-        ((bbn === null || bbn === void 0 ? void 0 : bbn.dt) && ((_f = bbn.dt) === null || _f === void 0 ? void 0 : _f.locale)) ||
+    const localeCode = ((bbn === null || bbn === void 0 ? void 0 : bbn.env) && ((_f = bbn.env) === null || _f === void 0 ? void 0 : _f.lang)) ||
+        ((bbn === null || bbn === void 0 ? void 0 : bbn.dt) && ((_g = bbn.dt) === null || _g === void 0 ? void 0 : _g.locale)) ||
         Intl.DateTimeFormat().resolvedOptions().locale;
     const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const makeTokenSpecs = () => [
