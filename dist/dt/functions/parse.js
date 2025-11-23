@@ -513,6 +513,7 @@ export default function parse(input, format, cls = 'auto', locale) {
                 }
             }
             if (matchedToken) {
+                debugger;
                 pattern += `(${matchedToken.regex})`;
                 if (matchedToken.apply) {
                     applyFns.push(value => matchedToken.apply(value, ctx));
@@ -591,15 +592,15 @@ export default function parse(input, format, cls = 'auto', locale) {
             return new bbnDtDateTime(d);
         }
         if (isClsDate || isClsYearMonth || isClsMonthDay || (isClsAuto && hasDate && !hasTime)) {
-            if (isClsDate && hasFullDate) {
+            if (isClsDate || (hasFullDate && isClsAuto)) {
                 const d = new T.PlainDate(ctx.year, ctx.month, ctx.day);
                 return new bbnDtDate(d);
             }
-            if (isClsYearMonth && hasYearMonthOnly) {
+            if (isClsYearMonth || (hasYearMonthOnly && isClsAuto)) {
                 const d = new T.PlainYearMonth(ctx.year, ctx.month);
                 return new bbnDtYearMonth(d);
             }
-            if (isClsMonthDay && hasMonthDayOnly) {
+            if (isClsMonthDay || (hasMonthDayOnly && isClsAuto)) {
                 const d = new T.PlainMonthDay(ctx.month, ctx.day, 1972);
                 return new bbnDtMonthDay(d);
             }
