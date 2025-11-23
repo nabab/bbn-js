@@ -15,6 +15,7 @@ const lc = function (str, localeCode) {
 };
 export default function parse(input, format, cls = 'auto', locale) {
     var _a, _b, _c, _d, _e, _f;
+    bbn.fn.log([input, format, cls]);
     buildLocaleFromIntl();
     const TemporalAny = globalThis.Temporal;
     if (!TemporalAny) {
