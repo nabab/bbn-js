@@ -1,9 +1,8 @@
-import { Temporal } from 'temporal-polyfill';
 import bbnDtDateTime from './dt/classes/dateTime.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
 declare const dt: {
-    (value: any, inputFormat?: null | String): bbnDtDateTime | Temporal.PlainDateTime | Temporal.Instant | Temporal.PlainDate | Temporal.PlainTime | Temporal.PlainYearMonth | Temporal.PlainMonthDay;
+    (value: any, inputFormat?: null | String, cls?: "auto" | "zoned" | "dateTime" | "date" | "time" | "yearMonth" | "monthDay"): bbnDtDateTime | import("./dt/classes/zoned.js").default | import("./dt/classes/date.js").default | import("./dt/classes/time.js").default | import("./dt/classes/yearMonth.js").default | import("./dt/classes/monthDay.js").default;
     locales: any;
     parse: typeof parse;
     guessFormat: typeof guessFormat;

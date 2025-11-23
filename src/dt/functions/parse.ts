@@ -1,5 +1,11 @@
 import { Temporal } from 'temporal-polyfill';
 import buildLocaleFromIntl from './buildLocaleFromIntl.js';
+import bbnDtZoned from '../classes/zoned.js';
+import bbnDtDateTime from '../classes/dateTime.js';
+import bbnDtDate from '../classes/date.js';
+import bbnDtTime from '../classes/time.js';
+import bbnDtYearMonth from '../classes/yearMonth.js';
+import bbnDtMonthDay from '../classes/monthDay.js';
 
 const lc = function(str: string, localeCode?: string): string {
   try {
@@ -13,6 +19,7 @@ const lc = function(str: string, localeCode?: string): string {
 export default function parse(
   input: string,
   format: string | string[],
+  cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto',
   locale?: {
     monthsLong?: string[];
     monthsShort?: string[];
@@ -20,12 +27,12 @@ export default function parse(
     weekdaysShort?: string[];
   }
 ):
-  | Temporal.Instant
-  | Temporal.PlainDateTime
-  | Temporal.PlainDate
-  | Temporal.PlainTime
-  | Temporal.PlainYearMonth
-  | Temporal.PlainMonthDay
+  | bbnDtZoned
+  | bbnDtDateTime
+  | bbnDtDate
+  | bbnDtTime
+  | bbnDtYearMonth
+  | bbnDtMonthDay
 {
   buildLocaleFromIntl();
   const TemporalAny = (globalThis as any).Temporal;
@@ -514,13 +521,15 @@ export default function parse(
     }
   ];
 
-  function parseWithFormat(fmt: string):
-    | Temporal.Instant
-    | Temporal.PlainDateTime
-    | Temporal.PlainDate
-    | Temporal.PlainTime
-    | Temporal.PlainYearMonth
-    | Temporal.PlainMonthDay
+  function parseWithFormat(
+    fmt: string,
+    cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto'
+  ): bbnDtZoned
+    | bbnDtDateTime
+    | bbnDtDate
+    | bbnDtTime
+    | bbnDtYearMonth
+    | bbnDtMonthDay
   {
     const ctx: Ctx = {
       year: 1970,
@@ -540,6 +549,13 @@ export default function parse(
       hasMs: false
     };
 
+    const isClsAuto = cls === 'auto';
+    const isClsZoned = cls.toLowerCase() === 'zoned';
+    const isClsDateTime = cls.toLowerCase() === 'datetime';
+    const isClsDate = cls.toLowerCase() === 'date';
+    const isClsTime = cls.toLowerCase() === 'time';
+    const isClsYearMonth = cls.toLowerCase() === 'yearmonth';
+    const isClsMonthDay = cls.toLowerCase() === 'monthday';
     const tokenSpecs = makeTokenSpecs();
     const tokensByLength = [...tokenSpecs].sort(
       (a, b) => b.token.length - a.token.length
@@ -638,8 +654,8 @@ export default function parse(
       ctx.hasHour || ctx.hasMinute || ctx.hasSecond || ctx.hasMs;
     const hasZone = ctx.timeZone != null || ctx.offsetMinutes != null;
 
-    // ---------- 1) If timezone (Z or z) → Instant ----------
-    if (hasZone) {
+    // ---------- 1) If timezone (Z or z) → Zoned ----------
+    if (isClsZoned || (hasZone && isClsAuto)) {
       let pdt: Temporal.PlainDateTime;
       try {
         pdt = new T.PlainDateTime(
@@ -658,7 +674,7 @@ export default function parse(
       if (ctx.timeZone) {
         const tz = T.TimeZone.from(ctx.timeZone);
         const zdt = pdt.toZonedDateTime(tz);
-        return zdt.toInstant();
+        return new bbnDtZoned(zdt);
       }
 
       const utcMs = Date.UTC(
@@ -671,16 +687,16 @@ export default function parse(
         ctx.ms
       );
       const epochMs = utcMs - (ctx.offsetMinutes ?? 0) * 60_000;
-      return T.Instant.fromEpochMilliseconds(epochMs);
+      return new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
     }
 
     // ---------- 2) No timezone: decide which Plain* type ----------
 
-    if (hasDate && hasTime) {
+    if (isClsDateTime || (isClsAuto && hasDate && hasTime)) {
       if (!hasFullDate) {
         throw new Error('PlainDateTime requires year, month and day');
       }
-      return new T.PlainDateTime(
+      const d = new T.PlainDateTime(
         ctx.year,
         ctx.month,
         ctx.day,
@@ -689,28 +705,34 @@ export default function parse(
         ctx.second,
         ctx.ms * 1_000_000
       );
+      return new bbnDtDateTime(d);
     }
 
-    if (hasDate && !hasTime) {
-      if (hasFullDate) {
-        return new T.PlainDate(ctx.year, ctx.month, ctx.day);
+    if (isClsDate || isClsYearMonth || isClsMonthDay || (isClsAuto && hasDate && !hasTime)) {
+      if (isClsDate && hasFullDate) {
+        const d = new T.PlainDate(ctx.year, ctx.month, ctx.day);
+        return new bbnDtDate(d);
       }
-      if (hasYearMonthOnly) {
-        return new T.PlainYearMonth(ctx.year, ctx.month);
+      if (isClsYearMonth && hasYearMonthOnly) {
+        const d = new T.PlainYearMonth(ctx.year, ctx.month);
+        return new bbnDtYearMonth(d);
       }
-      if (hasMonthDayOnly) {
-        return new T.PlainMonthDay(ctx.month, ctx.day, 1972);
+      if (isClsMonthDay && hasMonthDayOnly) {
+        const d = new T.PlainMonthDay(ctx.month, ctx.day, 1972);
+        return new bbnDtMonthDay(d);
       }
+
       throw new Error('Not enough date components for a known Temporal type');
     }
 
-    if (!hasDate && hasTime) {
-      return new T.PlainTime(
+    if (isClsTime || (isClsAuto && !hasDate && hasTime)) {
+      const d = new T.PlainTime(
         ctx.hour,
         ctx.minute,
         ctx.second,
         ctx.ms * 1_000_000
       );
+      return new bbnDtTime(d);
     }
 
     throw new Error('No date or time information found in input');
@@ -720,7 +742,7 @@ export default function parse(
     let lastError: unknown = null;
     for (const fmt of format) {
       try {
-        return parseWithFormat(fmt);
+        return parseWithFormat(fmt, cls);
       } catch (e) {
         lastError = e;
       }
@@ -728,5 +750,5 @@ export default function parse(
     throw lastError ?? new Error('No format matched');
   }
 
-  return parseWithFormat(format);
+  return parseWithFormat(format, cls);
 };

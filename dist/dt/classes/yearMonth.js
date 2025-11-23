@@ -9,37 +9,35 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _bbnDtDateTime_value;
+var _bbnDtYearMonth_value;
 import { Temporal } from 'temporal-polyfill';
-class bbnDtDateTime {
-    constructor(y, m, d, h, i, s, ms) {
-        _bbnDtDateTime_value.set(this, void 0);
+class bbnDtYearMonth {
+    constructor(y, m) {
+        _bbnDtYearMonth_value.set(this, void 0);
         if (!y) {
-            __classPrivateFieldSet(this, _bbnDtDateTime_value, Temporal.PlainDateTime.from(Temporal.Now.plainDateISO()), "f");
+            const d = new Date();
+            __classPrivateFieldSet(this, _bbnDtYearMonth_value, new Temporal.PlainYearMonth(d.getFullYear(), d.getMonth() + 1), "f");
         }
         else if (m === undefined) {
-            if (y instanceof Temporal.PlainDateTime) {
-                __classPrivateFieldSet(this, _bbnDtDateTime_value, y, "f");
+            if (y instanceof Temporal.PlainYearMonth) {
+                __classPrivateFieldSet(this, _bbnDtYearMonth_value, y, "f");
             }
             else if (y instanceof Date) {
-                __classPrivateFieldSet(this, _bbnDtDateTime_value, new Temporal.PlainDateTime(y.getFullYear(), y.getMonth() + 1, y.getDate(), y.getHours(), y.getMinutes(), y.getSeconds(), y.getMilliseconds()), "f");
+                __classPrivateFieldSet(this, _bbnDtYearMonth_value, new Temporal.PlainYearMonth(y.getFullYear(), y.getMonth() + 1), "f");
             }
-            else if (typeof y === 'number') {
-                const d = new Date(y);
-                __classPrivateFieldSet(this, _bbnDtDateTime_value, new Temporal.PlainDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds()), "f");
+            else if (typeof m === 'number') {
+                const d = new Date(m);
+                __classPrivateFieldSet(this, _bbnDtYearMonth_value, new Temporal.PlainYearMonth(d.getFullYear(), d.getMonth() + 1), "f");
             }
             else {
                 throw new Error('Invalid value for bbnDtDateTime');
             }
         }
-        else {
-            __classPrivateFieldSet(this, _bbnDtDateTime_value, new Temporal.PlainDateTime(y, m, d || 1, h || 0, i || 0, s || 0, ms || 0), "f");
-        }
     }
     get value() {
-        return __classPrivateFieldGet(this, _bbnDtDateTime_value, "f");
+        return __classPrivateFieldGet(this, _bbnDtYearMonth_value, "f");
     }
 }
-_bbnDtDateTime_value = new WeakMap();
-export default bbnDtDateTime;
+_bbnDtYearMonth_value = new WeakMap();
+export default bbnDtYearMonth;
 ;

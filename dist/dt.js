@@ -1,7 +1,5 @@
 import bbnDtDateTime from './dt/classes/dateTime.js';
 import _ from './_.js';
-import isDate from './fn/type/isDate.js';
-import isPrimitive from './fn/type/isPrimitive.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
 const patterns = [
@@ -192,39 +190,32 @@ const unitsCorrespondence = {
     'W': 'w',
     'w': 'w'
 };
-const dt = (value, inputFormat = null) => {
-    let v;
+const dt = (value, inputFormat = null, cls = 'auto') => {
     if (!value) {
-        const d = new Date();
-        return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+        return new bbnDtDateTime();
     }
     if (typeof value === 'string') {
         if (inputFormat) {
-            return parse(value, inputFormat);
+            return parse(value, inputFormat, cls);
         }
         else {
             const format = guessFormat(value);
             if (format) {
-                return parse(value, format);
+                return parse(value, format, cls);
             }
             else {
                 throw new Error(_('Could not guess the date format for value: %s', value));
             }
         }
     }
-    else {
-        if (typeof value === 'number') {
-            const d = new Date(value);
-            return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
-        }
-        else if (isDate(value)) {
-            const d = value;
-            return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
-        }
-        else if (isPrimitive(value)) {
-            throw new Error(_('Invalid date value: %s', value));
-        }
+    if (typeof value === 'number') {
+        return new bbnDtDateTime(value);
     }
+    else if (value instanceof Date) {
+        const d = value;
+        return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+    }
+    throw new Error(_('Invalid date value: %s', value));
 };
 dt.locales = Object.create(null);
 dt.parse = parse;

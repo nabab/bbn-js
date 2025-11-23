@@ -129,7 +129,7 @@ declare global {
   interface BbnBasicObject {
     [key: string]: any;
   }
-  
+
   interface BbnOrderItem {
     field: string;
     dir: string;
