@@ -166,7 +166,7 @@ const partsToPattern = (
  *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
  *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
-export function getCommonFormatsForLocale(lng?: string | string[]): CommonFormats {
+const getCommonFormatsForLocale = (lng?: string | string[]): CommonFormats => {
   if (!lng) {
     lng = [bbn.env.lang, ...navigator.languages];
   }
@@ -285,7 +285,7 @@ export function getCommonFormatsForLocale(lng?: string | string[]): CommonFormat
 }
 
 
-export default function buildLocaleFromIntl() {
+const buildLocaleFromIntl = () => {
 
   if (Object.keys(bbn.dt.locales).length) {
     return;
@@ -330,3 +330,5 @@ export default function buildLocaleFromIntl() {
     datetime
   });
 };
+
+export { getCommonFormatsForLocale, buildLocaleFromIntl };

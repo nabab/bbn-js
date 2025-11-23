@@ -1,5 +1,6 @@
 import parse from './parse.js';
-import { getCommonFormatsForLocale } from './buildLocaleFromIntl.js';
+import { getCommonFormatsForLocale, buildLocaleFromIntl } from './buildLocaleFromIntl.js';
+
 // Common MySQL & native JS string formats – tried first in guessFormat
 const MYSQL_AND_NATIVE_FORMATS: string[] = [
   // --- MySQL / MariaDB classic ---
@@ -99,6 +100,7 @@ export default function guessFormat(
     return null;
   }
 
+  buildLocaleFromIntl();
   const tryFormats = (fmts: string[]): string | null => {
     for (const fmt of fmts) {
       // 1) Try strict format first

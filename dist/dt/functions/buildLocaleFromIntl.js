@@ -124,7 +124,7 @@ const partsToPattern = (parts, resolved, requestedOpts) => {
  *  - Time: hour / hour:minute / hour:minute:second (+ optional TZ).
  *  - Datetime: only full dates (Y-M-D ± weekday) combined with time.
  */
-export function getCommonFormatsForLocale(lng) {
+const getCommonFormatsForLocale = (lng) => {
     if (!lng) {
         lng = [bbn.env.lang, ...navigator.languages];
     }
@@ -218,8 +218,8 @@ export function getCommonFormatsForLocale(lng) {
         }
     }
     return { date, time, datetime };
-}
-export default function buildLocaleFromIntl() {
+};
+const buildLocaleFromIntl = () => {
     if (Object.keys(bbn.dt.locales).length) {
         return;
     }
@@ -256,5 +256,5 @@ export default function buildLocaleFromIntl() {
         time,
         datetime
     });
-}
-;
+};
+export { getCommonFormatsForLocale, buildLocaleFromIntl };
