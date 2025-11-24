@@ -1,5 +1,11 @@
 import { Temporal } from 'temporal-polyfill';
 import bbnDtDateTime from './dt/classes/dateTime.js';
+import bbnDtDate from './dt/classes/date.js';
+import bbnDtTime from './dt/classes/zoned.js';
+import bbnDtYearMonth from './dt/classes/yearMonth.js';
+import bbnDtMonthDay from './dt/classes/monthDay.js';
+import bbnDtZoned from './dt/classes/zoned.js';
+import bbnDtDuration from './dt/classes/duration.js';
 import _ from './_.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
@@ -239,6 +245,27 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
   else if (value instanceof Date) {
     const d = value as Date;
     return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+  }
+  else if (value instanceof Temporal.PlainDateTime) {
+    return new bbnDtDateTime(value);
+  }
+  else if (value instanceof Temporal.PlainDate) {
+    return new bbnDtDate(value);
+  }
+  else if (value instanceof Temporal.PlainTime) {
+    return new bbnDtTime(value);
+  }
+  else if (value instanceof Temporal.PlainYearMonth) {
+    return new bbnDtYearMonth(value);
+  }
+  else if (value instanceof Temporal.PlainMonthDay) {
+    return new bbnDtMonthDay(value);
+  }
+  else if (value instanceof Temporal.ZonedDateTime) {
+    return new bbnDtZoned(value);
+  }
+  else if (value instanceof Temporal.Duration) {
+    return new bbnDtDuration(value);
   }
   else {
     return {isValid: false};
