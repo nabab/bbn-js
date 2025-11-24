@@ -23,7 +23,11 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   get value(): TValue | undefined {
     return this.#value;
-  };
+  }
+
+  get hasFullDate(): boolean {
+    return ('year' in this.value) && ('month' in this.value) && ('day' in this.value);
+  }
 
   /** System time zone ID (e.g. "Europe/Rome") */
   private static readonly systemTimeZoneId = Temporal.Now.timeZoneId();
@@ -263,8 +267,8 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return bbn.dt(input, format, cls, locale) as bbnDt<any>;
   }
 
-  parse(input: string, format: string): bbnDt<any> {
-    return bbnDt.parse(input, format, camelToCss(this.kind)) as bbnDt<any>;
+  parse(input: string, format: string, cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay'): bbnDt<any> {
+    return bbnDt.parse(input, format, cls || camelToCss(this.kind)) as bbnDt<any>;
   }
 
   compare(other: any, unit?: string): -1 | 0 | 1 {
@@ -427,6 +431,9 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     if (!('hour' in this.value)) {
+      if (this.hasFullDate) {
+        return 0;
+      }
       throw new Error('hour() is not supported for this type');
     }
 
@@ -444,6 +451,9 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     if (!('minute' in this.value)) {
+      if (this.hasFullDate) {
+        return 0;
+      }
       throw new Error('minute() is not supported for this type');
     }
 
@@ -461,6 +471,9 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     if (!('second' in this.value)) {
+      if (this.hasFullDate) {
+        return 0;
+      }
       throw new Error('second() is not supported for this type');
     }
 
@@ -493,7 +506,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return undefined;
     }
 
-    if (!('year' in this.value) || !('month' in this.value) || !('day' in this.value)) {
+    if (!this.hasFullDate) {
       throw new Error('date() is not supported for this type');
     }
 
@@ -506,6 +519,10 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   
   datetime(v?: any): string | bbnDt<any> {
     if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+      if (this instanceof bbnDtDate) {
+        return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
+      }
+
       return this.parse(v, 'Y-m-d H:i:s');
     }
 
@@ -514,6 +531,9 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   time(v?: any): string | bbnDt<any> {
     if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+      if (this instanceof bbnDtDate) {
+        return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
+      }
       return this.parse(v, 'H:i:s');
     }
 
@@ -624,12 +644,18 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       const h = parseInt(this.hour().toString());
       return h < 10 ? '0' + h.toString() : h.toString();
     }
+    else if (this.hasFullDate) {
+      return '00';
+    }
     return undefined;
   }
   
   get H(): string {
     if ('hour' in this.value) {
       return this.hour().toString();
+    }
+    else if (this.hasFullDate) {
+      return '0';
     }
     return undefined;
   }
@@ -639,6 +665,9 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       const i = parseInt(this.minute().toString());
       return i < 10 ? '0' + i.toString() : i.toString();
     }
+    else if (this.hasFullDate) {
+      return '00';
+    }
     return undefined;
   }
 
@@ -647,12 +676,18 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       const i = parseInt(this.minute().toString());
       return i < 10 ? '0' + i.toString() : i.toString();
     }
+    else if (this.hasFullDate) {
+      return '00';
+    }
     return undefined;
   }
 
   get I(): string {
     if ('minute' in this.value) {
       return this.minute().toString();
+    }
+    else if (this.hasFullDate) {
+      return '0';
     }
     return undefined;
   }
@@ -662,12 +697,18 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       const s = parseInt(this.second().toString());
       return s < 10 ? '0' + s.toString() : s.toString();
     }
+    else if (this.hasFullDate) {
+      return '00';
+    }
     return undefined;
   }
 
   get S(): string {
     if ('second' in this.value) {
       return this.second().toString();
+    }
+    else if (this.hasFullDate) {
+      return '0';
     }
     return undefined;
   }

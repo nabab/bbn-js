@@ -7,6 +7,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     readonly __bbnNoData = true;
     constructor(value?: TValue);
     get value(): TValue | undefined;
+    get hasFullDate(): boolean;
     /** System time zone ID (e.g. "Europe/Rome") */
     private static readonly systemTimeZoneId;
     /**
@@ -37,7 +38,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
         weekdaysLong?: string[];
         weekdaysShort?: string[];
     }): bbnDt<any>;
-    parse(input: string, format: string): bbnDt<any>;
+    parse(input: string, format: string, cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay'): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;

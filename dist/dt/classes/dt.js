@@ -50,7 +50,9 @@ export class bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDt_value, "f");
     }
-    ;
+    get hasFullDate() {
+        return ('year' in this.value) && ('month' in this.value) && ('day' in this.value);
+    }
     /**
      * Convert this.value (PlainDate, PlainTime, PlainDateTime, YearMonth,
      * MonthDay, ZonedDateTime) into epoch milliseconds, using the system
@@ -231,8 +233,8 @@ export class bbnDt {
     static parse(input, format, cls = 'auto', locale) {
         return bbn.dt(input, format, cls, locale);
     }
-    parse(input, format) {
-        return bbnDt.parse(input, format, camelToCss(this.kind));
+    parse(input, format, cls) {
+        return bbnDt.parse(input, format, cls || camelToCss(this.kind));
     }
     compare(other, unit) {
         if (!(other instanceof bbnDt)) {
@@ -362,6 +364,9 @@ export class bbnDt {
             return undefined;
         }
         if (!('hour' in this.value)) {
+            if (this.hasFullDate) {
+                return 0;
+            }
             throw new Error('hour() is not supported for this type');
         }
         if ((v !== undefined) && !(v instanceof Event)) {
@@ -375,6 +380,9 @@ export class bbnDt {
             return undefined;
         }
         if (!('minute' in this.value)) {
+            if (this.hasFullDate) {
+                return 0;
+            }
             throw new Error('minute() is not supported for this type');
         }
         if ((v !== undefined) && !(v instanceof Event)) {
@@ -388,6 +396,9 @@ export class bbnDt {
             return undefined;
         }
         if (!('second' in this.value)) {
+            if (this.hasFullDate) {
+                return 0;
+            }
             throw new Error('second() is not supported for this type');
         }
         if ((v !== undefined) && !(v instanceof Event)) {
@@ -412,7 +423,7 @@ export class bbnDt {
         if (!this.value) {
             return undefined;
         }
-        if (!('year' in this.value) || !('month' in this.value) || !('day' in this.value)) {
+        if (!this.hasFullDate) {
             throw new Error('date() is not supported for this type');
         }
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
@@ -422,12 +433,18 @@ export class bbnDt {
     }
     datetime(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+            if (this instanceof bbnDtDate) {
+                return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
+            }
             return this.parse(v, 'Y-m-d H:i:s');
         }
         return this.YYYY + '-' + this.MM + '-' + this.DD + ' ' + this.HH + ':' + this.II + ':' + this.SS;
     }
     time(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+            if (this instanceof bbnDtDate) {
+                return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
+            }
             return this.parse(v, 'H:i:s');
         }
         return this.HH + ':' + this.II + ':' + this.SS;
@@ -520,11 +537,17 @@ export class bbnDt {
             const h = parseInt(this.hour().toString());
             return h < 10 ? '0' + h.toString() : h.toString();
         }
+        else if (this.hasFullDate) {
+            return '00';
+        }
         return undefined;
     }
     get H() {
         if ('hour' in this.value) {
             return this.hour().toString();
+        }
+        else if (this.hasFullDate) {
+            return '0';
         }
         return undefined;
     }
@@ -533,6 +556,9 @@ export class bbnDt {
             const i = parseInt(this.minute().toString());
             return i < 10 ? '0' + i.toString() : i.toString();
         }
+        else if (this.hasFullDate) {
+            return '00';
+        }
         return undefined;
     }
     get mm() {
@@ -540,11 +566,17 @@ export class bbnDt {
             const i = parseInt(this.minute().toString());
             return i < 10 ? '0' + i.toString() : i.toString();
         }
+        else if (this.hasFullDate) {
+            return '00';
+        }
         return undefined;
     }
     get I() {
         if ('minute' in this.value) {
             return this.minute().toString();
+        }
+        else if (this.hasFullDate) {
+            return '0';
         }
         return undefined;
     }
@@ -553,11 +585,17 @@ export class bbnDt {
             const s = parseInt(this.second().toString());
             return s < 10 ? '0' + s.toString() : s.toString();
         }
+        else if (this.hasFullDate) {
+            return '00';
+        }
         return undefined;
     }
     get S() {
         if ('second' in this.value) {
             return this.second().toString();
+        }
+        else if (this.hasFullDate) {
+            return '0';
         }
         return undefined;
     }
