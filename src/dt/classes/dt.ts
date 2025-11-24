@@ -271,7 +271,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       other = bbn.dt(other, null, this.kind) as TValue;
     }
     
-    return bbnDt.compare(this.value, other.value as bbnDtTemporal, unit);
+    return bbnDt.compare(this, other, unit);
   }
 
   add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any> {

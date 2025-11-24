@@ -216,7 +216,7 @@ export class bbnDt {
         if (!(other instanceof bbnDt)) {
             other = bbn.dt(other, null, this.kind);
         }
-        return bbnDt.compare(this.value, other.value, unit);
+        return bbnDt.compare(this, other, unit);
     }
     add(amount, unit) {
         if (!this.value) {
