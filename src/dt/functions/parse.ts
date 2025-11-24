@@ -26,13 +26,7 @@ export default function parse(
     weekdaysLong?: string[];
     weekdaysShort?: string[];
   }
-):
-  | bbnDtZoned
-  | bbnDtDateTime
-  | bbnDtDate
-  | bbnDtTime
-  | bbnDtYearMonth
-  | bbnDtMonthDay
+): bbnDt<any>
 {
   buildLocaleFromIntl();
   const TemporalAny = (globalThis as any).Temporal;
