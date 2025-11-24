@@ -814,11 +814,17 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
     let v: any = this.value;
 
-    const zeroTime = (obj: any) =>
-      obj.with({
-        hour: 0, minute: 0, second: 0,
-        millisecond: 0, microsecond: 0, nanosecond: 0,
-      });
+    const zeroTime = (obj: any) => {
+      const change = {};
+      if ('hour' in obj) {
+        Object.assign(change, {
+          hour: 0, minute: 0, second: 0,
+          millisecond: 0, microsecond: 0, nanosecond: 0,
+        });
+        return obj.with(change);
+      }
+      return obj;
+    }
 
     switch (u) {
       case 'y':
