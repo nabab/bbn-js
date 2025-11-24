@@ -45,6 +45,21 @@ class bbnDtTime extends bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDtTime_value, "f");
     }
+    ftime(withSeconds = false) {
+        if (!this.value) {
+            return '';
+        }
+        const date = new Date(2000, 1, 1, this.hour(), this.minute(), this.second());
+        const opt = {
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        if (withSeconds) {
+            opt.second = '2-digit';
+        }
+        const t = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return t.format(date);
+    }
 }
 _bbnDtTime_value = new WeakMap();
 export default bbnDtTime;

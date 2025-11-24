@@ -38,4 +38,18 @@ export default class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay>
     return this.#value;
   }
 
+  fdate(long: boolean = false, withTime: boolean = false, weekday: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    const date = new Date(2000, (this.month() as number) - 1, this.day() as number);
+    const opt: Intl.DateTimeFormatOptions = {
+      month: long ? 'long' : 'numeric',
+      day: 'numeric'
+    };
+    const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return d.format(date);
+  }
+
 };

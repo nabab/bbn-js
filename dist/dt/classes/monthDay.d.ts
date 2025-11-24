@@ -6,4 +6,5 @@ export default class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay> {
     readonly kind: BbnDtKind;
     constructor(m?: any, d?: number);
     get value(): Temporal.PlainMonthDay;
+    fdate(long?: boolean, withTime?: boolean, weekday?: boolean): string;
 }

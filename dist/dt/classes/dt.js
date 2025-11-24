@@ -5,6 +5,8 @@ import { unitsCorrespondence, formatsMap } from '../vars/units.js';
 import each from '../../fn/loop/each.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
+import parse from '../functions/parse.js';
+import camelToCss from '../../fn/string/camelToCss.js';
 export class bbnDt {
     static compare(a, b, unit) {
         if (!a || !b) {
@@ -28,6 +30,12 @@ export class bbnDt {
         // If `unit` is invalid for this Temporal type, this will throw RangeError
         const diff = a.until(b, { largestUnit: unit });
         return diff.sign; // -1 / 0 / 1
+    }
+    static parse(input, format, cls = 'auto', locale) {
+        return parse(input, format, cls, locale);
+    }
+    parse(input, format) {
+        return bbnDt.parse(input, format, camelToCss(this.kind));
     }
     compare(other, unit) {
         if (!(other instanceof bbnDt)) {
@@ -185,14 +193,47 @@ export class bbnDt {
         }
         return this.value.second;
     }
-    weekday() {
+    weekday(v, past) {
         if (!this.value) {
             return undefined;
         }
         if (!('dayOfWeek' in this.value)) {
             throw new Error('weekday() is not supported for this type');
         }
+        if ((v !== undefined) && !(v instanceof Event)) {
+            return this.setWeekday(v, past);
+        }
         return this.value.dayOfWeek;
+    }
+    date(v) {
+        if (!this.value) {
+            return undefined;
+        }
+        if (!('year' in this.value) || !('month' in this.value) || !('day' in this.value)) {
+            throw new Error('date() is not supported for this type');
+        }
+        return this.parse(v, 'Y-m-d');
+    }
+    datetime(v) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+            return this.parse(v, 'Y-m-d H:i:s');
+        }
+        return this.format('Y-m-d H:i:s');
+    }
+    time(v) {
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+            return this.parse(v, 'H:i:s');
+        }
+        return this.format('H:i:s');
+    }
+    week() {
+        if (!this.value) {
+            return undefined;
+        }
+        if (!('weekOfYear' in this.value)) {
+            throw new Error('week() is not supported for this type');
+        }
+        return this.value.weekOfYear;
     }
     get YYYY() {
         if ('year' in this.value) {

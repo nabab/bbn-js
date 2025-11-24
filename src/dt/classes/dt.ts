@@ -6,6 +6,8 @@ import { unitsCorrespondence, formatsMap } from '../vars/units.js';
 import each from '../../fn/loop/each.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
+import parse from '../functions/parse.js';
+import camelToCss from '../../fn/string/camelToCss.js';
 
 
 export abstract class bbnDt<TValue extends BbnDtTemporal> {
@@ -40,6 +42,25 @@ export abstract class bbnDt<TValue extends BbnDtTemporal> {
     const diff = a.until(b, { largestUnit: unit });
 
     return diff.sign; // -1 / 0 / 1
+  }
+
+  static parse(
+    input: string,
+    format: string | string[],
+    cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto',
+    locale?: {
+      monthsLong?: string[];
+      monthsShort?: string[];
+      weekdaysLong?: string[];
+      weekdaysShort?: string[];
+    }
+  ): bbnDt<any>
+  {
+    return parse(input, format, cls, locale);
+  }
+
+  parse(input: string, format: string): bbnDt<any> {
+    return bbnDt.parse(input, format, camelToCss(this.kind)) as bbnDt<TValue>;
   }
 
   compare(other: any, unit?: string): -1 | 0 | 1 {
@@ -239,7 +260,7 @@ export abstract class bbnDt<TValue extends BbnDtTemporal> {
     return (this.value as any).second;
   }
 
-  weekday(): number {
+  weekday(v?: any, past?: any): number | TValue {
     if (!this.value) {
       return undefined;
     }
@@ -248,7 +269,51 @@ export abstract class bbnDt<TValue extends BbnDtTemporal> {
       throw new Error('weekday() is not supported for this type');
     }
 
+    if ((v !== undefined) && !(v instanceof Event)) {
+      return this.setWeekday(v, past);
+    }
+
     return (this.value as any).dayOfWeek;
+  }
+
+  date(v?: any): string | bbnDt<any> {
+    if (!this.value) {
+      return undefined;
+    }
+
+    if (!('year' in this.value) || !('month' in this.value) || !('day' in this.value)) {
+      throw new Error('date() is not supported for this type');
+    }
+
+    return this.parse(v, 'Y-m-d');
+  }
+  
+  datetime(v?: any): string | bbnDt<any> {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+      return this.parse(v, 'Y-m-d H:i:s');
+    }
+
+    return this.format('Y-m-d H:i:s');
+  }
+
+  time(v?: any): string | bbnDt<any> {
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+      return this.parse(v, 'H:i:s');
+    }
+
+    return this.format('H:i:s');
+  }
+
+  week(): number {
+    if (!this.value) {
+      return undefined;
+    }
+
+    if (!('weekOfYear' in this.value)) {
+      throw new Error('week() is not supported for this type');
+    }
+
+    return (this.value as any).weekOfYear;
   }
 
   get YYYY(): string {

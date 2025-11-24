@@ -38,4 +38,21 @@ export default class bbnDtTime extends bbnDt<Temporal.PlainTime>
     return this.#value;
   }
 
+  ftime(withSeconds: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    const date = new Date(2000, 1, 1, this.hour() as number, this.minute() as number, this.second() as number);
+    const opt: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    if (withSeconds) {
+      opt.second = '2-digit';
+    }
+    const t = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return t.format(date);
+  }
+
 };

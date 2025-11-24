@@ -43,6 +43,18 @@ class bbnDtMonthDay extends bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDtMonthDay_value, "f");
     }
+    fdate(long = false, withTime = false, weekday = false) {
+        if (!this.value) {
+            return '';
+        }
+        const date = new Date(2000, this.month() - 1, this.day());
+        const opt = {
+            month: long ? 'long' : 'numeric',
+            day: 'numeric'
+        };
+        const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return d.format(date);
+    }
 }
 _bbnDtMonthDay_value = new WeakMap();
 export default bbnDtMonthDay;

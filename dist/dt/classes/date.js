@@ -43,6 +43,12 @@ class bbnDtDate extends bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDtDate_value, "f");
     }
+    fdate(long = false, weekday = false) {
+        const date = new Date(this.year(), this.month() - 1, this.day());
+        const opt = Object.assign({ year: 'numeric', month: long ? 'long' : 'numeric', day: 'numeric' }, (weekday ? { weekday: (long ? 'long' : 'short') } : {}));
+        const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return d.format(date);
+    }
 }
 _bbnDtDate_value = new WeakMap();
 export default bbnDtDate;

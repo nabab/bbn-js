@@ -35,4 +35,39 @@ export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
   get value() {
     return this.#value;
   }
+
+
+  fdate(long: boolean = false, withTime: boolean = false, weekday: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    const date = new Date(this.year() as number, (this.month() as number) - 1, this.day() as number, this.hour() as number, this.minute() as number, this.second() as number);
+    const opt: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: long ? 'long' : 'numeric',
+      day: 'numeric',
+      ...(weekday ? { weekday: (long ? 'long' : 'short') } : {}),
+      ...(withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit'} : {})  
+    };
+    const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return d.format(date);
+  }
+
+  ftime(withSeconds: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    const date = new Date(2000, 1, 1, this.hour() as number, this.minute() as number, this.second() as number);
+    const opt: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    if (withSeconds) {
+      opt.second = '2-digit';
+    }
+    const t = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return t.format(date);
+  }
 };

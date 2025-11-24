@@ -42,6 +42,30 @@ class bbnDtDateTime extends bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDtDateTime_value, "f");
     }
+    fdate(long = false, withTime = false, weekday = false) {
+        if (!this.value) {
+            return '';
+        }
+        const date = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), this.second());
+        const opt = Object.assign(Object.assign({ year: 'numeric', month: long ? 'long' : 'numeric', day: 'numeric' }, (weekday ? { weekday: (long ? 'long' : 'short') } : {})), (withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit' } : {}));
+        const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return d.format(date);
+    }
+    ftime(withSeconds = false) {
+        if (!this.value) {
+            return '';
+        }
+        const date = new Date(2000, 1, 1, this.hour(), this.minute(), this.second());
+        const opt = {
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        if (withSeconds) {
+            opt.second = '2-digit';
+        }
+        const t = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return t.format(date);
+    }
 }
 _bbnDtDateTime_value = new WeakMap();
 export default bbnDtDateTime;

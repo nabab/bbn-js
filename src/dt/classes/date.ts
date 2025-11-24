@@ -36,4 +36,17 @@ export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
   get value() {
     return this.#value;
   }
+
+  fdate(long: boolean = false, weekday: boolean = false): string {
+    const date = new Date(this.year() as number, (this.month() as number) - 1, this.day() as number);
+    const opt: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: long ? 'long' : 'numeric',
+      day: 'numeric',
+      ...(weekday ? { weekday: (long ? 'long' : 'short') } : {}),
+    };
+    const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return d.format(date);
+  }
+
 };

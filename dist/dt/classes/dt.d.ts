@@ -4,6 +4,13 @@ export declare abstract class bbnDt<TValue extends BbnDtTemporal> {
     abstract readonly kind: BbnDtKind;
     abstract get value(): TValue;
     static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
+    static parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
+        monthsLong?: string[];
+        monthsShort?: string[];
+        weekdaysLong?: string[];
+        weekdaysShort?: string[];
+    }): bbnDt<any>;
+    parse(input: string, format: string): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): TValue;
     subtract(amount: number | bbnDtDuration | object, unit?: string): TValue;
@@ -22,7 +29,11 @@ export declare abstract class bbnDt<TValue extends BbnDtTemporal> {
     hour(v?: any): number | TValue;
     minute(v?: any): number | TValue;
     second(v?: any): number | TValue;
-    weekday(): number;
+    weekday(v?: any, past?: any): number | TValue;
+    date(v?: any): string | bbnDt<any>;
+    datetime(v?: any): string | bbnDt<any>;
+    time(v?: any): string | bbnDt<any>;
+    week(): number;
     get YYYY(): string;
     get YY(): string;
     get MMMM(): string;

@@ -40,6 +40,18 @@ class bbnDtYearMonth extends bbnDt {
     get value() {
         return __classPrivateFieldGet(this, _bbnDtYearMonth_value, "f");
     }
+    fdate(long = false, withTime = false, weekday = false) {
+        if (!this.value) {
+            return '';
+        }
+        const date = new Date(this.year(), this.month() - 1);
+        const opt = {
+            year: 'numeric',
+            month: long ? 'long' : 'numeric',
+        };
+        const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+        return d.format(date);
+    }
 }
 _bbnDtYearMonth_value = new WeakMap();
 export default bbnDtYearMonth;

@@ -33,4 +33,18 @@ export default class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth>
   get value() {
     return this.#value;
   }
+
+  fdate(long: boolean = false, withTime: boolean = false, weekday: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    const date = new Date(this.year() as number, (this.month() as number) - 1);
+    const opt: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: long ? 'long' : 'numeric',
+    };
+    const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
+    return d.format(date);
+  }
 };
