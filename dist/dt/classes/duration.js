@@ -23,11 +23,12 @@ class bbnDtDuration {
         const ctx = [
             realUnit === 'y' ? value : 0,
             realUnit === 'm' ? value : 0,
+            realUnit === 'w' ? value : 0,
             realUnit === 'd' ? value : 0,
             realUnit === 'h' ? value : 0,
             realUnit === 'i' ? value : 0,
             realUnit === 's' ? value : 0,
-            ['y', 'm', 'd', 'h', 'i', 's'].includes(realUnit) ? 0 : value
+            ['y', 'm', 'w', 'd', 'h', 'i', 's'].includes(realUnit) ? 0 : value
         ];
         const dur = new Temporal.Duration(...ctx);
         return new bbnDtDuration(dur);
