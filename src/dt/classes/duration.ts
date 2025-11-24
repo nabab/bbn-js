@@ -37,7 +37,6 @@ export default class bbnDtDuration
       this.#value = new Temporal.Duration(
         (y as any).years || 0,
         (y as any).months || 0,
-        (y as any).weeks || 0,
         (y as any).days || 0,
         (y as any).hours || 0,
         (y as any).minutes || 0,
