@@ -8,6 +8,7 @@ import getRow from '../../fn/object/getRow.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
 import camelToCss from '../../fn/string/camelToCss.js';
+import parse from '../functions/parse.js';
 
 
 export abstract class bbnDt<TValue extends bbnDtTemporal> {
