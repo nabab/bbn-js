@@ -1,11 +1,15 @@
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
+import { BbnDtKind } from '../vars/types.js';
+import bbnDt from './dt.js';
 
-export default class bbnDtMonthDay
+export default class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay>
 {
   #value: Temporal.PlainMonthDay;
+  readonly kind: BbnDtKind = 'month-day';
 
   constructor(m?: any, d?: number) {
+    super();
     if (!m) {
       const d = new Date();
       this.#value = new Temporal.PlainMonthDay(d.getMonth() + 1, d.getDate());

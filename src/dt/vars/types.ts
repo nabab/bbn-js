@@ -14,5 +14,4 @@ export type BbnDtTemporal =
   | Temporal.PlainTime
   | Temporal.PlainYearMonth
   | Temporal.PlainMonthDay
-  | Temporal.ZonedDateTime
-  | Temporal.Instant; // in case you want a “raw instant” wrapper later
+  | Temporal.ZonedDateTime;

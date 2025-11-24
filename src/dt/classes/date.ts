@@ -32,10 +32,6 @@ export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
     const cmp = Temporal.PlainDate.compare(this.#value, other.value);
     return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0) as -1 | 0 | 1;
   }
-
-  year()  { return this.#value.year; }
-  month() { return this.#value.month; }
-  day()   { return this.#value.day; }
   
   get value() {
     return this.#value;

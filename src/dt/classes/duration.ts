@@ -1,5 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import {units, unitsCorrespondence} from '../vars/units';
+import {units, unitsCorrespondence} from '../vars/units.js';
 import getRow from '../../fn/object/getRow.js';
 
 const DURATION_RELATIVE_TO = Temporal.ZonedDateTime.from('1970-01-01T00:00Z[UTC]');
@@ -28,10 +28,24 @@ export default class bbnDtDuration
     return new bbnDtDuration(dur, 0, 0, 0, 0, 0, 0, realUnit as string);
   }
 
-  constructor(y: Temporal.Duration | number, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string)
+  constructor(y: Temporal.Duration | number | object, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string)
   {
     if (y instanceof Temporal.Duration) {
       this.#value = y;
+    }
+    else if (typeof y === 'object') {
+      this.#value = new Temporal.Duration(
+        (y as any).years || 0,
+        (y as any).months || 0,
+        (y as any).weeks || 0,
+        (y as any).days || 0,
+        (y as any).hours || 0,
+        (y as any).minutes || 0,
+        (y as any).seconds || 0,
+        (y as any).milliseconds || 0,
+        0,
+        0
+      );
     }
     else {
       this.#value = new Temporal.Duration(

@@ -1,10 +1,14 @@
 import { Temporal } from 'temporal-polyfill';
+import { BbnDtKind } from '../vars/types.js';
+import bbnDt from './dt.js';
 
 
-export default class bbnDtDateTime
+export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
 {
   #value: Temporal.PlainDateTime;
+  readonly kind: BbnDtKind = 'datetime';
   constructor(y?: any, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number) {
+    super();
     if (!y) {
       this.#value = Temporal.PlainDateTime.from(Temporal.Now.plainDateISO());
     }

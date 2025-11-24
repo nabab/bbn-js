@@ -1,16 +1,89 @@
+import { Temporal } from 'temporal-polyfill';
 import substr from '../../fn/string/substr.js';
 import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
 import { unitsCorrespondence, formatsMap } from '../vars/units.js';
 import each from '../../fn/loop/each.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
+import bbnDtDuration from './duration.js';
 export class bbnDt {
-    compare(other) {
-        if (this.kind !== other.kind) {
-            throw new Error(`Cannot compare ${this.kind} with ${other.kind} without timezone semantics`);
+    static compare(a, b, unit) {
+        if (!a || !b) {
+            throw new TypeError('Both arguments must be Temporal values');
         }
-        // TS sees other as bbnDtBase<any>, but at runtime kinds match,
-        // so a cast to this is safe.
-        return this.compareSameKind(other);
+        if (a.constructor !== b.constructor) {
+            throw new TypeError('Cannot compare different Temporal types');
+        }
+        const Ctor = a.constructor;
+        // No unit → delegate to the built-in static compare
+        if (unit === undefined) {
+            if (typeof Ctor.compare !== 'function') {
+                throw new TypeError('This Temporal type has no static compare');
+            }
+            return Ctor.compare(a, b); // -1, 0, 1
+        }
+        // With unit → use .until() and let Temporal validate the unit
+        if (typeof a.until !== 'function') {
+            throw new TypeError('This Temporal type does not support until/since');
+        }
+        // If `unit` is invalid for this Temporal type, this will throw RangeError
+        const diff = a.until(b, { largestUnit: unit });
+        return diff.sign; // -1 / 0 / 1
+    }
+    compare(other, unit) {
+        if (!(other instanceof bbnDt)) {
+            other = bbn.dt(other, this.kind);
+        }
+        return bbnDt.compare(this.value, other.value, unit);
+    }
+    add(amount, unit) {
+        if (!this.value) {
+            return undefined;
+        }
+        if (this.value instanceof Temporal.PlainMonthDay || typeof this.value.add !== 'function') {
+            throw new TypeError('This Temporal type does not support add/subtract');
+        }
+        if (amount instanceof bbnDtDuration) {
+            const d = this.value.add(amount.value);
+            return new this.constructor(d);
+        }
+        else if (typeof amount === 'object') {
+            const dur = new bbnDtDuration(amount);
+            const d = this.value.add(dur.value);
+            return new this.constructor(d);
+        }
+        else {
+            if (!unit) {
+                throw new Error('Unit must be specified when adding a number');
+            }
+            const dur = bbnDtDuration.fromUnit(amount, unit);
+            const d = this.value.add(dur.value);
+            return new this.constructor(d);
+        }
+    }
+    subtract(amount, unit) {
+        if (!this.value) {
+            return undefined;
+        }
+        if (this.value instanceof Temporal.PlainMonthDay || typeof this.value.subtract !== 'function') {
+            throw new TypeError('This Temporal type does not support add/subtract');
+        }
+        if (amount instanceof bbnDtDuration) {
+            const d = this.value.subtract(amount.value);
+            return new this.constructor(d);
+        }
+        else if (typeof amount === 'object') {
+            const dur = new bbnDtDuration(amount);
+            const d = this.value.subtract(dur.value);
+            return new this.constructor(d);
+        }
+        else {
+            if (!unit) {
+                throw new Error('Unit must be specified when adding a number');
+            }
+            const dur = bbnDtDuration.fromUnit(amount, unit);
+            const d = this.value.subtract(dur.value);
+            return new this.constructor(d);
+        }
     }
     isBefore(other) {
         return this.compare(other) < 0;

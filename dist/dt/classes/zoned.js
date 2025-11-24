@@ -12,9 +12,12 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var _bbnDtZoned_value;
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
-class bbnDtZoned {
+import bbnDt from './dt.js';
+class bbnDtZoned extends bbnDt {
     constructor(z, y, m, d, h, i, s, ms) {
+        super();
         _bbnDtZoned_value.set(this, void 0);
+        this.kind = 'zoned';
         if (!z) {
             const date = new Date();
             __classPrivateFieldSet(this, _bbnDtZoned_value, new Temporal.ZonedDateTime(BigInt(date.getTime() * 1000000), Intl.DateTimeFormat().resolvedOptions().timeZone), "f");

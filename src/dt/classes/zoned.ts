@@ -1,11 +1,15 @@
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
+import { BbnDtKind } from '../vars/types.js';
+import bbnDt from './dt.js';
 
 
-export default class bbnDtZoned
+export default class bbnDtZoned extends bbnDt<Temporal.ZonedDateTime>
 {
   #value: Temporal.ZonedDateTime;
+  readonly kind: BbnDtKind = 'zoned';
   constructor(z?: any, y?: any, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number) {
+    super();
     if (!z) {
       const date = new Date();
       this.#value = new Temporal.ZonedDateTime(BigInt(date.getTime() * 1000000), Intl.DateTimeFormat().resolvedOptions().timeZone);

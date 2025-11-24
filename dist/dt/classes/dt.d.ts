@@ -1,15 +1,12 @@
 import { BbnDtKind, BbnDtTemporal } from '../vars/types.js';
+import bbnDtDuration from './duration.js';
 export declare abstract class bbnDt<TValue extends BbnDtTemporal> {
     abstract readonly kind: BbnDtKind;
     abstract get value(): TValue;
-    /**
-     * Subclasses implement how to compare two values of the *same kind*.
-     * Base class does not try to mix date vs time etc.
-     */
-    protected abstract compareSameKind(other: this): -1 | 0 | 1;
-    abstract add(value: number, unit: string): TValue;
-    abstract subtract(value: number, unit: string): TValue;
-    compare(other: bbnDt<any>): -1 | 0 | 1;
+    static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
+    compare(other: any, unit?: string): -1 | 0 | 1;
+    add(amount: number | bbnDtDuration | object, unit?: string): TValue;
+    subtract(amount: number | bbnDtDuration | object, unit?: string): TValue;
     isBefore(other: bbnDt<any>): boolean;
     isAfter(other: bbnDt<any>): boolean;
     isSame(other: bbnDt<any>): boolean;

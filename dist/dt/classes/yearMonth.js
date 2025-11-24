@@ -11,9 +11,12 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _bbnDtYearMonth_value;
 import { Temporal } from 'temporal-polyfill';
-class bbnDtYearMonth {
+import { bbnDt } from './dt.js';
+class bbnDtYearMonth extends bbnDt {
     constructor(y, m) {
+        super();
         _bbnDtYearMonth_value.set(this, void 0);
+        this.kind = 'year-month';
         if (!y) {
             const d = new Date();
             __classPrivateFieldSet(this, _bbnDtYearMonth_value, new Temporal.PlainYearMonth(d.getFullYear(), d.getMonth() + 1), "f");

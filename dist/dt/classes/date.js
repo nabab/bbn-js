@@ -40,9 +40,6 @@ class bbnDtDate extends bbnDt {
         const cmp = Temporal.PlainDate.compare(__classPrivateFieldGet(this, _bbnDtDate_value, "f"), other.value);
         return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0);
     }
-    year() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").year; }
-    month() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").month; }
-    day() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").day; }
     get value() {
         return __classPrivateFieldGet(this, _bbnDtDate_value, "f");
     }

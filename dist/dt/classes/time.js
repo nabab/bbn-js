@@ -11,9 +11,12 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _bbnDtTime_value;
 import { Temporal } from 'temporal-polyfill';
-class bbnDtTime {
+import bbnDt from './dt.js';
+class bbnDtTime extends bbnDt {
     constructor(h, i, s, ms) {
+        super();
         _bbnDtTime_value.set(this, void 0);
+        this.kind = 'time';
         if (!h) {
             const d = new Date();
             __classPrivateFieldSet(this, _bbnDtTime_value, new Temporal.PlainTime(d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds() * 1000000), "f");
