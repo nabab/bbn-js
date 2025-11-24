@@ -69,15 +69,129 @@ interface BbnEnv {
 
 
 declare namespace Temporal {
-  class PlainDate {}
-  class PlainTime {}
-  class PlainDateTime {}
-  class ZonedDateTime {}
-  class Instant {}
-  class PlainYearMonth {}
-  class PlainMonthDay {}
-}
+  class PlainDate {
+    year: number;
+    month: number;
+    day: number;
+    dayOfWeek: number;
+    calendar: any;
 
+    toPlainDateTime(time: PlainTime): PlainDateTime;
+
+    with(fields: any): PlainDate;
+    add(durationLike: any): PlainDate;
+    subtract(durationLike: any): PlainDate;
+    toString(): string;
+    toLocaleString(
+      locales?: string | string[],
+      options?: Intl.DateTimeFormatOptions
+    ): string;
+  }
+
+  class PlainTime {
+    with(fields: any): PlainTime;
+    add(durationLike: any): PlainTime;
+    subtract(durationLike: any): PlainTime;
+    toString(): string;
+    toLocaleString(
+      locales?: string | string[],
+      options?: Intl.DateTimeFormatOptions
+    ): string;
+  }
+
+  class PlainDateTime {
+    toPlainDate(): PlainDate;
+    toPlainTime(): PlainTime;
+
+    with(fields: any): PlainDateTime;
+    add(durationLike: any): PlainDateTime;
+    subtract(durationLike: any): PlainDateTime;
+    toString(): string;
+    toLocaleString(
+      locales?: string | string[],
+      options?: Intl.DateTimeFormatOptions
+    ): string;
+  }
+
+  class ZonedDateTime {
+    // NOTE: static from(...) is where we do the "attach time zone" work
+    static from(
+      isoOrProps:
+        | string
+        | {
+            timeZone: string;
+            plainDateTime?: PlainDateTime;
+            plainDate?: PlainDate;
+            plainTime?: PlainTime;
+            year?: number;
+            month?: number;
+            day?: number;
+            hour?: number;
+            minute?: number;
+            second?: number;
+            millisecond?: number;
+            microsecond?: number;
+            nanosecond?: number;
+          }
+    ): ZonedDateTime;
+
+    toInstant(): Instant;
+    toPlainDateTime(): PlainDateTime;
+    toPlainDate(): PlainDate;
+    toPlainTime(): PlainTime;
+
+    with(fields: any): ZonedDateTime;
+    add(durationLike: any): ZonedDateTime;
+    subtract(durationLike: any): ZonedDateTime;
+    toString(): string;
+    toLocaleString(
+      locales?: string | string[],
+      options?: Intl.DateTimeFormatOptions
+    ): string;
+
+    readonly timeZoneId: string;
+  }
+
+  class Instant {
+    readonly epochMilliseconds: number;
+
+    add(durationLike: any): Instant;
+    subtract(durationLike: any): Instant;
+    toString(): string;
+  }
+
+  class PlainYearMonth {
+    year: number;
+    month: number;
+    calendar: any;
+
+    toPlainDate(day: number): PlainDate;
+    with(fields: any): PlainYearMonth;
+    add(durationLike: any): PlainYearMonth;
+    subtract(durationLike: any): PlainYearMonth;
+    toString(): string;
+  }
+
+  class PlainMonthDay {
+    month: number;
+    day: number;
+    calendar: any;
+
+    toPlainDate(year: number): PlainDate;
+    with(fields: any): PlainMonthDay;
+    add(durationLike: any): PlainMonthDay;
+    subtract(durationLike: any): PlainMonthDay;
+    toString(): string;
+  }
+
+  namespace Now {
+    function timeZoneId(): string;
+    function zonedDateTimeISO(): ZonedDateTime;
+    function plainDateISO(): PlainDate;
+    function plainTimeISO(): PlainTime;
+    function plainDateTimeISO(): PlainDateTime;
+  }
+}
 
 declare global {
   function parse(

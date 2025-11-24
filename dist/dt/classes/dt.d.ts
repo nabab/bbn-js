@@ -1,3 +1,4 @@
+import { Temporal } from 'temporal-polyfill';
 import { bbnDtTemporal } from '../vars/types.js';
 import bbnDtDuration from './duration.js';
 export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
@@ -5,6 +6,29 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     abstract readonly kind: bbnDtKind;
     constructor(value?: TValue);
     get value(): TValue | undefined;
+    /** System time zone ID (e.g. "Europe/Rome") */
+    private static readonly systemTimeZoneId;
+    /**
+     * Convert this.value (PlainDate, PlainTime, PlainDateTime, YearMonth,
+     * MonthDay, ZonedDateTime) into epoch milliseconds, using the system
+     * time zone when needed.
+     *
+     * Conventions:
+     *  - time       → today at that time in system tz
+     *  - date       → that date at 00:00 in system tz
+     *  - year-month → first of that month at 00:00 in system tz
+     *  - month-day  → that month/day in *this year* at 00:00 in system tz
+     */
+    protected toEpochMs(): number;
+    /**
+     * "Now" value in the same *kind* as this instance.
+     */
+    protected static nowForKind(kind: bbnDtKind): Temporal.PlainDate | Temporal.PlainTime | Temporal.PlainDateTime | Temporal.PlainYearMonth | Temporal.PlainMonthDay | Temporal.ZonedDateTime;
+    /**
+     * Helper to rebuild the same concrete subclass with a new Temporal value.
+     * Assumes your subclass constructor takes the value as first argument.
+     */
+    protected withValue(newValue: any): this;
     static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
     static parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
         monthsLong?: string[];
@@ -17,7 +41,9 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     isBefore(other: any): boolean;
+    isBeforeOrSame(other: any): boolean;
     isAfter(other: any): boolean;
+    isAfterOrSame(other: any): boolean;
     isSame(other: any): boolean;
     equals(other: any): boolean;
     toJSON(): {
@@ -68,5 +94,11 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
      * @param {string} [locale] - Optional locale for weekday names.
      */
     setWeekday(weekday: number | string, past?: boolean, locale?: string): bbnDt<any>;
+    diff(date: any, unit?: string, abs?: boolean): number;
+    guessUnit(valueInMs: number): string | null;
+    fromNow(unit?: string): string;
+    fromDate(date: any, unit?: string): string;
+    startOf(unit?: string): bbnDt<any>;
+    endOf(unit?: string): bbnDt<any>;
 }
 export default bbnDt;

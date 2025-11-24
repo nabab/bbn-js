@@ -1,9 +1,11 @@
 import { Temporal } from 'temporal-polyfill';
 import { bbnDtTemporal } from '../vars/types.js';
-import substr from '../../fn/string/substr.js';
 import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
-import { unitsCorrespondence, formatsMap } from '../vars/units.js';
+import { unitsCorrespondence, units, formatsMap } from '../vars/units.js';
+import _ from '../../_.js';
+import substr from '../../fn/string/substr.js';
 import each from '../../fn/loop/each.js';
+import getRow from '../../fn/object/getRow.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
 import camelToCss from '../../fn/string/camelToCss.js';
@@ -13,6 +15,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   abstract readonly kind: bbnDtKind;
 
   #value: TValue | undefined;
+
   constructor(value?: TValue) {
     this.#value = value;
   }
@@ -20,6 +23,120 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   get value(): TValue | undefined {
     return this.#value;
   };
+
+  /** System time zone ID (e.g. "Europe/Rome") */
+  private static readonly systemTimeZoneId = Temporal.Now.timeZoneId();
+
+  /**
+   * Convert this.value (PlainDate, PlainTime, PlainDateTime, YearMonth,
+   * MonthDay, ZonedDateTime) into epoch milliseconds, using the system
+   * time zone when needed.
+   *
+   * Conventions:
+   *  - time       → today at that time in system tz
+   *  - date       → that date at 00:00 in system tz
+   *  - year-month → first of that month at 00:00 in system tz
+   *  - month-day  → that month/day in *this year* at 00:00 in system tz
+   */
+  protected toEpochMs(): number {
+    const tz = bbnDt.systemTimeZoneId;
+
+    switch (this.kind) {
+      case 'zoned': {
+        const v = this.value as unknown as Temporal.ZonedDateTime;
+        return v.toInstant().epochMilliseconds;
+      }
+
+      case 'datetime': {
+        const v = this.value as unknown as Temporal.PlainDateTime;
+        // RFC 9557 string: "YYYY-MM-DDTHH:mm:ss[Europe/Rome]"
+        const iso = `${v.toString()}[${tz}]`;
+        const zdt = Temporal.ZonedDateTime.from(iso);
+        return zdt.toInstant().epochMilliseconds;
+      }
+
+      case 'date': {
+        const d = this.value as unknown as Temporal.PlainDate;
+        // "YYYY-MM-DDT00:00[Europe/Rome]"
+        const iso = `${d.toString()}T00:00[${tz}]`;
+        const zdt = Temporal.ZonedDateTime.from(iso);
+        return zdt.toInstant().epochMilliseconds;
+      }
+
+      case 'time': {
+        const t = this.value as unknown as Temporal.PlainTime;
+        const today = Temporal.Now.plainDateISO();
+        // "YYYY-MM-DDTHH:mm[:ss][Europe/Rome]"
+        const iso = `${today.toString()}T${t.toString()}[${tz}]`;
+        const zdt = Temporal.ZonedDateTime.from(iso);
+        return zdt.toInstant().epochMilliseconds;
+      }
+
+      case 'year-month': {
+        const ym = this.value as unknown as Temporal.PlainYearMonth;
+        const d = ym.toPlainDate({day: 1}); // first day of month
+        const iso = `${d.toString()}T00:00[${tz}]`;
+        const zdt = Temporal.ZonedDateTime.from(iso);
+        return zdt.toInstant().epochMilliseconds;
+      }
+
+      case 'month-day': {
+        const md = this.value as unknown as Temporal.PlainMonthDay;
+        const today = Temporal.Now.plainDateISO();
+        const d = md.toPlainDate({year: today.year}); // current year
+        const iso = `${d.toString()}T00:00[${tz}]`;
+        const zdt = Temporal.ZonedDateTime.from(iso);
+        return zdt.toInstant().epochMilliseconds;
+      }
+
+      default:
+        throw new Error(`Unsupported kind '${this.kind}' in toEpochMs`);
+    }
+  }
+
+  /**
+   * "Now" value in the same *kind* as this instance.
+   */
+  protected static nowForKind(
+    kind: bbnDtKind,
+  ):
+    | Temporal.PlainDate
+    | Temporal.PlainTime
+    | Temporal.PlainDateTime
+    | Temporal.PlainYearMonth
+    | Temporal.PlainMonthDay
+    | Temporal.ZonedDateTime {
+
+    switch (kind) {
+      case 'zoned':
+        return Temporal.Now.zonedDateTimeISO();
+      case 'datetime':
+        return Temporal.Now.plainDateTimeISO();
+      case 'date':
+        return Temporal.Now.plainDateISO();
+      case 'time':
+        return Temporal.Now.plainTimeISO();
+      case 'year-month': {
+        const d = Temporal.Now.plainDateISO();
+        return new Temporal.PlainYearMonth(d.year, d.month);
+      }
+      case 'month-day': {
+        const d = Temporal.Now.plainDateISO();
+        return new Temporal.PlainMonthDay(d.month, d.day, undefined, d.year);
+      }
+      default:
+        throw new Error(`Unsupported kind '${kind}' in nowForKind`);
+    }
+  }
+
+  /**
+   * Helper to rebuild the same concrete subclass with a new Temporal value.
+   * Assumes your subclass constructor takes the value as first argument.
+   */
+  protected withValue(newValue: any): this {
+    const Ctor = this.constructor as new (...args: any[]) => this;
+    return new Ctor(newValue);
+  }
 
   static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1 {
     if (!a || !b) {
@@ -139,8 +256,16 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return this.compare(other) < 0;
   }
 
+  isBeforeOrSame(other: any): boolean {
+    return this.compare(other) <= 0;
+  }
+
   isAfter(other: any): boolean {
     return this.compare(other) > 0;
+  }
+
+  isAfterOrSame(other: any): boolean {
+    return this.compare(other) >= 0;
   }
 
   isSame(other: any): boolean {
@@ -564,6 +689,323 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return this.add(diff, 'd');
   }
 
+  diff(date: any, unit: string = '', abs: boolean = false): number {
+    let targetMs: number;
+
+    if (date instanceof bbnDt) {
+      targetMs = (date as bbnDt<any>).toEpochMs();
+    }
+    else if (
+      date instanceof Temporal.ZonedDateTime ||
+      date instanceof Temporal.PlainDateTime ||
+      date instanceof Temporal.PlainDate ||
+      date instanceof Temporal.PlainTime ||
+      date instanceof Temporal.PlainYearMonth ||
+      date instanceof Temporal.PlainMonthDay
+    ) {
+      // Wrap it in a temporary bbnDt-like shim to reuse toEpochMs logic;
+      // or write a small standalone helper similar to toEpochMs(kind, value).
+      const temp = { kind: this.kind, value: date } as any as bbnDt<any>;
+      targetMs = temp.toEpochMs();
+    }
+    else if (typeof date === 'string' || typeof date === 'number') {
+      // Reuse your parse API: parse into same kind as `this`
+      const parsed = this.parse(String(date), ''); // format depends on your API
+      targetMs = parsed.toEpochMs();
+    }
+    else {
+      throw new TypeError('Unsupported date argument for diff');
+    }
+
+    const nowMs = this.toEpochMs();
+    let diff = nowMs - targetMs;
+    if (abs) {
+      diff = Math.abs(diff);
+    }
+
+    if (!unit) {
+      return diff;
+    }
+
+    const realUnit = unitsCorrespondence[unit] || unit;
+    const match = getRow(units, d => d[0] === realUnit);
+    if (!match) {
+      throw new Error('Invalid unit for diff: ' + unit);
+    }
+
+    const [, , ms] = match; // [shortUnit, rtfUnit, ms]
+    return Math.round(diff / ms);
+  }  
+
+  guessUnit(valueInMs: number): string | null {
+    const absDiff = Math.abs(valueInMs);
+    for (const [shortUnit, rtfUnit, ms] of units) {
+      if ((absDiff >= ms) || (rtfUnit === 'second')) {
+        return shortUnit;
+      }
+    }
+    return null;
+  }
+
+  fromNow(unit: string = '') {
+    const nowValue = bbnDt.nowForKind(this.kind);
+    const temp = { kind: this.kind, value: nowValue } as any as bbnDt<any>;
+
+    const rawDiffMs = this.diff(temp);
+    const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
+    if (!chosenUnit) {
+      throw new Error('Cannot guess unit for fromNow');
+    }
+
+    const diff = this.diff(temp, chosenUnit);
+    const rtf = new Intl.RelativeTimeFormat(
+      [bbn.env.lang, ...navigator.languages],
+      { numeric: 'auto' }
+    );
+
+    const match = getRow(units, d => d[0] === chosenUnit);
+    if (!match) {
+      throw new Error('Invalid unit for fromNow: ' + unit);
+    }
+
+    const [, rtfUnit] = match; // [shortUnit, rtfUnit, ms]
+    return rtf.format(diff, rtfUnit);
+  }
+
+  fromDate(date: any, unit: string = '') {
+    const rawDiffMs = this.diff(date);
+    const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
+    if (!chosenUnit) {
+      throw new Error('Cannot guess unit for fromDate');
+    }
+
+    const diff = this.diff(date, chosenUnit);
+    const u = chosenUnit; // text unit, you may want a label here
+
+    return diff > 0
+      ? _('%d %s before', diff, u)
+      : diff < 0
+        ? _('%d %s after', -diff, u)
+        : _('The same %s', u);
+  }
+
+  startOf(unit = 'd'): bbnDt<any> {
+    const u = unitsCorrespondence[unit] || unit;
+    if (!u) {
+      throw new Error('Invalid unit for startOf: ' + unit);
+    }
+
+    let v: any = this.value;
+
+    const zeroTime = (obj: any) =>
+      obj.with({
+        hour: 0, minute: 0, second: 0,
+        millisecond: 0, microsecond: 0, nanosecond: 0,
+      });
+
+    switch (u) {
+      case 'y':
+        if (!('year' in v)) {
+          throw new Error('startOf("y") only valid for year-based types');
+        }
+        v = zeroTime(v.with({ month: 1, day: 1 }));
+        break;
+
+      case 'm':
+        if (!('month' in v)) {
+          throw new Error('startOf("m") only valid for month-based types');
+        }
+        v = zeroTime(v.with({ day: 1 }));
+        break;
+
+      case 'w': {
+        // ISO dayOfWeek: 1 (Mon) .. 7 (Sun)
+        const d = ('toPlainDate' in v) ? v.toPlainDate() : v;
+        const dow = d.dayOfWeek; // 1..7
+        const diffToMonday = dow - 1; // 0 for Monday
+        const newDate = d.subtract({ days: diffToMonday });
+        if ('toPlainDateTime' in v) {
+          v = zeroTime(newDate.toPlainDateTime(v.toPlainTime?.() ?? Temporal.PlainTime.from('00:00')));
+        } else {
+          v = newDate; // PlainDate case
+        }
+        break;
+      }
+
+      case 'd':
+        v = zeroTime(v);
+        break;
+
+      case 'h':
+        v = v.with({ minute: 0, second: 0, millisecond: 0, microsecond: 0, nanosecond: 0 });
+        break;
+
+      case 'i':
+        v = v.with({ second: 0, millisecond: 0, microsecond: 0, nanosecond: 0 });
+        break;
+
+      case 's':
+        v = v.with({ millisecond: 0, microsecond: 0, nanosecond: 0 });
+        break;
+
+      default:
+        throw new Error('Invalid unit for startOf: ' + unit);
+    }
+
+    return this.withValue(v);
+  }
+
+  endOf(unit: string = "d"): bbnDt<any> {
+    const tz = Temporal.Now.timeZoneId();
+    const u = unitsCorrespondence[unit] || unit;
+
+    // 1. Convert current value to a ZonedDateTime (using your conventions)
+    const toZdt = (v: Temporal.PlainDate | Temporal.PlainTime | Temporal.PlainDateTime | any) => {
+      switch (this.kind) {
+        case "zoned":
+          return (this.value as Temporal.ZonedDateTime);
+
+        case "datetime": {
+          const pdt = this.value as Temporal.PlainDateTime;
+          const iso = `${pdt.toString()}[${tz}]`;
+          return Temporal.ZonedDateTime.from(iso);
+        }
+
+        case "date": {
+          const d = this.value as Temporal.PlainDate;
+          const iso = `${d.toString()}T00:00[${tz}]`;
+          return Temporal.ZonedDateTime.from(iso);
+        }
+
+        case "time": {
+          const t = this.value as Temporal.PlainTime;
+          const today = Temporal.Now.plainDateISO();
+          const iso = `${today.toString()}T${t.toString()}[${tz}]`;
+          return Temporal.ZonedDateTime.from(iso);
+        }
+
+        case "year-month": {
+          const ym = this.value as Temporal.PlainYearMonth;
+          const d = ym.toPlainDate({day: 1});
+          const iso = `${d.toString()}T00:00[${tz}]`;
+          return Temporal.ZonedDateTime.from(iso);
+        }
+
+        case "month-day": {
+          const md = this.value as Temporal.PlainMonthDay;
+          const today = Temporal.Now.plainDateISO();
+          const d = md.toPlainDate({year: today.year});
+          const iso = `${d.toString()}T00:00[${tz}]`;
+          return Temporal.ZonedDateTime.from(iso);
+        }
+
+        default:
+          throw new Error("Unsupported kind in endOf");
+      }
+    };
+
+    let zdt = toZdt(this.value);
+
+    // 2. compute start of next unit
+    let next: Temporal.ZonedDateTime;
+
+    switch (u) {
+      case "y": {
+        next = zdt.with({ month: 1, day: 1, hour: 0, minute: 0, second: 0,
+                          millisecond: 0, microsecond: 0, nanosecond: 0 })
+          .add({ years: 1 });
+        break;
+      }
+
+      case "m": {
+        next = zdt.with({ day: 1, hour: 0, minute: 0, second: 0,
+                          millisecond: 0, microsecond: 0, nanosecond: 0 })
+          .add({ months: 1 });
+        break;
+      }
+
+      case "w": {
+        // ISO week: Monday = 1, Sunday = 7
+        const dow = zdt.toPlainDate().dayOfWeek;
+        const diffToMonday = -(dow - 1);
+        const weekStart = zdt.add({ days: diffToMonday }).with({
+          hour: 0, minute: 0, second: 0,
+          millisecond: 0, microsecond: 0, nanosecond: 0
+        });
+        next = weekStart.add({ weeks: 1 });
+        break;
+      }
+
+      case "d": {
+        next = zdt
+          .with({
+            hour: 0, minute: 0, second: 0,
+            millisecond: 0, microsecond: 0, nanosecond: 0
+          })
+          .add({ days: 1 });
+        break;
+      }
+
+      case "h": {
+        next = zdt.with({
+          minute: 0, second: 0,
+          millisecond: 0, microsecond: 0, nanosecond: 0
+        }).add({ hours: 1 });
+        break;
+      }
+
+      case "i": // minute
+      case "n": // minute alternative?
+      case "min": {
+        next = zdt.with({
+          second: 0,
+          millisecond: 0, microsecond: 0, nanosecond: 0
+        }).add({ minutes: 1 });
+        break;
+      }
+
+      case "s": {
+        next = zdt.with({
+          millisecond: 0, microsecond: 0, nanosecond: 0
+        }).add({ seconds: 1 });
+        break;
+      }
+
+      default:
+        throw new Error("Invalid unit for endOf: " + unit);
+    }
+
+    // 3. endOf = startOfNext - 1 millisecond
+    const end = (next.subtract({ milliseconds: 1 }));
+
+    // 4. Convert back to original kind
+    switch (this.kind) {
+      case "zoned":
+        return this.withValue(end as any);
+
+      case "datetime":
+        return this.withValue(end.toPlainDateTime() as any);
+
+      case "date":
+        return this.withValue(end.toPlainDate() as any);
+
+      case "time":
+        return this.withValue(end.toPlainTime() as any);
+
+      case "year-month": {
+        const p = end.toPlainDate();
+        return this.withValue(new Temporal.PlainYearMonth(p.year, p.month) as any);
+      }
+
+      case "month-day": {
+        const p = end.toPlainDate();
+        return this.withValue(new Temporal.PlainMonthDay(p.month, p.day) as any);
+      }
+
+      default:
+        throw new Error("Unsupported kind in endOf");
+    }
+  }
 }
 
 export default bbnDt;
