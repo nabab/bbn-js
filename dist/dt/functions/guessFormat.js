@@ -1,5 +1,5 @@
 import parse from './parse.js';
-import { getCommonFormatsForLocale, buildLocaleFromIntl } from './buildLocaleFromIntl.js';
+import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 // Common MySQL & native JS string formats – tried first in guessFormat
 const MYSQL_AND_NATIVE_FORMATS = [
     // --- MySQL / MariaDB classic ---
@@ -54,8 +54,6 @@ export default function guessFormat(input, formats, lng) {
         const list = Array.isArray(formats) ? formats : [formats];
         return tryFormats(list);
     }
-    // autodetect via Intl-derived formats
-    const common = getCommonFormatsForLocale(lng);
     // Avoid trivial duplicates
     const seen = new Set();
     const mysqlNativeCandidates = MYSQL_AND_NATIVE_FORMATS.filter(fmt => {
@@ -65,9 +63,9 @@ export default function guessFormat(input, formats, lng) {
         return true;
     });
     const localeCandidates = [
-        ...common.datetime.map(f => f.pattern),
-        ...common.date.map(f => f.pattern),
-        ...common.time.map(f => f.pattern)
+        ...bbn.dt.locales.datetime.map(f => f.pattern),
+        ...bbn.dt.locales.date.map(f => f.pattern),
+        ...bbn.dt.locales.time.map(f => f.pattern)
     ].filter(fmt => {
         if (seen.has(fmt))
             return false;

@@ -333,4 +333,4 @@ const buildLocaleFromIntl = () => {
   });
 };
 
-export { getCommonFormatsForLocale, buildLocaleFromIntl };
+export default buildLocaleFromIntl;

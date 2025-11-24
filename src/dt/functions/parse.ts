@@ -1,5 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import {buildLocaleFromIntl } from './buildLocaleFromIntl.js';
+import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 import bbnDtZoned from '../classes/zoned.js';
 import bbnDtDateTime from '../classes/dateTime.js';
 import bbnDtDate from '../classes/date.js';

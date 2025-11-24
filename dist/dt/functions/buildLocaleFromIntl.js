@@ -262,4 +262,4 @@ const buildLocaleFromIntl = () => {
         datetime
     });
 };
-export { getCommonFormatsForLocale, buildLocaleFromIntl };
+export default buildLocaleFromIntl;
