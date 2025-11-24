@@ -25,7 +25,7 @@ export default class bbnDtDuration
       ['y', 'm', 'd', 'h', 'i', 's'].includes(realUnit) ? 0 : value
     ];
     const dur = new Temporal.Duration(...ctx);
-    return new bbnDtDuration(dur, 0, 0, 0, 0, 0, 0, realUnit as string);
+    return new bbnDtDuration(dur);
   }
 
   constructor(y: Temporal.Duration | number | object, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string)

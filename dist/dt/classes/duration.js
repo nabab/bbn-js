@@ -30,7 +30,7 @@ class bbnDtDuration {
             ['y', 'm', 'd', 'h', 'i', 's'].includes(realUnit) ? 0 : value
         ];
         const dur = new Temporal.Duration(...ctx);
-        return new bbnDtDuration(dur, 0, 0, 0, 0, 0, 0, realUnit);
+        return new bbnDtDuration(dur);
     }
     constructor(y, m, d, h, i, s, ms, unit) {
         _bbnDtDuration_instances.add(this);
