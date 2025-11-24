@@ -16,10 +16,10 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
-    isBefore(other: bbnDt<any>): boolean;
-    isAfter(other: bbnDt<any>): boolean;
-    isSame(other: bbnDt<any>): boolean;
-    equals(other: bbnDt<any>): boolean;
+    isBefore(other: any): boolean;
+    isAfter(other: any): boolean;
+    isSame(other: any): boolean;
+    equals(other: any): boolean;
     toJSON(): {
         kind: bbnDtKind;
         value: string;

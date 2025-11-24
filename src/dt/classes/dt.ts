@@ -135,19 +135,19 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
   }
 
-  isBefore(other: bbnDt<any>): boolean {
+  isBefore(other: any): boolean {
     return this.compare(other) < 0;
   }
 
-  isAfter(other: bbnDt<any>): boolean {
+  isAfter(other: any): boolean {
     return this.compare(other) > 0;
   }
 
-  isSame(other: bbnDt<any>): boolean {
+  isSame(other: any): boolean {
     return this.compare(other) === 0;
   }
 
-  equals(other: bbnDt<any>): boolean {
+  equals(other: any): boolean {
     return this.isSame(other);
   }
 
