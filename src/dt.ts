@@ -75,32 +75,6 @@ const patterns: {
       second: m[6] !== undefined ? +m[6] : 0,
     })
   },
-  // Simple slash date "YYYY/MM/DD"
-  {
-    name: 'slash-date',
-    re: /^(\d{2})\/(\d{2})\/(\d{4})$/,
-    map: m => ({
-      year: +m[3],
-      month: +m[2],
-      day: +m[1],
-      hour: 0,
-      minute: 0,
-      second: 0,
-    })
-  },
-  // Slash datetime "YYYY/MM/DD HH:MM:SS"
-  {
-    name: 'slash-datetime',
-    re: /^(\d{2})\/(\d{2})\/(\d{4})[ T](\d{2}):(\d{2}):(\d{2})$/,
-    map: m => ({
-      year: +m[3],
-      month: +m[2],
-      day: +m[1],
-      hour: +m[4],
-      minute: +m[5],
-      second: +m[6],
-    })
-  },
 ];
 
 const units: [string, Intl.RelativeTimeFormatUnit, number][] = [

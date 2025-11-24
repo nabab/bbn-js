@@ -4,14 +4,11 @@ import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 const MYSQL_AND_NATIVE_FORMATS = [
     // --- MySQL / MariaDB classic ---
     // Date
-    'YYYY-MM-DD',
     // Date + time
     'YYYY-MM-DD HH:II:SS.ms',
     'YYYY-MM-DD HH:II:SS',
     'YYYY-MM-DD HH:II',
     // Time only
-    'HH:II:SS',
-    'HH:II',
     // --- ISO 8601 / JS toISOString() ---
     // 2025-11-22T14:30:00.123Z
     'YYYY-MM-DDTHH:II:SS.msZ',
@@ -28,7 +25,12 @@ const MYSQL_AND_NATIVE_FORMATS = [
     // Tue Oct 29 2024 14:30:00 GMT+0200
     'ddd MMM DD YYYY HH:II:SS[ GMT]Z',
     // Tue Oct 29 2024 14:30:00
-    'ddd MMM DD YYYY HH:II:SS'
+    'ddd MMM DD YYYY HH:II:SS',
+    'YYYY-MM-DD',
+    'YYYY-MM',
+    'MM-DD',
+    'HH:II:SS',
+    'HH:II',
 ];
 export default function guessFormat(input, formats, lng) {
     const str = input.trim();
