@@ -64,7 +64,7 @@ export default class bbnDtDuration
     this.#unit = realUnit || 'ms';
     const row = getRow(units, (a: any[]) => a[0] === realUnit);
     if (!row) {
-      throw new Error('Invalid unit for duration: ' + realUnit);
+      //throw new Error('Invalid unit for duration: ' + realUnit);
     }
   }
 

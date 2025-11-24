@@ -49,7 +49,7 @@ class bbnDtDuration {
         __classPrivateFieldSet(this, _bbnDtDuration_unit, realUnit || 'ms', "f");
         const row = getRow(units, (a) => a[0] === realUnit);
         if (!row) {
-            throw new Error('Invalid unit for duration: ' + realUnit);
+            //throw new Error('Invalid unit for duration: ' + realUnit);
         }
     }
     get value() {
