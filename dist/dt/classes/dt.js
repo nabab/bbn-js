@@ -720,6 +720,7 @@ export class bbnDt {
             targetMs = parsed.toEpochMs();
         }
         else {
+            bbn.fn.log("DATE??", date);
             throw new TypeError('Unsupported date argument for diff');
         }
         const nowMs = this.toEpochMs();

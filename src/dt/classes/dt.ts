@@ -873,6 +873,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       targetMs = parsed.toEpochMs();
     }
     else {
+      bbn.fn.log("DATE??", date);
       throw new TypeError('Unsupported date argument for diff');
     }
 
