@@ -1,4 +1,4 @@
-import date from '../../date.js'  ;
+import dt from '../../dt.js'  ;
 import isString from '../type/isString.js'  ;
 
 /**
@@ -9,7 +9,7 @@ import isString from '../type/isString.js'  ;
  * @returns  {*} 
  */
 export default function ftime(d, wrong_result) {
-	let r = date(d);
+	let r = dt(d);
 	if (!r.isValid) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
 	}

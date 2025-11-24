@@ -1,6 +1,6 @@
-import date from '../../date.js'  ;
+import dt from '../../dt.js'  ;
 export default function formatDate(dateToFormat, format) {
-  const d = date(dateToFormat);
+  const d = dt(dateToFormat);
   if (!d.isValid) {
     return '';
   }

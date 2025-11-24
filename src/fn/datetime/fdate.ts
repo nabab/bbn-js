@@ -1,4 +1,4 @@
-import date from '../../date.js'  ;
+import dt from '../../dt.js'  ;
 import isString from '../type/isString.js'  ;
 
 /**
@@ -11,7 +11,7 @@ import isString from '../type/isString.js'  ;
  * @returns                
  */
 export default function fdate(d, wrong_result = false) {
-	let r = date(d);
+	let r = dt(d);
   let time = false;
 	// Retro compatibility
 	if (wrong_result === true) {

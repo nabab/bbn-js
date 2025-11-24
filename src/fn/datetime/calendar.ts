@@ -1,4 +1,4 @@
-import date from '../../date.js'  ;
+import dt from '../../dt.js'  ;
 import isString from '../type/isString.js'  ;
 
 const bbn = {
@@ -24,7 +24,7 @@ const bbn = {
  * @returns  {String}
  */
 export default function calendar(d, wrong_result = false) {
-	let r = date(d);
+	let r = dt(d);
 	if (!r.isValid) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
 	}

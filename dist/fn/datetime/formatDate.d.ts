@@ -1,1 +1,1 @@
-export default function formatDate(dateToFormat: any, format: any): string;
+export default function formatDate(dateToFormat: any, format: any): any;

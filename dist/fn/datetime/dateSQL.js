@@ -1,4 +1,4 @@
-import date from '../../date.js';
+import dt from '../../dt.js';
 /**
  * Returns a date with SQL format.
  *
@@ -18,7 +18,7 @@ import date from '../../date.js';
  * @returns  {String}
  */
 export default function dateSQL(v, dayOnly) {
-    let value = date(v);
+    let value = dt(v);
     if (value) {
         return value.format('YYYY-MM-DD' + (dayOnly ? '' : ' HH:mm:ss'));
     }

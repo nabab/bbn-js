@@ -7,4 +7,4 @@
  * @param    {String}      wrong_result
  * @returns
  */
-export default function fdate(d: any, wrong_result?: boolean): string | true;
+export default function fdate(d: any, wrong_result?: boolean): any;

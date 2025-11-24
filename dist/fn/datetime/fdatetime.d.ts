@@ -5,4 +5,4 @@
  * @memberof bbn.fn
  * @returns  {*}
  */
-export default function fdatetime(d: any, wrong_result?: boolean): string | true;
+export default function fdatetime(d: any, wrong_result?: boolean): any;
