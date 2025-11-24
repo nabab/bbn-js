@@ -282,8 +282,11 @@ dt.time = () => {};
 dt.date = () => {};
 dt.dateTime = () => {};
 dt.duration = (amount, unit) => {
-  const realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] || undefined : undefined;
-  return new bbnDtDuration(Temporal.Duration.from({[realUnit + 's']: amount}));
+  if (amount instanceof Temporal.Duration) {
+    return new bbnDtDuration(amount);
+  }
+
+  return bbnDtDuration.fromUnit(amount, unit);
 };
 dt.zoned = () => {};
 dt.monthDay = () => {};
