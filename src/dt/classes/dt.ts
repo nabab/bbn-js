@@ -416,7 +416,11 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       throw new Error('date() is not supported for this type');
     }
 
-    return this.parse(v, 'Y-m-d');
+    if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+      return this.parse(v, 'Y-m-d');
+    }
+
+    return this.YYYY + '-' + this.MM + '-' + this.DD;
   }
   
   datetime(v?: any): string | bbnDt<any> {
@@ -424,7 +428,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return this.parse(v, 'Y-m-d H:i:s');
     }
 
-    return this.format('Y-m-d H:i:s');
+    return this.YYYY + '-' + this.MM + '-' + this.DD + ' ' + this.HH + ':' + this.II + ':' + this.SS;
   }
 
   time(v?: any): string | bbnDt<any> {
@@ -432,7 +436,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return this.parse(v, 'H:i:s');
     }
 
-    return this.format('H:i:s');
+    return this.HH + ':' + this.II + ':' + this.SS;
   }
 
   week(): number {
@@ -463,14 +467,14 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   get MMMM(): string {
     if ('month' in this.value) {
-      return this.format('MMMM');
+      return bbn.dt.locales.monthsLong[this.month() as number - 1];
     }
     return undefined;
   }
 
   get MMM(): string {
     if ('month' in this.value) {
-      return this.format('MMM');
+      return bbn.dt.locales.monthsShort[this.month() as number - 1];
     }
     return undefined; 
   }

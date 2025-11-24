@@ -331,19 +331,22 @@ export class bbnDt {
         if (!('year' in this.value) || !('month' in this.value) || !('day' in this.value)) {
             throw new Error('date() is not supported for this type');
         }
-        return this.parse(v, 'Y-m-d');
+        if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
+            return this.parse(v, 'Y-m-d');
+        }
+        return this.YYYY + '-' + this.MM + '-' + this.DD;
     }
     datetime(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.parse(v, 'Y-m-d H:i:s');
         }
-        return this.format('Y-m-d H:i:s');
+        return this.YYYY + '-' + this.MM + '-' + this.DD + ' ' + this.HH + ':' + this.II + ':' + this.SS;
     }
     time(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
             return this.parse(v, 'H:i:s');
         }
-        return this.format('H:i:s');
+        return this.HH + ':' + this.II + ':' + this.SS;
     }
     week() {
         if (!this.value) {
@@ -368,13 +371,13 @@ export class bbnDt {
     }
     get MMMM() {
         if ('month' in this.value) {
-            return this.format('MMMM');
+            return bbn.dt.locales.monthsLong[this.month() - 1];
         }
         return undefined;
     }
     get MMM() {
         if ('month' in this.value) {
-            return this.format('MMM');
+            return bbn.dt.locales.monthsShort[this.month() - 1];
         }
         return undefined;
     }
