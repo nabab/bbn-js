@@ -125,24 +125,86 @@ export class bbnDt {
         if (!a || !b) {
             throw new TypeError('Both arguments must be Temporal values');
         }
-        if (a.constructor !== b.constructor) {
-            throw new TypeError('Cannot compare different Temporal types');
-        }
-        const Ctor = a.constructor;
-        // No unit → delegate to the built-in static compare
-        if (unit === undefined) {
-            if (typeof Ctor.compare !== 'function') {
-                throw new TypeError('This Temporal type has no static compare');
+        const tz = Temporal.Now.timeZoneId();
+        const realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] : undefined;
+        const isBbnDt = (x) => x instanceof bbnDt;
+        // --- helper: get underlying Temporal value if wrapper ---
+        const unwrap = (x) => isBbnDt(x) ? x.value : x;
+        // --- helper: normalized ZonedDateTime for comparison ---
+        const toZdt = (x) => {
+            // x may be a bbnDt* or a raw Temporal
+            if (isBbnDt(x)) {
+                switch (x.kind) {
+                    case 'zoned': {
+                        return x.value;
+                    }
+                    case 'datetime': {
+                        const v = x.value;
+                        const iso = `${v.toString()}[${tz}]`;
+                        return Temporal.ZonedDateTime.from(iso);
+                    }
+                    case 'date': {
+                        const d = x.value;
+                        const iso = `${d.toString()}T00:00[${tz}]`;
+                        return Temporal.ZonedDateTime.from(iso);
+                    }
+                    case 'year-month': {
+                        const ym = x.value;
+                        const d = ym.toPlainDate({ day: 1 });
+                        const iso = `${d.toString()}T00:00[${tz}]`;
+                        return Temporal.ZonedDateTime.from(iso);
+                    }
+                    default:
+                        throw new TypeError(`Cannot convert kind '${x.kind}' to ZonedDateTime for comparison`);
+                }
             }
-            return Ctor.compare(a, b); // -1, 0, 1
+            // If it's already a Temporal.ZonedDateTime, keep it
+            if (x instanceof Temporal.ZonedDateTime) {
+                return x;
+            }
+            throw new TypeError('toZdt expects a bbnDt wrapper or ZonedDateTime');
+        };
+        // ---- CASE 1: same constructor → your original logic on raw Temporal ----
+        const rawA = unwrap(a);
+        const rawB = unwrap(b);
+        if (rawA.constructor === rawB.constructor) {
+            const Ctor = rawA.constructor;
+            if (realUnit === undefined) {
+                if (typeof Ctor.compare !== 'function') {
+                    throw new TypeError('This Temporal type has no static compare');
+                }
+                return Ctor.compare(rawA, rawB); // -1, 0, 1
+            }
+            if (typeof rawA.until !== 'function') {
+                throw new TypeError('This Temporal type does not support until/since');
+            }
+            const diff = rawA.until(rawB, { largestUnit: realUnit });
+            return diff.sign;
         }
-        // With unit → use .until() and let Temporal validate the unit
-        if (typeof a.until !== 'function') {
-            throw new TypeError('This Temporal type does not support until/since');
+        // ---- CASE 2: different constructors, but convertible bbnDt kinds ----
+        const convertibleKinds = new Set([
+            'zoned',
+            'datetime',
+            'date',
+            'year-month',
+        ]);
+        if (isBbnDt(a) &&
+            isBbnDt(b) &&
+            convertibleKinds.has(a.kind) &&
+            convertibleKinds.has(b.kind)) {
+            const za = toZdt(a);
+            const zb = toZdt(b);
+            if (realUnit === undefined) {
+                return Temporal.ZonedDateTime.compare(za, zb);
+            }
+            if (typeof za.until !== 'function') {
+                throw new TypeError('ZonedDateTime does not support until/since');
+            }
+            const diff = za.until(zb, { largestUnit: realUnit });
+            return diff.sign;
         }
-        // If `unit` is invalid for this Temporal type, this will throw RangeError
-        const diff = a.until(b, { largestUnit: unit });
-        return diff.sign; // -1 / 0 / 1
+        // ---- CASE 3: not compatible ----
+        throw new TypeError('Cannot compare different Temporal or bbnDt types');
     }
     static parse(input, format, cls = 'auto', locale) {
         return parse(input, format, cls, locale);
