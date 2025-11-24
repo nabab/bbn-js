@@ -521,6 +521,15 @@ export class bbnDt {
         }
         return str;
     }
+    matchFormat(value, format) {
+        try {
+            this.parse(value, format);
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    }
     getWeekday(n, mode = 'long', locale) {
         return getWeekday(n, mode, locale);
     }

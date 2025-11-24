@@ -84,6 +84,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get WW(): string;
     get W(): string;
     format(format?: string): string;
+    matchFormat(value: any, format: string): boolean;
     getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string;
     /**
      * Returns a NEW date that is the next (or previous if past=true)

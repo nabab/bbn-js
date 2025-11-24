@@ -215,7 +215,12 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
 
   if (typeof value === 'string') {
     if (inputFormat) {
-      return parse(value as string, inputFormat as string, cls);
+      let parsed;
+      try {
+        parsed = parse(value as string, inputFormat as string, cls);
+        return parsed;
+      }
+      catch (e) {}
     }
     else {
       const format = guessFormat(value as string);

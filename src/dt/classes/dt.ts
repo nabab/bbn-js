@@ -639,6 +639,16 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return str;
   }
 
+  matchFormat(value, format: string): boolean {
+    try {
+      this.parse(value, format);
+      return true;
+    }
+    catch {
+      return false;
+    }
+  }
+
   getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode: string = 'long', locale?: string): string {
     return getWeekday(n, mode, locale);
   }
