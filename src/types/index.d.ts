@@ -76,14 +76,56 @@ type bbnDtKind =
   | 'zoned';
   declare global {
   
+    class bbnDtDuration {
+
+    }
   abstract class bbnDt <T> {
     get value(): T;
-    year(): number | null;
-    month(): number | null;
-    day(): number | null;
-    hour(): number | null;
-    minute(): number | null;
-    second(): number | null;
+    abstract readonly kind: bbnDtKind;
+    parse(input: string, format: string): bbnDt<any>;
+    compare(other: any, unit?: string): -1 | 0 | 1;
+    add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
+    subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
+    isBefore(other: bbnDt<any>): boolean;
+    isAfter(other: bbnDt<any>): boolean;
+    isSame(other: bbnDt<any>): boolean;
+    equals(other: bbnDt<any>): boolean;
+    toJSON(): object;
+    toString(): string;
+    year(v?: any): number | bbnDt<any>;
+    month(v?: any): number | bbnDt<any>;
+    day(v?: any): number | bbnDt<any>;
+    hour(v?: any): number | bbnDt<any>;
+    minute(v?: any): number | bbnDt<any>;
+    second(v?: any): number | bbnDt<any>;
+    weekday(v?: any, past?: any): number | bbnDt<any>;
+    date(v?: any): string | bbnDt<any>;
+    datetime(v?: any): string | bbnDt<any>;
+    time(v?: any): string | bbnDt<any>;
+    week(): number;
+    format(format?: string): string;
+    setWeekday(weekday: number | string, past?: boolean, locale?: string): bbnDt<any>;
+    get YYYY(): string;
+    get YY(): string;
+    get MMMM(): string;
+    get MMM(): string;
+    get MM(): string;
+    get M(): string;
+    get EE(): string;
+    get DD(): string;
+    get d(): string;
+    get dddd(): string;
+    get ddd(): string;
+    get D(): string;
+    get HH(): string;
+    get H(): string;
+    get II(): string;
+    get mm(): string;
+    get I(): string;
+    get SS(): string;
+    get S(): string;
+    get WW(): string;
+    get W(): string;
   }
   interface Window {
     bbn: Bbn;
@@ -98,7 +140,7 @@ type bbnDtKind =
     env: BbnEnv;
     var: Vars;
     date: Function;
-    dt: any;
+    dt: Function;
     com: object;
     lng: Lng;
     fn: {

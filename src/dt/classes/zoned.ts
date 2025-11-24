@@ -1,6 +1,7 @@
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
 import { bbnDtKind } from '../vars/types.js';
+import bbnDt from './dt.js';
 
 
 export default class bbnDtZoned extends bbnDt<Temporal.ZonedDateTime>
