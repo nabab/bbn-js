@@ -21,6 +21,7 @@ import bbnDtDuration from './duration.js';
 import camelToCss from '../../fn/string/camelToCss.js';
 export class bbnDt {
     constructor(value) {
+        this.__bbnNoData = true;
         _bbnDt_value.set(this, void 0);
         this.getWeekdayIndex = (name, locale) => {
             const loc = locale || bbn.env.lang;

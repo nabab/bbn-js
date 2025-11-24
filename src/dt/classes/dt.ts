@@ -13,6 +13,8 @@ import camelToCss from '../../fn/string/camelToCss.js';
 export abstract class bbnDt<TValue extends bbnDtTemporal> {
   abstract readonly kind: bbnDtKind;
 
+  readonly __bbnNoData = true;
+
   #value: TValue | undefined;
 
   constructor(value?: TValue) {
