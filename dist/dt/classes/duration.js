@@ -140,7 +140,7 @@ class bbnDtDuration {
         const delta = { [field]: value };
         const newDuration = __classPrivateFieldGet(this, _bbnDtDuration_value, "f").add(delta);
         // Adapt this constructor call to however you now construct your duration:
-        return new bbnDtDuration(newDuration, undefined, undefined, undefined, undefined, undefined, undefined, __classPrivateFieldGet(this, _bbnDtDuration_unit, "f"));
+        return new bbnDtDuration(newDuration, undefined, undefined, undefined, undefined, undefined, undefined, undefined, __classPrivateFieldGet(this, _bbnDtDuration_unit, "f"));
     }
     subtract(value, unit) {
         return this.add(-value, unit);

@@ -213,7 +213,7 @@ export default class bbnDtDuration
     const newDuration = this.#value.add(delta);
 
     // Adapt this constructor call to however you now construct your duration:
-    return new bbnDtDuration(newDuration, undefined, undefined, undefined, undefined, undefined, undefined, this.#unit);
+    return new bbnDtDuration(newDuration, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.#unit);
   }
 
   subtract(value: number, unit?: string): bbnDtDuration {
