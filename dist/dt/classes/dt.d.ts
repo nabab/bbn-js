@@ -84,6 +84,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get WW(): string;
     get W(): string;
     format(format?: string): string;
+    getWeekday(mode?: string, locale?: string): string;
     /**
      * Returns a NEW date that is the next (or previous if past=true)
      * occurrence of the given weekday, starting from this.#value.

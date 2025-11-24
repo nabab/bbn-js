@@ -521,6 +521,13 @@ export class bbnDt {
         }
         return str;
     }
+    getWeekday(mode = 'long', locale) {
+        const wd = this.weekday();
+        if (typeof wd === 'number') {
+            return getWeekday(wd, mode, locale);
+        }
+        return undefined;
+    }
     /**
      * Returns a NEW date that is the next (or previous if past=true)
      * occurrence of the given weekday, starting from this.#value.

@@ -639,6 +639,14 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return str;
   }
 
+  getWeekday(mode: string = 'long', locale?: string): string {
+    const wd = this.weekday();
+    if (typeof wd === 'number') {
+      return getWeekday(wd as 0 | 1 | 2 | 3 | 4 | 5 | 6, mode, locale);
+    }
+
+    return undefined;
+  }
 
   /**
    * Returns a NEW date that is the next (or previous if past=true)
