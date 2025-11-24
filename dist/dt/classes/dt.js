@@ -19,7 +19,6 @@ import getRow from '../../fn/object/getRow.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
 import camelToCss from '../../fn/string/camelToCss.js';
-import parse from '../functions/parse.js';
 export class bbnDt {
     constructor(value) {
         this.__bbnNoData = true;
@@ -230,7 +229,7 @@ export class bbnDt {
         throw new TypeError('Cannot compare different Temporal or bbnDt types');
     }
     static parse(input, format, cls = 'auto', locale) {
-        return parse(input, format, cls, locale);
+        return bbn.dt(input, format, cls, locale);
     }
     parse(input, format) {
         return bbnDt.parse(input, format, camelToCss(this.kind));
