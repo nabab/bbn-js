@@ -11,9 +11,12 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _bbnDtDate_value;
 import { Temporal } from 'temporal-polyfill';
-class bbnDtDate {
+import bbnDt from './dt.js';
+class bbnDtDate extends bbnDt {
     constructor(y, m, d) {
+        super();
         _bbnDtDate_value.set(this, void 0);
+        this.kind = 'date';
         if (!y) {
             __classPrivateFieldSet(this, _bbnDtDate_value, Temporal.PlainDate.from(Temporal.Now.plainDateISO()), "f");
         }
@@ -33,6 +36,13 @@ class bbnDtDate {
             }
         }
     }
+    compareSameKind(other) {
+        const cmp = Temporal.PlainDate.compare(__classPrivateFieldGet(this, _bbnDtDate_value, "f"), other.value);
+        return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0);
+    }
+    year() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").year; }
+    month() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").month; }
+    day() { return __classPrivateFieldGet(this, _bbnDtDate_value, "f").day; }
     get value() {
         return __classPrivateFieldGet(this, _bbnDtDate_value, "f");
     }

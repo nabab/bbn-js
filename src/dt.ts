@@ -208,8 +208,6 @@ const unitsCorrespondence: {[key: string]: string} = {
   'w': 'w'
 };
 
-
-
 const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto') => {
   if (!value) {
     return new bbnDtDateTime();

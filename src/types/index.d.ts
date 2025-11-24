@@ -67,6 +67,14 @@ interface BbnEnv {
   online: boolean;
 }
 
+type BbnDtKind =
+  | 'datetime'
+  | 'date'
+  | 'time'
+  | 'year-month'
+  | 'month-day'
+  | 'zoned';
+
 declare global {
   interface Window {
     bbn: Bbn;

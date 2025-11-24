@@ -1,9 +1,13 @@
 import { Temporal } from 'temporal-polyfill';
+import bbnDt from './dt.js';
+import { BbnDtKind } from '../vars/types.js';
 
-export default class bbnDtDate
+export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
 {
   #value: Temporal.PlainDate;
+  readonly kind: BbnDtKind = 'date';
   constructor(y?: any, m?: number, d?: number) {
+    super();
     if (!y) {
       this.#value = Temporal.PlainDate.from(Temporal.Now.plainDateISO());
     }
@@ -24,6 +28,15 @@ export default class bbnDtDate
     }
   }
 
+  protected compareSameKind(other: this): -1 | 0 | 1 {
+    const cmp = Temporal.PlainDate.compare(this.#value, other.value);
+    return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0) as -1 | 0 | 1;
+  }
+
+  year()  { return this.#value.year; }
+  month() { return this.#value.month; }
+  day()   { return this.#value.day; }
+  
   get value() {
     return this.#value;
   }

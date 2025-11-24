@@ -89,4 +89,26 @@ const unitsCorrespondence: {[key: string]: string} = {
   'w': 'w'
 };
 
-export {units, unitsCorrespondence};
+const unitsMap: {[key: string]: string} = {
+  'y': 'Year',
+  'm': 'Month',
+  'd': 'Date',
+  'w': 'Week',
+  'h': 'Hours',
+  'i': 'Minutes',
+  's': 'Seconds'
+};
+
+const formatsMap: {[key: string]: string} = {
+  'y': 'YYYY',
+  'm': 'MM',
+  'd': 'DD',
+  'e': 'EE',
+  'w': 'WW',
+  'h': 'HH',
+  'i': 'II',
+  's': 'SS'
+};
+
+
+export {units, unitsCorrespondence, unitsMap, formatsMap};
