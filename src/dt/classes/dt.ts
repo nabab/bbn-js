@@ -601,6 +601,10 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return undefined;
   }
 
+  get isValid(): boolean {
+    return this.value !== undefined;
+  }
+
   format(format: string = 'YYYY-MM-DD HH:II:SS'): string {
     let str: string = '';
     if (format) {

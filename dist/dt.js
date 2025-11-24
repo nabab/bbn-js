@@ -220,6 +220,9 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
         const d = value;
         return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
     }
+    else {
+        return { isValid: false };
+    }
     //throw new Error(_('Invalid date value: %s', value));
 };
 dt.locales = Object.create(null);

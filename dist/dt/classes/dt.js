@@ -486,6 +486,9 @@ export class bbnDt {
         }
         return undefined;
     }
+    get isValid() {
+        return this.value !== undefined;
+    }
     format(format = 'YYYY-MM-DD HH:II:SS') {
         let str = '';
         if (format) {

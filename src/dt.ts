@@ -240,6 +240,9 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
     const d = value as Date;
     return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
   }
+  else {
+    return {isValid: false};
+  }
 
   //throw new Error(_('Invalid date value: %s', value));
 };
