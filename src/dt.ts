@@ -241,7 +241,7 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
     return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
   }
 
-  throw new Error(_('Invalid date value: %s', value));
+  //throw new Error(_('Invalid date value: %s', value));
 };
 
 dt.locales = Object.create(null);
