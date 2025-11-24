@@ -521,12 +521,8 @@ export class bbnDt {
         }
         return str;
     }
-    getWeekday(mode = 'long', locale) {
-        const wd = this.weekday();
-        if (typeof wd === 'number') {
-            return getWeekday(wd, mode, locale);
-        }
-        return undefined;
+    getWeekday(n, mode = 'long', locale) {
+        return getWeekday(n, mode, locale);
     }
     /**
      * Returns a NEW date that is the next (or previous if past=true)
@@ -832,6 +828,9 @@ export class bbnDt {
             default:
                 throw new Error("Unsupported kind in endOf");
         }
+    }
+    clone() {
+        return this.withValue(this.value);
     }
 }
 _bbnDt_value = new WeakMap();

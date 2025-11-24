@@ -639,13 +639,8 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return str;
   }
 
-  getWeekday(mode: string = 'long', locale?: string): string {
-    const wd = this.weekday();
-    if (typeof wd === 'number') {
-      return getWeekday(wd as 0 | 1 | 2 | 3 | 4 | 5 | 6, mode, locale);
-    }
-
-    return undefined;
+  getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode: string = 'long', locale?: string): string {
+    return getWeekday(n, mode, locale);
   }
 
   /**
@@ -1013,6 +1008,10 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       default:
         throw new Error("Unsupported kind in endOf");
     }
+  }
+
+  clone(): bbnDt<any> {
+    return this.withValue(this.value);
   }
 }
 
