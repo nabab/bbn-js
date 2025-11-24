@@ -1,3 +1,4 @@
+import bbnDtDuration from './dt/classes/duration.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
 declare const dt: {
@@ -8,7 +9,7 @@ declare const dt: {
     time(): void;
     date(): void;
     dateTime(): void;
-    duration(): void;
+    duration(amount: any, unit: any): bbnDtDuration;
     zoned(): void;
     monthDay(): void;
     yearMonth(): void;

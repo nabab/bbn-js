@@ -9,6 +9,7 @@ import bbnDtDuration from './dt/classes/duration.js';
 import _ from './_.js';
 import parse from './dt/functions/parse.js';
 import guessFormat from './dt/functions/guessFormat.js';
+import getRow from './fn/object/getRow.js';
 
 const patterns: {
   name: string;
@@ -280,7 +281,10 @@ dt.guessFormat = guessFormat;
 dt.time = () => {};
 dt.date = () => {};
 dt.dateTime = () => {};
-dt.duration = () => {};
+dt.duration = (amount, unit) => {
+  const realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] || undefined : undefined;
+  return new bbnDtDuration(Temporal.Duration.from({[realUnit + 's']: amount}));
+};
 dt.zoned = () => {};
 dt.monthDay = () => {};
 dt.yearMonth = () => {};
