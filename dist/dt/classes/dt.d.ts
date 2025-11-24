@@ -1,7 +1,7 @@
-import { BbnDtKind, BbnDtTemporal } from '../vars/types.js';
+import { bbnDtKind, bbnDtTemporal } from '../vars/types.js';
 import bbnDtDuration from './duration.js';
-export declare abstract class bbnDt<TValue extends BbnDtTemporal> {
-    abstract readonly kind: BbnDtKind;
+export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
+    abstract readonly kind: bbnDtKind;
     abstract get value(): TValue;
     static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
     static parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
@@ -19,7 +19,7 @@ export declare abstract class bbnDt<TValue extends BbnDtTemporal> {
     isSame(other: bbnDt<any>): boolean;
     equals(other: bbnDt<any>): boolean;
     toJSON(): {
-        kind: BbnDtKind;
+        kind: bbnDtKind;
         value: string;
     };
     toString(): string;

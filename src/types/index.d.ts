@@ -67,7 +67,7 @@ interface BbnEnv {
   online: boolean;
 }
 
-type BbnDtKind =
+type bbnDtKind =
   | 'datetime'
   | 'date'
   | 'time'

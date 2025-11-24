@@ -1,5 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import { BbnDtKind, BbnDtTemporal } from '../vars/types.js';
+import { bbnDtKind, bbnDtTemporal } from '../vars/types.js';
 import substr from '../../fn/string/substr.js';
 import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
 import { unitsCorrespondence, formatsMap } from '../vars/units.js';
@@ -10,8 +10,8 @@ import parse from '../functions/parse.js';
 import camelToCss from '../../fn/string/camelToCss.js';
 
 
-export abstract class bbnDt<TValue extends BbnDtTemporal> {
-  abstract readonly kind: BbnDtKind;
+export abstract class bbnDt<TValue extends bbnDtTemporal> {
+  abstract readonly kind: bbnDtKind;
 
   abstract get value(): TValue;
 
@@ -68,7 +68,7 @@ export abstract class bbnDt<TValue extends BbnDtTemporal> {
       other = bbn.dt(other, this.kind) as TValue;
     }
     
-    return bbnDt.compare(this.value, other.value as BbnDtTemporal, unit);
+    return bbnDt.compare(this.value, other.value as bbnDtTemporal, unit);
   }
 
   add(amount: number | bbnDtDuration | object, unit?: string): TValue {

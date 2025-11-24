@@ -1,6 +1,6 @@
 import { Temporal } from 'temporal-polyfill';
 
-export type BbnDtKind =
+export type bbnDtKind =
   | 'datetime'
   | 'date'
   | 'time'
@@ -8,7 +8,7 @@ export type BbnDtKind =
   | 'month-day'
   | 'zoned';
 
-export type BbnDtTemporal =
+export type bbnDtTemporal =
   | Temporal.PlainDateTime
   | Temporal.PlainDate
   | Temporal.PlainTime

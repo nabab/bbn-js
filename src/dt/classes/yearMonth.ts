@@ -1,12 +1,12 @@
 import { Temporal } from 'temporal-polyfill';
-import { BbnDtKind } from '../vars/types.js';
+import { bbnDtKind } from '../vars/types.js';
 import { bbnDt } from './dt.js';
 
 
 export default class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth>
 {
   #value: Temporal.PlainYearMonth;
-  readonly kind: BbnDtKind = 'year-month';
+  readonly kind: bbnDtKind = 'year-month';
   constructor(y?: any, m?: number) {
     super();
     if (!y) {

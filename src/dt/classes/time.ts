@@ -1,5 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import { BbnDtKind } from '../vars/types.js';
+import { bbnDtKind } from '../vars/types.js';
 import bbnDt from './dt.js';
 
 export default class bbnDtTime extends bbnDt<Temporal.PlainTime>

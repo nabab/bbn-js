@@ -1,13 +1,13 @@
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
-import { BbnDtKind } from '../vars/types.js';
+import { bbnDtKind } from '../vars/types.js';
 import bbnDt from './dt.js';
 
 
 export default class bbnDtZoned extends bbnDt<Temporal.ZonedDateTime>
 {
   #value: Temporal.ZonedDateTime;
-  readonly kind: BbnDtKind = 'zoned';
+  readonly kind: bbnDtKind = 'zoned';
   constructor(z?: any, y?: any, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number) {
     super();
     if (!z) {

@@ -1,12 +1,12 @@
 import { Temporal } from 'temporal-polyfill';
 import fromJsDate from '../functions/fromJsDate.js';
-import { BbnDtKind } from '../vars/types.js';
+import { bbnDtKind } from '../vars/types.js';
 import bbnDt from './dt.js';
 
 export default class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay>
 {
   #value: Temporal.PlainMonthDay;
-  readonly kind: BbnDtKind = 'month-day';
+  readonly kind: bbnDtKind = 'month-day';
 
   constructor(m?: any, d?: number) {
     super();
