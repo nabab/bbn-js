@@ -74,8 +74,17 @@ type bbnDtKind =
   | 'year-month'
   | 'month-day'
   | 'zoned';
-
-declare global {
+  declare global {
+  
+  abstract class bbnDt <T> {
+    get value(): T;
+    year(): number | null;
+    month(): number | null;
+    day(): number | null;
+    hour(): number | null;
+    minute(): number | null;
+    second(): number | null;
+  }
   interface Window {
     bbn: Bbn;
     Temporal: any;
@@ -107,8 +116,8 @@ declare global {
       description: string;
       icon: string;
     }[];
-  }  
-
+  }
+  
   interface BbnLoader {
     key: string;
     start: number;

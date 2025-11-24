@@ -11,7 +11,6 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _bbnDtYearMonth_value;
 import { Temporal } from 'temporal-polyfill';
-import { bbnDt } from './dt.js';
 class bbnDtYearMonth extends bbnDt {
     constructor(y, m) {
         super();
