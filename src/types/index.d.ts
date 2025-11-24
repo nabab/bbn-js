@@ -67,20 +67,32 @@ interface BbnEnv {
   online: boolean;
 }
 
-type bbnDtKind =
-  | 'datetime'
-  | 'date'
-  | 'time'
-  | 'year-month'
-  | 'month-day'
-  | 'zoned';
-  declare global {
-  
-    class bbnDtDuration {
 
-    }
+declare namespace Temporal {
+  class PlainDate {}
+  class PlainTime {}
+  class PlainDateTime {}
+  class ZonedDateTime {}
+  class Instant {}
+  class PlainYearMonth {}
+  class PlainMonthDay {}
+}
+
+declare global {
+  
+  type bbnDtKind =
+    | 'datetime'
+    | 'date'
+    | 'time'
+    | 'year-month'
+    | 'month-day'
+    | 'zoned';
+  
+  class bbnDtDuration {
+
+  }
+
   abstract class bbnDt <T> {
-    get value(): T;
     abstract readonly kind: bbnDtKind;
     parse(input: string, format: string): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
@@ -127,6 +139,53 @@ type bbnDtKind =
     get WW(): string;
     get W(): string;
   }
+
+  class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime> {
+    get value(): Temporal.PlainDateTime;
+    readonly kind: bbnDtKind;
+    fdate(long?: boolean, withTime?: boolean, weekday?: boolean): string;
+    ftime(withSeconds?: boolean): string;
+  }
+
+  class bbnDtDate extends bbnDt<Temporal.PlainDate> {
+    get value(): Temporal.PlainDate;
+    readonly kind: bbnDtKind;
+    fdate(long?: boolean, weekday?: boolean): string;
+  }
+
+  class bbnDtTime extends bbnDt<Temporal.PlainTime> {
+    get value(): Temporal.PlainTime;
+    readonly kind: bbnDtKind;
+    ftime(withSeconds?: boolean): string;
+  }
+
+  class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth> {
+    get value(): Temporal.PlainYearMonth;
+    readonly kind: bbnDtKind;
+    fdate(long?: boolean): string;
+  }
+
+  class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay> {
+    get value(): Temporal.PlainMonthDay;
+    readonly kind: bbnDtKind;
+    fdate(long?: boolean): string;
+  }
+
+  class bbnDtZoned extends bbnDt<Temporal.ZonedDateTime> {
+    get value(): Temporal.ZonedDateTime;
+    readonly kind: bbnDtKind;
+    fdate(long?: boolean, withTime?: boolean, weekday?: boolean): string;
+    ftime(withSeconds?: boolean): string;
+  }
+
+  type bbnDtClasses = 
+    | bbnDtDateTime
+    | bbnDtDate
+    | bbnDtTime
+    | bbnDtYearMonth
+    | bbnDtMonthDay
+    | bbnDtZoned;
+    
   interface Window {
     bbn: Bbn;
     Temporal: any;
@@ -140,7 +199,7 @@ type bbnDtKind =
     env: BbnEnv;
     var: Vars;
     date: Function;
-    dt: Function;
+    dt: any;
     com: object;
     lng: Lng;
     fn: {

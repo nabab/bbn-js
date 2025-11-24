@@ -1,3 +1,15 @@
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _bbnDt_value;
 import { Temporal } from 'temporal-polyfill';
 import substr from '../../fn/string/substr.js';
 import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
@@ -8,6 +20,14 @@ import bbnDtDuration from './duration.js';
 import parse from '../functions/parse.js';
 import camelToCss from '../../fn/string/camelToCss.js';
 export class bbnDt {
+    constructor(value) {
+        _bbnDt_value.set(this, void 0);
+        __classPrivateFieldSet(this, _bbnDt_value, value, "f");
+    }
+    get value() {
+        return __classPrivateFieldGet(this, _bbnDt_value, "f");
+    }
+    ;
     static compare(a, b, unit) {
         if (!a || !b) {
             throw new TypeError('Both arguments must be Temporal values');
@@ -447,4 +467,5 @@ export class bbnDt {
         return this.add(diff, 'd');
     }
 }
+_bbnDt_value = new WeakMap();
 export default bbnDt;

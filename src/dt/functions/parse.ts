@@ -522,12 +522,7 @@ export default function parse(
   function parseWithFormat(
     fmt: string,
     cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto'
-  ): bbnDtZoned
-    | bbnDtDateTime
-    | bbnDtDate
-    | bbnDtTime
-    | bbnDtYearMonth
-    | bbnDtMonthDay
+  ): bbnDt<any>
   {
     const ctx: Ctx = {
       year: 1970,

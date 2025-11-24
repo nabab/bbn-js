@@ -1,5 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
-import { bbnDtKind, bbnDtTemporal } from '../vars/types.js';
+import { bbnDtTemporal } from '../vars/types.js';
 import substr from '../../fn/string/substr.js';
 import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
 import { unitsCorrespondence, formatsMap } from '../vars/units.js';
@@ -13,7 +13,14 @@ import camelToCss from '../../fn/string/camelToCss.js';
 export abstract class bbnDt<TValue extends bbnDtTemporal> {
   abstract readonly kind: bbnDtKind;
 
-  abstract get value(): TValue;
+  #value: TValue | undefined;
+  constructor(value?: TValue) {
+    this.#value = value;
+  }
+
+  get value(): TValue | undefined {
+    return this.#value;
+  };
 
   static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1 {
     if (!a || !b) {
@@ -56,11 +63,11 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
   ): bbnDt<any>
   {
-    return parse(input, format, cls, locale);
+    return parse(input, format, cls, locale) as bbnDt<any>;
   }
 
   parse(input: string, format: string): bbnDt<any> {
-    return bbnDt.parse(input, format, camelToCss(this.kind)) as bbnDt<TValue>;
+    return bbnDt.parse(input, format, camelToCss(this.kind)) as bbnDt<any>;
   }
 
   compare(other: any, unit?: string): -1 | 0 | 1 {
@@ -71,7 +78,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return bbnDt.compare(this.value, other.value as bbnDtTemporal, unit);
   }
 
-  add(amount: number | bbnDtDuration | object, unit?: string): TValue {
+  add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -100,7 +107,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
   }
 
-  subtract(amount: number | bbnDtDuration | object, unit?: string): TValue {
+  subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -158,7 +165,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return String(this.value);
   }
 
-  year(v?: any): number | TValue {
+  year(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -175,7 +182,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).year;
   }
 
-  month(v?: any): number | TValue {
+  month(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -192,7 +199,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).month;
   }
 
-  day(v?: any): number | TValue {
+  day(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -209,7 +216,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).day;
   }
 
-  hour(v?: any): number | TValue {
+  hour(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -226,7 +233,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).hour;
   }
 
-  minute(v?: any): number | TValue {
+  minute(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -243,7 +250,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).minute;
   }
 
-  second(v?: any): number | TValue {
+  second(v?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -260,7 +267,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return (this.value as any).second;
   }
 
-  weekday(v?: any, past?: any): number | TValue {
+  weekday(v?: any, past?: any): number | bbnDt<any> {
     if (!this.value) {
       return undefined;
     }
@@ -518,7 +525,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
    * @param {boolean} past - If true → return previous occurrence instead of next.
    * @param {string} [locale] - Optional locale for weekday names.
    */
-  setWeekday(weekday: number | string, past = false, locale?: string): TValue
+  setWeekday(weekday: number | string, past = false, locale?: string): bbnDt<any>
   {
     let targetDay: number;
 

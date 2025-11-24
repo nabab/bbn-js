@@ -1,8 +1,10 @@
-import { bbnDtKind, bbnDtTemporal } from '../vars/types.js';
+import { bbnDtTemporal } from '../vars/types.js';
 import bbnDtDuration from './duration.js';
 export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
+    #private;
     abstract readonly kind: bbnDtKind;
-    abstract get value(): TValue;
+    constructor(value?: TValue);
+    get value(): TValue | undefined;
     static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
     static parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
         monthsLong?: string[];
@@ -12,8 +14,8 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     }): bbnDt<any>;
     parse(input: string, format: string): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
-    add(amount: number | bbnDtDuration | object, unit?: string): TValue;
-    subtract(amount: number | bbnDtDuration | object, unit?: string): TValue;
+    add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
+    subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     isBefore(other: bbnDt<any>): boolean;
     isAfter(other: bbnDt<any>): boolean;
     isSame(other: bbnDt<any>): boolean;
@@ -23,13 +25,13 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
         value: string;
     };
     toString(): string;
-    year(v?: any): number | TValue;
-    month(v?: any): number | TValue;
-    day(v?: any): number | TValue;
-    hour(v?: any): number | TValue;
-    minute(v?: any): number | TValue;
-    second(v?: any): number | TValue;
-    weekday(v?: any, past?: any): number | TValue;
+    year(v?: any): number | bbnDt<any>;
+    month(v?: any): number | bbnDt<any>;
+    day(v?: any): number | bbnDt<any>;
+    hour(v?: any): number | bbnDt<any>;
+    minute(v?: any): number | bbnDt<any>;
+    second(v?: any): number | bbnDt<any>;
+    weekday(v?: any, past?: any): number | bbnDt<any>;
     date(v?: any): string | bbnDt<any>;
     datetime(v?: any): string | bbnDt<any>;
     time(v?: any): string | bbnDt<any>;
@@ -65,6 +67,6 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
      * @param {boolean} past - If true → return previous occurrence instead of next.
      * @param {string} [locale] - Optional locale for weekday names.
      */
-    setWeekday(weekday: number | string, past?: boolean, locale?: string): TValue;
+    setWeekday(weekday: number | string, past?: boolean, locale?: string): bbnDt<any>;
 }
 export default bbnDt;
