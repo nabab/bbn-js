@@ -24,7 +24,7 @@ type CommonFormats = {
  * Uses Intl options to distinguish MMM vs MMMM, ddd vs dddd, etc.
  */
 function partsToPattern(
-  parts: Intl.DateTimeFormatPart[],
+  parts: any[],
   hourCycle: string | undefined,
   opts: Intl.DateTimeFormatOptions
 ): string {
