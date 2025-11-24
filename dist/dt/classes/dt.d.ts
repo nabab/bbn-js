@@ -86,7 +86,8 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get isValid(): boolean;
     format(format?: string): string;
     matchFormat(value: any, format: string): boolean;
-    getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string;
+    getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string | object;
+    getWeekdayIndex: (name: string, locale?: string) => number;
     /**
      * Returns a NEW date that is the next (or previous if past=true)
      * occurrence of the given weekday, starting from this.#value.

@@ -11,7 +11,6 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _bbnDt_value;
 import { Temporal } from 'temporal-polyfill';
-import { getWeekdayIndex, getWeekday } from '../functions/getWeekday.js';
 import { unitsCorrespondence, units, formatsMap } from '../vars/units.js';
 import _ from '../../_.js';
 import substr from '../../fn/string/substr.js';
@@ -23,6 +22,28 @@ import camelToCss from '../../fn/string/camelToCss.js';
 export class bbnDt {
     constructor(value) {
         _bbnDt_value.set(this, void 0);
+        this.getWeekdayIndex = (name, locale) => {
+            const loc = locale || bbn.env.lang;
+            const input = name.trim().toLowerCase();
+            // Build a localized map only once per locale (optional optimization)
+            const langs = [loc, ...navigator.languages];
+            for (let i = 0; i < langs.length; i++) {
+                if (!langs[i]) {
+                    continue;
+                }
+                const formatter = new Intl.DateTimeFormat(langs[i], { weekday: "long" });
+                // Generate localized weekday names for Sun → Sat
+                for (let i = 0; i < 7; i++) {
+                    // 2023-01-01 was Sunday
+                    const date = new Date(2023, 0, 1 + i);
+                    const localized = formatter.format(date).toLowerCase();
+                    if (localized === input) {
+                        return i; // JS weekday number
+                    }
+                }
+            }
+            throw new Error(`Unknown weekday name '${name}' for locale '${loc}'`);
+        };
         __classPrivateFieldSet(this, _bbnDt_value, value, "f");
     }
     get value() {
@@ -477,13 +498,13 @@ export class bbnDt {
     }
     get dddd() {
         if ('dayOfWeek' in this.value) {
-            return getWeekday(0, 'long');
+            return this.getWeekday(0, 'long');
         }
         return undefined;
     }
     get ddd() {
         if ('day' in this.value) {
-            return getWeekday(0, 'short');
+            return this.getWeekday(0, 'short');
         }
         return undefined;
     }
@@ -599,7 +620,39 @@ export class bbnDt {
         }
     }
     getWeekday(n, mode = 'long', locale) {
-        return getWeekday(n, mode, locale);
+        if (!mode) {
+            const letter = this.getWeekday(n, 'narrow', locale);
+            const abbr = this.getWeekday(n, 'short', locale);
+            const full = this.getWeekday(n, 'long', locale);
+            return {
+                letter,
+                abbr,
+                full,
+                long: full,
+                short: abbr,
+                narrow: letter
+            };
+        }
+        let m;
+        if (mode === 'letter') {
+            m = 'narrow';
+        }
+        else if (mode === 'abbr') {
+            m = 'short';
+        }
+        else if (mode === 'full') {
+            m = 'long';
+        }
+        else if (!['long', 'short', 'narrow'].includes(mode)) {
+            throw new Error('Invalid mode for getWeekDay: ' + mode + '. Allowed values are "long", "short", "narrow", "letter", "abbr", "full".');
+        }
+        else {
+            m = mode;
+        }
+        // Create a date with the right weekday
+        // 2023-01-01 was a Sunday → base for offset
+        const base = new Date(2023, 0, 1 + n);
+        return base.toLocaleDateString([locale || bbn.env.lang, ...navigator.languages], { weekday: m });
     }
     /**
      * Returns a NEW date that is the next (or previous if past=true)
@@ -614,7 +667,7 @@ export class bbnDt {
         let targetDay;
         if (typeof weekday === "string") {
             // Use your previously defined reverse method:
-            weekday = getWeekdayIndex(weekday, locale);
+            weekday = this.getWeekdayIndex(weekday, locale);
         }
         // --- Normalize weekday ---
         if (typeof weekday === "number") {
