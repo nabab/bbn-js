@@ -28,7 +28,7 @@ export default class bbnDtDuration
     return new bbnDtDuration(dur);
   }
 
-  constructor(y: Temporal.Duration | number | object, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string)
+  constructor(y: Temporal.Duration | number | object, m?: number, w?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string)
   {
     if (y instanceof Temporal.Duration) {
       this.#value = y;
@@ -37,6 +37,7 @@ export default class bbnDtDuration
       this.#value = new Temporal.Duration(
         (y as any).years || 0,
         (y as any).months || 0,
+        (y as any).weeks || 0,
         (y as any).days || 0,
         (y as any).hours || 0,
         (y as any).minutes || 0,
@@ -50,6 +51,7 @@ export default class bbnDtDuration
       this.#value = new Temporal.Duration(
         y || 0,
         m || 0,
+        w || 0,
         d || 0,
         h || 0,
         i || 0,

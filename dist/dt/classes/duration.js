@@ -32,7 +32,7 @@ class bbnDtDuration {
         const dur = new Temporal.Duration(...ctx);
         return new bbnDtDuration(dur);
     }
-    constructor(y, m, d, h, i, s, ms, unit) {
+    constructor(y, m, w, d, h, i, s, ms, unit) {
         _bbnDtDuration_instances.add(this);
         _bbnDtDuration_value.set(this, void 0);
         _bbnDtDuration_unit.set(this, void 0);
@@ -40,10 +40,10 @@ class bbnDtDuration {
             __classPrivateFieldSet(this, _bbnDtDuration_value, y, "f");
         }
         else if (typeof y === 'object') {
-            __classPrivateFieldSet(this, _bbnDtDuration_value, new Temporal.Duration(y.years || 0, y.months || 0, y.days || 0, y.hours || 0, y.minutes || 0, y.seconds || 0, y.milliseconds || 0, 0, 0), "f");
+            __classPrivateFieldSet(this, _bbnDtDuration_value, new Temporal.Duration(y.years || 0, y.months || 0, y.weeks || 0, y.days || 0, y.hours || 0, y.minutes || 0, y.seconds || 0, y.milliseconds || 0, 0, 0), "f");
         }
         else {
-            __classPrivateFieldSet(this, _bbnDtDuration_value, new Temporal.Duration(y || 0, m || 0, d || 0, h || 0, i || 0, s || 0, ms || 0, 0, 0), "f");
+            __classPrivateFieldSet(this, _bbnDtDuration_value, new Temporal.Duration(y || 0, m || 0, w || 0, d || 0, h || 0, i || 0, s || 0, ms || 0, 0, 0), "f");
         }
         const realUnit = unitsCorrespondence[unit || ''] || unit;
         __classPrivateFieldSet(this, _bbnDtDuration_unit, realUnit || 'ms', "f");
