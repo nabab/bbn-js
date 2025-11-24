@@ -58,7 +58,7 @@ export class bbnDt {
     }
     compare(other, unit) {
         if (!(other instanceof bbnDt)) {
-            other = bbn.dt(other, this.kind);
+            other = bbn.dt(other, null, this.kind);
         }
         return bbnDt.compare(this.value, other.value, unit);
     }
