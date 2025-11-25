@@ -741,6 +741,16 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return undefined;
   }
 
+  unix(ms: boolean | number = false): number | bbnDt<any> {
+    if (typeof ms === 'number') {
+      const Ctor = this.constructor as new (...args: any[]) => this;
+      const d = new Date(ms);
+      return new Ctor(d) as bbnDt<any>;
+    }
+
+    return ms ? this.toEpochMs() : Math.floor(this.toEpochMs() / 1000);
+  }
+
   format(format: string = 'YYYY-MM-DD HH:II:SS'): string {
     let str: string = '';
     if (format) {

@@ -624,6 +624,14 @@ export class bbnDt {
         }
         return undefined;
     }
+    unix(ms = false) {
+        if (typeof ms === 'number') {
+            const Ctor = this.constructor;
+            const d = new Date(ms);
+            return new Ctor(d);
+        }
+        return ms ? this.toEpochMs() : Math.floor(this.toEpochMs() / 1000);
+    }
     format(format = 'YYYY-MM-DD HH:II:SS') {
         let str = '';
         if (format) {
