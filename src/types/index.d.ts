@@ -276,6 +276,7 @@ declare global {
     get value(): Temporal.PlainDate;
     readonly kind: bbnDtKind;
     fdate(long?: boolean, weekday?: boolean): string;
+    ftime(withSeconds?: boolean): string;
   }
 
   class bbnDtTime extends bbnDt<Temporal.PlainTime> {
