@@ -323,7 +323,6 @@ declare global {
     opt: object;
     env: BbnEnv;
     var: Vars;
-    date: Function;
     dt: any;
     com: object;
     lng: Lng;
