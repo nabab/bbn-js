@@ -104,6 +104,7 @@ export default function init(cfg, force) {
         });
         document.addEventListener("click", onActivity);
         document.addEventListener("keydown", onActivity);
+        document.addEventListener("focusin", onActivity);
         each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
             ele.addEventListener("submit", (e) => {
                 submit(ele, e);
