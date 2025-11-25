@@ -114,12 +114,5 @@ if ('undefined' !== typeof window) {
 export {
   bbn as default,
   bbn,
-  Temporal,
-  bbnDtDate,
-  bbnDtDateTime,
-  bbnDtTime,
-  bbnDtYearMonth,
-  bbnDtMonthDay,
-  bbnDtZoned,
-  bbnDtDuration
+  Temporal
 }
