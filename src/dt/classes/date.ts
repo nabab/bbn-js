@@ -1,5 +1,6 @@
 import { Temporal } from 'temporal-polyfill';
 import bbnDt from './dt.js';
+import getRow from '../../fn/object/getRow.js';
 
 export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
 {
@@ -33,6 +34,19 @@ export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
   protected compareSameKind(other: this): -1 | 0 | 1 {
     const cmp = Temporal.PlainDate.compare(this.value, other.value);
     return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0) as -1 | 0 | 1;
+  }
+
+  format(format?: string | boolean): string {
+    // long
+    if (format === true) {
+      format = getRow(bbn.dt.locales.date, {year: 'numeric', month: 'long', day: 'long', weekday: 'long'}).pattern;
+    }
+    // short
+    if (!format) {
+      format = getRow(bbn.dt.locales.date, {year: 'numeric', month: 'numeric', day: 'numeric'}).pattern;
+    }
+
+    return bbnDt.constructor.prototype.formatDate.call(this, this.value, format);
   }
 
   ftime(withSeconds: boolean = false): string {

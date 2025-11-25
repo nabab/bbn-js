@@ -1,5 +1,6 @@
 import { Temporal } from 'temporal-polyfill';
 import bbnDt from './dt.js';
+import getRow from '../../fn/object/getRow.js';
 export default class bbnDtDateTime extends bbnDt {
     constructor(y, m, d, h, i, s, ms) {
         let value;
@@ -26,6 +27,17 @@ export default class bbnDtDateTime extends bbnDt {
         }
         super(value);
         this.kind = 'datetime';
+    }
+    format(format) {
+        // long
+        if (format === true) {
+            format = getRow(bbn.dt.locales.date, { year: 'numeric', month: 'long', day: 'long', weekday: 'long', hour: '2-digit', minute: '2-digit', second: undefined }).pattern;
+        }
+        // short
+        if (!format) {
+            format = getRow(bbn.dt.locales.date, { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', second: undefined }).pattern;
+        }
+        return bbnDt.constructor.prototype.formatDate.call(this, this.value, format);
     }
     fdate(long = false, withTime = false, weekday = false) {
         if (!this.value) {
