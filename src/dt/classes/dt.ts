@@ -14,6 +14,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   abstract readonly kind: bbnDtKind;
 
   readonly __bbnNoData = true;
+  readonly __isBbnDt = true;
 
   #value: TValue | undefined;
 

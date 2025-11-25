@@ -197,7 +197,7 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
     if (typeof value === 'number') {
         return new bbnDtDateTime(value);
     }
-    else if (value instanceof bbnDt) {
+    else if (value.__isBbnDt) {
         return value;
     }
     else if (value instanceof Date) {

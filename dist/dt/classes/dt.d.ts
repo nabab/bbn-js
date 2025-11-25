@@ -5,6 +5,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     #private;
     abstract readonly kind: bbnDtKind;
     readonly __bbnNoData = true;
+    readonly __isBbnDt = true;
     constructor(value?: TValue);
     get value(): TValue | undefined;
     get hasFullDate(): boolean;
