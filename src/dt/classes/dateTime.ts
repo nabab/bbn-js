@@ -42,7 +42,7 @@ export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
       format = getRow(bbn.dt.locales.date, {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', second: undefined}).pattern;
     }
 
-    return bbnDt.prototype.format.call(this, [format]);
+    return bbnDt.prototype.format.call(this, format);
   }
 
   fdate(long: boolean = false, withTime: boolean = false, weekday: boolean = false): string {

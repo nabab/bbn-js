@@ -53,7 +53,7 @@ export default class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth>
       ).pattern;
     }
 
-    return bbnDt.prototype.format.call(this, [format]);
+    return bbnDt.prototype.format.call(this, format);
   }
 
   fdate(long: boolean = false, withTime: boolean = false, weekday: boolean = false): string {
