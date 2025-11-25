@@ -20,6 +20,7 @@ export default function parse(
   input: string,
   format: string | string[],
   cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto',
+  force?: boolean,
   locale?: {
     monthsLong?: string[];
     monthsShort?: string[];
@@ -607,10 +608,16 @@ export default function parse(
     }
 
     const fullRegex = new RegExp('^' + pattern + '$');
-    const match = fullRegex.exec(input);
+    let match = fullRegex.exec(input);
 
     if (!match) {
-      throw new Error(`Date string "${input}" does not match format "${fmt}"`);
+      if (force) {
+        input = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0).format(fmt);
+        match = fullRegex.exec(input);
+      }
+      else {
+        throw new Error(`Date string "${input}" does not match format "${fmt}"`);
+      }
     }
 
     for (let idx = 1; idx < match.length; idx++) {

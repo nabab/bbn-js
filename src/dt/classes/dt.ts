@@ -19,7 +19,20 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   #value: TValue | undefined;
 
   constructor(value?: TValue) {
+    Object.defineProperty(this, 'isValid', {
+      value: false,
+      writable: false,
+      configurable: true
+    });
     this.#value = value;
+  }
+
+  setValid(isValid: boolean) {
+    Object.defineProperty(this, 'isValid', {
+      value: isValid,
+      writable: false,
+      configurable: false
+    });
   }
 
   get value(): TValue | undefined {
@@ -726,10 +739,6 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return this.value.weekOfYear.toString();
     }
     return undefined;
-  }
-
-  get isValid(): boolean {
-    return this.value !== undefined;
   }
 
   format(format: string = 'YYYY-MM-DD HH:II:SS'): string {

@@ -7,6 +7,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     readonly __bbnNoData = true;
     readonly __isBbnDt = true;
     constructor(value?: TValue);
+    setValid(isValid: boolean): void;
     get value(): TValue | undefined;
     get hasFullDate(): boolean;
     /** System time zone ID (e.g. "Europe/Rome") */
@@ -86,7 +87,6 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get S(): string;
     get WW(): string;
     get W(): string;
-    get isValid(): boolean;
     format(format?: string): string;
     matchFormat(value: any, format: string): boolean;
     getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string | object;

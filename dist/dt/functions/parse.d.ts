@@ -1,4 +1,4 @@
-export default function parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
+export default function parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', force?: boolean, locale?: {
     monthsLong?: string[];
     monthsShort?: string[];
     weekdaysLong?: string[];

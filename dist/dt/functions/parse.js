@@ -13,7 +13,7 @@ const lc = function (str, localeCode) {
         return str.toLowerCase();
     }
 };
-export default function parse(input, format, cls = 'auto', locale) {
+export default function parse(input, format, cls = 'auto', force, locale) {
     var _a, _b, _c, _d, _e, _f, _g;
     buildLocaleFromIntl();
     const TemporalAny = globalThis.Temporal;
@@ -527,9 +527,15 @@ export default function parse(input, format, cls = 'auto', locale) {
             }
         }
         const fullRegex = new RegExp('^' + pattern + '$');
-        const match = fullRegex.exec(input);
+        let match = fullRegex.exec(input);
         if (!match) {
-            throw new Error(`Date string "${input}" does not match format "${fmt}"`);
+            if (force) {
+                input = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0).format(fmt);
+                match = fullRegex.exec(input);
+            }
+            else {
+                throw new Error(`Date string "${input}" does not match format "${fmt}"`);
+            }
         }
         for (let idx = 1; idx < match.length; idx++) {
             const value = match[idx];

@@ -46,7 +46,19 @@ export class bbnDt {
             }
             throw new Error(`Unknown weekday name '${name}' for locale '${loc}'`);
         };
+        Object.defineProperty(this, 'isValid', {
+            value: false,
+            writable: false,
+            configurable: true
+        });
         __classPrivateFieldSet(this, _bbnDt_value, value, "f");
+    }
+    setValid(isValid) {
+        Object.defineProperty(this, 'isValid', {
+            value: isValid,
+            writable: false,
+            configurable: false
+        });
     }
     get value() {
         return __classPrivateFieldGet(this, _bbnDt_value, "f");
@@ -611,9 +623,6 @@ export class bbnDt {
             return this.value.weekOfYear.toString();
         }
         return undefined;
-    }
-    get isValid() {
-        return this.value !== undefined;
     }
     format(format = 'YYYY-MM-DD HH:II:SS') {
         let str = '';
