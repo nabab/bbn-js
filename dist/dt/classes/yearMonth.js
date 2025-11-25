@@ -42,7 +42,7 @@ export default class bbnDtYearMonth extends bbnDt {
                 && (d.month === 'numeric')
                 && !('day' in d)).pattern;
         }
-        return bbnDt.prototype.format.call(this, this.value, format);
+        return bbnDt.prototype.format.call(this, [format]);
     }
     fdate(long = false, withTime = false, weekday = false) {
         if (!this.value) {

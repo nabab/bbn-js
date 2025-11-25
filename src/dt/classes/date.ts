@@ -46,7 +46,7 @@ export default class bbnDtDate extends bbnDt<Temporal.PlainDate>
       format = getRow(bbn.dt.locales.date, {year: 'numeric', month: 'numeric', day: 'numeric'}).pattern;
     }
 
-    return bbnDt.prototype.format.call(this, this.value, format);
+    return bbnDt.prototype.format.call(this, [format]);
   }
 
   ftime(withSeconds: boolean = false): string {
