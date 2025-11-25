@@ -52,6 +52,18 @@ class bbnDtDuration {
         if (!row) {
             //throw new Error('Invalid unit for duration: ' + realUnit);
         }
+        Object.defineProperty(this, 'isValid', {
+            value: false,
+            writable: false,
+            configurable: true
+        });
+    }
+    setValid(isValid) {
+        Object.defineProperty(this, 'isValid', {
+            value: isValid,
+            writable: false,
+            configurable: false
+        });
     }
     get value() {
         return __classPrivateFieldGet(this, _bbnDtDuration_value, "f");

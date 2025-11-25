@@ -179,7 +179,7 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
         if (inputFormat) {
             let parsed;
             try {
-                parsed = parse(value, inputFormat, cls);
+                parsed = parse(value, inputFormat, cls, true);
                 return parsed;
             }
             catch (e) { }

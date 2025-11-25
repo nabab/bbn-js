@@ -219,6 +219,7 @@ declare global {
 
   abstract class bbnDt <T> {
     abstract readonly kind: bbnDtKind;
+    setValid(valid: boolean): void;
     parse(input: string, format: string): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;

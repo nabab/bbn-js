@@ -21,6 +21,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         throw new Error('Temporal API is required (load @js-temporal/polyfill)');
     }
     const T = TemporalAny;
+    let isValid = true;
     if (!locale) {
         locale = ((_a = bbn === null || bbn === void 0 ? void 0 : bbn.dt) === null || _a === void 0 ? void 0 : _a.locales) || {};
     }
@@ -530,7 +531,9 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         let match = fullRegex.exec(input);
         if (!match) {
             if (force) {
-                input = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0).format(fmt);
+                const inputDate = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0);
+                input = inputDate.format(fmt);
+                isValid = false;
                 match = fullRegex.exec(input);
             }
             else {
@@ -568,6 +571,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         const hasMonthDayOnly = !ctx.hasYear && ctx.hasMonth && ctx.hasDay;
         const hasTime = ctx.hasHour || ctx.hasMinute || ctx.hasSecond || ctx.hasMs;
         const hasZone = ctx.timeZone != null || ctx.offsetMinutes != null;
+        let dtObj;
         // ---------- 1) If timezone (Z or z) → Zoned ----------
         if (isClsZoned || (hasZone && isClsAuto)) {
             let pdt;
@@ -580,40 +584,48 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             if (ctx.timeZone) {
                 const tz = T.TimeZone.from(ctx.timeZone);
                 const zdt = pdt.toZonedDateTime(tz);
-                return new bbnDtZoned(zdt);
+                dtObj = new bbnDtZoned(zdt);
             }
-            const utcMs = Date.UTC(ctx.year, ctx.month - 1, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms);
-            const epochMs = utcMs - ((_a = ctx.offsetMinutes) !== null && _a !== void 0 ? _a : 0) * 60000;
-            return new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
+            else {
+                const utcMs = Date.UTC(ctx.year, ctx.month - 1, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms);
+                const epochMs = utcMs - ((_a = ctx.offsetMinutes) !== null && _a !== void 0 ? _a : 0) * 60000;
+                dtObj = new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
+            }
         }
         // ---------- 2) No timezone: decide which Plain* type ----------
-        if (isClsDateTime || (isClsAuto && hasDate && hasTime)) {
+        else if (isClsDateTime || (isClsAuto && hasDate && hasTime)) {
             if (!hasFullDate) {
                 throw new Error('PlainDateTime requires year, month and day');
             }
             const d = new T.PlainDateTime(ctx.year, ctx.month, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms * 1000000);
-            return new bbnDtDateTime(d);
+            dtObj = new bbnDtDateTime(d);
         }
-        if (isClsDate || isClsYearMonth || isClsMonthDay || (isClsAuto && hasDate && !hasTime)) {
+        else if (isClsDate || isClsYearMonth || isClsMonthDay || (isClsAuto && hasDate && !hasTime)) {
             if (isClsDate || (hasFullDate && isClsAuto)) {
                 const d = new T.PlainDate(ctx.year, ctx.month, ctx.day);
-                return new bbnDtDate(d);
+                dtObj = new bbnDtDate(d);
             }
-            if (isClsYearMonth || (hasYearMonthOnly && isClsAuto)) {
+            else if (isClsYearMonth || (hasYearMonthOnly && isClsAuto)) {
                 const d = new T.PlainYearMonth(ctx.year, ctx.month);
-                return new bbnDtYearMonth(d);
+                dtObj = new bbnDtYearMonth(d);
             }
-            if (isClsMonthDay || (hasMonthDayOnly && isClsAuto)) {
+            else if (isClsMonthDay || (hasMonthDayOnly && isClsAuto)) {
                 const d = new T.PlainMonthDay(ctx.month, ctx.day, 1972);
-                return new bbnDtMonthDay(d);
+                dtObj = new bbnDtMonthDay(d);
             }
-            throw new Error('Not enough date components for a known Temporal type');
+            else {
+                throw new Error('Not enough date components for a known Temporal type');
+            }
         }
-        if (isClsTime || (isClsAuto && !hasDate && hasTime)) {
+        else if (isClsTime || (isClsAuto && !hasDate && hasTime)) {
             const d = new T.PlainTime(ctx.hour, ctx.minute, ctx.second, ctx.ms * 1000000);
-            return new bbnDtTime(d);
+            dtObj = new bbnDtTime(d);
         }
-        throw new Error('No date or time information found in input');
+        else {
+            throw new Error('No date or time information found in input');
+        }
+        dtObj.setValid(isValid);
+        return dtObj;
     }
     if (Array.isArray(format)) {
         let lastError = null;

@@ -198,7 +198,7 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
     if (inputFormat) {
       let parsed;
       try {
-        parsed = parse(value as string, inputFormat as string, cls);
+        parsed = parse(value as string, inputFormat as string, cls, true);
         return parsed;
       }
       catch (e) {}

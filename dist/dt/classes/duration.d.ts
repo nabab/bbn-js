@@ -3,6 +3,7 @@ export default class bbnDtDuration {
     #private;
     static fromUnit(value: number, unit: string): bbnDtDuration;
     constructor(y: Temporal.Duration | number | object, m?: number, w?: number, d?: number, h?: number, i?: number, s?: number, ms?: number, unit?: string);
+    setValid(isValid: boolean): void;
     get value(): Temporal.Duration;
     years(remaining?: boolean): number;
     months(remaining?: boolean): number;
