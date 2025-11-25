@@ -7,8 +7,16 @@ import env from './env.js';
 import com from './com.js';
 import db from './db.js';
 import fn from './fn.js';
-import date from './date.js';
 import dt from './dt.js';
+import {
+  bbnDtDate,
+  bbnDtDateTime,
+  bbnDtTime,
+  bbnDtYearMonth,
+  bbnDtMonthDay,
+  bbnDtZoned,
+  bbnDtDuration
+} from './dt/index.js';
 
 const bbn: Bbn = {
   version: "1.0.1",
@@ -21,7 +29,6 @@ const bbn: Bbn = {
   $,
   lng,
   var: vars,
-  date,
   dt,
   com,
   env,
@@ -107,5 +114,12 @@ if ('undefined' !== typeof window) {
 export {
   bbn as default,
   bbn,
-  Temporal
+  Temporal,
+  bbnDtDate,
+  bbnDtDateTime,
+  bbnDtTime,
+  bbnDtYearMonth,
+  bbnDtMonthDay,
+  bbnDtZoned,
+  bbnDtDuration
 }
