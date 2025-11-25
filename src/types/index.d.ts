@@ -316,20 +316,14 @@ declare global {
     Temporal: any;
     bbnData: any;
     scheduler: any;
-    bbnDtDate: any;
-    bbnDtDateTime: any;
-    bbnDtTime: any;
-    bbnDtYearMonth: any;
-    bbnDtMonthDay: any;
-    bbnDtZoned: any;
-    bbnDtDuration: any;
-  }
+  }  
   
   interface Bbn {
     version: string;
     opt: object;
     env: BbnEnv;
     var: Vars;
+    date: Function;
     dt: any;
     com: object;
     lng: Lng;
