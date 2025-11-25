@@ -197,6 +197,9 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
     if (typeof value === 'number') {
         return new bbnDtDateTime(value);
     }
+    else if (value instanceof bbnDt) {
+        return value;
+    }
     else if (value instanceof Date) {
         const d = value;
         return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());

@@ -217,6 +217,9 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
   if (typeof value === 'number') {
     return new bbnDtDateTime(value);
   }
+  else if (value instanceof bbnDt) {
+    return value;
+  }
   else if (value instanceof Date) {
     const d = value as Date;
     return new bbnDtDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
