@@ -3,7 +3,6 @@ import each from './loop/each.js';
 import extend from './object/extend.js';
 import addColors from './style/addColors.js';
 import link from './ajax/link.js';
-import submit from './form/submit.js';
 import resize from './style/resize.js';
 import isMobile from './browser/isMobile.js';
 import isTabletDevice from './browser/isTabletDevice.js';
@@ -105,11 +104,7 @@ export default function init(cfg, force) {
         document.addEventListener("click", onActivity);
         document.addEventListener("keydown", onActivity);
         document.addEventListener("focusin", onActivity);
-        each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
-            ele.addEventListener("submit", (e) => {
-                submit(ele, e);
-            });
-        });
+        document.addEventListener("focusout", onActivity);
         window.addEventListener("hashchange", () => {
             bbn.env.hashChanged = new Date().getTime();
         }, false);
