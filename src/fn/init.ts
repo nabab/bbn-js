@@ -10,7 +10,6 @@ import isTabletDevice from './browser/isTabletDevice.js'  ;
 import isFunction from './type/isFunction.js'  ;
 import log from './browser/log.js'  ;
 import timestamp from './datetime/timestamp.js'  ;
-import dt from '../dt.js'  ;
 
 const onActivity = (e: Event) => {
   bbn.env.last_focus = bbn.dt().unix();

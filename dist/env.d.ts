@@ -27,6 +27,7 @@ declare const _default: {
     params: any[];
     isInit: boolean;
     isFocused: boolean;
+    isVisible: boolean;
     timeoff: number;
     loggingLevel: number;
     ignoreUnload: boolean;

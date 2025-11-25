@@ -39,6 +39,7 @@ export default {
   params: [],
   isInit: false,
   isFocused: false,
+  isVisible: !document.hidden,
   timeoff: Math.round((new Date()).getTime() / 1000),
   loggingLevel: 5,
   ignoreUnload: false,
