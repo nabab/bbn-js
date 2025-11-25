@@ -789,7 +789,7 @@ export class bbnDt {
     }
     fromNow(unit = '') {
         const nowValue = bbnDt.nowForKind(this.kind);
-        const temp = { kind: this.kind, value: nowValue };
+        const temp = bbn.dt(nowValue, null, this.kind);
         const rawDiffMs = this.diff(temp);
         const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
         if (!chosenUnit) {

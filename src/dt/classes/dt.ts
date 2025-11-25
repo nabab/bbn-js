@@ -952,7 +952,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   fromNow(unit: string = '') {
     const nowValue = bbnDt.nowForKind(this.kind);
-    const temp = { kind: this.kind, value: nowValue } as any as bbnDt<any>;
+    const temp = bbn.dt(nowValue, null, this.kind) as bbnDt<any>;
 
     const rawDiffMs = this.diff(temp);
     const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
