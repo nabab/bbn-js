@@ -47,6 +47,7 @@ interface BbnEnv {
   params: string[];
   isInit: boolean;
   isFocused: boolean;
+  isVisible: boolean;
   timeoff: any;
   loggingLevel: number;
   ignoreUnload: boolean;

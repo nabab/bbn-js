@@ -10,6 +10,41 @@ import isTabletDevice from './browser/isTabletDevice.js'  ;
 import isFunction from './type/isFunction.js'  ;
 import log from './browser/log.js'  ;
 import timestamp from './datetime/timestamp.js'  ;
+import dt from '../dt.js'  ;
+
+const onActivity = (e: Event) => {
+  bbn.env.last_focus = bbn.dt().unix();
+  if (bbn.env.nav !== "ajax") {
+    return;
+  }
+  let target = e.target;
+  if (target instanceof HTMLElement && target.tagName !== "A") {
+    let p = target;
+    while (p && p.tagName !== "A") {
+      if (p.tagName === "BODY") {
+        break;
+      }
+      p = p.parentElement;
+    }
+    if (p && p.tagName === "A") {
+      target = p;
+    } else {
+      target = null;
+    }
+  }
+  if (
+    target instanceof HTMLElement &&
+    target.hasAttribute("href") &&
+    !target.hasAttribute("target") &&
+    !target.classList.contains("bbn-no")
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+    link(target.getAttribute("href"));
+    return false;
+  }
+};
+
 
 /**
  * Initializes the library bbn basing on the given configuration object.
@@ -24,8 +59,8 @@ import timestamp from './datetime/timestamp.js'  ;
  * @param    {Object} cfg
  * @returns
  */
-export default function init(cfg, force) {
-  let parts;
+export default function init(cfg?: object, force?: boolean): void {
+  let parts: string[];
   if (!bbn.env.isInit) {
     bbn.env.root =
       document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
@@ -51,56 +86,38 @@ export default function init(cfg, force) {
     }
 
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden && bbn.env.isFocused) {
-        bbn.env.isFocused = false;
+      if (document.hidden) {
+        bbn.env.isVisible = false;
       }
-      else if (!document.hidden && !bbn.env.isFocused) {
-        bbn.env.isFocused = true;
+      else {
+        bbn.env.isVisible = true;
       }
     });
 
-    document.addEventListener("focusin", (e: Event) => {
+    document.addEventListener("focus", (e: Event) => {
       if (
         e.target instanceof HTMLElement &&
         !e.target.classList.contains("bbn-no")
       ) {
         bbn.env.focused = e.target;
       }
+      bbn.env.isFocused = true;
       bbn.env.last_focus = timestamp();
     });
 
-    document.addEventListener("click", (e) => {
-      bbn.env.last_focus = timestamp();
-      if (bbn.env.nav !== "ajax") {
-        return;
-      }
-      let target = e.target;
-      if (target instanceof HTMLElement && target.tagName !== "A") {
-        let p = target;
-        while (p && p.tagName !== "A") {
-          if (p.tagName === "BODY") {
-            break;
-          }
-          p = p.parentElement;
-        }
-        if (p && p.tagName === "A") {
-          target = p;
-        } else {
-          target = null;
-        }
-      }
+    document.addEventListener("blur", (e: Event) => {
       if (
-        target instanceof HTMLElement &&
-        target.hasAttribute("href") &&
-        !target.hasAttribute("target") &&
-        !target.classList.contains("bbn-no")
+        e.target instanceof HTMLElement &&
+        !e.target.classList.contains("bbn-no")
       ) {
-        e.preventDefault();
-        e.stopPropagation();
-        link(target.getAttribute("href"));
-        return false;
+        bbn.env.focused = e.target;
       }
+      bbn.env.isFocused = false;
+      bbn.env.last_focus = timestamp();
     });
+
+    document.addEventListener("click", onActivity);
+    document.addEventListener("keydown", onActivity);
     each(
       document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"),
       (ele: HTMLFormElement) => {

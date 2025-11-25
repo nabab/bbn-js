@@ -10,6 +10,37 @@ import isTabletDevice from './browser/isTabletDevice.js';
 import isFunction from './type/isFunction.js';
 import log from './browser/log.js';
 import timestamp from './datetime/timestamp.js';
+const onActivity = (e) => {
+    bbn.env.last_focus = bbn.dt().unix();
+    if (bbn.env.nav !== "ajax") {
+        return;
+    }
+    let target = e.target;
+    if (target instanceof HTMLElement && target.tagName !== "A") {
+        let p = target;
+        while (p && p.tagName !== "A") {
+            if (p.tagName === "BODY") {
+                break;
+            }
+            p = p.parentElement;
+        }
+        if (p && p.tagName === "A") {
+            target = p;
+        }
+        else {
+            target = null;
+        }
+    }
+    if (target instanceof HTMLElement &&
+        target.hasAttribute("href") &&
+        !target.hasAttribute("target") &&
+        !target.classList.contains("bbn-no")) {
+        e.preventDefault();
+        e.stopPropagation();
+        link(target.getAttribute("href"));
+        return false;
+    }
+};
 /**
  * Initializes the library bbn basing on the given configuration object.
  * - Gives to the environment the dimension of the window.innerWidth and window.innerHeight
@@ -48,51 +79,31 @@ export default function init(cfg, force) {
             addColors(bbn.var.colors);
         }
         document.addEventListener("visibilitychange", () => {
-            if (document.hidden && bbn.env.isFocused) {
-                bbn.env.isFocused = false;
+            if (document.hidden) {
+                bbn.env.isVisible = false;
             }
-            else if (!document.hidden && !bbn.env.isFocused) {
-                bbn.env.isFocused = true;
+            else {
+                bbn.env.isVisible = true;
             }
         });
-        document.addEventListener("focusin", (e) => {
+        document.addEventListener("focus", (e) => {
             if (e.target instanceof HTMLElement &&
                 !e.target.classList.contains("bbn-no")) {
                 bbn.env.focused = e.target;
             }
+            bbn.env.isFocused = true;
             bbn.env.last_focus = timestamp();
         });
-        document.addEventListener("click", (e) => {
+        document.addEventListener("blur", (e) => {
+            if (e.target instanceof HTMLElement &&
+                !e.target.classList.contains("bbn-no")) {
+                bbn.env.focused = e.target;
+            }
+            bbn.env.isFocused = false;
             bbn.env.last_focus = timestamp();
-            if (bbn.env.nav !== "ajax") {
-                return;
-            }
-            let target = e.target;
-            if (target instanceof HTMLElement && target.tagName !== "A") {
-                let p = target;
-                while (p && p.tagName !== "A") {
-                    if (p.tagName === "BODY") {
-                        break;
-                    }
-                    p = p.parentElement;
-                }
-                if (p && p.tagName === "A") {
-                    target = p;
-                }
-                else {
-                    target = null;
-                }
-            }
-            if (target instanceof HTMLElement &&
-                target.hasAttribute("href") &&
-                !target.hasAttribute("target") &&
-                !target.classList.contains("bbn-no")) {
-                e.preventDefault();
-                e.stopPropagation();
-                link(target.getAttribute("href"));
-                return false;
-            }
         });
+        document.addEventListener("click", onActivity);
+        document.addEventListener("keydown", onActivity);
         each(document.querySelectorAll("form:not(.bbn-no), form:not(.bbn-form)"), (ele) => {
             ele.addEventListener("submit", (e) => {
                 submit(ele, e);

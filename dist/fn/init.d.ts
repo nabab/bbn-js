@@ -11,4 +11,4 @@
  * @param    {Object} cfg
  * @returns
  */
-export default function init(cfg: any, force: any): void;
+export default function init(cfg?: object, force?: boolean): void;
