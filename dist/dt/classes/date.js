@@ -41,7 +41,7 @@ export default class bbnDtDate extends bbnDt {
         if (!format) {
             format = getRow(bbn.dt.locales.date, { year: 'numeric', month: 'numeric', day: 'numeric' }).pattern;
         }
-        return bbnDt.constructor.prototype.formatDate.call(this, this.value, format);
+        return bbnDt.prototype.format.call(this, this.value, format);
     }
     ftime(withSeconds = false) {
         return '00:00' + (withSeconds ? ':00' : '');
