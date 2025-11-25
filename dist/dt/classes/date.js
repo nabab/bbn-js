@@ -31,6 +31,9 @@ export default class bbnDtDate extends bbnDt {
         const cmp = Temporal.PlainDate.compare(this.value, other.value);
         return (cmp < 0 ? -1 : cmp > 0 ? 1 : 0);
     }
+    ftime(withSeconds = false) {
+        return '00:00' + (withSeconds ? ':00' : '');
+    }
     fdate(long = false, weekday = false) {
         const date = new Date(this.year(), this.month() - 1, this.day());
         const opt = Object.assign({ year: 'numeric', month: long ? 'long' : 'numeric', day: 'numeric' }, (weekday ? { weekday: (long ? 'long' : 'short') } : {}));
