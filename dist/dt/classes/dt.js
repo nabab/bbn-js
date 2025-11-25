@@ -433,8 +433,8 @@ export class bbnDt {
     }
     datetime(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
-            if (this instanceof bbnDtDate) {
-                return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
+            if (this.kind === 'date') {
+                return this.parse(this.date() + ' ' + v, 'Y-m-d 00:00:00', 'dateTime');
             }
             return this.parse(v, 'Y-m-d H:i:s');
         }
