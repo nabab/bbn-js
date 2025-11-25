@@ -29,9 +29,11 @@ const MYSQL_AND_NATIVE_FORMATS: string[] = [
   'ddd MMM DD YYYY HH:II:SS[ GMT]Z',
   // Tue Oct 29 2024 14:30:00
   'ddd MMM DD YYYY HH:II:SS',
+  'D MMM',
+  'D MMMM',
+  'D/M',
   'YYYY-MM-DD',
   'YYYY-MM',
-  'MM-DD',
   'HH:II:SS',
   'HH:II',
 ];
