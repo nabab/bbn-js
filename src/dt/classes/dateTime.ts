@@ -5,7 +5,7 @@ import getRow from '../../fn/object/getRow.js';
 
 export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
 {
-  readonly kind: bbnDtKind = 'datetime';
+  readonly kind: bbnDtKind = 'dateTime';
   constructor(y?: any, m?: number, d?: number, h?: number, i?: number, s?: number, ms?: number) {
     let value;
     if (!y) {

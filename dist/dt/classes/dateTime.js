@@ -26,7 +26,7 @@ export default class bbnDtDateTime extends bbnDt {
             value = new Temporal.PlainDateTime(y, m, d || 1, h || 0, i || 0, s || 0, ms || 0);
         }
         super(value);
-        this.kind = 'datetime';
+        this.kind = 'dateTime';
     }
     format(format) {
         // long
