@@ -113,8 +113,8 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                     throw new Error('Invalid minute: ' + n);
                 }
                 // NOTE: kept as in your original code, even though name suggests minutes.
-                ctx.month = n;
-                ctx.hasMonth = true;
+                ctx.minute = n;
+                ctx.hasMinute = true;
             }
         },
         {
