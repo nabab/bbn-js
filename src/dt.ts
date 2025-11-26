@@ -246,6 +246,8 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
     return new bbnDtDuration(value);
   }
   else {
+    bbn.fn.log(value);
+    throw new Error(_('Invalid date value: %s', value));
     return {isValid: false};
   }
 
