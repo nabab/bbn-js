@@ -12,7 +12,7 @@ export default defineConfig({
     input: 'dist/index.js', // equivalent to Webpack's entry
     output: {
         file: path.resolve(__dirname, 'dist/bbn.js'), // Output file path
-        format: 'iife', // 'global' type in Webpack maps to IIFE in Rollup which attaches to window
+        format: 'umd', // 'global' type in Webpack maps to IIFE in Rollup which attaches to window
         name: 'bbn', // The global variable name, note that multiple names aren't typical in Rollup
         sourcemap: true, // Equivalent to Webpack's devtool: 'source-map',
         inlineDynamicImports: true,
