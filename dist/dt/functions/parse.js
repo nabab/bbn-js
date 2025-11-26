@@ -330,6 +330,18 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             }
         },
         {
+            token: 'ss', // PHP-like seconds
+            regex: '\\d{2}',
+            apply: (v, ctx) => {
+                const n = parseInt(v, 10);
+                if (n < 0 || n > 59) {
+                    throw new Error('Invalid second: ' + n);
+                }
+                ctx.second = n;
+                ctx.hasSecond = true;
+            }
+        },
+        {
             token: 's', // PHP-like seconds
             regex: '\\d{2}',
             apply: (v, ctx) => {
@@ -483,9 +495,6 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         let pattern = '';
         const applyFns = [];
         let i = 0;
-        if (fmt === "YYYY-MM-DD HH:mm:ss") {
-            debugger;
-        }
         while (i < fmt.length) {
             // 1) Handle [literal] blocks first
             if (fmt[i] === '[') {
@@ -538,9 +547,6 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 input = inputDate.format(fmt);
                 isValid = false;
                 match = fullRegex.exec(input);
-                if (!match) {
-                    debugger;
-                }
             }
             else {
                 throw new Error(`Date string "${input}" does not match format "${fmt}"`);
