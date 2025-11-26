@@ -483,6 +483,9 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         let pattern = '';
         const applyFns = [];
         let i = 0;
+        if (fmt === "YYYY-MM-DD HH:mm:ss") {
+            debugger;
+        }
         while (i < fmt.length) {
             // 1) Handle [literal] blocks first
             if (fmt[i] === '[') {

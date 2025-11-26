@@ -561,6 +561,9 @@ export default function parse(
     const applyFns: ((value: string) => void)[] = [];
     let i = 0;
 
+    if (fmt === "YYYY-MM-DD HH:mm:ss") {
+      debugger;
+    }
     while (i < fmt.length) {
       // 1) Handle [literal] blocks first
       if (fmt[i] === '[') {
