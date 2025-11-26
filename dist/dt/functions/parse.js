@@ -539,10 +539,6 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 i += 1;
             }
         }
-        if (!ctx.month && (fmt === "YYYY-MM-DD HH:mm:ss")) {
-            bbn.fn.log(i);
-            debugger;
-        }
         const fullRegex = new RegExp('^' + pattern + '$');
         let match = fullRegex.exec(input);
         if (!match) {
@@ -561,6 +557,10 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             const apply = applyFns[idx - 1];
             if (value != null && apply) {
                 apply(value);
+            }
+            if (!ctx.month && (fmt === "YYYY-MM-DD HH:mm:ss")) {
+                bbn.fn.log(i);
+                debugger;
             }
         }
         // ---- NEW: convert 12h + AM/PM to 24h ----
