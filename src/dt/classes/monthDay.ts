@@ -3,7 +3,7 @@ import bbnDt from './dt.js';
 
 export default class bbnDtMonthDay extends bbnDt<Temporal.PlainMonthDay>
 {
-  readonly kind: bbnDtKind = 'month-day';
+  readonly kind: bbnDtKind = 'monthDay';
 
   constructor(m?: any, d?: number) {
     let value;

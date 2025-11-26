@@ -7,6 +7,7 @@ const MYSQL_AND_NATIVE_FORMATS = [
     // Date + time
     'YYYY-MM-DD HH:II:SS.ms',
     'YYYY-MM-DD HH:II:SS',
+    'YYYY-MM-DD HH:II:SS[ GMT]Z',
     'YYYY-MM-DD HH:II',
     // Time only
     // --- ISO 8601 / JS toISOString() ---

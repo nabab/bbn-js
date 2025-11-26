@@ -27,7 +27,7 @@ export default class bbnDtYearMonth extends bbnDt {
             value = new Temporal.PlainYearMonth(y, m);
         }
         super(value);
-        this.kind = 'year-month';
+        this.kind = 'yearMonth';
     }
     format(format) {
         // long

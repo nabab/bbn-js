@@ -34,13 +34,13 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
      */
     protected withValue(newValue: any): this;
     static compare(a: any, b: any, unit: string | undefined): -1 | 0 | 1;
-    static parse(input: string, format: string | string[], cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay', locale?: {
+    static parse(input: string, format: string | string[], cls?: bbnDtKindParams, locale?: {
         monthsLong?: string[];
         monthsShort?: string[];
         weekdaysLong?: string[];
         weekdaysShort?: string[];
     }): bbnDt<any>;
-    parse(input: string, format: string, cls?: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay'): bbnDt<any>;
+    parse(input: string, format: string, cls?: bbnDtKindParams): bbnDt<any>;
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;

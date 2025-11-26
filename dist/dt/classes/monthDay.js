@@ -26,7 +26,7 @@ export default class bbnDtMonthDay extends bbnDt {
             value = new Temporal.PlainMonthDay(m, d);
         }
         super(value);
-        this.kind = 'month-day';
+        this.kind = 'monthDay';
     }
     fdate(long = false, withTime = false, weekday = false) {
         if (!this.value) {

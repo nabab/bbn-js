@@ -18,7 +18,6 @@ import each from '../../fn/loop/each.js';
 import getRow from '../../fn/object/getRow.js';
 import isPrimitive from '../../fn/type/isPrimitive.js';
 import bbnDtDuration from './duration.js';
-import camelToCss from '../../fn/string/camelToCss.js';
 export class bbnDt {
     constructor(value) {
         this.__bbnNoData = true;
@@ -84,7 +83,7 @@ export class bbnDt {
                 const v = this.value;
                 return v.toInstant().epochMilliseconds;
             }
-            case 'datetime': {
+            case 'dateTime': {
                 const v = this.value;
                 // RFC 9557 string: "YYYY-MM-DDTHH:mm:ss[Europe/Rome]"
                 const iso = `${v.toString()}[${tz}]`;
@@ -106,14 +105,14 @@ export class bbnDt {
                 const zdt = Temporal.ZonedDateTime.from(iso);
                 return zdt.toInstant().epochMilliseconds;
             }
-            case 'year-month': {
+            case 'yearMonth': {
                 const ym = this.value;
                 const d = ym.toPlainDate({ day: 1 }); // first day of month
                 const iso = `${d.toString()}T00:00[${tz}]`;
                 const zdt = Temporal.ZonedDateTime.from(iso);
                 return zdt.toInstant().epochMilliseconds;
             }
-            case 'month-day': {
+            case 'monthDay': {
                 const md = this.value;
                 const today = Temporal.Now.plainDateISO();
                 const d = md.toPlainDate({ year: today.year }); // current year
@@ -132,17 +131,17 @@ export class bbnDt {
         switch (kind) {
             case 'zoned':
                 return Temporal.Now.zonedDateTimeISO();
-            case 'datetime':
+            case 'dateTime':
                 return Temporal.Now.plainDateTimeISO();
             case 'date':
                 return Temporal.Now.plainDateISO();
             case 'time':
                 return Temporal.Now.plainTimeISO();
-            case 'year-month': {
+            case 'yearMonth': {
                 const d = Temporal.Now.plainDateISO();
                 return new Temporal.PlainYearMonth(d.year, d.month);
             }
-            case 'month-day': {
+            case 'monthDay': {
                 const d = Temporal.Now.plainDateISO();
                 return new Temporal.PlainMonthDay(d.month, d.day, undefined, d.year);
             }
@@ -175,7 +174,7 @@ export class bbnDt {
                     case 'zoned': {
                         return x.value;
                     }
-                    case 'datetime': {
+                    case 'dateTime': {
                         const v = x.value;
                         const iso = `${v.toString()}[${tz}]`;
                         return Temporal.ZonedDateTime.from(iso);
@@ -185,7 +184,7 @@ export class bbnDt {
                         const iso = `${d.toString()}T00:00[${tz}]`;
                         return Temporal.ZonedDateTime.from(iso);
                     }
-                    case 'year-month': {
+                    case 'yearMonth': {
                         const ym = x.value;
                         const d = ym.toPlainDate({ day: 1 });
                         const iso = `${d.toString()}T00:00[${tz}]`;
@@ -221,9 +220,9 @@ export class bbnDt {
         // ---- CASE 2: different constructors, but convertible bbnDt kinds ----
         const convertibleKinds = new Set([
             'zoned',
-            'datetime',
+            'dateTime',
             'date',
-            'year-month',
+            'yearMonth',
         ]);
         if (isBbnDt(a) &&
             isBbnDt(b) &&
@@ -247,7 +246,7 @@ export class bbnDt {
         return bbn.dt(input, format, cls, locale);
     }
     parse(input, format, cls) {
-        return bbnDt.parse(input, format, cls || camelToCss(this.kind));
+        return bbnDt.parse(input, format, cls || this.kind);
     }
     compare(other, unit) {
         if (!(other instanceof bbnDt)) {
@@ -455,7 +454,10 @@ export class bbnDt {
     }
     time(v) {
         if (0 in arguments && (v !== undefined) && !(v instanceof Event)) {
-            if (this.kind === 'date') {
+            if (this.kind === 'zoned') {
+                return this.parse(this.date() + ' ' + v + ' GMT' + this.value.timeZoneId, 'Y-m-d H:i:s[ GMT]Z', 'dateTime');
+            }
+            if (['dateTime', 'date'].includes(this.kind)) {
                 return this.parse(this.date() + ' ' + v, 'Y-m-d H:i:s', 'dateTime');
             }
             return this.parse(v, 'H:i:s');
@@ -906,7 +908,7 @@ export class bbnDt {
             switch (this.kind) {
                 case "zoned":
                     return this.value;
-                case "datetime": {
+                case "dateTime": {
                     const pdt = this.value;
                     const iso = `${pdt.toString()}[${tz}]`;
                     return Temporal.ZonedDateTime.from(iso);
@@ -922,13 +924,13 @@ export class bbnDt {
                     const iso = `${today.toString()}T${t.toString()}[${tz}]`;
                     return Temporal.ZonedDateTime.from(iso);
                 }
-                case "year-month": {
+                case "yearMonth": {
                     const ym = this.value;
                     const d = ym.toPlainDate({ day: 1 });
                     const iso = `${d.toString()}T00:00[${tz}]`;
                     return Temporal.ZonedDateTime.from(iso);
                 }
-                case "month-day": {
+                case "monthDay": {
                     const md = this.value;
                     const today = Temporal.Now.plainDateISO();
                     const d = md.toPlainDate({ year: today.year });
@@ -1006,17 +1008,17 @@ export class bbnDt {
         switch (this.kind) {
             case "zoned":
                 return this.withValue(end);
-            case "datetime":
+            case "dateTime":
                 return this.withValue(end.toPlainDateTime());
             case "date":
                 return this.withValue(end.toPlainDate());
             case "time":
                 return this.withValue(end.toPlainTime());
-            case "year-month": {
+            case "yearMonth": {
                 const p = end.toPlainDate();
                 return this.withValue(new Temporal.PlainYearMonth(p.year, p.month));
             }
-            case "month-day": {
+            case "monthDay": {
                 const p = end.toPlainDate();
                 return this.withValue(new Temporal.PlainMonthDay(p.month, p.day));
             }

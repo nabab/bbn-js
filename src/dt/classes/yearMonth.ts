@@ -5,7 +5,7 @@ import getRow from '../../fn/object/getRow.js';
 
 export default class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth>
 {
-  readonly kind: bbnDtKind = 'year-month';
+  readonly kind: bbnDtKind = 'yearMonth';
   constructor(y?: any, m?: number) {
     let value;
     if (!y) {

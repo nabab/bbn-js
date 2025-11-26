@@ -194,6 +194,7 @@ declare namespace Temporal {
   }
 }
 
+
 declare global {
   function parse(
     input: string,
@@ -206,13 +207,15 @@ declare global {
       weekdaysShort?: string[];
     }
   ): bbnDt<any>;
-  
+
+  type bbnDtKindParams = 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay';
+
   type bbnDtKind =
-    | 'datetime'
+    | 'dateTime'
     | 'date'
     | 'time'
-    | 'year-month'
-    | 'month-day'
+    | 'yearMonth'
+    | 'monthDay'
     | 'zoned';
   class bbnDtDuration {
 
