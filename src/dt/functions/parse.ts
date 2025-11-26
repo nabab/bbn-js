@@ -615,10 +615,12 @@ export default function parse(
     if (!match) {
       if (force) {
         const inputDate = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0);
-        debugger;
         input = inputDate.format(fmt);
         isValid = false;
         match = fullRegex.exec(input);
+        if (!match) {
+          debugger;
+        }
       }
       else {
         throw new Error(`Date string "${input}" does not match format "${fmt}"`);
