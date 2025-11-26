@@ -5,7 +5,6 @@ import bbnDtDate from '../classes/date.js';
 import bbnDtTime from '../classes/time.js';
 import bbnDtYearMonth from '../classes/yearMonth.js';
 import bbnDtMonthDay from '../classes/monthDay.js';
-import log from '../../fn/browser/log.js';
 const lc = function (str, localeCode) {
     try {
         return localeCode ? str.toLocaleLowerCase(localeCode) : str.toLowerCase();
@@ -527,7 +526,6 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             if (matchedToken) {
                 pattern += `(${matchedToken.regex})`;
                 if (matchedToken.apply) {
-                    log(matchedToken);
                     applyFns.push(value => matchedToken.apply(value, ctx));
                 }
                 else {

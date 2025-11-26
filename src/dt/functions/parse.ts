@@ -6,8 +6,6 @@ import bbnDtDate from '../classes/date.js';
 import bbnDtTime from '../classes/time.js';
 import bbnDtYearMonth from '../classes/yearMonth.js';
 import bbnDtMonthDay from '../classes/monthDay.js';
-import dt from '../../dt.js';
-import log from '../../fn/browser/log.js';
 
 const lc = function(str: string, localeCode?: string): string {
   try {
@@ -610,7 +608,6 @@ export default function parse(
       if (matchedToken) {
         pattern += `(${matchedToken.regex})`;
         if (matchedToken.apply) {
-          log(matchedToken);
           applyFns.push(value => matchedToken!.apply!(value, ctx));
         } else {
           applyFns.push(() => {});
