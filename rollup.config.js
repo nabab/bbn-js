@@ -23,7 +23,6 @@ export default defineConfig({
             browser: true,
             extensions: ['.js', '.ts'], // Handle TypeScript files
         }),
-        commonjs(), // Convert CommonJS modules to ES6
         typescript({ // TypeScript support
             tsconfig: './tsconfig.json' // Point to your tsconfig file
         }),
