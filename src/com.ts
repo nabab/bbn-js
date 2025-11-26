@@ -116,7 +116,7 @@ const xhrRequest = (method: string, url: string, config: any = {}, aborter?: any
   const hasBody = methodsWithBody.includes(method.toUpperCase());
 
   const promise: any = new Promise((resolve, reject) => {
-    xhr.open(method, url, true);
+    xhr.open(method.toUpperCase(), url, true);
 
     // Set headers
     const { body, headers } = normalizeDataAndHeaders(config.data, config.headers);

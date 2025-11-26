@@ -538,6 +538,10 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 pattern += escapeRegex(fmt[i]);
                 i += 1;
             }
+            if (!ctx.month && (fmt === "YYYY-MM-DD HH:mm:ss")) {
+                bbn.fn.log(i);
+                debugger;
+            }
         }
         const fullRegex = new RegExp('^' + pattern + '$');
         let match = fullRegex.exec(input);

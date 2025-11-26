@@ -20,10 +20,8 @@ import com from '../../com.js';
 export default function upload(url, file, success = null, failure = null, progress = null) {
     const fn = () => {
         return com.run('post', url || bbn.env.path, {
-            data: objectToFormData({ file }),
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+            data: objectToFormData(file),
+            headers: {},
             onUploadProgress(progressEvent) {
                 if (progress) {
                     let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
