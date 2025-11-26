@@ -560,10 +560,6 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             if (value != null && apply) {
                 apply(value);
             }
-            if (!ctx.month && (fmt === "YYYY-MM-DD HH:mm:ss")) {
-                bbn.fn.log(i);
-                debugger;
-            }
         }
         // ---- NEW: convert 12h + AM/PM to 24h ----
         if (ctx.uses12Hour) {
