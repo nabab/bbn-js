@@ -226,7 +226,7 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
         return new bbnDtDuration(value);
     }
     else {
-        bbn.fn.log(value);
+        bbn.fn.log('Invalid date value', value);
         throw new Error(_('Invalid date value'));
     }
     //throw new Error(_('Invalid date value: %s', value));
