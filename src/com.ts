@@ -72,10 +72,18 @@ const fetchRequest = (method: string, url: string, config: any = {}, aborter?: a
   const fetchPromise: any = fetch(url, fetchConfig).then(async (res: any) => {
     let data;
     const contentType = res.headers.get('content-type') || '';
-
-    if (contentType.includes('application/json')) {
-      data = await res.json();
-    } else {
+    try {
+      if (contentType.includes('application/json')) {
+        data = await res.json();
+      } else if (contentType.startsWith('text/')) {
+        data = await res.text();
+      } else if (contentType.includes("multipart/")) {
+        data = await res.arrayBuffer();
+      } else {
+        data = await res.blob();
+      }
+    }
+    catch {
       data = await res.text();
     }
 
