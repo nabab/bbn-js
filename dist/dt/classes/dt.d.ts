@@ -44,11 +44,11 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
-    isBefore(other: any): boolean;
-    isBeforeOrSame(other: any): boolean;
-    isAfter(other: any): boolean;
-    isAfterOrSame(other: any): boolean;
-    isSame(other: any): boolean;
+    isBefore(other: any, unit?: string): boolean;
+    isBeforeOrSame(other: any, unit?: string): boolean;
+    isAfter(other: any, unit?: string): boolean;
+    isAfterOrSame(other: any, unit?: string): boolean;
+    isSame(other: any, unit?: string): boolean;
     equals(other: any): boolean;
     toJSON(): {
         kind: bbnDtKind;

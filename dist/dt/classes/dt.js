@@ -304,20 +304,20 @@ export class bbnDt {
             return new this.constructor(d);
         }
     }
-    isBefore(other) {
-        return this.compare(other) < 0;
+    isBefore(other, unit) {
+        return this.compare(other, unit) < 0;
     }
-    isBeforeOrSame(other) {
-        return this.compare(other) <= 0;
+    isBeforeOrSame(other, unit) {
+        return this.compare(other, unit) <= 0;
     }
-    isAfter(other) {
-        return this.compare(other) > 0;
+    isAfter(other, unit) {
+        return this.compare(other, unit) > 0;
     }
-    isAfterOrSame(other) {
-        return this.compare(other) >= 0;
+    isAfterOrSame(other, unit) {
+        return this.compare(other, unit) >= 0;
     }
-    isSame(other) {
-        return this.compare(other) === 0;
+    isSame(other, unit) {
+        return this.compare(other, unit) === 0;
     }
     equals(other) {
         return this.isSame(other);

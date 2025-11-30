@@ -350,24 +350,24 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
   }
 
-  isBefore(other: any): boolean {
-    return this.compare(other) < 0;
+  isBefore(other: any, unit?: string): boolean {
+    return this.compare(other, unit) < 0;
   }
 
-  isBeforeOrSame(other: any): boolean {
-    return this.compare(other) <= 0;
+  isBeforeOrSame(other: any, unit?: string): boolean {
+    return this.compare(other, unit) <= 0;
   }
 
-  isAfter(other: any): boolean {
-    return this.compare(other) > 0;
+  isAfter(other: any, unit?: string): boolean {
+    return this.compare(other, unit) > 0;
   }
 
-  isAfterOrSame(other: any): boolean {
-    return this.compare(other) >= 0;
+  isAfterOrSame(other: any, unit?: string): boolean {
+    return this.compare(other, unit) >= 0;
   }
 
-  isSame(other: any): boolean {
-    return this.compare(other) === 0;
+  isSame(other: any, unit?: string): boolean {
+    return this.compare(other, unit) === 0;
   }
 
   equals(other: any): boolean {
