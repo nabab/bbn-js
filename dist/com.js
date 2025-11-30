@@ -70,10 +70,21 @@ const fetchRequest = (method, url, config = {}, aborter) => {
     const fetchPromise = fetch(url, fetchConfig).then((res) => __awaiter(void 0, void 0, void 0, function* () {
         let data;
         const contentType = res.headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
-            data = yield res.json();
+        try {
+            if (contentType.includes('application/json')) {
+                data = yield res.json();
+            }
+            else if (contentType.startsWith('text/')) {
+                data = yield res.text();
+            }
+            else if (contentType.includes("multipart/")) {
+                data = yield res.arrayBuffer();
+            }
+            else {
+                data = yield res.blob();
+            }
         }
-        else {
+        catch (_a) {
             data = yield res.text();
         }
         const response = {

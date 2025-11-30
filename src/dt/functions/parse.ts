@@ -749,6 +749,14 @@ export default function parse(
       );
       dtObj = new bbnDtTime(d);
     }
+    else if (isClsAuto && !hasDate && !hasTime && ctx.hasYear) {
+      const d = new T.PlainDate(
+        ctx.year,
+        1,
+        1
+      );
+      dtObj = new bbnDtDate(d);
+    }
     else {
       throw new Error('No date or time information found in input');
     }
