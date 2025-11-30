@@ -736,6 +736,14 @@ export default function parse(
         const d = new T.PlainMonthDay(ctx.month, ctx.day, 1972);
         dtObj = new bbnDtMonthDay(d);
       }
+      else if (isClsAuto && ctx.hasYear) {
+        const d = new T.PlainDate(
+          ctx.year,
+          1,
+          1
+        );
+        dtObj = new bbnDtDate(d);
+      }
       else {
         throw new Error('Not enough date components for a known Temporal type');
       }
@@ -748,14 +756,6 @@ export default function parse(
         ctx.ms * 1_000_000
       );
       dtObj = new bbnDtTime(d);
-    }
-    else if (isClsAuto && !hasDate && !hasTime && ctx.hasYear) {
-      const d = new T.PlainDate(
-        ctx.year,
-        1,
-        1
-      );
-      dtObj = new bbnDtDate(d);
     }
     else {
       throw new Error('No date or time information found in input');
