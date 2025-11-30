@@ -29,5 +29,5 @@ export default function calendar(d, wrong_result = false) {
 		return wrong_result && isString(wrong_result) ? wrong_result : '';
 	}
 
-  return r.fdate();
+  return r.calendar();
 };

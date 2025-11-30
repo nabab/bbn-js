@@ -65,6 +65,8 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     date(v?: any): string | bbnDt<any>;
     datetime(v?: any): string | bbnDt<any>;
     time(v?: any): string | bbnDt<any>;
+    fdate(long?: boolean): string;
+    ftime(withSeconds?: boolean): string;
     week(): number;
     get YYYY(): string;
     get YY(): string;
@@ -89,6 +91,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get W(): string;
     unix(ms?: boolean | number): number | bbnDt<any>;
     format(format?: string): string;
+    calendar(short?: boolean): string;
     matchFormat(value: any, format: string): boolean;
     getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string | object;
     getWeekdayIndex: (name: string, locale?: string) => number;

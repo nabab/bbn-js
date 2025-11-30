@@ -464,6 +464,18 @@ export class bbnDt {
         }
         return this.HH + ':' + this.II + ':' + this.SS;
     }
+    fdate(long = false) {
+        if (!this.value) {
+            return '';
+        }
+        return bbn.dt.locales.formatters.short.format(new Date(this.toEpochMs()));
+    }
+    ftime(withSeconds = true) {
+        if (!this.value) {
+            return '';
+        }
+        return this.format('HH:II' + (withSeconds ? ':SS' : ''));
+    }
     week() {
         if (!this.value) {
             return undefined;
@@ -668,6 +680,22 @@ export class bbnDt {
             });
         }
         return str;
+    }
+    calendar(short) {
+        const now = this.constructor.now();
+        const startThis = this.startOf("day");
+        const startNow = now.startOf("day");
+        const diffDays = startThis.diff(startNow, "day");
+        const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
+        let phrase;
+        if (diffDays >= -6 && diffDays <= 6) {
+            phrase = rtf.format(diffDays, "day");
+        }
+        else {
+            const diffWeeks = Math.floor(diffDays / 7);
+            phrase = rtf.format(diffWeeks, "week");
+        }
+        return `${phrase} ${this.ftime()}`;
     }
     matchFormat(value, format) {
         try {

@@ -556,6 +556,22 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return this.HH + ':' + this.II + ':' + this.SS;
   }
 
+  fdate(long: boolean = false): string {
+    if (!this.value) {
+      return '';
+    }
+
+    return bbn.dt.locales.formatters.short.format(new Date(this.toEpochMs()));
+  }
+
+  ftime(withSeconds: boolean = true): string {
+    if (!this.value) {
+      return '';
+    }
+
+    return this.format('HH:II' + (withSeconds ? ':SS' : ''));
+  }
+
   week(): number {
     if (!this.value) {
       return undefined;
@@ -789,6 +805,27 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       });
     }
     return str;
+  }
+
+  calendar(short?: boolean): string {
+    const now = (this.constructor as any).now();
+
+    const startThis = this.startOf("day") as any;
+    const startNow  = now.startOf("day") as any;
+
+    const diffDays = startThis.diff(startNow, "day");
+    const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
+
+    let phrase: string;
+
+    if (diffDays >= -6 && diffDays <= 6) {
+      phrase = rtf.format(diffDays, "day");
+    } else {
+      const diffWeeks = Math.floor(diffDays / 7);
+      phrase = rtf.format(diffWeeks, "week");
+    }
+
+    return `${phrase} ${this.ftime()}`;
   }
 
   matchFormat(value, format: string): boolean {
