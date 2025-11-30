@@ -210,9 +210,6 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       throw new TypeError('toZdt expects a bbnDt wrapper or ZonedDateTime');
     };
 
-    if (unit === 'd') {
-      debugger;
-    }
     // ---- CASE 1: same constructor → your original logic on raw Temporal ----
     const rawA = unwrap(a);
     const rawB = unwrap(b);
@@ -231,7 +228,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
         throw new TypeError('This Temporal type does not support until/since');
       }
 
-      const diff = rawA.until(rawB, { largestUnit: realUnit });
+      const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit });
       return diff.sign as -1 | 0 | 1;
     }
 
