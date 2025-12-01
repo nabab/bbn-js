@@ -16,6 +16,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   readonly __isBbnDt = true;
 
   #value: TValue | undefined;
+  isValid: boolean;
 
   constructor(value?: TValue) {
     Object.defineProperty(this, 'isValid', {
@@ -556,7 +557,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return this.HH + ':' + this.II + ':' + this.SS;
   }
 
-  fdate(long: boolean = false): string {
+  fdate(long: boolean = false, withTime: boolean = false): string {
     if (!this.value) {
       return '';
     }
@@ -1278,6 +1279,41 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   clone(): bbnDt<any> {
     return this.withValue(this.value);
   }
+
+  inLeapYear(): boolean {
+    if (this.isValid) {
+      const year = this.year() as number;
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+    return false;
+  }
+  
+  daysInMonth(): number {
+    if (this.isValid) {
+      switch (this.month()) {
+        case 1:
+          if (this.year() as number % 4 === 0) {
+            return 29;
+          }
+          else {
+            return 28;
+          }
+        case 0:
+        case 3:
+        case 5:
+        case 8:
+        case 10:
+          return 30;
+        default:
+          return 31;
+      }
+    }
+  }
+
+  valueOf(): number {
+    return this.unix() as number;
+  }
+
 }
 
 export default bbnDt;

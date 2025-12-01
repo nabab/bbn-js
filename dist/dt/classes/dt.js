@@ -464,7 +464,7 @@ export class bbnDt {
         }
         return this.HH + ':' + this.II + ':' + this.SS;
     }
-    fdate(long = false) {
+    fdate(long = false, withTime = false) {
         if (!this.value) {
             return '';
         }
@@ -1056,6 +1056,37 @@ export class bbnDt {
     }
     clone() {
         return this.withValue(this.value);
+    }
+    inLeapYear() {
+        if (this.isValid) {
+            const year = this.year();
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+        return false;
+    }
+    daysInMonth() {
+        if (this.isValid) {
+            switch (this.month()) {
+                case 1:
+                    if (this.year() % 4 === 0) {
+                        return 29;
+                    }
+                    else {
+                        return 28;
+                    }
+                case 0:
+                case 3:
+                case 5:
+                case 8:
+                case 10:
+                    return 30;
+                default:
+                    return 31;
+            }
+        }
+    }
+    valueOf() {
+        return this.unix();
     }
 }
 _bbnDt_value = new WeakMap();

@@ -6,6 +6,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     abstract readonly kind: bbnDtKind;
     readonly __bbnNoData = true;
     readonly __isBbnDt = true;
+    isValid: boolean;
     constructor(value?: TValue);
     setValid(isValid: boolean): void;
     get value(): TValue | undefined;
@@ -65,7 +66,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     date(v?: any): string | bbnDt<any>;
     datetime(v?: any): string | bbnDt<any>;
     time(v?: any): string | bbnDt<any>;
-    fdate(long?: boolean): string;
+    fdate(long?: boolean, withTime?: boolean): string;
     ftime(withSeconds?: boolean): string;
     week(): number;
     get YYYY(): string;
@@ -112,5 +113,8 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;
     clone(): bbnDt<any>;
+    inLeapYear(): boolean;
+    daysInMonth(): number;
+    valueOf(): number;
 }
 export default bbnDt;
