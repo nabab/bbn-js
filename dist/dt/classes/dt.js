@@ -46,7 +46,7 @@ export class bbnDt {
             throw new Error(`Unknown weekday name '${name}' for locale '${loc}'`);
         };
         Object.defineProperty(this, 'isValid', {
-            value: false,
+            value: true,
             writable: false,
             configurable: true
         });

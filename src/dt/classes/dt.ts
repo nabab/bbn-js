@@ -20,7 +20,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   constructor(value?: TValue) {
     Object.defineProperty(this, 'isValid', {
-      value: false,
+      value: true,
       writable: false,
       configurable: true
     });
