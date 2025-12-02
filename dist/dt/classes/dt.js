@@ -236,7 +236,7 @@ export class bbnDt {
             if (typeof za.until !== 'function') {
                 throw new TypeError('ZonedDateTime does not support until/since');
             }
-            const diff = za.until(zb, { largestUnit: realUnit, roundingMode: 'floor' });
+            const diff = zb.until(za, { largestUnit: realUnit, roundingMode: 'floor' });
             return diff.sign;
         }
         // ---- CASE 3: not compatible ----
