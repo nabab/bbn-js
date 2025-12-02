@@ -229,7 +229,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
         throw new TypeError('This Temporal type does not support until/since');
       }
 
-      const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit });
+      const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
       bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
       return diff.sign as -1 | 0 | 1;
     }
@@ -259,8 +259,8 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
         throw new TypeError('ZonedDateTime does not support until/since');
       }
 
-      const diff = za.until(zb, { largestUnit: realUnit as any, roundingMode: 'ceil' });
-      bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date()]);
+      const diff = za.until(zb, {smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor'});
+      bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
       return diff.sign as -1 | 0 | 1;
     }
 

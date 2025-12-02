@@ -214,7 +214,7 @@ export class bbnDt {
             if (typeof rawA.until !== 'function') {
                 throw new TypeError('This Temporal type does not support until/since');
             }
-            const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit });
+            const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
             bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
             return diff.sign;
         }
@@ -237,8 +237,8 @@ export class bbnDt {
             if (typeof za.until !== 'function') {
                 throw new TypeError('ZonedDateTime does not support until/since');
             }
-            const diff = za.until(zb, { largestUnit: realUnit, roundingMode: 'ceil' });
-            bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date()]);
+            const diff = za.until(zb, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
+            bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
             return diff.sign;
         }
         // ---- CASE 3: not compatible ----
