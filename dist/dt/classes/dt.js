@@ -215,6 +215,7 @@ export class bbnDt {
                 throw new TypeError('This Temporal type does not support until/since');
             }
             const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit });
+            bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date()]);
             return diff.sign;
         }
         // ---- CASE 2: different constructors, but convertible bbnDt kinds ----
