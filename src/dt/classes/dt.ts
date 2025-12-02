@@ -230,7 +230,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       }
 
       const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit });
-      bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date()]);
+      bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
       return diff.sign as -1 | 0 | 1;
     }
 
