@@ -215,7 +215,7 @@ export class bbnDt {
                 throw new TypeError('This Temporal type does not support until/since');
             }
             const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
-            bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
+            //bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
             return diff.sign;
         }
         // ---- CASE 2: different constructors, but convertible bbnDt kinds ----
@@ -238,7 +238,7 @@ export class bbnDt {
                 throw new TypeError('ZonedDateTime does not support until/since');
             }
             const diff = za.until(zb, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
-            bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
+            //bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
             return diff.sign;
         }
         // ---- CASE 3: not compatible ----
