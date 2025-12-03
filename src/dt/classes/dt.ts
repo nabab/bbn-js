@@ -811,14 +811,11 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   }
 
   calendar(short?: boolean): string {
-    const now = (this.constructor as any).now();
-
+    const now = new (this.constructor as any)();
     const startThis = this.startOf("day") as any;
     const startNow  = now.startOf("day") as any;
-
     const diffDays = startThis.diff(startNow, "day");
     const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
-
     let phrase: string;
 
     if (diffDays >= -6 && diffDays <= 6) {
@@ -1000,7 +997,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
     const [, , ms] = match; // [shortUnit, rtfUnit, ms]
     return Math.round(diff / ms);
-  }  
+  }
 
   guessUnit(valueInMs: number): string | null {
     const absDiff = Math.abs(valueInMs);
@@ -1289,7 +1286,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
     return false;
   }
-  
+
   daysInMonth(): number {
     if (this.isValid) {
       switch (this.month()) {

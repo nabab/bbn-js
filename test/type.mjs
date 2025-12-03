@@ -1,7 +1,8 @@
 import {expect} from 'chai';
-import {isEmail} from '../dist/fn/type/isEmail.js';
-import {isColor} from '../dist/fn/type/isColor.js';
-import {isDom} from '../dist/fn/type/isDom.js';
+import 'mocha';
+import isEmail from '../dist/fn/type/isEmail.js';
+import isColor from '../dist/fn/type/isColor.js';
+import isDom from '../dist/fn/type/isDom.js';
 
 describe(`Type Checkers`, () => {
   describe(`isEmail`, () => {

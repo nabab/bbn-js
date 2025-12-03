@@ -571,6 +571,7 @@ export default function parse(
     let pattern = '';
     const applyFns: ((value: string) => void)[] = [];
     let i = 0;
+    let lastPositionMatch = 0;
 
     while (i < fmt.length) {
       // 1) Handle [literal] blocks first
@@ -607,6 +608,7 @@ export default function parse(
 
       if (matchedToken) {
         pattern += `(${matchedToken.regex})`;
+        lastPositionMatch = pattern.length;
         if (matchedToken.apply) {
           applyFns.push(value => matchedToken!.apply!(value, ctx));
         } else {
@@ -620,9 +622,8 @@ export default function parse(
       }
     }
 
-    const fullRegex = new RegExp('^' + pattern + '$');
+    const fullRegex = new RegExp('^' + bbn.fn.substr(pattern, 0, lastPositionMatch));
     let match = fullRegex.exec(input);
-
     if (!match) {
       if (force) {
         const inputDate = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -708,8 +709,8 @@ export default function parse(
 
     }
     // ---------- 2) No timezone: decide which Plain* type ----------
-    else if (isClsDateTime || (isClsAuto && hasDate && hasTime)) {
-      if (!hasFullDate) {
+    else if (isClsDateTime || (isClsAuto && (isValid || (hasDate && hasTime)))) {
+      if (!hasFullDate && !isValid) {
         throw new Error('PlainDateTime requires year, month and day');
       }
       const d = new T.PlainDateTime(
@@ -764,7 +765,7 @@ export default function parse(
     dtObj.setValid(isValid);
     return dtObj;
   }
-  
+
   if (Array.isArray(format)) {
     let lastError: unknown = null;
     for (const fmt of format) {
