@@ -15,7 +15,7 @@
     "pub": "npm version patch && npm publish",
     "build": "./node_modules/.bin/rollup -c",
     "all": "npm run type && npm run test && npm run gitauto && npm version patch && npm run build && npm run gitend && npm publish",
-    "test": "IS_TESTING=true ./node_modules/.bin/mocha -r ./test/type.mjs",
+    "test": "IS_TESTING=true mocha ./test/type.mjs",
     "wtf": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
