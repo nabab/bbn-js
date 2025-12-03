@@ -684,7 +684,7 @@ export class bbnDt {
         return str;
     }
     calendar(short) {
-        const now = this.constructor.now();
+        const now = new this.constructor();
         const startThis = this.startOf("day");
         const startNow = now.startOf("day");
         const diffDays = startThis.diff(startNow, "day");

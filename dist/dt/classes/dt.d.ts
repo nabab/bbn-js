@@ -108,7 +108,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     setWeekday(weekday: number | string, past?: boolean, locale?: string): bbnDt<any>;
     diff(date: any, unit?: string, abs?: boolean): number;
     guessUnit(valueInMs: number): string | null;
-    fromNow(unit?: string): string;
+    fromNow(unit?: string): any;
     fromDate(date: any, unit?: string): string;
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;

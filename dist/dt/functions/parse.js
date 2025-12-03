@@ -495,6 +495,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         let pattern = '';
         const applyFns = [];
         let i = 0;
+        let lastPositionMatch = 0;
         while (i < fmt.length) {
             // 1) Handle [literal] blocks first
             if (fmt[i] === '[') {
@@ -525,6 +526,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             }
             if (matchedToken) {
                 pattern += `(${matchedToken.regex})`;
+                lastPositionMatch = pattern.length;
                 if (matchedToken.apply) {
                     applyFns.push(value => matchedToken.apply(value, ctx));
                 }
@@ -539,7 +541,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 i += 1;
             }
         }
-        const fullRegex = new RegExp('^' + pattern + '$');
+        const fullRegex = new RegExp('^' + bbn.fn.substr(pattern, 0, lastPositionMatch));
         let match = fullRegex.exec(input);
         if (!match) {
             if (force) {
@@ -605,8 +607,8 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             }
         }
         // ---------- 2) No timezone: decide which Plain* type ----------
-        else if (isClsDateTime || (isClsAuto && hasDate && hasTime)) {
-            if (!hasFullDate) {
+        else if (isClsDateTime || (isClsAuto && (isValid || (hasDate && hasTime)))) {
+            if (!hasFullDate && !isValid) {
                 throw new Error('PlainDateTime requires year, month and day');
             }
             const d = new T.PlainDateTime(ctx.year, ctx.month, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms * 1000000);

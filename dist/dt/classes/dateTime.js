@@ -5,7 +5,7 @@ export default class bbnDtDateTime extends bbnDt {
     constructor(y, m, d, h, i, s, ms) {
         let value;
         if (!y) {
-            value = Temporal.PlainDateTime.from(Temporal.Now.plainDateISO());
+            value = Temporal.PlainDateTime.from(Temporal.Now.plainDateTimeISO());
         }
         else if (m === undefined) {
             if (y instanceof Temporal.PlainDateTime) {
