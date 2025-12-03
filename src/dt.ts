@@ -210,7 +210,7 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
   }
 
   if (typeof value === 'number') {
-    return new bbnDtDateTime(value);
+    return new bbnDtDateTime(value < 99999999999 ? value * 1000 : value);
   }
   else if (value.__isBbnDt) {
     return value;
