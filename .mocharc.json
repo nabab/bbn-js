@@ -1,5 +1,8 @@
 {
-  "extension": ["js"],
+  "extension": ["js", "mjs"],
   "recursive": true,
-  "timeout": 2000
+  "timeout": 2000,
+  "reporter": "spec",
+  "spec": ["./test/dayjs.mjs"],
+  "import": ["./test/mocha.bootstrap.js"]
 }

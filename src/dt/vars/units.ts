@@ -86,7 +86,9 @@ const unitsCorrespondence: {[key: string]: string} = {
   's': 's',
   'S': 's',
   'W': 'w',
-  'w': 'w'
+  'w': 'w',
+  'ZZ': 'z',
+  'Z': 'z'
 };
 
 const unitsMap: {[key: string]: string} = {
@@ -96,7 +98,8 @@ const unitsMap: {[key: string]: string} = {
   'w': 'Week',
   'h': 'Hours',
   'i': 'Minutes',
-  's': 'Seconds'
+  's': 'Seconds',
+  'z': 'Offset'
 };
 
 const formatsMap: {[key: string]: string} = {
@@ -107,7 +110,8 @@ const formatsMap: {[key: string]: string} = {
   'w': 'WW',
   'h': 'HH',
   'i': 'II',
-  's': 'SS'
+  's': 'SS',
+  'z': 'Z'
 };
 
 

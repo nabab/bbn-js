@@ -514,7 +514,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return this.setWeekday(v, past);
     }
 
-    return (this.value as any).dayOfWeek;
+    return (this.value as any).dayOfWeek % 7;
   }
 
   date(v?: any): string | bbnDt<any> {
@@ -762,6 +762,22 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return undefined;
   }
 
+  get Z(): string {
+    if (this.kind === 'zoned') {
+      const zdt = this.value as unknown as Temporal.ZonedDateTime;
+      return zdt.offset;
+    }
+    return undefined;
+  }
+
+  get ZZ(): string {
+    if (this.kind === 'zoned') {
+      const zdt = this.value as unknown as Temporal.ZonedDateTime;
+      return zdt.offset.replace(':', '');
+    }
+    return undefined;
+  }
+
   unix(ms: boolean | number = false): number | bbnDt<any> {
     if (typeof ms === 'number') {
       const Ctor = this.constructor as new (...args: any[]) => this;
@@ -787,7 +803,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
           opened--;
           return;
         }
-        
+
         if (opened > 0) {
           str += part;
           return;
@@ -799,7 +815,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
           }
           else {
             const suffix = formatsMap[unitsCorrespondence[part]];
-            str += this[suffix];
+            str += this[suffix] || '';
           }
         }
         else {
@@ -996,7 +1012,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     const [, , ms] = match; // [shortUnit, rtfUnit, ms]
-    return Math.round(diff / ms);
+    return Math.floor(diff / ms);
   }
 
   guessUnit(valueInMs: number): string | null {
@@ -1310,7 +1326,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   }
 
   valueOf(): number {
-    return this.unix() as number;
+    return this.unix(true) as number;
   }
 
 }

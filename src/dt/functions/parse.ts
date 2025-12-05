@@ -477,10 +477,10 @@ export default function parse(
       }
     },
 
-    // Timezone offset (Z)
+    // Timezone offset
     {
-      token: 'Z',
-      regex: '(?:Z|[+-]\\d{2}:?\\d{2})',
+      token: 'ZZ',
+      regex: '(?:Z?[+-]\\d{2}\\d{2})',
       apply: (v, ctx) => {
         if (v === 'Z' || v === 'z') {
           ctx.offsetMinutes = 0;
@@ -488,16 +488,27 @@ export default function parse(
         }
         const sign = v[0] === '-' ? -1 : 1;
         const rest = v.slice(1); // "02:00" or "0500"
-        let hh: number;
-        let mm: number;
-        if (rest.includes(':')) {
-          const [h, m] = rest.split(':');
-          hh = parseInt(h, 10);
-          mm = parseInt(m, 10);
-        } else {
-          hh = parseInt(rest.slice(0, 2), 10);
-          mm = parseInt(rest.slice(2, 4), 10);
+        const hh: number = parseInt(rest.slice(0, 2), 10);
+        const mm: number = parseInt(rest.slice(2), 10);
+        if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
+          throw new Error('Invalid timezone offset: ' + v);
         }
+        ctx.offsetMinutes = sign * (hh * 60 + mm);
+      }
+    },
+    {
+      token: 'Z',
+      regex: '(?:Z?[+-]\\d{2}\\:{1}\\d{2})',
+      apply: (v, ctx) => {
+        if (v === 'Z' || v === 'z') {
+          ctx.offsetMinutes = 0;
+          return;
+        }
+        const sign = v[0] === '-' ? -1 : 1;
+        const rest = v.slice(1); // "02:00" or "0500"
+        const [h, m] = rest.split(':');
+        let hh: number = parseInt(h, 10);
+        let mm: number = parseInt(m, 10);
         if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
           throw new Error('Invalid timezone offset: ' + v);
         }
@@ -538,8 +549,9 @@ export default function parse(
     cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto'
   ): bbnDt<any>
   {
+    const currentDate = new bbnDtDateTime();
     const ctx: Ctx = {
-      year: 1970,
+      year: currentDate.year() as number,
       month: 1,
       day: 1,
       hour: 0,
@@ -626,7 +638,7 @@ export default function parse(
     let match = fullRegex.exec(input);
     if (!match) {
       if (force) {
-        const inputDate = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0);
+        const inputDate = new bbnDtDateTime(currentDate.year() as number, 1, 1, 0, 0, 0, 0);
         input = inputDate.format(fmt);
         isValid = false;
         match = fullRegex.exec(input);
