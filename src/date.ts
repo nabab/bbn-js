@@ -330,15 +330,7 @@ class bbnDateDuration {
   // -----------------------
 
   toJSON() {
-    return {
-      years: this.years(true),
-      months: this.months(true),
-      days: this.days(true),
-      hours: this.hours(true),
-      minutes: this.minutes(true),
-      seconds: this.seconds(true),
-      milliseconds: this.toMilliseconds()
-    };
+    return this.format('YYYY-MM-DD HH:II:SS.000Z');
   }
   /**
    * Returns the full duration expressed as X (float), like Day.js.
