@@ -19,8 +19,7 @@ export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
         value = new Temporal.PlainDateTime(y.getFullYear(), y.getMonth() + 1, y.getDate(), y.getHours(), y.getMinutes(), y.getSeconds(), y.getMilliseconds());
       }
       else if (typeof y === 'number') {
-        const d = new Date(y);
-        value = new Temporal.PlainDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+        value = Temporal.Instant.fromEpochMilliseconds(y).toZonedDateTimeISO(bbnDt.systemTimeZoneId).toPlainDateTime();
       }
       else {
         throw new Error('Invalid value for bbnDtDateTime');
@@ -34,7 +33,7 @@ export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
 
   format(format?: string | boolean): string {
     // long
-    if (format === true) {
+    if ([true, 'long', 'full'].includes(format as any)) {
       format = getRow(bbn.dt.locales.date, {year: 'numeric', month: 'long', day: 'long', weekday: 'long', hour: '2-digit', minute: '2-digit', second: undefined}).pattern;
     }
     // short

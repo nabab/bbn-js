@@ -217,7 +217,40 @@ declare global {
     | 'yearMonth'
     | 'monthDay'
     | 'zoned';
-  class bbnDtDuration {
+
+  type TimeFormatUnit = 
+   | "year"
+   | "month"
+   | "week"
+   | "day"
+   | "hour"
+   | "minute"
+   | "second"
+   | "millisecond";
+
+  type TimeFormatSymbol = 
+   | "y"
+   | "m"
+   | "w"
+   | "e"
+   | "d"
+   | "h"
+   | "i"
+   | "s"
+   | "l"
+   | "z";
+
+  type TimeProperties = {
+    year?: number;
+    month?: number;
+    day?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    millisecond?: number;
+  }
+
+   class bbnDtDuration {
 
   }
 

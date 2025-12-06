@@ -681,7 +681,7 @@ export default function parse(
     const hasTime =
       ctx.hasHour || ctx.hasMinute || ctx.hasSecond || ctx.hasMs;
     const hasZone = ctx.timeZone != null || ctx.offsetMinutes != null;
-    let dtObj: bbnDt<any>;
+    let dtObj: any;
 
     // ---------- 1) If timezone (Z or z) → Zoned ----------
     if (isClsZoned || (hasZone && isClsAuto)) {
@@ -715,7 +715,7 @@ export default function parse(
           ctx.second,
           ctx.ms
         );
-        const epochMs = utcMs - (ctx.offsetMinutes ?? 0) * 60_000;
+        const epochMs = utcMs;// - (ctx.offsetMinutes ?? 0) * 60_000;
         dtObj = new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
       }
 

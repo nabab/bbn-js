@@ -12,15 +12,7 @@ export default class bbnDtDuration {
     hours(remaining?: boolean): number;
     minutes(remaining?: boolean): number;
     seconds(remaining?: boolean): number;
-    toJSON(): {
-        years: number;
-        months: number;
-        days: number;
-        hours: number;
-        minutes: number;
-        seconds: number;
-        milliseconds: number;
-    };
+    toJSON(): string;
     /**
      * Returns the full duration expressed as X (float), like Day.js.
      */

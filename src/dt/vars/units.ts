@@ -1,14 +1,15 @@
-const units: [string, Intl.RelativeTimeFormatUnit, number][] = [
+const units: [TimeFormatSymbol, TimeFormatUnit, number][] = [
   ['y', "year",   365 * 24 * 60 * 60 * 1000],
   ['m', "month",  30  * 24 * 60 * 60 * 1000],
   ['w', "week",    7  * 24 * 60 * 60 * 1000],
   ['d', "day",     24 * 60 * 60 * 1000],
   ['h', "hour",    60 * 60 * 1000],
   ['i', "minute",  60 * 1000],
-  ['s', "second",  1000]
+  ['s', "second",  1000],
+  ['l', "millisecond", 1]
 ];
 
-const unitsCorrespondence: {[key: string]: string} = {
+const unitsCorrespondence: {[key: string]: TimeFormatSymbol} = {
   'years': 'y',
   'year': 'y',
   'YEARS': 'y',
@@ -61,6 +62,9 @@ const unitsCorrespondence: {[key: string]: string} = {
   'mn': 'i',
   'mm': 'i',
   'min': 'i',
+  'ms': 'l',
+  'SSS': 'l',
+  'sss': 'l',
   'SS': 's',
   'ss': 's',
   'seconds': 's',
@@ -99,6 +103,7 @@ const unitsMap: {[key: string]: string} = {
   'h': 'Hours',
   'i': 'Minutes',
   's': 'Seconds',
+  'l': 'Milliseconds',
   'z': 'Offset'
 };
 

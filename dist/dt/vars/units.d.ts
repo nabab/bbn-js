@@ -1,6 +1,6 @@
-declare const units: [string, Intl.RelativeTimeFormatUnit, number][];
+declare const units: [TimeFormatSymbol, TimeFormatUnit, number][];
 declare const unitsCorrespondence: {
-    [key: string]: string;
+    [key: string]: TimeFormatSymbol;
 };
 declare const unitsMap: {
     [key: string]: string;

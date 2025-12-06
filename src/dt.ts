@@ -72,12 +72,12 @@ const patterns: {
       day: +m[3],
       hour: +m[4],
       minute: +m[5],
-      second: m[6] !== undefined ? +m[6] : 0,
+      second: m[6] !== undefined ? + m[6] : 0,
     })
   },
 ];
 
-const units: [string, Intl.RelativeTimeFormatUnit, number][] = [
+const units: [string, TimeFormatUnit, number][] = [
   ['y', "year",   365 * 24 * 60 * 60 * 1000],
   ['m', "month",  30  * 24 * 60 * 60 * 1000],
   ['w', "week",    7  * 24 * 60 * 60 * 1000],
@@ -210,7 +210,7 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
   }
 
   if (typeof value === 'number') {
-    return new bbnDtDateTime(value < 99999999999 ? value * 1000 : value);
+    return new bbnDtDateTime(Math.abs(value) < 99999999999 ? value * 1000 : value);
   }
   else if (value.__isBbnDt) {
     return value;

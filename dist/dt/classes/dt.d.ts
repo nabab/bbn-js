@@ -7,12 +7,13 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     readonly __bbnNoData = true;
     readonly __isBbnDt = true;
     isValid: boolean;
+    defaultValue: TimeProperties | undefined;
     constructor(value?: TValue);
     setValid(isValid: boolean): void;
     get value(): TValue | undefined;
     get hasFullDate(): boolean;
     /** System time zone ID (e.g. "Europe/Rome") */
-    private static readonly systemTimeZoneId;
+    static readonly systemTimeZoneId: string;
     /**
      * Convert this.value (PlainDate, PlainTime, PlainDateTime, YearMonth,
      * MonthDay, ZonedDateTime) into epoch milliseconds, using the system
@@ -51,10 +52,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     isAfterOrSame(other: any, unit?: string): boolean;
     isSame(other: any, unit?: string): boolean;
     equals(other: any): boolean;
-    toJSON(): {
-        kind: bbnDtKind;
-        value: string;
-    };
+    toJSON(): string;
     toString(): string;
     year(v?: any): number | bbnDt<any>;
     month(v?: any): number | bbnDt<any>;
@@ -62,6 +60,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     hour(v?: any): number | bbnDt<any>;
     minute(v?: any): number | bbnDt<any>;
     second(v?: any): number | bbnDt<any>;
+    millisecond(v?: any): number | bbnDt<any>;
     weekday(v?: any, past?: any): number | bbnDt<any>;
     date(v?: any): string | bbnDt<any>;
     datetime(v?: any): string | bbnDt<any>;
@@ -87,6 +86,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get mm(): string;
     get I(): string;
     get SS(): string;
+    get SSS(): string;
     get S(): string;
     get WW(): string;
     get W(): string;
@@ -110,7 +110,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     setWeekday(weekday: number | string, past?: boolean, locale?: string): bbnDt<any>;
     diff(date: any, unit?: string, abs?: boolean): number;
     guessUnit(valueInMs: number): string | null;
-    fromNow(unit?: string): any;
+    fromNow(unit?: string): string;
     fromDate(date: any, unit?: string): string;
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;

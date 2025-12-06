@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": [
       "dom",
-      "es2019"
+      "es2020"
     ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",

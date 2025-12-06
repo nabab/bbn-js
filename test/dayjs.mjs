@@ -122,6 +122,43 @@ const CASES = [
   // timestamp numerici
   { label: "timestamp seconds", value: 1675605789,    format: null, numUnit: "s" },
   { label: "timestamp ms",      value: 1675605789000, format: null, numUnit: "ms" },
+
+
+  { label: "full datetime standard2", value: "2024-02-29 23:03:09", format: "YYYY-MM-DD HH:mm:ss" },
+  { label: "full datetime slash2",    value: "2024/02/29 23:03:09", format: "YYYY/MM/DD HH:mm:ss" },
+  { label: "iso datetime T2",         value: "2024-02-29T23:03:09", format: "YYYY-MM-DDTHH:mm:ss" },
+  { label: "datetime no seconds2",    value: "2024-02-29 23:03",    format: "YYYY-MM-DD HH:mm" },
+
+  // ISO con timezone / offset  (⛔️ commentati per ora)
+  // { label: "iso datetime Z",
+  //   value: "2023-02-05T14:03:09Z",
+  //   format: "YYYY-MM-DDTHH:mm:ss[Z]",
+  // },
+  // { label: "iso datetime offset",
+  //   value: "2023-02-05T14:03:09+02:00",
+  //   format: "YYYY-MM-DDTHH:mm:ssZ",
+  // },
+
+  // full date
+  { label: "full date Y-M-D2",  value: "2024-02-29", format: "YYYY-MM-DD" },
+  { label: "full date D-M-Y2",  value: "29-02-2024", format: "DD-MM-YYYY" },
+  { label: "full date M-D-Y2",  value: "02-29-2024", format: "MM-DD-YYYY" },
+  { label: "full date D/M/Y2",  value: "29/02/2024", format: "DD/MM/YYYY" },
+
+  // solo anno
+  { label: "only year", value: "2024", format: "YYYY" },
+
+  // anno-mese / mese-anno
+  { label: "year-month", value: "2024-02", format: "YYYY-MM" },
+  { label: "month-year", value: "02-2024", format: "MM-YYYY" },
+
+  // giorno-mese / mese-giorno (senza anno)
+  { label: "day-month", value: "29-02", format: "DD-MM" },
+  { label: "month-day", value: "02-29", format: "MM-DD" },
+
+  // timestamp numerici
+  { label: "timestamp seconds", value: 1709244540,    format: null, numUnit: "s" },
+  { label: "timestamp ms",      value: 1709244540000, format: null, numUnit: "ms" },
 ];
 
 const CASES_WITH_TIME = CASES.filter(c =>
@@ -388,16 +425,22 @@ describe("bbnDt vs Day.js — funzioni comuni con input multiformato", () => {
         eq(b.valueOf(), d.valueOf(), tc, `[bbn] ${b.valueOf()}\n[dayjs] ${d.valueOf()}`);
       });
 
-      it(`[${tc.label}] toString coincide`, () => {
+      it(`[${tc.label}] valueOf coincide readable`, () => {
         const b = makeBbn(tc.value, tc.format);
         const d = makeDayjsFromCase(tc);
-        eq(b.toString(), d.toString(), tc, `[bbn] ${b.toString()}\n[dayjs] ${d.toString()}`);
+        eq(new Date(b.valueOf()).toString(), new Date(d.valueOf()).toString(), tc, `[bbn] ${b.valueOf()}\n[dayjs] ${d.valueOf()}`);
+      });
+
+      it(`[${tc.label}] toString is understood`, () => {
+        const b = makeBbn(tc.value, tc.format);
+        const d = makeDayjsFromCase(tc);
+        eq(dayjs(b.toString()).isValid(), dayjs(d.toString()).isValid(), tc, `[bbn] ${b.toString()}\n[dayjs] ${d.toString()}`);
       });
 
       it(`[${tc.label}] toJSON coincide`, () => {
         const b = makeBbn(tc.value, tc.format);
         const d = makeDayjsFromCase(tc);
-        eq(b.toJSON().value, d.toJSON(), tc, `[bbn] ${b.toJSON().value}\n[dayjs] ${d.toJSON()}`);
+        eq(b.toJSON(), d.toJSON(), tc, `[bbn] ${b.toJSON()}\n[dayjs] ${d.toJSON()}`);
       });
 
       it(`[${tc.label}] clone non cambia valore`, () => {

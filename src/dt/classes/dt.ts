@@ -17,6 +17,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   #value: TValue | undefined;
   isValid: boolean;
+  defaultValue: TimeProperties | undefined
 
   constructor(value?: TValue) {
     Object.defineProperty(this, 'isValid', {
@@ -25,6 +26,20 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       configurable: true
     });
     this.#value = value;
+    const d = new Date();
+    Object.defineProperty(this, 'defaultValue', {
+      value: {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        day: d.getDate(),
+        hour: d.getHours(),
+        minute: d.getMinutes(),
+        second: d.getSeconds(),
+        millisecond: d.getMilliseconds()
+      },
+      writable: false,
+      configurable: false
+    });
   }
 
   setValid(isValid: boolean) {
@@ -44,7 +59,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   }
 
   /** System time zone ID (e.g. "Europe/Rome") */
-  private static readonly systemTimeZoneId = Temporal.Now.timeZoneId();
+  public static readonly systemTimeZoneId = Temporal.Now.timeZoneId();
 
   /**
    * Convert this.value (PlainDate, PlainTime, PlainDateTime, YearMonth,
@@ -58,59 +73,64 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
    *  - month-day  → that month/day in *this year* at 00:00 in system tz
    */
   protected toEpochMs(): number {
+    if (this.kind === 'zoned') {
+      const v = this.value as unknown as Temporal.ZonedDateTime;
+      return v.toInstant().epochMilliseconds;
+    }
+
     const tz = bbnDt.systemTimeZoneId;
-
+    let iso: string | undefined;
     switch (this.kind) {
-      case 'zoned': {
-        const v = this.value as unknown as Temporal.ZonedDateTime;
-        return v.toInstant().epochMilliseconds;
-      }
-
       case 'dateTime': {
         const v = this.value as unknown as Temporal.PlainDateTime;
         // RFC 9557 string: "YYYY-MM-DDTHH:mm:ss[Europe/Rome]"
-        const iso = `${v.toString()}[${tz}]`;
-        const zdt = Temporal.ZonedDateTime.from(iso);
-        return zdt.toInstant().epochMilliseconds;
+        return v.toZonedDateTime(tz, { disambiguation: "earlier" }).toInstant().epochMilliseconds;
+        iso = `${v.toString()}[${tz}]`;
       }
 
       case 'date': {
         const d = this.value as unknown as Temporal.PlainDate;
+        return d.toZonedDateTime({
+          timeZone: tz,
+          plainTime: {
+            hour: (this.defaultValue as TimeProperties).hour,
+            minute: (this.defaultValue as TimeProperties).minute,
+            second: (this.defaultValue as TimeProperties).second,
+            millisecond: (this.defaultValue as TimeProperties).millisecond
+          }
+        }).toInstant().epochMilliseconds;
+        const today = new Date();
         // "YYYY-MM-DDT00:00[Europe/Rome]"
-        const iso = `${d.toString()}T00:00[${tz}]`;
-        const zdt = Temporal.ZonedDateTime.from(iso);
-        return zdt.toInstant().epochMilliseconds;
+        iso = `${d.toString()}T00:00[${tz}]`;
       }
 
       case 'time': {
         const t = this.value as unknown as Temporal.PlainTime;
         const today = Temporal.Now.plainDateISO();
         // "YYYY-MM-DDTHH:mm[:ss][Europe/Rome]"
-        const iso = `${today.toString()}T${t.toString()}[${tz}]`;
-        const zdt = Temporal.ZonedDateTime.from(iso);
-        return zdt.toInstant().epochMilliseconds;
+        iso = `${today.toString()}T${t.toString()}[${tz}]`;
       }
 
       case 'yearMonth': {
         const ym = this.value as unknown as Temporal.PlainYearMonth;
         const d = ym.toPlainDate({day: 1}); // first day of month
-        const iso = `${d.toString()}T00:00[${tz}]`;
-        const zdt = Temporal.ZonedDateTime.from(iso);
-        return zdt.toInstant().epochMilliseconds;
+        iso = `${d.toString()}T00:00[${tz}]`;
       }
 
       case 'monthDay': {
         const md = this.value as unknown as Temporal.PlainMonthDay;
         const today = Temporal.Now.plainDateISO();
         const d = md.toPlainDate({year: today.year}); // current year
-        const iso = `${d.toString()}T00:00[${tz}]`;
-        const zdt = Temporal.ZonedDateTime.from(iso);
-        return zdt.toInstant().epochMilliseconds;
+        iso = `${d.toString()}T00:00[${tz}]`;
       }
 
-      default:
-        throw new Error(`Unsupported kind '${this.kind}' in toEpochMs`);
     }
+    if (iso) {
+      const zdt = Temporal.ZonedDateTime.from(iso);
+      return zdt.toInstant().epochMilliseconds;// - Math.round(zdt.offsetNanoseconds / 1000000);
+    }
+
+    throw new Error(`Unsupported kind '${this.kind}' in toEpochMs`);
   }
 
   /**
@@ -380,14 +400,11 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   // ---- Serialization ----
 
   toJSON() {
-    return {
-      kind: this.kind,
-      value: String(this.value)
-    };
+    return this.format('YYYY-MM-DDTHH:II:SS.SSS[Z]');
   }
 
   toString(): string {
-    return String(this.value);
+    return new Date(this.valueOf()).toString()
   }
 
   year(v?: any): number | bbnDt<any> {
@@ -499,6 +516,26 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     return (this.value as any).second;
+  }
+
+  millisecond(v?: any): number | bbnDt<any> {
+    if (!this.value) {
+      return undefined;
+    }
+
+    if (!('millisecond' in this.value)) {
+      if (this.hasFullDate) {
+        return 0;
+      }
+      throw new Error('millisecond() is not supported for this type');
+    }
+
+    if ((v !== undefined) && !(v instanceof Event)) {
+      const d = this.value.with({ millisecond: v });
+      return new (this.constructor as any)(d);
+    }
+
+    return (this.value as any).millisecond;
   }
 
   weekday(v?: any, past?: any): number | bbnDt<any> {
@@ -680,7 +717,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return h < 10 ? '0' + h.toString() : h.toString();
     }
     else if (this.hasFullDate) {
-      return '00';
+      return (this.defaultValue as TimeProperties).hour.toString().padStart(2, '0');
     }
     return undefined;
   }
@@ -701,7 +738,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return i < 10 ? '0' + i.toString() : i.toString();
     }
     else if (this.hasFullDate) {
-      return '00';
+      return (this.defaultValue as TimeProperties).minute.toString().padStart(2, '0');
     }
     return undefined;
   }
@@ -712,7 +749,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return i < 10 ? '0' + i.toString() : i.toString();
     }
     else if (this.hasFullDate) {
-      return '00';
+      return (this.defaultValue as TimeProperties).minute.toString().padStart(2, '0');
     }
     return undefined;
   }
@@ -733,7 +770,18 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return s < 10 ? '0' + s.toString() : s.toString();
     }
     else if (this.hasFullDate) {
-      return '00';
+      return (this.defaultValue as TimeProperties).second.toString().padStart(2, '0');
+    }
+    return undefined;
+  }
+
+  get SSS(): string {
+    if ('millisecond' in this.value) {
+      const s = parseInt(this.millisecond().toString());
+      return s < 10 ? '00' + s.toString() : (s < 100 ? '0' + s.toString() : s.toString());
+    }
+    else if (this.hasFullDate) {
+      return (this.defaultValue as TimeProperties).millisecond.toString().padStart(3, '0');
     }
     return undefined;
   }
@@ -1018,7 +1066,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   guessUnit(valueInMs: number): string | null {
     const absDiff = Math.abs(valueInMs);
     for (const [shortUnit, rtfUnit, ms] of units) {
-      if ((absDiff >= ms) || (rtfUnit === 'second')) {
+      if ((absDiff >= ms) || (rtfUnit === 'millisecond')) {
         return shortUnit;
       }
     }

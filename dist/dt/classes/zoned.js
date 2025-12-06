@@ -6,7 +6,7 @@ export default class bbnDtZoned extends bbnDt {
         let value;
         if (!z) {
             const date = new Date();
-            value = new Temporal.ZonedDateTime(BigInt(date.getTime() * 1000000), Intl.DateTimeFormat().resolvedOptions().timeZone);
+            value = Temporal.Now.zonedDateTimeISO(Intl.DateTimeFormat().resolvedOptions().timeZone);
         }
         else if (y === undefined) {
             if (z instanceof Temporal.ZonedDateTime) {
@@ -16,8 +16,7 @@ export default class bbnDtZoned extends bbnDt {
                 value = fromJsDate(z, true);
             }
             else if (typeof z === 'number') {
-                const d = new Date(z);
-                value = fromJsDate(d, true);
+                value = Temporal.Instant.fromEpochMilliseconds(z).toZonedDateTimeISO(Intl.DateTimeFormat().resolvedOptions().timeZone);
             }
             else {
                 throw new Error('Invalid value for bbnDtZoned');

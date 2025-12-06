@@ -5,7 +5,8 @@ const units = [
     ['d', "day", 24 * 60 * 60 * 1000],
     ['h', "hour", 60 * 60 * 1000],
     ['i', "minute", 60 * 1000],
-    ['s', "second", 1000]
+    ['s', "second", 1000],
+    ['l', "millisecond", 1]
 ];
 const unitsCorrespondence = {
     'years': 'y',
@@ -60,6 +61,9 @@ const unitsCorrespondence = {
     'mn': 'i',
     'mm': 'i',
     'min': 'i',
+    'ms': 'l',
+    'SSS': 'l',
+    'sss': 'l',
     'SS': 's',
     'ss': 's',
     'seconds': 's',
@@ -97,6 +101,7 @@ const unitsMap = {
     'h': 'Hours',
     'i': 'Minutes',
     's': 'Seconds',
+    'l': 'Milliseconds',
     'z': 'Offset'
 };
 const formatsMap = {
