@@ -411,10 +411,10 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 ctx.week = n;
             }
         },
-        // Timezone offset (Z)
+        // Timezone offset
         {
-            token: 'Z',
-            regex: '(?:Z|[+-]\\d{2}:?\\d{2})',
+            token: 'ZZ',
+            regex: '(?:Z?[+-]\\d{2}\\d{2})',
             apply: (v, ctx) => {
                 if (v === 'Z' || v === 'z') {
                     ctx.offsetMinutes = 0;
@@ -422,17 +422,27 @@ export default function parse(input, format, cls = 'auto', force, locale) {
                 }
                 const sign = v[0] === '-' ? -1 : 1;
                 const rest = v.slice(1); // "02:00" or "0500"
-                let hh;
-                let mm;
-                if (rest.includes(':')) {
-                    const [h, m] = rest.split(':');
-                    hh = parseInt(h, 10);
-                    mm = parseInt(m, 10);
+                const hh = parseInt(rest.slice(0, 2), 10);
+                const mm = parseInt(rest.slice(2), 10);
+                if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
+                    throw new Error('Invalid timezone offset: ' + v);
                 }
-                else {
-                    hh = parseInt(rest.slice(0, 2), 10);
-                    mm = parseInt(rest.slice(2, 4), 10);
+                ctx.offsetMinutes = sign * (hh * 60 + mm);
+            }
+        },
+        {
+            token: 'Z',
+            regex: '(?:Z?[+-]\\d{2}\\:{1}\\d{2})',
+            apply: (v, ctx) => {
+                if (v === 'Z' || v === 'z') {
+                    ctx.offsetMinutes = 0;
+                    return;
                 }
+                const sign = v[0] === '-' ? -1 : 1;
+                const rest = v.slice(1); // "02:00" or "0500"
+                const [h, m] = rest.split(':');
+                let hh = parseInt(h, 10);
+                let mm = parseInt(m, 10);
                 if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
                     throw new Error('Invalid timezone offset: ' + v);
                 }
@@ -467,8 +477,9 @@ export default function parse(input, format, cls = 'auto', force, locale) {
     ];
     function parseWithFormat(fmt, cls = 'auto') {
         var _a;
+        const currentDate = new bbnDtDateTime();
         const ctx = {
-            year: 1970,
+            year: currentDate.year(),
             month: 1,
             day: 1,
             hour: 0,
@@ -545,7 +556,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         let match = fullRegex.exec(input);
         if (!match) {
             if (force) {
-                const inputDate = new bbnDtDateTime(1970, 1, 1, 0, 0, 0, 0);
+                const inputDate = new bbnDtDateTime(currentDate.year(), 1, 1, 0, 0, 0, 0);
                 input = inputDate.format(fmt);
                 isValid = false;
                 match = fullRegex.exec(input);

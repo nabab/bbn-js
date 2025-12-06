@@ -85,7 +85,9 @@ const unitsCorrespondence = {
     's': 's',
     'S': 's',
     'W': 'w',
-    'w': 'w'
+    'w': 'w',
+    'ZZ': 'z',
+    'Z': 'z'
 };
 const unitsMap = {
     'y': 'Year',
@@ -94,7 +96,8 @@ const unitsMap = {
     'w': 'Week',
     'h': 'Hours',
     'i': 'Minutes',
-    's': 'Seconds'
+    's': 'Seconds',
+    'z': 'Offset'
 };
 const formatsMap = {
     'y': 'YYYY',
@@ -104,6 +107,7 @@ const formatsMap = {
     'w': 'WW',
     'h': 'HH',
     'i': 'II',
-    's': 'SS'
+    's': 'SS',
+    'z': 'Z'
 };
 export { units, unitsCorrespondence, unitsMap, formatsMap };

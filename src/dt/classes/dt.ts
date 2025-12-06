@@ -1295,7 +1295,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return this.withValue(this.value);
   }
 
-  inLeapYear(): boolean {
+  isLeapYear(): boolean {
     if (this.isValid) {
       const year = this.year() as number;
       return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);

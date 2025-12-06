@@ -90,6 +90,8 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     get S(): string;
     get WW(): string;
     get W(): string;
+    get Z(): string;
+    get ZZ(): string;
     unix(ms?: boolean | number): number | bbnDt<any>;
     format(format?: string): string;
     calendar(short?: boolean): string;
@@ -113,7 +115,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;
     clone(): bbnDt<any>;
-    inLeapYear(): boolean;
+    isLeapYear(): boolean;
     daysInMonth(): number;
     valueOf(): number;
 }

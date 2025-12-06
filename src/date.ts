@@ -1364,7 +1364,7 @@ class bbnDateTool {
       : this.format('YYYY-MM-DD HH:II:SS');
   }
 
-  inLeapYear(): boolean {
+  isLeapYear(): boolean {
     if (this.isValid) {
       const year = this.#value.getFullYear();
       return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);

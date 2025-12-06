@@ -431,7 +431,7 @@ export class bbnDt {
         if ((v !== undefined) && !(v instanceof Event)) {
             return this.setWeekday(v, past);
         }
-        return this.value.dayOfWeek;
+        return this.value.dayOfWeek % 7;
     }
     date(v) {
         if (!this.value) {
@@ -640,6 +640,20 @@ export class bbnDt {
         }
         return undefined;
     }
+    get Z() {
+        if (this.kind === 'zoned') {
+            const zdt = this.value;
+            return zdt.offset;
+        }
+        return undefined;
+    }
+    get ZZ() {
+        if (this.kind === 'zoned') {
+            const zdt = this.value;
+            return zdt.offset.replace(':', '');
+        }
+        return undefined;
+    }
     unix(ms = false) {
         if (typeof ms === 'number') {
             const Ctor = this.constructor;
@@ -673,7 +687,7 @@ export class bbnDt {
                     }
                     else {
                         const suffix = formatsMap[unitsCorrespondence[part]];
-                        str += this[suffix];
+                        str += this[suffix] || '';
                     }
                 }
                 else {
@@ -826,7 +840,7 @@ export class bbnDt {
             throw new Error('Invalid unit for diff: ' + unit);
         }
         const [, , ms] = match; // [shortUnit, rtfUnit, ms]
-        return Math.round(diff / ms);
+        return Math.floor(diff / ms);
     }
     guessUnit(valueInMs) {
         const absDiff = Math.abs(valueInMs);
@@ -1059,7 +1073,7 @@ export class bbnDt {
     clone() {
         return this.withValue(this.value);
     }
-    inLeapYear() {
+    isLeapYear() {
         if (this.isValid) {
             const year = this.year();
             return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
@@ -1088,7 +1102,7 @@ export class bbnDt {
         }
     }
     valueOf() {
-        return this.unix();
+        return this.unix(true);
     }
 }
 _bbnDt_value = new WeakMap();

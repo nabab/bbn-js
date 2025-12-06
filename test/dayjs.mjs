@@ -9,9 +9,9 @@ import isSameOrAfter from "dayjs/plugin/isSameOrAfter.js";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore.js";
 import calendar from "dayjs/plugin/calendar.js";
 import updateLocale from "dayjs/plugin/updateLocale.js";
-import "dayjs/locale/it.js";
+//import "dayjs/locale/it.js";
 import "dayjs/locale/en.js";
-import "dayjs/locale/fr.js";
+//import "dayjs/locale/fr.js";
 
 // bbn globale
 import bbn from "../dist/index.js";
@@ -422,13 +422,13 @@ describe("bbnDt vs Day.js — funzioni comuni con input multiformato", () => {
     });
   });
 
-  // inLeapYear / daysInMonth
-  describe("inLeapYear / daysInMonth", () => {
-    it("inLeapYear coincide su anno bisestile", () => {
+  // isLeapYear / daysInMonth
+  describe("isLeapYear / daysInMonth", () => {
+    it("isLeapYear coincide su anno bisestile", () => {
       const tc = { label: "leap year fixed", value: "2020-02-01 00:00:00", format: "YYYY-MM-DD HH:mm:ss" };
       const b = makeBbn(tc.value, tc.format);
       const d = dayjs(tc.value, tc.format);
-      eq(b.inLeapYear(), d.inLeapYear(), tc, `[bbn] ${b.inLeapYear()}\n[dayjs] ${d.inLeapYear()}`);
+      eq(b.isLeapYear(), d.isLeapYear(), tc, `[bbn] ${b.isLeapYear()}\n[dayjs] ${d.isLeapYear()}`);
     });
 
     CASES_WITH_FULL_DATE.forEach(tc => {
