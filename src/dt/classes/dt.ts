@@ -84,7 +84,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       case 'dateTime': {
         const v = this.value as unknown as Temporal.PlainDateTime;
         // RFC 9557 string: "YYYY-MM-DDTHH:mm:ss[Europe/Rome]"
-        return v.toZonedDateTime(tz, { disambiguation: "earlier" }).toInstant().epochMilliseconds;
+        return v.toZonedDateTime(tz).toInstant().epochMilliseconds;
         iso = `${v.toString()}[${tz}]`;
       }
 

@@ -101,7 +101,7 @@ export class bbnDt {
             case 'dateTime': {
                 const v = this.value;
                 // RFC 9557 string: "YYYY-MM-DDTHH:mm:ss[Europe/Rome]"
-                return v.toZonedDateTime(tz, { disambiguation: "earlier" }).toInstant().epochMilliseconds;
+                return v.toZonedDateTime(tz).toInstant().epochMilliseconds;
                 iso = `${v.toString()}[${tz}]`;
             }
             case 'date': {
