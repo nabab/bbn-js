@@ -300,7 +300,10 @@ const buildLocaleFromIntl = () => {
   const fmtWeekShort  = new Intl.DateTimeFormat(langs, { weekday: 'short' });
   const fmtShort = new Intl.DateTimeFormat(langs, {dateStyle: 'short', timeStyle: 'short'});
   const fmtLong = new Intl.DateTimeFormat(langs, {dateStyle: 'long', timeStyle: 'long'});
+  const fmtNum = new Intl.DateTimeFormat(langs, {year: 'numeric', month: 'numeric', day: 'numeric'});
   const rtf = new Intl.RelativeTimeFormat(langs, { numeric: 'auto' });
+  const locale = new Intl.Locale(langs[0]);
+
 
   // Create 12 dates for months (2020 chosen arbitrarily)
   const monthsLong  = [];
@@ -329,12 +332,15 @@ const buildLocaleFromIntl = () => {
     formatters: {
       short: fmtShort,
       long: fmtLong,
+      numeric: fmtNum,
       relative: rtf
     },
+    firstDayOfWeek: (locale as any).weekInfo.firstDay,
     monthsLong,
     monthsShort,
     weekdaysLong,
     weekdaysShort,
+    locale,
     date,
     time,
     datetime

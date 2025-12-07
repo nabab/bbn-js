@@ -43,7 +43,7 @@ export default class bbnDtDateTime extends bbnDt {
             return '';
         }
         const date = new Date(this.year(), this.month() - 1, this.day(), this.hour(), this.minute(), this.second());
-        const opt = Object.assign(Object.assign({ year: 'numeric', month: long ? 'long' : 'numeric', day: 'numeric' }, (weekday ? { weekday: (long ? 'long' : 'short') } : {})), (withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit' } : {}));
+        const opt = Object.assign(Object.assign({ year: 'numeric', month: long ? 'long' : '2-digit', day: '2-digit' }, (weekday ? { weekday: (long ? 'long' : 'short') } : {})), (withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit' } : {}));
         const d = new Intl.DateTimeFormat([bbn.env.lang, ...navigator.languages], opt);
         return d.format(date);
     }

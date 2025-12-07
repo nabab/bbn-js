@@ -52,8 +52,8 @@ export default class bbnDtDateTime extends bbnDt<Temporal.PlainDateTime>
     const date = new Date(this.year() as number, (this.month() as number) - 1, this.day() as number, this.hour() as number, this.minute() as number, this.second() as number);
     const opt: Intl.DateTimeFormatOptions = {
       year: 'numeric',
-      month: long ? 'long' : 'numeric',
-      day: 'numeric',
+      month: long ? 'long' : '2-digit',
+      day: '2-digit',
       ...(weekday ? { weekday: (long ? 'long' : 'short') } : {}),
       ...(withTime ? { hour: (long ? '2-digit' : 'numeric'), minute: '2-digit'} : {})  
     };

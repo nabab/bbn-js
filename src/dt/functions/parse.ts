@@ -715,7 +715,7 @@ export default function parse(
           ctx.second,
           ctx.ms
         );
-        const epochMs = utcMs;// - (ctx.offsetMinutes ?? 0) * 60_000;
+        const epochMs = utcMs - (ctx.offsetMinutes ?? 0) * 60_000;
         dtObj = new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
       }
 

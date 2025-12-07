@@ -218,6 +218,7 @@ const buildLocaleFromIntl = () => {
   const fmtMonthShort = new Intl.DateTimeFormat(langs, { month: 'short' });
   const fmtWeekLong   = new Intl.DateTimeFormat(langs, { weekday: 'long' });
   const fmtWeekShort  = new Intl.DateTimeFormat(langs, { weekday: 'short' });
+  const locale        = new Intl.Locale(langs[0]);
 
   // Create 12 dates for months (2020 chosen arbitrarily)
   const monthsLong  = [];
@@ -1473,6 +1474,8 @@ class bbnDateTool {
         return shortUnit;
       }
     }
+
+    return null;
   }
     
 

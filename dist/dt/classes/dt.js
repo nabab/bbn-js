@@ -345,7 +345,45 @@ export class bbnDt {
     }
     // ---- Serialization ----
     toJSON() {
-        return this.format('YYYY-MM-DDTHH:II:SS.SSS[Z]');
+        if ('toZonedDateTime' in __classPrivateFieldGet(this, _bbnDt_value, "f")) {
+            const zdt = __classPrivateFieldGet(this, _bbnDt_value, "f").toZonedDateTime(bbnDt.systemTimeZoneId);
+            const zdt2 = zdt.withTimeZone('UTC');
+            return bbn.dt(zdt2).format('YYYY-MM-DDTHH:II:SS.SSS') + 'Z';
+        }
+        if (this.kind === 'zoned') {
+            return this.timezone('America/New_York').format('YYYY-MM-DDTHH:II:SS.SSS') + 'Z';
+        }
+    }
+    timezone(d) {
+        switch (this.kind) {
+            case 'zoned':
+                if (d === undefined) {
+                    const v = this.value;
+                    return v.timeZoneId;
+                }
+                else {
+                    const v = this.value;
+                    const newZdt = v.withTimeZone(d);
+                    return bbn.dt(newZdt);
+                }
+                break;
+            case 'dateTime':
+                if (d === undefined) {
+                    const v = this.value;
+                    const iso = `${v.toString()}[${bbnDt.systemTimeZoneId}]`;
+                    const zdt = Temporal.ZonedDateTime.from(iso);
+                    return zdt.timeZoneId;
+                }
+                else {
+                    const v = this.value;
+                    const iso = `${v.toString()}[${d}]`;
+                    const zdt = Temporal.ZonedDateTime.from(iso);
+                    return bbn.dt(zdt);
+                }
+                break;
+            default:
+                throw new Error(`timezone() is not supported for kind '${this.kind}'`);
+        }
     }
     toString() {
         return new Date(this.valueOf()).toString();
@@ -502,7 +540,7 @@ export class bbnDt {
         if (!this.value) {
             return '';
         }
-        return bbn.dt.locales.formatters.short.format(new Date(this.toEpochMs()));
+        return bbn.dt.locales.formatters[long ? 'long' : 'numeric'].format(new Date(this.toEpochMs()));
     }
     ftime(withSeconds = true) {
         if (!this.value) {
@@ -514,10 +552,25 @@ export class bbnDt {
         if (!this.value) {
             return undefined;
         }
-        if (!('weekOfYear' in this.value)) {
-            throw new Error('week() is not supported for this type');
+        const year = this.year();
+        // Normalize to UTC midnight to avoid DST issues
+        const d = new Date(Date.UTC(year, this.month() - 1, this.day()));
+        const jan1 = new Date(Date.UTC(year, 0, 1));
+        const MS_PER_DAY = 24 * 60 * 60 * 1000;
+        const diffDays = Math.floor((d.getTime() - jan1.getTime()) / MS_PER_DAY); // 0 for Jan 1
+        const jan1Dow = jan1.getUTCDay(); // 0–6, Sunday=0
+        // How many days long is week 1?
+        // Week 1 starts on Jan 1 and ends the day before the first `weekStart` after Jan 1.
+        let offset = (bbn.dt.locales.weekStart - jan1Dow + 7) % 7;
+        const firstWeekLength = offset === 0 ? 7 : offset;
+        // Still in the first (possibly partial) week
+        if (diffDays < firstWeekLength) {
+            return 1;
         }
-        return this.value.weekOfYear;
+        // Remaining days after week 1
+        const remainingDays = diffDays - firstWeekLength;
+        // Each full block of 7 days is one more week
+        return 2 + Math.floor(remainingDays / 7);
     }
     get YYYY() {
         if ('year' in this.value) {
@@ -746,12 +799,15 @@ export class bbnDt {
         const diffDays = startThis.diff(startNow, "day");
         const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
         let phrase;
-        if (diffDays >= -6 && diffDays <= 6) {
+        if (Math.abs(diffDays) <= 6) {
             phrase = rtf.format(diffDays, "day");
         }
-        else {
+        else if (Math.abs(diffDays) <= 30) {
             const diffWeeks = Math.floor(diffDays / 7);
             phrase = rtf.format(diffWeeks, "week");
+        }
+        else {
+            return this.fdate();
         }
         return `${phrase} ${this.ftime()}`;
     }
@@ -895,7 +951,7 @@ export class bbnDt {
     }
     fromNow(unit = '') {
         const nowValue = bbnDt.nowForKind(this.kind);
-        const temp = bbn.dt(nowValue, null, this.kind);
+        const temp = bbn.dt(undefined, null, this.kind);
         const rawDiffMs = this.diff(temp);
         const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
         if (!chosenUnit) {

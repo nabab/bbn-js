@@ -400,7 +400,48 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
   // ---- Serialization ----
 
   toJSON() {
-    return this.format('YYYY-MM-DDTHH:II:SS.SSS[Z]');
+    if ('toZonedDateTime' in this.#value) {
+      const zdt = (this.#value as any).toZonedDateTime(bbnDt.systemTimeZoneId) as Temporal.ZonedDateTime;
+      const zdt2 = zdt.withTimeZone('UTC');
+      return bbn.dt(zdt2).format('YYYY-MM-DDTHH:II:SS.SSS') + 'Z';
+    }
+    if (this.kind === 'zoned') {
+      return (this.timezone('America/New_York') as bbnDt<any>).format('YYYY-MM-DDTHH:II:SS.SSS') + 'Z';
+    }
+  }
+
+  timezone(d): string | bbnDt<any> {
+    switch (this.kind) {
+      case 'zoned':
+        if (d === undefined) {
+          const v = this.value as unknown as Temporal.ZonedDateTime;
+          return v.timeZoneId;
+        }
+        else {
+          const v = this.value as unknown as Temporal.ZonedDateTime;
+          const newZdt = v.withTimeZone(d as Temporal.TimeZoneLike);
+          return bbn.dt(newZdt);
+        }
+        break;
+      
+      case 'dateTime':
+        if (d === undefined) {
+          const v = this.value as unknown as Temporal.PlainDateTime;
+          const iso = `${v.toString()}[${bbnDt.systemTimeZoneId}]`;
+          const zdt = Temporal.ZonedDateTime.from(iso);
+          return zdt.timeZoneId;
+        }
+        else {
+          const v = this.value as unknown as Temporal.PlainDateTime;
+          const iso = `${v.toString()}[${d}]`;
+          const zdt = Temporal.ZonedDateTime.from(iso);
+          return bbn.dt(zdt);
+        }
+        break;
+
+      default:
+        throw new Error(`timezone() is not supported for kind '${this.kind}'`);
+    }
   }
 
   toString(): string {
@@ -601,7 +642,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return '';
     }
 
-    return bbn.dt.locales.formatters.short.format(new Date(this.toEpochMs()));
+    return bbn.dt.locales.formatters[long ? 'long' : 'numeric'].format(new Date(this.toEpochMs()));
   }
 
   ftime(withSeconds: boolean = true): string {
@@ -617,11 +658,32 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       return undefined;
     }
 
-    if (!('weekOfYear' in this.value)) {
-      throw new Error('week() is not supported for this type');
+    const year = this.year();
+
+    // Normalize to UTC midnight to avoid DST issues
+    const d = new Date(Date.UTC(year as number, (this.month() as number) - 1, this.day() as number));
+    const jan1 = new Date(Date.UTC(year as number, 0, 1));
+
+    const MS_PER_DAY = 24 * 60 * 60 * 1000;
+    const diffDays = Math.floor((d.getTime() - jan1.getTime()) / MS_PER_DAY); // 0 for Jan 1
+
+    const jan1Dow = jan1.getUTCDay(); // 0–6, Sunday=0
+
+    // How many days long is week 1?
+    // Week 1 starts on Jan 1 and ends the day before the first `weekStart` after Jan 1.
+    let offset = (bbn.dt.locales.weekStart - jan1Dow + 7) % 7;
+    const firstWeekLength = offset === 0 ? 7 : offset;
+
+    // Still in the first (possibly partial) week
+    if (diffDays < firstWeekLength) {
+      return 1;
     }
 
-    return (this.value as any).weekOfYear;
+    // Remaining days after week 1
+    const remainingDays = diffDays - firstWeekLength;
+
+    // Each full block of 7 days is one more week
+    return 2 + Math.floor(remainingDays / 7);
   }
 
   get YYYY(): string {
@@ -882,11 +944,15 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
     let phrase: string;
 
-    if (diffDays >= -6 && diffDays <= 6) {
+    if (Math.abs(diffDays) <= 6) {
       phrase = rtf.format(diffDays, "day");
-    } else {
+    }
+    else if (Math.abs(diffDays) <= 30) {
       const diffWeeks = Math.floor(diffDays / 7);
       phrase = rtf.format(diffWeeks, "week");
+    }
+    else {
+      return this.fdate();
     }
 
     return `${phrase} ${this.ftime()}`;
@@ -1075,8 +1141,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
   fromNow(unit: string = '') {
     const nowValue = bbnDt.nowForKind(this.kind);
-    const temp = bbn.dt(nowValue, null, this.kind) as bbnDt<any>;
-
+    const temp = bbn.dt(undefined, null, this.kind) as bbnDt<any>;
     const rawDiffMs = this.diff(temp);
     const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
     if (!chosenUnit) {
@@ -1098,7 +1163,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return rtf.format(diff, rtfUnit);
   }
 
-  fromDate(date: any, unit: string = '') {
+  fromDate(date: bbnDt<any>, unit: string = '') {
     const rawDiffMs = this.diff(date);
     const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
     if (!chosenUnit) {

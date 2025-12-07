@@ -255,6 +255,7 @@ declare global {
   }
 
   abstract class bbnDt <T> {
+    constructor(value?: any);
     abstract readonly kind: bbnDtKind;
     setValid(valid: boolean): void;
     parse(input: string, format: string): bbnDt<any>;

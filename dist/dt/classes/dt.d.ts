@@ -53,6 +53,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     isSame(other: any, unit?: string): boolean;
     equals(other: any): boolean;
     toJSON(): string;
+    timezone(d: any): string | bbnDt<any>;
     toString(): string;
     year(v?: any): number | bbnDt<any>;
     month(v?: any): number | bbnDt<any>;
@@ -111,7 +112,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     diff(date: any, unit?: string, abs?: boolean): number;
     guessUnit(valueInMs: number): string | null;
     fromNow(unit?: string): string;
-    fromDate(date: any, unit?: string): string;
+    fromDate(date: bbnDt<any>, unit?: string): string;
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;
     clone(): bbnDt<any>;

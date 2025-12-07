@@ -476,6 +476,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
         }
     ];
     function parseWithFormat(fmt, cls = 'auto') {
+        var _a;
         const currentDate = new bbnDtDateTime();
         const ctx = {
             year: currentDate.year(),
@@ -602,7 +603,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             try {
                 pdt = new T.PlainDateTime(ctx.year, ctx.month, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms * 1000000);
             }
-            catch (_a) {
+            catch (_b) {
                 throw new Error('Invalid date/time components');
             }
             if (ctx.timeZone) {
@@ -612,7 +613,7 @@ export default function parse(input, format, cls = 'auto', force, locale) {
             }
             else {
                 const utcMs = Date.UTC(ctx.year, ctx.month - 1, ctx.day, ctx.hour, ctx.minute, ctx.second, ctx.ms);
-                const epochMs = utcMs; // - (ctx.offsetMinutes ?? 0) * 60_000;
+                const epochMs = utcMs - ((_a = ctx.offsetMinutes) !== null && _a !== void 0 ? _a : 0) * 60000;
                 dtObj = new bbnDtZoned(T.Instant.fromEpochMilliseconds(epochMs).toZonedDateTimeISO(T.Now.timeZoneId()));
             }
         }
