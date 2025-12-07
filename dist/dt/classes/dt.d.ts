@@ -112,7 +112,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     diff(date: any, unit?: string, abs?: boolean): number;
     guessUnit(valueInMs: number): string | null;
     fromNow(unit?: string): string;
-    fromDate(date: bbnDt<any>, unit?: string): string;
+    from(date: bbnDt<any>, unit?: string): string;
     startOf(unit?: string): bbnDt<any>;
     endOf(unit?: string): bbnDt<any>;
     clone(): bbnDt<any>;

@@ -1163,7 +1163,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     return rtf.format(diff, rtfUnit);
   }
 
-  fromDate(date: bbnDt<any>, unit: string = '') {
+  from(date: bbnDt<any>, unit: string = '') {
     const rawDiffMs = this.diff(date);
     const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
     if (!chosenUnit) {

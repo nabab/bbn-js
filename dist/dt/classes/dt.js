@@ -966,7 +966,7 @@ export class bbnDt {
         const [, rtfUnit] = match; // [shortUnit, rtfUnit, ms]
         return rtf.format(diff, rtfUnit);
     }
-    fromDate(date, unit = '') {
+    from(date, unit = '') {
         const rawDiffMs = this.diff(date);
         const chosenUnit = unitsCorrespondence[unit] || this.guessUnit(rawDiffMs);
         if (!chosenUnit) {
