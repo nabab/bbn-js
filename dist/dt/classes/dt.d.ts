@@ -97,7 +97,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     format(format?: string): string;
     calendar(short?: boolean): string;
     matchFormat(value: any, format: string): boolean;
-    getWeekday(n: 0 | 1 | 2 | 3 | 4 | 5 | 6, mode?: string, locale?: string): string | object;
+    getWeekday(n: number, mode?: string, locale?: string): string | object;
     getWeekdayIndex: (name: string, locale?: string) => number;
     /**
      * Returns a NEW date that is the next (or previous if past=true)

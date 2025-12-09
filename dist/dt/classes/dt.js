@@ -560,8 +560,8 @@ export class bbnDt {
         const diffDays = Math.floor((d.getTime() - jan1.getTime()) / MS_PER_DAY); // 0 for Jan 1
         const jan1Dow = jan1.getUTCDay(); // 0–6, Sunday=0
         // How many days long is week 1?
-        // Week 1 starts on Jan 1 and ends the day before the first `weekStart` after Jan 1.
-        let offset = (bbn.dt.locales.weekStart - jan1Dow + 7) % 7;
+        // Week 1 starts on Jan 1 and ends the day before the first `firstDayOfWeek` after Jan 1.
+        let offset = (bbn.dt.locales.firstDayOfWeek - jan1Dow + 7) % 7;
         const firstWeekLength = offset === 0 ? 7 : offset;
         // Still in the first (possibly partial) week
         if (diffDays < firstWeekLength) {
@@ -630,13 +630,13 @@ export class bbnDt {
     }
     get dddd() {
         if ('dayOfWeek' in this.value) {
-            return this.getWeekday(0, 'long');
+            return this.getWeekday(this.value.dayOfWeek, 'long');
         }
         return undefined;
     }
     get ddd() {
-        if ('day' in this.value) {
-            return this.getWeekday(0, 'short');
+        if ('dayOfWeek' in this.value) {
+            return this.getWeekday(this.value.dayOfWeek, 'short');
         }
         return undefined;
     }
@@ -797,19 +797,32 @@ export class bbnDt {
         const startThis = this.startOf("day");
         const startNow = now.startOf("day");
         const diffDays = startThis.diff(startNow, "day");
-        const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, { numeric: "auto" });
-        let phrase;
-        if (Math.abs(diffDays) <= 6) {
-            phrase = rtf.format(diffDays, "day");
+        const options = { numeric: "auto" };
+        if (short) {
+            options.style = "short";
         }
-        else if (Math.abs(diffDays) <= 30) {
-            const diffWeeks = Math.floor(diffDays / 7);
-            phrase = rtf.format(diffWeeks, "week");
+        const rtf = new Intl.RelativeTimeFormat(bbn.env.lang, options);
+        let phrase = '';
+        let parts = [];
+        let prefix = '';
+        if ((diffDays >= -1) && (diffDays <= 1)) {
+            parts = rtf.formatToParts(diffDays, "day");
+        }
+        else if ((diffDays >= -6) && (diffDays < -1)) {
+            prefix = this.dddd + ', ';
+            parts = rtf.formatToParts(diffDays, "day");
+        }
+        else if ((diffDays <= 6) && (diffDays > 1)) {
+            prefix = this.dddd;
+            parts = [];
         }
         else {
             return this.fdate();
         }
-        return `${phrase} ${this.ftime()}`;
+        bbn.fn.each(parts, (part) => {
+            phrase += part.value;
+        });
+        return `${prefix}${phrase} ${this.ftime()}`;
     }
     matchFormat(value, format) {
         try {
@@ -1188,7 +1201,6 @@ export class bbnDt {
                     else {
                         return 28;
                     }
-                case 1:
                 case 4:
                 case 6:
                 case 9:
