@@ -1,6 +1,6 @@
 {
   "name": "@bbn/bbn",
-  "version": "2.0.154",
+  "version": "2.0.155",
   "description": "Javascript toolkit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
