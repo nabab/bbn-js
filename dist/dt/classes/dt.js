@@ -325,6 +325,9 @@ export class bbnDt {
             return new this.constructor(d);
         }
     }
+    duration(amount, unit) {
+        return bbnDtDuration.fromUnit(amount, unit);
+    }
     isBefore(other, unit) {
         return this.compare(other, unit) < 0;
     }

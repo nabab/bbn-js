@@ -373,6 +373,10 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
   }
 
+  duration(amount: number, unit: string): bbnDtDuration {
+    return bbnDtDuration.fromUnit(amount, unit);
+  }
+
   isBefore(other: any, unit?: string): boolean {
     return this.compare(other, unit) < 0;
   }

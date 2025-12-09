@@ -46,6 +46,7 @@ export declare abstract class bbnDt<TValue extends bbnDtTemporal> {
     compare(other: any, unit?: string): -1 | 0 | 1;
     add(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
     subtract(amount: number | bbnDtDuration | object, unit?: string): bbnDt<any>;
+    duration(amount: number, unit: string): bbnDtDuration;
     isBefore(other: any, unit?: string): boolean;
     isBeforeOrSame(other: any, unit?: string): boolean;
     isAfter(other: any, unit?: string): boolean;
