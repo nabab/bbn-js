@@ -8,11 +8,11 @@ globalThis.Temporal = Temporal;
 // (opzionale) lingua per i formatter
 try {
   Object.defineProperty(globalThis.navigator, "languages", {
-    value: ["it"],
+    value: ["en"],
     configurable: true,
   });
   Object.defineProperty(globalThis.navigator, "language", {
-    value: "it",
+    value: "en",
     configurable: true,
   });
 } catch {}
