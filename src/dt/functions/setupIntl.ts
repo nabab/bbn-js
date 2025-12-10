@@ -47,11 +47,11 @@ export default async function setupIntl(): Promise<void> {
   if (needsRelativeTimeFormatPolyfill()) {
     tasks.push(
       (async () => {
-        const rtModule = await import('@formatjs/intl-relativetimeformat/polyfill');
+        const rtModule = await import('@formatjs/intl-relativetimeformat/polyfill.js');
         // Ensure module is evaluated (rtModule is unused but import side-effect matters)
         void rtModule;
         // Add the locales you actually use:
-        await import('@formatjs/intl-relativetimeformat/locale-data/en');
+        await import('@formatjs/intl-relativetimeformat/locale-data/en.js');
         // await import('@formatjs/intl-relativetimeformat/locale-data/it');
         // ...more locales if needed
       })()

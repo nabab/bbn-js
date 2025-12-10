@@ -50,11 +50,11 @@ export default function setupIntl() {
         // Polyfill RelativeTimeFormat only if missing (old Safari, old Firefox, etc.)
         if (needsRelativeTimeFormatPolyfill()) {
             tasks.push((() => __awaiter(this, void 0, void 0, function* () {
-                const rtModule = yield import('@formatjs/intl-relativetimeformat/polyfill');
+                const rtModule = yield import('@formatjs/intl-relativetimeformat/polyfill.js');
                 // Ensure module is evaluated (rtModule is unused but import side-effect matters)
                 void rtModule;
                 // Add the locales you actually use:
-                yield import('@formatjs/intl-relativetimeformat/locale-data/en');
+                yield import('@formatjs/intl-relativetimeformat/locale-data/en.js');
                 // await import('@formatjs/intl-relativetimeformat/locale-data/it');
                 // ...more locales if needed
             }))());
