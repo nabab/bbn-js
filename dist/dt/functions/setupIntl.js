@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 // setup-intl.ts
-import { ensureIntlWeekInfoPolyfill } from './intl-weekinfo-polyfill';
+import { ensureIntlWeekInfoPolyfill } from './intl-weekinfo-polyfill.js';
 // ------------------------------
 // Feature detection
 // ------------------------------
@@ -62,10 +62,10 @@ export default function setupIntl() {
         // Polyfill DateTimeFormat only when style formats are not supported
         if (needsDateTimeStylePolyfill()) {
             tasks.push((() => __awaiter(this, void 0, void 0, function* () {
-                const dtModule = yield import('@formatjs/intl-datetimeformat/polyfill');
+                const dtModule = yield import('@formatjs/intl-datetimeformat/polyfill.js');
                 void dtModule;
                 // Optional but common: locale data
-                yield import('@formatjs/intl-datetimeformat/locale-data/en');
+                yield import('@formatjs/intl-datetimeformat/locale-data/en.js');
                 // await import('@formatjs/intl-datetimeformat/locale-data/it');
                 // If you need full timezone data (heavy!):
                 // await import('@formatjs/intl-datetimeformat/add-all-tz');

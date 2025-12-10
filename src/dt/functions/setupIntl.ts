@@ -1,5 +1,5 @@
 // setup-intl.ts
-import { ensureIntlWeekInfoPolyfill } from './intl-weekinfo-polyfill';
+import { ensureIntlWeekInfoPolyfill } from './intl-weekinfo-polyfill.js';
 
 // ------------------------------
 // Feature detection
@@ -62,10 +62,10 @@ export default async function setupIntl(): Promise<void> {
   if (needsDateTimeStylePolyfill()) {
     tasks.push(
       (async () => {
-        const dtModule = await import('@formatjs/intl-datetimeformat/polyfill');
+        const dtModule = await import('@formatjs/intl-datetimeformat/polyfill.js');
         void dtModule;
         // Optional but common: locale data
-        await import('@formatjs/intl-datetimeformat/locale-data/en');
+        await import('@formatjs/intl-datetimeformat/locale-data/en.js');
         // await import('@formatjs/intl-datetimeformat/locale-data/it');
         // If you need full timezone data (heavy!):
         // await import('@formatjs/intl-datetimeformat/add-all-tz');
