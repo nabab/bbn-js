@@ -30,11 +30,10 @@ export default function parse(
 ): bbnDt<any>
 {
   buildLocaleFromIntl();
-  const TemporalAny = (globalThis as any).Temporal;
-  if (!TemporalAny) {
+  const T = Temporal;
+  if (!T) {
     throw new Error('Temporal API is required (load @js-temporal/polyfill)');
   }
-  const T = TemporalAny;
   let isValid = true;
 
   if (!locale) {

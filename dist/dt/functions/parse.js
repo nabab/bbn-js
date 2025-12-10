@@ -1,3 +1,4 @@
+import { Temporal } from 'temporal-polyfill';
 import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 import bbnDtZoned from '../classes/zoned.js';
 import bbnDtDateTime from '../classes/dateTime.js';
@@ -16,11 +17,10 @@ const lc = function (str, localeCode) {
 export default function parse(input, format, cls = 'auto', force, locale) {
     var _a, _b, _c, _d, _e, _f, _g;
     buildLocaleFromIntl();
-    const TemporalAny = globalThis.Temporal;
-    if (!TemporalAny) {
+    const T = Temporal;
+    if (!T) {
         throw new Error('Temporal API is required (load @js-temporal/polyfill)');
     }
-    const T = TemporalAny;
     let isValid = true;
     if (!locale) {
         locale = ((_a = bbn === null || bbn === void 0 ? void 0 : bbn.dt) === null || _a === void 0 ? void 0 : _a.locales) || {};
