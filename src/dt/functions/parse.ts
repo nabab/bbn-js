@@ -30,7 +30,7 @@ export default function parse(
 ): bbnDt<any>
 {
   buildLocaleFromIntl();
-  const T = Temporal;
+  const T = Temporal as any;
   if (!T) {
     throw new Error('Temporal API is required (load @js-temporal/polyfill)');
   }
