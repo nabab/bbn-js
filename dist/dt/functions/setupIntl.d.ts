@@ -5,4 +5,4 @@
  *   import { setupIntl } from './setup-intl';
  *   await setupIntl();
  */
-export declare function setupIntl(): Promise<void>;
+export default function setupIntl(): Promise<void>;

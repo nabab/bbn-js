@@ -44,7 +44,7 @@ function needsDateTimeStylePolyfill() {
  *   import { setupIntl } from './setup-intl';
  *   await setupIntl();
  */
-export function setupIntl() {
+export default function setupIntl() {
     return __awaiter(this, void 0, void 0, function* () {
         const tasks = [];
         // Polyfill RelativeTimeFormat only if missing (old Safari, old Firefox, etc.)

@@ -40,7 +40,7 @@ function needsDateTimeStylePolyfill(): boolean {
  *   import { setupIntl } from './setup-intl';
  *   await setupIntl();
  */
-export async function setupIntl(): Promise<void> {
+export default async function setupIntl(): Promise<void> {
   const tasks: Promise<unknown>[] = [];
 
   // Polyfill RelativeTimeFormat only if missing (old Safari, old Firefox, etc.)
