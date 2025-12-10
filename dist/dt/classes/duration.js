@@ -134,9 +134,18 @@ class bbnDtDuration {
      * Add any unit (or instance default).
      */
     add(value, unit) {
-        const targetUnit = unit
-            ? (unitsCorrespondence[unit] || unit)
-            : __classPrivateFieldGet(this, _bbnDtDuration_unit, "f");
+        let targetUnit = __classPrivateFieldGet(this, _bbnDtDuration_unit, "f");
+        if (unit) {
+            if (unitsCorrespondence[unit]) {
+                const realUnit = getRow(units, (a) => a[0] === unitsCorrespondence[unit]);
+                if (realUnit) {
+                    targetUnit = realUnit[1];
+                }
+            }
+            else {
+                targetUnit = unit;
+            }
+        }
         // Map to Temporal.DurationLike field name, e.g. 'year' → 'years'
         const field = (targetUnit + 's');
         if (!['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds', 'milliseconds'].includes(field)) {
