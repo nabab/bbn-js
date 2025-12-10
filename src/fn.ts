@@ -102,6 +102,7 @@ import getDeviceType from './fn/browser/getDeviceType.js';
 import getEventData from './fn/browser/getEventData.js';
 import getField from './fn/object/getField.js';
 import getFieldValues from './fn/object/getFieldValues.js';
+import getFileContent from './fn/ajax/getFileContent.js';
 import getIndex from './fn/html/getIndex.js';
 import getHtml from './fn/html/getHtml.js';
 import getHTMLOfSelection from './fn/html/getHTMLOfSelection.js';
@@ -351,6 +352,7 @@ export default {
   getEventData,
   getField,
   getFieldValues,
+  getFileContent,
   getIndex,
   getHtml,
   getHTMLOfSelection,
