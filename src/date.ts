@@ -387,7 +387,7 @@ class bbnDateDuration {
       ? (unitsCorrespondence[unit] || unit)
       : this.#unit;
 
-    const row = getRow(units, d => d[0] === targetUnit);
+    const row = getRow(units, (d: any[]) => d[0] === targetUnit);
     if (!row) {
       throw new Error('Invalid unit for duration: ' + (unit ?? targetUnit));
     }

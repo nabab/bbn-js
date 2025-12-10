@@ -201,9 +201,18 @@ export default class bbnDtDuration
    * Add any unit (or instance default).
    */
   add(value: number, unit?: string): bbnDtDuration {
-    const targetUnit = unit
-      ? (unitsCorrespondence[unit] || unit)
-      : this.#unit;
+    let targetUnit = this.#unit;
+    if (unit) {
+      if (unitsCorrespondence[unit]) {
+        const realUnit = getRow(units, (a: any[]) => a[0] === unitsCorrespondence[unit]);
+        if (realUnit) {
+          targetUnit = realUnit[1];
+        }
+      }
+      else {
+        targetUnit = unit;
+      }
+    }
 
     // Map to Temporal.DurationLike field name, e.g. 'year' → 'years'
     const field = (targetUnit + 's') as
