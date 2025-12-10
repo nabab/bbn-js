@@ -50,11 +50,11 @@ export default function setupIntl() {
         // Polyfill RelativeTimeFormat only if missing (old Safari, old Firefox, etc.)
         if (needsRelativeTimeFormatPolyfill()) {
             tasks.push((() => __awaiter(this, void 0, void 0, function* () {
-                const rtModule = yield import('../../../node_modules/@formatjs/intl-relativetimeformat/polyfill');
+                const rtModule = yield import('@formatjs/intl-relativetimeformat/polyfill');
                 // Ensure module is evaluated (rtModule is unused but import side-effect matters)
                 void rtModule;
                 // Add the locales you actually use:
-                yield import('../../../node_modules/@formatjs/intl-relativetimeformat/locale-data/en');
+                yield import('@formatjs/intl-relativetimeformat/locale-data/en');
                 // await import('@formatjs/intl-relativetimeformat/locale-data/it');
                 // ...more locales if needed
             }))());
@@ -62,10 +62,10 @@ export default function setupIntl() {
         // Polyfill DateTimeFormat only when style formats are not supported
         if (needsDateTimeStylePolyfill()) {
             tasks.push((() => __awaiter(this, void 0, void 0, function* () {
-                const dtModule = yield import('../../../node_modules/@formatjs/intl-datetimeformat/polyfill');
+                const dtModule = yield import('@formatjs/intl-datetimeformat/polyfill');
                 void dtModule;
                 // Optional but common: locale data
-                yield import('../../../node_modules/@formatjs/intl-datetimeformat/locale-data/en');
+                yield import('@formatjs/intl-datetimeformat/locale-data/en');
                 // await import('@formatjs/intl-datetimeformat/locale-data/it');
                 // If you need full timezone data (heavy!):
                 // await import('@formatjs/intl-datetimeformat/add-all-tz');
