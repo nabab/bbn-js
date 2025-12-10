@@ -257,7 +257,7 @@ const buildLocaleFromIntl = () => {
         weekdaysShort.push(fmtWeekShort.format(d));
     }
     const { date, time, datetime } = getCommonFormatsForLocale(langs);
-    const weekInfo = locale.getWeekInfo();
+    const weekInfo = locale.getWeekInfo ? locale.getWeekInfo() : { firstDayOfWeek: 1 };
     extend(bbn.dt.locales, {
         formatters: {
             short: fmtShort,

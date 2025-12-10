@@ -328,7 +328,7 @@ const buildLocaleFromIntl = () => {
   }
 
   const {date, time, datetime} = getCommonFormatsForLocale(langs);
-  const weekInfo = (locale as any).getWeekInfo();
+  const weekInfo = (locale as any).getWeekInfo ? (locale as any).getWeekInfo() : {firstDayOfWeek: 1};
   extend(bbn.dt.locales, {
     formatters: {
       short: fmtShort,
