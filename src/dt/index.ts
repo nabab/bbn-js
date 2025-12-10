@@ -9,6 +9,7 @@ import bbnDtDuration from './classes/duration.js';
 
 
 export {
+  setupIntl,
   bbnDtDate,
   bbnDtDateTime,
   bbnDtTime,

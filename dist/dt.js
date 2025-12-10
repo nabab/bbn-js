@@ -195,7 +195,7 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
         }
     }
     if (typeof value === 'number') {
-        return new bbnDtDateTime(Math.abs(value) < 99999999999 ? value * 1000 : value);
+        return new bbnDtDateTime(Math.abs(value) < 99999999999 ? Math.floor(value * 1000) : value);
     }
     else if (value.__isBbnDt) {
         return value;

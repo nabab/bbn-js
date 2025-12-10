@@ -9,6 +9,7 @@ import isTabletDevice from './browser/isTabletDevice.js';
 import isFunction from './type/isFunction.js';
 import log from './browser/log.js';
 import timestamp from './datetime/timestamp.js';
+import setupIntl from '../dt/functions/setupIntl.js';
 const onActivity = (e) => {
     bbn.env.last_focus = bbn.dt().unix();
     if (bbn.env.nav !== "ajax") {
@@ -77,6 +78,7 @@ export default function init(cfg, force) {
         if (bbn.var.colors) {
             addColors(bbn.var.colors);
         }
+        setupIntl();
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 bbn.env.isVisible = false;
