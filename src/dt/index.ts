@@ -1,3 +1,4 @@
+import setupIntl from './functions/setupIntl.js';
 import bbnDtDate from './classes/date.js';
 import bbnDtDateTime from './classes/dateTime.js';
 import bbnDtTime from './classes/time.js';

@@ -61,6 +61,8 @@
   },
   "dependencies": {
     "@formatjs/intl-datetimeformat": "^6.18.2",
+    "@formatjs/intl-pluralrules": "^5.4.6",
+    "@formatjs/intl-relativetimeformat": "^11.4.13",
     "cldr-core": "^48.0.0",
     "temporal-polyfill": "^0.3.0"
   }
