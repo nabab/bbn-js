@@ -190,8 +190,12 @@ const unitsCorrespondence: {[key: string]: string} = {
 };
 
 const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' | 'dateTime' | 'date' | 'time' | 'yearMonth' | 'monthDay' = 'auto') => {
-  if (!value) {
+  if (value === undefined) {
     return new bbnDtDateTime();
+  }
+  if (!value) {
+    const d = new bbnDtDateTime();
+    d.setValid(false);
   }
 
   if (typeof value === 'string') {

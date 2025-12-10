@@ -172,8 +172,12 @@ const unitsCorrespondence = {
     'w': 'w'
 };
 const dt = (value, inputFormat = null, cls = 'auto') => {
-    if (!value) {
+    if (value === undefined) {
         return new bbnDtDateTime();
+    }
+    if (!value) {
+        const d = new bbnDtDateTime();
+        d.setValid(false);
     }
     if (typeof value === 'string') {
         if (inputFormat) {
