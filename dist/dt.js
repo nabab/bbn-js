@@ -178,6 +178,7 @@ const dt = (value, inputFormat = null, cls = 'auto') => {
     if (!value) {
         const d = new bbnDtDateTime();
         d.setValid(false);
+        return d;
     }
     if (typeof value === 'string') {
         if (inputFormat) {

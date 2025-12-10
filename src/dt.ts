@@ -196,6 +196,7 @@ const dt = (value: any, inputFormat: null|String = null, cls: 'auto' | 'zoned' |
   if (!value) {
     const d = new bbnDtDateTime();
     d.setValid(false);
+    return d;
   }
 
   if (typeof value === 'string') {
