@@ -181,7 +181,8 @@ export class bbnDt {
             throw new TypeError('Both arguments must be Temporal values');
         }
         const tz = Temporal.Now.timeZoneId();
-        const realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] : undefined;
+        let realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] : undefined;
+        realUnit = realUnit ? realUnit + 's' : undefined;
         const isBbnDt = (x) => x instanceof bbnDt;
         // --- helper: get underlying Temporal value if wrapper ---
         const unwrap = (x) => isBbnDt(x) ? x.value : x;
@@ -224,17 +225,19 @@ export class bbnDt {
         const rawB = unwrap(b);
         if (rawA.constructor === rawB.constructor) {
             const Ctor = rawA.constructor;
+            const comp = Ctor.compare(rawA, rawB);
             if (realUnit === undefined) {
                 if (typeof Ctor.compare !== 'function') {
                     throw new TypeError('This Temporal type has no static compare');
                 }
-                return Ctor.compare(rawA, rawB); // -1, 0, 1
+                return comp;
             }
-            if (typeof rawA.until !== 'function') {
+            if ((typeof rawA.until !== 'function')
+                || (typeof rawA.since !== 'function')) {
                 throw new TypeError('This Temporal type does not support until/since');
             }
-            const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
-            //bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
+            const diff = rawA[comp === 1 ? 'since' : 'until'](rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
+            //bbn.fn.log(['compare0', comp, diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
             return diff.sign;
         }
         // ---- CASE 2: different constructors, but convertible bbnDt kinds ----
@@ -250,13 +253,15 @@ export class bbnDt {
             convertibleKinds.has(b.kind)) {
             const za = toZdt(a);
             const zb = toZdt(b);
+            const comp = Temporal.ZonedDateTime.compare(za, zb);
             if (realUnit === undefined) {
-                return Temporal.ZonedDateTime.compare(za, zb);
+                return comp;
             }
-            if (typeof za.until !== 'function') {
+            if ((typeof za.until !== 'function')
+                || (typeof za.since !== 'function')) {
                 throw new TypeError('ZonedDateTime does not support until/since');
             }
-            const diff = za.until(zb, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
+            const diff = za[comp === 1 ? 'since' : 'until'](zb, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
             //bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
             return diff.sign;
         }

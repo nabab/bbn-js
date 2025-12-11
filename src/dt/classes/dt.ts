@@ -183,8 +183,8 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     const tz = Temporal.Now.timeZoneId();
-    const realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] : undefined;
-
+    let realUnit = unitsCorrespondence[unit] ? getRow(units, d => d[0] === unitsCorrespondence[unit])[1] : undefined;
+    realUnit = realUnit ? realUnit + 's' : undefined;
     const isBbnDt = (x: any): x is bbnDt<any> =>
       x instanceof bbnDt;
 
@@ -237,20 +237,23 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
 
     if (rawA.constructor === rawB.constructor) {
       const Ctor = rawA.constructor as any;
+      const comp = Ctor.compare(rawA, rawB);
 
       if (realUnit === undefined) {
         if (typeof Ctor.compare !== 'function') {
           throw new TypeError('This Temporal type has no static compare');
         }
-        return Ctor.compare(rawA, rawB); // -1, 0, 1
+        return comp as -1 | 0 | 1;
       }
 
-      if (typeof rawA.until !== 'function') {
+      if ((typeof rawA.until !== 'function')
+        || (typeof rawA.since !== 'function')
+      ) {
         throw new TypeError('This Temporal type does not support until/since');
       }
 
-      const diff = rawA.until(rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
-      //bbn.fn.log(['compare0', diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
+      const diff = rawA[comp === 1 ? 'since' : 'until'](rawB, { smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor' });
+      //bbn.fn.log(['compare0', comp, diff, realUnit, diff.sign, a.date(), b.date(), rawA.day, rawB.day]);
       return diff.sign as -1 | 0 | 1;
     }
 
@@ -270,16 +273,19 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     ) {
       const za = toZdt(a);
       const zb = toZdt(b);
+      const comp = Temporal.ZonedDateTime.compare(za, zb);
 
       if (realUnit === undefined) {
-        return Temporal.ZonedDateTime.compare(za, zb) as -1 | 0 | 1;
+        return comp as -1 | 0 | 1;
       }
 
-      if (typeof za.until !== 'function') {
+      if ((typeof za.until !== 'function')
+        || (typeof za.since !== 'function')
+      ) {
         throw new TypeError('ZonedDateTime does not support until/since');
       }
 
-      const diff = za.until(zb, {smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor'});
+      const diff = za[comp === 1 ? 'since' : 'until'](zb, {smallestUnit: realUnit, largestUnit: realUnit, roundingMode: 'floor'});
       //bbn.fn.log(['compare', diff, realUnit, diff.sign, a.date(), b.date(), za.day, zb.day]);
       return diff.sign as -1 | 0 | 1;
     }
@@ -427,7 +433,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
           return bbn.dt(newZdt);
         }
         break;
-      
+
       case 'dateTime':
         if (d === undefined) {
           const v = this.value as unknown as Temporal.PlainDateTime;
