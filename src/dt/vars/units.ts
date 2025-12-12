@@ -6,7 +6,7 @@ const units: [TimeFormatSymbol, TimeFormatUnit, number][] = [
   ['h', "hour",    60 * 60 * 1000],
   ['i', "minute",  60 * 1000],
   ['s', "second",  1000],
-  ['l', "millisecond", 1]
+  ['x', "millisecond", 1]
 ];
 
 const unitsCorrespondence: {[key: string]: TimeFormatSymbol} = {
@@ -51,6 +51,12 @@ const unitsCorrespondence: {[key: string]: TimeFormatSymbol} = {
   'HH': 'h',
   'hr': 'h',
   'hh': 'h',
+  'milliseconds': 'x',
+  'millisecond': 'x',
+  'Milliseconds': 'x',
+  'Millisecond': 'x',
+  'MILLISECONDS': 'x',
+  'MILLISECOND': 'x',
   'minutes': 'i',
   'minute': 'i',
   'Minutes': 'i',
@@ -62,9 +68,9 @@ const unitsCorrespondence: {[key: string]: TimeFormatSymbol} = {
   'mn': 'i',
   'mm': 'i',
   'min': 'i',
-  'ms': 'l',
-  'SSS': 'l',
-  'sss': 'l',
+  'ms': 'x',
+  'SSS': 'x',
+  'sss': 'x',
   'SS': 's',
   'ss': 's',
   'seconds': 's',
@@ -103,7 +109,7 @@ const unitsMap: {[key: string]: string} = {
   'h': 'Hours',
   'i': 'Minutes',
   's': 'Seconds',
-  'l': 'Milliseconds',
+  'x': 'Milliseconds',
   'z': 'Offset'
 };
 
@@ -116,6 +122,7 @@ const formatsMap: {[key: string]: string} = {
   'h': 'HH',
   'i': 'II',
   's': 'SS',
+  'x': 'SSS',
   'z': 'Z'
 };
 

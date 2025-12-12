@@ -6,7 +6,7 @@ const units = [
     ['h', "hour", 60 * 60 * 1000],
     ['i', "minute", 60 * 1000],
     ['s', "second", 1000],
-    ['l', "millisecond", 1]
+    ['x', "millisecond", 1]
 ];
 const unitsCorrespondence = {
     'years': 'y',
@@ -50,6 +50,12 @@ const unitsCorrespondence = {
     'HH': 'h',
     'hr': 'h',
     'hh': 'h',
+    'milliseconds': 'x',
+    'millisecond': 'x',
+    'Milliseconds': 'x',
+    'Millisecond': 'x',
+    'MILLISECONDS': 'x',
+    'MILLISECOND': 'x',
     'minutes': 'i',
     'minute': 'i',
     'Minutes': 'i',
@@ -61,9 +67,9 @@ const unitsCorrespondence = {
     'mn': 'i',
     'mm': 'i',
     'min': 'i',
-    'ms': 'l',
-    'SSS': 'l',
-    'sss': 'l',
+    'ms': 'x',
+    'SSS': 'x',
+    'sss': 'x',
     'SS': 's',
     'ss': 's',
     'seconds': 's',
@@ -101,7 +107,7 @@ const unitsMap = {
     'h': 'Hours',
     'i': 'Minutes',
     's': 'Seconds',
-    'l': 'Milliseconds',
+    'x': 'Milliseconds',
     'z': 'Offset'
 };
 const formatsMap = {
@@ -113,6 +119,7 @@ const formatsMap = {
     'h': 'HH',
     'i': 'II',
     's': 'SS',
+    'x': 'SSS',
     'z': 'Z'
 };
 export { units, unitsCorrespondence, unitsMap, formatsMap };

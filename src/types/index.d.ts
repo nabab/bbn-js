@@ -237,7 +237,7 @@ declare global {
    | "h"
    | "i"
    | "s"
-   | "l"
+   | "x"
    | "z";
 
   type TimeProperties = {

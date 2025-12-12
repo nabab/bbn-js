@@ -1173,7 +1173,7 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       throw new Error('Cannot guess unit for fromNow');
     }
 
-    const diff = this.diff(temp, chosenUnit);
+    let diff = this.diff(temp, chosenUnit);
     const rtf = new Intl.RelativeTimeFormat(
       [bbn.env.lang, ...navigator.languages],
       { numeric: 'auto' }
@@ -1184,7 +1184,13 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
       throw new Error('Invalid unit for fromNow: ' + unit);
     }
 
-    const [, rtfUnit] = match; // [shortUnit, rtfUnit, ms]
+    let [, rtfUnit] = match; // [shortUnit, rtfUnit, ms]
+    if (rtfUnit === 'millisecond') {
+      rtfUnit = 'second';
+      diff = Math.round(diff / 1000);
+    }
+bbn.fn.log("FROM NOW", diff, rtfUnit, rtf);
+    
     return rtf.format(diff, rtfUnit);
   }
 
