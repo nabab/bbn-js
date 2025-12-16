@@ -71,7 +71,6 @@ export default function stream(
       }
     }
   };
-  const chrono = bbn.fn.startChrono();
   const loader = fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -87,7 +86,6 @@ export default function stream(
     body: JSON.stringify(data || {}) // body data type must match "Content-Type" header
   })
     .then(response => {
-      bbn.fn.log("RESPONSE IN " + bbn.fn.stopChrono(chrono, true) + " SECS");
       if (response.body) {
         const reader = response.body.getReader();
         const isFn = isFunction(success);
