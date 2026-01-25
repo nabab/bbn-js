@@ -2,11 +2,13 @@ import isObject from '../type/isObject.js';
 import hash from '../string/hash.js';
 import isSame from '../type/isSame.js';
 import checkType from '../type/checkType.js';
+import isArray from '../type/isArray.js';
+import mutateArray from './mutateArray.js';
 
 
 export default function mutateObject(a1, a2, hashFn) {
   if (!isObject(a1, a2)) {
-    throw new TypeError('mutateObject can only be called with arrays');
+    throw new TypeError('mutateObject can only be called with objects parameters');
   }
 
   if (hashFn) {
@@ -27,6 +29,15 @@ export default function mutateObject(a1, a2, hashFn) {
 
   mapA2.forEach(n => {
     if (!isSame(a1[n], a2[n])) {
+      if (isObject(a1[n], a2[n])) {
+        mutateObject(a1[n], a2[n], hashFn);
+        return;
+      }
+      if (isArray(a1[n], a2[n])) {
+        mutateArray(a1[n], a2[n], hashFn);
+        return;
+      }
+
       a1[n] = a2[n];
     }
   });
