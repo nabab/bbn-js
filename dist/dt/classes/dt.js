@@ -959,7 +959,8 @@ export class bbnDt {
             throw new Error('Invalid unit for diff: ' + unit);
         }
         const [, , ms] = match; // [shortUnit, rtfUnit, ms]
-        return Math.floor(diff / ms);
+        const result = diff / ms;
+        return result < 0 ? Math.ceil(result) : Math.floor(result);
     }
     guessUnit(valueInMs) {
         const absDiff = Math.abs(valueInMs);

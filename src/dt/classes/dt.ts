@@ -1151,7 +1151,8 @@ export abstract class bbnDt<TValue extends bbnDtTemporal> {
     }
 
     const [, , ms] = match; // [shortUnit, rtfUnit, ms]
-    return Math.floor(diff / ms);
+    const result = diff / ms;
+    return result < 0 ? Math.ceil(result) : Math.floor(result);
   }
 
   guessUnit(valueInMs: number): string | null {
