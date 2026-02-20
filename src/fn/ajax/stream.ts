@@ -64,7 +64,10 @@ export default function stream(
       }
       for (let i in json) {
         try {
-          success(JSON.parse(json[i]));
+          const parsed = JSON.parse(json[i]);
+          if (!parsed?.__bbn_stream_ping__) {
+            success(parsed);
+          }
         } catch (e) { 
           throw e;
         }

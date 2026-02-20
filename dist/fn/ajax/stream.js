@@ -51,7 +51,10 @@ export default function stream(url, success, data, failure, abort, finished) {
             }
             for (let i in json) {
                 try {
-                    success(JSON.parse(json[i]));
+                    const parsed = JSON.parse(json[i]);
+                    if (!(parsed === null || parsed === void 0 ? void 0 : parsed.__bbn_stream_ping__)) {
+                        success(parsed);
+                    }
                 }
                 catch (e) {
                     throw e;
