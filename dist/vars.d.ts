@@ -5,13 +5,13 @@ declare const _default: {
     datatypes: string[];
     shortenLen: number;
     keys: {
-        upDown: number[];
-        leftRight: number[];
-        dels: number[];
-        confirm: number[];
-        alt: number[];
-        numbers: number[];
-        numsigns: number[];
+        upDown: string[];
+        leftRight: string[];
+        dels: string[];
+        confirm: string[];
+        alt: string[];
+        numbers: string[];
+        numsigns: string[];
     };
     comparators: string[];
     operators: string[];

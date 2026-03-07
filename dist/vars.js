@@ -8,13 +8,47 @@ export default {
     shortenLen: 30,
     /* Categorizing keyboard map */
     keys: {
-        upDown: [33, 34, 35, 36, 38, 40],
-        leftRight: [36, 35, 37, 39],
-        dels: [8, 46, 45],
-        confirm: [13, 9],
-        alt: [20, 16, 17, 18, 144],
-        numbers: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105],
-        numsigns: [109, 110, 189, 190]
+        upDown: [
+            "PageUp", // 33
+            "PageDown", // 34
+            "End", // 35
+            "Home", // 36
+            "ArrowUp", // 38
+            "ArrowDown" // 40
+        ],
+        leftRight: [
+            "Home", // 36
+            "End", // 35
+            "ArrowLeft", // 37
+            "ArrowRight" // 39
+        ],
+        dels: [
+            "Backspace", // 8
+            "Delete", // 46
+            "Insert" // 45
+        ],
+        confirm: [
+            "Enter", // 13
+            "Tab" // 9
+        ],
+        alt: [
+            "CapsLock", // 20
+            "Shift", // 16
+            "Control", // 17
+            "Alt", // 18
+            "NumLock" // 144
+        ],
+        numbers: [
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", // 48–57 (top row)
+            "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4",
+            "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9" // 96–105
+        ],
+        numsigns: [
+            "NumpadSubtract", // 109
+            "NumpadDecimal", // 110
+            "-", // 189
+            "." // 190
+        ]
     },
     comparators: [">=", "<=", ">", "<", "="],
     operators: ["+", "-", "/", "*"],
