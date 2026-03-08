@@ -54,15 +54,6 @@ export default function link(...args) {
 		return true;
 	}
 	if (cfg.url.indexOf('#') === 0) {
-		location.href = bbn.env.url + cfg.url;
-		/*
-        if ( window.history ){
-          bbn.env.historyDisabled = true;
-          let state = h.state;
-          window.history.replaceState(null, state.title, bbn.env.url);
-        }
-        bbn.env.historyDisabled = false;
-        */
 		return true;
 	} else if (cfg.url.indexOf('mailto:') === 0) {
 		/* Mail link */
