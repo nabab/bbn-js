@@ -42,13 +42,9 @@ interface Res {
 export default function link(...args) {
 	let cfg = treatAjaxArguments(args);
 	let ok = 1;
-	if (cfg === true) {
-		return true;
-	}
-
-	/* If we can't find a correct link we load the current URL */
+	/* If we can't find a correct link we stop */
 	if (!cfg) {
-		return link(window.location.href);
+		return;
 	}
 	/* Just executing the javascript if there is */
 	if (cfg.url.indexOf('javascript:') === 0) {

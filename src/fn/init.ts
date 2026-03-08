@@ -38,10 +38,10 @@ const onActivity = (e: Event) => {
     !target.hasAttribute("target") &&
     !target.classList.contains("bbn-no")
   ) {
-    e.preventDefault();
-    e.stopPropagation();
-    link(target.getAttribute("href"));
-    return false;
+    if (!link(target.getAttribute("href"))) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 };
 
