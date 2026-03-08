@@ -31,7 +31,6 @@ import setNavigationVars from './setNavigationVars.js';
  * @returns
  */
 export default function link(...args) {
-    debugger;
     let cfg = treatAjaxArguments(args);
     let ok = 1;
     /* If we can't find a correct link we stop */
@@ -46,7 +45,11 @@ export default function link(...args) {
         return true;
     }
     if (cfg.url.indexOf('#') === 0) {
-        return true;
+        if (cfg.e) {
+            cfg.e.preventDefault();
+        }
+        document.location.hash = cfg.url.substring(1);
+        return false;
     }
     else if (cfg.url.indexOf('mailto:') === 0) {
         /* Mail link */
