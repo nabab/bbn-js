@@ -54,7 +54,6 @@ export default function link(...args) {
 		return true;
 	}
 	if (cfg.url.indexOf('#') === 0) {
-    debugger;
     if (cfg.e) {
       cfg.e.preventDefault();
     }

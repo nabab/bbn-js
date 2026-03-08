@@ -38,7 +38,7 @@ const onActivity = (e: Event) => {
     !target.hasAttribute("target") &&
     !target.classList.contains("bbn-no")
   ) {
-    link(target.getAttribute("href"));
+    link(target.getAttribute("href"), e);
   }
 };
 
@@ -121,6 +121,7 @@ export default function init(cfg?: object, force?: boolean): void {
     window.addEventListener(
       "hashchange",
       () => {
+        debugger;
         bbn.env.hashChanged = new Date().getTime();
       },
       false

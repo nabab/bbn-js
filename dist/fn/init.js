@@ -35,7 +35,7 @@ const onActivity = (e) => {
         target.hasAttribute("href") &&
         !target.hasAttribute("target") &&
         !target.classList.contains("bbn-no")) {
-        link(target.getAttribute("href"));
+        link(target.getAttribute("href"), e);
     }
 };
 /**
@@ -105,6 +105,7 @@ export default function init(cfg, force) {
         document.addEventListener("focusin", onActivity);
         document.addEventListener("focusout", onActivity);
         window.addEventListener("hashchange", () => {
+            debugger;
             bbn.env.hashChanged = new Date().getTime();
         }, false);
         window.addEventListener("resize", () => {
