@@ -31,6 +31,7 @@ import setNavigationVars from './setNavigationVars.js';
  * @returns
  */
 export default function link(...args) {
+    debugger;
     let cfg = treatAjaxArguments(args);
     let ok = 1;
     /* If we can't find a correct link we stop */
