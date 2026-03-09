@@ -32,6 +32,7 @@ import setNavigationVars from './setNavigationVars.js';
  */
 export default function link(...args) {
     let cfg = treatAjaxArguments(args);
+    debugger;
     let ok = 1;
     /* If we can't find a correct link we stop */
     if (!cfg) {
@@ -45,7 +46,6 @@ export default function link(...args) {
         return true;
     }
     if (cfg.url.indexOf('#') === 0) {
-        debugger;
         if (cfg.e) {
             cfg.e.preventDefault();
         }
