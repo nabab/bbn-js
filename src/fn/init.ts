@@ -12,8 +12,11 @@ import log from './browser/log.js'  ;
 import timestamp from './datetime/timestamp.js'  ;
 import setupIntl from '../dt/functions/setupIntl.js'  ;
 
-const onActivity = (e: Event) => {
+const onFocus = () => {
   bbn.env.last_focus = bbn.dt().unix();
+};
+const onActivity = (e: Event) => {
+  onFocus();
   if (bbn.env.nav !== "ajax") {
     return;
   }
@@ -116,8 +119,8 @@ export default function init(cfg?: object, force?: boolean): void {
 
     document.addEventListener("click", onActivity);
     document.addEventListener("keydown", onActivity);
-    document.addEventListener("focusin", onActivity);
-    document.addEventListener("focusout", onActivity);
+    document.addEventListener("focusin", onFocus);
+    document.addEventListener("focusout", onFocus);
     window.addEventListener(
       "hashchange",
       () => {
