@@ -41,7 +41,6 @@ interface Res {
  */
 export default function link(...args) {
 	let cfg = treatAjaxArguments(args);
-    debugger;
 	let ok = 1;
 	/* If we can't find a correct link we stop */
 	if (!cfg) {
@@ -55,10 +54,6 @@ export default function link(...args) {
 		return true;
 	}
 	if (cfg.url.indexOf('#') === 0) {
-    if (cfg.e) {
-      cfg.e.preventDefault();
-    }
-    document.location.hash = cfg.url.substring(1);
 		return false;
 	} else if (cfg.url.indexOf('mailto:') === 0) {
 		/* Mail link */

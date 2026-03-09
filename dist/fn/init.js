@@ -109,7 +109,6 @@ export default function init(cfg, force) {
         document.addEventListener("focusin", onFocus);
         document.addEventListener("focusout", onFocus);
         window.addEventListener("hashchange", () => {
-            debugger;
             bbn.env.hashChanged = new Date().getTime();
         }, false);
         window.addEventListener("resize", () => {

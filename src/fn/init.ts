@@ -125,7 +125,6 @@ export default function init(cfg?: object, force?: boolean): void {
     window.addEventListener(
       "hashchange",
       () => {
-        debugger;
         bbn.env.hashChanged = new Date().getTime();
       },
       false
