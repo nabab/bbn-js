@@ -73,6 +73,9 @@ export default function link(...args) {
         return false;
     }
     else if (cfg.url !== bbn.env.params.join('/') || cfg.force === 1) {
+        if (cfg.e) {
+            cfg.e.preventDefault();
+        }
         /* The URL is fine so go ahead if something is not already loading */
         /* If a second callback is defined, it is triggered instead of defaultPreLinkFunction */
         if (cfg.successFn) {
