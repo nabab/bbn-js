@@ -80,16 +80,9 @@ export default function treatAjaxArguments(args) {
         }
         else if (t === "string") {
             if (!cfg.url) {
-                /* Hash */
-                if (args[i].indexOf("#") === 0) {
-                    cfg.url = bbn.env.path + args[i];
-                }
-                else {
-                    /* Link */
-                    cfg.url = args[i];
-                    if (cfg.url.indexOf(bbn.env.root) === 0) {
-                        cfg.url = substr(cfg.url, bbn.env.root.length);
-                    }
+                cfg.url = args[i];
+                if (cfg.url.indexOf(bbn.env.root) === 0) {
+                    cfg.url = substr(cfg.url, bbn.env.root.length);
                 }
             }
             else {
