@@ -38,6 +38,7 @@ const onActivity = (e) => {
         target.hasAttribute("href") &&
         !target.hasAttribute("target") &&
         !target.classList.contains("bbn-no")) {
+        log("Link clicked: " + target.getAttribute("href"));
         link(target.getAttribute("href"), e);
     }
 };
