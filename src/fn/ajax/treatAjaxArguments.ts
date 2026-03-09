@@ -55,69 +55,67 @@ import numProperties from '../object/numProperties.js'  ;
  * @returns  {Object} The configuration object
  */
 export default function treatAjaxArguments(args) {
-  let cfg = {};
-  let t;
-  let i;
+  let cfg = <any>{};
+  let t: string;
   if (isObject(args[0]) && args.length === 1) {
     return args[0];
   }
-  for (i = 0; i < args.length; i++) {
+  for (let i = 0; i < args.length; i++) {
     t = typeof args[i];
     t = t.toLowerCase();
     /* Callbacks */
     if (isFunction(args[i])) {
-      if (cfg["errorFn"] && !cfg["abortFn"]) {
-        cfg["abortFn"] = args[i];
+      if (cfg.errorFn && !cfg.abortFn) {
+        cfg.abortFn = args[i];
       }
-      if (cfg["successFn"] && !cfg["errorFn"]) {
-        cfg["errorFn"] = args[i];
-      } else if (!cfg["successFn"]) {
-        cfg["successFn"] = args[i];
+      if (cfg.successFn && !cfg.errorFn) {
+        cfg.errorFn = args[i];
+      } else if (!cfg.successFn) {
+        cfg.successFn = args[i];
       }
     } else if (args[i] === 1 || args[i] === true) {
       /* Force */
-      cfg["force"] = true;
+      cfg.force = true;
     } else if (t === "string") {
-      if (!cfg["url"]) {
+      if (!cfg.url) {
         /* Hash */
         if (
-          args[i].indexOf("#") === 0 ||
-          args[i].indexOf(bbn.env.root + "#") === 0
+          args[i].indexOf("#") === 0
         ) {
-          cfg["url"] = substr(args[i], bbn.env.root.length);
+          cfg.url = bbn.env.path + args[i];
         } else {
           /* Link */
-          cfg["url"] = args[i];
-          if (cfg["url"].indexOf(bbn.env.root) === 0) {
-            cfg["url"] = substr(cfg["url"], bbn.env.root.length);
+          cfg.url = args[i];
+          if (cfg.url.indexOf(bbn.env.root) === 0) {
+            cfg.url = substr(cfg.url, bbn.env.root.length);
           }
         }
       } else {
         /* Ajax datatype */
-        cfg["datatype"] = args[i];
+        cfg.datatype = args[i];
       }
     } else if (args[i] && t === "object") {
       /* Event */
       if (args[i] instanceof Event) {
-        cfg["e"] = args[i];
-      } else if (!cfg["ele"] && args[i].nodeType === 1) {
+        cfg.e = args[i];
+      } else if (!cfg.ele && args[i].nodeType === 1) {
         /* HTML Element */
-        cfg["ele"] = args[i];
+        cfg.ele = args[i];
       } else if (t.toLowerCase() === "object") {
         /* An object to post */
-        cfg["obj"] = args[i];
+        cfg.obj = args[i];
       }
     }
   }
-  if (!cfg["url"] && numProperties(cfg)) {
-    cfg["url"] = bbn.env.path;
+  if (!cfg.url && numProperties(cfg)) {
+    cfg.url = bbn.env.path;
   }
 
-  if (cfg["obj"] === undefined) {
-    cfg["obj"] = { _bbn: "public" };
+  if (cfg.obj === undefined) {
+    cfg.obj = { _bbn: "public" };
   }
-  if (!cfg["datatype"]) {
-    cfg["datatype"] = "json";
+  if (!cfg.datatype) {
+    cfg.datatype = "json";
   }
   return cfg;
 };
