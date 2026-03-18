@@ -14,7 +14,7 @@ import isFunction from '../type/isFunction.js'  ;
  * @returns       
  */
 export default function log(...args) {
-	if (bbn.env?.isDev && (window?.console !== undefined)) {
+	if (window['bbn']?.env?.logging && (window?.console !== undefined)) {
 		let cfg;
 		let level = 5;
 		let fn = 'log';

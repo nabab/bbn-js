@@ -13,8 +13,8 @@ import isFunction from '../type/isFunction.js';
  * @returns
  */
 export default function log(...args) {
-    var _a, _b, _c;
-    if (((_a = bbn.env) === null || _a === void 0 ? void 0 : _a.isDev) && ((window === null || window === void 0 ? void 0 : window.console) !== undefined)) {
+    var _a, _b, _c, _d;
+    if (((_b = (_a = window['bbn']) === null || _a === void 0 ? void 0 : _a.env) === null || _b === void 0 ? void 0 : _b.logging) && ((window === null || window === void 0 ? void 0 : window.console) !== undefined)) {
         let cfg;
         let level = 5;
         let fn = 'log';
@@ -29,7 +29,7 @@ export default function log(...args) {
             args.shift();
         }
         const exec = window.console[fn];
-        if (((_c = (_b = window['bbn']) === null || _b === void 0 ? void 0 : _b.env) === null || _c === void 0 ? void 0 : _c.loggingLevel) >= level) {
+        if (((_d = (_c = window['bbn']) === null || _c === void 0 ? void 0 : _c.env) === null || _d === void 0 ? void 0 : _d.loggingLevel) >= level) {
             let i = 0;
             while (i < args.length) {
                 let t = typeof args[i];
