@@ -257,7 +257,7 @@ module.exports = {
       cfg.url = bbn.env.path;
     }
     if ( cfg.obj === undefined ){
-      cfg.obj = {_bbn: "public"};
+      cfg.obj = {};
     }
     if ( !cfg.datatype ){
       cfg.datatype = "json";
