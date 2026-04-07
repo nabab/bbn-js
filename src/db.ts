@@ -1,29 +1,121 @@
-import _ from './_.js'  ;
-import each from './fn/loop/each.js'  ;
-import iterate from './fn/loop/iterate.js'  ;
+import _ from './_.js';
+import each from './fn/loop/each.js';
+import iterate from './fn/loop/iterate.js';
 import log from './fn/browser/log.js';
 import isObject from './fn/type/isObject.js';
 import isArray from './fn/type/isArray.js';
 import extend from './fn/object/extend.js';
 
-const idb      = window['indexedDB'] || window['webkitIndexedDB'] || window['mozIndexedDB'] || window['OIndexedDB'] || window['msIndexedDB'];
+type IndexedDbFactory =
+  | IDBFactory
+  | undefined;
 
-const transformResult = (obj, fields) => {
+const idb: IndexedDbFactory =
+  window.indexedDB ||
+  (window as any).webkitIndexedDB ||
+  (window as any).mozIndexedDB ||
+  (window as any).OIndexedDB ||
+  (window as any).msIndexedDB;
+
+type Primitive = string | number | boolean | null | undefined | Date;
+
+interface DbIndexDefinition {
+  columns: string[];
+  unique?: boolean;
+}
+
+interface DbStructure {
+  keys: Record<string, DbIndexDefinition>;
+  fields: Record<string, Record<string, unknown>>;
+  num?: number;
+}
+
+interface DbStructures {
+  [database: string]: {
+    [store: string]: DbStructure;
+  };
+}
+
+type WhereObject = Record<string, unknown> | null;
+type OrderClause = unknown;
+
+interface IDbApi {
+  lastError(): unknown;
+  insert(table: string, data: Record<string, unknown> | Record<string, unknown>[]): Promise<number>;
+  update(
+    table: string,
+    data: Record<string, unknown>,
+    where: WhereObject,
+    replace?: boolean
+  ): Promise<number>;
+  delete(table: string, where: Record<string, unknown>): Promise<number>;
+  selectOne(
+    table: string,
+    field: string,
+    where?: unknown,
+    order?: OrderClause,
+    start?: number,
+    limit?: number
+  ): Promise<unknown>;
+  select(
+    table: string,
+    fields?: string[],
+    where?: unknown,
+    order?: OrderClause,
+    start?: number
+  ): Promise<Record<string, unknown> | null>;
+  selectAll(
+    table: string,
+    fields?: string[],
+    where?: unknown,
+    order?: OrderClause,
+    start?: number,
+    limit?: number | null
+  ): Promise<Record<string, unknown>[]>;
+  getColumnValues(
+    table: string,
+    field: string,
+    where?: unknown,
+    order?: OrderClause,
+    start?: number,
+    limit?: number | null
+  ): Promise<unknown[]>;
+  copyTable(
+    target: string,
+    table: string,
+    fields?: string[],
+    where?: unknown,
+    order?: OrderClause,
+    start?: number,
+    limit?: number | null
+  ): Promise<number>;
+  deleteTable(table: string): Promise<boolean>;
+}
+
+const transformResult = (
+  obj: Record<string, unknown> | undefined,
+  fields?: string[]
+): Record<string, unknown> | undefined => {
+  if (!obj) {
+    return undefined;
+  }
+
   if (fields?.length) {
-    let res = {};
-    iterate(obj, (v, n) => {
-      if (fields.indexOf(n) > -1) {
+    const res: Record<string, unknown> = {};
+    iterate(obj, (v: unknown, n: string) => {
+      if (fields.includes(n)) {
         res[n] = v;
       }
     });
     return res;
   }
+
   return obj;
 };
 
-const fieldsFromFilter = (filter, fields = []) => {
-  if (filter?.conditions?.length) {
-    filter.conditions.forEach(cond => {
+const fieldsFromFilter = (filter: unknown, fields: string[] = []): string[] => {
+  if ((filter as any)?.conditions?.length) {
+    (filter as any).conditions.forEach((cond: any) => {
       if (cond.field && !fields.includes(cond.field)) {
         fields.push(cond.field);
       }
@@ -33,14 +125,14 @@ const fieldsFromFilter = (filter, fields = []) => {
     });
   }
   else if (isObject(filter)) {
-    iterate(filter, (v, n) => {
+    iterate(filter as Record<string, unknown>, (_v: unknown, n: string) => {
       if (!fields.includes(n)) {
         fields.push(n);
       }
     });
   }
   else if (isArray(filter)) {
-    filter.forEach(cond => {
+    (filter as any[]).forEach((cond: any) => {
       if (cond.field && !fields.includes(cond.field)) {
         fields.push(cond.field);
       }
@@ -53,297 +145,535 @@ const fieldsFromFilter = (filter, fields = []) => {
   return fields;
 };
 
-const dbObject = function(dbName) {
-  const conn      = db._connections[dbName];
-  const structure = db._structures[dbName];
-  let lastError = null;
+const getPrimaryKey = (structure: DbStructure): string | string[] => {
+  const cols = structure.keys.PRIMARY.columns;
+  return cols.length > 1 ? cols : cols[0];
+};
 
-  const onError = (req, resolve) => {
-    req.onerror = () => {
-      lastError = req.error;
-      log(req.error);
-      resolve(req.error);
-    };
-  };
+const requestToPromise = <T = unknown>(req: IDBRequest<T>): Promise<T> =>
+  new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
 
-  const getStore = (table, mode) => {
-    const tx = conn.transaction([table], mode.toLowerCase().indexOf('r') === 0 ? "readonly" : "readwrite");
+const transactionDone = (tx: IDBTransaction): Promise<void> =>
+  new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onabort = () => reject(tx.error);
+    tx.onerror = () => reject(tx.error);
+  });
+
+class DbObject implements IDbApi {
+  private readonly dbName: string;
+  private lastErr: unknown = null;
+
+  constructor(dbName: string) {
+    this.dbName = dbName;
+  }
+
+  private get connection(): IDBDatabase {
+    const conn = db._connections[this.dbName];
+    if (!conn) {
+      throw new Error(_('The database %s is not open', this.dbName));
+    }
+    return conn;
+  }
+
+  private get structure(): Record<string, DbStructure> {
+    const structure = db._structures[this.dbName];
+    if (!structure) {
+      throw new Error(_('No structure defined for database %s', this.dbName));
+    }
+    return structure;
+  }
+
+  private getStore(table: string, mode: IDBTransactionMode): [IDBTransaction, IDBObjectStore] {
+    const tx = this.connection.transaction([table], mode);
     tx.onabort = () => {
-      lastError = tx.error;
-      throw new Error(tx.error);
+      this.lastErr = tx.error;
+      log(tx.error);
+    };
+    tx.onerror = () => {
+      this.lastErr = tx.error;
+      log(tx.error);
     };
     return [tx, tx.objectStore(table)];
   }
 
-  this.lastError = () => lastError;
-  this.insert = (table, data) => {
-    if (!Array.isArray(data)) {
-      data = [data];
+  lastError(): unknown {
+    return this.lastErr;
+  }
+
+  async insert(
+    table: string,
+    data: Record<string, unknown> | Record<string, unknown>[]
+  ): Promise<number> {
+    const rows = Array.isArray(data) ? data : [data];
+    if (!rows.length) {
+      return 0;
     }
 
-    return new Promise(resolve => {
-      const [tx, store] = getStore(table, 'w');
-      let res     = data.length;
+    const [tx, store] = this.getStore(table, 'readwrite');
+    let inserted = 0;
 
-      each(data, a => {
-        const request = store.put(a);
-        request.onerror = () => {
-          log(request.error);
-          res--;
-        }
-      });
+    for (const row of rows) {
+      const req = store.put(row);
+      req.onsuccess = () => {
+        inserted++;
+      };
+      req.onerror = () => {
+        this.lastErr = req.error;
+        log(req.error);
+      };
+    }
 
-      tx.oncomplete = () => {
-        resolve(res);
+    await transactionDone(tx);
+    return inserted;
+  }
+
+  async update(
+    table: string,
+    data: Record<string, unknown>,
+    where: WhereObject,
+    replace = false
+  ): Promise<number> {
+    const rows = await this.selectAll(table, [], where);
+    if (!rows.length) {
+      return 0;
+    }
+
+    const structure = this.structure[table];
+    const primary = getPrimaryKey(structure);
+    if (Array.isArray(primary)) {
+      throw new Error(_('Composite primary keys are not supported by this update implementation'));
+    }
+
+    const [tx, store] = this.getStore(table, 'readwrite');
+    let updated = 0;
+
+    for (const row of rows) {
+      const nextRow: any = extend(
+        {},
+        replace ? { [primary]: row[primary] } : row,
+        data
+      );
+
+      if (!(primary in nextRow)) {
+        throw new Error(_('No primary key in the data'));
       }
-    });
-  };
 
-  this.update = (table, data, where, replace) => {
-    return new Promise(resolve => {
-      this.selectAll(table, [], where).then(rows => {
-        if (!rows.length) {
-          resolve(0);
+      const req = store.put(nextRow);
+      req.onsuccess = () => {
+        updated++;
+      };
+      req.onerror = () => {
+        this.lastErr = req.error;
+        log(req.error);
+      };
+    }
+
+    await transactionDone(tx);
+    return updated;
+  }
+
+  async delete(table: string, where: Record<string, unknown>): Promise<number> {
+    const structure = this.structure[table];
+    const primary = getPrimaryKey(structure);
+
+    if (Array.isArray(primary)) {
+      throw new Error(_('Composite primary keys are not supported by this delete implementation'));
+    }
+
+    if (!(primary in where)) {
+      throw new Error(_('No primary key in the filter'));
+    }
+
+    const [tx, store] = this.getStore(table, 'readwrite');
+    store.delete(where[primary] as IDBValidKey);
+    await transactionDone(tx);
+    return 1;
+  }
+
+  async selectOne(
+    table: string,
+    field: string,
+    where: unknown = null,
+    order: OrderClause = null,
+    start = 0,
+    limit = 1
+  ): Promise<unknown> {
+    const rows = await this.selectAll(table, [field], where, order, start, limit);
+    return rows?.[0]?.[field];
+  }
+
+  async select(
+    table: string,
+    fields: string[] = [],
+    where: unknown = null,
+    order: OrderClause = null,
+    start = 0
+  ): Promise<Record<string, unknown> | null> {
+    const rows = await this.selectAll(table, fields, where, order, start, 1);
+    return rows.length ? rows[0] : null;
+  }
+
+  async selectAll(
+    table: string,
+    fields: string[] = [],
+    where: unknown = null,
+    order: OrderClause = null,
+    start = 0,
+    limit: number | null = null
+  ): Promise<Record<string, unknown>[]> {
+    void order;
+
+    const [tx, store] = this.getStore(table, 'readonly');
+    const structure = this.structure[table];
+    const primary = getPrimaryKey(structure);
+    const results: Record<string, unknown>[] = [];
+
+    const searchField = isObject(where)
+      ? Object.keys(where as Record<string, unknown>)[0]
+      : (!where || isArray(where) ? null : primary);
+
+    if (!Array.isArray(primary) && searchField === primary) {
+      if (Array.isArray((where as any)?.[primary])) {
+        const ids = (where as any)[primary] as IDBValidKey[];
+        const max = Math.min(ids.length - start, limit ?? ids.length);
+        const slice = ids.slice(start, start + max);
+
+        for (const id of slice) {
+          const row = await requestToPromise<Record<string, unknown> | undefined>(store.get(id));
+          const transformed = transformResult(row, fields);
+          if (transformed) {
+            results.push(transformed);
+          }
+        }
+
+        await transactionDone(tx);
+        return results;
+      }
+
+      const key = isObject(where)
+        ? (where as Record<string, unknown>)[primary]
+        : where;
+
+      const row = await requestToPromise<Record<string, unknown> | undefined>(
+        store.get(key as IDBValidKey)
+      );
+
+      const transformed = transformResult(row, fields);
+      if (transformed) {
+        results.push(transformed);
+      }
+
+      await transactionDone(tx);
+      return results;
+    }
+
+    await new Promise<void>((resolve, reject) => {
+      const req = store.openCursor();
+      let i = 0;
+
+      req.onsuccess = (e: Event) => {
+        const cursor = (e.target as IDBRequest<IDBCursorWithValue | null>).result;
+
+        if (!cursor) {
+          resolve();
           return;
         }
 
-        const [tx, store] = getStore(table, 'w');
-        const arch    = structure[table];
-        const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
-        let res = 0;
-        for (let i = 0; i < rows.length; i++) {
-          const newData = extend({}, replace ? {[primary]: rows[i][primary]} : rows[i], data);
-          if (!newData[primary]) {
-            throw new Error(_("No primary key in the data"));
-          }
-          const req = store.put(newData);
-          onError(req, resolve);
-          req.onsuccess = () => {
-            res++;
-          };
-        }
+        const matches = !where || !(window as any).bbn?.fn?.search
+          ? true
+          : !(window as any).bbn.fn.search([cursor.value], where);
 
-        tx.oncomplete = () => {
-          resolve(res);
-        }
-      });  
-    });
-  };
-
-  this.delete = (table, where) => {
-    return new Promise(resolve => {
-      const [tx, store] = getStore(table, 'w');
-      const arch    = structure[table];
-      const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
-      if (!where[primary]) {
-        throw new Error(_("No "))
-      }
-
-      let   res     = 1;
-      const req = store.delete(where[primary]);
-
-      onError(req, resolve);
-
-      tx.oncomplete = () => {
-        resolve(res);
-      }
-    });
-  };
-
-  this.selectOne = (table, field, where, order, start, limit) => {
-    return new Promise(resolve => {
-      this.selectAll(table, [field], where, order, start, 1).then(d => {
-        resolve(d?.[0]?.[field] ?? undefined);
-      });
-    });
-  };
-
-  this.select = (table, fields, where, order, start) =>  {
-    return new Promise(resolve => {
-      this.selectAll(table, fields, where, order, start, 1).then(d => {
-        resolve(d.length ? d[0] : null);
-      });
-    });
-  };
-  this.selectAll = (table, fields = [], where = null, order = null, start = 0, limit = null) => {
-    return new Promise(resolve => {
-      const [tx, store] = getStore(table, 'r');
-      const arch    = structure[table];
-      const primary = arch.keys.PRIMARY.columns.length > 1 ? arch.keys.PRIMARY.columns : arch.keys.PRIMARY.columns[0];
-      const search  = isObject(where) ? Object.keys(where)[0] : (!where || isArray(where) ? null : primary);
-      const results = [];
-      if (search === primary) {
-        if (bbn.fn.isArray(where?.[primary])) {
-          let req = [];
-          const max = Math.min(where[primary].length, limit || 9999999);
-          for (let i = start || 0; i < max; i++) {
-            let getter = store.get(where[primary][i]);
-            getter.onsuccess = () => {
-              let obj = getter.result;
-              results.push(transformResult(obj, fields))
-              if (results.length === max) {
-                resolve(results);
-              }
-            };
-            onError(getter, resolve);
-            req.push(getter);
-          }
-        }
-        else {
-          let req = store.get(where?.[primary] || where);
-          req.onsuccess = () => {
-            let obj = req.result;
-            results.push(transformResult(obj, fields))
-            resolve(results);
-          };
-          onError(req, resolve);
-        }
-      }
-      else {
-        const req = store.openCursor();
-        let i = 0;
-        req.onsuccess = (e) => {
-          const cursor = e.target.result;
-          if (cursor) {
-            if (!where || !bbn.fn.search([cursor.value], where)) {
-              if (i >= start) {
-                results.push(transformResult(cursor.value, fields));
-                if (results.length === limit) {
-                  resolve(results);
-                }
-              }
-              i++;
+        if (matches) {
+          if (i >= start) {
+            const transformed = transformResult(cursor.value, fields);
+            if (transformed) {
+              results.push(transformed);
             }
-            cursor.continue();
-          }
-          else {
-            resolve(results);
-          }
-        };
-        onError(req, resolve);
-      }
-    });
-  };
-  this.getColumnValues = (table, field, where, order, start, limit) => {
-    return new Promise(resolve => {
-      const tx    = conn.transaction([table], "read");
-      const store = tx.objectStore(table);
-    
-    });
-  };
-  this.copyTable = (target, table, fields = [], where = null, order = null, start = 0, limit = null) => {
-    return new Promise(resolve => {
-      if (!conn.objectStoreNames.contains(target)) {
-        db.add(dbName, target, structure[table]);
-      }
-      if (!conn.objectStoreNames.contains(target)) {
-        resolve(0);
-        throw new Error(_("The target table %s does not exist", target));
-      }
-      this.selectAll(table, fields, where, order, start, limit).then(d => {
-        if (d.length) {
-          this.insert(target, d).then(res => {
-            resolve(res);
-          });
-        }
-        else {
-          resolve(0);
-        }
-      });
-    });
-  };
-  this.deleteTable = table => {
-    return new Promise(resolve => {
-      conn.deleteObjectStore(table);
-      resolve(true);
-    });
-  };
-};
 
-interface Db {
-  _structures: object;
-  _connections: object;
-  _stores: object;
+            if (limit !== null && results.length >= limit) {
+              resolve();
+              return;
+            }
+          }
+          i++;
+        }
+
+        cursor.continue();
+      };
+
+      req.onerror = () => {
+        this.lastErr = req.error;
+        log(req.error);
+        reject(req.error);
+      };
+    });
+
+    await transactionDone(tx);
+    return results;
+  }
+
+  async getColumnValues(
+    table: string,
+    field: string,
+    where: unknown = null,
+    order: OrderClause = null,
+    start = 0,
+    limit: number | null = null
+  ): Promise<unknown[]> {
+    const rows = await this.selectAll(
+      table,
+      fieldsFromFilter(where, [field]),
+      where,
+      order,
+      start,
+      limit
+    );
+
+    return rows
+      .map(row => row[field])
+      .filter(v => v !== undefined);
+  }
+
+  async copyTable(
+    target: string,
+    table: string,
+    fields: string[] = [],
+    where: unknown = null,
+    order: OrderClause = null,
+    start = 0,
+    limit: number | null = null
+  ): Promise<number> {
+    if (!this.connection.objectStoreNames.contains(target)) {
+      await db.add(this.dbName, target, this.structure[table]);
+      await db.open(this.dbName);
+    }
+
+    if (!this.connection.objectStoreNames.contains(target)) {
+      throw new Error(_('The target table %s does not exist', target));
+    }
+
+    const rows = await this.selectAll(table, fields, where, order, start, limit);
+    if (!rows.length) {
+      return 0;
+    }
+
+    return this.insert(target, rows);
+  }
+
+  async deleteTable(table: string): Promise<boolean> {
+    await db.remove(this.dbName, table);
+    return true;
+  }
+}
+
+interface DbManager {
+  _structures: DbStructures;
+  _connections: Record<string, IDBDatabase>;
+  _stores: Record<string, unknown>;
   ok: boolean;
-  open(name: string): Promise<object>;
-  add(db: string, name: string, structure: object): void;
+  open(name: string): Promise<IDbApi>;
+  add(database: string, name: string, structure: DbStructure): Promise<void>;
+  remove(database: string, name: string): Promise<void>;
+  updateStructure(storeName: string, structure: DbStructure, database: IDBDatabase): void;
+  reopenWithUpgrade(name: string): Promise<IDBDatabase>;
+  getExistingVersion(name: string): Promise<number>;
 }
 
-interface Structure {
-  keys: {
-    [key: string]: any;
-  };
-  fields: {
-    [key: string]: any;
-  };
-}
-
-const db = {
+const db: DbManager = {
   _structures: {},
-  /* This variable should be set to true in debugging mode only */
   _connections: {},
-  /* Address of the CDN (where this file should be hosted) */
   _stores: {},
   ok: idb !== undefined,
-  updateStructure(storeName, structure, req) {
-    const primary = structure.keys.PRIMARY.columns.length > 1 ? structure.keys.PRIMARY.columns : structure.keys.PRIMARY.columns[0];
-    const stores = req.objectStoreNames;
-    if (!stores.contains(storeName)) {
-      const store = req.createObjectStore(storeName, {keyPath: primary});
-      iterate(structure.keys, (a, n) => {
+
+  updateStructure(storeName: string, structure: DbStructure, database: IDBDatabase): void {
+    const primary = getPrimaryKey(structure);
+
+    if (!database.objectStoreNames.contains(storeName)) {
+      const store = database.createObjectStore(storeName, {
+        keyPath: primary as string | string[]
+      });
+
+      iterate(structure.keys, (a: DbIndexDefinition, n: string) => {
         if (n !== 'PRIMARY') {
-          store.createIndex(n, a.columns.length > 1 ? a.columns : a.columns[0], {
-            unique: !!a.unique
-          });
+          store.createIndex(
+            n,
+            a.columns.length > 1 ? a.columns : a.columns[0],
+            { unique: !!a.unique }
+          );
         }
       });
     }
-    else {
-    }
   },
-  open(name) {
-    return new Promise((resolve) => {
-      if (!db._connections[name]) {
-        if (!db._structures[name]) {
-          throw new Error(_("Impossible to find a structure for the database %s", name));
-        }
 
-        let num = Math.max.apply(this, [1].concat(Object.keys(db._structures[name]).map(a => db._structures[name][a].num || 1)));
-        const conn = idb.open(name, num);
-        conn.onupgradeneeded = () => {
-          const req = conn.result;
-          iterate(db._structures[name], (structure, storeName) => {
-            this.updateStructure(storeName, structure, req);
-          });
-        };
-        conn.onsuccess = () => {
-          db._connections[name] = conn.result;
-          let obj = new dbObject(name);
-          resolve(obj);
-        };
-      }
-      else {
-        resolve(new dbObject(name));
+  async getExistingVersion(name: string): Promise<number> {
+    const live = this._connections[name];
+    if (live) {
+      return live.version;
+    }
+
+    return new Promise((resolve, reject) => {
+      if (!idb) {
+        reject(new Error(_('IndexedDB is not available')));
+        return;
       }
 
+      const req = idb.open(name);
+
+      req.onsuccess = () => {
+        const database = req.result;
+        const version = database.version;
+        database.close();
+        resolve(version);
+      };
+
+      req.onupgradeneeded = () => {
+        // Database did not exist before; this open created it temporarily.
+        // Version is therefore effectively 1.
+        const database = req.result;
+        const version = database.version;
+        database.close();
+        resolve(version);
+      };
+
+      req.onerror = () => reject(req.error);
     });
   },
-  add(database: string, name: string, structure: Structure) {
-    if (structure?.keys?.PRIMARY && structure?.fields) {
-      if (!db._structures[database]) {
-        db._structures[database] = {};
+
+  async reopenWithUpgrade(name: string): Promise<IDBDatabase> {
+    const existingVersion = await this.getExistingVersion(name);
+    const nextVersion = existingVersion + 1;
+
+    if (this._connections[name]) {
+      this._connections[name].close();
+      delete this._connections[name];
+    }
+
+    return new Promise((resolve, reject) => {
+      if (!idb) {
+        reject(new Error(_('IndexedDB is not available')));
+        return;
       }
 
-      db._structures[database][name] = structure;
-      if (db._connections[database]) {
-        this.updateStructure(name, structure, db._connections[database]);
+      const req = idb.open(name, nextVersion);
+
+      req.onupgradeneeded = () => {
+        const database = req.result;
+        const dbStructure = this._structures[name] || {};
+
+        iterate(dbStructure, (structure: DbStructure, storeName: string) => {
+          if (!database.objectStoreNames.contains(storeName)) {
+            this.updateStructure(storeName, structure, database);
+          }
+        });
+      };
+
+      req.onsuccess = () => {
+        this._connections[name] = req.result;
+        resolve(req.result);
+      };
+
+      req.onerror = () => reject(req.error);
+      req.onblocked = () => reject(req.error || new Error(_('IndexedDB upgrade blocked')));
+    });
+  },
+
+  async open(name: string): Promise<IDbApi> {
+    if (!idb) {
+      throw new Error(_('IndexedDB is not available'));
+    }
+
+    if (!this._structures[name]) {
+      throw new Error(_('Impossible to find a structure for the database %s', name));
+    }
+
+    if (this._connections[name]) {
+      return new DbObject(name);
+    }
+
+    await new Promise<IDBDatabase>((resolve, reject) => {
+      const req = idb.open(name);
+
+      req.onupgradeneeded = () => {
+        const database = req.result;
+        const dbStructure = this._structures[name] || {};
+
+        iterate(dbStructure, (structure: DbStructure, storeName: string) => {
+          if (!database.objectStoreNames.contains(storeName)) {
+            this.updateStructure(storeName, structure, database);
+          }
+        });
+      };
+
+      req.onsuccess = () => {
+        this._connections[name] = req.result;
+        resolve(req.result);
+      };
+
+      req.onerror = () => reject(req.error);
+    });
+
+    return new DbObject(name);
+  },
+
+  async add(database: string, name: string, structure: DbStructure): Promise<void> {
+    if (!structure?.keys?.PRIMARY || !structure?.fields) {
+      throw new Error(
+        _('The database structure for %s is not valid (missing keys, fields, or primary key)', name)
+      );
+    }
+
+    if (!this._structures[database]) {
+      this._structures[database] = {};
+    }
+
+    this._structures[database][name] = structure;
+
+    // Only upgrade if the DB already exists/open and the store is missing
+    const conn = this._connections[database];
+    if (conn && !conn.objectStoreNames.contains(name)) {
+      await this.reopenWithUpgrade(database);
+    }
+  },
+
+  async remove(database: string, name: string): Promise<void> {
+    delete this._structures[database]?.[name];
+
+    const conn = this._connections[database];
+    if (!conn) {
+      return;
+    }
+
+    const nextVersion = conn.version + 1;
+    conn.close();
+    delete this._connections[database];
+
+    await new Promise<void>((resolve, reject) => {
+      if (!idb) {
+        reject(new Error(_('IndexedDB is not available')));
+        return;
       }
-    }
-    else {
-      throw new Error(_("The database structure for %s is not valid (are there keys and field? Is there a primary?", name));
-    }
+
+      const req = idb.open(database, nextVersion);
+
+      req.onupgradeneeded = () => {
+        const dbInstance = req.result;
+        if (dbInstance.objectStoreNames.contains(name)) {
+          dbInstance.deleteObjectStore(name);
+        }
+      };
+
+      req.onsuccess = () => {
+        this._connections[database] = req.result;
+        resolve();
+      };
+
+      req.onerror = () => reject(req.error);
+    });
   }
 };
 
 export default db;
-
