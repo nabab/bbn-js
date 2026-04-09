@@ -22,6 +22,14 @@ interface Vars {
   [key: string]: any;
 }
 
+interface globalThis {
+  bbn: Bbn;
+  Temporal: any;
+  bbnData: any;
+  scheduler: any;
+  console: Console;
+}
+
 interface BbnEnv {
   siteTitle: string;
   logging: boolean;
