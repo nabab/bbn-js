@@ -1,4 +1,3 @@
-import { Temporal } from 'temporal-polyfill';
 import bbnDtDateTime from './dt/classes/dateTime.js';
 import bbnDtDate from './dt/classes/date.js';
 import bbnDtTime from './dt/classes/zoned.js';
