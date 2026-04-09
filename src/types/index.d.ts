@@ -68,6 +68,14 @@ interface BbnEnv {
   online: boolean;
 }
 
+interface globalThis {
+  bbn: Bbn;
+  Temporal: any;
+  bbnData: any;
+  scheduler: any;
+  console: Console;
+}
+
 declare namespace Temporal {
   class PlainDate {
     year: number;
@@ -442,13 +450,7 @@ declare global {
     }
   }
 
-  interface globalThis {
-    bbn: Bbn;
-    Temporal: any;
-    bbnData: any;
-    scheduler: any;
-    console: Console;
-  }
+  const globalThis: globalThis;
 
   const bbn: Bbn;
 }
