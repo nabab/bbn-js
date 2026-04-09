@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import buildLocaleFromIntl from './buildLocaleFromIntl.js';
 import bbnDtZoned from '../classes/zoned.js';
 import bbnDtDateTime from '../classes/dateTime.js';

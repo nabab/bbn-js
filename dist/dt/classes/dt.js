@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _bbnDt_value;
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import { unitsCorrespondence, units, formatsMap } from '../vars/units.js';
 import _ from '../../_.js';
 import substr from '../../fn/string/substr.js';

@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _bbnDtDuration_instances, _bbnDtDuration_value, _bbnDtDuration_unit, _bbnDtDuration_getUnitValue;
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import { units, unitsCorrespondence } from '../vars/units.js';
 import getRow from '../../fn/object/getRow.js';
 const DURATION_RELATIVE_TO = Temporal.ZonedDateTime.from('1970-01-01T00:00Z[UTC]');

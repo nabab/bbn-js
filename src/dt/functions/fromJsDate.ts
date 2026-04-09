@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 
 /**
  * Convert a JS Date into:

@@ -15,8 +15,7 @@
   },
   "files": [
     "src/types/index.d.ts",
-    "src/index.ts",
-    "src/index-no-dep.ts"
+    "src/index.ts"
   ],
   "exclude": [
     "node_modules/*"

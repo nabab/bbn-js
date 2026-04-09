@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import { bbnDtTemporal } from '../vars/types.js';
 import { unitsCorrespondence, units, formatsMap } from '../vars/units.js';
 import _ from '../../_.js';

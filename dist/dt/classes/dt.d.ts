@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import { bbnDtTemporal } from '../vars/types.js';
 import bbnDtDuration from './duration.js';
 export declare abstract class bbnDt<TValue extends bbnDtTemporal> {

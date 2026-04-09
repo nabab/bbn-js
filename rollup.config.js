@@ -8,7 +8,7 @@ import typescript from '@rollup/plugin-typescript';
 import { defineConfig } from 'rollup'; // Optional, for better typing support
 
 const __dirname = new URL('.', import.meta.url).pathname;
-const cfgDefault = defineConfig({
+export default defineConfig({
     input: 'dist/index.js', // equivalent to Webpack's entry
     output: {
         file: path.resolve(__dirname, 'dist/bbn.js'), // Output file path
@@ -34,34 +34,3 @@ const cfgDefault = defineConfig({
         terser(), // Minify the output (optional)
     ]
 });
-const cfgNoDep = defineConfig({
-    input: 'dist/index-no-dep.js', // equivalent to Webpack's entry
-    output: {
-        file: path.resolve(__dirname, 'dist/bbn-no-deps.js'), // Output file path
-        format: 'umd', // 'global' type in Webpack maps to IIFE in Rollup which attaches to window
-        name: 'bbn', // The global variable name, note that multiple names aren't typical in Rollup
-        sourcemap: true, // Equivalent to Webpack's devtool: 'source-map',
-        inlineDynamicImports: true,
-        exports: 'named'
-    },
-    plugins: [
-        nodeResolve({
-            browser: true,
-            extensions: ['.js', '.ts'], // Handle TypeScript files
-        }),
-        typescript({ // TypeScript support
-            tsconfig: './tsconfig.json' // Point to your tsconfig file
-        }),
-        json(), // To import JSON files
-        replace({
-            'process.env.IS_TESTING': JSON.stringify(process.env.IS_TESTING),
-            preventAssignment: true
-        }),
-        terser(), // Minify the output (optional)
-    ]
-});
-
-export {
-  cfgDefault as default,
-  cfgNoDep as noDep
-}

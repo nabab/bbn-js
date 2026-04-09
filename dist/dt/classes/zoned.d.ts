@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import bbnDt from './dt.js';
 export default class bbnDtZoned extends bbnDt<Temporal.ZonedDateTime> {
     readonly kind: bbnDtKind;

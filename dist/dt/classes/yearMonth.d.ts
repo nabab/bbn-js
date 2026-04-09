@@ -1,4 +1,4 @@
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from '../../../node_modules/temporal-polyfill/index.js';
 import bbnDt from './dt.js';
 export default class bbnDtYearMonth extends bbnDt<Temporal.PlainYearMonth> {
     readonly kind: bbnDtKind;
