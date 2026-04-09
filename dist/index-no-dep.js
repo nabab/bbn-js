@@ -1,4 +1,3 @@
-import { Temporal } from '../node_modules/temporal-polyfill/index.js';
 import _ from './_.js';
 import $ from './$.js';
 import lng from './lng.js';
@@ -92,10 +91,4 @@ const bbn = {
         }
     ]
 };
-if ('undefined' !== typeof globalThis) {
-    globalThis.bbn = bbn;
-    if (!globalThis.Temporal) {
-        globalThis.Temporal = Temporal;
-    }
-}
-export { bbn as default, bbn, Temporal };
+export default bbn;

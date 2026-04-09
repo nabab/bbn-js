@@ -11,4 +11,4 @@
  * @param    {...any} args
  * @returns
  */
-export default function log(...args: any[]): any;
+export default function log(...args: any[]): void;

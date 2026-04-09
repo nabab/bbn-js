@@ -63,8 +63,7 @@ const onActivity = (e: Event) => {
 export default function init(cfg?: object, force?: boolean): void {
   let parts: string[];
   if (!bbn.env.isInit) {
-    bbn.env.root =
-      document.baseURI.length > 0 ? document.baseURI : bbn.env.host;
+    bbn.env.root = globalThis.document?.baseURI?.length ? globalThis.document.baseURI : bbn.env.host;
     if (bbn.env.root.length && substr(bbn.env.root, -1) !== "/") {
       bbn.env.root += "/";
     }
@@ -75,111 +74,113 @@ export default function init(cfg?: object, force?: boolean): void {
     bbn.env.path = substr(bbn.env.url, bbn.env.root.length);
     parts = bbn.env.path.split("/");
     //$.each(parts, function(i, v){
-    each(parts, (v, i) => {
+    each(parts, (v: string) => {
       v = decodeURI(v.trim());
       if (v !== "") {
         bbn.env.params.push(v);
       }
     });
 
-    if (bbn.var.colors) {
-      addColors(bbn.var.colors);
-    }
 
     setupIntl();
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        bbn.env.isVisible = false;
+    if (globalThis.document) {
+      if (bbn.var.colors) {
+        addColors(bbn.var.colors);
       }
-      else {
-        bbn.env.isVisible = true;
-      }
-    });
-
-    document.addEventListener("focus", (e: Event) => {
-      if (
-        e.target instanceof HTMLElement &&
-        !e.target.classList.contains("bbn-no")
-      ) {
-        bbn.env.focused = e.target;
-      }
-      bbn.env.isFocused = true;
-      bbn.env.last_focus = timestamp();
-    });
-
-    document.addEventListener("blur", (e: Event) => {
-      if (
-        e.target instanceof HTMLElement &&
-        !e.target.classList.contains("bbn-no")
-      ) {
-        bbn.env.focused = e.target;
-      }
-      bbn.env.isFocused = false;
-      bbn.env.last_focus = timestamp();
-    });
-
-    document.addEventListener("click", onActivity);
-    document.addEventListener("keydown", onActivity);
-    document.addEventListener("focusin", onFocus);
-    document.addEventListener("focusout", onFocus);
-    window.addEventListener(
-      "hashchange",
-      () => {
-        bbn.env.hashChanged = new Date().getTime();
-      },
-      false
-    );
-    window.addEventListener("resize", () => {
+      globalThis.document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          bbn.env.isVisible = false;
+        }
+        else {
+          bbn.env.isVisible = true;
+        }
+      });
+  
+      globalThis.document.addEventListener("focus", (e: Event) => {
+        if (
+          e.target instanceof HTMLElement &&
+          !e.target.classList.contains("bbn-no")
+        ) {
+          bbn.env.focused = e.target;
+        }
+        bbn.env.isFocused = true;
+        bbn.env.last_focus = timestamp();
+      });
+  
+      globalThis.document.addEventListener("blur", (e: Event) => {
+        if (
+          e.target instanceof HTMLElement &&
+          !e.target.classList.contains("bbn-no")
+        ) {
+          bbn.env.focused = e.target;
+        }
+        bbn.env.isFocused = false;
+        bbn.env.last_focus = timestamp();
+      });
+  
+      globalThis.document.addEventListener("click", onActivity);
+      globalThis.document.addEventListener("keydown", onActivity);
+      globalThis.document.addEventListener("focusin", onFocus);
+      globalThis.document.addEventListener("focusout", onFocus);
+      globalThis.addEventListener(
+        "hashchange",
+        () => {
+          bbn.env.hashChanged = new Date().getTime();
+        },
+        false
+      );
+      globalThis.addEventListener("resize", () => {
+        resize();
+      });
+      globalThis.addEventListener("orientationchange", () => {
+        resize();
+      });
+  
       resize();
-    });
-    window.addEventListener("orientationchange", () => {
-      resize();
-    });
-
-    resize();
-    if (isMobile()) {
-      document.body.classList.add("bbn-mobile");
-      if (isTabletDevice()) {
-        document.body.classList.add("bbn-tablet");
+      if (isMobile()) {
+        globalThis.document.body.classList.add("bbn-mobile");
+        if (isTabletDevice()) {
+          globalThis.document.body.classList.add("bbn-tablet");
+        }
       }
-    }
-
-    if (window.history) {
-      window.onpopstate = function (e) {
-        let h = window.history;
-        if (!bbn.env.historyDisabled && h) {
-          //e.preventDefault();
-          if (bbn.fn.defaultHistoryFunction(h.state)) {
-            let state = h.state;
-            if (state) {
-              //link(substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
-              link(
-                state.url,
-                extend(
-                  { title: state.title || bbn.env.siteTitle },
-                  state.data || {}
-                )
-              );
-            } else if (state && state.data && isFunction(state.data.script)) {
-              state.data.script();
+  
+      if (globalThis.history) {
+        globalThis.onpopstate = function (e) {
+          let h = globalThis.history;
+          if (!bbn.env.historyDisabled && h) {
+            //e.preventDefault();
+            if (bbn.fn.defaultHistoryFunction(h.state)) {
+              let state = h.state;
+              if (state) {
+                //link(substr(state.url, bbn.env.root.length), $.extend({title: state.title}, state.data));
+                link(
+                  state.url,
+                  extend(
+                    { title: state.title || bbn.env.siteTitle },
+                    state.data || {}
+                  )
+                );
+              } else if (state && state.data && isFunction(state.data.script)) {
+                state.data.script();
+              }
             }
           }
-        }
-      };
-    }
-
-    window.addEventListener('online', () => {
-      bbn.env.online = true
-    });
-    window.addEventListener('offline', () => {
-      bbn.env.online = false
-    });
-
-    bbn.env.isInit = true;
-    document.dispatchEvent(new Event("bbninit"));
-
-    if (bbn.env.logging) {
-      log("Logging in bbn is enabled");
+        };
+      }
+  
+      globalThis.addEventListener('online', () => {
+        bbn.env.online = true
+      });
+      globalThis.addEventListener('offline', () => {
+        bbn.env.online = false
+      });
+  
+      bbn.env.isInit = true;
+      globalThis.document.dispatchEvent(new Event("bbninit"));
+  
+      if (bbn.env.logging) {
+        log("Logging in bbn is enabled");
+      }
     }
   }
 };

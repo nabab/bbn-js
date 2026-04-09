@@ -52,7 +52,7 @@ function parseLocaleTag(tag: unknown): ParsedLocaleTag {
   return { language, script, region };
 }
 
-const REGION_WEEK_INFO: Object = import('../data/weekinfo-overrides.js');
+const REGION_WEEK_INFO: Object = globalThis.document ? import('../data/weekinfo-overrides.js') : {};
 
 function computeWeekInfo(localeInstance: Intl.Locale): WeekInfo {
   const tag =

@@ -213,7 +213,7 @@ onProgress, onChunkProgress, headers = {}, uploadId }) => {
     const totalSize = file.size;
     const totalChunks = Math.ceil(totalSize / chunkSize);
     const finalUploadId = uploadId ||
-        (window.crypto && crypto.randomUUID
+        (globalThis.crypto && crypto.randomUUID
             ? crypto.randomUUID()
             : Date.now().toString(36) + Math.random().toString(36).slice(2));
     let uploadedBytes = 0;

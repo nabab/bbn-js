@@ -13,11 +13,11 @@ import log from './fn/browser/log.js';
 import isObject from './fn/type/isObject.js';
 import isArray from './fn/type/isArray.js';
 import extend from './fn/object/extend.js';
-const idb = window.indexedDB ||
-    window.webkitIndexedDB ||
-    window.mozIndexedDB ||
-    window.OIndexedDB ||
-    window.msIndexedDB;
+const idb = globalThis.indexedDB ||
+    globalThis.webkitIndexedDB ||
+    globalThis.mozIndexedDB ||
+    globalThis.OIndexedDB ||
+    globalThis.msIndexedDB;
 const transformResult = (obj, fields) => {
     if (!obj) {
         return undefined;
@@ -239,9 +239,9 @@ class DbObject {
                         resolve();
                         return;
                     }
-                    const matches = !where || !((_b = (_a = window.bbn) === null || _a === void 0 ? void 0 : _a.fn) === null || _b === void 0 ? void 0 : _b.search)
+                    const matches = !where || !((_b = (_a = globalThis.bbn) === null || _a === void 0 ? void 0 : _a.fn) === null || _b === void 0 ? void 0 : _b.search)
                         ? true
-                        : !window.bbn.fn.search([cursor.value], where);
+                        : !globalThis.bbn.fn.search([cursor.value], where);
                     if (matches) {
                         if (i >= start) {
                             const transformed = transformResult(cursor.value, fields);
@@ -378,35 +378,35 @@ const db = {
             });
         });
     },
-    open(name) {
+    open(database) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!idb) {
                 throw new Error(_('IndexedDB is not available'));
             }
-            if (!this._structures[name]) {
-                throw new Error(_('Impossible to find a structure for the database %s', name));
+            if (!this._structures[database]) {
+                throw new Error(_('Impossible to find a structure for the database %s', database));
             }
-            if (this._connections[name]) {
-                return new DbObject(name);
+            if (this._connections[database]) {
+                return new DbObject(database);
             }
             yield new Promise((resolve, reject) => {
-                const req = idb.open(name);
+                const req = idb.open(database);
                 req.onupgradeneeded = () => {
-                    const database = req.result;
-                    const dbStructure = this._structures[name] || {};
+                    const db = req.result;
+                    const dbStructure = this._structures[database] || {};
                     iterate(dbStructure, (structure, storeName) => {
-                        if (!database.objectStoreNames.contains(storeName)) {
-                            this.updateStructure(storeName, structure, database);
+                        if (!db.objectStoreNames.contains(storeName)) {
+                            this.updateStructure(storeName, structure, db);
                         }
                     });
                 };
                 req.onsuccess = () => {
-                    this._connections[name] = req.result;
+                    this._connections[database] = req.result;
                     resolve(req.result);
                 };
                 req.onerror = () => reject(req.error);
             });
-            return new DbObject(name);
+            return new DbObject(database);
         });
     },
     add(database, name, structure) {

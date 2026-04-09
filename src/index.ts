@@ -94,10 +94,10 @@ const bbn: Bbn = {
   ]
 };
 
-if ('undefined' !== typeof window) {
-  window.bbn = bbn;
-  if (!window.Temporal) {
-    window.Temporal = Temporal;
+if ('undefined' !== typeof globalThis) {
+  globalThis.bbn = bbn;
+  if (!globalThis.Temporal) {
+    globalThis.Temporal = Temporal;
   }
 }
 

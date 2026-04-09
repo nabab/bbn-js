@@ -14,12 +14,12 @@ import isFunction from '../type/isFunction.js'  ;
  * @returns       
  */
 export default function log(...args) {
-	if (window['bbn']?.env?.logging && (window?.console !== undefined)) {
+	if (globalThis.bbn?.env?.logging && (globalThis.console !== undefined)) {
 		let cfg;
 		let level = 5;
 		let fn = 'log';
 		if (args[0] && typeof args[0] === 'object' && args[0]._bbn_console_style) {
-			if (args[0]._bbn_console_mode && isFunction(console[args[0]._bbn_console_mode])) {
+			if (args[0]._bbn_console_mode && isFunction(globalThis.console[args[0]._bbn_console_mode])) {
 				fn = args[0]._bbn_console_mode;
 			} else {
 				cfg = args[0]._bbn_console_style;
@@ -29,8 +29,8 @@ export default function log(...args) {
 			args.shift();
 		}
 
-		const exec = window.console[fn];
-		if (window['bbn']?.env?.loggingLevel >= level) {
+		const exec = globalThis.console[fn];
+		if (globalThis.bbn?.env?.loggingLevel >= level) {
 			let i = 0;
 			while (i < args.length) {
 				let t = typeof args[i];
@@ -39,10 +39,9 @@ export default function log(...args) {
 					consoleArguments.unshift('%c %s ', cfg);
 				}
 
-				exec.apply(window.console, consoleArguments);
+				exec.apply(globalThis.console, consoleArguments);
 				i++;
 			}
 		}
 	}
-	return this;
 };

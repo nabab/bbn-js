@@ -30,7 +30,7 @@ function parseLocaleTag(tag) {
     }
     return { language, script, region };
 }
-const REGION_WEEK_INFO = import('../data/weekinfo-overrides.js');
+const REGION_WEEK_INFO = globalThis.document ? import('../data/weekinfo-overrides.js') : {};
 function computeWeekInfo(localeInstance) {
     var _a, _b, _c;
     const tag = (_c = (_a = localeInstance.baseName) !== null && _a !== void 0 ? _a : (_b = localeInstance.toString) === null || _b === void 0 ? void 0 : _b.call(localeInstance)) !== null && _c !== void 0 ? _c : 'und';

@@ -11,11 +11,11 @@ type IndexedDbFactory =
   | undefined;
 
 const idb: IndexedDbFactory =
-  window.indexedDB ||
-  (window as any).webkitIndexedDB ||
-  (window as any).mozIndexedDB ||
-  (window as any).OIndexedDB ||
-  (window as any).msIndexedDB;
+  globalThis.indexedDB ||
+  (globalThis as any).webkitIndexedDB ||
+  (globalThis as any).mozIndexedDB ||
+  (globalThis as any).OIndexedDB ||
+  (globalThis as any).msIndexedDB;
 
 type Primitive = string | number | boolean | null | undefined | Date;
 
@@ -383,9 +383,9 @@ class DbObject implements IDbApi {
           return;
         }
 
-        const matches = !where || !(window as any).bbn?.fn?.search
+        const matches = !where || !(globalThis as any).bbn?.fn?.search
           ? true
-          : !(window as any).bbn.fn.search([cursor.value], where);
+          : !(globalThis as any).bbn.fn.search([cursor.value], where);
 
         if (matches) {
           if (i >= start) {
@@ -581,42 +581,42 @@ const db: DbManager = {
     });
   },
 
-  async open(name: string): Promise<IDbApi> {
+  async open(database: string): Promise<IDbApi> {
     if (!idb) {
       throw new Error(_('IndexedDB is not available'));
     }
 
-    if (!this._structures[name]) {
-      throw new Error(_('Impossible to find a structure for the database %s', name));
+    if (!this._structures[database]) {
+      throw new Error(_('Impossible to find a structure for the database %s', database));
     }
 
-    if (this._connections[name]) {
-      return new DbObject(name);
+    if (this._connections[database]) {
+      return new DbObject(database);
     }
 
     await new Promise<IDBDatabase>((resolve, reject) => {
-      const req = idb.open(name);
+      const req = idb.open(database);
 
       req.onupgradeneeded = () => {
-        const database = req.result;
-        const dbStructure = this._structures[name] || {};
+        const db = req.result;
+        const dbStructure = this._structures[database] || {};
 
         iterate(dbStructure, (structure: DbStructure, storeName: string) => {
-          if (!database.objectStoreNames.contains(storeName)) {
-            this.updateStructure(storeName, structure, database);
+          if (!db.objectStoreNames.contains(storeName)) {
+            this.updateStructure(storeName, structure, db);
           }
         });
       };
 
       req.onsuccess = () => {
-        this._connections[name] = req.result;
+        this._connections[database] = req.result;
         resolve(req.result);
       };
 
       req.onerror = () => reject(req.error);
     });
 
-    return new DbObject(name);
+    return new DbObject(database);
   },
 
   async add(database: string, name: string, structure: DbStructure): Promise<void> {
