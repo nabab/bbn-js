@@ -22,14 +22,6 @@ interface Vars {
   [key: string]: any;
 }
 
-interface globalThis {
-  bbn: Bbn;
-  Temporal: any;
-  bbnData: any;
-  scheduler: any;
-  console: Console;
-}
-
 interface BbnEnv {
   siteTitle: string;
   logging: boolean;
@@ -75,7 +67,6 @@ interface BbnEnv {
   scrollBarSize?: number;
   online: boolean;
 }
-
 
 declare namespace Temporal {
   class PlainDate {
@@ -449,6 +440,14 @@ declare global {
       data?: string;
       status?: object;
     }
+  }
+
+  interface globalThis {
+    bbn: Bbn;
+    Temporal: any;
+    bbnData: any;
+    scheduler: any;
+    console: Console;
   }
 
   const bbn: Bbn;
