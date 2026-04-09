@@ -1,4 +1,4 @@
-import { Temporal } from '../node_modules/temporal-polyfill/index.js';
+import { Temporal } from 'temporal-polyfill';
 import _ from './_.js';
 import $ from './$.js';
 import lng from './lng.js';

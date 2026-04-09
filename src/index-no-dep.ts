@@ -1,4 +1,3 @@
-import { Temporal } from 'temporal-polyfill';
 import _ from './_.js';
 import $ from './$.js';
 import lng from './lng.js';
@@ -94,15 +93,4 @@ const bbn: Bbn = {
   ]
 };
 
-if ('undefined' !== typeof window) {
-  window.bbn = bbn;
-  if (!window.Temporal) {
-    window.Temporal = Temporal;
-  }
-}
-
-export {
-  bbn as default,
-  bbn,
-  Temporal
-}
+export default bbn;
